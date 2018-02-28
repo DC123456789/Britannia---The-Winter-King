@@ -1,0 +1,1892 @@
+###########################################################################
+#                                                                
+# Britannia Season Events (ID 314000 - 314099)
+#                                                                
+###########################################################################
+
+# Spring
+character_event = {
+	id = 314000
+	title = "EVTNAME314000"
+	desc = "EVTDESC314000"
+	picture = GFX_evt_valley_river_spring
+	
+	hide_FROM = yes
+
+	only_playable = yes
+	ai = yes
+	
+	major = yes
+	
+	major_trigger = {
+		ai = no
+		NOT = { has_global_flag = season_alerts_off }
+	}
+	
+	trigger = {
+		NOT = { has_global_flag = spring_season }	
+		OR = {
+			AND = {
+				month = 1
+				NOT = { month = 4 }
+				is_normal_seasons_trigger = yes
+			}
+			AND = {
+				month = 3
+				NOT = { month = 6 }
+				has_global_flag = late_antique_little_ice_age_started
+				NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+			}
+			AND = {
+				month = 2
+				NOT = { month = 5 }
+				has_global_flag = late_antique_little_ice_age_phase_2_started
+				NOT = { has_global_flag = late_antique_little_ice_age_ended }
+			}
+			AND = {
+				month = 1
+				NOT = { month = 4 }
+				has_global_flag = medieval_warm_period_started
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.00001
+			always = yes
+		}
+	}
+
+	immediate = {
+		clr_global_flag = winter_season
+		set_global_flag = spring_season
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						OR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_ireland
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					AND = {
+						region = world_germania
+						NOT = {
+							region = custom_scandinavia
+						}
+					}
+					region = world_dentelinus
+				}
+			}
+			remove_province_modifier = normal_winter
+			remove_province_modifier = very_cold_normal_winter
+			remove_province_modifier = cold_normal_winter
+			remove_province_modifier = warm_normal_winter
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = normal_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_normal_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_normal_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_normal_spring
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						NOR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_caledonia
+					region = custom_scandinavia
+				}
+			}
+			remove_province_modifier = northern_winter
+			remove_province_modifier = very_cold_northern_winter
+			remove_province_modifier = cold_northern_winter
+			remove_province_modifier = warm_northern_winter
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = northern_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_northern_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_northern_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_northern_spring
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				region = world_gaul
+				NOR = {
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					region = world_dentelinus
+				}
+			}			
+			remove_province_modifier = continental_winter
+			remove_province_modifier = very_cold_continental_winter
+			remove_province_modifier = cold_continental_winter
+			remove_province_modifier = warm_continental_winter
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = continental_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_continental_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_continental_spring
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_continental_spring
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA314000"
+		trigger = {
+			is_celtic_pagan_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB314000"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTC314000"
+		trigger = {
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_celtic_pagan_trigger = no
+				}
+				religion_group = zoroastrian_group
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD314000"
+		trigger = {
+			ai = no
+		}
+		set_global_flag = season_alerts_off
+	}
+}
+
+# Summer
+character_event = {
+	id = 314001
+	title = "EVTNAME314001"
+	desc = "EVTDESC314001"
+	picture = GFX_evt_summer_tree
+	
+	hide_FROM = yes
+
+	only_playable = yes
+	ai = yes
+	
+	major = yes
+	
+	major_trigger = {
+		ai = no
+		NOT = { has_global_flag = season_alerts_off }
+	}
+	
+	trigger = {
+		NOT = { has_global_flag = summer_season }
+		OR = {
+			AND = {
+				month = 4
+				NOT = { month = 7 }
+				is_normal_seasons_trigger = yes
+			}
+			AND = {
+				month = 6
+				NOT = { month = 7 }
+				has_global_flag = late_antique_little_ice_age_started
+				NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+			}
+			AND = {
+				month = 5
+				NOT = { month = 7 }
+				has_global_flag = late_antique_little_ice_age_phase_2_started
+				NOT = { has_global_flag = late_antique_little_ice_age_ended }
+			}
+			AND = {
+				month = 4
+				NOT = { month = 8 }
+				has_global_flag = medieval_warm_period_started
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.00001
+			always = yes
+		}
+	}
+
+	immediate = {
+		clr_global_flag = spring_season
+		set_global_flag = summer_season
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						OR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_ireland
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					AND = {
+						region = world_germania
+						NOT = {
+							region = custom_scandinavia
+						}
+					}
+					region = world_dentelinus
+				}
+			}
+			remove_province_modifier = normal_spring
+			remove_province_modifier = very_cold_normal_spring
+			remove_province_modifier = cold_normal_spring
+			remove_province_modifier = warm_normal_spring
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = normal_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_normal_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_normal_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_normal_summer
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						NOR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_caledonia
+					region = custom_scandinavia
+				}
+			}
+			remove_province_modifier = northern_spring
+			remove_province_modifier = very_cold_northern_spring
+			remove_province_modifier = cold_northern_spring
+			remove_province_modifier = warm_northern_spring
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = northern_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_northern_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_northern_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_northern_summer
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				region = world_gaul
+				NOR = {
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					region = world_dentelinus
+				}
+			}			
+			remove_province_modifier = continental_spring
+			remove_province_modifier = very_cold_continental_spring
+			remove_province_modifier = cold_continental_spring
+			remove_province_modifier = warm_continental_spring
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = continental_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_continental_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_continental_summer
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_continental_summer
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA314001"
+		trigger = {
+			is_celtic_pagan_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB314001"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTC314001"
+		trigger = {
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_celtic_pagan_trigger = no
+				}
+				religion_group = zoroastrian_group
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD314000"
+		trigger = {
+			ai = no
+		}
+		set_global_flag = season_alerts_off
+	}
+}
+
+# Autumn
+character_event = {
+	id = 314002
+	title = "EVTNAME314002"
+	desc = "EVTDESC314002"
+	picture = GFX_evt_valley_autumn
+	
+	only_playable = yes
+	ai = yes
+	
+	hide_FROM = yes
+	
+	major = yes
+	
+	major_trigger = {
+		ai = no
+		NOT = { has_global_flag = season_alerts_off }
+	}
+	
+	trigger = {
+		NOT = { has_global_flag = autumn_season }
+		OR = {
+			AND = {
+				month = 7
+				NOT = { month = 10 }
+				is_normal_seasons_trigger = yes
+			}
+			AND = {
+				month = 7
+				NOT = { month = 9 }
+				has_global_flag = late_antique_little_ice_age_started
+				NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+			}
+			AND = {
+				month = 7
+				NOT = { month = 9 }
+				has_global_flag = late_antique_little_ice_age_phase_2_started
+				NOT = { has_global_flag = late_antique_little_ice_age_ended }
+			}
+			AND = {
+				month = 8
+				NOT = { month = 11 }
+				has_global_flag = medieval_warm_period_started
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.00001
+			always = yes
+		}
+	}
+
+	immediate = {
+		clr_global_flag = summer_season
+		set_global_flag = autumn_season
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						OR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_ireland
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					AND = {
+						region = world_germania
+						NOT = {
+							region = custom_scandinavia
+						}
+					}
+					region = world_dentelinus
+				}
+			}
+			remove_province_modifier = normal_summer
+			remove_province_modifier = very_cold_normal_summer
+			remove_province_modifier = cold_normal_summer
+			remove_province_modifier = warm_normal_summer
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = normal_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_normal_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_normal_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_normal_autumn
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						NOR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_caledonia
+					region = custom_scandinavia
+				}
+			}
+			remove_province_modifier = northern_summer
+			remove_province_modifier = very_cold_northern_summer
+			remove_province_modifier = cold_northern_summer
+			remove_province_modifier = warm_northern_summer
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = northern_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_northern_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_northern_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_northern_autumn
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				region = world_gaul
+				NOR = {
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					region = world_dentelinus
+				}
+			}			
+			remove_province_modifier = continental_summer
+			remove_province_modifier = very_cold_continental_summer
+			remove_province_modifier = cold_continental_summer
+			remove_province_modifier = warm_continental_summer
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = continental_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_continental_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_continental_autumn
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_continental_autumn
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA314002"
+		trigger = {
+			is_celtic_pagan_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB314002"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTC314002"
+		trigger = {
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_celtic_pagan_trigger = no
+				}
+				religion_group = zoroastrian_group
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD314000"
+		trigger = {
+			ai = no
+		}
+		set_global_flag = season_alerts_off
+	}
+}
+
+# Winter
+character_event = {
+	id = 314003
+	title = "EVTNAME314003"
+	desc = "EVTDESC314003"
+	picture = GFX_evt_winter_village_night
+	
+	only_playable = yes
+	ai = yes
+	
+	hide_FROM = yes
+	
+	major = yes
+	
+	major_trigger = {
+		ai = no
+		NOT = { has_global_flag = season_alerts_off }
+	}
+	
+	trigger = {
+		NOT = { has_global_flag = winter_season }
+		OR = {
+			AND = {
+				OR = {
+					NOT = { month = 1 }
+					month = 10
+				}
+				is_normal_seasons_trigger = yes
+			}
+			AND = {
+				OR = {
+					NOT = { month = 3 }
+					month = 9
+				}
+				has_global_flag = late_antique_little_ice_age_started
+				NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+			}
+			AND = {
+				OR = {
+					NOT = { month = 2 }
+					month = 9
+				}
+				has_global_flag = late_antique_little_ice_age_phase_2_started
+				NOT = { has_global_flag = late_antique_little_ice_age_ended }
+			}
+			AND = {
+				OR = {
+					NOT = { month = 1 }
+					month = 11
+				}
+				has_global_flag = medieval_warm_period_started
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.00001
+			always = yes
+		}
+	}
+
+	immediate = {
+		clr_global_flag = autumn_season
+		set_global_flag = winter_season
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						OR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_ireland
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					AND = {
+						region = world_germania
+						NOT = {
+							region = custom_scandinavia
+						}
+					}
+					region = world_dentelinus
+				}
+			}
+			remove_province_modifier = normal_autumn
+			remove_province_modifier = very_cold_normal_autumn
+			remove_province_modifier = cold_normal_autumn
+			remove_province_modifier = warm_normal_autumn
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = normal_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_normal_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_normal_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_normal_winter
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				OR = {
+					AND = {
+						region = world_britannia
+						NOR = {
+							region = custom_roman_britannia
+							region = world_britannia_cymry_henogledd_ynysmanaw
+						}
+					}
+					region = world_caledonia
+					region = custom_scandinavia
+				}
+			}
+			remove_province_modifier = northern_autumn
+			remove_province_modifier = very_cold_northern_autumn
+			remove_province_modifier = cold_northern_autumn
+			remove_province_modifier = warm_northern_autumn
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = northern_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_northern_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_northern_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_northern_winter
+					duration = -1
+				}
+			}
+		}
+		any_province = {
+			limit = {
+				region = world_gaul
+				NOR = {
+					region = world_gaul_lugdunensis_armorica
+					region = custom_benoic
+					region = world_dentelinus
+				}
+			}			
+			remove_province_modifier = continental_autumn
+			remove_province_modifier = very_cold_continental_autumn
+			remove_province_modifier = cold_continental_autumn
+			remove_province_modifier = warm_continental_autumn
+			if = {
+				limit = {
+					is_normal_seasons_trigger = yes
+				}
+				add_province_modifier = {
+					name = continental_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_started
+					NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+				}
+				add_province_modifier = {
+					name = very_cold_continental_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = late_antique_little_ice_age_phase_2_started
+					NOT = { has_global_flag = late_antique_little_ice_age_ended }
+				}
+				add_province_modifier = {
+					name = cold_continental_winter
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+				has_global_flag = medieval_warm_period_started
+				}
+				add_province_modifier = {
+					name = warm_continental_winter
+					duration = -1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA314003"
+		trigger = {
+			is_celtic_pagan_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB314003"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTC314003"
+		trigger = {
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_celtic_pagan_trigger = no
+				}
+				religion_group = zoroastrian_group
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD314000"
+		trigger = {
+			ai = no
+		}
+		set_global_flag = season_alerts_off
+	}
+}
+
+#### CLIMATE NOTIFICATION EVENTS ####
+# Beginning of the Late Antique Little Ice Age (536 AD)
+narrative_event = {
+	id = 314010
+	title = "EVTNAME314010"
+	desc = {
+		text = EVTDESC314010_christian
+		trigger = {
+			OR = {
+				religion_group = christian
+				religion_group = jewish_group
+				religion_group = muslim
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314010_manichean
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	desc = {
+		text = EVTDESC314010_pagan
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314010_hellenic
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	desc = {
+		text = EVTDESC314010_scythian
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+	picture = GFX_evt_winter_village_night
+	major = yes
+	hide_from = yes
+	
+	only_independent = yes
+	
+	is_triggered_only = yes
+
+	trigger = {
+		year = 536
+		NOT = { has_global_flag = late_antique_little_ice_age_started }
+	}
+
+	immediate = {
+		set_global_flag = late_antique_little_ice_age_started
+	}
+	
+	option = {
+		name = "EVTOPTA314010"
+		trigger = {
+			OR = {
+				religion_group = christian
+				religion_group = jewish_group
+				religion_group = muslim
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC314010"
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	option = {
+		name = "EVTOPTD314010"
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTE314010"
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	option = {
+		name = "EVTOPTF314010"
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+}
+# Late Antique Little Ice Age weakens (550 AD)
+narrative_event = {
+	id = 314011
+	title = "EVTNAME314011"
+	desc = {
+		text = EVTDESC314011_christian
+		trigger = {
+			religion_group = christian
+		}
+	}
+	desc = {
+		text = EVTDESC314011_jewish
+		trigger = {
+			OR = {
+				religion_group = jewish_group
+				religion_group = muslim
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314011_manichean
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	desc = {
+		text = EVTDESC314011_pagan
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314011_hellenic
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	desc = {
+		text = EVTDESC314011_scythian
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+	picture = GFX_evt_winter_village_crow
+	major = yes
+	hide_from = yes
+	
+	only_independent = yes
+	
+	is_triggered_only = yes
+
+	trigger = {
+		year = 550
+		NOT = { has_global_flag = late_antique_little_ice_age_phase_2_started }
+	}
+
+	immediate = {
+		set_global_flag = late_antique_little_ice_age_phase_2_started
+	}
+	
+	option = {
+		name = "EVTOPTA314011"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTB314011"
+		trigger = {
+			OR = {
+				religion_group = jewish_group
+				religion_group = muslim
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC314011"
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	option = {
+		name = "EVTOPTD314011"
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTE314011"
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	option = {
+		name = "EVTOPTF314011"
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+}
+# Late Antique Little Ice Age ends (660 AD)
+narrative_event = {
+	id = 314012
+	title = "EVTNAME314012"
+	desc = {
+		text = EVTDESC314012_christian
+		trigger = {
+			religion_group = christian
+		}
+	}
+	desc = {
+		text = EVTDESC314012_jewish
+		trigger = {
+			religion_group = jewish_group
+		}
+	}
+	desc = {
+		text = EVTDESC314012_muslim
+		trigger = {
+			religion_group = muslim
+		}
+	}
+	desc = {
+		text = EVTDESC314012_manichean
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	desc = {
+		text = EVTDESC314012_pagan
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314012_hellenic
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	desc = {
+		text = EVTDESC314012_scythian
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+	picture = GFX_evt_valley_river_spring
+	major = yes
+	hide_from = yes
+	
+	only_independent = yes
+	
+	is_triggered_only = yes
+
+	trigger = {
+		year = 660
+		NOT = { has_global_flag = late_antique_little_ice_age_ended }
+	}
+
+	immediate = {
+		set_global_flag = late_antique_little_ice_age_ended
+	}
+	
+	option = {
+		name = "EVTOPTA314012"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTB314012"
+		trigger = {
+			religion_group = jewish_group
+		}
+	}
+	option = {
+		name = "EVTOPTC314012"
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	option = {
+		name = "EVTOPTD314012"
+		trigger = {
+			religion_group = muslim
+		}
+	}
+	option = {
+		name = "EVTOPTE314012"
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTF314012"
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	option = {
+		name = "EVTOPTG314012"
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+}
+# Medieval Warm Period begins (800 AD)
+narrative_event = {
+	id = 314013
+	title = "EVTNAME314013"
+	desc = {
+		text = EVTDESC314013_christian
+		trigger = {
+			religion_group = christian
+		}
+	}
+	desc = {
+		text = EVTDESC314013_jewish
+		trigger = {
+			religion_group = jewish_group
+		}
+	}
+	desc = {
+		text = EVTDESC314013_muslim
+		trigger = {
+			religion_group = muslim
+		}
+	}
+	desc = {
+		text = EVTDESC314013_manichean
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	desc = {
+		text = EVTDESC314013_pagan
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314013_hellenic
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	desc = {
+		text = EVTDESC314013_scythian
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+	picture = GFX_evt_summer_tree
+	major = yes
+	hide_from = yes
+	
+	only_independent = yes
+	
+	is_triggered_only = yes
+
+	trigger = {
+		year = 800
+		NOT = { has_global_flag = medieval_warm_period_started }
+	}
+
+	immediate = {
+		set_global_flag = medieval_warm_period_started
+	}
+	
+	option = {
+		name = "EVTOPTA314013"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {
+		name = "EVTOPTB314013"
+		trigger = {
+			religion_group = jewish_group
+		}
+	}
+	option = {
+		name = "EVTOPTC314013"
+		trigger = {
+			religion_group = gnostic_group
+		}
+	}
+	option = {
+		name = "EVTOPTD314013"
+		trigger = {
+			religion_group = muslim
+		}
+	}
+	option = {
+		name = "EVTOPTE314013"
+		trigger = {
+			OR = {
+				is_celtic_pagan_trigger = yes
+				is_germanic_pagan_trigger = yes
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTF314013"
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+	option = {
+		name = "EVTOPTG314013"
+		trigger = {
+			OR = {
+				religion = alan_pagan
+				religion = alan_pagan_reformed
+				religion = tengri_pagan
+				religion = tengri_pagan_reformed
+			}
+		}
+	}
+}
+
+#### DEPOPULATION EVENTS ####
+# Famine hits province
+province_event = {
+	id = 314020
+	title = "EVTNAME314020"
+	desc = "EVTDESC314020"
+	picture = GFX_evt_winter_village_night
+
+	trigger = {
+		has_global_flag = late_antique_little_ice_age_started
+		NOT = { has_global_flag = late_antique_little_ice_age_ended }
+		OR = {
+			NOT = { has_province_flag = hit_by_famine }
+			had_province_flag = {
+				flag = hit_by_famine
+				days = 1800
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 2
+			has_global_flag = late_antique_little_ice_age_phase_2_started
+		}
+		modifier = {
+			factor = 1.5
+			year = 580
+		}
+		modifier = {
+			factor = 1.5
+			year = 610
+		}
+		modifier = {
+			factor = 1.5
+			year = 640
+		}
+		modifier = {
+			factor = 1.2
+			has_province_modifier = depopulated_1
+		}
+		modifier = {
+			factor = 1.35
+			has_province_modifier = depopulated_2
+		}
+		modifier = {
+			factor = 1.5
+			has_province_modifier = depopulated_3
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { num_of_max_settlements = 3 }
+		}
+		modifier = {
+			factor = 1.2
+			num_of_max_settlements = 4
+		}
+		modifier = {
+			factor = 1.5
+			capital_holding = { holding_type = TRIBAL }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { government = imperial_government }
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { stewardship = 5 } }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { stewardship = 10 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 15 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 20 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 25 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 30 }
+		}
+		modifier = {
+			factor = 1.2
+			port = yes
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_province_modifier = brythonic_settlements
+				has_province_modifier = brythonic_settlements_foreign
+			}
+		}
+		modifier = {
+			factor = 1.4
+			OR = {
+				has_province_modifier = large_brythonic_settlements
+				has_province_modifier = large_brythonic_settlements_foreign
+			}
+		}
+		modifier = {
+			factor = 1.25
+			has_province_modifier = anglosaxon_settlement
+		}
+		modifier = {			# Since players w/o Reapers will not get depopulation otherwise
+			factor = 0.8
+			NOT = { has_dlc = Reapers }
+		}
+	}
+
+	immediate = {
+		set_province_flag = hit_by_famine
+	}
+	
+	option = {
+		name = "EVTOPTA314020"
+		ROOT = {
+			any_province_holding = {
+				destroy_random_nonspecial_building_effect = yes
+				if = {
+					limit = {
+						ROOT = {
+							OR = {
+								has_province_modifier = depopulated_1
+								has_province_modifier = depopulated_2
+								has_province_modifier = depopulated_3
+							}
+						}
+						NOT = { holding_type = TEMPLE }
+					}
+					destroy_random_nonspecial_building_effect = yes
+				}
+				if = {
+					limit = {
+						ROOT = {
+							OR = {
+								has_province_modifier = depopulated_2
+								has_province_modifier = depopulated_3
+							}
+						}
+					}
+					destroy_random_nonspecial_building_effect = yes
+				}
+				if = {
+					limit = {
+						ROOT = {
+							has_province_modifier = depopulated_3
+						}
+						NOT = { holding_type = TEMPLE }
+					}
+					destroy_random_nonspecial_building_effect = yes
+				}
+			}
+			increase_depopulation_always_effect = yes
+		}
+	}
+}
+
+# Holding Abandoned
+province_event = {
+	id = 314021
+	title = "EVTNAME314021"
+	desc = "EVTDESC314021"
+	picture = GFX_evt_interior_ruins
+
+	trigger = {
+		has_global_flag = late_antique_little_ice_age_started
+		NOT = { has_global_flag = late_antique_little_ice_age_ended }
+		NOT = { num_of_max_settlements = 3 }
+		any_province_holding = {
+			OR = {
+				holding_type = CASTLE
+				holding_type = CITY
+			}
+			NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
+			NOT = { num_of_buildings = 10 }
+		}
+		OR = {
+			has_province_modifier = depopulated_1
+			has_province_modifier = depopulated_2
+			has_province_modifier = depopulated_3
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 2
+			has_global_flag = late_antique_little_ice_age_phase_2_started
+		}
+		modifier = {
+			factor = 1.5
+			year = 580
+		}
+		modifier = {
+			factor = 1.5
+			year = 610
+		}
+		modifier = {
+			factor = 1.5
+			year = 640
+		}
+		modifier = {
+			factor = 0.9
+			has_province_modifier = depopulated_2
+		}
+		modifier = {
+			factor = 0.75
+			has_province_modifier = depopulated_3
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { stewardship = 5 } }
+		}
+		modifier = {
+			factor = 1.1
+			owner = { stewardship = 10 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 15 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 20 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 25 }
+		}
+		modifier = {
+			factor = 1.2
+			owner = { stewardship = 30 }
+		}
+		modifier = {
+			factor = 1.2
+			port = yes
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				has_province_modifier = brythonic_settlements
+				has_province_modifier = brythonic_settlements_foreign
+			}
+		}
+		modifier = {
+			factor = 1.4
+			OR = {
+				has_province_modifier = large_brythonic_settlements
+				has_province_modifier = large_brythonic_settlements_foreign
+			}
+		}
+		modifier = {
+			factor = 1.25
+			has_province_modifier = anglosaxon_settlement
+		}
+		modifier = {
+			factor = 0.9
+			any_province_holding = {
+				OR = {
+					holding_type = CASTLE
+					holding_type = CITY
+				}
+				NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
+				NOT = { num_of_buildings = 8 }
+			}
+		}
+		modifier = {
+			factor = 0.8
+			any_province_holding = {
+				OR = {
+					holding_type = CASTLE
+					holding_type = CITY
+				}
+				NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
+				NOT = { num_of_buildings = 6 }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_holding = {
+				OR = {
+					holding_type = CASTLE
+					holding_type = CITY
+				}
+				NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
+				NOT = { num_of_buildings = 3 }
+			}
+		}
+		modifier = {
+			factor = 1.1
+			owner = { government = imperial_government }
+		}
+	}
+	
+	immediate = {
+		ROOT = {
+			random_province_holding = {
+				limit = {
+					OR = {
+						holding_type = CASTLE
+						holding_type = CITY
+					}
+					NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
+					NOT = { num_of_buildings = 10 }
+				}
+				save_event_target_as = abandoned_holding
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314021"
+		event_target:abandoned_holding = {
+			destroy_settlement = yes
+		}
+	}
+}

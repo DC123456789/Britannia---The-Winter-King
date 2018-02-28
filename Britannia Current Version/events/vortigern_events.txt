@@ -1,0 +1,675 @@
+namespace = history
+
+## Vortigern Events ##
+# Ids history.3000 - history.3999
+
+# Marriage to a Macsen daughter legitimises claim to High Kingship
+character_event = {
+	id = history.3001
+	title = "EVTNAMEVORTIGERN1"
+	desc = "EVTDESCVORTIGERN1"
+	picture = "GFX_evt_love_court"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 20
+	
+	trigger = {
+		NOT = { has_character_flag = marriage_to_macsen_daughter }
+		spouse = { father_even_if_dead = { character = 1513 } }
+		NOT = { has_landed_title = e_britannia }
+		OR = {
+			culture = briton
+			culture = romanobritish
+			culture = cumbric
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 24
+	}
+		
+	immediate = {
+		set_character_flag = marriage_to_macsen_daughter
+		e_britannia = { add_claim = ROOT }
+		prestige = 200
+	}
+		
+	option = {
+		name = "EVTOPTAVORTIGERN1"
+		tooltip = {
+			e_britannia = { add_claim = ROOT }
+			prestige = 200
+		}
+	}
+}
+
+# Maintenance Event to prevent Vortigern from losing the HKship
+character_event = {
+	id = history.3002
+	title = "EVTNAMEVORTIGERN2"
+	desc = "EVTDESCVORTIGERN2"
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 20
+	
+	trigger = {
+		NOT = { has_global_flag = vortigern_introduction }
+		character = 1010
+		OR = {
+			has_landed_title = k_powys 
+			has_landed_title = e_britannia
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+	immediate = {
+		set_global_flag = vortigern_introduction
+		set_character_flag = vortigern
+	}
+		
+	option = {
+		name = "EVTOPTAVORTIGERN2"
+	}
+}
+
+# Vortigern becomes High King
+character_event = {
+	id = history.3003
+	title = "EVTNAMEVORTIGERN3"
+	desc = "EVTDESCVORTIGERN3"
+	picture = "GFX_evt_castle_grass_hill"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 20
+	
+	trigger = {
+		has_character_flag = vortigern
+		character = 1010
+		has_landed_title = k_powys
+		NOT = { has_landed_title = e_britannia }
+		NOT = { has_global_flag = vortigern_high_king }
+		has_character_flag = marriage_to_macsen_daughter
+		spouse = { dynasty = 1059 }
+		year = 425
+		war = no
+	}
+		
+	mean_time_to_happen = {
+		months = 12
+	}
+		
+	immediate = {
+		set_global_flag = vortigern_high_king
+		ROOT = {
+			add_trait = blood_vortigern
+			any_child = {
+				limit = {
+					is_female = no
+				}
+				add_trait = blood_vortigern
+				any_child = {
+					limit = {
+						is_female = no
+					}
+					add_trait = blood_vortigern
+					any_child = {
+						limit = {
+							is_female = no
+						}
+						add_trait = blood_vortigern
+					}
+				}
+			}
+		}
+	}
+		
+	option = {
+		name = "EVTOPTAVORTIGERN3"
+		e_britannia = {
+			grant_title = PREV
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBVORTIGERN3"
+		e_britannia = {
+			remove_claim = PREV
+		}
+	}
+}
+
+#Vortimer can choose to rebel
+character_event = {
+	id = history.3004
+	title = "EVTNAMEVORTIGERN4"
+	desc = "EVTDESCVORTIGERN4"
+	picture = "GFX_evt_riders_forest_dusk"
+	
+	only_rulers = yes
+	min_age = 20
+	
+	trigger = {
+		year = 441
+		is_ruler = yes
+		NOT = {	has_global_flag = vortimer_revolt }
+		NOT = { has_global_flag = vortigern_deposed }
+		ROOT = {
+			father = {
+				ROOT = {
+					has_opinion_modifier = { who = PREV  modifier = opinion_betrayed_britannia }
+				}
+				has_landed_title = e_britannia
+			}
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		set_global_flag = vortimer_revolt
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN4"
+		set_global_flag = vortimer_revolt_start
+		set_character_flag = high_king_usurper
+		e_britannia = { add_claim = ROOT }
+		e_britannia = {
+			holder_scope = {
+				set_character_flag = high_king_usurpee
+			}
+		}
+		e_britannia = {
+			holder_scope = {
+				ROOT = {
+					war = { target = PREVPREV casus_belli = claim thirdparty_title = PREVPREV } 
+				}
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBVORTIGERN4"
+		prestige = -50
+	}
+}
+
+# Vortigern plans an attack
+character_event = {
+	id = history.3005
+   	title = "EVTNAMEVORTIGERN5"
+    desc = "EVTDESCVORTIGERN5"
+    picture = "GFX_evt_forest_warrior_alone"
+
+	only_men = yes
+	min_age = 20
+	
+	trigger = {
+		has_character_flag = high_king_usurpee
+		NOT = { has_landed_title = e_britannia }
+		has_global_flag = vortimer_revolt_start
+		e_britannia = {
+			holder_scope = {
+				has_character_flag = high_king_usurper
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	option = {
+		name = "EVTOPTAVORTIGERN5"
+		add_trait = deceitful
+		spouse = {
+			e_britannia = {
+				holder_scope = {
+					death = {
+						death_reason = death_murder killer = PREVPREV
+					}
+					any_title = {
+						limit = {
+							holder_scope = {
+								has_character_flag = vortimer
+							}
+							NOT = { title = k_gwent }
+						}
+						grant_title = ROOT
+					}	
+				}
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						culture = briton
+						culture = romanobritish
+						has_landed_title = k_maxima_cesariensis
+					}
+				}
+				narrative_event = { id = history.3006 }
+			}
+			any_playable_ruler = {
+				limit = {
+					suzerain = {
+						has_landed_title = e_britannia
+					}
+				}
+				suzerain = {
+					remove_tributary = PREV
+				}
+			}
+		}
+		any_playable_ruler = {
+			limit = {
+				has_character_flag = aurelianus
+			}
+			add_rival = PREV
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBVORTIGERN5"
+		prestige = -100
+	}
+}
+
+#Vortigern plans an attack
+character_event = {
+	id = history.3006
+   	title = "EVTNAMEVORTIGERN6"
+    desc = "EVTDESCVORTIGERN6"
+    picture = "GFX_evt_forest_warrior_alone"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAVORTIGERN6"
+	}
+}
+
+# Change Pagenses to Powys after Vortigern no longer holds it
+character_event = {
+	id = history.3007
+   	title = "EVTNAMEVORTIGERN7"
+    desc = "EVTDESCVORTIGERN7"
+    picture = "GFX_evt_castle_rider_arriving"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = k_powys
+		NOT = { has_character_flag = vortigern }
+		NOT = { has_global_flag = pagenses_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN7"
+		set_global_flag = pagenses_renamed
+		k_powys = {
+			set_name = "Powys"
+		}
+	}
+}
+
+# Switch tributaries of Vortigern to Vortimer after revolt
+character_event = {
+	id = history.3015
+   	title = "EVTNAMEVORTIGERN15"
+    desc = "EVTDESCVORTIGERN15"
+    picture = "GFX_evt_castle_rider_arriving"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = vortimer_revolt_start
+		e_britannia = {
+			holder_scope = {
+				has_character_flag = high_king_usurper
+				ROOT = {
+					is_tributary = {
+						type = foederati
+						suzerian = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		ROOT = {
+			suzerain = {
+				remove_tributary = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN15"
+		e_britannia = {
+			holder_scope = {
+				make_tributary = {
+					who = ROOT
+					tributary_type = foederati
+				}
+			}
+		}
+	}
+}
+
+## Aurelianus and St Germanus (or whoever) lead an army against Vortigern ##
+# Aurelianus recieves a message from Germanus/random Roman bishop (bounce)
+character_event = {
+	id = history.3008
+    picture = "GFX_evt_forest_warrior_alone"
+	
+	only_rulers = yes
+	only_men = yes
+	culture = romanogallic
+	religion = catholic
+	min_age = 20
+	
+	trigger = {
+		event_target:ambrosius_aurelianus_the_younger = {
+			has_character_flag = aurelianus
+			is_landed = yes
+			age = 15
+			war = no
+			prisoner = no
+		}
+		e_britannia = {
+			holder_scope = {
+				has_character_flag = vortigern
+			}
+		}
+		year = 455
+		NOT = { has_global_flag = germanus_contacts_aurelianus }
+		NOT = {
+			primary_title = {
+				higher_tier_than = count
+			}
+		}
+		is_landed = yes
+		is_theocracy = yes
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		set_global_flag = germanus_contacts_aurelianus
+		set_character_flag = aurelianus_gallic_priest
+		save_global_event_target_as = aurelianus_gallic_priest
+	}
+	
+	option = {
+		d_centgwent = {
+			holder_scope = {
+				character_event = { id = history.3009 days = 3 }
+			}
+		}
+	}
+}
+	
+# Aurelianus recieves a message from Germanus/random Roman bishop	
+character_event = {
+	id = history.3009
+   	title = "EVTNAMEVORTIGERN9"
+    desc = "EVTDESCVORTIGERN9"
+    picture = "GFX_evt_forest_warrior_alone"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAVORTIGERN9"
+		prestige = 100
+		piety = 50
+		set_global_flag = aurelianus_vortigern_war
+		spawn_unit = {
+			owner = 1002
+			leader = 1002
+			province = 20
+			home = 20
+			troops = {
+				archers = { 500 500 }
+				light_infantry = { 1500 1500 }
+				heavy_infantry = { 300 300 }
+				light_cavalry = { 200 200 }
+			}
+			attrition = 1.0
+			disband_on_peace = yes
+			maintenance_multiplier = 0.5
+		}
+		suzerain = {
+			remove_tributary = PREV
+		}		
+		e_britannia = {
+			holder_scope = {
+				ROOT = {
+					add_rival =	PREV
+					war = { target = PREVPREV casus_belli = rivalry_cb }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBVORTIGERN9"
+	}
+}
+
+# If beseiged, Vortigern is killed - bounce
+character_event = {
+	id = history.3010
+   	title = "EVTNAMEVORTIGERN10"
+    desc = "EVTDESCVORTIGERN10"
+    picture = "GFX_evt_bandits_night"
+	
+	only_men = yes
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = aurelianus_vortigern_war
+		has_character_flag = aurelianus
+		NOT = { has_global_flag = vortigern_besieged }
+		e_britannia = {
+			holder_scope = {
+				has_character_flag = vortigern
+				capital_holding = {
+					has_siege = yes
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	immediate = {
+		set_global_flag = vortigern_besieged
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN10"
+		event_target:aurelianus_gallic_priest = {
+			character_event = { id = history.3011 days = 1 }
+		}
+	}
+}# Bishop's event
+character_event = {
+	id = history.3011
+	picture = "GFX_evt_bandits_night"
+	
+	is_triggered_only = yes
+	
+	option = {
+		FROM = {
+			narrative_event = { id = history.3012 days = 3 }
+		}
+	}
+}
+
+# If beseiged, Vortigern is killed
+narrative_event = {
+	id = history.3012
+   	title = "EVTNAMEVORTIGERN12"
+    desc = "EVTDESCVORTIGERN12"
+    picture = "GFX_evt_storm_brewing"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = vortigern_killed
+		set_character_flag = aurelianus_high_king_prev
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN12"
+		prestige = 500
+		wealth = 200
+		character_event = { id = history.30014 days = 5 }
+		e_britannia = {
+			holder_scope = {
+				death = {
+					death_reason = death_battle
+					killer = ROOT
+				}
+			}
+		destroy_landed_title = THIS
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						culture = briton
+						culture = romanobritish
+					}
+				}
+				narrative_event = { id = history.3013 }
+			}
+		}
+	}
+}
+
+# Characters informed
+narrative_event = {
+	id = history.3013
+   	title = "EVTNAMEVORTIGERN13"
+    desc = "EVTDESCVORTIGERN13"
+    picture = "GFX_evt_storm_brewing"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAVORTIGERN13"
+	}
+}
+
+# If Aurelinaus wins the war, and imprisons Vortigern, he can execute him or let him rot (bounce)
+character_event = {
+	id = history.3016
+	title = "EVTNAMEVORTIGERN16"
+    desc = "EVTDESCVORTIGERN16"
+    picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	only_men = yes
+	prisoner = yes
+	
+	trigger = {
+		war = no
+		NOT = { has_global_flag = vortigern_defeated }
+		NOT = { has_global_flag = vortigern_besieged }
+		has_global_flag = aurelianus_vortigern_war
+		has_landed_title = e_britannia
+		d_centgwent = {
+			holder_scope = {
+				at_location = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		set_global_flag = vortigern_defeated
+	}
+	
+	option = {
+		name = "EVTOPTAVORTIGERN16"
+		d_centgwent = {
+			holder_scope = {
+				character_event = { id = history.3017 days = 3 }
+			}
+		}
+	}
+}
+
+# If Aurelinaus wins the war, and imprisons Vortigern, he can execute him or let him rot
+character_event = {
+	id = history.3017
+	title = "EVTNAMEVORTIGERN17"
+    desc = "EVTDESCVORTIGERN17"
+    picture = "GFX_evt_people_captured"
+	
+	only_rulers = yes
+	only_men = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_character_flag = aurelianus_high_king_prev
+	}
+	
+	
+	option = {							# Kill Vortigern
+		name = "EVTOPTAVORTIGERN17"
+		prestige = 100
+		e_britannia = {
+			holder_scope = {
+				death = { death_reason = death_execution killer = ROOT }
+			}
+			destroy_landed_title = THIS
+		}
+	}
+	
+	option = {							# Let him rot
+		name = "EVTOPTBVORTIGERN17"
+		prestige = 100
+		e_britannia = {
+			destroy_landed_title = THIS
+		}
+	}
+}

@@ -1,0 +1,746 @@
+#################################
+#								#
+# BRITANNIA PLOT EVENTS 		#
+#								#
+# Id 1007020 - 1007029 reserved	#
+#								#
+#################################
+
+# Embezzle
+character_event = {
+	id = 1007020
+	picture = "GFX_evt_carriage"	
+	
+	is_part_of_plot = yes
+	
+	trigger = {
+		age = 16
+		has_plot = plot_embezzle_from_liege
+		NOT = { has_character_flag = plot_in_action }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 1
+		}
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 2
+		}			
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 3
+		}
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 4
+		}
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 5
+		}
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 6
+		}	
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 7
+		}	
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 8
+		}	
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 9
+		}	
+		modifier = {
+			factor = 0.75
+			num_of_plot_backers = 10
+		}		
+		modifier = {
+			factor = 0.5
+			plot_power = 0.5
+		}
+		modifier = {
+			factor = 0.5
+			plot_power = 1.0
+		}	
+		modifier = {
+			factor = 0.5
+			plot_power = 1.5
+		}
+		modifier = {
+			factor = 0.5
+			plot_power = 2.0
+		}
+		modifier = {
+			factor = 0.5
+			plot_power = 3.0
+		}	
+		modifier = {
+			factor = 0.5
+			plot_power = 4.0
+		}
+		modifier = {
+			factor = 0.5
+			plot_power = 6.0
+		}	
+		modifier = {
+			factor = 0.5
+			plot_power = 8.0
+		}
+		modifier = {
+			factor = 0.5
+			plot_power = 10.0
+		}	
+	}
+		
+	desc = "EVTDESC1007020"
+
+	option = {
+		name = "EVTOPTA1007020"
+		ai_chance = { 
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.75
+				trait = craven
+			}				
+			modifier = {
+				factor = 100
+				trait = lunatic
+			}
+			modifier = {
+				factor = 100
+				trait = possessed
+			}			
+		}
+		trigger = {
+			NOT = { plot_power = 0.5 }
+		}
+		if = {
+			limit = { trait = honest }
+			remove_trait = honest
+		}		
+		if = {
+			limit = { trait = charitable }
+			remove_trait = charitable
+		}
+		if = {
+			limit = {
+				plot_target_char = {
+					job_treasurer = {
+						ROOT = {
+							OR = {
+								character = PREV
+								any_plot_backer = {
+									character = PREVPREV
+								}
+							}						
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					60 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					40 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		if = {
+			limit = {
+				NOT = {
+					plot_target_char = {
+						job_treasurer = {
+							ROOT = {
+								OR = {
+									character = PREV
+									any_plot_backer = {
+										character = PREVPREV
+									}
+								}						
+							}
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					40 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					60 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}		
+		hidden_tooltip = { activate_plot = yes }
+		set_character_flag = plot_in_action
+	}
+	option = {
+		name = "EVTOPTA1007020"
+		ai_chance = { 
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.75
+				trait = craven
+			}				
+			modifier = {
+				factor = 100
+				trait = lunatic
+			}
+			modifier = {
+				factor = 100
+				trait = possessed
+			}			
+		}
+		trigger = {
+			plot_power = 0.5
+			NOT = { plot_power = 0.8 }
+		}
+		if = {
+			limit = { trait = honest }
+			remove_trait = honest
+		}
+		if = {
+			limit = { trait = charitable }
+			remove_trait = charitable
+		}		
+		if = {
+			limit = {
+				plot_target_char = {
+					job_treasurer = {
+						ROOT = {
+							OR = {
+								character = PREV
+								any_plot_backer = {
+									character = PREVPREV
+								}
+							}						
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					70 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					30 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		if = {
+			limit = {
+				NOT = {
+					plot_target_char = {
+						job_treasurer = {
+							ROOT = {
+								OR = {
+									character = PREV
+									any_plot_backer = {
+										character = PREVPREV
+									}
+								}						
+							}
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					50 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					50 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		hidden_tooltip = { activate_plot = yes }
+		set_character_flag = plot_in_action
+	}	
+	option = {
+		name = "EVTOPTA1007020"
+		ai_chance = { 
+			factor = 100
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.75
+				trait = craven
+			}				
+			modifier = {
+				factor = 100
+				trait = lunatic
+			}
+			modifier = {
+				factor = 100
+				trait = possessed
+			}			
+		}
+		trigger = {
+			plot_power = 0.8
+			NOT = { plot_power = 1.3 }
+		}
+		if = {
+			limit = { trait = honest }
+			remove_trait = honest
+		}
+		if = {
+			limit = { trait = charitable }
+			remove_trait = charitable
+		}		
+		if = {
+			limit = {
+				plot_target_char = {
+					job_treasurer = {
+						ROOT = {
+							OR = {
+								character = PREV
+								any_plot_backer = {
+									character = PREVPREV
+								}
+							}						
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					80 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					20 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		if = {
+			limit = {
+				NOT = {
+					plot_target_char = {
+						job_treasurer = {
+							ROOT = {
+								OR = {
+									character = PREV
+									any_plot_backer = {
+										character = PREVPREV
+									}
+								}						
+							}
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					60 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					40 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		hidden_tooltip = { activate_plot = yes }
+		set_character_flag = plot_in_action
+	}
+	option = {
+		name = "EVTOPTA1007020"
+		ai_chance = { 
+			factor = 400
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.75
+				trait = craven
+			}				
+			modifier = {
+				factor = 100
+				trait = lunatic
+			}
+			modifier = {
+				factor = 100
+				trait = possessed
+			}			
+		}
+		trigger = {
+			plot_power = 1.3
+			NOT = { plot_power = 2.0 }
+		}
+		if = {
+			limit = { trait = honest }
+			remove_trait = honest
+		}
+		if = {
+			limit = { trait = charitable }
+			remove_trait = charitable
+		}		
+		if = {
+			limit = {
+				plot_target_char = {
+					job_treasurer = {
+						ROOT = {
+							OR = {
+								character = PREV
+								any_plot_backer = {
+									character = PREVPREV
+								}
+							}						
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					95 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					5 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		if = {
+			limit = {
+				NOT = {
+					plot_target_char = {
+						job_treasurer = {
+							ROOT = {
+								OR = {
+									character = PREV
+									any_plot_backer = {
+										character = PREVPREV
+									}
+								}						
+							}
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					80 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					20 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		hidden_tooltip = { activate_plot = yes }
+		set_character_flag = plot_in_action
+	}
+	option = {
+		name = "EVTOPTA1007020"
+		ai_chance = { 
+			factor = 1000			
+		}
+		trigger = {
+			plot_power = 1.7
+		}
+		if = {
+			limit = { trait = honest }
+			remove_trait = honest
+		}
+		if = {
+			limit = { trait = charitable }
+			remove_trait = charitable
+		}		
+		if = {
+			limit = {
+				plot_target_char = {
+					job_treasurer = {
+						ROOT = {
+							OR = {
+								character = PREV
+								any_plot_backer = {
+									character = PREVPREV
+								}
+							}						
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					99 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					1 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		if = {
+			limit = {
+				NOT = {
+					plot_target_char = {
+						job_treasurer = {
+							ROOT = {
+								OR = {
+									character = PREV
+									any_plot_backer = {
+										character = PREVPREV
+									}
+								}						
+							}
+						}
+					}
+				}
+			}
+			plot_target_char = {			
+				random_list = {
+					90 = { character_event = { id = 1007021 tooltip = "CUSTOMTOOLTIP33" days = 3 } } #succeeds
+					10 = { character_event = { id = 1007027 tooltip = "CUSTOMTOOLTIP35" days = 3 } } #fails, discovered
+				}
+			}			
+		}
+		hidden_tooltip = { activate_plot = yes }
+		set_character_flag = plot_in_action
+	}	
+	option = {
+		name = "EVTOPTB1007020"	
+		ai_chance = { factor = 100 }
+		trigger = {
+			NOT = { plot_power = 1.7 }
+		}		
+	}	
+}
+
+# Success - notify victim
+character_event = {
+	id = 1007021
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	hide_from = yes
+	is_triggered_only = yes
+		
+	desc = "EVTDESC1007021"
+	
+	immediate = {
+		random_list = {
+			30 = {
+				scaled_wealth = -0.4
+				set_character_flag = stolen_40
+			}
+			50 = {
+				scaled_wealth = -0.5
+				set_character_flag = stolen_50
+			}
+			30 = {
+				scaled_wealth = -0.6
+				set_character_flag = stolen_60
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA1007021"
+		trigger = {
+			has_character_flag = stolen_40
+		}
+		set_character_flag = plot_success		
+		set_character_flag = embezzled_by_plot
+		tooltip = { 
+			scaled_wealth = -0.4		
+		}
+		hidden_tooltip = {
+			#notify plotter
+			FROM = { character_event = { id = 1007022 } }	
+		}
+	}
+	option = {
+		name = "EVTOPTA1007021"	
+		trigger = {
+			has_character_flag = stolen_50
+		}
+		set_character_flag = plot_success		
+		set_character_flag = embezzled_by_plot
+		tooltip = { 
+			scaled_wealth = -0.5	
+		}
+		hidden_tooltip = {
+			#notify plotter
+			FROM = { character_event = { id = 1007022 } }	
+		}
+	}
+	option = {
+		name = "EVTOPTA1007021"	
+		trigger = {
+			has_character_flag = stolen_60
+		}
+		set_character_flag = plot_success		
+		set_character_flag = embezzled_by_plot
+		tooltip = { 
+			scaled_wealth = -0.6
+		}
+		hidden_tooltip = {
+			#notify plotter
+			FROM = { character_event = { id = 1007022 } }	
+		}
+	}
+}
+# Success - notify plotter
+character_event = {
+	id = 1007022
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+		
+	desc = "EVTDESC1007022"
+	
+	option = {
+		name = "EVTOPTA1007022"
+		if = {
+			limit = {
+				FROM = { has_character_flag = stolen_40 }
+			}
+			FROM = {
+				transfer_scaled_wealth = { to = ROOT value = 0.4 }
+				hidden_tooltip = {
+					scaled_wealth = 0.4
+					clr_character_flag = stolen_40
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_character_flag = stolen_50 }
+			}
+			FROM = {
+				transfer_scaled_wealth = { to = ROOT value = 0.5 }
+				hidden_tooltip = {
+					scaled_wealth = 0.5
+					clr_character_flag = stolen_50
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { has_character_flag = stolen_60 }
+			}
+			FROM = {
+				transfer_scaled_wealth = { to = ROOT value = 0.6 }
+				hidden_tooltip = {
+					scaled_wealth = 0.6
+					clr_character_flag = stolen_60
+				}
+			}
+		}			
+		hidden_tooltip = {
+			#notify backers
+			any_plot_backer = {
+				character_event = { id = 1007023 }
+			}
+		}
+	}
+}
+# Success - notify plot backers
+character_event = {
+	id = 1007023
+	picture = "GFX_evt_spymaster"
+	
+	is_triggered_only = yes
+		
+	desc = "EVTDESC1007023"
+	
+	option = {
+		name = "EVTOPTA1007023"
+		wealth = 25
+	}
+}
+
+# Failure (discovered) - notify victim
+character_event = {
+	id = 1007027
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+		
+	desc = "EVTDESC1007027"
+	
+	immediate = {
+		hidden_tooltip = {
+			#notify plotter
+			FROM = { character_event = { id = 1007028 } }	
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTA1007027"
+		ai_chance = { factor = 100 }
+		set_character_flag = embezzled_by_plot
+		FROM = { 
+			imprison = ROOT
+		}
+		opinion = {
+			who = FROM
+			modifier = devious_plotter
+			years = 10
+		}
+		FROM = {
+			opinion = {
+				who = ROOT
+				modifier = opinion_arrest_attempt
+				months = 240
+			}					
+			imprison = ROOT		
+		}
+	}
+	option = {
+		name = "EVTOPTB1007027"
+		ai_chance = { 
+			factor = 100 
+			modifier = {
+				factor = 0.1
+				trait = kind
+			}
+			modifier = {
+				factor = 2.0
+				trait = wroth
+			}
+			modifier = {
+				factor = 2.0
+				trait = cruel
+			}			
+			modifier = {
+				factor = 0.1
+				trait = charitable
+			}
+		}
+		set_character_flag = embezzled_by_plot
+		piety = -25
+		FROM = {
+			death = { death_reason = death_execution killer = ROOT }
+		}
+	}
+	option = {
+		name = "EVTOPTC1007027"
+		ai_chance = { 
+			factor = 0
+		}
+		set_character_flag = embezzled_by_plot
+		if = {
+			limit = { NOT = { trait = kind } }
+			add_trait = kind
+		}
+		prestige = -50
+		FROM = {
+			opinion = {
+				who = ROOT
+				modifier = opinion_relieved
+				years = 10
+			}		
+		}		
+	}	
+}
+# Failure (discovered) - notify plotter
+character_event = {
+	id = 1007028
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+		
+	desc = "EVTDESC1007028"
+	
+	option = {
+		name = "EVTOPTA1007028"		
+		prestige = -100			
+		cancel_plot = plot_embezzle_from_liege
+	}
+}

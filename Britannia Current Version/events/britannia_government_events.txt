@@ -1,0 +1,85 @@
+###################################
+#
+# Britannia Government Events
+#
+# IDs 302500 - 302699
+#
+###################################
+
+##### TRIBAL GOVERNMENT #####
+# Small Tribal Kings or Empires are destroyed
+character_event = { 
+	id = 302500
+	title = "EVTNAME302500"
+	desc = "EVTDESC302500"
+	hide_new = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		government = tribal_government
+		NOT = { num_of_count_titles_in_realm = 8 }
+		NOT = { prestige = 1500 }
+		any_demesne_title = {
+			higher_tier_than = DUKE
+			NAND = {
+				tier = KING
+				empire = {
+					OR = {
+						title = e_ireland
+						title = e_alba
+						title = e_britannia
+						title = e_cymru
+					}
+				}
+				ROOT = { culture_group = celtic }
+			}
+		}
+		NAND = {		# Not in a civil war
+			war = yes
+			any_war = {
+				OR = {
+					AND = {
+						attacker = { character = ROOT }
+						defender = {
+							in_revolt = yes
+						}
+					}
+					AND = {
+						defender = { character = ROOT }
+						attacker = {
+							in_revolt = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302500"
+		any_demesne_title = {
+			limit = {
+				higher_tier_than = DUKE
+				NAND = {
+					tier = KING
+					empire = {
+						NOR = {
+							title = e_ireland
+							title = e_alba
+							title = e_britannia
+							title = e_cymru
+						}
+					}
+					ROOT = { culture_group = celtic }
+				}
+			}
+			destroy_landed_title = THIS
+		}
+	}
+}

@@ -1,0 +1,529 @@
+namespace = bct
+
+character_event = {
+	id = bct.600
+	desc = "EVTDESCvocal_inheritance.0"        
+	picture = GFX_evt_children_talking
+	
+	hide_window = yes
+    
+	max_age = 3
+    
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = vocal_inheritance }
+	}
+	
+	option = {
+		name = "EVTOPTAvocal_inheritance.0"
+		if = {
+			limit = {
+				AND = {
+					father = { trait = powerful_voice } # Father has rank 2
+					mother = { trait = powerful_voice } # Mother has rank 2
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = powerful_voice }
+				38 = { set_character_flag = loud_voice }
+				32 = { } #32 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = powerful_voice } #Father has rank 2
+						mother = { trait = loud_voice } #Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = loud_voice } # Father has rank 1
+						mother = { trait = powerful_voice } # Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = powerful_voice }
+				34 = { set_character_flag = loud_voice }
+				50 = { } #50 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+							father = { trait = powerful_voice } #Father has rank 2
+							NOT = { mother = { trait = quiet_voice } }
+							NOT = { mother = { trait = loud_voice } }
+							NOT = { mother = { trait = powerful_voice } }
+							NOT = { mother = { trait = harsh_voice } }
+							NOT = { mother = { trait = calmish_voice } }
+							NOT = { mother = { trait = calm_voice } }
+							NOT = { mother = { trait = grating_voice } }
+							NOT = { mother = { trait = nice_voice } }
+							NOT = { mother = { trait = melodious_voice } }
+							NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = loud_voice } # Father has rank 1
+						mother = { trait = loud_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = powerful_voice } # Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				7 = { set_character_flag = powerful_voice }
+				25 = { set_character_flag = loud_voice }
+				68 = { } #68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = loud_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = loud_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				4 = { set_character_flag = powerful_voice }
+				15 = { set_character_flag = loud_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = melodious_voice } # Father has rank 2
+					mother = { trait = melodious_voice } # Mother has rank 2
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = melodious_voice }
+				38 = { set_character_flag = nice_voice }
+				32 = { } #32 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = melodious_voice } # Father has rank 2
+						mother = { trait = nice_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = nice_voice } #Father has rank 1
+						mother = { trait = melodious_voice } #Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = melodious_voice }
+				34 = { set_character_flag = nice_voice }
+				50 = { } # 50 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+						father = { trait = melodious_voice } # Father has rank 2
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = nice_voice } # Father has rank 1
+						mother = { trait = nice_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = melodious_voice } # Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				7 = { set_character_flag = melodious_voice }
+				25 = { set_character_flag = nice_voice }
+				68 = { } # 68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = nice_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = nice_voice } # Mother has rank 3
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				4 = { set_character_flag = melodious_voice }
+				15 = { set_character_flag = nice_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = calm_voice } # Father has rank 2
+					mother = { trait = calm_voice } # Mother has rank 2
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = calm_voice }
+				38 = { set_character_flag = calmish_voice }
+				32 = { } #32 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = calm_voice } # Father has rank 2
+						mother = { trait = calmish_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = calmish_voice } # Father has rank 1
+						mother = { trait = calm_voice } # Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = calm_voice }
+				34 = { set_character_flag = calmish_voice }
+				50 = { } #50 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+						father = { trait = calm_voice } # Father has rank 2
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						father = { trait = calmish_voice } # Father has rank 1
+						mother = { trait = calmish_voice } # Mother has rank 1
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = calm_voice } # Mother has rank 2
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				7 = { set_character_flag = calm_voice }
+				25 = { set_character_flag = calmish_voice }
+				68 = { } # 68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = calmish_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = calmish_voice } # Mother has rank 3
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				4 = { set_character_flag = calm_voice }
+				15 = { set_character_flag = calmish_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = quiet_voice } # Father has rank 1
+					mother = { trait = quiet_voice } # Mother has rank 1
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				32 = { set_character_flag = quiet_voice }
+				68 = { } # 68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = quiet_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = quiet_voice }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				19 = { set_character_flag = quiet_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = harsh_voice } # Father has rank 1
+					mother = { trait = harsh_voice } # Mother has rank 1
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				32 = { set_character_flag = harsh_voice }
+				68 = { } # 68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = harsh_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = harsh_voice }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				19 = { set_character_flag = harsh_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = grating_voice } #Father has rank 1
+					mother = { trait = grating_voice } #Mother has rank 1
+					NOT = { has_character_flag = vocal_inheritance }
+				}
+			}
+			random_list = { 
+				32 = { set_character_flag = grating_voice }
+				68 = { } # 68 chance of normal
+			} 
+			set_character_flag = vocal_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = grating_voice }
+						NOT = { mother = { trait = quiet_voice } }
+						NOT = { mother = { trait = loud_voice } }
+						NOT = { mother = { trait = powerful_voice } }
+						NOT = { mother = { trait = harsh_voice } }
+						NOT = { mother = { trait = calmish_voice } }
+						NOT = { mother = { trait = calm_voice } }
+						NOT = { mother = { trait = grating_voice } }
+						NOT = { mother = { trait = nice_voice } }
+						NOT = { mother = { trait = melodious_voice } }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = quiet_voice } }
+						NOT = { father = { trait = loud_voice } }
+						NOT = { father = { trait = powerful_voice } }
+						NOT = { father = { trait = harsh_voice } }
+						NOT = { father = { trait = calmish_voice } }
+						NOT = { father = { trait = calm_voice } }
+						NOT = { father = { trait = grating_voice } }
+						NOT = { father = { trait = nice_voice } }
+						NOT = { father = { trait = melodious_voice } }
+						mother = { trait = grating_voice }
+						NOT = { has_character_flag = vocal_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				19 = { set_character_flag = grating_voice }
+				81 = { } # 81 of normal
+			} 
+			set_character_flag = vocal_inheritance
+		}
+		set_character_flag = vocal_inheritance 
+	}
+}

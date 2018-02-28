@@ -1,0 +1,310 @@
+#####################
+## Coel Hen Events ##
+#####################
+
+namespace = history
+
+## Coel Hen Events ##
+# Ids history.2000 - history.2999
+
+# Death of Coel Hen (bounce)
+narrative_event = {
+	id = history.2001
+	title = "EVTNAMECOEL1"
+	desc = "EVTDESCCOEL1"
+	picture = "GFX_evt_valley_rock"
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		character = 300		
+	}
+		
+	immediate = {
+		if = {
+			limit = {				# Coel Hen has at least two legitimate sons and holds or is liege over Bryneich
+				ROOT = {
+					any_child = {
+						is_female = no
+						is_alive = yes
+						NOT = { trait = bastard }
+						ROOT = {
+							any_child = {
+								is_female = no
+								is_alive = yes
+								NOT = { trait = bastard }
+								NOT = { character = PREVPREV }
+							}
+						}
+					}
+					OR = {
+						has_landed_title = k_bryneich
+						any_vassal = { has_landed_title = k_bryneich }
+					}
+				}
+			}
+			ROOT = {				# Try Garbanion first
+				if = {
+					limit = {
+						any_child = {
+							has_character_flag = garbanion_of_bryneich
+							NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+						}
+					}
+					any_child = {
+						limit = {
+							has_character_flag = garbanion_of_bryneich
+						}
+						character_event = { id = history.2003 }
+					}
+					set_global_flag = bryneich_granted
+				}
+				if = {				# Scope to oldest legitimate non-heir male child
+					limit = {
+						NOT = { has_global_flag = bryneich_granted }
+					}
+					random_child = {
+						limit = {
+							NOT = {
+								ROOT = {
+									any_child = {
+										is_female = no
+										is_alive = yes
+										NOT = { trait = bastard }
+										NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+										is_older_than = PREVPREV
+									}
+								}
+							}
+						}
+						character_event = { id = history.2003 }
+					}
+				}
+			}
+		}
+		e_hen_ogledd = {
+			current_heir = {
+				character_event = { id = history.2002 }
+			}
+		}
+	}
+		
+	option = {
+		name = "OK"
+	}
+}
+
+# Death of Coel Hen
+narrative_event = {
+	id = history.2002
+	title = "EVTNAMECOEL2"
+	desc = "EVTDESCCOEL2"
+	major = yes
+	picture = "GFX_evt_valley_rock"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = coel_dead
+		k_bryneich = { de_jure_liege = e_britannia }
+		k_rheged = { de_jure_liege = e_britannia }
+		k_pennines = { de_jure_liege = e_britannia }
+		k_ebrauc = { de_jure_liege = e_britannia }
+		k_elmet = { de_jure_liege = e_britannia }
+		k_strathclyde = { de_jure_liege = e_britannia }
+		k_lothian = { de_jure_liege = e_britannia }
+		k_ynys_man = { de_jure_liege = e_britannia }	
+		k_cornovia = { de_jure_liege = e_britannia }		
+	}
+	
+	option = {									# New ruler of Hen Ogledd
+		name = "EVTOPTACOEL2"
+		trigger = {
+			has_landed_title = e_hen_ogledd
+		}
+	}
+	
+	option = {									# His vassals
+		name = "EVTOPTBCOEL2"
+		trigger = {
+			top_liege = {
+				has_landed_title = e_hen_ogledd
+			}
+			NOT = { has_landed_title = e_hen_ogledd }
+		}
+	}
+	
+	option = {									# Cumbrians outside of Hen Ogledd
+		name = "EVTOPTCCOEL2"
+		trigger = {
+			culture = cumbrian
+			NOT = {
+				OR = {
+					any_liege = {
+						has_landed_title = e_hen_ogledd
+					}
+					has_landed_title = e_hen_ogledd
+				}
+			}
+		}
+	}
+	
+	option = {									# Other characters outside of Hen Ogledd
+		name = "EVTOPTDCOEL2"
+		trigger = {
+			NOT = {
+				top_liege = {
+					has_landed_title = e_hen_ogledd
+				}
+			}
+			OR = {
+				culture = briton
+				culture = romanobritish
+				is_ingvaeonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTECOEL2"
+		trigger = {
+			NOT = {
+				OR = {
+					is_ingvaeonic_culture_trigger = yes
+					culture = briton
+					culture = romanobritish
+					culture = cumbrian
+					culture_group = imperiale
+					top_liege = {
+						has_landed_title = e_hen_ogledd
+					}
+				}
+			}
+		}
+	}
+}
+
+# Granting Bryneich
+narrative_event = {
+	id = history.2003
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_valley_rock"
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	immediate = {
+		FROM = {
+			if = {
+				limit = { any_vassal = { has_landed_title = k_bryneich } }
+				k_bryneich = {
+					grant_title = ROOT
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_demesne_title = {
+							kingdom = { title = k_bryneich }
+							OR = {
+								tier = COUNT
+								tier = BARON
+							}
+						}
+					}
+				}
+				if = {
+					limit = { c_luguvallum = { holder_scope = { top_liege = { character = FROM } } } }
+					c_luguvallum = { grant_title = ROOT }
+				}
+				if = {
+					limit = { NOT = { c_luguvallum = { holder_scope = { top_liege = { character = FROM } } } } }
+					random_realm_title = {
+						limit = {
+							tier = COUNT
+							kingdom = { title = k_bryneich }
+						}
+						grant_title = ROOT
+					}
+				}
+			}
+			any_demesne_title = {
+				limit = {
+					OR = {
+						title = k_bryneich
+						kingdom = { title = k_bryneich }
+					}
+				}
+				grant_title = ROOT
+			}
+			any_vassal = {
+				limit = {
+					primary_title = {
+						kingdom = {
+							title = k_bryneich
+						}
+					}
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+		set_defacto_liege = THIS
+		e_hen_ogledd = {
+			holder_scope = {
+				current_heir = {
+					make_tributary = { who = ROOT percentage = 0.2 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Setting Cumbric succession laws after death/deposition of Coel Hen
+narrative_event = {
+	id = history.2004
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_valley_rock"
+
+	hide_window = yes
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		e_hen_ogledd = {
+			OR = {
+				has_holder = no
+				holder_scope = {
+					NOT = { has_character_flag = coel_hen }
+				}
+			}
+		}
+		NOT = { has_global_flag = hen_ogledd_succession_set }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		k_bryneich = { succession = elective_gavelkind }
+		k_rheged = { succession = elective_gavelkind }
+		k_pennines = { succession = elective_gavelkind }
+		k_ebrauc = { succession = elective_gavelkind }
+		k_elmet = { succession = elective_gavelkind }
+		e_hen_ogledd = { succession = elective_gavelkind }
+		set_global_flag = hen_ogledd_succession_set
+	}
+
+	option = {
+		name = OK
+	}
+}

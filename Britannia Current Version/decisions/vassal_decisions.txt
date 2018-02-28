@@ -1,0 +1,598 @@
+# Targetted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
+#
+# filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/spouse/liege/rivals/all] ('self' MUST be set for decisions targetting only the taker, the other filter types can be set to lessen CPU load)
+# ai_target_filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/spouse/liege/rivals/all] (which characters for which the AI evaluates the decision.)
+#	court: all characters in the AI's host court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	home_court: all characters in the AI's home court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	vassals: direct vassal rulers of the AI's employer
+#	sub_realm: all characters below the AI's employer
+#	realm: all characters in the same top realm as the AI
+#	dynasty: all members of the same dynasty
+#	rivals: your rivals plus any character you have an opinion modifier with 'crime = yes' set (the same set of characters the 'is_foe' trigger evaluates)
+#	all: all living characters (Avoid if possible. VERY CPU-HEAVY!)
+#	
+
+targetted_decisions = {
+	
+	vassal_sacrifice_decision = {
+		only_playable = yes
+		filter = court			
+		ai_target_filter = court	
+		ai_check_interval = 6
+
+		from_potential = {
+			is_playable = yes
+			religion_group = pagan_group
+			OR = {
+				culture = briton
+				culture = cumbrian
+				culture = gaelic
+				culture = pictish
+				culture = oldirish
+			}
+			OR = {
+				trait = zealous
+				trait = cruel
+				trait = ruthless
+				trait = impaler
+			}
+			NOT = { trait = kind }
+			NOT = { trait = tolerant }
+			age = 15
+		}
+		potential = {
+			prisoner = yes
+			age = 15
+			host = { character = FROM }
+		}
+		allow = {
+			prisoner = yes
+			ROOT = { 
+				NOT = { culture = FROM } 
+				NOT = { religion_group = FROM }
+			}
+		}
+		
+		effect = {
+			FROM = {
+				hidden_tooltip = {
+					character_event = { id = 312651 }
+				}
+				if = {
+					limit = { NOT = { trait = cruel } }
+					random = {
+						chance = 75
+						add_trait = cruel
+						hidden_tooltip = {
+							character_event = { id = 38259 days = 2 }
+						}
+					}
+				}
+				if = {
+					limit = { NOT = { trait = zealous } }
+					random = {
+						chance = 75
+						add_trait = zealous
+						hidden_tooltip = {
+							character_event = { id = 38269 days = 2 }
+						}
+					}
+				}
+				piety = 50
+			}
+			death = {
+				death_reason = death_sacrificed
+				killer = FROM
+			}
+			hidden_tooltip = {
+				any_liege = {
+					limit = {
+						NOT = { character = FROM }
+					}
+					character_event = { id = 312652 }
+				}
+				any_dynasty_member = {
+					limit = { is_alive = yes }
+					opinion = {
+						modifier = opinion_killed_family
+						months = 180
+						who = FROM
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+			modifier = {
+				factor = 1.25
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.25
+				trait = paranoid
+			}
+		}
+	}
+	
+	vassal_castrate_decision = {
+		only_playable = yes
+		filter = court
+		ai_target_filter = court
+		ai_check_interval = 6
+		
+		from_potential = {
+			has_dlc = "Legacy of Rome"
+			is_playable = yes
+			OR = {
+				culture_group = imperiale
+				culture = oldirish
+				culture = pictish
+				culture = gaelic
+				is_ingvaeonic_culture_trigger = yes
+				is_istvaeonic_culture_trigger = yes
+			}
+			NOT = { trait = just }
+			NOT = { trait = kind }
+			NOT = { trait = honorable }
+		}
+		potential = {
+			host = { character = FROM }
+			prisoner = yes
+			is_female = no
+			NOT = { trait = eunuch }
+		}
+		allow = {
+			prisoner = yes
+		}
+		
+		effect = {
+			hidden_tooltip = {
+				if = {
+					limit = { age = 15 }
+					FROM = {
+						character_event = { id = LoR.832 }
+					}
+				}
+				if = {
+					limit = { NOT = { age = 15 } }
+					FROM = {
+						character_event = { id = LoR.834 }
+					}
+				}
+			}
+			character_event = { id = LoR.833 tooltip = "EVTTOOLTIPLoR.833" }
+			add_trait = eunuch
+			add_trait = depressed
+			if = {
+				limit = { 
+					has_game_rule = {
+						name = punishment_release_prisoner
+						value = on
+					}
+				}
+				prisoner = no
+			}
+			opinion = {
+				modifier = opinion_castrated_me
+				who = FROM
+			}
+			FROM = {
+				if = {
+					limit = { NOT = { trait = cruel } }
+					random = {
+						chance = 50
+						add_trait = cruel
+						hidden_tooltip = {
+							character_event = { id = 38259 }
+						}
+					}
+				}
+				if = {
+					limit = { religion_group = christian }
+					piety = -150
+				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = { FROM = { NOT = { dynasty = ROOT } } }
+					any_dynasty_member = {
+						limit = { is_alive = yes }
+						opinion = {
+							modifier = opinion_castrated_family
+							who = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				OR = {
+					reverse_opinion = { who = FROM value = 30 }
+					FROM = { NOT = { piety = 100 } }
+					FROM = { LIEGE = { dynasty = ROOT } }
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { 
+					OR = {
+						trait = kind
+						trait = just
+						trait = honorable
+					}
+				}
+			}
+			modifier = {
+				factor = 0.2 # Less likely to do it
+			}
+			modifier = {
+				factor = 0.3
+				FROM = {
+					NOR = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						culture = armorican
+						culture = romanobritish
+						culture = roman
+						culture = cumbrian
+					}
+					NOR = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+		}
+	}
+	
+	vassal_blinding_decision = {
+		only_playable = yes
+		filter = court
+		ai_target_filter = court
+		ai_check_interval = 6
+		
+		from_potential = {
+			has_dlc = "Legacy of Rome"
+			is_playable = yes
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+				culture = oldirish
+				culture = pictish
+				culture = gaelic
+				is_ingvaeonic_culture_trigger = yes
+				is_istvaeonic_culture_trigger = yes
+				culture = briton
+				culture = cumbrian
+			}
+			NOT = { trait = just }
+			NOT = { trait = kind }
+			NOT = { trait = honorable }
+		}
+		potential = {
+			prisoner = yes
+			NOT = { character = 3 }
+			NOT = { trait = blinded }
+			host = { character = FROM }
+		}
+		allow = {
+			prisoner = yes
+		}
+		
+		effect = {
+			hidden_tooltip = {
+				FROM = {
+					character_event = { id = LoR.830 }
+				}
+			}
+			character_event = { id = LoR.831 tooltip = "EVTTOOLTIPLoR.831" }
+			if = {
+				limit = {
+					trait = one_eyed
+				}
+				remove_trait = one_eyed
+			}
+			#change_martial = -4
+			add_trait = blinded
+			add_trait = depressed
+			if = {
+				limit = { trait = poor_warrior }
+				remove_trait = poor_warrior
+			}
+			if = {
+				limit = { trait = trained_warrior }
+				remove_trait = trained_warrior
+			}
+			if = {
+				limit = { trait = skilled_warrior }
+				remove_trait = skilled_warrior
+			}
+			if = {
+				limit = { trait = master_warrior }
+				remove_trait = master_warrior
+			}
+			if = {
+				limit = { trait = duelist }
+				remove_trait = duelist
+			}
+			if = {
+				limit = { trait = falconer }
+				remove_trait = falconer
+			}
+			if = {
+				limit = { trait = hunter }
+				remove_trait = hunter
+			}
+			if = {
+				limit = { trait = cavalry_leader }
+				remove_trait = cavalry_leader
+			}
+			if = {
+				limit = { 
+					has_game_rule = {
+						name = punishment_release_prisoner
+						value = on
+					}
+				}
+				prisoner = no
+			}
+			opinion = {
+				modifier = opinion_blinded_me
+				who = FROM
+			}
+			FROM = {
+				if = {
+					limit = { NOT = { trait = cruel } }
+					random = {
+						chance = 50
+						add_trait = cruel
+						hidden_tooltip = {
+							character_event = { id = 38259 }
+						}
+					}
+				}
+				if = {
+					limit = { religion_group = christian }
+					piety = -150
+				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = { FROM = { NOT = { dynasty = ROOT } } }
+					any_dynasty_member = {
+						limit = { is_alive = yes }
+						opinion = {
+							modifier = opinion_blinded_family
+							who = FROM
+						}
+					}
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					reverse_opinion = { who = FROM value = 30 }
+					FROM = { NOT = { piety = 100 } }
+					FROM = { LIEGE = { dynasty = ROOT } }
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { 
+					OR = {
+						trait = kind
+						trait = just
+						trait = honorable
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				is_female = yes
+			}
+			modifier = {
+				factor = 0.08 # Less likely to do it
+			}
+			modifier = {
+				factor = 2
+				is_pretender = yes
+				FROM = {
+					OR = {
+						is_pretender = yes
+						is_primary_heir = yes
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				FROM = {
+					NOR = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+			modifier = {
+				factor = 2.5
+				FROM = {
+					AND = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						culture = armorican
+						culture = romanobritish
+						culture = roman
+						culture = cumbrian
+					}
+					NOR = {
+						trait = cruel
+						trait = impaler
+						trait = ruthless
+					}
+				}
+			}
+		}
+	}
+	
+	prisoner_to_oubilette = {
+		filter = court
+		ai_target_filter = court
+
+		from_potential = {
+			ai = no
+		}
+	
+		potential = {
+			host = { character = FROM }
+			prisoner = yes
+			NOT = { has_character_modifier = the_oubliette }
+		}
+		allow = {
+			prisoner = yes
+		}
+		effect = {
+			add_character_modifier = { 
+				name = the_oubliette
+				duration = -1
+			}
+			hidden_tooltip = {
+				remove_character_modifier = the_dungeon
+				remove_character_modifier = house_arrest
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	prisoner_to_dungeon = {
+		filter = court
+		ai_target_filter = court
+
+		from_potential = {
+			ai = no
+		}
+	
+		potential = {
+			host = { character = FROM }
+			prisoner = yes
+			OR = {
+				has_character_modifier = the_oubliette
+				has_character_modifier = house_arrest
+			}
+		}
+		allow = {
+			prisoner = yes
+		}
+		effect = {
+			add_character_modifier = { 
+				name = the_dungeon
+				duration = -1
+			}
+			hidden_tooltip = {
+				remove_character_modifier = the_oubliette
+				remove_character_modifier = house_arrest
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	prisoner_to_suite = {
+		filter = court
+		ai_target_filter = court
+
+		from_potential = {
+			ai = no
+		}
+	
+		potential = {
+			host = { character = FROM }
+			prisoner = yes
+			NOT = { has_character_modifier = house_arrest }
+		}
+		allow = {
+			prisoner = yes
+		}
+		effect = {
+			add_character_modifier = { 
+				name = house_arrest
+				duration = -1
+			}
+			hidden_tooltip = {
+				remove_character_modifier = the_oubliette
+				remove_character_modifier = the_dungeon
+				character_event = { id = ZE.12219 } # Loses pet rat
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+		
+}

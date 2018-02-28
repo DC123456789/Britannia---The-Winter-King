@@ -1,0 +1,118 @@
+namespace = bct
+
+character_event = {
+	id = bct.200
+	desc = "EVTDESChandedness_inheritance.0"        
+	picture = GFX_evt_children_talking
+	
+	hide_window = yes
+    
+	max_age = 3
+    
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = handedness_inheritance }
+	}
+	
+	option = {
+		name = "EVTOPTAhandedness_inheritance.0"
+		if = {
+			limit = {
+				AND = {
+					father = { trait = lefthanded } #Father has rank 1
+					mother = { trait = lefthanded } #Mother has rank 1
+					NOT = { has_character_flag = handedness_inheritance }
+				}
+			}
+			random_list = { 
+				8 = { set_character_flag = ambidextrous }
+				92 = { } #23 chance of normal
+			} 
+			set_character_flag = handedness_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = lefthanded }
+						NOT = { mother = { trait = lefthanded } }
+						NOT = { mother = { trait = ambidextrous } }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = ambidextrous } }
+						NOT = { father = { trait = lefthanded } }
+						mother = { trait = lefthanded }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				5 = { set_character_flag = ambidextrous }
+				95 = { } #36 of normal
+			} 
+			set_character_flag = handedness_inheritance
+		}
+		if = {
+			limit = {
+				AND = {
+					father = { trait = ambidextrous } #Father has rank 1
+					mother = { trait = ambidextrous } #Mother has rank 1
+					NOT = { has_character_flag = handedness_inheritance }
+				}
+			}
+			random_list = { 
+				25 = { set_character_flag = lefthanded }
+				75 = { } #23 chance of normal
+			} 
+		set_character_flag = handedness_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+                    AND = {
+						father = { trait = ambidextrous }
+						NOT = { mother = { trait = ambidextrous } }
+						NOT = { mother = { trait = lefthanded } }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = lefthanded } }
+						NOT = { father = { trait = ambidextrous } }
+						mother = { trait = ambidextrous }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				15 = { set_character_flag = lefthanded }
+				85 = { } #36 of normal
+			} 
+			set_character_flag = handedness_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = ambidextrous }
+						mother = { trait = lefthanded }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+					AND = {
+						father = { trait = lefthanded }
+						mother = { trait = ambidextrous }
+						NOT = { has_character_flag = handedness_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				10 = { set_character_flag = ambidextrous }
+				30 = { set_character_flag = lefthanded }
+				60 = { } #36 of normal
+			} 
+			set_character_flag = handedness_inheritance
+		}
+		set_character_flag = handedness_inheritance 
+	}
+}

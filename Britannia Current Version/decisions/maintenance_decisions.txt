@@ -1,0 +1,226 @@
+decisions = {
+	ai_maintenance = {				# Every 30 Days
+		only_rulers = yes
+		potential = {
+			has_landed_title = k_nuncio_britanniae
+			had_global_flag = {
+				flag = maintenance_pulse
+				days = 30			# When this time value is changed, the 'Years of Peace' variable modifier further down must also be changed accordingly
+			}
+		}
+		allow = { }
+		effect = {
+			clr_global_flag = maintenance_pulse
+			set_global_flag = maintenance_pulse
+			
+			# General Maintenance
+			any_playable_ruler = {
+				if = {
+					limit = {
+						OR = { 
+							war = yes
+							top_liege = {
+								war = yes
+							}
+						}
+					}
+					set_variable = { which = "years_of_peace" value = 0 }
+				}
+				any_demesne_title = {													# Sets all non-primary feudal county-level titles to Primogeniture
+					limit = {
+						tier = count
+						is_feudal = yes
+					}
+					if = {
+						limit = {
+							NOT = {
+								OR = {
+									has_law = succ_primogeniture
+									has_law = succ_gavelkind
+									has_law = succ_seniority
+									has_law = succ_tanistry
+									has_law = succ_turkish_succession
+									has_law = succ_ultimogeniture
+								}
+							}
+						}
+						add_law_w_cooldown = succ_gavelkind
+					}			
+				}				
+			}
+		}
+		ai_will_do = {
+			factor = 10000000
+		}
+	}
+	
+	ai_maintenance_year = {			# Every 1 Year
+		only_rulers = yes
+		potential = {
+			has_landed_title = k_nuncio_britanniae
+			had_global_flag = {
+				flag = maintenance_year_pulse
+				days = 365
+			}
+		}
+		allow = { }
+		effect = {
+			clr_global_flag = maintenance_year_pulse
+			set_global_flag = maintenance_year_pulse
+			
+			# Years of Peace
+			any_playable_ruler = {
+				if = {
+					limit = {
+						OR = { 
+							war = yes
+							top_liege = {
+								war = yes
+							}
+						}
+					}
+					set_variable = { which = "years_of_peace" value = 0 }
+				}					
+				if = {
+					limit = {
+						war = no
+						top_liege = {
+							war = no
+						}
+					}
+					change_variable = { which = "years_of_peace" value = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10000000
+		}
+	}	
+
+	arthur_traits_cleaner = {
+		potential = {
+			character = 3
+			ai = yes
+			OR = {
+				trait = slothful
+				trait = arbitrary
+				trait = cruel
+				trait = craven
+				trait = gluttonous
+				trait = possessed
+				trait = holy_warrior
+				trait = zealous
+				trait = deceitful
+				trait = ambitious
+			}
+		}
+		allow = { }
+		effect = {
+			remove_trait = slothful
+			remove_trait = arbitrary
+			remove_trait = cruel
+			remove_trait = gluttonous
+			remove_trait = craven
+			remove_trait = possessed
+			remove_trait = holy_warrior
+			remove_trait = zealous
+			remove_trait = deceitful
+			remove_trait = ambitious
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	tewdric_traits_cleaner = {
+		potential = {
+			character = 14
+			ai = yes
+			OR = {
+				trait = ambitious
+				trait = arbitrary
+				trait = cruel
+				trait = gluttonous
+			}
+		}
+		allow = { }
+		effect = {
+			remove_trait = ambitious
+			remove_trait = arbitrary
+			remove_trait = cruel
+			remove_trait = gluttonous
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	merlin_traits_cleaner = {
+		potential = {
+			character = 2
+			ai = yes
+			OR = {
+				trait = craven
+				trait = arbitrary
+				trait = cruel
+				trait = gluttonous
+				trait = slothful
+			}
+		}
+		allow = { }
+		effect = {
+			remove_trait = craven
+			remove_trait = arbitrary
+			remove_trait = cruel
+			remove_trait = gluttonous
+			remove_trait = slothful
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	derfel_traits_cleaner = {
+		potential = {
+			character = 10
+			ai = yes
+			OR = {
+				trait = craven
+				trait = arbitrary
+				trait = cruel
+				trait = gluttonous
+				trait = envious
+				trait = slothful
+				trait = unloyal
+			}
+		}
+		allow = { }
+		effect = {
+			remove_trait = craven
+			remove_trait = arbitrary
+			remove_trait = cruel
+			remove_trait = gluttonous
+			remove_trait = envious
+			remove_trait = slothful
+			remove_trait = unloyal
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	non_ruler_money_limit = {
+		only_rulers = yes
+		potential = {
+			is_ruler = yes
+			is_alive = yes
+			is_landed = no
+			ai = yes
+			wealth = 500
+		}
+		allow = { }
+		effect = {
+			wealth = -100
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

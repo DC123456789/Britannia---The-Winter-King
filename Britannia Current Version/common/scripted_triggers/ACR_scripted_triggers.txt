@@ -1,0 +1,254 @@
+# Character has a religion allowing women to hold councillor positions, equal succession laws, etc.
+is_feminist_religion_minus_laws_trigger = {
+	OR = {
+		#religion = celtic_pagan_reformed
+		#religion = celtic_pagan
+		religion = promethean_pagan
+		religion = pict_pagan 
+		religion = pict_pagan_reformed
+		religion = briton_pagan 
+		religion = briton_pagan_reformed
+		#religion = messalian
+		#religion = cathar
+	}
+}
+is_feminist_religion_trigger = {
+	OR = {
+		is_feminist_religion_minus_laws_trigger = yes
+		primary_title = { has_law = status_of_women_4 }
+	}
+}
+
+is_attracted_to_prev = {
+	is_valid_attraction = PREV
+	OR = {
+		AND = {
+			is_female = no
+			OR = {
+				AND = {
+					trait = homosexual
+					PREV = { is_female = no }
+				}
+				PREV = { is_female = yes }
+			}
+		}
+		AND = {
+			is_female = yes
+			OR = {
+				AND = {
+					trait = homosexual
+					PREV = { is_female = yes }
+				}
+				PREV = { is_female = no }
+			}
+		}
+	}
+
+	opinion = { who = PREV value = 30 }
+}
+
+root_prev_mutual_attraction = {
+	ROOT = {
+		is_attracted_to_prev = yes
+		PREVPREV = {
+			is_attracted_to_prev = yes
+		}
+	}
+}
+
+is_neoplatonist_trigger = {
+	OR = {
+		trait = stoic
+		trait = skeptic
+		trait = epicurean
+	}
+}
+
+# is_on_nile_trigger = {
+	# location = {
+		# OR = {
+			# province = 788
+			# province = 789
+			# province = 790
+			# province = 791
+			# province = 794
+			# province = 795
+			# province = 796
+			# province = 797
+			# province = 798
+			# province = 799
+			# province = 800
+			# province = 802
+		# }
+	# }
+# }
+
+# is_ancient_religion_trigger = {
+	# OR = {
+		# religion = celtic_pagan
+		# religion = celtic_pagan_reformed
+		# religion = hellenic_pagan
+		# religion = promethean_pagan
+		# religion = titan_pagan
+		# religion = egyptian_pagan
+		# religion = aten_pagan
+	# }
+# }
+
+supernatural_events_trigger = {
+	OR = {
+		has_game_rule = { name = supernatural_events value = unrestricted }
+		AND = {
+			has_game_rule = { name = supernatural_events value = on }
+			ai = no
+		}
+	}
+}
+
+religion_openly_in_celtic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_openly_celtic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_openly_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_openly_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = sol_invictus
+				religion = promethean_pagan
+				religion = titan_pagan
+			}
+		}
+	}
+}
+
+religion_openly_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_openly_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			always = no
+			# OR = {
+				# religion = egyptian_pagan
+				# religion = aten_pagan
+			# }
+		}
+	}
+}
+
+religion_secretly_in_celtic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_celtic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				secret_religion = briton_pagan
+				secret_religion = briton_pagan_reformed
+				secret_religion = gael_pagan
+				secret_religion = gael_pagan_reformed
+				secret_religion = pict_pagan
+				secret_religion = pict_pagan_reformed
+			}
+		}
+	}
+}
+
+religion_secretly_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+				secret_religion = sol_invictus
+				secret_religion = promethean_pagan
+				secret_religion = titan_pagan
+			}
+		}
+	}
+}
+
+religion_secretly_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = religion_secretly_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			always = no
+			# OR = {
+				# secret_religion = egyptian_pagan
+				# secret_religion = aten_pagan
+			# }
+		}
+	}
+}
+
+true_religion_in_celtic_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_celtic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				true_religion = briton_pagan
+				true_religion = briton_pagan_reformed
+				true_religion = gael_pagan
+				true_religion = gael_pagan_reformed
+				true_religion = pict_pagan
+				true_religion = pict_pagan_reformed
+			}
+		}
+	}
+}
+
+true_religion_in_hellenic_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_hellenic_subgroup_tooltip
+		hidden_trigger = {
+			OR = {
+				true_religion = roman_pagan
+				true_religion = roman_pagan_reformed
+				true_religion = sol_invictus
+				true_religion = promethean_pagan
+				true_religion = titan_pagan
+			}
+		}
+	}
+}
+
+true_religion_in_egyptian_subgroup_trigger = {
+	custom_tooltip = {
+		text = true_religion_in_egyptian_subgroup_tooltip
+		hidden_trigger = {
+			always = no
+			# OR = {
+				# true_religion = egyptian_pagan
+				# true_religion = aten_pagan
+			# }
+		}
+	}
+}
+
+is_prosperous_trigger = {
+	OR = {
+		has_province_modifier = prosperity_modifier_1
+		has_province_modifier = prosperity_modifier_2
+		has_province_modifier = prosperity_modifier_3
+	}
+}
+
+is_depopulated_trigger = {
+	OR = {
+		has_province_modifier = depopulated_1
+		has_province_modifier = depopulated_2
+		has_province_modifier = depopulated_3
+	}	
+}

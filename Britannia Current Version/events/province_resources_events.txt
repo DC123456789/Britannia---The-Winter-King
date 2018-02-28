@@ -1,0 +1,1469 @@
+######################################
+#									 #
+#    PROVINCE RESOURCES EVENTS 		 #
+#									 #
+#	    ID 319700 - 319899			 #
+#									 #
+######################################
+
+
+### Good Sheep Market ###
+character_event = {
+    id = 319700
+	desc = "EVTDESC319700"
+	picture = "GFX_evt_sheep_herds"
+	border = "GFX_event_normal_frame_economy"
+	
+	only_rulers = yes
+	capable_only = yes
+	min_age = 15
+	prisoner = no
+	
+	trigger = {
+	    any_demesne_title = {
+			tier = baron
+			is_feudal = yes
+			has_building = ca_sheep_2
+		}
+		war = no
+		has_global_flag = autumn_season
+		NOT = { has_character_flag = no_resource_info_wanted }
+		OR = {
+			NOT = { has_character_flag = good_sheep_market }
+			had_character_flag = {
+				flag = good_sheep_market
+				days = 2190
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = poor_sheep_market }
+			had_character_flag = {
+				flag = poor_sheep_market
+				days = 730
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.5
+			has_character_flag = livestock_bred
+		}
+		modifier = {
+			factor = 1.5
+			wealth = 500
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { wealth = 50 }
+		}
+	}
+	
+	immediate = {
+		clr_character_flag = good_sheep_market
+		clr_character_flag = poor_sheep_market
+		clr_character_flag = livestock_bred
+		set_character_flag = good_sheep_market
+	}
+	
+	option = {	
+		name = "EVTOPTA319700"	
+		trigger = {
+			NOT = {
+				OR = {
+					trait = cruel
+					trait = greedy
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = charitable }
+			}	
+			random = {
+				chance = 30
+				add_trait = charitable
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTB319700"
+		scaled_wealth = 0.1
+	}
+	option = {	
+		name = "EVTOPTC319700"
+		scaled_wealth = 0.3
+		if = {
+			limit = {
+				trait = charitable
+			}	
+			random = {
+				chance = 50
+				remove_trait = charitable
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+				NOT = { trait = charitable }
+			}	
+			random = {
+				chance = 15
+				add_trait = greedy
+			}
+		}
+	}
+	option = {	
+		name = "EVTOPTD319700"	
+		trigger = {
+			NOT = { trait = charitable }
+			NOT = { trait = kind }
+		}
+		scaled_wealth = 0.6
+		capital_scope = {	
+			add_province_modifier = { 
+				name = high_taxes 
+				duration = 365
+			}     
+		}
+		if = {
+			limit = {
+				trait = just
+			}	
+			random = {
+				chance = 50
+				remove_trait = just
+			}
+		}	
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+			}	
+			add_trait = greedy
+		}	
+		if = {
+			limit = {
+				ai = no
+			}	
+			random = {
+				chance = 30
+				change_stewardship = -1
+			}
+		}
+	}
+}
+
+### Poor Sheep Market ###
+character_event = {
+    id = 319701
+	desc = "EVTDESC319701"
+	picture = "GFX_evt_sheep_herds"
+	border = "GFX_event_normal_frame_economy"
+	
+	only_rulers = yes
+	capable_only = yes
+	min_age = 15
+	prisoner = no
+	
+	trigger = {
+	    any_demesne_title = {
+			tier = baron
+			is_feudal = yes
+			has_building = ca_sheep_2
+		}
+		war = no
+		has_global_flag = autumn_season
+		NOT = { has_character_flag = no_resource_info_wanted }
+		OR = {
+			NOT = { has_character_flag = good_sheep_market }
+			had_character_flag = {
+				flag = good_sheep_market
+				days = 2190
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = poor_sheep_market }
+			had_character_flag = {
+				flag = poor_sheep_market
+				days = 2190
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 2.0
+			has_character_flag = livestock_bred
+		}
+		modifier = {
+			factor = 1.5
+			wealth = 500
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { wealth = 50 }
+		}
+	}
+	
+	immediate = {
+		clr_character_flag = good_sheep_market
+		clr_character_flag = poor_sheep_market
+		set_character_flag = poor_sheep_market
+	}
+	
+	option = {	
+		name = "EVTOPTA319701"
+		scaled_wealth = -0.2
+		if = {
+			limit = {
+				ai = no
+			}
+			random = {
+				chance = 10
+				change_stewardship = -1
+			}
+		}
+		if = {
+			limit = {
+				ai = yes
+			}
+			random = {
+				chance = 1
+				change_stewardship = -1
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					ai = no
+					NOT = { trait = stressed }
+					NOT = { wealth = 50 }
+				}	
+			}	
+			random = {
+				chance = 30
+				add_trait = stressed
+				hidden_tooltip = {
+					character_event = {
+						id = 38282	# notify stressed
+					}	
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB319701"	# I must act to see the livestock of my realm properly bred & reared 
+		tooltip_info = stewardship
+		trigger = {
+			stewardship = 12
+		}
+		scaled_wealth = -0.6
+		set_character_flag = livestock_bred
+		random = {
+			chance = 15
+			change_stewardship = 1
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = diligent
+				}
+			}
+			random = {
+				chance = 15
+				add_trait = diligent
+				hidden_tooltip = {
+					character_event = {
+						id = 38256	# notify most diligent
+					}	
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC319701"	# Spare me from such duties!
+		scaled_wealth = -0.2
+		set_character_flag = no_resource_info_wanted
+		change_stewardship = -1
+		if = {
+			limit = {
+				trait = diligent
+			}
+			remove_trait = diligent
+		}
+	}	
+}
+
+
+
+### Good Cattle Market ###
+character_event = {
+    id = 319702
+	desc = "EVTDESC319702"
+	picture = "GFX_evt_village_road"
+	border = "GFX_event_normal_frame_economy"
+	
+	only_rulers = yes
+	capable_only = yes
+	min_age = 15
+	prisoner = no
+	
+	trigger = {
+	    any_demesne_title = {
+			tier = baron
+			is_feudal = yes
+			OR = {
+				has_building = ca_cattle
+				has_building = ca_cattle_2
+			}
+		}
+		war = no
+		has_global_flag = summer_season
+		NOT = { has_character_flag = no_resource_info_wanted }
+		OR = {
+			NOT = { has_character_flag = good_cattle_market }
+			had_character_flag = {
+				flag = good_cattle_market
+				days = 2190
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = poor_cattle_market }
+			had_character_flag = {
+				flag = poor_cattle_market
+				days = 730
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = a_fine_bull }
+			had_character_flag = {
+				flag = a_fine_bull
+				days = 365
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.5
+			has_character_flag = cattle_quarantined
+		}
+		modifier = {
+			factor = 1.5
+			wealth = 500
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { wealth = 50 }
+		}
+		modifier = {
+			factor = 0.6
+			has_character_flag = a_fine_bull
+			NOT = {
+				had_character_flag = {
+					flag = a_fine_bull
+					days = 1460
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		clr_character_flag = good_cattle_market
+		clr_character_flag = poor_cattle_market
+		clr_character_flag = cattle_quarantined
+		clr_character_flag = a_fine_bull
+		set_character_flag = good_cattle_market
+	}
+	
+	option = {	
+		name = "EVTOPTA319702"	
+		trigger = {
+			NOT = {
+				OR = {
+					trait = cruel
+					trait = greedy
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = charitable }
+			}	
+			random = {
+				chance = 30
+				add_trait = charitable
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTB319702"
+		scaled_wealth = 0.15
+	}
+	option = {	
+		name = "EVTOPTC319702"
+		scaled_wealth = 0.35
+		if = {
+			limit = {
+				trait = charitable
+			}	
+			random = {
+				chance = 50
+				remove_trait = charitable
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+				NOT = { trait = charitable }
+			}	
+			random = {
+				chance = 15
+				add_trait = greedy
+			}
+		}
+		if = {
+			limit = {
+				trait = greedy
+			}	
+			random = {
+				chance = 30
+				capital_scope = {	
+					add_province_modifier = { 
+						name = high_taxes 
+						duration = 365
+					}     
+				}
+			}
+		}
+	}
+	option = {	
+		name = "EVTOPTD319702"	
+		trigger = {
+			NOT = { trait = charitable }
+			NOT = { trait = kind }
+		}
+		scaled_wealth = 0.75
+		capital_scope = {	
+			add_province_modifier = { 
+				name = high_taxes 
+				duration = 365
+			}     
+		}
+		if = {
+			limit = {
+				trait = just
+			}	
+			random = {
+				chance = 50
+				remove_trait = just
+			}
+		}	
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+			}	
+			add_trait = greedy
+		}	
+		if = {
+			limit = {
+				ai = no
+			}	
+			random = {
+				chance = 30
+				change_stewardship = -1
+			}
+		}
+	}
+}
+
+### Poor Cattle Market ###
+character_event = {
+    id = 319703
+	desc = "EVTDESC319703"
+	picture = "GFX_evt_village_road"
+	border = "GFX_event_normal_frame_economy"
+	
+	only_rulers = yes
+	capable_only = yes
+	min_age = 15
+	prisoner = no
+	
+	trigger = {
+	    any_demesne_title = {
+			tier = baron
+			is_feudal = yes
+			OR = {
+				has_building = ca_cattle
+				has_building = ca_cattle_2
+			}
+		}
+		war = no
+		has_global_flag = summer_season
+		NOT = { has_character_flag = no_resource_info_wanted }
+		OR = {
+			NOT = { has_character_flag = good_cattle_market }
+			had_character_flag = {
+				flag = good_cattle_market
+				days = 2190
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = poor_cattle_market }
+			had_character_flag = {
+				flag = poor_cattle_market
+				days = 2190
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = a_fine_bull }
+			had_character_flag = {
+				flag = a_fine_bull
+				days = 2190
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 250
+		modifier = {
+			factor = 2.0
+			has_character_flag = cattle_quarantined
+		}
+		modifier = {
+			factor = 2.0
+			has_character_flag = a_fine_bull
+			NOT = {
+				had_character_flag = {
+					flag = a_fine_bull
+					days = 1460
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			wealth = 500
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { wealth = 50 }
+		}
+	}
+	
+	immediate = {
+		clr_character_flag = good_cattle_market
+		clr_character_flag = poor_cattle_market
+		clr_character_flag = a_fine_bull
+		set_character_flag = poor_cattle_market
+	}
+	
+	option = {	
+		name = "EVTOPTA319703"
+		scaled_wealth = -0.2
+		if = {
+			limit = {
+				ai = no
+			}
+			random = {
+				chance = 10
+				change_stewardship = -1
+			}
+		}
+		if = {
+			limit = {
+				ai = yes
+			}
+			random = {
+				chance = 1
+				change_stewardship = -1
+			}
+		}
+		if = {
+			limit = {
+				AND = {
+					ai = no
+					NOT = { trait = stressed }
+					NOT = { wealth = 50 }
+				}	
+			}	
+			random = {
+				chance = 30
+				add_trait = stressed
+				hidden_tooltip = {
+					character_event = {
+						id = 38282	# notify stressed
+					}	
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB319703"	# Quarantine
+		tooltip_info = stewardship
+		trigger = {
+			stewardship = 12
+		}
+		scaled_wealth = -0.4
+		set_character_flag = cattle_quarantined
+		random = {
+			chance = 15
+			change_stewardship = 1
+		}
+		if = {
+			limit = {
+				NOT = {
+					trait = diligent
+				}
+			}
+			random = {
+				chance = 15
+				add_trait = diligent
+				hidden_tooltip = {
+					character_event = {
+						id = 38256	# notify most diligent
+					}	
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC319703"	# Spare me from such duties!
+		scaled_wealth = -0.2
+		set_character_flag = no_resource_info_wanted
+		change_stewardship = -1
+		if = {
+			limit = {
+				trait = diligent
+			}
+			remove_trait = diligent
+		}
+	}	
+}
+
+### A Fine Bull ###
+character_event = {
+    id = 319704
+	desc = "EVTDESC319704"
+	picture = "GFX_evt_village_road"
+	border = "GFX_event_normal_frame_economy"
+	
+	only_rulers = yes
+	capable_only = yes
+	min_age = 15
+	prisoner = no
+	
+	trigger = {
+	    any_demesne_title = {
+			tier = baron
+			is_feudal = yes
+			OR = {
+				has_building = ca_cattle
+				has_building = ca_cattle_2
+			}
+		}
+		war = no
+		has_global_flag = spring_season
+		NOT = { has_character_flag = no_resource_info_wanted }
+		OR = {
+			NOT = { has_character_flag = a_fine_bull_flag }
+			had_character_flag = {
+				flag = a_fine_bull_flag
+				days = 5475
+			}
+		}
+		OR = {
+			NOT = { has_character_flag = poor_cattle_market }
+			had_character_flag = {
+				flag = poor_cattle_market
+				days = 1825
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 180
+		modifier = {
+			factor = 0.9
+			has_character_flag = poor_cattle_market
+		}
+		modifier = {
+			factor = 2.0
+			has_character_flag = good_cattle_market
+		}
+	}
+	
+	immediate = {
+		set_character_flag = a_fine_bull_flag
+	}
+
+	option = {
+		name = "EVTOPTA319704"
+		set_character_flag = a_fine_bull
+		prestige = 10
+		random = {
+			chance = 50	
+			change_stewardship = 1
+		}	
+	}
+	option = {
+		name = "EVTOPTB319704"
+		wealth = 15
+	}
+	option = {	
+		name = "EVTOPTC319704"
+		prestige = 50
+		random_courtier = {
+			limit = {
+				age = 16
+				prisoner = no
+				in_command = no
+			}
+			opinion = {
+				modifier = opinion_impressed
+				who = ROOT
+				years = 2
+			}	
+		}
+		random_vassal = {
+			limit = {
+				age = 16
+				prisoner = no
+				in_command = no
+			}
+			opinion = {
+				modifier = opinion_impressed
+				who = ROOT
+				years = 2
+			}	
+		}
+		random = {
+			chance = 20
+			change_stewardship = -1
+		}
+	}
+	option = {
+		name = "EVTOPTD319704"	# Spare me!
+		set_character_flag = no_resource_info_wanted
+		if = {
+			limit = {
+				trait = diligent
+			}
+			remove_trait = diligent
+		}
+	}	
+}
+
+
+
+### Storm ###   
+character_event = {
+	id = 319710
+	desc = "EVTDESC319710"
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		capital_scope = {
+			is_land = yes
+			NOT = { continent = continent_europe }
+			NOT = { has_province_modifier = province_flood }
+			NOT = { has_province_modifier = province_flood_neglected_peasants }
+			OR = {
+				has_province_modifier = northern_winter
+				has_province_modifier = northern_spring
+				has_province_modifier = northern_summer
+				has_province_modifier = northern_autumn
+				continent = continent_ireland
+			}
+			NOT = {
+				any_neighbor_province = {
+					is_land = yes
+					OR = {
+						has_province_modifier = province_flood
+						has_province_modifier = province_flood_neglected_peasants
+					}
+				}
+			}
+		}	
+	}
+
+	option = {
+		name = "EVTOPTA319710"
+		trigger = {
+			OR = {
+				trait = zealous
+				trait = weak
+				trait = humble
+				trait = craven
+				trait = paranoid
+				is_priest = yes
+			}
+		}
+		piety = 5
+		hidden_tooltip = {
+			random_list = {
+				33 = {
+					character_event = {
+						id = 319711
+						days = 3
+						random = 3
+					}
+				}	
+				33 = {
+					character_event = {
+						id = 319712
+						days = 2
+						random = 3
+					}
+				}
+				33 = {
+					character_event = {
+						id = 319714
+						days = 2
+					}
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTB319710"
+		trigger = {
+			NOT = {
+				OR = {
+					trait = zealous
+					trait = weak
+					trait = humble
+					trait = craven
+					trait = paranoid
+					is_priest = yes
+				}
+			}
+		}
+		
+		hidden_tooltip = {
+			random_list = {
+				31 = {
+					character_event = {
+						id = 319711
+						days = 3
+						random = 3
+					}
+				}	
+				33 = {
+					character_event = {
+						id = 319712
+						days = 2
+						random = 3
+					}
+				}
+				36 = {
+					character_event = {
+						id = 319713
+						days = 2
+					}
+				}
+			}
+		}
+	}	
+}
+character_event = {
+	id = 319711
+	desc = "EVTDESC319711"
+	picture = "GFX_evt_storm_lightning"
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {
+		name = "EVTOPTA319711"
+		custom_tooltip = { text = "EVTTOOLTIP319711A" }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						trait = cruel
+						# trait = ruthless
+						trait = greedy
+						trait = impaler
+						trait = arbitrary
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					trait = kind
+					# trait = honorable
+					trait = charitable
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = cruel
+					trait = impaler
+				}
+			}
+			modifier = {
+				factor = 0
+				scaled_wealth = 8.0
+			}
+		}
+		if = {
+			limit = {
+				trait = charitable
+			}
+			random = {
+				chance = 30
+				remove_trait = charitable
+			}			
+		}
+		if = {
+			limit = {
+				demesne_size = 1
+				NOT = { demesne_size = 2 }
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood_neglected_peasants
+					duration = 365
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+					}
+				}
+			}
+			random = {
+				chance = 50
+	
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				demesne_size = 2
+				NOT = { demesne_size = 3 }
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood_neglected_peasants
+					duration = 365
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+					}
+					random_demesne_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+					}
+				}	
+			}
+			random = {
+				chance = 75
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}
+		}	
+		if = {
+			limit = {
+				demesne_size = 3
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood_neglected_peasants
+					duration = 365
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+					}	
+					random_demesne_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+						random_neighbor_province = {
+							limit = { is_land = yes }
+							add_province_modifier = {
+								name = province_flood
+								duration = 120
+							}
+						}
+					}
+					random_demesne_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 120
+						}
+					}
+				}
+			}
+			random_demesne_title = {
+				limit = {
+					tier = baron
+					dejure_liege_title = { is_capital = yes }
+				}
+				destroy_random_building = yes
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB319711"
+		custom_tooltip = { text = "EVTTOOLTIP319711B" }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = greedy
+					# trait = selfish
+					trait = slothful
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = greedy
+			}
+			random = {
+				chance = 25
+				remove_trait = greedy
+			}			
+		}
+		if = {
+			limit = {
+				ai = no
+				NOT = {
+					yearly_income = 20
+				}
+			}
+			scaled_wealth = -0.30
+		}	
+		if = {
+			limit = {
+				ai = no
+				yearly_income = 20
+				NOT = {
+					yearly_income = 35
+				}
+			}
+			scaled_wealth = -0.47
+		}
+		if = {
+			limit = {
+				ai = no
+				yearly_income = 35
+			}
+			scaled_wealth = -0.625
+		}
+		if = {
+			limit = {
+				ai = yes
+			}
+			scaled_wealth = -0.10
+		}	
+		if = {
+			limit = {
+				demesne_size = 1
+				NOT = { demesne_size = 2 }
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood
+					duration = 120
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+					}
+				}
+			}
+			random = {
+				chance = 33
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				demesne_size = 2
+				NOT = { demesne_size = 3 }
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood
+					duration = 120
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+					}
+					random_neighbor_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+					}
+				}	
+			}
+			random = {
+				chance = 33
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}
+		}	
+		if = {
+			limit = {
+				demesne_size = 3
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = province_flood
+					duration = 120
+				}
+				hidden_tooltip = {
+					random_neighbor_province = {
+						limit = { is_land = yes }
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+					}	
+					random_neighbor_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+						random_neighbor_province = {
+							limit = { is_land = yes }
+							add_province_modifier = {
+								name = province_flood
+								duration = 60
+							}
+						}
+					}
+					random_neighbor_province = {
+						add_province_modifier = {
+							name = province_flood
+							duration = 60
+						}
+					}
+				}
+			}
+			random = {
+				chance = 33
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC319711"
+		custom_tooltip = { text = "EVTTOOLTIP319711C" }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = kind
+					trait = charitable
+					trait = diligent
+					# trait = honorable
+					trait = just
+				}
+			}
+		}
+		if = {
+			limit = { trait = slothful }
+			remove_trait = slothful
+		}
+		if = {
+			limit = {
+				trait = cruel
+				NOT = { trait = greedy }
+			}
+			remove_trait = cruel
+		}
+		if = {
+			limit = {
+				trait = greedy
+			}
+			random = {
+				chance = 50
+				remove_trait = greedy
+			}			
+		}
+		random = {
+			chance = 15
+			
+			change_stewardship = 1
+		}	
+		if = {
+			limit = {
+				ai = no
+				NOT = {
+					yearly_income = 20
+				}
+			}
+			scaled_wealth = -0.50
+		}	
+		if = {
+			limit = {
+				ai = no
+				yearly_income = 20
+				NOT = {
+					yearly_income = 40
+				}
+			}
+			scaled_wealth = -0.80
+		}
+		if = {
+			limit = {
+				ai = no
+				yearly_income = 40
+			}
+			scaled_wealth = -1.05
+		}
+		if = {
+			limit = {
+				ai = yes
+			}
+			scaled_wealth = -0.45
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = province_flood
+				duration = 60
+			}
+			hidden_tooltip = {
+				random_neighbor_province = {
+					limit = { is_land = yes }
+					add_province_modifier = {
+						name = province_flood
+						duration = 30
+					}
+				}
+			}
+		}
+		random = {
+			chance = 5
+			
+			random_demesne_title = {
+				limit = {
+					tier = baron
+					dejure_liege_title = { is_capital = yes }
+				}	
+				destroy_random_building = yes
+			}
+		}
+	}
+}
+character_event = {
+	id = 319712
+	desc = "EVTDESC319712"
+	picture = "GFX_evt_storm_lightning"
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {		
+		name = "EVTOPTA319712"
+		if = {
+			limit = {
+				ai = no
+			}
+			scaled_wealth = -0.75
+		}
+		if = {
+			limit = {
+				ai = no
+			}	
+			random = {
+				chance = 50
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}	
+		}	
+		if = {
+			limit = {
+				ai = yes
+			}	
+			random = {
+				chance = 10
+				
+				random_demesne_title = {
+					limit = {
+						tier = baron
+						dejure_liege_title = { is_capital = yes }
+					}	
+					destroy_random_building = yes
+				}
+			}	
+		}	
+	}
+}
+character_event = {
+	id = 319713
+	desc = "EVTDESC319713"
+	picture = "GFX_evt_storm_clearing"
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	option = {		
+		name = "EVTOPTA319713"
+		if = {
+			limit = {
+				trait = stressed
+			}
+			remove_trait = stressed	
+			hidden_tooltip = {
+				character_event = {
+					id = 6041
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random = { 
+				chance = 75
+			
+				remove_trait = depressed	
+				hidden_tooltip = {
+					character_event = {
+						id = 6051
+					}
+				}	
+			}	
+		}
+	}
+}
+character_event = {
+	id = 319714	
+	desc = "EVTDESC319713"
+	picture = "GFX_evt_storm_clearing"
+	
+	is_triggered_only = yes
+	
+	hide_from = yes
+	
+	option = {		
+		name = "EVTOPTA319714"
+		piety = 15
+		if = {
+			limit = {
+				NOT = {
+					trait = zealous
+				}
+			}
+			random = {
+				chance = 20
+				
+				add_trait = zealous
+				hidden_tooltip = {
+					character_event = {
+						id = 38269
+					}
+				}			
+			}
+		}
+		if = {
+			limit = {
+				trait = stressed
+			}
+			remove_trait = stressed	
+			hidden_tooltip = {
+				character_event = {
+					id = 6041
+				}
+			}
+		}
+		if = {
+			limit = {
+				trait = depressed
+			}
+			random = { 
+				chance = 75
+			
+				remove_trait = depressed	
+				hidden_tooltip = {
+					character_event = {
+						id = 6051
+					}
+				}	
+			}	
+		}
+	}
+}			

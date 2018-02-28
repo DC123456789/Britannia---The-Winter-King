@@ -1,0 +1,241 @@
+namespace = knives
+
+## Treachery of the Long Knives Events ##
+
+# Saxons on the verge of winning - call peace conference
+character_event = {
+	id = knives.6
+	title = "EVTNAMEKNIVES6"
+	desc = "EVTDESCKNIVES6"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_rulers = yes
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	trigger = {
+		has_landed_title = k_cantia
+		NOT = { has_global_flag = peace_conference_called }
+		war = no
+		e_britannia = {
+			holder_scope = {
+				has_character_flag = vortigern
+			}
+		}
+		year = 450
+	}
+	
+	immediate = {
+		set_global_flag = peace_conference_called
+	}
+	
+	option = {
+		name = "EVTOPTAKNIVES6"
+		k_maxima_cesariensis = {
+			holder_scope = {
+				character_event = { id = knives.7 }
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBKNIVES6"
+	}
+}
+
+# Aurelius is offered peace
+character_event = {
+	id = knives.7
+	title = "EVTNAMEKNIVES7"
+	desc = "EVTDESCKNIVES7"
+	picture = "GFX_evt_roman_rider"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAKNIVES7"
+		FROM = {
+			character_event = { id = knives.8 }
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBKNIVES7"
+	}
+}
+
+# Peace offer accepted
+character_event = {
+	id = knives.8
+	title = "EVTNAMEKNIVES8"
+	desc = "EVTDESCKNIVES8"
+	picture = "GFX_evt_roman_rider"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = peace_conference_accepted
+	}
+	
+	option = {
+		name = "EVTOPTAKNIVES8"
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					culture = romanobritish
+					culture = briton
+					has_landed_title = k_maxima_cesariensis
+				}
+			}
+			character_event = { id = knives.9 }
+		}
+	}
+}
+
+# Choose whether or not to attend
+character_event = {
+	id = knives.9
+	title = "EVTNAMEKNIVES9"
+	desc = "EVTDESCKNIVES9"
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAKNIVES9"
+		trigger = {
+			NOT = {
+				OR = {
+					has_landed_title = k_maxima_cesariensis
+					has_landed_title = e_britannia
+				}
+			}
+		}
+		set_character_flag = attending_peace
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				OR = {
+					trait = tolerant
+					trait = honorable
+					trait = just
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBKNIVES9"
+		trigger = {
+			OR = {
+				has_landed_title = k_maxima_cesariensis
+				has_landed_title = e_britannia
+			}
+		}
+		set_character_flag = attending_peace
+	}
+
+	option = {
+		name = "EVTOPTCKNIVES9"
+		prestige = -10
+		trigger = {
+			NOT = {
+				OR = {
+					has_landed_title = k_maxima_cesariensis
+					has_landed_title = e_britannia
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+
+# Peace conference starts
+character_event = {
+	id = knives.10
+	title = "EVTNAMEKNIVES10"
+	desc = "EVTDESCKNIVES10"
+	picture = "GFX_evt_castle_rider_arriving"		
+	
+	only_rulers = yes
+
+	trigger = {
+		NOT = { trait = attending_peace }
+		NOT = { has_character_flag = cantia_attending_peace }
+		OR = {
+			has_character_flag = attending_peace
+			has_landed_title = k_cantia
+		}
+		has_global_flag = peace_conference_accepted
+	}
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	immediate = {
+		set_global_flag = peace_conference_begun
+	}
+	
+	option = {
+		name = "EVTOPTAKNIVES10"
+		trigger = {
+			NOT = { has_landed_title = k_cantia }
+		}
+		add_trait = attending_peace
+	}
+	
+	option = {
+		name = "EVTOPTBKNIVES10"
+		trigger = {
+			has_landed_title = k_cantia
+		}
+		set_character_flag = cantia_attending_peace
+	}
+}
+
+# Treachery of the Long Knives - Cantia event
+character_event = {
+	id = knives.11
+	title = "EVTNAMEKNIVES11"
+	desc = "EVTDESCKNIVES11"
+	picture = "GFX_evt_dark_valley"
+	
+	only_rulers = yes
+
+	trigger = {
+		has_global_flag = peace_conference_begun
+		has_landed_title = k_cantia
+		has_character_flag = cantia_attending_peace
+	}
+	
+	mean_time_to_happen = {
+		days = 7
+	}
+	
+	option = {
+		name = "EVTOPTAKNIVES11"
+		ai_chance = {
+			factor = 2
+		}
+		any_playable_ruler = {
+			narrative_event = { id = knives.12 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBKNIVES11"
+		prestige = -10
+	}
+}

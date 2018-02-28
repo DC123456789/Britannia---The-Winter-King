@@ -1,0 +1,930 @@
+decisions = {
+	claim_imperium_galliarum = {		# Claim the Imperium Galliarum
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			has_landed_title = k_gaul
+			tier = KING
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			NOT = { trait = incapable }
+			e_gaul = { has_holder = no }
+			has_global_flag = senate_restored
+			NOT = { has_global_flag = imperium_galliarum_created }
+			independent = yes
+			realm_size = 80
+		}
+		allow = {
+			has_landed_title = k_gaul
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			realm_size = 350
+			prestige = 2000
+			age = 20
+			is_female = no
+			custom_tooltip = { 
+				text = senate_restored_tooltip 
+				has_global_flag = senate_restored
+			}
+			conditional_tooltip = {
+				trigger = {
+					e_visigoths = { has_holder = yes }
+				}
+				e_visigoths = { has_holder = no }
+			}
+		}
+		
+		effect = {
+			e_gaul = { 
+				gain_title = PREV
+				hidden_tooltip = {
+					copy_title_laws = k_gaul
+					add_law = { 
+						law = ze_administration_laws_2 
+						cooldown = no 
+						opinion_effect = no 
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	claim_imperium_britannicum = {		# Claim the Imperium Britannicum
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				has_landed_title = k_maxima_cesariensis
+				has_landed_title = k_flavia_cesariensis
+				has_landed_title = k_britannia_prima
+				has_landed_title = k_britannia_secunda
+				has_landed_title = k_valentia
+				has_landed_title = k_romancaledonia
+			}
+			tier = KING
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			NOT = { trait = incapable }
+			e_roman_britannia = { has_holder = no }
+			has_global_flag = senate_restored
+			NOT = { has_global_flag = imperium_britannicum_created }
+			independent = yes
+			realm_size = 40
+		}
+		allow = {
+			#OR = {
+			#	has_landed_title = k_maxima_cesariensis
+			#	has_landed_title = k_flavia_cesariensis
+			#	has_landed_title = k_britannia_prima
+			#	has_landed_title = k_britannia_secunda
+			#	has_landed_title = k_valentia
+			#	has_landed_title = k_romancaledonia
+			#}
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			realm_size = 120
+			prestige = 1000
+			age = 20
+			is_female = no
+			custom_tooltip = { 
+				text = senate_restored_tooltip 
+				has_global_flag = senate_restored
+			}
+		}
+		
+		effect = {
+			e_roman_britannia = { 
+				gain_title = PREV
+				hidden_tooltip = {
+					add_law = { 
+						law = ze_administration_laws_2 
+						cooldown = no 
+						opinion_effect = no 
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	claim_empire_romanized_germanic = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			primary_title = {
+				OR = {
+					AND = {
+						title = k_visigoths
+						NOT = { e_visigoths = { has_title_flag = empire_claimed_visigoths } }
+					}
+					AND = {
+						title = k_burgundy
+						NOT = { has_global_flag = burgundy_subjugated }
+						NOT = { e_visigoths = { has_title_flag = empire_claimed_burgundians } }
+					}
+					AND = {
+						title = k_taifals
+						NOT = { e_visigoths = { has_title_flag = empire_claimed_taifals } }
+					}
+					AND = {
+						title = k_alans
+						NOT = { e_visigoths = { has_title_flag = empire_claimed_alans } }
+					}
+				}
+			}
+			OR = {
+				is_romanized_germanic_trigger = yes
+				culture = alan
+			}
+			tier = KING
+			e_western_roman_empire = { has_holder = no }
+		}
+		allow = {
+			realm_size = 350
+			prestige = 2000
+			piety = 500
+			age = 20
+			is_female = no
+			NOR = { 
+				is_incapable = yes
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded
+				trait = imbecile
+				trait = eunuch
+			}
+			e_gaul = { has_holder = no }
+			custom_tooltip = {
+				text = controls_enough_gallic_province_capitals_tooltip
+				hidden_tooltip = {
+					calc_true_if = {
+						amount = 8
+						completely_controls = c_lugdunum
+						completely_controls = c_rotomagus
+						completely_controls = c_tours
+						completely_controls = c_agedincum
+						completely_controls = c_treverorum
+						completely_controls = c_reims
+						completely_controls = c_cologne
+						completely_controls = c_bourges
+						completely_controls = c_burdigala
+						completely_controls = c_elusa
+						completely_controls = c_tolosa
+						completely_controls = c_vienna
+					}
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					e_visigoths = { has_holder = yes }
+				}
+				e_visigoths = { has_holder = no }
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = claim_empire_romanized_germanic_tooltip
+				character_event = { id = 314749 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	HK_claim_britannia = {			# Claim the High Kingdom of Britannia
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			NOT = { has_global_flag = britannia_reconquered_roman }
+			NOT = { has_global_flag = offa_dyke_created }	
+			NOT = { has_global_flag = HK_britannia_claim }
+			is_ruler = yes
+			is_female = no
+			e_britannia = { has_holder = no }
+			NOT = { has_character_flag = HK_britannia_claimant }
+			NOT = { has_character_flag = HK_challenge_loser }
+			NOT = { has_character_modifier = HK_britannia_claim_timer }
+			OR = {
+				has_landed_title = k_dumnonia
+				has_landed_title = k_gwent
+				has_landed_title = k_powys
+				has_landed_title = k_siluria
+				has_landed_title = k_gwynedd
+				has_landed_title = k_icenia
+				has_landed_title = k_cantuaria
+				has_landed_title = k_belgae
+				has_landed_title = k_kernow
+				has_landed_title = k_glevum
+				has_landed_title = k_henis_wyren
+				has_landed_title = k_demetia
+				has_landed_title = k_lindum
+				has_landed_title = k_londinium
+			}
+			independent = yes
+			primary_title = { tier = KING }
+			age = 20
+			NOT = { trait = incapable }
+			NOT = { character = 1 }
+			NOT = { has_character_flag = marriage_to_macsen_daughter }
+		}
+		allow = {
+			prestige = 1250
+			OR = {
+				AND = {
+					is_tribal = yes
+					realm_size = 7
+				}
+				realm_size = 15
+			}
+			num_of_count_titles_in_realm = 6
+			realm_diplomacy = 30
+			diplomacy = 10
+			realm_stewardship = 30
+			stewardship = 7
+			realm_martial = 30
+			martial = 12
+			ruled_years = 5
+			age = 25
+			war = no
+			OR = {
+				culture = briton
+				culture = romanobritish
+				culture = cumbrian
+			}
+			OR = {
+				ruled_years = 15
+				trait = war_hero
+				trait = master_warrior
+				trait = inspiring_leader
+				#trait = authoritative
+				trait = brilliant_strategist
+				trait = grey_eminence
+				trait = elusive_shadow
+				trait = midas_touched
+				trait = genius
+			}
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+		}
+		
+		effect = {
+			any_playable_ruler = { clr_character_flag = HK_oppositor }
+			any_playable_ruler = { clr_character_flag = HK_supporter }
+			any_playable_ruler = { clr_character_flag = HK_indep_supporter }
+			any_playable_ruler = { clr_character_flag = HK_voter }
+			set_global_flag = HK_britannia_claim
+			set_character_flag = HK_britannia_claimant
+			e_britannia = { add_claim = ROOT }
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						has_landed_title = k_dumnonia
+						has_landed_title = k_gwent
+						has_landed_title = k_powys
+						has_landed_title = k_siluria
+						has_landed_title = k_gwynedd
+						has_landed_title = k_icenia
+						has_landed_title = k_cantuaria
+						has_landed_title = k_belgae
+						has_landed_title = k_kernow
+						has_landed_title = k_glevum
+						has_landed_title = k_henis_wyren
+						has_landed_title = k_demetia
+					}
+					independent = yes
+					primary_title = { tier = KING }
+					OR = {
+						culture = cumbrian
+						culture = briton
+						culture = romanobritish
+					}
+					age = 15
+					NOT = { trait = incapable }
+					NOT = { has_character_flag = HK_britannia_claimant }
+					NOT = { has_character_flag = HK_challenge_loser }
+				}
+				set_character_flag = HK_britannia_king
+				character_event = { id = 312161 days = 2 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }
+			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					limit = {
+						is_HK_britannia_relevant_trigger = yes
+						NOT = { character = ROOT }
+					}
+					character_event = { id = 312167 }
+				}
+				add_character_modifier = {
+					name = HK_britannia_claim_timer
+					duration = 1825
+					hidden = yes
+				}
+				ROOT = { narrative_event = { id = 312165 days = 15 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				character = 1
+			}
+			modifier = {
+				factor = 0.75
+				character = 3
+			}
+			modifier = {
+				factor = 0.75
+				culture = cumbrian
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { age = 35 }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						is_tribal = yes
+						NOT = { realm_size = 15 }
+					}
+					AND = {
+						is_tribal = no
+						NOT = { realm_size = 30 }
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					AND = {
+						is_tribal = yes
+						realm_size = 35
+					}
+					AND = {
+						is_tribal = no
+						realm_size = 70
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				diplomacy = 18
+			}
+			modifier = {
+				factor = 1.5
+				martial = 18
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { diplomacy = 12 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { martial = 14 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { stewardship = 12 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 1500 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 2000 }
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					trait = content
+					trait = shy
+					trait = craven
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					trait = humble
+					trait = slothful
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+		}
+	}	
+	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			is_female = no
+			is_ingvaeonic_culture_trigger = yes	
+			e_aengland = { has_holder = no }
+			NOT = { has_global_flag = britannia_reconquered_roman }
+			NOT = { has_global_flag = HK_aengland_claim }
+			NOT = { has_character_flag = HK_aengland_claimant }
+			NOT = { has_character_flag = HK_aengland_challenge_loser }
+			NOT = { has_character_modifier = HK_aengland_claim_timer }
+			OR = {
+				has_landed_title = k_anglia
+				has_landed_title = k_east_anglia
+				has_landed_title = k_cantia
+				has_landed_title = k_mercia
+				has_landed_title = k_wessex
+				has_landed_title = k_northumbria
+				has_landed_title = k_sussex
+				has_landed_title = k_eastseaxe
+			}
+			independent = yes
+			primary_title = { tier = KING }
+			age = 20
+			NOT = { trait = incapable }
+		}
+		allow = {
+			prestige = 1250
+			OR = {
+				AND = {
+					is_tribal = yes
+					realm_size = 7
+				}
+				realm_size = 15
+			}
+			realm_diplomacy = 30
+			diplomacy = 10
+			realm_martial = 30
+			martial = 12
+			realm_stewardship = 30
+			stewardship = 7
+			ruled_years = 5
+			age = 25
+			OR = {
+				ruled_years = 15
+				trait = war_hero
+				trait = master_warrior
+				trait = inspiring_leader
+				#trait = authoritative
+				trait = brilliant_strategist
+				trait = grey_eminence
+				trait = elusive_shadow
+				trait = midas_touched
+				trait = genius
+			}
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = idiot }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			NOT = { trait = weak }
+			custom_tooltip = {
+				text = aengland_kingdoms_required_tooltip
+				any_playable_ruler = {
+					tier = KING
+					is_ingvaeonic_culture_trigger = yes
+					OR = {
+						has_landed_title = k_anglia
+						has_landed_title = k_east_anglia
+						has_landed_title = k_cantia
+						has_landed_title = k_mercia
+						has_landed_title = k_wessex
+						has_landed_title = k_northumbria
+						has_landed_title = k_sussex
+						has_landed_title = k_eastseaxe
+					}
+					NOT = { trait = incapable }
+					NOT = { character = ROOT }
+					primary_title = {
+						tier = KING
+						any_playable_ruler = {
+							tier = KING
+							is_ingvaeonic_culture_trigger = yes
+							OR = {
+								has_landed_title = k_anglia
+								has_landed_title = k_east_anglia
+								has_landed_title = k_cantia
+								has_landed_title = k_mercia
+								has_landed_title = k_wessex
+								has_landed_title = k_northumbria
+								has_landed_title = k_sussex
+								has_landed_title = k_eastseaxe
+							}
+							NOT = { trait = incapable }
+							NOT = { character = ROOT }
+							NOT = {
+								primary_title = { title = PREVPREV }
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			any_playable_ruler = { clr_character_flag = HK_aengland_oppositor }
+			any_playable_ruler = { clr_character_flag = HK_aengland_supporter }
+			any_playable_ruler = { clr_character_flag = HK_aengland_voter }
+			set_global_flag = HK_aengland_claim
+			set_character_flag = HK_aengland_claimant
+			e_aengland = { add_claim = ROOT }
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						has_landed_title = k_anglia
+						has_landed_title = k_east_anglia
+						has_landed_title = k_cantia
+						has_landed_title = k_mercia
+						has_landed_title = k_wessex
+						has_landed_title = k_northumbria
+						has_landed_title = k_sussex
+						has_landed_title = k_eastseaxe
+					}
+					independent = yes
+					primary_title = { tier = KING }
+					NOT = { trait = incapable }
+					NOT = { has_character_flag = HK_aengland_claimant }
+					NOT = { has_character_flag = HK_aengland_challenge_loser }
+				}
+				set_character_flag = HK_aengland_king
+				character_event = { id = 3121618 days = 2 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }
+			}
+			hidden_tooltip = {
+				any_playable_ruler = {
+					limit = {
+						is_HK_aengland_relevant_trigger = yes
+						NOT = { character = ROOT }
+					}
+					character_event = { id = 3121678 }
+				}
+				add_character_modifier = {
+					name = HK_aengland_claim_timer
+					duration = 1825
+					hidden = yes
+				}
+				ROOT = { narrative_event = { id = 3121658 days = 15 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				character = 1
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						is_tribal = yes
+						NOT = { realm_size = 20 }
+					}
+					AND = {
+						is_tribal = no
+						NOT = { realm_size = 40 }
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					AND = {
+						is_tribal = yes
+						realm_size = 35
+					}
+					AND = {
+						is_tribal = no
+						realm_size = 70
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				diplomacy = 18
+			}
+			modifier = {
+				factor = 1.5
+				martial = 18
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { diplomacy = 12 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { martial = 14 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { stewardship = 12 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 2000 }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { prestige = 3000 }
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					trait = content
+					trait = shy
+					trait = craven
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					trait = humble
+					trait = slothful
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+			modifier = {
+				factor = 1.5
+				trait = war_hero
+			}
+		}
+	}
+	HK_claim_hen_ogledd = {		# Claim the High Kingdom of Hen Ogledd
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			is_ruler = yes
+			is_female = no
+			OR = {
+				culture = cumbrian	
+				AND = {
+					culture = romanobritish
+					capital_scope = { culture = cumbrian }
+				}
+			}	
+			e_hen_ogledd = { has_holder = no }
+			NOT = { has_global_flag = britannia_reconquered_roman }
+			OR = {
+				has_landed_title = k_ebrauc
+				has_landed_title = k_elmet
+				has_landed_title = k_rheged
+				has_landed_title = k_cornovia	
+				has_landed_title = k_pennines
+				has_landed_title = k_bryneich
+				has_landed_title = k_strathclyde
+				has_landed_title = k_lothian
+			}
+			independent = yes
+			primary_title = { tier = KING }
+			age = 20
+			prestige = 350
+			NOT = { trait = incapable }
+		}
+		allow = {
+			prestige = 1250
+			OR = {
+				AND = {
+					is_tribal = yes
+					realm_size = 25
+				}
+				realm_size = 35
+			}
+			realm_diplomacy = 30
+			realm_martial = 30
+			realm_stewardship = 30
+			ruled_years = 10
+			age = 25
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			NOT = { trait = incapable }
+		}
+		
+		effect = {
+			e_hen_ogledd = { gain_title = PREV }
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.75
+				NOT = { year = 500 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { realm_size = 60 }
+			}
+			modifier = {
+				factor = 1.5
+				realm_size = 100
+			}
+			modifier = {
+				factor = 1.5
+				diplomacy = 18
+			}
+			modifier = {
+				factor = 1.5
+				martial = 18
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { diplomacy = 14 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { martial = 14 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { stewardship = 14 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { prestige = 2000 }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { prestige = 3000 }
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					trait = content
+					trait = shy
+					trait = craven
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					trait = humble
+					trait = slothful
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = proud
+			}
+			modifier = {
+				factor = 1.5
+				trait = war_hero
+			}
+		}
+	}
+
+	create_brotherhood_of_britain = {			# Form the Brotherhood of Britain
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			NOT = { has_character_flag = vortigern }
+			is_ruler = yes
+			primary_title = {
+				title = e_britannia
+			}
+			NOT = { is_title_active = d_warriors_of_britain }
+			d_warriors_of_britain = { has_holder = no }
+			prisoner = no
+			NOT = { trait = incapable }
+			year = 479
+		}
+		allow = {
+			wealth = 50
+			prestige = 1250
+			age = 25
+		}
+		
+		effect = {
+			wealth = -50
+			custom_tooltip = {  text = "TOOLTIP3121659" }
+			hidden_tooltip = {
+				ROOT = {
+					character_event = { id = 3121659 }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	claim_scandinavia = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			is_north_germanic_trigger = yes	
+			e_scandinavia = { has_holder = no }
+			NOT = { has_global_flag = scandinavia_created }
+			primary_title = {
+				OR = {
+					title = e_denmark
+					title = e_norway
+					title = e_sweden
+					title = e_geatland
+				}
+			}
+			independent = yes
+		}
+		allow = {
+			has_landed_title = e_denmark
+			has_landed_title = e_norway
+			has_landed_title = e_sweden
+			has_landed_title = e_geatland
+			num_of_count_titles_in_realm = 150
+			is_female = no
+			prestige = 2000
+			is_tribal = no
+			OR = {
+				NOT = { religion_group = pagan_group }
+				is_reformed_religion = yes
+			}
+			martial = 15
+			diplomacy = 12
+			realm_diplomacy = 30
+			realm_martial = 30
+			realm_stewardship = 30
+			ruled_years = 10
+			age = 25
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded
+				trait = imbecile
+				trait = eunuch
+				is_incapable = yes
+			}				
+		}
+		
+		effect = {
+			e_scandinavia = { gain_title = PREV }
+			hidden_tooltip = {
+				character_event = { id = 314804 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

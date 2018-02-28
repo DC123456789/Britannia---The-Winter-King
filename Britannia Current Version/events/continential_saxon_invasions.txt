@@ -1,0 +1,1978 @@
+###################################
+#
+# Continential Saxon Invasion Events
+#
+# Id 301600 - 301699
+#
+###################################
+
+##### SAXON INVASIONS OF SALLAND AND HAMALAND #####
+
+# Saxon Incursions 450 AD
+province_event = {
+	id = 301600
+	title = "EVTNAME301600"
+	desc = "EVTDESC301600"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"
+	
+	trigger = {
+		region = world_hamaland_salland
+		any_neighbor_province = {
+			owner = {
+				top_liege = { culture = oldsaxon }
+			}
+		}
+		year = 450
+		NOT = { year = 480 }
+		NOT = { has_global_flag = hamaland_invasion_450 }
+		NOT = { has_global_flag = hamaland_invasion_470 }
+		NOT = { has_global_flag = hamaland_saxony }
+		NOT = { 
+			owner = {
+				top_liege = { is_ingvaeonic_culture_trigger = yes }
+			}
+		}
+		d_hamaland = {
+			holder_scope = {
+				is_ingvaeonic_culture_trigger = no
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 48
+		modifier = {
+			factor = 0.5
+			year = 455
+		}
+		modifier = {
+			factor = 0.25
+			year = 457
+		}
+		modifier = {
+			factor = 0.1
+			year = 460
+		}
+	}
+	
+	immediate = {
+		create_character = {
+			random_traits = no
+			name = "Leofwine"
+			dynasty = random
+			religion = germanic_pagan
+			culture = oldsaxon
+			female = no
+			employer = d_saxon_hamaland
+			age = 31
+			attributes = {
+				martial = 12
+				diplomacy = 10
+				stewardship = 8
+				intrigue = 7
+				learning = 4
+			}
+			trait = brilliant_strategist
+			trait = skilled_warrior
+			trait = veteran
+			trait = brave
+			trait = quick
+			trait = light_foot_leader
+			trait = diligent
+			trait = cruel
+			trait = ambitious
+		}
+		new_character = {
+			set_character_flag = hamaland_invader
+			d_saxon_hamaland = {
+				activate_title = { title = d_saxon_hamaland status = yes }
+				gain_title = PREV
+				succession = elective_gavelkind
+			}
+			set_government_type = tribal_government
+			character_event = { id = 301601 }
+			wealth = 80
+			prestige = 300
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				employer = d_saxon_hamaland
+				age = 24
+				attributes = {
+					martial = 11
+					stewardship = 8
+					diplomacy = 9
+				}
+				trait = brilliant_strategist
+				trait = war_hero
+				trait = brave
+				trait = loyal
+				trait = heavy_infantry_leader
+			}
+		}
+		set_global_flag = hamaland_invasion_450
+	}
+	
+	option = {
+		name = "EVTOPTA301600"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB301600"	# Franks
+		trigger = {
+			is_istvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTC301600"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			is_istvaeonic_culture_trigger = no
+		}
+	}
+}
+
+
+# Invading Army
+character_event = {
+	id = 301601
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		any_province = {
+			limit = { region = world_hamaland_salland }
+			county = {
+				add_claim = ROOT
+			}
+		}
+		random_province = { 
+			limit = {
+				region = world_hamaland_salland
+				owner = {
+					top_liege = { is_ingvaeonic_culture_trigger = no }
+				}
+				any_neighbor_province = {
+					owner = {
+						top_liege = { culture = oldsaxon }
+					}
+				}
+			}
+			county = {
+				owner = {
+					top_liege = {
+						PREVPREV = { 
+							reverse_war = {
+								target = d_saxon_hamaland
+								casus_belli = claim
+							}
+						}
+					}
+				}
+			}
+			save_event_target_as = hamaland_invasion_province
+		}
+		### Spawn troops
+		event_target:hamaland_invasion_province = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					troops = {
+						archers = { 150 150 }
+						light_infantry = { 300 300 }
+						pikemen = { 300 300 }
+						heavy_infantry = { 500 500 }
+					}
+					attrition = 0.25
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { higher_tier_than = DUKE }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 500 500 }
+							pikemen = { 400 400 }
+							heavy_infantry = { 700 700 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 10 }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						troops = {
+							light_infantry = { 200 200 }
+							pikemen = { 150 150 }
+							heavy_infantry = { 400 400 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 30 }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 900 900 }
+							pikemen = { 450 450 }
+							heavy_infantry = { 800 800 }
+							archers = { 500 500 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 50 }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 800 800 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 800 800 }
+							archers = { 100 100 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 70 }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 600 600 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 800 800 }
+							archers = { 300 300 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 90 }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 700 700 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 1000 1000 }
+							archers = { 300 300 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { ai = no }
+							}
+						}
+					}
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							light_infantry = { 300 300 }
+							pikemen = { 500 500 }
+							heavy_infantry = { 400 400 }
+							archers = { 400 400 }
+						}
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = { has_global_flag = hamaland_invasion_470 }
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						troops = {
+							light_infantry = { 500 500 }
+							pikemen = { 1200 1200 }
+							heavy_infantry = { 1700 1700 }
+							archers = { 600 600 }
+						}
+						attrition = 0.25
+					}
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				employer = d_saxon_hamaland
+				age = 21
+				attributes = {
+					martial = 14
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = patient
+				trait = brave
+				trait = loyal
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					troops = {
+						archers = { 100 100 }
+						light_infantry = { 200 200 }
+						pikemen = { 200 200 }
+						heavy_infantry = { 250 250 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = jute
+				female = no
+				employer = d_saxon_hamaland
+				age = 35
+				attributes = {
+					martial = 11
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+				trait = wroth
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					earmark = hamaland_army_450
+					troops = {
+						archers = { 100 100 }
+						light_infantry = { 200 200 }
+						pikemen = { 200 200 }
+						heavy_infantry = { 250 250 }
+					}
+					attrition = 0.25
+				}
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = angle
+				employer = d_saxon_hamaland
+				age = 19
+				attributes = {
+					learning = 8
+					diplomacy = 6
+					stewardship = 12
+				}
+				trait = thrifty_clerk
+				trait = fair
+				trait = gregarious
+				trait = kind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_saxon_hamaland
+				age = 16
+				attributes = {
+					diplomacy = 9
+					stewardship = 4
+				}
+				trait = naive_appeaser
+				trait = diligent
+				trait = quick
+				trait = trusting
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_saxon_hamaland
+				age = 23
+				attributes = {
+					diplomacy = 11
+					stewardship = 7
+				}
+				trait = charismatic_negotiator
+				trait = familyperson
+				trait = lustful
+				trait = trusting
+			}
+		}
+	}
+}
+
+# Change Culture and Religion upon Conquest
+province_event = {
+	id = 301602
+	title = "EVTNAME301602"
+	desc = "EVTDESC301602"
+	
+	hide_new = yes
+	picture = "GFX_evt_winter_village_crow"
+	
+	trigger = {
+		region = world_hamaland_salland
+		owner = {
+			OR = {
+				has_landed_title = d_saxon_hamaland
+				has_character_flag = hamaland_invader
+			}
+		}
+		has_global_flag = hamaland_invasion_450
+		OR = {
+			NOT = { 
+				had_global_flag = {
+					flag = hamaland_invasion_450
+					days = 7300
+				}
+			}
+			AND = {
+				has_global_flag = hamaland_invasion_470
+				NOT = { 
+					had_global_flag = {
+						flag = hamaland_invasion_470
+						days = 7300
+					}
+				}
+			}
+		}
+		NOT = { has_province_flag = hamaland_saxon_invasion }
+		OR = {
+			NOT = { has_global_flag = hamaland_saxon_invasion_settlers }
+			had_global_flag = { flag = hamaland_saxon_invasion_settlers days = 1200 }
+		}
+		NOT = { culture = oldsaxon }
+		owner = { culture = oldsaxon }
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	immediate = {
+		set_province_flag = hamaland_saxon_invasion
+		set_global_flag = hamaland_saxon_invasion_settlers
+	}
+	
+	option = {
+		name = "EVTOPTA301602"
+		ROOT = {
+			culture = oldsaxon
+			religion = germanic_pagan
+		}
+		if = {
+			limit = { 
+				any_province_holding = {
+					is_capital = yes
+					holding_type = castle
+				}
+			}
+			germanic_convert_to_tribal_effect = yes
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_1
+			}
+			remove_province_modifier = depopulated_1
+			clr_province_flag = angeln_depopulation
+			clr_province_flag = southern_britain_depopulation
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_2
+			}
+			remove_province_modifier = depopulated_2
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_3
+			}
+			remove_province_modifier = depopulated_3
+		}
+	}
+}
+
+# Maintain effort
+character_event = {
+	id = 301603
+	desc = "You're not supposed to see this..."
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		ai = yes
+		has_global_flag = hamaland_invasion_450
+		OR = {
+			has_landed_title = d_saxon_hamaland
+			AND = {
+				has_character_flag = hamaland_invader
+				d_saxon_hamaland = { has_holder = no }
+			}
+		}
+		independent = yes
+		is_ingvaeonic_culture_trigger = yes
+		war = no
+		OR = {
+			NOT = { year = 490 }
+			AND = {
+				NOT = { year = 510 }
+				has_global_flag = hamaland_invasion_470
+			}
+		}
+		any_realm_province = {
+			any_neighbor_province = {
+				region = world_hamaland_salland
+				owner = {
+					top_liege = {
+						NOT = { character = ROOT }
+						NOT = { reverse_has_truce = ROOT }
+					}
+				}
+			}
+		}			
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+		modifier = {
+			factor = 2
+			realm_size = 4
+		}
+		modifier = {
+			factor = 2
+			realm_size = 6
+		}
+	}
+		
+	option = {
+		name = "OK"
+		random_province = {
+			limit = {
+				region = world_hamaland_salland
+				owner = { 
+					top_liege = { 
+						NOT = { character = ROOT }
+						NOT = { reverse_has_truce = ROOT }
+					} 
+				}
+				any_neighbor_province = {
+					owner = { top_liege = { character = ROOT } }
+				}
+			}
+			county = {
+				save_event_target_as = hamaland_conquest_province
+				declare_conquest_war = yes
+			}
+		}
+		if = {
+			limit = { war = yes	}
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = hamaland_army_450
+						troops = {
+							pikemen = { 250 250 }
+							heavy_infantry = { 400 400 }
+							archers = { 200 200 }
+						}
+						attrition = 0.5
+					}
+				}
+				event_target:hamaland_conquest_province = {
+					if = {
+						limit = { owner = { top_liege = { num_of_count_titles_in_realm = 5 } } }
+						ROOT = {
+							spawn_unit = {
+								province = PREVPREV
+								home = PREVPREV
+								owner = ROOT
+								troops = {
+									pikemen = { 250 250 }
+									heavy_infantry = { 400 400 }
+									archers = { 200 200 }
+								}
+								disband_on_peace = yes
+								attrition = 0.75
+							}
+						}
+					}
+					if = {
+						limit = { owner = { top_liege = { num_of_count_titles_in_realm = 10 } } }
+						ROOT = {
+							spawn_unit = {
+								province = PREVPREV
+								home = PREVPREV
+								owner = ROOT
+								troops = {
+									light_infantry = { 300 300 }
+									pikemen = { 200 200 }
+									heavy_infantry = { 400 400 }
+								}
+								attrition = 0.75
+							}
+						}
+					}
+					if = {
+						limit = { owner = { top_liege = { num_of_count_titles_in_realm = 30 } } }
+						ROOT = {
+							spawn_unit = {
+								province = PREVPREV
+								home = PREVPREV
+								owner = ROOT
+								earmark = hamaland_army_450
+								troops = {
+									light_infantry = { 400 400 }
+									pikemen = { 200 200 }
+									heavy_infantry = { 500 500 }
+								}
+								disband_on_peace = yes
+								attrition = 0.75
+							}
+						}
+					}
+					if = {
+						limit = { owner = { top_liege = { num_of_count_titles_in_realm = 50 } } }
+						ROOT = {
+							spawn_unit = {
+								province = PREVPREV
+								home = PREVPREV
+								owner = ROOT
+								earmark = hamaland_army_450
+								troops = {
+									light_infantry = { 1000 1000 }
+									pikemen = { 300 300 }
+									heavy_infantry = { 800 800 }
+									archers = { 500 500 }
+								}
+								attrition = 0.75
+							}
+						}
+					}
+					if = {
+						limit = { owner = { top_liege = { num_of_count_titles_in_realm = 70 } } }
+						ROOT = {
+							spawn_unit = {
+								province = PREVPREV
+								home = PREVPREV
+								owner = ROOT
+								earmark = hamaland_army_450
+								troops = {
+									light_infantry = { 1000 1000 }
+									pikemen = { 500 500 }
+									heavy_infantry = { 800 800 }
+									archers = { 500 500 }
+								}
+								disband_on_peace = yes
+								attrition = 0.75
+							}
+						}
+					}
+				}
+			}
+			wealth = 30
+		}
+	}
+}
+
+# Hamaland Invasion 470 AD (2nd Try)
+province_event = {
+	id = 301604
+	title = "EVTNAME301604"
+	desc = EVTDESC301604
+	
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"	
+	
+	trigger = {
+		region = world_hamaland_salland
+		any_neighbor_province = {
+			owner = {
+				top_liege = { culture = oldsaxon }
+			}
+		}
+		year = 470
+		NOT = { year = 500 }
+		OR = {
+			year = 510
+			has_global_flag = hamaland_invasion_450
+		}
+		NOT = { has_global_flag = hamaland_invasion_470 }
+		NOT = { has_global_flag = hamaland_saxony }
+		NOT = { 
+			owner = {
+				top_liege = { is_ingvaeonic_culture_trigger = yes }
+			}
+		}
+		d_saxon_hamaland = { has_holder = no }
+		d_hamaland = {
+			holder_scope = {
+				is_ingvaeonic_culture_trigger = no
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 48
+		modifier = {
+			factor = 0.5
+			year = 475
+		}
+		modifier = {
+			factor = 0.5
+			year = 477
+		}
+		modifier = {
+			factor = 0.5
+			year = 480
+		}
+	}
+	
+	immediate = {
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = germanic_pagan
+			culture = oldsaxon
+			employer = d_saxon_hamaland
+			female = no
+			age = 29
+			attributes = {
+				martial = 15
+				diplomacy = 10
+				stewardship = 8
+				intrigue = 9
+				learning = 4
+			}
+			trait = brilliant_strategist
+			trait = skilled_warrior
+			trait = veteran
+			trait = brave
+			trait = quick
+			trait = heavy_infantry_leader
+			trait = ambitious
+			trait = diligent
+			trait = lustful
+		}
+		new_character = {
+			set_character_flag = hamaland_invader
+			d_saxon_hamaland = {
+				activate_title = { title = d_saxon_hamaland status = yes }
+				gain_title = PREV
+			}
+			set_government_type = tribal_government
+			character_event = { id = 301601 }
+			wealth = 150
+			prestige = 400
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				employer = d_saxon_hamaland
+				age = 37
+				attributes = {
+					martial = 15
+					stewardship = 10
+					diplomacy = 12
+				}
+				trait = brilliant_strategist
+				trait = war_hero
+				trait = brave
+				trait = loyal
+				trait = heavy_infantry_leader
+			}
+		}
+		set_global_flag = hamaland_invasion_470
+	}
+	
+	option = {
+		name = "EVTOPTA301604"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB301604"	# Franks
+		trigger = {
+			is_istvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTC301604"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			is_istvaeonic_culture_trigger = no
+		}
+	}
+}
+
+
+# Disband event troops
+character_event = {
+	id = 301605
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = hamaland_conquered_saxon
+		has_earmarked_regiments = hamaland_army_450
+		completely_controls = d_hamaland
+		completely_controls = d_salland
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+
+	immediate = {
+		disband_event_forces = hamaland_army_450
+	}
+}
+
+##### SAXON INVASIONS OF GAUL #####
+
+# Begin Preparations (AI)
+character_event = {
+	id = 301610
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	ai = yes
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+
+	trigger = {
+		NOT = { year = 550 }
+		is_ingvaeonic_culture_trigger = yes
+		top_liege = { is_ingvaeonic_culture_trigger = yes }
+		any_realm_province = {
+			any_neighbor_province = {
+				is_land = no
+			}
+		}
+		NOT = { has_character_flag = preparing_gallic_invasion_saxon }
+		NOR = {		# Block Hamaland invader from migrating (OP and they're already migrating anyway...)
+			has_landed_title = d_saxon_hamaland
+			AND = {
+				has_character_flag = hamaland_invader
+				d_saxon_hamaland = { has_holder = no }
+			}
+		}
+		#any_province = {
+		#	region = custom_northwest_gaul
+		#	any_neighbor_province = {
+		#		is_land = no
+		#	}
+		#	owner = {
+		#		NOT = { culture_group = germanic }
+		#		top_liege = { NOT = { culture_group = germanic } }
+		#	}
+		#}
+		capital_scope = {
+			region = world_germania
+		}
+		is_tribal = yes
+		higher_tier_than = BARON
+		age = 25
+		prestige = 500
+		wealth = 50
+		war = no
+		prisoner = no
+		diplomacy = 7
+		martial = 12
+		NOR = { 
+			trait = incapable
+			trait = infirm
+			trait = content
+			trait = craven
+			trait = slow
+			trait = idiot
+			trait = imbecile
+			trait = weak
+			num_of_count_titles_in_realm = 12
+			has_landed_title = k_angeln 
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 0.85
+			trait = brave
+		}
+		modifier = {
+			factor = 0.75
+			trait = ambitious
+		}
+		modifier = {
+			factor = 1.25
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.9
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.9
+			trait = strong
+		}
+		modifier = {
+			factor = 0.9
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.9
+			trait = proud
+		}
+		modifier = {
+			factor = 1.25
+			trait = depressed
+		}
+		modifier = {
+			factor = 1.25
+			trait = stressed
+		}
+		modifier = {
+			factor = 1.2
+			trait = wounded
+		}
+		modifier = {
+			factor = 1.5
+			is_maimed_trigger = yes
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = brilliant_strategist
+				trait = skilled_tactician
+			}
+		}
+		modifier = {
+			factor = 1.1
+			NOT = { martial = 15 }
+		}
+		modifier = {
+			factor = 1.2
+			num_of_count_titles_in_realm = 4
+		}
+		modifier = {
+			factor = 1.25
+			num_of_count_titles_in_realm = 8
+		}
+		modifier = {
+			factor = 3
+			has_global_flag = roman_defeat
+		}
+	}
+	
+	option = {
+		name = "OK"
+		set_character_flag = preparing_gallic_invasion_saxon
+		clr_character_flag = invasion_province_chosen
+		k_saxony = {
+			change_variable = {
+				which = num_gallic_invaders
+				value = 1
+			}
+		}
+		character_event = { id = 301612 days = 100 }		# If no province is found
+	}
+}
+
+# Choose province (AI)
+province_event = {
+	id = 301611
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	hide_window = yes
+
+	trigger = {
+		k_saxony = {
+			check_variable = {
+				which = num_gallic_invaders
+				value = 1
+			}
+		}
+		region = custom_northwest_gaul
+		any_neighbor_province = {
+			#is_land = no
+			OR = {
+				province_id = 304
+				province_id = 294
+				province_id = 299
+				province_id = 298
+				province_id = 286
+				province_id = 284
+				province_id = 285
+			}
+		}
+		owner = {
+			NOT = { culture_group = germanic }
+			top_liege = { NOT = { culture_group = germanic } }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 30
+		modifier = {
+			factor = 4
+			culture_group = germanic
+		}
+		modifier = {
+			factor = 3
+			county = {
+				duchy = {
+					any_direct_de_jure_vassal_title = {
+						owner = {
+							culture_group = germanic
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			OR = {
+				culture = armorican
+				culture = breton
+			}
+		}
+		modifier = {
+			factor = 6
+			owner = {
+				top_liege = {
+					OR = {
+						culture = armorican
+						culture = breton
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = {
+				top_liege = {
+					war = yes
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		k_saxony = {
+			subtract_variable = {
+				which = num_gallic_invaders
+				value = 1
+			}
+		}
+		random_playable_ruler = {
+			limit = { 
+				has_character_flag = preparing_gallic_invasion_saxon 
+				ai = yes
+			}
+			set_character_flag = invasion_province_chosen
+			character_event = { id = 301613 }
+		}
+	}
+}
+
+# Clear flag if no valid provinces found
+character_event = {
+	id = 301612
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = invasion_province_chosen }
+	}
+	
+	immediate = {
+		clr_character_flag = preparing_gallic_invasion_saxon
+		k_saxony = {
+			if = {
+				limit = {
+					check_variable = {
+						which = num_gallic_invaders
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = num_gallic_invaders
+					value = 1
+				}
+			}
+		}
+	}
+	
+}
+
+# Invade province
+character_event = {
+	id = 301613
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		ai = yes
+		any_realm_province = {
+			any_neighbor_province = {
+				is_land = no
+			}
+		}
+	}
+	
+	immediate = {
+		# Notify liege and target
+		if = {
+			limit = { independent = no }
+			liege = { character_event = { id = 301614 } }
+		}
+		
+		# Invade duchy
+		set_character_flag = duchy_invader
+		set_character_flag = saxon_gallic_invader
+		FROM = {
+			owner = {
+				top_liege = { set_character_flag = duchy_invasion_target }
+			}
+			duchy = {
+				ROOT = {
+					war = {
+						casus_belli = duchy_invasion_event
+						target = PREVPREV
+						thirdparty_title = PREVPREV
+						tier = DUKE
+					}
+				}
+			}
+		}
+		clr_character_flag = preparing_gallic_invasion_saxon
+		
+		# Spawn troops and fleet
+		random_realm_province = {
+			limit = {
+				any_neighbor_province = {
+					is_land = no
+				}
+			}
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 200 200 }
+						pikemen = { 500 500 }
+						light_infantry = { 400 400 }
+						heavy_infantry = { 500 500 }
+					}
+					maintenance_multiplier = 0.25
+				}
+				if = {
+					limit = { 
+						FROM = {
+							owner = {
+								NOR = {
+									culture = armorican
+									culture = breton
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 100 100 }
+							pikemen = { 300 300 }
+							light_infantry = { 100 100 }
+							heavy_infantry = { 300 300 }
+						}
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						FROM = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 12 }
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 800 800 }
+							light_infantry = { 800 800 }
+							heavy_infantry = { 600 600 }
+						}
+						disband_on_peace = yes
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						FROM = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 24 }
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 450 450 }
+							pikemen = { 450 450 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 750 750 }
+							light_cavalry = { 250 250 }
+						}
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+					random = {
+						chance = 60
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 150 150 }
+								pikemen = { 150 150 }
+								light_infantry = { 200 200 }
+								heavy_infantry = { 250 250 }
+								light_cavalry = { 250 250 }
+							}
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+				}
+				if = {
+					limit = { 
+						FROM = {
+							owner = {
+								top_liege = { num_of_count_titles_in_realm = 36 }
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 400 400 }
+							light_infantry = { 400 400 }
+							heavy_infantry = { 750 750 }
+							light_cavalry = { 150 150 }
+						}
+						disband_on_peace = yes
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+					random = {
+						chance = 60
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 200 200 }
+								light_infantry = { 200 200 }
+								heavy_infantry = { 250 250 }
+								light_cavalry = { 100 100 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+				}
+				if = {
+					limit = { 
+						FROM = {
+							owner = {
+								top_liege = { 
+									ai = no
+									num_of_count_titles_in_realm = 20
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 500 500 }
+							pikemen = { 400 400 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 500 500 }
+						}
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+			}
+		}
+		spawn_fleet = {
+			owner = ROOT
+			province = closest
+			disband_on_peace = yes
+			troops = {
+				galleys = { 120 120 }
+			}
+		}
+		
+		wealth = 50
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Notify liege 
+character_event = {
+	id = 301614
+	desc = EVTDESC301614
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301614
+	}
+}
+
+# Notify defender 
+character_event = {
+	id = 301615
+	desc = EVTDESC301615
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301615
+	}
+}
+
+# Begin Preparations (Human)
+character_event = {
+	id = 301616
+	desc = "EVTDESC301616"
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA301616"
+		custom_tooltip = {
+			text = EVTOPTA301616TT
+		}
+		set_character_flag = preparing_gallic_invasion_saxon
+		hidden_tooltip = { character_event = { id = 301617 days = 60 } }
+	}
+}
+
+# Allow invasion
+character_event = {
+	id = 301617
+	desc = "EVTDESC301617"
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA301617"
+		custom_tooltip = {
+			text = EVTOPTA301617TT
+		}
+		set_character_flag = saxon_gallic_invader
+		set_character_flag = saxon_gallic_invasion_allowed
+		hidden_tooltip = { character_event = { id = 301620 days = 30 } }
+	}
+}
+
+# Spawn troops and inform liege (human)
+character_event = {
+	id = 301618
+	title = "EVTNAME301618"
+	desc = "EVTDESC301618"
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Notify liege and target
+		if = {
+			limit = { independent = no }
+			liege = { character_event = { id = 301614 } }
+		}
+		any_war = {
+			limit = { using_cb = duchy_invasion_event }
+			defender = {
+				save_event_target_as = duchy_invasion_defender
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA301618"
+		random_realm_province = {
+			limit = {
+				any_neighbor_province = {
+					is_land = no
+				}
+			}
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 200 200 }
+						pikemen = { 300 300 }
+						light_infantry = { 400 400 }
+						heavy_infantry = { 400 400 }
+					}
+					earmark = saxon_invasion_troops
+					maintenance_multiplier = 0.25
+				}
+				if = {
+					limit = { 
+						event_target:duchy_invasion_defender = {
+							NOR = {
+								culture = armorican
+								culture = breton
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 100 100 }
+							pikemen = { 200 200 }
+							light_infantry = { 100 100 }
+							heavy_infantry = { 200 200 }
+						}
+						merge = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						event_target:duchy_invasion_defender = {
+							num_of_count_titles_in_realm = 12
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 600 600 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 500 500 }
+						}
+						merge = yes
+						earmark = saxon_invasion_troops
+						disband_on_peace = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						event_target:duchy_invasion_defender = {
+							num_of_count_titles_in_realm = 24
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 500 500 }
+							light_infantry = { 800 800 }
+							heavy_infantry = { 800 600 }
+						}
+						merge = yes
+						earmark = saxon_invasion_troops
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = {
+						event_target:duchy_invasion_defender = {
+							num_of_count_titles_in_realm = 36
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 400 400 }
+							light_infantry = { 700 700 }
+							heavy_infantry = { 900 900 }
+						}
+						merge = yes
+						earmark = saxon_invasion_troops
+						disband_on_peace = yes
+						maintenance_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						event_target:duchy_invasion_defender = {
+							ai = no
+							num_of_count_titles_in_realm = 20
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							pikemen = { 350 350 }
+							light_infantry = { 400 400 }
+							heavy_infantry = { 400 400 }
+						}
+						merge = yes
+						earmark = saxon_invasion_troops
+						maintenance_multiplier = 0.25
+					}
+				}
+			}
+		}
+		spawn_fleet = {
+			owner = ROOT
+			province = closest
+			disband_on_peace = yes
+			troops = {
+				galleys = { 120 120 }
+			}
+			earmark = saxon_invasion_fleet
+		}
+	}
+}
+
+# Invasion success - abdicate original titles
+character_event = {
+	id = 301619
+	title = "EVTNAME301619"
+	desc = "EVTDESC301619"
+	hide_new = yes
+	picture = "GFX_evt_warships"
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Try to abdicate to a vassal first
+		if = {
+			limit = {
+				any_vassal = {
+					NOR = {
+						ROOT = {
+							current_heir = {
+								character = PREVPREV
+							}
+						}
+						father = {
+							character = ROOT
+						}
+					}
+				}
+			}
+			random_vassal = {
+				limit = {
+					NOR = {
+						ROOT = {
+							current_heir = {
+								character = PREVPREV
+							}
+						}
+						father = {
+							character = ROOT
+						}
+					}
+					is_tribal = yes
+				}
+				save_event_target_as = new_ruler
+			}
+		}
+		# Abdicate to chancellor
+		if = {
+			limit = { 
+				NOT = {
+					event_target:new_ruler = {
+						always = yes
+					}
+				}
+				job_chancellor = {
+					is_tribal = yes
+					NOR = {
+						ROOT = {
+							current_heir = {
+								character = PREVPREV
+							}
+						}
+						father = {
+							character = ROOT
+						}
+					}
+				}
+			}
+			job_chancellor = {
+				save_event_target_as = new_ruler
+			}
+		}
+		# Abdicate to marshal
+		if = {
+			limit = { 
+				NOT = {
+					event_target:new_ruler = {
+						always = yes
+					}
+				}
+				job_marshal = {
+					is_tribal = yes
+					NOR = {
+						ROOT = {
+							current_heir = {
+								character = PREVPREV
+							}
+						}
+						father = {
+							character = ROOT
+						}
+					}
+				}
+			}
+			job_marshal = {
+				save_event_target_as = new_ruler
+			}
+		}
+		# Abdicate to random courtier
+		if = {
+			limit = { 
+				NOT = {
+					event_target:new_ruler = {
+						always = yes
+					}
+				}
+			}
+			random_courtier = {
+				limit = {
+					OR = {
+						is_landed = no
+						is_tribal = yes
+					}
+					NOR = {
+						ROOT = {
+							current_heir = {
+								character = PREVPREV
+							}
+						}
+						father = {
+							character = ROOT
+						}
+					}
+				}
+				save_event_target_as = new_ruler
+			}
+		}
+			
+		if = {
+			limit = { event_target:new_ruler = { is_landed = no } }
+			event_target:new_ruler = {
+				set_character_flag = need_to_set_government
+			}
+		}
+		
+		any_demesne_title = {
+			limit = {
+				NOR = {
+					has_title_flag = new_duchy
+					dejure_liege_title = {
+						OR = {
+							has_title_flag = new_duchy
+							dejure_liege_title = {
+								has_title_flag = new_duchy
+							}
+						}
+					}
+				}
+			}
+			event_target:new_ruler = {
+				grant_title = PREV
+			}
+			if = {
+				limit = { tier = BARON }
+				refill_holding_levy = yes
+			}
+		}
+		
+		event_target:new_ruler = {
+			if = {
+				limit = { has_character_flag = need_to_set_government }
+				if = {
+					limit = { ROOT = { government = tribal_government } }
+					set_government_type = tribal_government
+				}
+				else_if = {
+					limit = { ROOT = { government = high_tribal_government } }
+					set_government_type = high_tribal_government
+				}
+				else = {		# Shouldn't be possible, but just in case
+					set_government_type = germanic_government
+				}
+			}
+		}
+		
+		# Send event for Saxon settlement
+		character_event = { id = 301621 days = 365 random = 180 }
+	}
+	
+	option = {
+		name = "EVTOPTA301619"
+		prestige = 100
+		if = {
+			limit = { is_tribal = yes }
+			set_government_type = germanic_government
+		}	
+	}
+}
+
+# Clear flag if no war is declared
+character_event = {
+	id = 301620
+	title = "EVTNAME301620"
+	desc = "EVTDESC301620"
+	hide_new = yes
+	picture = "GFX_evt_battle"
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { 
+			any_war = {
+				using_cb = duchy_invasion_event
+			}
+		}
+		has_character_flag = saxon_gallic_invasion_allowed
+	}
+	
+	immediate = {
+		clr_character_flag = saxon_gallic_invader
+		clr_character_flag = saxon_gallic_invasion_allowed
+	}
+	
+	option = {
+		name = "EVTOPTA301620"
+		prestige = -100
+	}
+}
+
+# Change Culture and Religion upon Conquest (bounce)
+character_event = {
+	id = 301621	
+	hide_new = yes
+	picture = "GFX_evt_winter_village_crow"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				is_landed = yes
+				is_ingvaeonic_culture_trigger = yes
+				capital_scope = {
+					region = custom_northwest_gaul
+					NOT = { culture = ROOT }
+					NOT = { culture = armorican }
+				}
+			}
+			capital_scope = {
+				province_event = { id = 301622 }
+			}
+		}
+	}
+}
+
+# Actual event
+province_event = {
+	id = 301622
+	title = "EVTNAME301622"
+	desc = "EVTDESC301622"
+	
+	hide_new = yes
+	picture = "GFX_evt_winter_village_crow"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA301622"
+		owner = {
+			ROOT = {
+				culture = PREV
+				religion = PREV
+			}
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_1
+			}
+			remove_province_modifier = depopulated_1
+			clr_province_flag = angeln_depopulation
+			clr_province_flag = southern_britain_depopulation
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_2
+			}
+			remove_province_modifier = depopulated_2
+		}
+		if = {
+			limit = {
+				has_province_modifier = depopulated_3
+			}
+			remove_province_modifier = depopulated_3
+		}
+	}
+}

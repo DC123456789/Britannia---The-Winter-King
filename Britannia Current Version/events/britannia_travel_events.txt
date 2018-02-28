@@ -1,0 +1,1154 @@
+###########################################
+###		BRITANNIA - Travellers Events	###
+###		Ids 3124150 - 3124159			###
+###########################################
+
+# Travellers from far away lands
+character_event = {				# Germanic Pagan
+	id = 3124150
+	desc = "EVTDESC3124150"
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_playable = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		prestige = 300
+		wealth = 50
+		higher_tier_than = baron
+		NOR = {
+			culture = ostrogoth
+			culture = visigoth
+			culture = frisian
+			culture = oldfrisian
+			culture = oldthuringian
+			culture = thuringian
+			culture = vandal
+		}
+		OR = {
+			NOT = {
+				has_character_flag = traveller_received
+			}
+			had_character_flag = { flag = traveller_received days = 3650 }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_tooltip = {
+			create_character = {
+				random_traits = yes
+				culture = visigoth
+				dynasty = none
+				female = no
+				age = 30
+			}
+			new_character = {
+				change_diplomacy = 5
+				change_stewardship = 3
+				change_intrigue = 3
+				change_learning = 4
+				random_list = {
+					25 = {
+						if = {
+							limit = { NOT = { has_global_flag = frisian_culture_switched } }
+							culture = oldfrisian
+						}
+						if = {
+							limit = { has_global_flag = frisian_culture_switched }
+							culture = frisian
+						}
+						religion = germanic_pagan
+					}
+					25 = {
+						convert_to_thuringian_culture_effect = yes
+						religion = suebic_pagan
+					}
+					25 = {
+						culture = ostrogoth
+						religion = roman_pagan
+					}
+					25 = {
+						culture = visigoth
+						religion = roman_pagan
+					}
+					25 = {
+						culture = vandal
+						religion = roman_pagan
+					}
+				}
+				set_graphical_culture = THIS
+				random_list = {
+					10 = { add_trait = poet }
+					10 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					10 = { add_trait = musician }
+					10 = { add_trait = duelist }
+					10 = { add_trait = hunter }
+					30 = { add_trait = trained_warrior }
+					20 = { add_trait = skilled_warrior }
+					10 = { add_trait = master_warrior }
+					10 = {
+						give_nickname = nick_the_traveller
+						dynasty = random
+					}
+				}
+				random_list = {
+					20 = { add_trait = loyal }
+					20 = { add_trait = veteran }
+					15 = { add_trait = honorable }
+					15 = { add_trait = quick }
+					15 = { add_trait = strong }
+					10 = { add_trait = tolerant }
+				}
+				remove_trait = slow
+				remove_trait = gluttonous
+				remove_trait = arbitrary
+				remove_trait = chaste
+				remove_trait = craven
+				remove_trait = slothful
+				remove_trait = imbecile
+				set_character_flag = arrived_traveller
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3124150"
+		set_character_flag = traveller_received
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 0.25
+				trait = paranoid
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = charitable
+					trait = gregarious
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}	
+	
+	option = {
+		name = "EVTOPTB3124150"
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = charitable
+					trait = gregarious
+					trait = kind
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3124150"
+		trigger = {
+			OR = {
+				trait = cynical
+				trait = shy
+				trait = cruel
+				trait = ruthless
+				trait = deceitful
+				intrigue = 12
+			}
+		}
+		if = {
+			limit ={
+				NOT = {	trait = paranoid }
+			}
+			random = {
+				chance = 25
+				add_trait = paranoid
+			}
+		}
+		add_character_modifier = {
+			name = the_suspicious
+			duration = 90
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					trait = kind
+					trait = charitable
+					trait = honorable
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = cruel
+					trait = impaler
+					trait = ruthless
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD3124150"
+		trigger = {
+			religion_group = christian
+		}
+		piety = 10
+		if = {
+			limit ={
+				NOT = {	trait = zealous }
+			}
+			random = {
+				chance = 15
+				add_trait = zealous
+			}
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+character_event = {				# Germanic Christian
+	id = 3124151
+	desc = "EVTDESC3124150"
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_playable = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		prestige = 300
+		wealth = 50
+		higher_tier_than = baron
+		NOR = {
+			culture = ostrogoth
+			culture = visigoth
+			culture = frisian
+			culture = oldfrisian
+			culture = oldthuringian
+			culture = thuringian
+			culture = vandal
+		}
+		OR = {
+			NOT = {
+				has_character_flag = traveller_received
+			}
+			had_character_flag = { flag = traveller_received days = 3650 }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_tooltip = {
+			create_character = {
+				random_traits = yes
+				culture = visigoth
+				religion = catholic
+				dynasty = none
+				female = no
+				age = 36
+			}
+			new_character = {
+				change_diplomacy = 5
+				change_stewardship = 3
+				change_intrigue = 3
+				change_learning = 4
+				random_list = {
+					25 = {
+						if = {
+							limit = { NOT = { has_global_flag = frisian_culture_switched } }
+							culture = oldfrisian
+						}
+						if = {
+							limit = { has_global_flag = frisian_culture_switched }
+							culture = frisian
+						}
+						religion = catholic
+					}
+					25 = {
+						convert_to_thuringian_culture_effect = yes
+						religion = catholic
+					}
+					25 = {
+						culture = ostrogoth
+						religion = arian
+					}
+					25 = {
+						culture = visigoth
+						religion = arian
+					}
+					25 = {
+						culture = vandal
+						religion = arian
+					}
+				}
+				set_graphical_culture = THIS
+				random_list = {
+					10 = { add_trait = poet }
+					15 = { add_trait = scholar }
+					10 = { add_trait = chaste }
+					10 = { add_trait = musician }
+					10 = { add_trait = duelist }
+					15 = { add_trait = hunter }
+					20 = { add_trait = trained_warrior }
+					10 = { add_trait = skilled_warrior }
+					20 = { add_trait = authoritative }
+				}
+				random_list = {
+					20 = { add_trait = loyal }
+					20 = { add_trait = veteran }
+					15 = { add_trait = honorable }
+					15 = { add_trait = quick }
+					15 = { add_trait = strong }
+					10 = { add_trait = tolerant }
+				}
+				remove_trait = slow
+				remove_trait = gluttonous
+				remove_trait = arbitrary
+				remove_trait = slothful
+				remove_trait = craven
+				remove_trait = imbecile
+				set_character_flag = arrived_traveller
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3124150"
+		set_character_flag = traveller_received
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 0.25
+				trait = paranoid
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = charitable
+					trait = gregarious
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}	
+	
+	option = {
+		name = "EVTOPTB3124150"
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = charitable
+					trait = gregarious
+					trait = kind
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3124150"
+		trigger = {
+			OR = {
+				trait = cynical
+				trait = shy
+				trait = cruel
+				trait = ruthless
+				trait = deceitful
+				intrigue = 12
+			}
+		}
+		if = {
+			limit ={
+				NOT = {	trait = paranoid }
+			}
+			random = {
+				chance = 25
+				add_trait = paranoid
+			}
+		}
+		add_character_modifier = {
+			name = the_suspicious
+			duration = 90
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					trait = kind
+					trait = charitable
+					trait = honorable
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = cruel
+					trait = impaler
+					trait = ruthless
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTE3124150"
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+		piety = 10
+		if = {
+			limit ={
+				NOT = {	trait = zealous }
+			}
+			random = {
+				chance = 15
+				add_trait = zealous
+			}
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+character_event = {				# Imperial Pagan
+	id = 3124152
+	desc = "EVTDESC3124150"
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_playable = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		prestige = 300
+		wealth = 50
+		higher_tier_than = baron
+		NOT = {
+			AND = {
+				culture_group = imperiale
+				NOT = { 
+					OR = {
+						has_landed_title = e_gaul 
+						has_landed_title = e_roman_britannia
+					}
+				}
+			}
+		}
+		OR = {
+			NOT = {
+				has_character_flag = traveller_received
+			}
+			had_character_flag = { flag = traveller_received days = 3650 }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_tooltip = {
+			create_character = {
+				random_traits = yes
+				culture = roman
+				dynasty = none
+				female = no
+				age = 26
+			}
+			new_character = {
+				change_diplomacy = 5
+				change_stewardship = 4
+				change_intrigue = 4
+				change_learning = 4
+				random_list = {
+					70 = {
+						culture = roman
+						religion = roman_pagan
+					}
+					20 = {
+						culture = armenian
+						religion = roman_pagan
+					}
+					20 = {
+						culture = greek
+						religion = roman_pagan
+					}
+				}
+				set_graphical_culture = THIS
+				random_list = {
+					10 = { add_trait = poet }
+					20 = { add_trait = scholar }
+					10 = { add_trait = mystic }
+					10 = { add_trait = musician }
+					10 = { add_trait = duelist }
+					10 = { add_trait = falconer }
+					30 = { add_trait = trained_warrior }
+					20 = { add_trait = skilled_warrior }
+					20 = { add_trait = master_warrior }
+					10 = {
+						give_nickname = nick_the_traveller
+						dynasty = random
+					}
+				}
+				random_list = {
+					20 = { add_trait = loyal }
+					30 = { add_trait = veteran }
+					25 = { add_trait = honorable }
+					15 = { add_trait = quick }
+					15 = { add_trait = strong }
+					10 = { add_trait = tolerant }
+				}
+				remove_trait = slow
+				remove_trait = gluttonous
+				remove_trait = arbitrary
+				remove_trait = chaste
+				remove_trait = craven
+				remove_trait = slothful
+				remove_trait = imbecile
+				remove_trait = humble
+				set_character_flag = arrived_traveller
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3124150"
+		set_character_flag = traveller_received
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 0.25
+				trait = paranoid
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = charitable
+					trait = gregarious
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}	
+	
+	option = {
+		name = "EVTOPTB3124150"
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = charitable
+					trait = gregarious
+					trait = kind
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3124150"
+		trigger = {
+			OR = {
+				trait = cynical
+				trait = shy
+				trait = cruel
+				trait = ruthless
+				trait = deceitful
+				intrigue = 12
+			}
+		}
+		if = {
+			limit ={
+				NOT = {	trait = paranoid }
+			}
+			random = {
+				chance = 25
+				add_trait = paranoid
+			}
+		}
+		add_character_modifier = {
+			name = the_suspicious
+			duration = 90
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					trait = kind
+					trait = charitable
+					trait = honorable
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = cruel
+					trait = impaler
+					trait = ruthless
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD3124150"
+		trigger = {
+			religion_group = christian
+		}
+		piety = 10
+		if = {
+			limit ={
+				NOT = {	trait = zealous }
+			}
+			random = {
+				chance = 15
+				add_trait = zealous
+			}
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+character_event = {				# Imperial Christian
+	id = 3124153
+	desc = "EVTDESC3124150"
+	picture = "GFX_evt_castle_rider_arriving"
+	
+	is_triggered_only = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_playable = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		war = no
+		in_command = no
+		prestige = 300
+		wealth = 50
+		higher_tier_than = baron
+		NOT = {
+			AND = {
+				culture_group = imperiale
+				NOT = {					
+					OR = {
+						has_landed_title = e_gaul 
+						has_landed_title = e_roman_britannia
+					}
+				}
+			}
+		}
+		OR = {
+			NOT = {
+				has_character_flag = traveller_received
+			}
+			had_character_flag = { flag = traveller_received days = 3650 }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	immediate = {
+		hidden_tooltip = {
+			create_character = {
+				random_traits = yes
+				culture = greek
+				dynasty = none
+				female = no
+				age = 50
+			}
+			new_character = {
+				change_diplomacy = 5
+				change_stewardship = 3
+				change_intrigue = 4
+				change_learning = 5
+				random_list = {
+					40 = {
+						culture = roman
+						religion = catholic
+					}
+					20 = {
+						culture = roman
+						religion = gnostic
+					}
+					20 = {
+						culture = greek
+						religion = catholic
+					}
+					15 = {
+						culture = greek
+						religion = nestorian
+					}
+					15 = {
+						culture = armenian
+						religion = catholic
+					}
+					10 = {
+						culture = armenian
+						religion = nestorian
+					}
+					10 = {
+						culture = roman
+						religion = arian
+					}
+				}
+				set_graphical_culture = THIS
+				random_list = {
+					10 = { add_trait = poet }
+					20 = { add_trait = scholar }
+					10 = { add_trait = musician }
+					10 = { add_trait = duelist }
+					10 = { add_trait = authoritative }
+					20 = { add_trait = trained_warrior }
+					10 = { add_trait = ambitious }
+				}
+				random_list = {
+					20 = { add_trait = loyal }
+					30 = { add_trait = veteran }
+					25 = { add_trait = honorable }
+					15 = { add_trait = quick }
+					10 = {
+						add_trait = zealous
+						add_trait = authoritative
+						give_nickname = nick_the_apostle
+					}
+					10 = { add_trait = tolerant }
+				}
+				remove_trait = slow
+				remove_trait = gluttonous
+				remove_trait = arbitrary
+				remove_trait = craven
+				remove_trait = slothful
+				remove_trait = imbecile
+				set_character_flag = arrived_traveller
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3124150"
+		set_character_flag = traveller_received
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 0.25
+				trait = paranoid
+			}
+			modifier = {
+				factor = 1.5
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = charitable
+					trait = gregarious
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}	
+	
+	option = {
+		name = "EVTOPTB3124150"
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					trait = charitable
+					trait = gregarious
+					trait = kind
+					learning = 12
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					trait = shy
+					trait = rude
+					trait = lunatic
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3124150"
+		trigger = {
+			OR = {
+				trait = cynical
+				trait = shy
+				trait = cruel
+				trait = ruthless
+				trait = deceitful
+				intrigue = 12
+			}
+		}
+		if = {
+			limit ={
+				NOT = {	trait = paranoid }
+			}
+			random = {
+				chance = 25
+				add_trait = paranoid
+			}
+		}
+		add_character_modifier = {
+			name = the_suspicious
+			duration = 90
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					trait = kind
+					trait = charitable
+					trait = honorable
+					trait = just
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = paranoid
+			}
+			modifier = {
+				factor = 0.75
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					trait = cruel
+					trait = impaler
+					trait = ruthless
+					trait = arbitrary
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTE3124150"
+		trigger = {
+			NOT = { religion_group = christian }
+		}
+		piety = 10
+		if = {
+			limit ={
+				NOT = {	trait = zealous }
+			}
+			random = {
+				chance = 15
+				add_trait = zealous
+			}
+		}
+		any_courtier = {
+			limit = {
+				has_character_flag = arrived_traveller
+			}
+			banish = yes
+			clr_character_flag = arrived_traveller
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}

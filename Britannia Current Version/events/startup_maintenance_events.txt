@@ -1,0 +1,2315 @@
+############################################################
+########    Britannia 479 AD - The Winter King     	########
+########    STARTUP and MAINTENANCE Events      	######## 
+######## 	Ids 110018 - 110020						########
+######## 	Ids 312995 - 312999						########
+######## 	Ids 319000 - 319199						########
+######## 	Ids	3120312 - 3120314					########
+######## 	Ids 3129205 - 3129207					########
+######## 	Ids 31203121 - 31203125					########
+############################################################
+
+### STARTUP Event ###
+character_event = {			# STARTUP Event (called by character 666)
+	id = 3120312
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	hide_window = yes
+	
+	hide_from = yes
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = startup }
+	}
+	
+	immediate = {
+		#set_global_flag = debug
+#		ROOT = {				##### RELIGION AUTHORITY Initial Values #####
+#			religion = catholic
+#			religion_authority = {
+#				modifier = catholic_authority
+#			}
+#			religion = arian
+#			religion_authority = {
+#				modifier = arian_authority
+#			}
+#			religion = gnostic
+#			religion_authority = {
+#				modifier = gnostic_authority
+#			}
+#			religion = nestorian
+#			religion_authority = {
+#				modifier = nestorian_authority
+#			}
+#			religion = pelagian
+#			religion_authority = {
+#				modifier = pelagian_authority
+#			}
+#			religion = germanic_pagan
+#			religion_authority = {
+#				modifier = germanic_pagan_authority
+#			}
+#			religion = gael_pagan
+#			religion_authority = {
+#				modifier = gael_pagan_authority
+#			}
+#			religion = briton_pagan
+#			religion_authority = {
+#				modifier = old_gods_authority
+#			}
+#			religion = roman_pagan
+#			religion_authority = {
+#				modifier = roman_pagan_authority
+#			}
+#		}
+		any_playable_ruler = {			### DEFAULT LAWS ###
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = feudal_tax_0 }
+					NOT = { has_law = feudal_tax_1 }
+					NOT = { has_law = feudal_tax_2 }
+					NOT = { has_law = feudal_tax_3 }
+				}
+				add_law = feudal_tax_0
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = feudal_contract_0 }
+					NOT = { has_law = feudal_contract_1 }
+					NOT = { has_law = feudal_contract_2 }
+					NOT = { has_law = feudal_contract_3 }
+				}
+				add_law = feudal_contract_2
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = city_tax_0 }
+					NOT = { has_law = city_tax_1 }
+					NOT = { has_law = city_tax_2 }
+					NOT = { has_law = city_tax_3 }
+				}
+				add_law = city_tax_1
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = city_contract_0 }
+					NOT = { has_law = city_contract_1 }
+					NOT = { has_law = city_contract_2 }
+					NOT = { has_law = city_contract_3 }
+				}
+				add_law = city_contract_1
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = temple_tax_0 }
+					NOT = { has_law = temple_tax_1 }
+					NOT = { has_law = temple_tax_2 }
+					NOT = { has_law = temple_tax_3 }
+				}
+				add_law = temple_tax_1
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = temple_contract_0 }
+					NOT = { has_law = temple_contract_1 }
+					NOT = { has_law = temple_contract_2 }
+					NOT = { has_law = temple_contract_3 }
+				}
+				add_law = temple_contract_1
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = baron
+					NOT = { has_law = mil_train_0 }
+					NOT = { has_law = mil_train_1 }
+					NOT = { has_law = mil_train_2 }
+				}
+				add_law = mil_train_1
+			}
+		}
+		# Add High Tribal buildings
+		any_province = {
+			any_province_holding = {
+				limit = {
+					holding_type = tribal
+					holder_scope = { NOT = { government = tribal_government } }
+				}
+				add_building = tb_market_town_1
+				add_building = tb_market_town_2
+				add_building = tb_market_town_3
+				add_building = tb_training_grounds_1
+				add_building = tb_training_grounds_2
+				add_building = tb_war_camp_1
+				add_building = tb_war_camp_2
+				add_building = tb_practice_range_1
+				add_building = tb_practice_range_2
+				add_building = tb_arsenal_1
+				add_building = tb_arsenal_2
+				add_building = tb_hillfort_1
+				add_building = tb_hillfort_2
+				add_building = tb_hillfort_3
+				add_building = tb_hillfort_4
+				random_list = {
+					50 = {
+						add_building = tb_hillfort_5
+					}
+					50 = {
+						add_building = tb_market_town_4
+					}
+				}
+				random_list = {
+					25 = {
+						add_building = tb_training_grounds_3
+					}
+					25 = {
+						add_building = tb_war_camp_3
+					}
+					25 = {
+						add_building = tb_practice_range_3
+					}
+					25 = {
+						add_building = tb_arsenal_3
+					}
+				}
+			}
+		}
+		# Remove King Mark of Kernow's claim on Dumnonia
+		event_target:mark_of_cornwall = {
+			remove_claim = k_dumnonia
+		}
+		# Fix Prince Gereint of the Stones' claims
+		event_target:gereint_of_the_stones = {
+			if = {
+				limit = {
+					has_claim = k_dumnonia
+				}
+				remove_claim = k_dumnonia
+				remove_claim = k_kernow
+				add_weak_pressed_claim = k_dumnonia
+			}
+		}
+		# Set proper legion government and legion commander traits
+		any_character = {
+			limit = { 
+				primary_title = {
+					is_roman_legion_title_trigger = yes
+				}
+			}
+			if = {
+				limit = { NOT = { government = legion_government } }
+				set_government_type = legion_government
+			}
+			character_event = { id = 315902 }
+		}
+		# Set Catholic bishopric succesion
+		any_character = {
+			limit = { 
+				tier = BARON
+				is_theocracy = yes
+				religion = catholic
+			}
+			primary_title = { succession = catholic_bishopric }
+			recalc_succession = yes
+		}
+		any_character = {
+			if = {
+				limit = { 
+					is_landed = yes 
+					higher_tier_than = BARON
+				}
+				# Calculate Tribal prestige/realm size modifier
+				character_event = { id = 301956 }
+			}
+			set_character_flag = ethnicity_set
+		}
+	}
+	
+	option = {
+		name = "OK"
+		set_global_flag = maintenance_pulse
+		set_global_flag = maintenance_year_pulse
+		set_global_flag = startup
+		
+		any_playable_ruler = {
+			set_variable = { which = "years_of_peace" value = 0 }
+		}
+	}
+}
+
+### MASTER DEATH Event ###
+character_event = {
+	id = 31203121
+	desc = "EVTDESC31203121"
+	
+	picture = GFX_evt_death
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {		
+		if = {						# Excalibur is lost on Arthur's death
+			limit = {
+				has_artifact = excalibur
+				character = 3
+			}
+			destroy_artifact = excalibur
+		}
+			
+		if = {						# Excalibur Succession
+			limit = {
+				has_artifact = excalibur
+				NOT = { character = 3 }
+			}
+			if = { 
+				limit = { 
+					is_ruler = yes
+					current_heir = { dynasty = ROOT is_alive = yes  }
+				}
+				current_heir = {
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 5 }
+				}
+				add_trait = dead_target
+			}
+			if = { 
+				limit = { NOT = { trait = dead_target } }
+				random_child = {
+					limit = { dynasty = ROOT is_alive = yes }
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+					ROOT = { add_trait = dead_target }
+				}	
+			}	
+			if = {
+				limit = { NOT = { trait = dead_target } }
+				random_sibling = {
+					limit = { dynasty = ROOT is_alive = yes }
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+					ROOT = { add_trait = dead_target }
+				}	
+			}	
+			if = {
+				limit = { NOT = { trait = dead_target } }
+				random_dynasty_member = {
+					limit = { is_alive = yes }
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+					ROOT = { add_trait = dead_target }
+				}
+			}
+			if = {
+				limit = { NOT = { trait = dead_target } }
+				random_child = {
+					limit = { is_primary_heir = yes is_alive = yes }
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+					ROOT = { add_trait = dead_target }
+				}
+			}
+			if = {
+				limit = { NOT = { trait = dead_target } }
+				random_child = {
+					limit = { is_alive = yes }
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+					ROOT = { add_trait = dead_target }
+				}
+			}
+			if = {
+				limit = { 
+					NOT = { trait = dead_target }
+					spouse = { is_alive = yes }		
+				}
+				spouse = {
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+				}
+				add_trait = dead_target
+			}
+			if = {
+				limit = { 
+					NOT = { trait = dead_target }	
+					liege = { NOT = { character = ROOT } }
+				}
+				liege = {
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+				}
+				add_trait = dead_target
+			}
+			if = {
+				limit = { 
+					NOT = { trait = dead_target }	
+				}
+				random_vassal = {
+					ROOT = {
+						any_artifact = {
+							limit = { artifact_type = excalibur }
+							transfer_artifact = {
+								from = ROOT
+								to = PREVPREV
+							}
+						}
+					}
+					character_event = { id = 31203125 days = 2 }
+				}
+			}
+			
+			remove_trait = dead_target
+		}
+	}
+		
+	option = {			# Celtic Pagan
+		name = "EVTOPTA31203121"
+		trigger = {
+			religion_group = pagan_group
+			culture_group = celtic
+		}
+	}
+	option = {			# Christian
+		name = "EVTOPTB31203121"
+		trigger = {
+			religion_group = christian
+		}
+	}
+	option = {			# Germanic
+		name = "EVTOPTC31203121"
+		trigger = {
+			religion_group = pagan_group
+			culture_group = germanic
+		}
+	}
+	option = {			# Imperial
+		name = "EVTOPTD31203121"
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+	}
+}
+
+
+# Excalibur Inheritance
+character_event = {   
+	id = 31203125
+	title = "EVTNAME31203125"
+	desc = "EVTDESC31203125"
+	picture = "GFX_evt_treasures"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = inherited_excalibur }
+	}
+	
+	immediate = { set_character_flag = inherited_excalibur }
+	
+	option = {
+		name = "EVTOPTA31203125"
+		prestige = 25
+	}
+}
+
+
+### MASTER SUCCESSION Event ###
+character_event = {
+	id = 31203122
+	desc = "You're not supposed to see this..."
+	
+	picture = GFX_evt_death
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {						# Collapse Cynerice of Aenglaland
+			limit = {
+				NOT = { ROOT = { has_character_flag = gained_aengland } }
+				FROM = { title = e_aengland }
+			}
+			if = {						# Jarldoms of Anglia
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_anglia }
+					}
+				}
+				k_anglia = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_anglia
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of East Anglia
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_east_anglia }
+					}
+				}
+				k_east_anglia = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_east_anglia
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of Mercia
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_mercia }
+					}
+				}
+				k_mercia = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_mercia
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of West Seaxe
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_wessex }
+					}
+				}
+				k_wessex = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_wessex
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of Northumbria
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_northumbria }
+					}
+				}
+				k_northumbria = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_northumbria
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of Cantia
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_cantia }
+					}
+				}
+				k_cantia = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_cantia
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of East Seaxe
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_eastseaxe }
+					}
+				}
+				k_eastseaxe = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_eastseaxe
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			if = {						# Jarldoms of South Seaxe
+				limit = {
+					e_aengland = {
+						any_vassal = { has_landed_title = k_sussex }
+					}
+				}
+				k_sussex = {
+					e_aengland = {
+						any_vassal = {
+							limit = {
+								tier = DUKE
+								de_jure_liege_or_above = k_sussex
+							}
+							set_defacto_liege = PREVPREVPREV
+						}
+					}
+				}
+			}
+			
+			any_demesne_title = {
+				limit = {
+					tier = KING
+				}
+				e_aengland = {
+					any_vassal = {
+						limit = {
+							OR = {
+								tier = BARON
+								tier = COUNT
+							}
+						}
+						set_defacto_liege = PREVPREV
+					}
+				}
+			}
+			
+			e_aengland = { destroy_landed_title = e_aengland }
+		}
+		
+		ROOT = {
+			if = {		# Disband Temporary Tribal Titles
+				limit = {
+					any_demesne_title = {
+						has_title_flag = temporary_tribal_title
+						ROOT = {
+							any_demesne_title = {
+								NOT = { has_title_flag = temporary_tribal_title }
+								temporary = no
+								OR = {
+									higher_tier_than = PREVPREV
+									tier = PREVPREV
+								}
+							}
+						}
+					}
+				}
+				any_demesne_title = {
+					limit = {
+						has_title_flag = temporary_tribal_title
+						ROOT = {
+							any_demesne_title = {
+								NOT = { has_title_flag = temporary_tribal_title }
+								temporary = no
+								OR = {
+									higher_tier_than = PREVPREV
+									tier = PREVPREV
+								}
+							}
+						}
+					}
+					destroy_landed_title = THIS
+					activate_title = { title = THIS status = no }
+				}
+			}
+		}
+
+		if = {		# Disband Arthur's Company if someone other than Arthur somehow gets it
+			limit = {
+				ROOT = {
+					NOR = { 
+						has_character_flag = arthur
+						has_landed_title = c_null 
+					}
+				}
+				FROM = { title = c_arthur_company }
+			}
+
+			c_arthur_company = {
+				destroy_landless_count_level_title_effect = yes
+			}
+		}
+	}
+}
+
+### Traits Maintenance ###
+character_event = {	# Clearing Loyal and Unloyal traits
+	id = 319000
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		ai = yes
+		higher_tier_than = COUNT
+		independent = yes
+		OR = {
+			trait = loyal
+			trait = unloyal
+		}
+	}
+	
+	option = {
+		name = "OK"
+		remove_trait = loyal
+		remove_trait = unloyal
+	}
+}
+character_event = {	# Mercenary Captains
+	id = 3190001
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_warband_on_hill"	
+	
+	only_playable = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	hide_window = yes
+	
+	trigger = {
+		mercenary = yes
+		OR = {
+			NOT = { has_character_flag = mercenary_captain }
+			had_character_flag = { flag = mercenary_captain days = 180 }
+			AND = {
+				independent = no
+				liege = {
+					NOT = { has_character_flag = mercenary_liege }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_character_flag = mercenary_captain
+		
+		if = {			# Identify Liege if Vassalized
+			limit = { independent = no }
+			liege = { set_character_flag = mercenary_liege }
+		}
+		
+		if = {			# Veteran Trait
+			limit = {
+				ai = yes
+				NOT = { trait = veteran }
+				NOT = { trait = war_hero }
+			}
+			add_trait = veteran
+		} 
+		
+		if = {			# Martial Boost
+			limit = {
+				ai = yes
+				NOT = { martial = 10 }
+			}
+			change_martial = 2
+		}
+		if = {			# Swords of Sussex
+			limit = {
+				ai = yes
+				NOT = { martial = 10 }
+			}
+			change_martial = 2
+		}
+		if = {			# Swords of Sussex
+			limit = {
+				ai = yes
+				NOT = { martial = 10 }
+			}
+			change_martial = 2
+		}
+		
+		if = {			# Combat Skill
+			limit = {
+				ai = yes
+				NOT = {
+					OR = {
+						trait = poor_warrior
+						trait = trained_warrior
+						trait = skilled_warrior
+						trait = master_warrior
+					}
+				}
+			}
+			random_list = {
+				10 = { add_trait = poor_warrior }
+				50 = { add_trait = trained_warrior }
+				30 = { add_trait = skilled_warrior }
+				10 = { add_trait = master_warrior }
+			}
+		}
+		if = {			# Military Education
+			limit = {
+				ai = yes
+				NOT = {
+					OR = {
+						trait = misguided_warrior
+						trait = tough_soldier
+						trait = skilled_tactician
+						trait = brilliant_strategist
+					}
+				}
+			}
+			random_list = {
+				10 = { add_trait = misguided_warrior }
+				60 = { add_trait = tough_soldier }
+				20 = { add_trait = skilled_tactician }
+				10 = { add_trait = brilliant_strategist }
+			}
+		}
+		
+		if = {			# Roman Trained Trait
+			limit = {
+				ai = yes
+				government = legion_government
+				NOT = { trait = roman_trained }
+			}
+			add_trait = roman_trained
+		}
+		
+		if = {			# Religion Conversion if Vassalized (after 2 years, and only if not zealous/proud/selfish/unloyal)
+			limit = {
+				AND = {
+					independent = no
+					ai = yes
+					liege = {
+						NOT = { religion = ROOT }
+						NOT = { trait = tolerant }
+						ruled_years = 2
+					}
+					NOT = { trait = zealous }
+					NOT = { trait = selfish }
+					NOT = { trait = unloyal }
+					NOT = { trait = proud }
+				}
+			}
+			liege = {
+				reverse_religion = ROOT
+			}
+		}
+		
+		if = {			# Spears of Mercia
+			limit = {
+				AND = {
+					has_landed_title = d_spears_of_mercia
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_mercia }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_mercia }
+							}
+						}
+						liege = {
+							NOT = { culture_group = germanic }
+						}
+					}
+				}
+			}
+			d_spears_of_mercia = { destroy_landed_title = d_spears_of_mercia }
+		}
+		if = {			# Spears of Bernicia
+			limit = {
+				AND = {
+					has_landed_title = d_spears_of_bernicia
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_northumbria }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_northumbria }
+							}
+						}
+						liege = {
+							NOT = { culture_group = germanic }
+						}
+					}
+				}
+			}
+			d_spears_of_bernicia = { destroy_landed_title = d_spears_of_bernicia }
+		}
+		if = {			# Swords of Sussex
+			limit = {
+				AND = {
+					has_landed_title = d_swords_of_sussex
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_sussex }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_sussex }
+							}
+						}
+						liege = {
+							NOT = { culture_group = germanic }
+						}
+					}
+				}
+			}
+			d_swords_of_sussex = { destroy_landed_title = d_swords_of_sussex }
+		}
+		if = {			# Saxon Black Guard
+			limit = {
+				AND = {
+					has_landed_title = c_saxon_black_guard
+					independent = no
+					ai = yes
+					liege = {
+						NOT = { culture_group = germanic }
+					}
+				}
+			}
+			c_saxon_black_guard = { destroy_landed_title = c_saxon_black_guard }
+		}
+		if = {			# Warriors of Britain
+			limit = {
+				AND = {
+					has_landed_title = d_warriors_of_britain
+					independent = no
+					ai = yes
+					liege = {
+						NOT = { culture_group = celtic }
+					}
+				}
+			}
+			d_warriors_of_britain = { destroy_landed_title = d_warriors_of_britain }
+		}
+		if = {			# Spears of Gwynedd
+			limit = {
+				AND = {
+					has_landed_title = c_spears_of_gwynedd
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_gwynedd }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_gwynedd }
+							}
+						}
+						liege = {
+							NOT = { culture_group = celtic }
+						}
+					}
+				}
+			}
+			c_spears_of_gwynedd = { destroy_landed_title = c_spears_of_gwynedd }
+		}
+		if = {			# Spears of Leinster
+			limit = {
+				AND = {
+					has_landed_title = d_spears_of_leinster
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_leinster }
+								NOT = { has_landed_title = e_ireland }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_leinster }
+								NOT = { has_landed_title = e_ireland }
+							}
+						}
+						liege = {
+							NOT = { culture_group = celtic }
+						}
+					}
+				}
+			}
+			d_spears_of_leinster = { destroy_landed_title = d_spears_of_leinster }
+		}
+		if = {			# Kerns of Connacht
+			limit = {
+				AND = {
+					has_landed_title = d_kerns_of_connacht
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_connacht }
+								NOT = { has_landed_title = e_ireland }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_connacht }
+								NOT = { has_landed_title = e_ireland }
+							}
+						}
+						liege = {
+							NOT = { culture_group = celtic }
+						}
+					}
+				}
+			}
+			d_kerns_of_connacht = { destroy_landed_title = d_kerns_of_connacht }
+		}
+		if = {			# Ystrad Clud Archers
+			limit = {
+				AND = {
+					has_landed_title = c_ystradcludiansagittarii
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_strathclyde }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_strathclyde }
+							}
+						}
+						liege = {
+							NOT = { culture_group = celtic }
+						}
+					}
+				}
+			}
+			c_ystradcludiansagittarii = { destroy_landed_title = c_ystradcludiansagittarii }
+		}
+		if = {			# Sails of Dalriada
+			limit = {
+				AND = {
+					has_landed_title = d_sails_of_dalriada
+					independent = no
+					ai = yes
+					OR = {
+						AND ={
+							liege = {
+								NOT = { has_landed_title = k_dalriada }
+								NOT = { has_landed_title = e_alba }
+							}
+							top_liege = {
+								NOT = { has_landed_title = k_dalriada }
+								NOT = { has_landed_title = e_alba }
+							}
+						}
+						liege = {
+							NOT = { culture_group = celtic }
+						}
+					}
+				}
+			}
+			d_sails_of_dalriada = { destroy_landed_title = d_sails_of_dalriada }
+		}
+		
+		set_character_flag = mercenary_captain
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+
+
+### Long Period of Peace ###
+character_event = {		# 10 Years
+	id = 319050
+	desc = "EVTDESC319050"
+	picture = "GFX_evt_royal_court"
+	
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	only_playable = yes
+	
+	trigger = {
+		higher_tier_than = baron
+		ruled_years = 10
+		check_variable = { which = "years_of_peace" value = 9.5 }
+		war = no
+		NOT = { has_character_flag = 10_years_of_peace_flag }
+	}
+	
+	mean_time_to_happen = {
+		days = 1		
+	}
+	
+	immediate = {
+		set_character_flag = 10_years_of_peace_flag
+	}
+	
+	option = {
+		name = "EVTOPTA319050"
+		ROOT = {
+			change_martial = -1
+			change_diplomacy = 1
+			change_intrigue = 1
+			if = {
+				limit = { religion_group = christian }
+				piety = 25
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				change_martial = -1
+				change_diplomacy = 1
+				change_intrigue = 1
+			}
+		}
+	}
+}
+character_event = {		# 15 Years
+	id = 319051
+	desc = "EVTDESC319051"
+	picture = "GFX_evt_royal_court"
+	
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	only_playable = yes
+	
+	trigger = {
+		higher_tier_than = baron
+		ruled_years = 15
+		check_variable = { which = "years_of_peace" value = 14.5 }
+		war = no
+		NOT = { has_character_flag = 15_years_of_peace_flag }
+	}
+	
+	mean_time_to_happen = {
+		days = 1		
+	}
+	
+	immediate = {
+		set_character_flag = 15_years_of_peace_flag
+	}
+	
+	option = {
+		name = "EVTOPTA319051"
+		ROOT = {
+			change_martial = -1
+			change_stewardship = 1
+			change_intrigue = 1
+			if = {
+				limit = { religion_group = christian }
+				piety = 50
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				change_martial = -1
+				change_stewardship = 1
+				change_intrigue = 1
+			}
+		}
+	}
+}
+character_event = {		# 20 Years
+	id = 319052
+	desc = "EVTDESC319052"
+	picture = "GFX_evt_royal_court"
+	
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	only_playable = yes
+	
+	trigger = {
+		higher_tier_than = baron
+		ruled_years = 20
+		check_variable = { which = "years_of_peace" value = 19.5 }
+		war = no
+		NOT = { has_character_flag = 20_years_of_peace_flag }
+	}
+	
+	mean_time_to_happen = {
+		days = 1		
+	}
+	
+	immediate = {
+		set_character_flag = 20_years_of_peace_flag
+	}
+	
+	option = {
+		name = "EVTOPTA319052"
+		ROOT = {
+			change_martial = -1
+			change_stewardship = 1
+			change_diplomacy = 1
+			if = {
+				limit = { religion_group = christian }
+				piety = 100
+			}
+			if = {
+				limit = {
+					independent = yes
+					OR = {
+						trait = kind
+						trait = just
+						piety = 250
+					}
+					NOT = { trait = cruel }
+					NOT = { trait = impaler }
+					NOT = { trait = ruthless }
+				}
+				give_nickname = nick_the_peaceful
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				change_martial = -1
+				change_stewardship = 1
+				change_diplomacy = 1
+			}
+		}
+	}
+}
+
+
+
+
+
+### Plot Maintenance ###
+character_event = {
+	id = 110018
+	desc = "You're not supposed to see this..."
+	
+	is_triggered_only = yes
+	hide_from = yes
+	is_part_of_plot = yes
+	
+	trigger = {
+		ai = yes
+		NOT = { has_character_flag = plot_check }			
+		OR = {
+			has_plot = plot_gain_liege_title
+			has_plot = plot_gain_title
+			has_plot = plot_gain_fellow_vassal_title
+			has_plot = plot_weaken_fellow_vassal
+			has_plot = plot_gain_vassal_title
+			has_plot = plot_kidnap_liege
+			has_plot = plot_kill_character
+			has_plot = plot_discredit_councillor
+			has_plot = plot_embezzle_from_liege
+			has_plot = plot_kidnap_character
+			has_plot = plot_instigate_revolt
+			has_plot = plot_fabricate_treason
+			has_plot = plot_fabricate_heresy
+		}
+	}
+	
+	option = {
+		name = "OK"
+		set_character_flag = plot_check
+		plot_target_char = { 
+			any_courtier = {
+				limit = { NOT = { is_plot_target_of = ROOT } }
+				remove_opinion = {
+					who = ROOT
+					modifier = opinion_plot_help					
+				}
+				opinion = {
+					who = ROOT
+					modifier = opinion_plot_help
+					years = 5
+				}
+			}
+			any_vassal = {
+				limit = { NOT = { is_plot_target_of = ROOT } }
+				remove_opinion = {
+					who = ROOT
+					modifier = opinion_plot_help					
+				}
+				opinion = {
+					who = ROOT
+					modifier = opinion_plot_help
+					years = 5
+				}
+			}
+			liege = {			
+				any_courtier = {
+					limit = { NOT = { is_plot_target_of = ROOT } }
+					remove_opinion = {
+						who = ROOT
+						modifier = opinion_plot_help					
+					}
+					opinion = {
+						who = ROOT
+						modifier = opinion_plot_help
+						years = 5
+					}
+				}
+				any_vassal = {
+					limit = { NOT = { is_plot_target_of = ROOT } }
+					remove_opinion = {
+						who = ROOT
+						modifier = opinion_plot_help					
+					}
+					opinion = {
+						who = ROOT
+						modifier = opinion_plot_help
+						years = 5
+					}
+				}
+			}				
+		}
+	}
+}
+character_event = {
+	id = 110019
+	desc = "You're not supposed to see this..."
+	
+	is_triggered_only = yes
+	hide_from = yes
+	
+	trigger = {
+		ai = yes
+		had_character_flag = {
+			flag = plot_check
+			days = 1825
+		}
+		OR = {
+			NOT = { num_of_plot_backers = 1 }
+			had_character_flag = {
+				flag = plot_check
+				days = 2750
+			}				
+		}
+		OR = {
+			NOT = { num_of_plot_backers = 2 }
+			had_character_flag = {
+				flag = plot_check
+				days = 3650
+			}				
+		}
+	}
+	
+	option = {
+		name = "OK"
+		cancel_plot = yes
+	}
+}
+character_event = {
+	id = 110020
+	desc = "You're not supposed to see this..."
+	
+	is_triggered_only = yes
+	hide_from = yes
+	
+	trigger = {
+		ai = yes
+		prisoner = no
+		age = 16	
+		NOT = { trait = incapable }
+		NOT = { has_character_flag = allow_plotting }
+		NOT = {
+			has_plot = plot_gain_liege_title
+			has_plot = plot_gain_title
+			has_plot = plot_gain_fellow_vassal_title
+			has_plot = plot_weaken_fellow_vassal
+			has_plot = plot_gain_vassal_title
+			has_plot = plot_kidnap_liege
+			has_plot = plot_kill_character
+			has_plot = plot_discredit_councillor
+			has_plot = plot_embezzle_from_liege
+			has_plot = plot_kidnap_character
+			has_plot = plot_instigate_revolt
+			has_plot = plot_fabricate_treason
+			has_plot = plot_fabricate_heresy
+		}		
+	}
+	
+	option = {
+		name = "OK"
+		set_character_flag = allow_plotting
+	}
+}
+
+
+
+# Collapse Empires or High Kingdoms if too small
+character_event = {		# Alba
+	id = 3129205
+	title = "EVTNAME3129205"
+	desc = "EVTDESC3129205"
+	picture = GFX_evt_highlands_landscape_cloudy
+	
+	major = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes
+		independent = yes
+		is_feudal = yes
+		NOT = { prestige = 3500 }
+		primary_title = {
+			title = e_alba
+		}
+		OR = {
+			AND = {
+				war = no
+				NOT = { realm_size = 20 }
+			}
+			AND = {
+				war = yes
+				NOT = { realm_size = 10 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3129205"
+		trigger = {
+			character = ROOT
+		}
+		e_alba = { destroy_landed_title = e_alba }
+	}
+	
+	option = {
+		name = "EVTOPTB3129205"
+		trigger = {
+			NOT = { character = ROOT }
+			culture = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3129205"
+		trigger = {
+			NOT = { character = ROOT }
+			NOT = { culture = ROOT }
+		}
+	}
+}
+character_event = {		# Hen Ogledd
+	id = 3129207
+	title = "EVTNAME3129207"
+	desc = "EVTDESC3129207"
+	picture = GFX_evt_castle_river
+	
+	major = yes
+	only_playable = yes
+	
+	mean_time_to_happen = { days = 5 }
+	
+	trigger = {
+		is_ruler = yes
+		independent = yes
+		NOT = { prestige = 3500 }
+		primary_title = {
+			title = e_hen_ogledd
+		}
+		NOT = { num_of_king_titles = 2 }
+		OR = {
+			AND = {
+				war = no
+				NOT = { realm_size = 25 }
+			}
+			AND = {
+				war = yes
+				NOT = { realm_size = 15 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3129207"
+		trigger = {
+			character = ROOT
+		}
+		e_hen_ogledd = { destroy_landed_title = e_hen_ogledd }
+	}
+	
+	option = {
+		name = "EVTOPTB3129207"
+		trigger = {
+			NOT = { character = ROOT }
+			culture = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3129207"
+		trigger = {
+			NOT = { character = ROOT }
+			NOT = { culture = ROOT }
+		}
+	}
+}
+character_event = {		# Imperium Galliarum/Britanniarum
+	id = 3129206
+	title = "EVTNAME3129206"
+	desc = "EVTDESC3129206"
+	picture = GFX_evt_roman_emperor_dead
+	
+	major = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		primary_title = {
+			OR = {
+				title = e_gaul
+				title = e_roman_britannia
+			}
+		}
+		OR = {
+			AND = {
+				war = no
+				NOT = { realm_size = 25 }
+			}
+			AND = {
+				war = yes
+				NOT = { realm_size = 15 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3129206"
+		trigger = {
+			character = ROOT
+		}
+		if = {
+			limit = { has_landed_title = e_gaul }
+			e_gaul = { destroy_landed_title = e_gaul }
+		}
+		if = {
+			limit = { has_landed_title = e_roman_britannia }
+			e_roman_britannia = { destroy_landed_title = e_roman_britannia }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB3129206"
+		trigger = {
+			NOT = { character = ROOT }
+			culture_group = imperiale
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC3129206"
+		trigger = {
+			NOT = { character = ROOT }
+			NOT = { culture_group = imperiale }
+		}
+	}
+}
+
+# Giving back Aelle/Cerdic counties in his home duchy back
+character_event = {
+	id = 312995
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	
+	only_playable = yes
+	ai = yes
+	
+	trigger = {
+		#always = no			
+		OR = {
+			AND = {
+				liege = {
+					character = 80
+					has_landed_title = k_anglia
+					ai = yes
+				}
+				primary_title = {
+					OR = {
+						title = c_camulodunum
+						title = c_thunreslea
+						title = c_lukintune
+					}
+				}
+			}
+			AND = {
+				liege = {
+					character = 86
+					has_landed_title = k_sussex
+					ai = yes
+				}
+				primary_title = {
+					OR = {
+						title = c_cantia
+						title = c_arundel
+						title = c_regentium
+					}
+				}
+			}
+		}
+		tier = COUNT
+		NOT = { num_of_count_titles = 2 }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		liege = {
+			ROOT = {
+				primary_title = {
+					grant_title = PREVPREV
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Clear Flags
+character_event = {
+	id = 312996
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		clr_character_flag = heretic_revolter
+		clr_character_flag = religious_revolter
+	}
+}
+
+# Assign Roman culture trait
+character_event = {
+	id = 319001
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	#is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				culture_group = imperiale
+				NOT = { trait = imperial_group_trait }
+			}
+			AND = {
+				culture = romanobritish
+				NOT = { trait = romanobritish_culture_trait }
+			}
+			AND = {
+				culture_group = romance
+				NOT = { trait = romance_group_trait }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { culture_group = imperiale }
+			add_trait = imperial_group_trait
+			break = yes
+		}
+		if = {
+			limit = { culture = romanobritish }
+			add_trait = romanobritish_culture_trait
+			break = yes
+		}
+		if = {
+			limit = { culture_group = romance }
+			add_trait = romance_group_trait
+			break = yes
+		}
+	}
+}
+# Remove traits on cultural conversion
+character_event = {
+	id = 319002
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		remove_trait = imperial_group_trait
+		remove_trait = romanobritish_culture_trait
+		remove_trait = romance_group_trait
+		character_event = { id = 319001 }
+	}
+}
+# Startup assignment of Roman culture traits
+character_event = {
+	id = 319003
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		any_character = {
+			if = {
+				limit = { culture_group = imperiale }
+				add_trait = imperial_group_trait
+			}
+			if = {
+				limit = { culture = romanobritish }
+				add_trait = romanobritish_culture_trait
+			}
+			if = {
+				limit = { culture_group = romance }
+				add_trait = romance_group_trait
+			}
+		}
+	}
+}
+
+
+# Assign correct government and succession law to tribal revolters
+character_event = {
+	id = 319005
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		if = {
+			limit = { 
+				government = tribal_government
+				has_character_flag = set_to_high_tribal_government
+			}
+			set_government_type = high_tribal_government
+		}
+		clr_character_flag = set_to_high_tribal_government
+		if = {
+			limit = { has_law = succ_open_elective }
+			if = {
+				limit = { 
+					is_tribal = yes
+				}
+				set_character_flag = here_set_succ
+				primary_title = {
+					add_law = succ_elective_gavelkind
+					succession = elective_gavelkind
+				}
+				recalc_succession = yes
+				break = yes
+			}
+			if = {
+				limit = { 
+					OR = {
+						government = sub_roman_government
+						government = sub_roman_brythonic_government
+						government = imperial_government
+					}
+				}
+				primary_title = {
+					add_law = succ_primogeniture
+					succession = primogeniture
+				}
+				recalc_succession = yes
+				break = yes
+			}
+			primary_title = {
+				add_law = succ_gavelkind
+				succession = gavelkind
+			}
+		}
+	}
+}
+
+# Assign correct government to inheriting mayors
+character_event = {
+	id = 319006
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		FROM = { higher_tier_than = BARON }
+		ROOT = { 
+			is_republic = yes
+			NOT = { 
+				any_demesne_title = {
+					higher_tier_than = BARON
+					NOT = { title = FROM }
+				}
+			}
+		}
+		FROMFROM = { is_republic = no }
+	}
+	
+	immediate = {
+		FROMFROM = {
+			save_event_target_as = target_to_switch_government_to
+		}
+		ROOT = {
+			#set_character_flag = convert_government
+			set_government_to_target_effect = yes
+		}
+	}
+}
+
+# Testing notifications
+character_event = {
+	id = 3129960
+	desc = "A Republic!"
+	picture = GFX_evt_council
+	
+	only_rulers = yes
+	major = yes
+	
+	trigger = {
+		is_republic = yes
+		higher_tier_than = BARON
+		NOT = { has_character_flag = bad_republic_marked }
+		has_global_flag = debug
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = bad_republic_marked
+	}
+	
+	option = {
+		name = "Uh oh"
+	}
+}
+
+character_event = {
+	id = 3129961
+	desc = "A Theocracy!"
+	picture = GFX_evt_council
+	
+	only_rulers = yes
+	major = yes
+	
+	trigger = {
+		is_landed = yes
+		is_theocracy = yes
+		higher_tier_than = BARON
+		NOT = { has_character_flag = bad_theocracy_marked }
+		NOT = {
+			capital_scope = {
+				has_province_flag = supposed_to_be_theocracy
+			}
+		}
+		has_global_flag = debug
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = bad_theocracy_marked
+		capital_scope = {
+			set_province_flag = supposed_to_be_theocracy
+		}
+	}
+	
+	option = {
+		name = "Uh oh"
+	}
+}
+
+character_event = {
+	id = 3129962
+	desc = "Not Tribal!"
+	picture = GFX_evt_council
+	
+	only_rulers = yes
+	major = yes
+	
+	trigger = {
+		is_landed = yes
+		higher_tier_than = BARON
+		NOT = { government = tribal_government }
+		capital_scope = {
+			OR = {
+				region = world_ireland
+				region = world_caledonia
+				region = world_germania
+				region = custom_scandinavia
+			}
+			NOT = { region = world_bructeria }
+		}
+		NOT = { has_character_flag = bad_nontribal_marked }
+		has_global_flag = debug
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = bad_nontribal_marked
+	}
+	
+	option = {
+		name = "Uh oh"
+	}
+}
+
+# Court Costs
+character_event = {
+	id = 312997
+	desc = "EVTDESC312997"
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes
+		is_landed = yes
+		ai = yes
+		wealth = 1500
+		primary_title = { higher_tier_than = baron }
+		NOT = { 
+			OR = {
+				has_character_modifier = negative_money_1
+				has_character_modifier = negative_money_2
+				has_character_modifier = negative_money_3
+				has_character_modifier = negative_money_4
+				has_character_modifier = negative_money_5
+				has_character_modifier = negative_money_6
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA312997"
+		wealth = -100
+	}
+}
+
+# Gavelkind hotfix
+character_event = {
+	id = 312998
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes
+		primary_title = {
+			OR = {
+				has_law = succ_gavelkind
+				has_law = succ_elective_gavelkind
+			}
+			higher_tier_than = count
+		}
+		current_heir = {
+			is_landed = no
+			NOT = {
+				capital_holding = {
+					current_heir = {
+						character = PREVPREV
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		current_heir = {
+			set_character_flag = gavelkind_fix
+		}
+		any_demesne_title = {
+			limit = { tier = count }
+			location = {
+				set_province_flag = gavelkind_fix_province
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+character_event = {
+	id = 312999
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = gavelkind_fix
+	}
+
+	immediate = {
+		any_independent_ruler = {
+			any_realm_province = {
+				limit = { has_province_flag = gavelkind_fix_province }
+				county = {
+					grant_title = ROOT
+				}
+				clr_province_flag = gavelkind_fix_province
+			}
+		}
+		clr_character_flag = gavelkind_fix
+	}
+
+	option = {
+		name = "OK"
+	}
+}
+
+### Daughters of Celtic rulers get inheritable claims
+
+# Bounce event for dead title holder
+character_event = { 
+	id = 319100
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			culture = briton
+			culture = cumbrian
+			culture = pictish
+		}
+		any_demesne_title = {
+			has_law = agnatic_succession
+		}
+	}
+	
+	immediate = {
+		any_child = {
+			limit = {
+				is_female = yes
+			}
+			ROOT = {
+				any_demesne_title = {
+					limit = { tier = ROOT }
+					add_weak_pressed_claim = PREVPREV
+				}
+			}	
+		}
+	}
+}
+
+# Characters with health bonuses lose it over time
+character_event = {
+	id = 319010
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_love_court"
+	
+	hide_window = yes
+	
+	only_men = yes
+	min_age = 50
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = has_health_bonus_20
+		age = 50
+		NOT = { age = 71 }
+		OR = {
+			NOT = { has_character_flag = health_bonus_20_reduced }
+			had_character_flag = {
+				flag = health_bonus_20_reduced 
+				days = 1825
+			}
+		}
+	}
+		
+	immediate = {
+		set_character_flag = health_bonus_20_reduced
+		health = -5
+	}
+	
+}
+
+#### C_NULL MAINTENANCE EVENTS #####
+character_event = {		# Death of holder - create a new immortal incapable character
+	id = 319020
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_love_court"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_null
+	}
+	
+	immediate = {
+		create_character = {
+			random_traits = no
+			name = " "
+			dynasty = none
+			religion = ROOT
+			culture = ROOT
+			age = 100
+			trait = immortal
+			trait = incapable
+			trait = special_char_trait
+		}
+		new_character = {
+			ROOT = {
+				any_demesne_title = {
+					limit = {
+						OR = {
+							title = c_null
+							has_title_flag = disabled_county_title
+						}
+					}
+					grant_title = PREVPREV
+				}
+			}
+		}
+	}
+}
+
+character_event = {		# If the holder of c_null acquires a title they shouldn't have, or someone who shouldn't have the title acquires it
+	id = 319021
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_love_court"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_null
+		OR = {
+			NOT = { trait = special_char_trait }
+			any_demesne_title = {
+				NOR = {
+					title = c_null
+					has_title_flag = disabled_county_title
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { trait = special_char_trait } }
+			create_character = {
+				random_traits = no
+				name = " "
+				dynasty = none
+				religion = ROOT
+				culture = ROOT
+				age = 100
+				trait = immortal
+				trait = incapable
+				trait = special_char_trait
+			}
+			new_character = {
+				any_demesne_title = {
+					limit = {
+						OR = {
+							title = c_null
+							has_title_flag = disabled_county_title
+						}
+					}
+					grant_title = PREV
+				}
+				set_defacto_liege = THIS
+			}
+			break = yes
+		}
+		any_demesne_title = {
+			limit = { 
+				higher_tier_than = COUNT
+				NOT = { has_title_flag = disabled_county_title }
+			}
+			destroy_landed_title = THIS
+		}
+		any_demesne_title = {
+			limit = {
+				NOR = {
+					title = c_null
+					has_title_flag = disabled_county_title
+				}
+			}
+			create_character = {
+				dynasty = culture
+				religion = PREV
+				culture = PREV
+				age = 32
+			}
+			new_character = {
+				grant_title = PREV
+				set_defacto_liege = THIS
+			}
+		}
+	}
+}
+
+### ETHNICITY RANDOMIZATION ###
+character_event = {
+	id = 319030
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_love_court"
+	
+	hide_window = yes
+	
+	trigger = {
+		NOT = { has_character_flag = ethnicity_set }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = ethnicity_set
+		if = {
+			limit = {
+				ai = yes
+				NOR = { 
+					father_even_if_dead = { always = yes }
+					mother_even_if_dead = { always = yes }
+					real_father_even_if_dead = { always = yes }
+					any_dynasty_member_even_if_dead = { always = yes }
+					any_sibling_even_if_dead = { always = yes }
+					any_close_relative = { always = yes }
+				}
+			}
+			set_character_flag = randomize_ethnicity
+			if = {
+				limit = { culture = romanogallic }
+				random_list = {
+					80 = { }										# Keep Gallic portraits
+					10 = { set_graphical_culture = romanobritish }	# Celtic portraits
+					10 = { set_graphical_culture = roman }			# Italian portraits
+				}
+			}
+		}
+	}
+}

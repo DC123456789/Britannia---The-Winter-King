@@ -1,0 +1,240 @@
+decisions = {	
+	appoint_senators = {
+		only_playable = yes
+		potential = {
+			is_playable = yes
+			any_demesne_title = {
+				has_title_flag = senate_restored_title
+			}
+			has_global_flag = senate_restored
+			OR = {
+				any_vassal = {
+					NOT = { has_minor_title = title_senator }
+					OR = {
+						culture_group = imperiale
+						culture = romanobritish
+						culture = ROOT
+					}
+					is_female = no
+					prisoner = no
+					age = 35
+					stewardship = 8
+					diplomacy = 8
+					learning = 8
+					reverse_opinion = { who = ROOT value = 50 }
+					opinion = { who = ROOT value = 25 }
+				}
+				any_courtier = {
+					NOT = { has_minor_title = title_senator }
+					OR = {
+						culture_group = imperiale
+						culture = romanobritish
+						culture = ROOT
+					}
+					is_female = no
+					age = 45
+					stewardship = 10
+					diplomacy = 10
+					learning = 10
+					reverse_opinion = { who = ROOT value = 50 }
+					opinion = { who = ROOT value = 25 }
+				}
+			}
+		}
+		allow = {
+			age = 15
+			prestige = 100
+		}
+		effect = {
+			any_vassal = {
+				limit = {
+					NOT = { has_minor_title = title_senator }
+					is_female = no
+					age = 35
+					stewardship = 8
+					diplomacy = 8
+					learning = 8
+					reverse_opinion = { who = ROOT value = 50 }
+					opinion = { who = ROOT value = 25 }
+				}
+				give_minor_title = title_senator
+			}
+			any_courtier = {
+				limit = {
+					NOT = { has_minor_title = title_senator }
+					is_female = no
+					age = 45
+					stewardship = 10
+					diplomacy = 10
+					learning = 10
+					reverse_opinion = { who = ROOT value = 50 }
+					opinion = { who = ROOT value = 25 }
+				}
+				give_minor_title = title_senator
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+		
+	restore_roman_senate = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			realm_size = 20
+			OR = {
+				AND = { 
+					any_demesne_title = {
+						has_title_flag = roman_province
+					}
+					e_gaul = { has_holder = no }
+					e_roman_britannia = { has_holder = no }
+				}
+				has_landed_title = e_gaul
+				has_landed_title = e_roman_britannia
+			}			
+			independent = yes
+			NOT = { has_character_flag = senate_restore_choice }
+			NOT = { any_demesne_title = { has_title_flag = senate_restored_title } }
+		}
+		allow = {
+			e_western_roman_empire = { has_holder = no }
+			age = 20
+			prestige = 1500
+			realm_stewardship = 25
+			realm_diplomacy = 25
+			martial = 12
+			learning = 10
+			intrigue = 10
+			wealth = 250
+			war = no
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = {
+				trait = shy
+				trait = uneducated
+				trait = slow
+				trait = incapable
+				trait = imbecile
+			}
+		}
+		effect = {
+			character_event = { id = 315100 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	centralize_realm_soissons = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = k_gaul
+			realm_size = 10
+			any_independent_ruler = {
+				OR = {
+					is_tributary = {
+						type = client_state
+						suzerain = ROOT
+					}
+					is_tributary = {
+						type = foederati
+						suzerain = ROOT
+					}
+				}
+				primary_title = {
+					OR = {
+						kingdom = { title = k_gaul }
+						kingdom = { title = k_benoic }
+						kingdom = { title = k_broceliande }
+						title = k_benoic
+						title = k_broceliande
+					}
+				}
+			}	
+			independent = yes
+			OR = {
+				NOT = { has_global_flag = soissons_centralized_tributaries }
+				had_global_flag = {
+					flag = soissons_centralized_tributaries
+					days = 3650
+				}
+			}
+		}
+		allow = {
+			age = 25
+			ruled_years = 10
+			prestige = 4000
+			realm_size = 30
+			diplomacy = 9
+			martial = 12
+			realm_levies = 5000
+			war = no
+			is_incapable = no
+		}
+		effect = {
+			set_global_flag = soissons_centralized_tributaries
+			any_independent_ruler = {
+				limit = {
+					OR = {
+						is_tributary = {
+							type = client_state
+							suzerain = ROOT
+						}
+						is_tributary = {
+							type = foederati
+							suzerain = ROOT
+						}
+					}
+					primary_title = {
+						OR = {
+							kingdom = { title = k_gaul }
+							kingdom = { title = k_benoic }
+							kingdom = { title = k_broceliande }
+							title = k_benoic
+							title = k_broceliande
+						}
+					}
+				}
+				custom_tooltip = {
+					text = centralize_realm_soissons_tooltip
+				}
+			}
+			hidden_tooltip = {
+				character_event = { id = 315153 days = 3 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	expanded_germania_secunda = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_roman_emperor_trigger = yes
+			NOT = { has_global_flag = expanded_secunda }
+		}
+		allow = {
+			custom_tooltip = {
+				text = has_reconquered_gaul
+				has_global_flag = gaul_reconquered_roman
+			}
+			wealth = 1000
+			prestige = 5000
+			is_adult = yes
+		}
+		effect = {
+			wealth = -1000
+			character_event = { id = 318103 }
+			custom_tooltip = {
+				text = expanded_germania_secunda_tooltip
+			}
+		}
+	}
+}

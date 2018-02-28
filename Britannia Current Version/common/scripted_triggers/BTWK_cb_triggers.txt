@@ -1,0 +1,681 @@
+can_declare_conquest_war_on_province_trigger = {
+	OR = {
+		ROOT = { is_tribal = yes }
+		PREV = { culture_group = ROOT }
+		PREV = { NOT = { any_province_holding = { holding_type = tribal } } }
+		NOT = { any_province_holding = { holding_type = tribal } }
+	}
+}
+
+can_declare_conquest_war_on_province_across_sea_trigger = {
+	OR = {
+		ROOT = { is_tribal = yes }
+		PREVPREV = { culture_group = ROOT }
+		PREVPREV = { NOT = { any_province_holding = { holding_type = tribal } } }
+		NOT = { any_province_holding = { holding_type = tribal } }
+	}
+}
+
+county_conquest_can_use_gui_trigger = {
+	ROOT = {
+		OR = { 
+			culture_group = germanic
+			culture = oldirish	
+			culture = gaelic
+			AND = {
+				culture_group = imperiale
+				OR = {
+					independent = yes
+					higher_tier_than = DUKE
+				}
+			}
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+			has_landed_title = k_gaul
+			AND = {				# Picts can use this CB only after 492 AD
+				culture = pictish
+				year = 492
+			}
+			trait = skilled_tactician
+			trait = brilliant_strategist
+			AND = {
+				prestige = 1000
+				OR = {
+					trait = ambitious
+					#trait = authoritative
+					trait = inspiring_leader
+					#trait = ruthless
+				}
+				NOR = {
+					trait = craven
+					trait = weak
+					trait = incapable
+					trait = imbecile
+				}
+			}
+		}
+	}
+}
+
+county_conquest_can_use_trigger = {
+	ROOT = {
+		NOT = { government = tribal_government }
+		prisoner = no
+		NAND = {
+			NOR = {
+				culture_group = germanic
+				culture = oldirish	
+				culture = gaelic
+				culture = pictish
+				culture_group = imperiale
+				has_landed_title = e_gaul
+				has_landed_title = e_roman_britannia
+				has_landed_title = k_gaul
+			}
+			OR = {
+				culture_group = FROM
+				FROM = { 
+					trait = foederate 
+					suzerain = {
+						culture_group = ROOT
+					}
+				}
+			}
+		}
+		NAND = {					
+			culture_group = imperiale		# Block Romans under Celts
+			top_liege = { culture_group = celtic }
+			FROM = { culture_group = celtic }
+		}
+		NAND = {					# Prevents zealous rulers from declaring war on others of the same religion
+			ROOT = {
+				OR = {
+					trait = zealous
+					trait = holy_warrior
+				}
+				ai = yes
+			}
+			FROM = { religion = ROOT }
+		}
+		NOR = {			# Block Childeric against Soissons
+			AND = {
+				ROOT = {
+					has_character_flag = friendly_with_romans
+				}
+				FROM = {
+					culture = romanogallic 
+				}
+			}		
+			AND = {		# Block Romano-Gallics against Childeric
+				ROOT = {
+					culture = romanogallic 
+				}
+				FROM = {
+					has_character_flag = friendly_with_romans
+				}
+			}
+		}
+		NAND = {					# Block Irish and Gaels against each other
+			ROOT = { is_gaelic_culture_trigger = yes }
+			FROM = { is_gaelic_culture_trigger = yes }
+		}
+		NAND = {
+			primary_title = {
+				has_title_flag = roman_province
+			}
+			FROM = {
+				primary_title = {
+					has_title_flag = roman_province
+				}
+			}
+		}
+		NOT = { 
+			ROOT = { 
+				trait = foederate
+				OR = {
+					independent = no
+					is_tributary = { type = foederati }
+				}
+			}
+		}
+		# Stops client states, foederati, and provinces from being declared on by other tributaries of the same suzerain
+		NAND = {
+			FROM = {
+				OR = {
+					is_tributary = { type = client_state }
+					is_tributary = { type = foederati }
+					is_tributary = { type = roman_province }
+				}
+			}
+			suzerain = {
+				any_tributary = {
+					character = FROM
+				}
+			}
+		}
+	}
+	
+	# Norse Mutual Protection
+	NAND = {
+		FROM = { is_north_germanic_trigger = yes }
+		ROOT = { is_north_germanic_trigger = yes }
+	}
+}
+
+county_conquest_can_use_title_minus_neighbour_condition_trigger = {
+	OR = {
+		FROM = {
+			has_landed_title = PREV
+			NOT = { same_realm = ROOT }
+		}
+		holder_scope = {
+			is_liege_or_above = FROM
+			NOT = { same_realm = ROOT }
+		}
+	}
+	
+	NAND = {			# This should prevent using this CB against the capital province of a Kingdom or High Kingdom, except when the King has very low prestige or the realm is already very small
+		location = { is_capital = yes }
+		holder_scope = {
+			OR = { 
+				tier = KING
+				tier = EMPEROR
+			}
+			prestige = 500
+			realm_size = 15
+		}
+		ROOT = { ai = yes }
+	}
+	
+	# Block Franks against Frisians and Saxons
+	NAND = {
+		ROOT = {
+			is_frankish_culture_trigger = yes
+		}
+		FROM = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		OR = {
+			AND = {
+				NOT = { year = 650 }
+				location = { region = custom_frisia }
+			}
+			AND = {
+				NOT = { year = 650 }
+				location = { region = world_hamaland_salland }
+				has_global_flag = hamaland_conquered_saxon
+			}
+			AND = {
+				NOT = { year = 700 }
+				location = { region = world_germania_saxony }
+			}
+		}
+	}
+	
+	# Wales and Cornwall protection against Anglo-Saxons
+	NAND = { 
+		ROOT = { culture_group = germanic }
+		location = {
+			OR = {
+				region = world_britannia_cymry_wales
+				region = world_britannia_cymry_cornwall_proper
+			}
+		}
+	}
+	
+	# Briton protection against Lleyn
+	NAND = {
+		ROOT = {
+			is_gaelic_culture_trigger = yes
+			realm = {
+				title = k_henis_wyren
+			}
+		}
+		OR = {
+			title = c_cardigan
+			title = c_gwynedd
+			title = c_rhufoniog
+			title = c_caer_gei
+			title = c_deva
+			title = c_tegeingl
+			title = c_maelor
+		}
+	}
+	
+	# Caledonian Conquest Block
+	NAND = {
+		ROOT = {
+			realm = {
+				title = k_caledonia
+			}
+		} 
+		OR = {
+			title = c_luguvallum
+			title = c_old_tyne
+			title = c_kirby_thore
+			title = c_eden
+			title = c_ashgill
+		}
+	}
+	
+	# Dalriada Conquest Block
+	NAND = { 
+		title = c_altclut
+		ROOT = {
+			realm = {
+				title = k_dalriada
+			}
+		}
+		NOT = { year = 560 }
+	}
+	
+	# Caledonian Protection
+	NAND = { 
+		ROOT = {
+			ai = yes
+			NOT = { culture_group = celtic }
+		}
+		location = {
+			region = world_caledonia
+		}
+		NOT = {
+			title = c_eastcaledonia
+		}
+	}
+	
+	# Irish Kingdoms Protection
+	NAND = { 
+		FROM = {
+			realm = {
+				OR = { 
+					title = k_mide
+					title = k_ulaid
+					title = k_leinster
+					title = k_connacht
+					title = k_munster
+				}
+			}
+			NOT = { realm_size = 12 }
+		}
+		ROOT = {
+			ai = yes
+			realm = {
+				OR = { 
+					title = k_mide
+					title = k_ulaid
+					title = k_leinster
+					title = k_connacht
+					title = k_munster
+				}
+			}
+			realm_size = 20
+		}
+	}		
+	
+	# Protection against Demetia
+	NAND = {
+		ROOT = {
+			is_gaelic_culture_trigger = yes
+			realm = {
+				title = k_demetia
+			}
+		}
+		OR = {
+			title = c_nidum	
+			title = c_isca_siluria	
+			title = c_gobannium	
+			title = c_cardigan	
+			title = c_buelt	
+			title = c_maelienydd
+		}
+	}		
+	
+	# Mercian Protection
+	NAND = {
+		ROOT = {
+			ai = yes
+			NOT = { culture_group = celtic }
+		}
+		holder_scope = {
+			top_liege = {
+				primary_title = { 
+					OR = {
+						title = k_mercia 
+						title = k_sussex
+						title = k_eastseaxe
+					}
+				}
+				NOT = { realm_size = 20 }
+			}
+		}
+	}	
+	
+	# Anglo-Saxons Mutual Protection
+	NAND = {
+		FROM = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		ROOT = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		region = world_britannia
+		NOT = { year = 560 }
+	}
+	
+	# Linnius/Lindsey Protection
+	NAND = {
+		location = {
+			region = custom_lindsey
+		}
+		ROOT = {
+			OR = {
+				has_landed_title = k_anglia
+				top_liege = { has_landed_title = k_anglia }
+			}
+			NOT = { has_landed_title = d_lindsey }
+			is_ingvaeonic_culture_trigger = yes
+		}
+		NOT = { year = 495 }
+		OR = {
+			NOT = { year = 440 }
+			c_caistor = { holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+		}
+	}
+	
+	# Ebrauc/Deira Protection
+	NAND = {
+		OR = {
+			title = c_eburacum
+			title = c_petuaria
+		}
+		ROOT = {
+			NOR = { 
+				has_landed_title = d_deira
+				has_landed_title = c_petuaria 
+			}
+			OR = {
+				has_landed_title = k_anglia
+				has_landed_title = d_lindsey
+				has_landed_title = c_caistor
+			}
+			is_ingvaeonic_culture_trigger = yes
+		}
+		NOT = { year = 560 }
+		OR = {
+			NOT = { year = 440 }
+			c_petuaria = { holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+		}
+	}
+	
+	# Elmet Protection
+	NAND = {
+		location = {
+			region = world_elmet
+		}
+		ROOT = {
+			ai = yes
+			is_ingvaeonic_culture_trigger = yes
+		}
+		NOT = { year = 530 }
+	}
+	
+	# Magna Germania protection against Romans
+	NAND = {
+		ROOT = { is_roman_ruler_trigger = yes }
+		location = {
+			OR = {
+				region = custom_germania_secunda
+				region = custom_germania_tertia
+			}
+			NOT = { region = custom_wre }
+			NOT = { has_global_flag = expanded_secunda }
+		}
+	}
+	
+	# Vasconia protection against Germanics
+	NAND = { 
+		NOT = { year = 580 }
+		OR = {
+			ROOT = { culture_group = germanic }
+			ROOT = { top_liege = { culture_group = germanic } }
+		}
+		FROM = { culture = vasconian }
+		culture = vasconian
+		location = {
+			region = world_gaul_aquitania_tertia
+		}
+	}
+	
+	# Broceliande protection against Germanics
+	NAND = { 
+		ROOT = { culture_group = germanic }
+		FROM = {
+			OR = {
+				culture = armorican
+				culture = breton
+			}
+		}
+		location = {
+			region = world_gaul_lugdunensis_armorica
+		}
+	}
+	
+	NOR = {
+		ROOT = {
+			has_landed_title = PREV
+		}
+		holder_scope = {
+			OR = {
+				character = ROOT
+				is_liege_or_above = ROOT
+			}
+		}
+	}
+}
+
+county_conquest_is_valid_title_trigger = {
+	OR = {
+		location = {				# Must be bordering province
+			any_neighbor_province = {
+				owner = {
+					OR = {
+						character = ROOT
+						is_liege_or_above = ROOT
+					}
+				}
+			}
+		}
+		any_direct_de_jure_vassal_title = {	# Or owns barony inside county
+			owner = {
+				OR = {
+					character = ROOT
+					is_liege_or_above = ROOT
+				}
+			}
+		}
+	}
+	OR = {
+		FROM = {
+			has_landed_title = PREV
+		}
+		holder_scope = {
+			is_liege_or_above = FROM
+			NOT = { same_realm = ROOT }
+		}
+	}
+}
+
+duchy_invasion_can_use_gui_trigger = {
+	ROOT = {
+		OR = {
+			hidden_tooltip = {
+				AND = {
+					ROOT = {
+						has_character_flag = duchy_invader
+					}
+					FROM = { 
+						has_character_flag = duchy_invasion_target
+					}
+				}
+			}
+			AND = {
+				age = 20
+				prestige = 1500
+				OR = {
+					trait = skilled_tactician
+					trait = brilliant_strategist
+					martial = 15
+					AND = {
+						OR = {
+							trait = ambitious
+							trait = inspiring_leader
+						}
+						prestige = 2000
+						diplomacy = 15
+						martial = 12
+					}
+				}
+				prisoner = no
+				NOR = { 
+					trait = content
+					trait = incapable
+					trait = slow
+					trait = imbecile
+					trait = weak
+				}
+			}
+		}
+		OR = {
+			higher_tier_than = DUKE
+			num_of_count_titles_in_realm = 8
+		}
+	}
+}
+
+duchy_invasion_can_use_trigger = {
+	OR = {
+		AND = {
+			ROOT = {
+				has_character_flag = duchy_invader
+			}
+			FROM = { 
+				has_character_flag = duchy_invasion_target
+			}
+		}
+		AND = {
+			ROOT = {
+				NOT = { culture = FROM }
+				OR = {
+					culture_group = germanic
+					culture_group = sarmatian
+				}
+				NOR = {
+					culture = dane
+					culture = proto_norse
+					is_ingvaeonic_culture_trigger = yes
+				}
+				higher_real_tier_than = COUNT
+				independent = yes
+				capital_scope = {
+					NOR = {
+						region = world_britannia
+						region = world_caledonia
+						region = world_ireland
+					}
+				}
+				# Stops client states, foederati, and provinces from being declared on by other tributaries of the same suzerain
+				NAND = {
+					FROM = {
+						OR = {
+							is_tributary = { type = client_state }
+							is_tributary = { type = foederati }
+							is_tributary = { type = roman_province }
+						}
+					}
+					suzerain = {
+						any_tributary = {
+							character = FROM
+						}
+					}
+				}
+			}
+			NOT = {			# Block Childeric against Soissons
+				AND = {
+					ROOT = {
+						has_character_flag = friendly_with_romans
+					}
+					FROM = {
+						culture = romanogallic 
+					}
+				}
+			}
+		}
+	}
+}
+
+duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
+	NOR = {
+		AND = {
+			ROOT = {
+				is_frankish_culture_trigger = yes
+			}
+			FROM = {
+				is_ingvaeonic_culture_trigger = yes
+			}
+			capital_scope = {
+				OR = {
+					AND = {
+						NOT = { year = 650 }
+						region = custom_frisia
+					}
+					AND = {
+						NOT = { year = 650 }
+						region = world_hamaland_salland
+						has_global_flag = hamaland_conquered_saxon
+					}
+					AND = {
+						NOT = { year = 700 }
+						region = world_germania_saxony
+					}
+				}
+			}
+		}
+		capital_scope = {
+			region = world_gaul_lugdunensis_armorica
+		}
+		capital_scope = {
+			region = world_britannia_cymry_wales
+		}
+	
+		# Vasconia protection against Germanics
+		AND = { 
+			OR = {
+				ROOT = { culture_group = germanic }
+				ROOT = { top_liege = { culture_group = germanic } }
+			}
+			FROM = { culture = vasconian }
+			capital_scope = {
+				region = world_gaul_aquitania_tertia
+			}
+			any_direct_de_jure_vassal_title = {
+				location = {
+					culture = vasconian
+				}
+			}
+			NOT = { year = 580 }
+		}
+	}
+	NOT = {			# This should prevent using this CB against the capital duchy of a Kingdom or High Kingdom, except when the King has very low prestige or the realm is already very small
+		AND = {
+			any_direct_de_jure_vassal_title = {
+				location = { is_capital = yes }
+			}
+			holder_scope = {
+				higher_tier_than = DUKE
+				prestige = 400
+				realm_size = 30
+			}
+			ROOT = { ai = yes }
+		}
+	}
+}

@@ -1,0 +1,1015 @@
+### IDs 302700 - 302799 
+### IDs 312670 - 312679
+### IDs 3126000 - 3126009
+
+###### CATHOLIC NUNTIUS OF ECCLESIA BRITANNIAE ######
+character_event = {		# Nuncio is Appointed
+	id = 312670
+	desc = "You're not supposed to see this..."
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	ai = yes
+	
+	trigger = {
+		has_landed_title = k_nuncio_britanniae
+		NOT = { trait = nuncio }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}	
+
+	immediate = {
+		ROOT = {
+			piety = 500
+			prestige = 500
+			
+			culture = roman
+			dynasty = 153
+			
+			nuncio = {
+				limit = {
+					is_alive = yes
+				}
+				remove_trait = nuncio
+			}
+			
+			add_trait = nuncio
+			give_nickname = nick_nuncio
+
+			change_learning = 3
+			change_diplomacy = 3
+			
+			remove_trait = drunkard
+			remove_trait = slothful
+			remove_trait = tolerant
+			remove_trait = cynical
+			remove_trait = slow
+			remove_trait = lustful
+			remove_trait = arbitrary
+			
+			random_list = {
+				10 = { add_trait = quick }
+				10 = { add_trait = patient }
+				40 = { add_trait = diligent }
+				40 = { add_trait = zealous }
+				40 = { add_trait = scholar }
+			}
+			random_list = {
+				10 = { add_trait = temperate }
+				10 = { add_trait = kind }
+				20 = { add_trait = chaste }
+				30 = { add_trait = celibate }
+				40 = { add_trait = authoritative }
+			}
+			random_list = {
+				10 = { piety = 100 }
+				10 = { piety = 100 }
+				10 = { piety = 150 }
+				10 = { piety = 200 }
+				10 = { piety = 250 }
+				10 = { piety = 350 }
+				10 = { piety = 400 }
+				10 = { piety = 500 }
+				10 = { piety = 600 }
+				10 = { piety = 750 }
+			}
+			random_list = {
+				10 = { prestige = 50 }
+				10 = { prestige = 100 }
+				10 = { prestige = 150 }
+				10 = { prestige = 200 }
+				10 = { prestige = 250 }
+				10 = { prestige = 300 }
+				10 = { prestige = 350 }
+				10 = { prestige = 400 }
+				10 = { prestige = 450 }
+				10 = { prestige = 500 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA312670"
+		any_playable_ruler = {
+			limit = {
+				rightful_religious_head = ROOT
+			}
+			character_event = { id = 312671 days = 1 }
+		}			
+	}
+}
+character_event = {		# News Spread to Catholic Rulers
+	id = 312671
+	title = "EVTNAME312671"
+	desc = "EVTDESC312671"
+	picture = GFX_evt_pope
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA312671"	
+	}
+}
+
+
+### Monk Minor Title ###
+character_event = {
+	id = 3126002
+	desc = "EVTDESC3126002"
+	picture = GFX_evt_priests_grey
+	
+	min_age = 20
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			trait = scholarly_theologian
+			trait = mastermind_theologian
+		}
+		is_female = no
+		religion_group = christian
+		NOT = { has_minor_title = title_monk }
+		age = 20
+		NOT = { has_job_title = job_spiritual }
+		NOT = { demesne_size = 1 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.01
+			always = yes
+		}
+	}
+
+	option = {
+		name = "EVTOPTA3126002"
+		give_minor_title = title_monk
+	}
+}
+character_event = {
+	id = 3126003
+	desc = "EVTDESC3126003"
+	picture = GFX_evt_priests_grey
+	
+	min_age = 20
+	only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_minor_title = title_monk
+		OR = {
+			NOT = { religion_group = christian }
+			has_job_title = job_spiritual
+			demesne_size = 1
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.01
+			always = yes
+		}
+	}
+
+	option = {
+		name = "EVTOPTA3126003"
+		remove_title = title_monk
+	}
+}
+
+
+# Formation of Arian Papacy
+narrative_event = {
+	id = 39100
+	title = "EVTNAME39100"
+	desc = "EVTDESC39100"
+	picture = "GFX_evt_stone_church"
+	major = yes
+	hide_new = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA39100"		# Arians
+		trigger = {
+			religion = arian
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB39100"		# Non-Arians
+		trigger = {
+			NOT = { religion = arian }
+		}
+	}
+}
+
+# Vassal mercenary companies convert to Nicene
+character_event = {
+	id = 302700
+	desc = "EVTDESC302700"
+	picture = "GFX_evt_stone_church"
+	hide_new = yes
+	
+	only_rulers = yes
+	min_age = 20
+	
+	trigger = {
+		mercenary = yes 
+		holy_order = no
+		controls_religion = no
+		independent = no
+		NOT = { religion_group = christian }
+		liege = { religion_group = christian }
+		NOT = { trait = zealous }	
+		OR = {
+			NOT = { has_character_flag = mercenary_converted }
+			had_character_flag = { flag = mercenary_converted days = 180 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.75
+			trait = tolerant
+		}
+		modifier = {
+			factor = 0.5
+			liege = {
+				trait = zealous
+			}
+		}
+	}
+	
+	immediate = {
+		set_character_flag = mercenary_converted
+	}
+	
+	option = {
+		name = "EVTOPTA302700"	
+		liege = {
+			ROOT = {
+				primary_title = {
+					religion = PREVPREV
+				}
+				religion = PREV
+			}
+		}
+		piety = -50
+		hidden_tooltip = {
+			liege = {
+				character_event = { id = 302701 days = 1 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = 302701
+	desc = "EVTDESC302701"
+	picture = "GFX_evt_stone_church"
+	hide_new = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302701"	
+		piety = 50
+		custom_tooltip = { text = mercenary_converts_text }
+	}
+}
+
+## Saint Germanus of Auxerre ##
+# Germanus appointed as Bishop of Auxerre (Autissiodorum)
+character_event = {
+	id = 302702
+	title = "EVTNAME302702"
+	desc = "EVTDESC302702"
+	picture = "GFX_evt_church_small"
+	
+	only_rulers = yes
+	only_independent = yes
+	religion = catholic
+	
+	trigger = {
+		c_auxerre = {
+			holder_scope = {
+				NOT = { has_character_flag = germanus_of_auxerre }
+			}
+		}
+		event_target:germanus_of_auxerre = {
+			always = yes
+		}
+		completely_controls = c_auxerre
+		year = 418
+		NOT = { has_global_flag = germanus_in_auxerre }
+		NOT = { has_global_flag = germanus_check }
+	}
+	
+	mean_time_to_happen = {
+		days = 60
+	}
+	
+	immediate = {
+		set_global_flag = germanus_check
+	}
+	
+	option = {
+		name = "EVTOPTA302702"	
+		piety = 50
+		prestige = 50
+		hidden_tooltip = {
+			c_auxerre = {
+				holder_scope = {
+					death = yes
+				}
+			}
+		}
+		event_target:germanus_of_auxerre = {
+			character_event = { id = 302703 }
+		}
+		ai_chance = {
+			factor = 20
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302702"
+		prestige = -50
+	}
+}
+
+# Germanus initial event - ask Germanus if he wants to become bishop
+character_event = {
+	id = 302703
+	desc = "EVTDESC302703"
+	picture = "GFX_evt_church_small"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302703"
+		abdicate = yes
+		b_auxerretemple = {
+			grant_title = PREV
+		}
+		set_government_type = theocracy_government
+		prestige = 100
+		piety = 250
+		set_global_flag = germanus_in_auxerre
+		set_global_flag = germanus_inital
+		hidden_tooltip = {
+			any_claim = { remove_claim = PREV }
+			c_auxerre = {
+				holder_scope = {
+					top_liege = {
+						character_event = { id = 302704 days = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302703"
+		piety = 50
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Germanus initial event
+character_event = {
+	id = 302704
+	title = "EVTNAME302704"
+	desc = "EVTDESC302704"
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302704"
+		prestige = 50
+		piety = 100
+		b_auxerretemple = {
+			holder_scope = {
+				character_event = { id = 302705 days = 10 }
+				set_character_flag = germanus_working_char
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+
+	option = {
+		name = "EVTOPTB302704"
+		piety = -50
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Event for Germanus
+character_event = {
+	id = 302705
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = germanus_start_work
+	}
+	
+	option = {
+		piety = 100
+		prestige = 50
+		random_playable_ruler = {
+			limit = {
+				religion = pelagian
+				OR = {
+					culture = briton
+					culture = romanobritish
+				}
+				NOT = { has_character_flag = germanus_blocked }
+				NOT = { has_character_flag = germanus_target }
+			}
+			set_character_flag = germanus_target
+			save_global_event_target_as = germanus_target
+			character_event = { id = 302706 days = 10 }
+		}
+	}
+}
+
+# Pelagian is told Germanus wants to visit
+character_event = {
+	id = 302706
+	title = "EVTNAME302706"
+	desc = "EVTDESC302706"
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302706"
+		wealth = 200
+		prestige = 50
+		piety = -50
+		set_global_flag = germanus_working
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						religion = catholic
+						religion = pelagian
+					}		
+				}
+				narrative_event = { id = 302708 days = 10 }
+			}
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302706"
+		prestige = -50
+		piety = 50
+		clr_character_flag = germanus_target
+		clear_global_event_target = germanus_target
+		set_character_flag = germanus_blocked
+		FROM = {
+			character_event = { id = 302707 days = 1800 }
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Generic starter event for Germanus
+character_event = {
+	id = 302707
+	picture = "GFX_evt_priests_in_forest"
+	desc = EVTDESC302707
+	
+	is_triggered_only = yes
+	
+#	trigger = {
+#		has_character_flag = germanus_of_auxerre
+#		prisoner = no
+#		religion = catholic
+#		any_playable_ruler = {
+#			religion = pelagian
+#			NOT = { has_character_flag = germanus_target }
+#			NOT = { has_character_flag = germanus_blocked }
+#		}
+#		NOT = { has_global_flag = germanus_working }
+#		has_global_flag = germanus_start_work
+#	}
+#	
+#	mean_time_to_happen = {
+#		months = 12
+#	}
+	
+	immediate = {
+		set_global_flag = germanus_working
+	}
+	
+	option = {
+		piety = 100
+		prestige = 50
+		random_playable_ruler = {
+			limit = {
+				religion = pelagian
+				NOT = { has_character_flag = germanus_target }
+				NOT = { has_character_flag = germanus_blocked }
+				OR = {
+					culture = briton
+					culture = romanobritish
+				}
+			}
+			set_character_flag = germanus_target
+			save_global_event_target_as = germanus_target
+			character_event = { id = 302706 days = 10 }
+		}
+	}
+}
+
+# People informed of Germanus' target
+narrative_event = {
+	id = 302708
+	title = "EVTNAME302708"
+	desc = "EVTDESC302708"
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302708"
+		trigger = {
+			religion = catholic
+		}
+		ROOT = {
+			opinion = { modifier = opinion_pleased who = FROMFROM years = 5 }
+		}
+	}
+
+	option = {
+		name = "EVTOPTB302708"
+		trigger = {
+			religion = pelagian
+			NOT = { has_character_flag = germanus_target }
+		}
+		ROOT = {
+			opinion = { modifier = opinion_upset who = FROMFROM years = 5 }
+		}
+	}	
+}
+
+# Pelagian courtier converted to Nicene christianity
+character_event = {
+	id = 302709
+	picture = "GFX_evt_priests_in_forest"
+	
+	capable_only = yes
+	prisoner = no
+	min_age = 15
+	
+	trigger = {
+		liege = {
+			has_character_flag = germanus_target
+		}
+		OR = {
+			is_landed = no
+			primary_title = { 
+				NOT = {
+					higher_tier_than = BARON
+				}
+			}
+		}
+		has_global_flag = germanus_start_work
+		has_global_flag = germanus_working
+		religion = pelagian
+		OR = {
+			culture = briton
+			culture = romanobritish
+		}
+		NOT = { trait = zealous }
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.5
+			trait = tolerant
+		}
+		modifier = {
+			factor = 0.8
+			trait = gregarious
+		}
+		modifier = {
+			factor = 2
+			trait = shy
+		}
+		modifier = {
+			factor = 4
+			trait = mastermind_theologian
+		}
+		modifier = {
+			factor = 2
+			trait = scholarly_theologian
+		}
+		modifier = {
+			factor = 0.8
+			trait = martial_cleric
+		}
+		modifier = {
+			factor = 0.5
+			trait = detached_priest
+		}
+	}
+	
+	option = {
+		piety = 100
+		religion = catholic
+		set_character_flag = germanus_converted
+		event_target:germanus_of_auxerre = {
+			prestige = 50
+			piety = 100
+		}
+		liege = {
+			character_event = { id = 302710 days = 3 }
+		}
+	}
+}
+
+# Pelagian courtier converted to Nicene christianity - liege informed
+character_event = {
+	id = 302710
+	title = "EVTNAME302710"
+	desc = "EVTDESC302710"
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302710"
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302710"
+		prestige = -50
+		clr_character_flag = germanus_target
+		clear_global_event_target = germanus_target
+		set_character_flag = germanus_blocked
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						religion = catholic
+						religion = pelagian
+					}
+				}
+				character_event = { id = 302711 days = 3 }
+			}
+			event_target:germanus_of_auxerre = {
+				character_event = { id = 302711 days = 3 }
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+# Germanus forced to move out of court
+character_event = {
+	id = 302711
+	title = "EVTNAME302711"
+	desc = "EVTDESC302711"
+	picture = "GFX_evt_dark_priests"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		clr_global_flag = germanus_working
+	}
+	
+	option = {
+		name = "EVTOPTA302711"
+		trigger = {
+			religion = catholic
+			NOT = { has_character_flag = germanus_of_auxerre }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302711"
+		trigger = {
+			religion = pelagian
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC302711"
+		trigger = {
+			religion = catholic
+			has_character_flag = germanus_of_auxerre
+		}
+		character_event = { id = 302707 days = 60 }
+	}
+}
+
+# Germanus tries to convert host
+character_event = {
+	id = 302712
+	title = "EVTNAME302712"
+	desc = "EVTDESC302712"
+	picture = "GFX_evt_priests_in_forest"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302712"
+		piety = 100
+		wealth = 150
+		religion = catholic
+		clr_character_flag = germanus_target
+		clear_global_event_target = germanus_target
+		set_character_flag = germanus_converted
+		event_target:germanus_of_auxerre = {
+			FROM = {
+				opinion = { modifier = opinion_pleased who = ROOT years = 10 }
+			}
+			hidden_tooltip = {
+				prestige = 50
+				piety = 100
+				character_event = { id = 302707 days = 180 }
+			}
+		}
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					culture = romanobritish
+					culture = briton
+				}
+				OR = {
+					religion = catholic
+					religion = pelagian
+				}
+			}
+			character_event = { id = 302714 days = 1 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302712"
+		clr_character_flag = germanus_target
+		clear_global_event_target = germanus_target
+		set_character_flag = germanus_blocked
+		event_target:germanus_of_auxerre = {
+			FROM = {
+				opinion = { modifier = opinion_upset who = ROOT years = 10 }
+			}
+			hidden_tooltip = {
+				prestige = 50
+				piety = 100
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						religion = catholic
+						religion = pelagian
+					}
+				}
+				character_event = { id = 302711 days = 3 }
+			}
+			event_target:germanus_of_auxerre = {
+				character_event = { id = 302711 days = 3 }
+			}
+		}
+	}
+}
+
+# Germanus tries to convert host - bounce
+character_event = {
+	id = 302713
+	picture = "GFX_evt_priests_in_forest"
+		
+	capable_only = yes
+	prisoner = no
+	min_age = 15
+	
+	trigger = {
+		has_character_flag = germanus_of_auxerre
+		has_global_flag = germanus_start_work
+		has_global_flag = germanus_working
+		event_target:germanus_target = {
+			religion = pelagian
+			prisoner = no
+		}	
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.5
+			event_target:germanus_target = {
+				trait = tolerant
+			}
+		}
+		modifier = {
+			factor = 0.8
+			event_target:germanus_target = {
+				trait = gregarious
+			}
+		}
+		modifier = {
+			factor = 2
+			event_target:germanus_target = {
+				trait = shy
+			}
+		}
+		modifier = {
+			factor = 4
+			event_target:germanus_target = {
+				trait = mastermind_theologian
+			}
+		}
+		modifier = {
+			factor = 2
+			event_target:germanus_target = {
+				trait = scholarly_theologian
+			}
+		}
+		modifier = {
+			factor = 0.8
+			event_target:germanus_target = {
+				trait = martial_cleric
+			}
+		}
+		modifier = {
+			factor = 0.5
+			event_target:germanus_target = {
+				trait = detached_priest
+			}
+		}
+	}
+	
+	option = {
+		event_target:germanus_target = {
+			character_event = { id = 302712 days = 1 }
+		}
+	}
+}
+
+# Rulers notified of ruler's conversion
+character_event = {
+	id = 302714
+	title = "EVTNAME302714"
+	desc = "EVTDESC302714"
+	picture = "GFX_evt_christians_mud"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302714"
+		trigger = {
+			religion = catholic
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302714"
+		trigger = {
+			religion = pelagian
+		}
+	}
+}
+
+# Prevent loop getting blocked by dead character
+character_event = {
+	id = 302715
+	
+	capable_only = yes
+	prisoner = no
+	min_age = 15
+	has_character_flag = germanus_of_auxerre
+	
+	trigger = {
+		has_character_flag = germanus_working_char
+		has_global_flag = germanus_working
+		NOT = {
+			event_target:germanus_target = {
+				always = yes			
+			}
+		}
+		NOT = {
+			any_playable_ruler = {
+				has_character_flag = germanus_blocked
+			}
+		}
+		any_playable_ruler = {
+			religion = pelagian
+			OR = {
+				culture = briton
+				culture = romanobritish
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		event_target:germanus_of_auxerre = {
+			character_event = { id = 302707 days = 10 }
+		}				
+	}
+}
+
+# Reset events if target Pelagian converts by other means
+character_event = {
+	id = 302716
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = germanus_working
+		NOT = {
+			religion = pelagian
+		}
+		OR = {
+			culture = briton
+			culture = romanobritish
+		}
+		has_character_flag = germanus_target
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		clr_character_flag = germanus_target
+		clear_global_event_target = germanus_target
+		event_target:germanus_of_auxerre = {
+			character_event = { id = 302707 days = 10 }
+		}				
+	}
+}
+
+# Reset character if they reconvert to Pelagianism
+character_event = {
+	id = 302717
+	
+	min_age = 15
+	
+	trigger = {
+		has_global_flag = germanus_working
+		religion = pelagian
+		OR = {
+			culture = briton
+			culture = romanobritish
+		}
+		has_character_flag = germanus_converted
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		clr_character_flag = germanus_converted		
+	}
+}

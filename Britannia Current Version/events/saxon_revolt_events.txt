@@ -1,0 +1,450 @@
+namespace = revolt
+
+##########################################
+## Events for Great Saxon Revolt of 439 ##
+##########################################
+
+# Initial event for Hengist
+character_event = {
+	id = revolt.1
+	title = "EVTNAMEREVOLT1"
+	desc = "EVTDESCREVOLT1"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_global_flag = saxon_revolt_initial }
+		has_landed_title = k_cantia
+		is_ingvaeonic_culture_trigger = yes
+		war = no
+		year = 438
+		k_maxima_cesariensis = {
+			has_holder = yes
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 9
+	}
+		
+	immediate = {
+		set_global_flag = saxon_revolt_initial
+		set_global_flag = saxon_plague
+		activate_disease = saxon_plague
+	}
+	
+	option = {
+		name = "EVTOPTAREVOLT1"
+		set_global_flag = saxon_revolt_start
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					OR = {
+						culture = briton
+						culture = romanobritish
+						has_landed_title = k_maxima_cesariensis
+					}
+				}
+				character_event = { id = revolt.2 }
+			}
+			any_playable_ruler = {
+				limit = {
+					is_ingvaeonic_culture_trigger = yes
+				}
+				character_event = { id = revolt.3 }
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBREVOLT1"
+		prestige = -100
+	}
+}
+
+# Britons Informed
+character_event = {
+	id = revolt.2
+	title = "EVTNAMEREVOLT2"
+	desc = "EVTDESCREVOLT2"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAREVOLT2"
+	}
+}
+
+# Saxons Informed
+character_event = {
+	id = revolt.3
+	title = "EVTNAMEREVOLT3"
+	desc = "EVTDESCREVOLT3"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAREVOLT3"
+	}
+}
+
+# Revolt Starts
+character_event = {
+	id = revolt.4
+	title = "EVTNAMEREVOLT4"
+	desc = "EVTDESCREVOLT4"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_global_flag = saxon_revolt_begun }
+		has_global_flag = saxon_revolt_start
+		has_landed_title = k_cantia
+		war = no
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	immediate = {
+		set_character_flag = saxon_revolter
+		set_global_flag = saxon_revolt_begun
+		create_character = {
+			name = "Effa"
+			dynasty = 10
+			religion = germanic_pagan
+			culture = oldsaxon
+			female = no
+			age = 20
+			attributes = {
+				martial = 10
+				diplomacy = 11
+				intrigue = 8
+				stewardship = 9
+				learning = 9
+			}
+			health = 6
+			trait = tough_soldier
+			trait = tough
+			trait = brave
+		}
+		new_character = {
+			dynasty = 10
+			d_the_weald = {
+				grant_title = PREV
+			}
+			c_cantia = {
+				grant_title = PREV
+			}
+			c_arundel = {
+				grant_title = PREV
+			}
+			c_regentium = {
+				grant_title = PREV
+			}
+			c_hastings = {
+				grant_title = PREV
+			}
+			45 = {
+				culture = PREV
+				religion = PREV
+			}
+			151 = {
+				culture = PREV
+				religion = PREV
+			}
+			356 = {
+				culture = PREV
+				religion = PREV
+			}
+			597 = {
+				culture = PREV
+				religion = PREV
+			}
+		}
+		k_cantia = {
+			d_the_weald = {
+				holder_scope = {
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 500 500 }
+						heavy_infantry = { 1500 1500 }
+						light_cavalry = { 200 200 }
+					}
+					attrition = 1.0
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAREVOLT4"
+		k_maxima_cesariensis = {
+			holder_scope = {
+				ROOT = {
+					war = { target = PREV casus_belli = saxon_revolt } 
+				}
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				narrative_event = { id = revolt.5 }
+			}
+		}
+	}	
+}
+
+# Others Informed
+narrative_event = {
+	id = revolt.5
+	title = "EVTNAMEREVOLT5"
+	desc = "EVTDESCREVOLT5"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAREVOLT5"
+		trigger = {
+			culture_group = germanic
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBREVOLT5"
+		trigger = {
+			NOT = { culture_group = germanic }
+		}
+	}
+}
+
+# Revolt ends - Saxons take rest of Cantia
+character_event = {
+	id = revolt.6
+	title = "EVTNAMEREVOLT6"
+	desc = "EVTDESCREVOLT6"
+	picture = "GFX_evt_roman_rider"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = saxon_revolt_begun
+		has_landed_title = k_cantia
+		NOT = { has_global_flag = saxon_revolt_finished }
+		any_war = {
+			war_score = 90
+			using_cb = saxon_revolt
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		set_global_flag = saxon_revolt_finished
+		clr_character_flag = saxon_revolter
+	}
+	
+	option = {
+		name = "EVTOPTAREVOLT6"
+		any_war = {
+			limit = {
+				using_cb = saxon_revolt
+			}
+			end_war = invalid
+		}
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					culture = romanobritish
+					culture = briton
+					has_landed_title = k_maxima_cesariensis
+				}
+			}
+			character_event = { id = revolt.7 }
+		}
+		create_character = {
+				name = "Cymen"
+				dynasty = 274
+				religion = germanic_pagan
+				culture = jute
+				female = no
+				age = 30
+				attributes = {
+					martial = 10
+					diplomacy = 11
+					intrigue = 8
+					stewardship = 9
+					learning = 9
+				}
+				health = 6
+				trait = tough_soldier
+				trait = tough
+				trait = brave
+		}
+		new_character = {
+			dynasty = 274
+			d_surrey = {
+				grant_title = PREV
+			}
+			c_the_downs = {
+				grant_title = PREV
+			}
+			c_fearnhamme = {
+				grant_title = PREV
+			}
+			74 = {
+				culture = PREV
+				religion = PREV
+			}
+			334 = {
+				culture = PREV
+				religion = PREV
+			}
+		}
+		k_cantia = {
+			d_surrey = {
+				holder_scope = {
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+	}
+}
+
+#Revolt ends - others informed
+character_event = {
+	id = revolt.7
+	title = "EVTNAMEREVOLT7"
+	desc = "EVTDESCREVOLT7"
+	picture = "GFX_evt_roman_rider"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAREVOLT7"
+	}
+}
+
+# Britons catch the Saxon plague
+character_event = {
+	id = revolt.8
+	title = "EVTNAMEREVOLT8"
+	desc = "EVTDESCREVOLT8"
+	picture = "GFX_evt_plague"
+	
+	trigger = {
+		has_global_flag = saxon_revolt_start
+		NOT = { has_global_flag = saxon_revolt_finished }
+		OR = {
+			culture = briton
+			culture = romanobritish
+		}
+		NOT = { has_character_flag = saxon_plague }
+		NOT = { has_character_flag = aurelianus }
+		NOT = { has_character_flag = vortigern }
+		NOT = { has_character_flag = merlin_of_avalon }
+	}
+
+	mean_time_to_happen = {
+		months = 450
+		modifier = {
+			factor = 0.75
+			is_ruler = no
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 20 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 10 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { age = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			age = 50
+		}
+		modifier = {
+			factor = 0.5
+			age = 55
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 0.75
+			trait = weak
+		}
+		modifier = {
+			factor = 0.75
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.75
+			trait = gregarious
+		}
+		modifier = {
+			factor = 1.5
+			trait = brilliant
+		}
+		modifier = {
+			factor = 1.5
+			trait = shy
+		}
+		modifier = {
+			factor = 2
+			trait = tough
+		}
+		modifier = {
+			factor = 0.8
+			trait = idiot
+		}
+		modifier = {
+			factor = 2
+			trait = strong
+		}
+		modifier = {
+			factor = 1.5
+			trait = hardy
+		}
+		modifier = {
+			factor = 0.75
+			trait = fragile
+		}
+	}
+	
+	immediate = {
+		set_character_flag = saxon_plague
+	}
+	
+	option = {
+		name = "EVTOPTAREVOLT8"
+		add_trait = has_saxon_plague
+	}
+}
