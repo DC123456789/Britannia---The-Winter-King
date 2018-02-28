@@ -1,0 +1,651 @@
+
+####### SPREADING OF CATHOLIC RELIGION #######
+# Ids 312500 - 312502
+# Ids 312700 - 312709
+
+# Christian Faith Spreading
+character_event = {
+	id = 312700
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_druid_room
+
+	only_rulers = yes
+	min_age = 20
+	max_age = 30
+
+	trigger = {
+		ai = yes
+		religion = briton_pagan
+		NOT = { has_global_flag = christians_expanding }
+		NOT = { has_global_flag = old_gods_restored }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		hidden_tooltip = {
+			set_global_flag = christians_expanding
+		}
+		# ROOT = { religion_authority = -0.1 }
+		#12 = { religion = catholic }
+	}
+
+	option = {
+		name = "You're not supposed to see this..."
+		any_playable_ruler = {
+			limit = {
+				religion_group = christian
+			}
+			hidden_tooltip = { character_event = { id = 312701 days = 1 } }
+		}
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					religion = briton_pagan
+					religion = briton_pagan_reformed
+				}
+			}
+			hidden_tooltip = { character_event = { id = 312702 days = 1 } }
+		}
+		any_playable_ruler = {
+			limit = {
+				NOT = { religion_group = christian }
+				NOT = { religion = briton_pagan }
+				NOT = { religion = briton_pagan_reformed }
+			}
+			hidden_tooltip = { character_event = { id = 312703 days = 1 } }
+		}
+	}
+}
+
+# Christian Faith Spreading - News Reaching Rulers
+character_event = {
+	id = 312701
+	title = "EVTNAME312700"
+	desc = "EVTDESC312701"
+	picture = GFX_evt_church_small
+
+	hide_from = yes
+
+	only_rulers = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA312701"
+	}
+}
+character_event = {
+	id = 312702
+	title = "EVTNAME312700"
+	desc = "EVTDESC312702"
+	picture = GFX_evt_church_small
+
+	hide_from = yes
+
+	only_rulers = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA312702"
+	}
+}
+character_event = {
+	id = 312703
+	title = "EVTNAME312700"
+	desc = "EVTDESC312703"
+	picture = GFX_evt_church_small
+
+	hide_from = yes
+
+	only_rulers = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA312703"
+	}
+}
+
+# Province converts to Catholic
+province_event = {
+	id = 312500
+	desc = "EVTDESC312500"
+	picture = "GFX_evt_christians_mud"
+	border = "GFX_event_normal_frame_religion"
+	
+	trigger = {
+		NOT = { religion_group = christian }
+		NOT = { has_province_modifier = held_rel_authority_council }
+		is_catholic_spread_blocked_trigger = no
+	}
+	
+	mean_time_to_happen = {
+		months = 2400
+		modifier = {
+			factor = 1.2
+			NOT = { year = 450 }
+		}
+		modifier = {
+			factor = 1.2
+			NOT = { year = 480 }
+		}
+		modifier = {
+			factor = 0.9
+			year = 550
+		}
+		modifier = {
+			factor = 0.85
+			year = 600
+		}
+		modifier = {
+			factor = 0.85
+			year = 675
+		}
+		modifier = {
+			factor = 0.85
+			year = 750
+		}
+		modifier = {
+			factor = 1.25
+			religion_authority = 0.4
+		}
+		modifier = {
+			factor = 1.25
+			religion_authority = 0.5
+		}
+		modifier = {
+			factor = 1.25
+			religion_authority = 0.7
+		}
+		modifier = {
+			factor = 1.25
+			religion_authority = 0.8
+		}
+		modifier = {
+			factor = 1.25
+			religion_authority = 0.9
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { religion_authority = 0.3 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { religion_authority = 0.2 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { religion_authority = 0.1 }
+		}
+		modifier = {
+			factor = 1.1
+			k_nuncio_britanniae = {
+				holder_scope = {
+					NOT = { religion_authority = 0.3 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.1
+			k_nuncio_britanniae = {
+				holder_scope = {
+					NOT = { religion_authority = 0.2 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.1
+			k_nuncio_britanniae = {
+				holder_scope = {
+					NOT = { religion_authority = 0.1 }
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			is_heretic = yes
+		}
+		modifier = {
+			factor = 1.1
+			religion_group = pagan_group
+		}
+		modifier = {
+			factor = 0.9
+			religion_group = zoroastrian_group
+		}
+		modifier = {
+			factor = 0.85
+			owner = { religion = catholic }
+		}
+		modifier = {
+			factor = 0.85
+			owner = {
+				trait = zealous
+				religion = catholic
+			}
+		}
+		modifier = {
+			factor = 2.5
+			owner = {
+				NOT = { religion = catholic }
+			}
+		}
+		modifier = {
+			factor = 5.0
+			owner = {
+				trait = zealous
+				NOT = { religion_group = christian }
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				trait = tolerant
+				NOT = { religion = catholic }
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+				OR = {
+					culture = romanobritish
+					culture = armorican
+					culture = breton
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				OR = {
+					culture = briton
+					culture = cumbrian
+					culture = pictish
+				}
+			}
+		}
+		modifier = {
+			factor = 3.0
+			owner = {
+				culture = oldfrisian
+			}
+		}
+		modifier = {
+			factor = 2.0
+			owner = {
+				culture = frisian
+			}
+		}
+		modifier = {
+			factor = 1.25
+			owner = {
+				OR = {
+					religion = germanic_pagan
+					religion = frankish_pagan
+					religion = suebic_pagan
+					religion = norse_pagan
+				}
+			}
+		}
+		modifier = {
+			factor = 0.7
+			OR = {
+				province_id = 1	# Durnovaria
+				province_id = 2	# Lindinis
+				province_id = 7	# Calleva
+				province_id = 8	# Cunetio
+				province_id = 10	# Vectis
+				province_id = 16	# Vindocladia
+				province_id = 20	# Glevum
+				province_id = 21	# Burrium
+				province_id = 22	# Magnis
+				province_id = 24	# Isca Siluria
+				province_id = 25	# Nidum
+				province_id = 47	# Londinium
+				province_id = 97	# Eblana
+				province_id = 106	# Avon
+				province_id = 132	# Dinnewrac
+				province_id = 134	# Regia
+				AND = {
+					province_id = 144	# Medcaut
+					owner = { is_ingvaeonic_culture_trigger = yes }
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			OR = {
+				province_id = 60	# Ynys Mon
+				province_id = 61	# Ynys Man
+				province_id = 141	# Manann
+			}
+		}
+		modifier = {
+			factor = 0.1
+			k_nuncio_britanniae = {
+				ROOT = { is_capital = PREV }
+			}
+		}
+		modifier = {
+			factor = 8.0
+			NOT = {
+				any_neighbor_province = {
+					religion = catholic
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				religion = catholic
+			}
+		}
+		modifier = {
+			factor = 0.85
+			port = yes
+		}
+		modifier = {
+			factor = 3.5
+			terrain = woods
+		}
+		modifier = {
+			factor = 5.0
+			terrain = forest
+		}
+		modifier = {
+			factor = 2.5
+			OR = {
+				terrain = hills
+				terrain = arctic
+				terrain = marsh
+			}
+		}
+		modifier = {
+			factor = 4.0
+			OR = {
+				terrain = mountain
+				terrain = highlands
+			}
+		}
+		modifier = {
+			factor = 0.8
+			terrain = farmlands
+		}
+		modifier = {
+			factor = 0.5
+			terrain = fosse_way
+		}
+		modifier = {
+			factor = 0.6
+			OR = {
+				culture = oldirish
+				culture = gaelic
+			}
+		}
+		modifier = {
+			factor = 0.9
+			culture_group = imperiale
+		}
+		modifier = {
+			factor = 5
+			is_ingvaeonic_culture_trigger = yes
+			NOT = { year = 590 }
+			region = world_britannia
+		}
+		modifier = {
+			factor = 3
+			is_ingvaeonic_culture_trigger = yes
+			NOT = { year = 550 }
+			owner = { NOT = { religion_group = christian }}
+			region = world_britannia
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				culture = oldfrisian
+				culture = frisian
+			}
+			NOT = { year = 650 }
+			NOT = { region = world_britannia }
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				culture = angle
+				culture = oldsaxon
+				culture = jute
+				culture = anglosaxon
+				culture = saxon
+			}
+			NOT = { year = 700 }
+			NOT = { region = world_britannia }
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				AND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
+				}
+				AND = {
+					religion_group = zoroastrian_group
+					NOT = { religion = roman_pagan }
+				}
+				AND = {
+					religion = manichean
+					has_global_flag = manicheanism_rising
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			religion = manichean
+		}			
+		modifier = {
+			factor = 1.3
+			NOT = { year = 460 }
+			OR = {
+				culture = briton
+				culture = cumbrian
+			}
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { year = 480 }
+			culture = pictish
+		}
+		modifier = {
+			factor = 1.4
+			NOT = { year = 560 }
+			culture = pictish
+		}
+		modifier = {
+			factor = 10
+			culture = proto_norse
+		}
+		modifier = {
+			factor = 5
+			culture = dane
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				culture = dane
+				culture = proto_norse
+			}
+			NOT = { year = 800 }
+		}
+		modifier = {
+			factor = 15
+			culture = oldsaxon
+		}
+		modifier = {
+			factor = 5
+			culture = saxon
+		}
+		modifier = {
+			factor = 0.75
+			has_province_modifier = brythonic_settlements
+		}
+		modifier = {
+			factor = 0.4
+			has_province_modifier = large_brythonic_settlements
+		}
+		modifier = {
+			factor = 0.6
+			terrain = woods
+			OR = {
+				has_province_modifier = brythonic_settlements
+				has_province_modifier = large_brythonic_settlements
+			}
+		}
+		modifier = {
+			factor = 3
+			religion_group = pagan_group
+			owner = {
+				religion = pagan_group
+				is_reformed_religion = yes
+			}
+		}
+		modifier = {
+			factor = 3.0
+			location = { is_hard_to_convert = yes }
+		}
+	}
+	
+	immediate = {
+		#log = "[This.GetName] converts to Nicene (312500)"
+		hidden_tooltip = {
+			owner = {
+				top_liege = {
+					if = {
+						limit = {
+							NOT = { character = PREV }
+							NOT = { religion_group = christian }
+						}
+						character_event = { id = 312501 days = 1 }
+					}
+					if = {
+						limit = {
+							NOT = { character = PREV }
+							religion = catholic
+						}
+						character_event = { id = 312502 days = 1 }
+					}
+					if = {
+						limit = {
+							NOT = { character = PREV }
+							NOT = { religion = catholic }
+							religion_group = christian
+						}
+						character_event = { id = 3125020 days = 1 }
+					}
+					any_vassal = {
+						limit = {
+							NOT = { character = PREVPREV }
+							higher_tier_than = baron
+							NOT = { religion_group = christian }
+						}
+						character_event = { id = 312501 days = 1 }
+					}
+					any_vassal = {
+						limit = {
+							NOT = { character = PREVPREV }
+							higher_tier_than = baron
+							religion = catholic
+						}
+						character_event = { id = 312502 days = 1 }
+					}
+					any_vassal = {
+						limit = {
+							NOT = { character = PREVPREV }
+							higher_tier_than = baron
+							NOT = { religion = catholic }
+							religion_group = christian
+						}
+						character_event = { id = 3125020 days = 1 }
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA312500"
+		trigger = {
+			owner = {
+				NOT = { religion_group = christian }
+			}
+		}
+		ROOT = {
+			religion = catholic
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB312500"
+		trigger = {
+			owner = {
+				religion = catholic
+			}
+		}	
+		ROOT = {
+			religion = catholic
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC312500"
+		trigger = {
+			owner = {
+				NOT = { religion = catholic }
+				religion_group = christian
+			}
+		}	
+		ROOT = {
+			religion = catholic
+		}
+	}
+}
+
+# News of the conversion spreads in realm (to Pagans)
+character_event = {
+	id = 312501
+	desc = "EVTDESC312501"
+	picture = GFX_evt_christians_mud
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA312501"
+	}
+}
+# News of the conversion spreads in realm (to Catholics)
+character_event = {
+	id = 312502
+	desc = "EVTDESC312502"
+	picture = GFX_evt_storm_clearing
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA312502"
+	}
+}
+# News of the conversion spreads in realm (to other Christians)
+character_event = {
+	id = 3125020
+	desc = "EVTDESC3125020"
+	picture = GFX_evt_storm_clearing
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA3125020"
+	}
+}
+

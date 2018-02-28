@@ -1,0 +1,768 @@
+########################
+#
+# Manichean Events
+#
+# Id 301700 - 301799
+#
+#########################
+
+# Assign all existing Manichaean characters traits at start
+character_event = {
+	id = 301700
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_character = {
+			limit = { 
+				religion = manichean 
+				NOR = {
+					trait = manichaean_elect
+					trait = manichaean_hearer
+				}
+				OR = {
+					is_adult = yes
+					AND = {
+						is_adult = no
+						father_even_if_dead = {
+							trait = manichaean_elect
+						}
+						NOT = { trait = manichaean_child_of_elect }
+					}
+				}
+			}
+			character_event = { id = 301701 }
+		}
+	}
+}
+
+
+# Assign Manichaean caste trait (initial)
+character_event = {
+	id = 301701
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Children with elect fathers get the child of elect trait
+		if = {
+			limit = { 
+				is_adult = no
+			}
+			if = {
+				limit = {
+					father_even_if_dead = {
+						trait = manichaean_elect
+					}
+				}
+				add_trait = manichaean_child_of_elect
+			}
+		
+			# Cycle to next unassigned character (required to regenerate seed)
+			random_character = {
+				limit = { 
+					religion = manichean 
+					NOR = {
+						trait = manichaean_elect
+						trait = manichaean_hearer
+					}
+					OR = {
+						is_adult = yes
+						AND = {
+							is_adult = no
+							father_even_if_dead = {
+								trait = manichaean_elect
+							}
+							NOT = { trait = manichaean_child_of_elect }
+						}
+					}
+				}
+				character_event = { id = 301701 }
+			}
+			break = yes
+		}
+		
+		# Randomly generated priests are always elect
+		if = {
+			limit = { 
+				is_priest = yes 
+				NOR = {
+					has_character_flag = assign_manichaean_elect
+					has_character_flag = assign_manichaean_hearer
+				}
+			}
+			set_character_flag = assign_manichaean_elect
+		}
+		
+		# Look at patrilineal inheritance
+		if = {
+			limit = { 
+				father_even_if_dead = {
+					trait = manichaean_elect
+				}
+				NOR = {
+					has_character_flag = assign_manichaean_elect
+					has_character_flag = assign_manichaean_hearer
+				}
+			}
+			set_character_flag = assign_manichaean_elect
+		}
+		if = {
+			limit = { 
+				father_even_if_dead = {
+					trait = manichaean_hearer
+				}
+				NOR = {
+					has_character_flag = assign_manichaean_elect
+					has_character_flag = assign_manichaean_hearer
+				}
+			}
+			set_character_flag = assign_manichaean_hearer
+		}
+		
+		# If has a non-Manichean father, assign hearer trait
+		if = {
+			limit = {
+				OR = {
+					father_even_if_dead = {
+						always = yes
+					}
+					mother_even_if_dead = {
+						always = yes
+					}
+				}
+				NOR = {
+					has_character_flag = assign_manichaean_elect
+					has_character_flag = assign_manichaean_hearer
+				}
+			}
+			set_character_flag = assign_manichaean_hearer
+		}
+		
+		# Otherwise, 20% Elect, 80% Hearer
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = assign_manichaean_elect
+					has_character_flag = assign_manichaean_hearer
+				}
+			}
+			random_list = {
+				20 = {
+					set_character_flag = assign_manichaean_elect
+				}
+				80 = {
+					set_character_flag = assign_manichaean_hearer
+				}
+			}
+		}
+		
+		# Assign actual trait
+		if = {
+			limit = { has_character_flag = assign_manichaean_elect }
+			add_trait = manichaean_elect
+			clr_character_flag = assign_manichaean_elect
+		}
+		if = {
+			limit = { has_character_flag = assign_manichaean_hearer }
+			add_trait = manichaean_hearer
+			clr_character_flag = assign_manichaean_hearer
+		}
+		
+		# Cycle to next unassigned character (required to regenerate seed)
+		random_character = {
+			limit = { 
+				religion = manichean 
+				NOR = {
+					trait = manichaean_elect
+					trait = manichaean_hearer
+				}
+				OR = {
+					is_adult = yes
+					AND = {
+						is_adult = no
+						father_even_if_dead = {
+							trait = manichaean_elect
+						}
+						NOT = { trait = manichaean_child_of_elect }
+					}
+				}
+			}
+			character_event = { id = 301701 }
+		}
+	}
+}
+# Assign Manichean caste trait (on birth, conversion, or generation)
+character_event = {
+	id = 301702
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	religion = manichean
+	
+	trigger = {
+		NOR = {
+			trait = manichaean_elect
+			trait = manichaean_hearer
+		}
+		OR = {
+			is_adult = yes
+			AND = {
+				is_adult = no
+				father_even_if_dead = {
+					trait = manichaean_elect
+				}
+				NOT = { trait = manichaean_child_of_elect }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		# Children with elect fathers get the child of elect trait
+		if = {
+			limit = { 
+				is_adult = no
+			}
+			if = {
+				limit = {
+					father_even_if_dead = {
+						trait = manichaean_elect
+					}
+				}
+				add_trait = manichaean_child_of_elect
+			}
+			break = yes
+		}
+	
+		# Look at patrilineal inheritance
+		if = {
+			limit = { 
+				OR = {
+					father_even_if_dead = {
+						trait = manichaean_elect
+					}
+					trait = manichaean_child_of_elect
+				}
+			}
+			add_trait = manichaean_elect
+			remove_trait = manichaean_child_of_elect
+			break = yes
+		}
+		if = {
+			limit = { 
+				father_even_if_dead = {
+					trait = manichaean_hearer
+				}
+			}
+			add_trait = manichaean_hearer
+			remove_trait = manichaean_child_of_elect
+			break = yes
+		}
+		
+		# Remove child of elect trait if adult and somehow still has it
+		remove_trait = manichaean_child_of_elect
+		
+		# If has a non-Manichean father, assign hearer trait
+		if = {
+			limit = {
+				OR = {
+					father_even_if_dead = {
+						always = yes
+					}
+					mother_even_if_dead = {
+						always = yes
+					}
+				}
+			}
+			add_trait = manichaean_hearer
+			break = yes
+		}
+		
+		# Priests are always elect
+		if = {
+			limit = { 
+				is_priest = yes
+			}
+			add_trait = manichaean_elect
+			break = yes
+		}
+		
+		# Otherwise, 20% Elect, 80% Hearer (partly weighted on education)
+		random_list = {
+			20 = {
+				modifier = {
+					factor = 2
+					OR = {
+						trait = detached_priest
+						trait = martial_cleric
+						trait = scholarly_theologian
+						trait = mastermind_theologian
+					}
+				}
+				modifier = {
+					factor = 0.5
+					OR = {
+						trait = misguided_warrior
+						trait = tough_soldier
+						trait = skilled_tactician
+						trait = brilliant_strategist
+					}
+				}
+				add_trait = manichaean_elect
+			}
+			80 = {
+				add_trait = manichaean_hearer
+			}
+		}
+	}
+}
+
+# Children of Elect are given the choice to take the vows upon reaching childhood
+character_event = {
+	id = 301703
+	picture = "GFX_evt_bishop_preaching"
+	
+	desc = {
+		text = EVTDESC301703
+		trigger = {
+			NOT = { trait = manichaean_child_of_elect }
+		}
+	}
+	
+	desc = {
+		text = EVTDESC301703_1
+		trigger = {
+			trait = manichaean_child_of_elect
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		religion = manichean
+	}
+	
+	option = {
+		name = "EVTOPTA301703"
+		trigger = {
+			trait = manichaean_child_of_elect
+		}
+		ai_chance = {
+			factor = 90
+		}
+		remove_trait = manichaean_child_of_elect
+		add_trait = manichaean_elect
+		piety = 30
+	}
+	option = {
+		name = "EVTOPTB301703"
+		trigger = {
+			trait = manichaean_child_of_elect
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				trait = zealous
+			}
+			modifier = {
+				factor = 0
+				NOR = {
+					trait = hedonist
+					trait = lustful
+					trait = gluttonous
+					trait = greedy
+					trait = slothful
+					trait = wroth
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 3
+				trait = hedonist
+			}
+			modifier = {
+				factor = 2
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 2
+				trait = lustful
+			}
+		}
+		remove_trait = manichaean_child_of_elect
+		add_trait = manichaean_hearer
+		piety = -50
+		prestige = -50
+	}
+	option = {
+		name = "EVTOPTC301703"
+		trigger = {
+			NOT = { trait = manichaean_child_of_elect }
+		}
+		add_trait = manichaean_hearer
+	}
+}
+
+
+# Pious, virtuous Hearers can become an Elect
+character_event = {
+	id = 301710
+	desc = EVTDESC301710
+	picture = "GFX_evt_bishop_preaching"
+	
+	religion = manichean
+	
+	trigger = {
+		trait = manichaean_hearer
+		NOR = {
+			has_vice_trigger = yes
+			has_unpleasant_trait_trigger = yes
+			trait = hedonist
+			trait = cynical
+			trait = hunter
+			trait = arbitrary
+		}
+		has_virtue_trigger = yes
+		learning = 12
+		piety = 500
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.75
+			has_education_learning_trigger = yes
+		}
+		modifier = {
+			factor = 0.8
+			has_lifestyle_learning_trigger = yes
+		}
+		modifier = {
+			factor = 0.5
+			society_member_of = monastic_order_manichean
+		}
+		modifier = {
+			factor = 0.9
+			piety = 750
+		}
+		modifier = {
+			factor = 0.9
+			piety = 1000
+		}
+		modifier = {
+			factor = 0.9
+			piety = 1500
+		}
+		modifier = {
+			factor = 0.9
+			piety = 2000
+		}
+		modifier = {
+			factor = 0.9
+			learning = 15
+		}
+		modifier = {
+			factor = 0.9
+			learning = 18
+		}
+		modifier = {
+			factor = 0.8
+			learning = 21
+		}
+		modifier = {
+			factor = 0.8
+			learning = 24
+		}
+		modifier = {
+			factor = 0.75
+			trait = celibate
+		}
+		modifier = {
+			factor = 0.85
+			trait = chaste
+		}
+		modifier = {
+			factor = 0.9
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.9
+			trait = kind
+		}
+		modifier = {
+			factor = 0.85
+			trait = poet
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA301710"
+		ai_chance = {
+			factor = 95
+		}
+		remove_trait = manichaean_hearer
+		add_trait = manichaean_elect
+		piety = 100
+	}
+	
+	option = {
+		name = "EVTOPTB301710"
+		ai_chance = {
+			factor = 5
+		}
+		piety = -50
+	}
+}
+
+# Impious, unvirtuous Elect can be demoted to Hearers
+character_event = {
+	id = 301711
+	desc = EVTDESC301711
+	picture = "GFX_evt_dark_priests"
+	
+	religion = manichean
+	
+	trigger = {
+		trait = manichaean_elect
+		OR = {
+			has_vice_trigger = yes
+			trait = cruel
+			trait = deceitful
+			trait = impaler
+			trait = hedonist
+			trait = arbitrary
+		}
+		NOT = { learning = 21 }
+		NOT = { piety = 1500 }
+	}
+	
+	mean_time_to_happen = {
+		months = 180
+		modifier = {
+			factor = 1.25
+			has_education_learning_trigger = yes
+		}
+		modifier = {
+			factor = 1.5
+			has_lifestyle_learning_trigger = yes
+		}
+		modifier = {
+			factor = 3
+			trait = celibate
+		}
+		modifier = {
+			factor = 1.4
+			trait = chaste
+		}
+		modifier = {
+			factor = 1.2
+			trait = temperate
+		}
+		modifier = {
+			factor = 1.2
+			trait = kind
+		}
+		modifier = {
+			factor = 0.1
+			has_virtue_trigger = no
+		}
+		modifier = {
+			factor = 0.5
+			trait = hedonist
+		}
+		modifier = {
+			factor = 0.75
+			trait = lustful
+		}
+		modifier = {
+			factor = 0.75
+			trait = cruel
+		}
+		modifier = {
+			factor = 0.85
+			trait = greedy
+		}
+		modifier = {
+			factor = 0.75
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { piety = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { piety = 100 }
+		}
+		modifier = {
+			factor = 1.25
+			piety = 500
+		}
+		modifier = {
+			factor = 1.25
+			piety = 750
+		}
+		modifier = {
+			factor = 1.5
+			piety = 1000
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { learning = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { learning = 10 }
+		}
+		modifier = {
+			factor = 1.5
+			learning = 15
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { diplomacy = 8 }
+		}
+		modifier = {
+			factor = 1.1
+			diplomacy = 12
+		}
+		modifier = {
+			factor = 1.2
+			diplomacy = 15
+		}
+		modifier = {
+			factor = 1.25
+			diplomacy = 18
+		}
+		modifier = {
+			factor = 1.25
+			diplomacy = 21
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA301711"
+		remove_trait = manichaean_elect
+		add_trait = manichaean_hearer
+		piety = -100
+	}
+}
+
+# Manicheanism rising once again
+narrative_event = {
+	id = 301720
+	title = "EVTNAME301720"
+	desc = "EVTDESC301720"
+	picture = "GFX_evt_bishop_preaching"
+	major = yes
+	hide_new = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA301720"		# Manicheans
+		trigger = {
+			religion = manichean
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB3301720"		# Non-Manicheans
+		trigger = {
+			NOT = { religion = manichean }
+		}
+	}
+}
+
+### Order of the Purifying Light ###
+narrative_event = {		# Form the Order (triggered by decision)
+	id = 301725
+	title = "EVTNAME301725"
+	desc = "EVTDESC301725"
+	picture = "GFX_evt_warband_on_hill"
+	
+	major = yes
+	hide_from = yes
+	only_playable = yes
+	religion = manichean
+	
+	trigger = {
+	    has_global_flag = manicheanism_rising
+		NOT = { is_title_active = d_order_of_the_light }
+	}
+	
+	mean_time_to_happen = {
+		months = 4
+	}
+	
+	immediate = {
+		activate_title = { title = d_order_of_the_light status = yes }
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = manichean
+			culture = romanogallic
+			female = no
+			age = 30
+			attributes = {
+				martial = 11
+				diplomacy = 10
+				stewardship = 11
+				intrigue = 11
+				learning = 12
+			}
+			trait = skilled_tactician
+			trait = skilled_warrior
+			trait = veteran
+			trait = brave
+			trait = loyal
+			trait = inspiring_leader
+			trait = honorable
+			trait = zealous
+			trait = brother_of_mithra
+			trait = manichaean_hearer
+		}
+		new_character = {
+			d_order_of_the_light = {
+				gain_title = PREV
+				gender_succ = agnatic
+				succession_w_cooldown = open_elective
+			}
+			set_defacto_liege = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA301725"
+		trigger = {
+			OR = {
+				character = ROOT
+				religion = manichean
+				top_liege = { character = ROOT }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB301725"
+		trigger = {
+			NOR = {
+				character = ROOT
+				religion = manichean
+				top_liege = { character = ROOT }
+			}
+		}
+	}
+}

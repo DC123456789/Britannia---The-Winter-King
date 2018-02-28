@@ -1,0 +1,899 @@
+####################
+#DEATH BY EXECUTION:
+####################
+#Executions are randomized from this list
+#An additive modifier is also available, as seen in the example below
+#
+#execution_method = {
+#	death = death_platypus
+#	weight_multiplier = {
+#		factor = 1
+#		modifier = {
+#			factor = 0.5
+#			FROM = {
+#				trait = proud
+#			}
+#		}
+#		additive_modifier = {
+#			value = 50
+#			ROOT = {
+#				has_character_modifier = the_dungeon
+#			}
+#		}
+#	}
+#	trigger = {
+#		always = yes
+#	}
+#}
+####################
+
+execution_method = {
+	death = death_execution_crushing
+	weight_multiplier = {
+		factor = 200
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				# Only available to the following:
+				trait = cruel
+				trait = wroth
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_ash
+	weight_multiplier = {
+		factor = 200
+	}
+	trigger = {
+		FROM = {
+ 			religion_group = zoroastrian_group
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_burning
+	weight_multiplier = {
+		factor = 150
+		modifier = {
+			factor = 2
+			is_female = yes
+		}
+		modifier = {
+			factor = 2
+			is_any_kinslayer_trigger = yes
+		}
+		modifier = {
+			factor = 4
+			is_heresy_of = FROM
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				OR = {
+					has_opinion_modifier = { who = ROOT modifier = opinion_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_rebel_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_regicide_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_killed_close_kin } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_witch } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_takfir } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_unfaithful_wife } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_cuckolded } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_heresiarch } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_infidel } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_deviant } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_traitor } 
+				}
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			NOT = { is_nomadic = yes }
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_hdq
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 4
+			FROM = {
+				OR = {
+					has_opinion_modifier = { who = ROOT modifier = declared_war } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_dishonorable } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_rebel_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_regicide_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_killed_close_kin } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_refused_abdicate_title } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_refused_order }
+					has_opinion_modifier = { who = ROOT modifier = opinion_witch } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_takfir } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_unfaithful_wife } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_cuckolded } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_heresiarch } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_infidel } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_deviant } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_traitor } 
+					has_opinion_modifier = { who = ROOT modifier = opinion_charge_slanderer } 
+					has_opinion_modifier = { who = ROOT modifier = abuse_of_office } 
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			FROM = {
+				OR = {
+					trait = kind
+					trait = temperate
+					trait = charitable
+				}
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = cruel
+				trait = wroth
+	 			culture_group = germanic
+			}
+			NOR = {
+				is_nomadic = yes
+				is_tribal = yes
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_bear
+	weight_multiplier = {
+		factor = 300
+		modifier = {
+			factor = 8
+			FROM = {
+				trait = hunter
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = cruel
+			}
+		}
+	}
+	trigger = {
+		ROOT = {
+			calc_true_if = {
+				amount = 2
+				culture_group = imperiale
+				culture = romanobritish
+				culture = armorican
+				religion_group = zoroastrian_group
+				religion_group = christian
+				trait = romanitas_trait
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_lion
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = hunter
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				religion_group = zoroastrian_group
+			}
+		}
+		modifier = {
+			factor = 5
+			ROOT = {
+				is_lowborn = yes
+			}
+		}
+	}
+	trigger = {
+		ROOT = {
+			calc_true_if = {
+				amount = 3
+				culture_group = imperiale
+				religion_group = zoroastrian_group
+				religion_group = christian
+				trait = romanitas_trait
+				higher_tier_than = count
+			}
+			OR = {
+				independent = yes
+				top_liege = { 
+					culture_group = imperiale
+				}
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_snake_pit
+	weight_multiplier = {
+		factor = 50
+		modifier = {
+			factor = 4
+			FROM = {
+				trait = deceitful
+			}
+		}
+		modifier = {
+			factor = 4
+			FROM = {
+				culture_group = germanic
+				religion_group = pagan_group
+			}
+		}
+		modifier = {
+			factor = 12
+			FROM = {
+				culture = hunnic #Attila style
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			higher_tier_than = count
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_disembowelment
+	weight_multiplier = {
+		factor = 300
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = cruel
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			culture_group = germanic
+			religion_group = pagan_group
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_boiling
+	weight_multiplier = {
+		factor = 100
+	}
+	trigger = {
+		trait = cruel
+		NOT = { 
+			is_nomadic = yes 
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_sawing
+	weight_multiplier = {
+		factor = 200
+	}
+	trigger = {
+		FROM = {
+			trait = cruel
+			NOT = { is_nomadic = yes }
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_hunt
+	weight_multiplier = {
+		factor = 200
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = gamer
+				trait = hunter
+				religion_group = pagan_group
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_live_burial
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = gardener
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = gardener
+				trait = cruel
+				trait = wroth
+				culture_group = imperiale
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_hanging
+	weight_multiplier = {
+		factor = 50
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = kind
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = temperate
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = charitable
+			}
+		}
+		modifier = {
+			factor = 2
+			ROOT = {
+				is_lowborn = yes
+			}
+		}
+		modifier = {
+			factor = 8
+			FROM = {
+				culture_group = germanic
+				religion_group = pagan_group
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			NOT = { is_nomadic = yes }
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_immurement
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = architect
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = wroth
+				trait = cruel
+				trait = architect
+			}
+			NOR = {
+				is_nomadic = yes
+				is_tribal = yes
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_beheading
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = kind
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = temperate
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = charitable
+			}
+		}
+		modifier = {
+			factor = 0.5
+			ROOT = {
+				is_lowborn = yes
+			}
+		}
+		modifier = {
+			factor = 8
+			FROM = {
+				OR = {
+					culture_group = imperiale # Romans liked decapitated Romans
+					culture = romanobritish
+					culture = armorican
+					trait = romanitas_trait
+				}
+			}
+			ROOT = {
+				OR = {
+					culture_group = imperiale
+					culture = romanobritish
+					culture = armorican
+				}
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			NOT = { 
+				is_nomadic = yes 
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_wine
+	weight_multiplier = {
+		factor = 200
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = hedonist
+				trait = drunkard
+				AND = {
+					culture_group = germanic
+					religion_group = pagan_group
+				}
+			}
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+		ROOT = {
+			culture_group = imperiale
+			is_lowborn = no
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_flaying
+	weight_multiplier = {
+		factor = 200
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = hunter
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				trait = hunter
+				trait = cruel
+			}
+			NOR = {
+				trait = kind
+				is_nomadic = yes 
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_impaling
+	weight_multiplier = {
+		factor = 100
+		modifier = {
+			factor = 10
+			FROM = {
+				trait = impaler
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			NOT = { is_nomadic = yes }
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_tiger
+	weight_multiplier = {
+		factor = 150
+		modifier = {
+			factor = 8
+			FROM = {
+				trait = hunter
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				religion_group = zoroastrian_group
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				is_lowborn = yes
+			}
+		}
+	}
+	trigger = {
+		ROOT = {
+			calc_true_if = {
+				amount = 3
+				culture_group = imperiale
+				religion_group = zoroastrian_group
+				religion_group = christian
+				trait = romanitas_trait
+				higher_tier_than = count
+			}
+			OR = {
+				independent = yes
+				top_liege = { 
+					culture_group = imperiale
+				}
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_elephants
+	weight_multiplier = {
+		factor = 100
+		modifier = {
+			factor = 6
+			ROOT = {
+				higher_tier_than = duke
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				religion_group = zoroastrian_group
+			}
+		}
+	}
+	trigger = {
+		ROOT = {
+			calc_true_if = {
+				amount = 3
+				culture_group = imperiale
+				religion_group = zoroastrian_group
+				religion_group = christian
+				trait = romanitas_trait
+				higher_tier_than = king
+			}
+			OR = {
+				independent = yes
+				top_liege = { 
+					culture_group = imperiale
+				}
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_bamboo
+	weight_multiplier = {
+		factor = 300
+	}
+	trigger = {
+		FROM = {
+			AND = {
+				OR = {
+					trait = cruel
+					trait = wroth
+				}
+				capital_scope = {
+					region = world_india
+				}
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_stoning
+	weight_multiplier = {
+		factor = 100
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = wroth
+			}
+		}
+		modifier = {
+			factor = 8
+			ROOT = {
+			trait = homosexual
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				religion_group = jewish_group
+				religion_group = zoroastrian_group
+				religion_group = muslim
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_crucifixion
+	weight_multiplier = {
+		factor = 100
+		modifier = {
+			factor = 4
+			FROM = {
+				religion_group = zoroastrian_group
+			}
+		}
+		modifier = {
+			factor = 4
+			ROOT = {
+				religion_group = christian
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = zealous
+			}
+		}
+	}
+	
+	trigger = {
+		FROM = {
+			NOT = { 
+				religion_group = christian 
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_blood_eagle
+	weight_multiplier = {
+		factor = 400
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = wroth
+			}
+		}
+		modifier = {
+			factor = 5
+			is_rival = FROM
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_scaphism
+	weight_multiplier = {
+		factor = 300
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				trait = wroth
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				culture = greek
+				culture = romanosyrian
+				culture = armenian
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_drowning_pit
+	weight_multiplier = {
+		factor = 300
+		modifier = {
+			factor = 8
+			FROM = {
+				is_female = yes
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+			NOT = {
+				is_nomadic = yes
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_garrotting
+	weight_multiplier = {
+		factor = 300
+	}
+	trigger = {
+		FROM = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+		ROOT = {
+			NOR = {
+				culture_group = imperiale # barbarian leaders opposing Rome were often strangled
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_horses
+	weight_multiplier = {
+		factor = 800
+		modifier = {
+			factor = 4
+			is_rival = FROM
+		}
+	}
+	trigger = {
+		OR = {
+			is_nomadic = yes
+			religion = alan_pagan
+			religion = alan_pagan_reformed
+			religion = tengri_pagan
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_back_breaking
+	weight_multiplier = {
+		factor = 50
+	}
+	trigger = {
+		FROM = {
+			is_nomadic = yes
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_wheel
+	weight_multiplier = {
+		factor = 600
+	}
+	trigger = {
+		FROM = {
+			is_frankish_culture_trigger = yes
+			NOR = {
+				is_nomadic = yes
+			}
+		}
+	}
+}
+
+execution_method = {
+	death = death_execution_boar
+	weight_multiplier = {
+		factor = 300
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = cruel
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = hunter
+			}
+		}
+	}
+	trigger = {
+		FROM = {
+			culture_group = celtic
+		}
+	}
+}

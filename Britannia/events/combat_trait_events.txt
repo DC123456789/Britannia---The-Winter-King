@@ -1,0 +1,929 @@
+###################################
+######Combat Trait Events##########
+###Event Numbers 550100-551100###
+###################################
+
+###Credits to Galla (Greg) for coming up with 99% of these;
+#550100 - Learning the sword from your guardian. (lvl-1)
+#550101 - Learning the sword from your guardian. (lvl-2)
+#550102 - Learning the sword from your guardian. (lvl-3)
+#550103 - Learning the sword from your guardian. (lvl-4)
+#550114 - Maintenance, Dealing with multiple combat skill traits. [Disabled]
+###Oga Stuff###
+#550105 - Guardian Notification. (For all lvl's)
+###Demotions
+#550112 - Getting old.
+
+##################################
+
+#550100 - Learning the sword from your guardian
+character_event = {
+	id = 550100
+	desc = "EVTDESC550100"
+	picture = GFX_evt_child_sword
+	
+	min_age = 5
+	max_age = 15
+
+	trigger = {
+		OR = {
+			guardian = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}
+			}
+			educator = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}			
+			}
+		}	
+		NOT = { trait = poor_warrior }
+		NOT = { trait = trained_warrior }
+		NOT = { trait = skilled_warrior }
+		NOT = { trait = master_warrior }
+	}
+
+	mean_time_to_happen = {
+		months = 30
+
+		# Mentor Effects
+		modifier = {
+			factor = 0.95
+			OR = {
+				guardian = { trait = poor_warrior }
+				educator = { trait = poor_warrior}
+			}
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				guardian = { trait = trained_warrior }
+				educator = { trait = trained_warrior }
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = { 
+				guardian = { trait = skilled_warrior }
+				educator = { trait = skilled_warrior }
+			}	
+		}		
+		modifier = {
+			factor = 0.75
+			OR = {
+				guardian = { trait = master_warrior }
+				educator = { trait = master_warrior }
+			}	
+		}
+
+		# Personality Effects
+		#Good
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = diligent
+				trait = brave
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_character_flag = rowdy_to_sword
+		}
+		#Bad
+		modifier = {
+			factor = 1.35
+			OR = {
+				trait = slothful
+				trait = craven
+			}
+		}		
+		
+		# Intelligence Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = genius
+		}
+		modifier = {
+			factor = 0.9
+			trait = quick
+		}
+		modifier = {
+			factor = 0.95
+			trait = shrewd
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = dull
+		}
+		modifier = {
+			factor = 1.2
+			trait = slow
+		}
+		modifier = {
+			factor = 1.35
+			trait = imbecile
+		}
+		
+		# Physical Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = strong
+		}
+		modifier = {
+			factor = 0.9
+			trait = tough
+		}
+		modifier = {
+			factor = 0.95
+			trait = robust
+		}
+		modifier = {
+			factor = 0.9
+			trait = agile
+		}
+		modifier = {
+			factor = 0.95
+			trait = nimble
+		}
+		modifier = {
+			factor = 0.95
+			trait = big
+		}
+		modifier = {
+			factor = 0.9
+			trait = towering
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = feeble
+		}
+		modifier = {
+			factor = 1.2
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.35
+			trait = weak
+		}
+		modifier = {
+			factor = 1.1 
+			trait = stiff 
+		}
+		modifier = {
+			factor = 1.2
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.1
+			trait = small 
+		}
+		modifier = {
+			factor = 1.35
+			trait = dwarf
+		}
+		
+		#Sexism
+		modifier = {
+			factor = 2.5
+			is_female = yes
+		}
+	}
+
+	option = {
+		name = "EVTOPTA550100" # Stick 'em with the pointy end!
+		hidden_tooltip = { # Guardian Notification.
+			if = {
+				limit = { 
+					guardian = { always = yes }
+				}
+				guardian = { character_event = { id = 550105 } } 
+			}
+			if = {
+				limit = {
+					NOT = { guardian = { always = yes } }
+				}
+				educator = { character_event = { id = 550105 } } 
+			}
+		}  
+		add_trait = poor_warrior 
+	}
+}
+
+#550101 - Learning the sword from your guardian. (lvl-2)
+character_event = {
+	id = 550101
+	desc = "EVTDESC550101" # You show a promising talent for swordplay.
+	picture = GFX_evt_child_sword
+	
+	min_age = 6
+	max_age = 16
+
+	trigger = {
+		OR = {
+			guardian = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}
+			}
+			educator = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}			
+			}
+		}
+
+		trait = poor_warrior
+
+		NOT = { trait = trained_warrior }
+		NOT = { trait = skilled_warrior }
+		NOT = { trait = master_warrior }
+	}
+
+	mean_time_to_happen = {
+		months = 60
+
+		# Mentor Effects
+		modifier = {
+			factor = 0.9
+			guardian = { trait = trained_warrior }
+		}
+		modifier = {
+			factor = 0.85
+			guardian = { trait = skilled_warrior }
+		}
+		modifier = {
+			factor = 0.8
+			guardian = { trait = master_warrior }
+		}	
+
+		# Personality Effects
+		#Good
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = diligent
+				trait = brave
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_character_flag = rowdy_to_sword
+		}
+		#Bad
+		modifier = {
+			factor = 1.35
+			OR = {
+				trait = slothful
+				trait = craven
+			}
+		}		
+		
+		# Intelligence Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = genius
+		}
+		modifier = {
+			factor = 0.9
+			trait = quick
+		}
+		modifier = {
+			factor = 0.95
+			trait = shrewd
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = dull
+		}
+		modifier = {
+			factor = 1.2
+			trait = slow
+		}
+		modifier = {
+			factor = 1.35
+			trait = imbecile
+		}
+		
+		# Physical Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = strong
+		}
+		modifier = {
+			factor = 0.9
+			trait = tough
+		}
+		modifier = {
+			factor = 0.95
+			trait = robust
+		}
+		modifier = {
+			factor = 0.9
+			trait = agile
+		}
+		modifier = {
+			factor = 0.95
+			trait = nimble
+		}
+		modifier = {
+			factor = 0.95
+			trait = big
+		}
+		modifier = {
+			factor = 0.9
+			trait = towering
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = feeble
+		}
+		modifier = {
+			factor = 1.2
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.35
+			trait = weak
+		}
+		modifier = {
+			factor = 1.1 
+			trait = stiff 
+		}
+		modifier = {
+			factor = 1.2
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.1
+			trait = small 
+		}
+		modifier = {
+			factor = 1.35
+			trait = dwarf
+		}
+		#Sexism
+		modifier = {
+			factor = 3.0
+			is_female = yes
+		}
+	}
+
+	option = {
+		name = "EVTOPTA550100"
+		hidden_tooltip = { # Guardian Notification.
+			if = {
+				limit = { 
+					guardian = { always = yes }
+				}
+				guardian = { character_event = { id = 550105 } } 
+			}
+			if = {
+				limit = {
+					NOT = { guardian = { always = yes } }
+				}
+				educator = { character_event = { id = 550105 } } 
+			}
+		}
+		remove_trait = poor_warrior 
+		add_trait = trained_warrior
+	}
+}
+
+#550102 - Learning the sword from your guardian. (lvl-3)
+character_event = {
+	id = 550102
+	desc = "EVTDESC550101"
+	picture = GFX_evt_child_sword
+	
+	min_age = 6
+	max_age = 16
+
+	trigger = {
+		OR = {
+			guardian = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}
+			}
+			educator = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}			
+			}
+		}
+		trait = trained_warrior
+
+		NOT = { trait = skilled_warrior }
+		NOT = { trait = master_warrior }
+	}
+
+	mean_time_to_happen = {
+		months = 120
+
+		# Mentor Effects
+		modifier = {
+			factor = 0.9
+			guardian = { trait = skilled_warrior }
+		}
+		modifier = {
+			factor = 0.85
+			guardian = { trait = master_warrior }
+		}
+
+		# Personality Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = diligent
+				trait = brave
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_character_flag = rowdy_to_sword
+		}
+		#Bad
+		modifier = {
+			factor = 1.35
+			OR = {
+				trait = slothful
+				trait = craven
+			}
+		}		
+		
+		# Intelligence Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = genius
+		}
+		modifier = {
+			factor = 0.9
+			trait = quick
+		}
+		modifier = {
+			factor = 0.95
+			trait = shrewd
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = dull
+		}
+		modifier = {
+			factor = 1.2
+			trait = slow
+		}
+		modifier = {
+			factor = 1.35
+			trait = imbecile
+		}
+		
+		# Physical Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = strong
+		}
+		modifier = {
+			factor = 0.9
+			trait = tough
+		}
+		modifier = {
+			factor = 0.95
+			trait = robust
+		}
+		modifier = {
+			factor = 0.9
+			trait = agile
+		}
+		modifier = {
+			factor = 0.95
+			trait = nimble
+		}
+		modifier = {
+			factor = 0.95
+			trait = big
+		}
+		modifier = {
+			factor = 0.9
+			trait = towering
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = feeble
+		}
+		modifier = {
+			factor = 1.2
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.35
+			trait = weak
+		}
+		modifier = {
+			factor = 1.1 
+			trait = stiff 
+		}
+		modifier = {
+			factor = 1.2
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.1
+			trait = small 
+		}
+		modifier = {
+			factor = 1.35
+			trait = dwarf
+		}
+		
+		#Sexism
+		modifier = {
+			factor = 6.0
+			is_female = yes
+		}
+	}
+	option = {
+		name = "EVTOPTA550100"
+		hidden_tooltip = { # Guardian Notification.
+			if = {
+				limit = { 
+					guardian = { always = yes }
+				}
+				guardian = { character_event = { id = 550105 } } 
+			}
+			if = {
+				limit = {
+					NOT = { guardian = { always = yes } }
+				}
+				educator = { character_event = { id = 550105 } } 
+			}
+		}
+		remove_trait = trained_warrior 
+		add_trait = skilled_warrior
+	}
+}
+
+#550103 - Learning the sword from your guardian. (lvl-3)
+character_event = {
+	id = 550103
+	desc = "EVTDESC550103" # You have truly mastered the art of combat.
+	picture = GFX_evt_child_sword
+	
+	min_age = 6
+	max_age = 16
+	only_men = yes
+
+	trigger = {
+		OR = {
+			guardian = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}
+			}
+			educator = {
+				OR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
+				
+					trait = poor_warrior
+					trait = trained_warrior
+					trait = skilled_warrior
+					trait = master_warrior
+				}			
+			}
+		}
+		trait = skilled_warrior
+		is_female = no
+		NOT = { trait = master_warrior }
+	}
+
+	mean_time_to_happen = {
+		months = 180
+
+		# Mentor Effects
+		modifier = {
+			factor = 0.95
+			guardian = { trait = skilled_warrior }
+		}	
+		modifier = {
+			factor = 0.85
+			guardian = { trait = master_warrior }
+		}
+
+		# Personality Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = diligent
+				trait = brave
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_character_flag = rowdy_to_sword
+		}
+		#Bad
+		modifier = {
+			factor = 1.35
+			OR = {
+				trait = slothful
+				trait = craven
+			}
+		}		
+		
+		# Intelligence Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = genius
+		}
+		modifier = {
+			factor = 0.9
+			trait = quick
+		}
+		modifier = {
+			factor = 0.95
+			trait = shrewd
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = dull
+		}
+		modifier = {
+			factor = 1.2
+			trait = slow
+		}
+		modifier = {
+			factor = 1.35
+			trait = imbecile
+		}
+		
+		# Physical Effects
+		#Good
+		modifier = {
+			factor = 0.85
+			trait = strong
+		}
+		modifier = {
+			factor = 0.9
+			trait = tough
+		}
+		modifier = {
+			factor = 0.95
+			trait = robust
+		}
+		modifier = {
+			factor = 0.9
+			trait = agile
+		}
+		modifier = {
+			factor = 0.95
+			trait = nimble
+		}
+		modifier = {
+			factor = 0.95
+			trait = big
+		}
+		modifier = {
+			factor = 0.9
+			trait = towering
+		}
+		#Bad
+		modifier = {
+			factor = 1.1
+			trait = feeble
+		}
+		modifier = {
+			factor = 1.2
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.35
+			trait = weak
+		}
+		modifier = {
+			factor = 1.1 
+			trait = stiff 
+		}
+		modifier = {
+			factor = 1.2
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.1
+			trait = small 
+		}
+		modifier = {
+			factor = 1.35
+			trait = dwarf
+		}
+	}
+	option = {
+		name = "EVTOPTA550100"
+		hidden_tooltip = { # Guardian Notification.
+			if = {
+				limit = { 
+					guardian = { always = yes }
+				}
+				guardian = { character_event = { id = 550105 } } 
+			}
+			if = {
+				limit = {
+					NOT = { guardian = { always = yes } }
+				}
+				educator = { character_event = { id = 550105 } } 
+			}
+		}
+		remove_trait = skilled_warrior
+		add_trait = master_warrior
+	}
+	
+}
+
+#550105 - Guardian Notification. (For all lvls)
+character_event = {
+	id = 550105
+	desc = "EVTDESC550105" #I have increased my ward's fighting skills.
+	picture = "GFX_evt_child_sword"
+	
+	is_triggered_only = yes
+	
+	option = { name = "OK" }
+}
+
+#550114 - Maintenance, Dealing with multiple combat skill traits.
+#character_event = {
+#	id = 550114
+#	name = "Maintenance"
+#
+#	trigger = {
+#		trait = master_warrior
+#		OR = {
+#			trait = trained_warrior
+#			trait = skilled_warrior
+#			trait = poor_warrior
+#		}
+#	}
+#
+#	mean_time_to_happen = { days = 1 }
+#
+#	option = {
+#		name = "Just so."
+#		remove_trait = poor_warrior
+#		remove_trait = trained_warrior
+#		remove_trait = skilled_warrior
+#	}
+#}
+
+###Demotions###
+#550112 - Getting old.
+#character_event = {
+#	id = 550112
+#	desc = "EVTDESC550112"
+#	picture = GFX_evt_illness
+#	
+#	min_age = 45
+#
+#	trigger = {
+#		OR= {
+#			trait = poor_warrior
+#			trait = trained_warrior
+#			trait = skilled_warrior
+#			trait = master_warrior
+#		NOT = { has_character_flag = demoted }
+#		}
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 120
+#
+#		# Personality Effects
+#		#Good
+#		modifier = {
+#			factor = 1.25
+#			OR = {
+#				trait = diligent
+#				trait = brave
+#			}
+#		}
+#		#Bad
+#		modifier = {
+#			factor = 0.75
+#			trait = slothful
+#		}
+#		
+#		# Physical Effects
+#		#Good
+#		modifier = {
+#			factor = 1.5
+#			trait = strong
+#		}
+#		#Bad
+#		modifier = {
+#			factor = 0.2
+#			trait = weak
+#		}
+#		
+#	}
+#
+#	option = {
+#		name = "EVTOPTA550112"
+#		
+#		if = {
+#			limit = { trait = poor_warrior }
+#			remove_trait = poor_warrior
+#			set_character_flag = demoted
+#		}
+#		if = {
+#			limit = { trait = trained_warrior }
+#			remove_trait = trained_warrior
+#			add_trait = poor_warrior
+#		}
+#		if = {
+#			limit = { trait = skilled_warrior }
+#			remove_trait = skilled_warrior
+#			add_trait = trained_warrior
+#			set_character_flag = demoted
+#		}
+#		if = {
+#			limit = { trait = master_warrior }
+#			remove_trait = master_warrior
+#			add_trait = skilled_warrior
+#			set_character_flag = demoted
+#		}
+#		
+#	}
+#}

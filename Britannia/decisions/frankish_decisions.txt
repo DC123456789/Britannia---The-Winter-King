@@ -1,0 +1,194 @@
+decisions = {
+	unite_frankish_kingdoms = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			culture = oldfrankish
+			has_landed_title = k_franks
+			tier = KING
+			year = 470
+			NOT = { year = 500 }
+			NOT = { has_character_flag = friendly_with_romans }
+			any_independent_ruler = {
+				culture = oldfrankish
+				lower_tier_than = KING
+				primary_title = {
+					kingdom = {
+						OR = {
+							title = k_franks
+							title = k_ripuarian_franks
+						}
+					}
+					NOT = {
+						OR = {
+							title = d_hamaland
+							title = d_salland
+						}
+						duchy = {
+							OR = {
+								title = d_hamaland
+								title = d_salland
+							}
+						}
+					}
+				}
+				NOT = { pays_tribute_to = ROOT }
+			}
+			independent = yes
+			NOT = {
+				any_independent_ruler = {
+					ROOT = { pays_tribute_to = PREV }
+				}
+			}
+			NOT = { has_global_flag = frankish_kingdoms_united }
+			NOT = { has_character_flag = united_frankish_kingdoms }
+		}
+		allow = {
+			is_adult = yes
+			war = no
+			prestige = 400
+			martial = 15
+			diplomacy = 12
+			realm_size = 12
+			NOT = { trait = content }
+			NOT = { trait = incapable }
+			NOT = { trait = slow }
+			NOT = { trait = imbecile }
+		}
+		effect = {
+			custom_tooltip = {
+				text = unite_frankish_kingdoms_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 313270 }
+				set_character_flag = united_frankish_kingdoms
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1 # On average ca 1 year before taken
+			modifier = {
+				factor = 0.75
+				NOT = { realm_levies = 2000 }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { realm_levies = 1000 }
+			}
+		}
+	}
+	
+	form_danish_march = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_feudal = yes
+			higher_tier_than = DUKE
+			independent = yes
+			has_global_flag = angeln_conquered_norse
+			can_create_germanic_title_trigger = yes
+			NOR = {
+				culture = dane
+				culture = proto_norse
+				has_landed_title = k_jutland
+				has_landed_title = k_angeln
+				has_landed_title = e_denmark
+			}
+			OR = {
+				completely_controls = c_egtha
+				completely_controls = c_rendsburg
+				completely_controls = c_schwansen
+				completely_controls = c_thietmaresca
+				completely_controls = c_hulsatia
+				completely_controls = c_sturmaria
+				completely_controls = c_sigeberch
+			}
+			NOT = { has_global_flag = danish_march_formed }
+		}
+		allow = {
+			completely_controls = d_myrging
+			OR = {
+				d_myrging = { has_holder = no }
+				d_myrging = { holder_scope = { top_liege = { character = ROOT } } }
+			}
+			war = no
+			is_adult = yes
+			prestige = 500
+			realm_size = 50
+			wealth = 200
+			NOT = { trait = incapable }
+		}
+		effect = {
+			wealth = -150
+			custom_tooltip = {
+				text = form_danish_march_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 313280 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1 # On average ca 1 year before taken
+		}
+	}
+}
+
+targetted_decisions = {
+	takeover_frankish_kingdoms = {
+		filter = independent_rulers
+		is_high_prio = yes
+		
+		from_potential = {
+			ai = no
+			culture = oldfrankish
+			higher_tier_than = DUKE
+		}
+		potential = {
+			is_tributary = yes
+			culture = oldfrankish
+			suzerain = { character = FROM }
+			primary_title = {
+				dejure_liege_title = { 
+					OR = {
+						holder_scope = { character = FROM } 
+						dejure_liege_title = { holder_scope = { character = FROM } }
+					}
+				}
+			}
+		}
+		allow = {
+			war = no
+			FROM = { 
+				is_adult = yes
+				war = no 
+				prisoner = no
+				ruled_years = 15
+				prestige = 3000
+				martial = 12
+				is_incapable = no
+				relative_power = { who = ROOT power = 1.5 }
+			}
+		}
+		effect = {
+			prestige = -100
+			custom_tooltip = {
+				text = takeover_frankish_kingdoms_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 313276 }
+			}
+			FROM = { set_character_flag = franks_demanded_takeover_vassal }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

@@ -1,0 +1,4768 @@
+ # Triggers are in Province scope. The From Scope contains the settlement holder (character)
+ # start trigger is in title scope.
+ 
+ #<tag> = {
+ #	desc = description used in the tooltip of the building
+ #	trigger = used for tech requirement of the building, set to 0 if no requirement so it can be build automatically on new games
+ #	gold_cost = cost to build the building
+ #	build_time = time to build, in days
+ #	
+ #	ai_creation_factor = weight that the AI uses to determine what building to build
+ #	extra_tech_building_start = when starting a new game this building will be pre-built if the province has higher tech than the requirement + this + random 0-1
+ #}
+ 
+# Castle
+castle = {
+	
+	# Imperial Capital Unique Buildings
+	ca_castra_praetoria = {
+		potential = {
+			FROM = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+				}
+				OR = {
+					FROMFROM = { has_building = ca_castra_praetoria }
+					capital_holding = { 
+						title = FROMFROM
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									tier = BARON
+									NOT = { title = PREVPREV }
+									has_building = ca_castra_praetoria
+								}
+							}
+						}
+					}
+				}
+			}
+			FROMFROM = { is_capital = yes }
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		prerequisites = { ca_keep_3 }
+		gold_cost = 260
+		build_time = 730
+		heavy_infantry = 250
+		knights = 100
+		heavy_infantry_defensive = 0.1
+		knights_defensive = 0.1
+		land_morale = 0.1
+		local_revolt_risk = -0.1
+		ai_creation_factor = 300
+
+		add_number_to_name = no
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_senate_house_1 = {
+		potential = {
+			has_global_flag = senate_restored
+			FROM = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+				}
+				OR = {
+					FROMFROM = { has_building = ca_senate_house_1 }
+					capital_holding = { 
+						title = FROMFROM
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									tier = BARON
+									NOT = { title = PREVPREV }
+									OR = {
+										has_building = ca_senate_house_1
+										has_building = ca_senate_house_2
+										has_building = ca_senate_house_3
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			#FROMFROM = { is_capital = yes }
+		}
+		prerequisites = { ca_wall_2 }
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		gold_cost = 160
+		build_time = 730
+		local_tax_modifier = 0.05
+		tech_growth_modifier = 0.05
+		local_revolt_risk = -0.02
+		ai_creation_factor = 301
+
+		add_number_to_name = no
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_senate_house_2 = {
+		potential = {
+			has_global_flag = senate_restored
+			FROM = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+				}
+				OR = {
+					FROMFROM = { has_building = ca_senate_house_2 }
+					capital_holding = { 
+						title = FROMFROM
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									tier = BARON
+									NOT = { title = PREVPREV }
+									OR = {
+										has_building = ca_senate_house_1
+										has_building = ca_senate_house_2
+										has_building = ca_senate_house_3
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			#FROMFROM = { is_capital = yes }
+		}
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		upgrades_from = ca_senate_house_1
+		gold_cost = 320
+		build_time = 1095
+		local_tax_modifier = 0.1
+		tech_growth_modifier = 0.1
+		local_revolt_risk = -0.03
+		ai_creation_factor = 299
+
+		add_number_to_name = no
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_senate_house_3 = {
+		potential = {
+			has_global_flag = senate_restored
+			FROM = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+				}
+				OR = {
+					FROMFROM = { has_building = ca_senate_house_3 }
+					capital_holding = { 
+						title = FROMFROM
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									tier = BARON
+									NOT = { title = PREVPREV }
+									OR = {
+										has_building = ca_senate_house_1
+										has_building = ca_senate_house_2
+										has_building = ca_senate_house_3
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			#FROMFROM = { is_capital = yes }		
+		}
+		trigger = { TECH_CITY_CONSTRUCTION = 4 }
+		upgrades_from = ca_senate_house_2
+		gold_cost = 460
+		build_time = 1460
+		local_tax_modifier = 0.1
+		tech_growth_modifier = 0.1
+		local_revolt_risk = -0.05
+		ai_creation_factor = 298
+
+		add_number_to_name = no
+		
+		extra_tech_building_start = 1.0
+	}
+	
+	# Royal Stone of Dumonia
+	ca_stone_of_dumnonia = {
+		potential = {
+			FROM = {
+				has_landed_title = k_dumnonia
+			}
+			FROMFROM = { is_capital = yes }
+			FROMFROM = { title = b_caer_cadarn }
+		}
+		gold_cost = 150
+		build_time = 200
+		levy_size = 0.05
+		retinuesize = 150
+		levy_reinforce_rate = 0.1
+		local_revolt_risk = -0.1
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0.0
+	}
+	
+	# Tidal bay of Ynys Trebes
+	ca_bay_of_trebes = {
+		potential = {
+			FROMFROM = { title = b_ynys_trebescastle }
+			NOT = { has_global_flag = franks_sack_trebes }
+		}
+		gold_cost = 0
+		build_time = 0
+
+		fort_level = 5.5
+		garrison_size = 0.25
+
+		levy_size = 0.15
+
+		local_tax_modifier = 0.15
+
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0.0
+	}
+	
+	# Hadrian's Wall
+	ca_vallum_aelium = {
+		potential = {
+			province_id = 56 # Luguvallum
+		}
+		gold_cost = 0
+		build_time = 0
+		fort_level = 3
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0.0
+	}
+	
+	# Dumbarton Rock
+	ca_dumbarton_rock = {
+		potential = {
+			FROMFROM = { title = b_altclutcastle }
+			FROM = {
+				has_landed_title = k_strathclyde
+			}
+		}
+		gold_cost = 250
+		build_time = 2920
+
+		tax_income = 2.5
+		local_tax_modifier = 0.2
+
+		fort_level = 3.5
+		garrison_size = 0.15
+
+		levy_size = 0.2
+		light_infantry = 30
+		pikemen = 30
+		heavy_infantry = 30
+		light_cavalry = 20
+		knights = 15
+
+		culture_techpoints = 0.02
+		tech_growth_modifier = 0.075
+
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+		
+		extra_tech_building_start = 0.0	
+	}
+	# Great Hall of Heorot
+	ca_heorot_hall = {
+		potential = {
+			FROMFROM = { title = b_roskildecastle }
+			FROM = {
+				culture_group = germanic
+			}
+		}
+		gold_cost = 200
+		build_time = 1825
+
+		tax_income = 3.0
+		local_tax_modifier = 0.2
+
+		fort_level = 1.5
+		garrison_size = 0.20
+
+		levy_size = 0.2
+		light_infantry = 40
+		pikemen = 30
+		heavy_infantry = 50
+
+		military_techpoints = 0.02
+
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+		
+		extra_tech_building_start = 0.0	
+	}
+	ca_rock_of_cashel = {
+		potential = {
+			FROMFROM = { title = b_tipperarycastle }
+		}
+		gold_cost = 500
+		build_time = 5475
+		
+		fort_level = 1.5
+		garrison_size = 0.025
+
+		retinuesize = 50
+		levy_size = 0.05
+		heavy_infantry = 15
+		light_infantry = 35
+		
+		local_tax_modifier = 0.02
+		tax_income = 0.5
+		
+		tech_growth_modifier = 0.01
+		
+		extra_tech_building_start = 0
+	}
+	ca_hill_of_tara = {
+		potential = {
+			FROMFROM = { title = b_tipperarycastle }
+		}
+		gold_cost = 500
+		build_time = 5475
+		
+		fort_level = 1
+		garrison_size = 0.025
+
+		retinuesize = 50
+		levy_size = 0.05
+		heavy_infantry = 15
+		light_infantry = 35
+		
+		local_tax_modifier = 0.02
+		tax_income = 0.75
+		
+		tech_growth_modifier = 0.01
+		
+		extra_tech_building_start = 0
+	}	
+	# Caers
+	ca_caer_1 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevumcastle }			#Glevum
+				FROMFROM = { title = b_eburacumcastle }			#Eburacum
+				FROMFROM = { title = b_lindumcastle }			#Lindum
+				FROMFROM = { title = b_viroconiumcastle }		#Viroconium
+				FROMFROM = { title = b_edencastle }				#Luguvallum
+				#Altclut but not right now
+				FROMFROM = { title = b_devacastle }				#Deva
+				FROMFROM = { title = b_londiniumcastle }		#Londinium
+				#Aquae Sulis but not right now
+				FROMFROM = { title = b_nortwiccastle }			# Venta Icenorum
+				FROMFROM = { title = b_camulodunumcastle }		#Camulodunum
+				FROMFROM = { title = b_durovernumcastle }		#Durovernum
+				FROMFROM = { title = b_regentiumcastle }		#Regentium
+				FROMFROM = { title = b_caer_cadarn }			#Lindinis
+				FROMFROM = { title = b_dunum }					#Durnovaria
+				FROMFROM = { title = b_din_tagell }				#Din Tagell
+				FROMFROM = { title = b_isca_siluriacastle }		#Isca Siluria
+				FROMFROM = { title = b_iscacastle }				#Isca Dumnonia
+				FROMFROM = { title = b_ayrcastle }				#Ayr
+				FROMFROM = { title = b_ventacastle }			#Venta
+				FROMFROM = { title = b_portus_adurnicastle }	#Portus Adurni
+				FROMFROM = { title = b_burriumcastle }			#Burrium
+				#Avalon but not right now
+				FROMFROM = { title = b_coriniumcastle }			#Corinium
+				#FROMFROM = { title = b_cantiacastle }			#Cantia
+				FROMFROM = { title = b_callevacastle }			#Calleva
+				FROMFROM = { title = b_letocetumcastle }		#Letocetum
+				FROMFROM = { title = b_din_eidyncastle }		#Din Eidyn
+				FROMFROM = { title = b_old_tynecastle }			#Old Tyne
+				FROMFROM = { title = b_mamucium }				#Mamucium
+				FROMFROM = { title = b_caer_swyscastle }		#Caer Swys
+				FROMFROM = { title = b_durocobriviscastle }		#Durovobrivis
+				FROMFROM = { title = b_verulaniumcastle }		#Verulanium
+				FROMFROM = { title = b_arfoncastle }			#Arfon
+				#FROMFROM = { title = b_avonacastle }			#Avona
+				FROMFROM = { title = b_sorviodunumcastle }		#Sorviodunum
+				FROMFROM = { title = b_ioredalecastle }			#Ioredale
+				FROMFROM = { title = b_rataecastle }			#Ratae
+				#FROMFROM = { title = b_thetford_castle }		#Thetford
+				#FROMFROM = { title = b_tipperarycastle }		#Tipperary (?)
+				FROMFROM = { title = b_iseriumcastle }			#Iserium
+				FROMFROM = { title = b_petuariacastle }			#Petuaria
+			}
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}
+		}
+
+		#desc = ca_caer_1_desc
+		#trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		#prerequisites = ca_keep_3
+		
+		gold_cost = 500
+		build_time = 5475
+		
+		fort_level = 1
+		garrison_size = 0.025
+
+		retinuesize = 50
+		levy_size = 0.05
+		pikemen = 15
+		archers = 10
+		
+		local_tax_modifier = 0.02
+		tax_income = 0.5
+		
+		tech_growth_modifier = 0.01
+		
+		extra_tech_building_start = 0
+	}	
+		
+	ca_caer_2 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevumcastle }			#Glevum
+				FROMFROM = { title = b_eburacumcastle }			#Eburacum
+				FROMFROM = { title = b_lindumcastle }			#Lindum
+				FROMFROM = { title = b_viroconiumcastle }		#Viroconium
+				FROMFROM = { title = b_edencastle }		#Luguvallum
+				#Altclut but not right now
+				FROMFROM = { title = b_devacastle }				#Deva
+				FROMFROM = { title = b_londiniumcastle }		#Londinium
+				#Aquae Sulis but not right now
+				FROMFROM = { title = b_camulodunumcastle }		#Camulodunum
+				FROMFROM = { title = b_durovernumcastle }		#Durovernum
+				FROMFROM = { title = b_regentiumcastle }		#Regentium
+				FROMFROM = { title = b_caer_cadarn }			#Lindinis
+				FROMFROM = { title = b_dunum }					#Durnovaria
+				FROMFROM = { title = b_din_tagell }				#Din Tagell
+				FROMFROM = { title = b_isca_siluriacastle }		#Isca Siluria
+				FROMFROM = { title = b_iscacastle }				#Isca Dumnonia
+				FROMFROM = { title = b_ayrcastle }				#Ayr
+				FROMFROM = { title = b_portus_adurnicastle }	#Portus Adurni
+				FROMFROM = { title = b_burriumcastle }			#Burrium
+				#Avalon but not right now
+				FROMFROM = { title = b_coriniumcastle }			#Corinium
+				FROMFROM = { title = b_callevacastle }			#Calleva
+				FROMFROM = { title = b_verulaniumcastle }		#Verulanium
+				FROMFROM = { title = b_din_eidyncastle }		#Din Eidyn
+				FROMFROM = { title = b_rataecastle }			#Ratae
+				FROMFROM = { title = b_iseriumcastle }			#Iserium
+			}
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}	
+		}
+		#desc = ca_caer_2_desc
+		#trigger = { TECH_CASTLE_CONSTRUCTION = 7 }
+		
+		upgrades_from = ca_caer_1
+		gold_cost = 500
+		build_time = 5475
+		
+		fort_level = 1
+		garrison_size = 0.025
+		
+		retinuesize = 75
+		levy_size = 0.1
+		pikemen = 25
+		heavy_infantry = 25
+		
+		local_tax_modifier = 0.03
+		tax_income = 0.5
+		
+		tech_growth_modifier = 0.015
+		military_techpoints = 0.01
+		
+		extra_tech_building_start = 0
+	}
+	
+	ca_caer_3 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevumcastle }			#Glevum
+				FROMFROM = { title = b_eburacumcastle }			#Eburacum
+				FROMFROM = { title = b_lindumcastle }			#Lindum
+				#FROMFROM = { title = b_viroconiumcastle }		#Viroconium
+				#FROMFROM = { title = b_edencastle }		#Luguvallum
+				#Altclut but not right now
+				#FROMFROM = { title = b_devacastle }				#Deva
+				FROMFROM = { title = b_londiniumcastle }		#Londinium
+				FROMFROM = { title = b_coriniumcastle }			#Corinium
+			}	
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}
+		}
+		#desc = ca_caer_3_desc
+		#trigger = { TECH_CASTLE_CONSTRUCTION = 10 }
+		
+		upgrades_from = ca_caer_2
+		gold_cost = 500
+		build_time = 5475
+		
+		fort_level = 1
+		garrison_size = 0.05
+		
+		retinuesize = 75
+		levy_size = 0.1
+		heavy_infantry = 10
+		light_cavalry = 25
+		knights = 15
+		
+		local_tax_modifier = 0.05
+		tax_income = 1
+		
+		tech_growth_modifier = 0.025
+		military_techpoints = 0.01
+		
+		extra_tech_building_start = 0
+	}
+	# Legionary Base
+	ca_legion_castrum_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = {
+			FROMFROM = { is_capital = yes }
+			is_legionary_base_province_trigger = yes
+		}
+		gold_cost = 300
+		build_time = 150
+		fort_level = 1
+		garrison_size = 0.2
+		military_techpoints = 0.05
+		supply_limit = 1
+		tax_income = -1.00
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0
+	}
+	ca_legion_castrum_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = {
+			FROMFROM = { is_capital = yes }
+			is_legionary_base_province_trigger = yes
+		}
+		upgrades_from = ca_legion_castrum_1
+		gold_cost = 200
+		build_time = 150
+		fort_level = 1
+		garrison_size = 0.15
+		military_techpoints = 0.05
+		supply_limit = 1
+		tax_income = -1.00
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0.5
+	}
+	# Danish March
+	ca_danish_march = {
+		potential = {
+			region = world_germania_danish_march
+			has_global_flag = danish_march_formed
+		}
+		gold_cost = 50
+		build_time = 100
+		fort_level = 3
+		garrison_size = 0.5
+		levy_size = 0.3
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 8.0
+	}
+	
+	# Walls
+	ca_wall_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 50
+		build_time = 90
+		fort_level = 0.5
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_wall_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+		upgrades_from = ca_wall_1
+		gold_cost = 100
+		build_time = 180
+		fort_level = 0.5
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_wall_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 3 }
+		upgrades_from = ca_wall_2
+		gold_cost = 200
+		build_time = 365
+		fort_level = 1.0
+		ai_creation_factor = 88
+
+		extra_tech_building_start = 0.5
+	}
+	ca_wall_4 = {
+		upgrades_from = ca_wall_3
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 5 }
+		gold_cost = 350
+		build_time = 730
+		fort_level = 1.0
+		ai_creation_factor = 87
+
+		extra_tech_building_start = 0.5
+	}
+	ca_wall_5 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 6 }
+		upgrades_from = ca_wall_4
+		gold_cost = 750
+		build_time = 1460
+		fort_level = 1.5
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.5
+	}
+	ca_wall_6 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 8 }
+		upgrades_from = ca_wall_5
+		gold_cost = 1500
+		build_time = 2920
+		fort_level = 2
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.0
+	}
+
+	ca_wall_q_1 = {
+		prerequisites = { ca_wall_1 }
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 50
+		build_time = 60
+		fort_level = 0.5
+		ai_creation_factor = 80
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_wall_q_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+		upgrades_from = ca_wall_q_1
+		prerequisites = { ca_wall_2 }
+		gold_cost = 100
+		build_time = 90
+		fort_level = 0.5
+		ai_creation_factor = 79
+
+		extra_tech_building_start = 0.6
+	}
+	ca_wall_q_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 2 }
+		prerequisites = { ca_wall_3 }
+		upgrades_from = ca_wall_q_2
+		gold_cost = 150
+		build_time = 180
+		fort_level = 0.5
+		ai_creation_factor = 78
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_wall_q_4 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 4 }
+		prerequisites = { ca_wall_4 }
+		upgrades_from = ca_wall_q_3
+		gold_cost = 200
+		build_time = 365
+		fort_level = 1.0
+		ai_creation_factor = 77
+		
+		extra_tech_building_start = 0.4
+	}
+	ca_wall_q_5 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 6 }
+		upgrades_from = ca_wall_q_4
+		gold_cost = 370
+		build_time = 730
+		fort_level = 1.0
+		ai_creation_factor = 76
+
+		extra_tech_building_start = 0.3
+	}
+	ca_wall_q_6 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 8 }
+		prerequisites = { ca_wall_5 }
+		upgrades_from = ca_wall_q_5
+		gold_cost = 550
+		build_time = 1460
+		fort_level = 1.5
+		ai_creation_factor = 75
+
+		extra_tech_building_start = 0.2
+	}
+	
+	# Keeps
+	ca_keep_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 120
+		levy_size = 0.1
+		light_infantry = 30
+		ai_creation_factor = 102
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_keep_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_keep_1
+		gold_cost = 250
+		build_time = 240
+		levy_size = 0.05
+		light_infantry = 30
+		fort_level = 0.5
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.4
+	}
+	ca_keep_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 2 }
+		prerequisites = { ca_wall_2 }
+		upgrades_from = ca_keep_2
+		gold_cost = 350
+		build_time = 365
+		levy_size = 0.05
+		light_infantry = -60
+		pikemen = 60
+		fort_level = 0.5
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_keep_4 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 4 }
+		upgrades_from = ca_keep_3
+		gold_cost = 500
+		build_time = 1095
+		levy_size = 0.05
+		fort_level = 0.5
+		military_techpoints = 0.02
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.4
+	}
+	ca_keep_5 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 6 }
+		upgrades_from = ca_keep_4
+		gold_cost = 750
+		build_time = 1825
+		retinuesize = 50
+		fort_level = 1.0
+		military_techpoints = 0.02
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.2	
+	}
+	ca_keep_6 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 7 }
+		upgrades_from = ca_keep_5
+		gold_cost = 1250
+		build_time = 2920
+		retinuesize = 100
+		fort_level = 1.0
+		military_techpoints = 0.02
+		ai_creation_factor = 85
+		
+		extra_tech_building_start = 0.2	
+	}
+	
+	# Roman Fort of Magnis
+	ca_magnis_fort = {
+		potential = {
+			FROMFROM = { title = b_magniscastle }
+			22 = {	# Magnis
+				NOT = { has_province_flag = magnis_fort_destroyed }
+			}
+		}
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 1250
+		build_time = 2920
+
+		heavy_infantry = 45
+		pikemen = 45
+		light_cavalry = 10
+
+		levy_size = 0.2
+		retinuesize = 150
+
+		fort_level = 2
+		garrison_size = 0.05
+
+		military_techpoints = 0.01
+		tech_growth_modifier = 0.025
+
+		tax_income = 1
+		local_tax_modifier = 0.05
+
+		ai_creation_factor = 300
+		
+		add_number_to_name = no	
+		
+		extra_tech_building_start = 0.0	
+	}
+
+	# Tower of Merlin
+	ca_merlin_tower = {
+		potential = {
+			FROMFROM = { title = b_ynys_wydryn }
+		}
+		gold_cost = 800
+		build_time = 730
+		fort_level = 1
+		light_infantry = 35
+		pikemen = 15
+		tech_growth_modifier = 0.35
+		local_revolt_risk = -0.2
+		tax_income = 3.5
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+		
+		extra_tech_building_start = 0.0	
+	}
+
+	# Library of Trebes
+	ca_trebes_library = {
+	    potential = {
+			OR = {
+				culture = armorican
+				culture = breton
+			}
+		    FROMFROM = { title = b_ynys_trebescastle }
+			NOT = { has_global_flag = franks_sack_trebes }
+		}	
+	   	gold_cost = 1000
+		build_time = 1460
+		military_techpoints = 0.05
+		economy_techpoints = 0.1
+		culture_techpoints = 0.15
+		local_build_time_modifier = -0.1
+		disease_defence = 0.03
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+
+		extra_tech_building_start = 0.0	
+	}
+	
+	# Baths of Aquae Sulis
+	ca_sulis_baths = {
+		potential = {
+			FROMFROM = { title = b_aquae_sulis }
+		}
+		gold_cost = 2500
+		build_time = 2920
+		culture_techpoints = 0.04
+		local_revolt_risk = -0.05
+		disease_defence = 0.1
+		tax_income = 6
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+		
+		extra_tech_building_start = 0.0	
+	}
+
+	# Pictish Warriors Hall
+	ca_warrior_cult = {
+		potential = {
+			FROM = {
+				culture = pictish
+			}
+			culture = pictish
+			terrain = highlands
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 180
+		light_infantry = 75
+		heavy_infantry = 50
+		pikemen = 20
+		ai_creation_factor = 300 #AI should always build this if it can
+		
+		extra_tech_building_start = 0.5
+	}
+	
+	# Frankish War Hall
+	ca_samarobriva_hall = {
+	    potential = { 
+			FROM = {
+				OR = {
+					culture = oldfrankish
+					culture = frankish
+				}
+			}
+			OR = {
+				culture = oldfrankish
+				culture = frankish
+				culture_group = imperiale
+			}
+			OR = {
+				province_id = 177 # Tournai
+				province_id = 437 # Cambrai
+				province_id = 231 # Tongres
+				province_id = 426 # Colonia Agrippina
+				province_id = 431 # Bonna
+				province_id = 427 # Aquae Granni
+				province_id = 799 # Treverorum
+				province_id = 814 # Salinensis
+				province_id = 189 # Calvomontensis
+				province_id = 685 # Tusburg
+				province_id = 176 # Tarvenna
+				province_id = 172 # Toxandria
+				province_id = 179 # Herstal
+				province_id = 230 # Divodurum
+				province_id = 88 # Gesoriacum
+				province_id = 180 # Nemetacum
+				province_id = 174 # Bruccia
+				province_id = 424 # Nijmegen
+				province_id = 421 # Zwolle
+				province_id = 163 # Hamaland
+				province_id = 434 # Leodicum
+				province_id = 183 # Namurcum
+				province_id = 442 # Helena
+				province_id = 234 # Castrilocus
+				province_id = 443 # Origiacum
+				province_id = 441 # Castellum Menapiorum
+			}
+		}	
+	   	trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 300
+		build_time = 365
+		military_techpoints = 0.05
+		disease_defence = -0.02
+		heavy_infantry = 70
+		pikemen = 30
+		light_cavalry = 20
+		retinuesize = 100
+		tax_income = -0.75
+		ai_creation_factor = 300
+		
+		add_number_to_name = no
+		
+		extra_tech_building_start = 0.4
+	}	
+		
+	# Anglo-Saxon Heavy Infantry Halls
+	ca_saxon_war_hall_1 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+				province_id = 20 	# Glevum
+				province_id = 107	# Margidunum
+				province_id = 11	# Corinium
+				province_id = 33	# Ratae
+			}
+			is_ingvaeonic_culture_trigger = yes
+			OR = {
+				region = world_britannia
+				region = custom_northwest_gaul
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 200
+		build_time = 120
+		heavy_infantry = 40
+		retinuesize = 60
+		land_morale = 0.02
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	ca_saxon_war_hall_2 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+				province_id = 20 	# Glevum
+				province_id = 107	# Margidunum
+				province_id = 11	# Corinium
+				province_id = 33	# Ratae
+			}
+			is_ingvaeonic_culture_trigger = yes
+			OR = {
+				region = world_britannia
+				region = custom_northwest_gaul
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		upgrades_from = ca_saxon_war_hall_1
+		gold_cost = 300
+		build_time = 240
+		heavy_infantry = 70
+		retinuesize = 80
+		land_morale = 0.02
+		tax_income = -0.75
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 1.7
+	}
+	ca_saxon_war_hall_3 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+				province_id = 20 	# Glevum
+				province_id = 107	# Margidunum
+				province_id = 11	# Corinium
+				province_id = 33	# Ratae
+			}
+			is_ingvaeonic_culture_trigger = yes
+			OR = {
+				region = world_britannia
+				region = custom_northwest_gaul
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		upgrades_from = ca_saxon_war_hall_2
+		gold_cost = 400
+		build_time = 365
+		heavy_infantry = 35
+		retinuesize = 100
+		land_morale = 0.02
+		disease_defence = -0.02
+		tax_income = -1.5
+		ai_creation_factor = 99
+		
+		extra_tech_building_start = 2.0
+	}
+	ca_saxon_war_hall_4 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+				province_id = 20 	# Glevum
+				province_id = 107	# Margidunum
+				province_id = 11	# Corinium
+				province_id = 33	# Ratae
+			}
+			is_ingvaeonic_culture_trigger = yes
+			OR = {
+				region = world_britannia
+				region = custom_northwest_gaul
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 4 }
+		upgrades_from = ca_saxon_war_hall_3
+		gold_cost = 750
+		build_time = 730
+		heavy_infantry = 35
+		retinuesize = 100
+		land_morale = 0.02
+		disease_defence = -0.03
+		tax_income = -2
+		ai_creation_factor = 98
+		
+		extra_tech_building_start = 2.5
+	}
+	
+	# Irish Gallowglass
+	ca_irish_war_hall_1 = {
+		potential = {
+			FROM = {
+				culture = oldirish
+			}
+			culture = oldirish
+		}
+		prerequisites = { ca_wall_1 }
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 200
+		build_time = 180
+		heavy_infantry = 70
+		retinuesize = 50
+		heavy_infantry_defensive = 0.1
+		ai_creation_factor = 101
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_irish_war_hall_2 = {
+		potential = {
+			FROM = {
+				culture = oldirish
+			}
+			culture = oldirish
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		upgrades_from = ca_irish_war_hall_1
+		gold_cost = 300
+		build_time = 365
+		heavy_infantry = 70
+		retinuesize = 50
+		heavy_infantry_defensive = 0.1
+		disease_defence = -0.01
+		tax_income = -1.75
+		ai_creation_factor = 101
+		
+		extra_tech_building_start = 0.5
+	}
+
+	ca_briton_war_hall_1 = {
+		potential = {
+			FROM = {
+				OR = {
+					culture = briton
+					culture = cumbrian
+				}	
+			}
+			OR = {
+				culture = briton
+				culture = cumbrian
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		
+		gold_cost = 200
+		build_time = 365
+		
+		pikemen = 25
+		archers = 10
+
+		ai_creation_factor = 50
+		
+		extra_tech_building_start = 2.7
+	}
+	ca_briton_war_hall_2 = {
+		potential = {
+			FROM = {
+				OR = {
+					culture = briton
+					culture = cumbrian
+				}	
+			}
+			OR = {
+				culture = briton
+				culture = cumbrian
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		upgrades_from = ca_briton_war_hall_1
+		
+		gold_cost = 250
+		build_time = 730
+		
+		pikemen = 25
+		archers = 10
+
+		garrison_size = 0.05
+
+		ai_creation_factor = 60
+		
+		extra_tech_building_start = 3.2
+	}
+	
+	# Vasconian War Halls
+	ca_basque_war_hall_1 = {
+		potential = {
+			OR = {
+				terrain = forest
+				terrain = woods
+				terrain = hills
+				terrain = mountain
+			}
+			culture = vasconian
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 200
+		build_time = 120
+		retinuesize = 25
+		heavy_infantry = 40
+		pikemen = 50
+		archers = 25
+		fort_level = 0.25
+		garrison_size = 0.15
+		land_morale = 0.02
+		disease_defence = -0.02
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	
+	# Alan Nobles
+	ca_alan_cavalry_1 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+			}
+			culture = alan
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 175
+		build_time = 120
+		light_cavalry = 35
+		knights = 15
+		horse_archers = 30
+		retinuesize = 25
+		land_morale = 0.05
+		levy_reinforce_rate = 0.02
+		tax_income = -0.1
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	
+	ca_alan_cavalry_2 = {
+		potential = {
+			OR = {
+				terrain = plains
+				terrain = farmlands
+				terrain = hills
+			}
+			culture = alan
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		upgrades_from = ca_alan_cavalry_1
+		gold_cost = 200
+		build_time = 240
+		light_cavalry = 45
+		knights = 25
+		horse_archers = 60
+		retinuesize = 60
+		land_morale = 0.05
+		levy_reinforce_rate = 0.03
+		disease_defence = -0.02
+		tax_income = -0.4
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	
+	# Viking Halls - Non-Ports
+	ca_norse_war_hall_1 = {
+		potential = {
+			culture = dane
+			FROM = {
+				culture = dane
+			}
+			region = custom_scandinavia
+			port = no
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 100
+		build_time = 120
+		light_infantry = 40
+		heavy_infantry = 75
+		retinuesize = 60
+		land_morale = 0.04
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	ca_norse_war_hall_2 = {
+		potential = {
+			culture = dane
+			FROM = {
+				culture = dane
+			}
+			region = custom_scandinavia
+			port = no
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		upgrades_from = ca_norse_war_hall_1
+		gold_cost = 150
+		build_time = 240
+		light_infantry = 60
+		heavy_infantry = 100
+		retinuesize = 80
+		land_morale = 0.04
+		tax_income = -0.75
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 1.5
+	}	
+	# Viking Halls - Ports
+	ca_norse_war_hall_port_1 = {
+		potential = {
+			culture = dane
+			FROM = {
+				culture = dane
+			}
+			region = custom_scandinavia
+			port = yes
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 100
+		build_time = 120
+		light_infantry = 40
+		heavy_infantry = 75
+		galleys = 3
+		retinuesize = 60
+		land_morale = 0.04
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 1.2
+	}
+	ca_norse_war_hall_port_2 = {
+		potential = {
+			culture = dane
+			FROM = {
+				culture = dane
+			}
+			region = custom_scandinavia
+			port = yes
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		upgrades_from = ca_norse_war_hall_1
+		gold_cost = 150
+		build_time = 240
+		light_infantry = 60
+		heavy_infantry = 100
+		galleys = 5
+		retinuesize = 80
+		land_morale = 0.04
+		tax_income = -0.75
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 1.5
+	}
+	# Barracks
+	ca_barracks_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 50
+		build_time = 120
+		light_infantry = 35
+		pikemen = 15
+		ai_creation_factor = 105
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_barracks_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_barracks_1
+		gold_cost = 120
+		build_time = 240
+		light_infantry = 30
+		pikemen = 20
+		ai_creation_factor = 104
+		
+		extra_tech_building_start = 1.4
+	}
+	ca_barracks_3 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		prerequisites = { ca_wall_2 }
+		upgrades_from = ca_barracks_2
+		gold_cost = 200
+		build_time = 365
+		heavy_infantry = 35
+		light_infantry = -35
+		tax_income = -0.25
+		ai_creation_factor = 103
+
+		extra_tech_building_start = 3.0
+	}
+	ca_barracks_4 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		upgrades_from = ca_barracks_3
+		gold_cost = 420
+		build_time = 365
+		heavy_infantry = 15
+		pikemen = 15
+		light_infantry = -30
+		local_build_time_modifier = -0.015
+		military_techpoints = 0.05
+		disease_defence = -0.01
+		tax_income = -0.75
+		ai_creation_factor = 102
+
+		extra_tech_building_start = 3.0
+	}
+	ca_barracks_5 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 5 }
+		upgrades_from = ca_barracks_4
+		gold_cost = 650
+		build_time = 730
+		heavy_infantry = 15
+		pikemen = 20
+		heavy_infantry_defensive = 0.03
+		heavy_infantry_offensive = 0.03
+		pikemen_defensive = 0.03
+		pikemen_offensive = 0.03
+		local_build_time_modifier = -0.015
+		military_techpoints = 0.05
+		disease_defence = -0.01
+		tax_income = -1.5
+		ai_creation_factor = 101
+
+		extra_tech_building_start = 2.0
+	}
+	ca_barracks_6 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 7 }
+		upgrades_from = ca_barracks_5
+		gold_cost = 1300
+		build_time = 1460
+		heavy_infantry = 15
+		pikemen = 20
+		heavy_infantry_defensive = 0.03
+		heavy_infantry_offensive = 0.03
+		pikemen_defensive = 0.03
+		pikemen_offensive = 0.03
+		land_morale = 0.01
+		local_build_time_modifier = -0.015
+		military_techpoints = 0.05
+		disease_defence = -0.02
+		tax_income = -2
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 2.0
+	}
+	
+	#Stables
+	ca_stable_1 = {
+		potential = {
+			NOT = {
+				OR = {
+					terrain = mountain
+					terrain = highlands
+					terrain = marsh
+				}
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 120
+		light_cavalry = 15
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_stable_2 = {
+		potential = {
+			NOR = {
+				terrain = mountain
+				terrain = highlands
+				terrain = marsh
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_stable_1
+		gold_cost = 120
+		build_time = 180
+		light_cavalry = 20
+		tax_income = -0.25
+		ai_creation_factor = 88
+
+		extra_tech_building_start = 1.2
+	}
+	ca_stable_3 = {
+		potential = {
+			NOT = {
+				OR = {
+					terrain = mountain
+					terrain = highlands
+					terrain = marsh
+				}
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		prerequisites = { ca_wall_2 }
+		upgrades_from = ca_stable_2
+		gold_cost = 200
+		build_time = 365
+		light_cavalry = 10
+		knights = 10
+		tax_income = -0.75
+		ai_creation_factor = 87
+
+		extra_tech_building_start = 0.5
+	}
+	ca_stable_4 = {
+		potential = {
+			NOT = {
+				OR = {
+					terrain = mountain
+					terrain = highlands
+					terrain = marsh
+				}
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 4 }
+		upgrades_from = ca_stable_3
+		gold_cost = 370
+		build_time = 365
+		light_cavalry = -20
+		knights = 25
+		knights_offensive = 0.02
+		knights_defensive = 0.02
+		disease_defence = -0.01
+		tax_income = -1
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.2
+	}
+	ca_stable_5 = {
+		potential = {
+			NOT = {
+				OR = {
+					terrain = mountain
+					terrain = highlands
+					terrain = marsh
+				}
+			}
+		}
+		trigger = { TECH_CASTLE_CONSTRUCTION = 6 }
+		upgrades_from = ca_stable_4
+		gold_cost = 670
+		build_time = 730
+		light_cavalry = -25
+		knights = 30
+		knights_offensive = 0.03
+		knights_defensive = 0.03
+		disease_defence = -0.02
+		tax_income = -1.5
+		ai_creation_factor = 85
+
+		extra_tech_building_start = 0.2
+	}
+	
+	# Bowyers
+	ca_militia_barracks_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 90
+		archers = 20
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 1.0
+	}
+	ca_militia_barracks_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_militia_barracks_1
+		gold_cost = 120
+		build_time = 180
+		archers = 30
+		archers_offensive = 0.05
+		ai_creation_factor = 99
+
+		extra_tech_building_start = 0.5
+	}
+	ca_militia_barracks_3 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 4 }
+		upgrades_from = ca_militia_barracks_2
+		gold_cost = 350
+		build_time = 180
+		archers = 35
+		archers_offensive = 0.05
+		tax_income = -1
+		ai_creation_factor = 98
+
+		extra_tech_building_start = 0.2
+	}
+
+	#Training Grounds
+	ca_training_grounds_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		gold_cost = 200
+		build_time = 120
+		land_morale = 0.1
+		levy_reinforce_rate = 0.15
+		ai_creation_factor = 89
+
+		extra_tech_building_start = 1.2
+	}
+	ca_training_grounds_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		upgrades_from = ca_training_grounds_1
+		gold_cost = 300
+		build_time = 365
+		land_morale = 0.2
+		levy_size = 0.05
+		levy_reinforce_rate = 0.25
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.5
+	}
+	
+	# Justice
+	ca_justice_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = {
+			FROM = {
+				OR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ca_keep_3 }
+		gold_cost = 100
+		build_time = 365
+		pikemen = 10
+		levy_reinforce_rate = 0.025
+		garrison_size = 0.25
+		local_revolt_risk = -0.03
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.5	
+	}
+	ca_justice_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = {
+			FROM = {
+				OR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ca_keep_4 }
+		upgrades_from = ca_justice_1
+		gold_cost = 320
+		build_time = 730
+		pikemen = 15
+		land_morale = 0.01
+		levy_reinforce_rate = 0.025
+		garrison_size = 0.25
+		local_revolt_risk = -0.05
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.5	
+	}
+
+	# Castle Libraries
+	ca_library_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = {
+			NOT = { 
+				province_id = 78 # Ynys Trebes 
+			}
+			FROM = {
+				OR = {
+					culture = armorican
+					is_roman_culture_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ca_keep_3 }
+		gold_cost = 150
+		build_time = 365
+		tech_growth_modifier = 0.05
+		local_build_time_modifier = -0.025
+		disease_defence = 0.02
+		ai_creation_factor = 85
+		extra_tech_building_start = 0.5	
+	}
+	ca_library_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = {
+			NOT = { province_id = 78 # Ynys Trebes
+			}
+			FROM = {
+				OR = {
+					culture = armorican
+					is_roman_culture_trigger = yes
+				}
+			}
+		}
+		upgrades_from = ca_library_1
+		gold_cost = 350
+		build_time = 730
+		tech_growth_modifier = 0.05
+		local_build_time_modifier = -0.025
+		disease_defence = 0.03
+		tax_income = -0.35
+		ai_creation_factor = 84
+		
+		extra_tech_building_start = 0.5	
+	}
+
+	# Blacksmiths
+	ca_smith_1 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		prerequisites = { ca_keep_1 }
+		potential = {
+			year = 485
+		}
+		gold_cost = 75
+		build_time = 240
+		heavy_infantry_defensive = 0.03
+		light_infantry_defensive = 0.02
+		pikemen_defensive = 0.03
+		archers_defensive = 0.02
+		light_cavalry_defensive = 0.02
+		knights_defensive = 0.04
+		military_techpoints = 0.05
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.5	
+	}
+	ca_smith_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = {
+			year = 485
+		}
+	    prerequisites = { ca_keep_2 }
+		upgrades_from = ca_smith_1
+		gold_cost = 100
+		build_time = 365
+		heavy_infantry_defensive = 0.02
+		heavy_infantry_offensive = 0.05
+		light_infantry_defensive = 0.02
+		light_infantry_offensive = 0.03
+		pikemen_defensive = 0.02
+		pikemen_offensive = 0.05
+		archers_defensive = 0.02
+		archers_offensive = 0.05
+		light_cavalry_defensive = 0.02
+		light_cavalry_offensive = 0.03
+		knights_defensive = 0.06
+		knights_offensive = 0.05
+		military_techpoints = 0.05
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.5	
+	}
+
+	# Sanitation Buildings
+	ca_health_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = {
+			NOT = {
+				OR = {
+					culture = pictish
+					culture = gaelic
+					culture = dane
+					culture = proto_norse
+					is_ingvaeonic_culture_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ca_keep_2 }
+		gold_cost = 75
+		build_time = 240
+		disease_defence = 0.03
+		ai_creation_factor = 87
+
+		extra_tech_building_start = 0.5
+	}
+	ca_health_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = {
+			NOT = {
+				OR = {
+					culture = pictish
+					culture = gaelic
+					culture = dane
+					culture = proto_norse
+					is_ingvaeonic_culture_trigger = yes
+				}
+			}
+		}
+		upgrades_from = ca_health_1 
+		prerequisites = { ca_keep_3 }
+		gold_cost = 100
+		build_time = 365
+		disease_defence = 0.05
+		ai_creation_factor = 83
+
+		extra_tech_building_start = 0.5
+	}
+
+	# Farming
+	ca_farms_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+            OR = {
+                terrain = farmlands
+				province_id = 3 	# Avalon
+				province_id = 4 	# Aquae Sulis
+				province_id = 5 	# Ambra
+	            province_id = 11 	# Corinium
+				province_id = 20 	# Glevum
+				province_id = 7 	# Calleva
+				province_id = 51 	# The Fens
+				province_id = 155 	# Alchester
+				province_id = 62	# Epidion/Islay
+            }                   
+        } 
+		gold_cost = 30
+		build_time = 365
+		tax_income = 1
+		ai_creation_factor = 92
+		
+		extra_tech_building_start = 0.7
+	}
+	ca_farms_2 = {
+        trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = {
+            OR = {
+                terrain = farmlands
+				province_id = 3 	# Avalon
+				province_id = 4 	# Aquae Sulis
+				province_id = 5 	# Ambra
+	            province_id = 11 	# Corinium
+				province_id = 20 	# Glevum
+				province_id = 7 	# Calleva
+				province_id = 51 	# The Fens
+				province_id = 155 	# Alchester
+				province_id = 62	# Epidion/Islay
+            }                
+        }
+		upgrades_from = ca_farms_1 
+		gold_cost = 100
+		build_time = 1095
+		tax_income = 2
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 2.0
+	}
+	ca_cattle = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = {
+			terrain = hills
+			NOT = {
+				province_id = 55 # Trent Hills
+				province_id = 30 # Buelt
+				province_id = 34 # Caer Gei
+				province_id = 24 # Isca Siluria
+				province_id = 13 # Dartmoor
+				province_id = 14 # Exmoor
+				province_id = 43 # Setantia
+				province_id = 62 # Epidion
+				province_id = 66 # Dunadd
+				province_id = 129 # Scotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum
+				province_id = 245 # Aberdeen
+				province_id = 262 # Inverness
+			}	
+        }
+		prerequisites = { ca_wall_1 }
+	    gold_cost = 25
+		build_time = 1095
+		tax_income = 0.95
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.4
+	}
+	ca_cattle_2 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = {
+			terrain = hills
+			NOT = {
+				province_id = 55 # Trent Hills
+				province_id = 30 # Buelt
+				province_id = 34 # Caer Gei
+				province_id = 24 # Isca Siluria
+				province_id = 13 # Dartmoor
+				province_id = 14 # Exmoor
+				province_id = 43 # Setantia
+				province_id = 62 # Epidion
+				province_id = 66 # Dunadd
+				province_id = 129 # Scotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum
+				province_id = 245 # Aberdeen
+			}	
+        }
+		upgrades_from = ca_cattle
+	    gold_cost = 60
+		build_time = 1095
+		tax_income = 1.55
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 2.0
+	}
+	ca_sheep_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				terrain = highlands
+				province_id = 13 # Dartmoor
+				province_id = 43 # Setantia
+				province_id = 35 # Gwynedd
+				province_id = 39 # Legiolium
+				province_id = 40 # Hibernicum
+				province_id = 41 # Old Tyne
+				province_id = 60 # Ynys Mon
+				province_id = 61 # Ynys Man
+				province_id = 64 # Ynys Aru
+				province_id = 66 # Dunadd
+				province_id = 68 # Bernicia
+				province_id = 69 # Gallow
+				province_id = 71 # Lothian
+				province_id = 73 # Caledonia
+				province_id = 91 # Ui Neill
+				province_id = 98 # Longford
+				province_id = 99 # Kildare
+				province_id = 96 # Connemara
+				province_id = 95 # Ui Maine
+				province_id = 102 # Limerick
+				province_id = 109 # Teviotdale
+				province_id = 129 # Attacotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum (North)
+				province_id = 261 # Scotia
+			}	
+		}
+		prerequisites = { ca_keep_1 }
+	    gold_cost = 20
+		build_time = 1095
+		tax_income = 0.8
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.4
+	}
+	ca_sheep_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				terrain = highlands
+				province_id = 13 # Dartmoor
+				province_id = 43 # Setantia
+				province_id = 35 # Gwynedd
+				province_id = 39 # Legiolium
+				province_id = 40 # Hibernicum
+				province_id = 41 # Old Tyne
+				province_id = 60 # Ynys Mon
+				province_id = 61 # Ynys Man
+				province_id = 64 # Ynys Aru
+				province_id = 66 # Dunadd
+				province_id = 68 # Bernicia
+				province_id = 69 # Gallow
+				province_id = 71 # Lothian
+				province_id = 73 # Caledonia
+				province_id = 91 # Ui Neill
+				province_id = 98 # Longford
+				province_id = 99 # Kildare
+				province_id = 96 # Connemara
+				province_id = 95 # Ui Maine
+				province_id = 102 # Limerick
+				province_id = 109 # Teviotdale
+				province_id = 129 # Attacotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum (North)
+				province_id = 261 # Scotia
+			}	
+		}
+		prerequisites = { ca_keep_2 }
+		upgrades_from = ca_sheep_1
+		gold_cost = 75
+		build_time = 1095
+		tax_income = 1.7
+		ai_creation_factor = 81
+		
+		extra_tech_building_start = 2.0
+	}
+	ca_goat = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 30 # Buelt
+				province_id = 34 # Caer Gei
+				province_id = 24 # Isca Siluria
+				province_id = 14 # Exmoor
+				province_id = 35 # Gwynedd
+				province_id = 59 # Henis Wyren
+				province_id = 128 # East Caledonia
+			}	
+		}
+		prerequisites = { ca_keep_1 }
+	    gold_cost = 20
+		build_time = 1095
+		tax_income = 0.6
+		ai_creation_factor = 87
+		
+		extra_tech_building_start = 0.6
+	}
+	ca_swine_pen = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			terrain = marsh
+		}	
+	   	prerequisites = { ca_keep_1 }
+		gold_cost = 30
+		build_time = 1095
+		tax_income = 1.3
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.6
+	}
+	ca_hunters_camp = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+            OR = {
+                terrain = forest
+                terrain = woods
+            }                     
+        }
+	    gold_cost = 50
+		build_time = 730
+		archers = 20
+		tax_income = 1
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.6
+	}
+	ca_lumberyard = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 1 }
+		potential = { 
+            OR = {
+                terrain = forest
+                terrain = woods
+			}                     
+        }
+	    gold_cost = 100
+		build_time = 1095
+		local_build_time_modifier = -0.10
+		local_build_cost_modifier = -0.15
+		tax_income = 1.85
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.6
+	}
+
+	# Mines
+	ca_dartmoor_mines = {		# Tin Mines
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+		       province_id = 13 # Dartmoor
+			   province_id = 690 # Andecamulum
+			}
+		}	
+	   	gold_cost = 125
+		build_time = 1460
+		tax_income = 10.5
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_gold_mines = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+		    OR = {
+				province_id = 26 # Ceredigion
+				province_id = 199 # Alesia
+				province_id = 219 # Autun
+				province_id = 241 # Augustoritum
+			}
+		}	
+	   	prerequisites = { ca_town_1 }
+		gold_cost = 215
+		build_time = 1460
+		tax_income = 10.5
+		ai_creation_factor = 96
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_gold_mines_2 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 4 }
+		potential = { 
+		    OR = {
+				province_id = 26 # Ceredigion
+				province_id = 199 # Alesia
+				province_id = 219 # Autun
+				province_id = 241 # Augustoritum
+			}
+		}
+		upgrades_from = ca_gold_mines 
+		gold_cost = 650
+		build_time = 1460
+		tax_income = 4.5
+		ai_creation_factor = 95
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_copper_mines = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 132 # Dinnewrac
+				province_id = 60 # Ynys Mon
+				province_id = 17 # Din Tagell
+				province_id = 157 # Rhos
+				province_id = 753 # Luteva
+				province_id = 857 # Falun
+			}
+		}	
+	   	prerequisites = { ca_town_1 }
+		gold_cost = 165
+		build_time = 1460
+		tax_income = 3.2
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_copper_mines_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = { 
+			OR = {
+				province_id = 132 # Dinnewrac
+				province_id = 60 # Ynys Mon
+				province_id = 17 # Din Tagell
+				province_id = 157 # Rhos
+				province_id = 753 # Luteva
+				province_id = 857 # Falun
+			}
+		}	
+		upgrades_from = ca_copper_mines 
+		gold_cost = 220
+		build_time = 1460
+		tax_income = 1.9
+		ai_creation_factor = 89
+
+		extra_tech_building_start = 0.0
+	}
+	ca_iron_mines = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 39 # Legiolium
+				province_id = 41 # Old Tyne
+				province_id = 45 # Cantia
+				province_id = 151 # Arundel
+				province_id = 152 # Durobrivae
+				province_id = 154 # Gobannium
+				province_id = 216 # Alvernia
+				province_id = 218 # Avaricum
+				province_id = 639 # Vesunna
+			}
+		}	
+	   	prerequisites = { ca_town_1 }
+		gold_cost = 115
+		build_time = 1460
+		tax_income = 3.1
+		ai_creation_factor = 98
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_iron_mines_2 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = { 
+			OR = {
+				province_id = 45 # Cantia
+				province_id = 154 # Gobannium
+				province_id = 39 # Legiolium
+				province_id = 41 # Old Tyne
+				province_id = 151 # Arundel
+				province_id = 152 # Durobrivae
+				province_id = 216 # Alvernia
+				province_id = 218 # Avaricum
+				province_id = 639 # Vesunna
+			}
+		}	
+	   	upgrades_from = ca_iron_mines 
+		gold_cost = 195
+		build_time = 1460
+		tax_income = 2.6
+		ai_creation_factor = 97
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_lead_mines = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 3 # Avalon
+				province_id = 83 # Mediolanum
+				province_id = 24 # Isca Siluria
+				province_id = 34 # Caer Gei
+				province_id = 56 # Luguvallum
+				province_id = 55 # Trent Hills
+				province_id = 130 # Dunoting
+				province_id = 136 # Ashgill
+				province_id = 147 # Carvetia
+				province_id = 354 # Tegeingl
+				province_id = 710 # Amiliavum
+			}
+		}	
+	   	prerequisites = { ca_town_1 }
+		gold_cost = 175
+		build_time = 1460
+		tax_income = 4.7
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.0
+	}
+	ca_lead_mines_2 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 3 }
+		potential = { 
+			OR = {
+				province_id = 3 # Avalon
+				province_id = 83 # Mediolanum
+				province_id = 24 # Isca Siluria
+				province_id = 34 # Caer Gei
+				province_id = 56 # Luguvallum
+				province_id = 55 # Trent Hills
+				province_id = 130 # Dunoting
+				province_id = 136 # Ashgill
+				province_id = 147 # Carvetia
+				province_id = 354 # Tegeingl
+			}
+		}	
+	   	upgrades_from = ca_lead_mines 
+		gold_cost = 235
+		build_time = 1460
+		tax_income = 3.1
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.5
+	}
+	
+	# Vineyards
+	ca_vineyard_1 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 75 # Armorica
+				province_id = 78 # Ynys Trebes
+				province_id = 82 # Lutetia
+				province_id = 122 # Abrincatae
+				province_id = 81 # Noviomagus
+				province_id = 86 # Juliobona
+				province_id = 150 # Agedincum
+				province_id = 200 # Tours
+				province_id = 202 # Laval
+				province_id = 207 # Anjou
+				province_id = 220 # Langres
+				province_id = 221 # Divio
+				province_id = 222 # Lugdunum
+				province_id = 192 # Blois
+				province_id = 196 # Orleans
+				province_id = 193 # Provinum
+				province_id = 201 # Vindinium
+				province_id = 216 # Alvernia
+			}	
+		}
+		prerequisites = { ca_keep_1 }
+	    gold_cost = 20
+		build_time = 730
+		tax_income = 0.75
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.7
+	}
+	ca_vineyard_2 = {
+	    trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		potential = { 
+			OR = {
+				province_id = 75 # Armorica
+				province_id = 78 # Ynys Trebes
+				province_id = 82 # Lutetia
+				province_id = 122 # Abrincatae
+				province_id = 81 # Noviomagus
+				province_id = 86 # Juliobona
+				province_id = 150 # Agedincum
+				province_id = 200 # Tours
+				province_id = 202 # Laval
+				province_id = 207 # Anjou
+				province_id = 220 # Langres
+				province_id = 221 # Divio
+				province_id = 222 # Lugdunum
+				province_id = 192 # Blois
+				province_id = 196 # Orleans
+				province_id = 193 # Provinum
+				province_id = 201 # Vindinium
+				province_id = 216 # Alvernia
+			}
+		}
+		upgrades_from = ca_vineyard_1
+		prerequisites = { ca_keep_2 }
+	    gold_cost = 40
+		build_time = 1460
+		tax_income = 1.25
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.5
+	}
+
+	#Towns
+	ca_town_1 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 30
+		build_time = 730
+		tax_income = 1
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 0.5
+	}
+	ca_town_2 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_town_1
+		gold_cost = 60
+		build_time = 1095
+		tax_income = 1.5
+		ai_creation_factor = 99
+
+		extra_tech_building_start = 1.2
+	}
+	ca_town_3 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 2 }
+		prerequisites = { ca_wall_2 }
+		upgrades_from = ca_town_2
+		gold_cost = 90
+		build_time = 1460
+		tax_income = 2
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 0.5
+	}
+	ca_town_4 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 4 }
+		upgrades_from = ca_town_3
+		gold_cost = 120
+		build_time = 2190
+		disease_defence = -0.01
+		tax_income = 3
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 0.2
+	}
+	ca_town_5 = {
+		trigger = { TECH_CASTLE_CONSTRUCTION = 7 }
+		upgrades_from = ca_town_4
+		gold_cost = 150
+		build_time = 3650
+		disease_defence = -0.02
+		tax_income = 3
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 0.0
+	}
+	
+	# Shipyards
+	ca_shipyard_1 = {
+		trigger = { TECH_NAVAL = 0 }
+		potential = { 
+			port = yes
+		}
+		gold_cost = 70
+		build_time = 365
+		galleys = 2
+		ai_creation_factor = 97
+		
+		extra_tech_building_start = 0.2
+	}
+	ca_shipyard_2 = {
+		trigger = { TECH_NAVAL = 2 }
+		potential = {
+			port = yes
+		}
+		prerequisites = { ca_wall_1 }
+		upgrades_from = ca_shipyard_1
+		gold_cost = 100
+		build_time = 730
+		galleys = 2
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 0.5
+	}
+	ca_shipyard_3 = {
+		trigger = { TECH_NAVAL = 4 }
+		potential = {
+			port = yes
+		}
+		prerequisites = { ca_wall_2 }
+		upgrades_from = ca_shipyard_2
+		gold_cost = 200
+		build_time = 1095
+		galleys = 3
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	}
+}
+
+# City
+city = {
+
+	# Walls
+	ct_wall_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 50
+		build_time = 180
+		fort_level = 0.4
+		ai_creation_factor = 99
+		
+		extra_tech_building_start = 1.0
+	}
+	ct_wall_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+		upgrades_from = ct_wall_1
+		gold_cost = 120
+		build_time = 365
+		fort_level = 0.4
+		ai_creation_factor = 98
+   
+		extra_tech_building_start = 1.0
+	}
+	ct_wall_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 3 }
+		upgrades_from = ct_wall_2
+		gold_cost = 250
+		build_time = 730
+		fort_level = 0.4
+		ai_creation_factor = 97
+
+		extra_tech_building_start = 1.0
+	}
+	ct_wall_4 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 5 }
+		upgrades_from = ct_wall_3
+		gold_cost = 750
+		build_time = 1460
+		fort_level = 0.5
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 1.0
+	}
+	ct_wall_5 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 7 }
+		upgrades_from = ct_wall_4
+		gold_cost = 1250
+		build_time = 2920
+		fort_level = 1.0
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	}
+	
+	ct_wall_q_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		prerequisites = { ct_wall_1 }
+		gold_cost = 50
+		build_time = 90
+		fort_level = 0.4
+		ai_creation_factor = 60
+		
+		extra_tech_building_start = 1.0
+	}
+	ct_wall_q_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_wall_q_1
+		gold_cost = 100
+		build_time = 120
+		fort_level = 0.4
+		ai_creation_factor = 59
+
+		extra_tech_building_start = 1.0
+	}	
+	ct_wall_q_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 3 }
+		upgrades_from = ct_wall_q_2
+		prerequisites = { ct_wall_3 }
+		gold_cost = 150
+		build_time = 180
+		fort_level = 0.5
+		ai_creation_factor = 58
+
+		extra_tech_building_start = 0.5
+	}
+	ct_wall_q_4 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 5 }
+		prerequisites = { ct_wall_4 }
+		upgrades_from = ct_wall_q_3
+		gold_cost = 300
+		build_time = 240
+		fort_level = 1
+		ai_creation_factor = 57
+
+		extra_tech_building_start = 0.2
+	}
+	ct_wall_q_5 = {
+		prerequisites = { ct_wall_5 }
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 7 }
+		upgrades_from = ct_wall_q_4
+		gold_cost = 550
+		build_time = 730
+		fort_level = 1
+		ai_creation_factor = 56
+
+		extra_tech_building_start = 0.2
+	}
+
+	# Justice
+	ct_justice_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = {
+			FROM = {
+				OR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+					is_frankish_culture_trigger = yes
+					is_romanized_germanic_trigger = yes
+				}
+			}
+		}
+		gold_cost = 100
+		build_time = 365
+		pikemen = 10
+		levy_reinforce_rate = 0.025
+		garrison_size = 0.25
+		local_revolt_risk = -0.03
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.8	
+	}
+	ct_justice_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		potential = {
+			FROM = {
+				OR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+					is_frankish_culture_trigger = yes
+					is_romanized_germanic_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_justice_1
+		gold_cost = 250
+		build_time = 730
+		pikemen = 15
+		levy_reinforce_rate = 0.025
+		garrison_size = 0.25
+		local_revolt_risk = -0.05
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.2
+	}
+
+	# Anglo-Saxons Hall
+	ct_as_hall_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = {
+			FROM = {
+				is_ingvaeonic_culture_trigger = yes
+			}
+			region = world_britannia
+		}
+		gold_cost = 100
+		build_time = 365
+		pikemen = 15
+		levy_reinforce_rate = 0.05
+		garrison_size = 0.5
+		local_revolt_risk = -0.01
+		tax_income = 0.2
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.5	
+	}
+	ct_as_hall_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = {
+			FROM = {
+				is_ingvaeonic_culture_trigger = yes
+			}
+			region = world_britannia
+		}
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_as_hall_1
+		gold_cost = 250
+		build_time = 730
+		pikemen = 25
+		levy_reinforce_rate = 0.05
+		garrison_size = 0.5
+		local_revolt_risk = -0.02
+		tax_income = 0.35
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 1.5		
+	}
+	
+	# Generic Town Hall
+	ct_town_hall_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = {
+			FROM = {
+				NOR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+					is_frankish_culture_trigger = yes
+					is_romanized_germanic_trigger = yes
+					is_ingvaeonic_culture_trigger = yes
+				}
+			}
+		}
+		gold_cost = 100
+		build_time = 365
+		pikemen = 15
+		levy_reinforce_rate = 0.02
+		garrison_size = 0.2
+		local_revolt_risk = -0.01
+		tax_income = 0.5
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.2	
+	}
+	ct_town_hall_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = {
+			FROM = {
+				NOR = {
+					culture = armorican
+					culture = breton
+					is_roman_culture_trigger = yes
+					is_frankish_culture_trigger = yes
+					is_romanized_germanic_trigger = yes
+					is_ingvaeonic_culture_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_town_hall_1
+		gold_cost = 250
+		build_time = 730
+		pikemen = 20
+		levy_reinforce_rate = 0.02
+		garrison_size = 0.2
+		local_revolt_risk = -0.01
+		tax_income = 1.75
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 1.0
+	}
+
+	# Markets
+	ct_marketplace_1 = {
+		trigger = { TECH_TRADE_PRACTICES = 0 }
+		gold_cost = 100
+		build_time = 120
+		tax_income = 2.5
+		ai_creation_factor = 110
+		
+		extra_tech_building_start = 0.5
+	}
+	ct_marketplace_2 = {
+		trigger = { TECH_TRADE_PRACTICES = 1 }
+		upgrades_from = ct_marketplace_1
+		gold_cost = 120
+		build_time = 240
+		tax_income = 2.5
+		ai_creation_factor = 109
+
+		extra_tech_building_start = 0.5
+	}
+	ct_marketplace_3 = {
+		trigger = { TECH_TRADE_PRACTICES = 2 }
+		prerequisites = { ct_wall_1 }
+		upgrades_from = ct_marketplace_2
+		gold_cost = 200
+		build_time = 365
+		tax_income = 2.5
+		ai_creation_factor = 108
+
+		extra_tech_building_start = 0.5
+	}
+	ct_marketplace_4 = {
+		trigger = { TECH_TRADE_PRACTICES = 3 }
+		upgrades_from = ct_marketplace_3
+		gold_cost = 325
+		build_time = 730
+		economy_techpoints = 0.025
+		disease_defence = -0.01
+		tax_income = 2.5
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 0.5
+	}
+	ct_marketplace_5 = {
+		trigger = { TECH_TRADE_PRACTICES = 4 }
+		upgrades_from = ct_marketplace_4
+		gold_cost = 500
+		build_time = 1460
+		economy_techpoints = 0.025
+		disease_defence = -0.01
+		tax_income = 2
+		ai_creation_factor = 90
+
+		extra_tech_building_start = 0.5
+	}
+	ct_marketplace_6 = {
+		trigger = { TECH_TRADE_PRACTICES = 6 }
+		upgrades_from = ct_marketplace_5
+		gold_cost = 1000
+		build_time = 2920
+		economy_techpoints = 0.05
+		disease_defence = -0.01
+		tax_income = 2
+		ai_creation_factor = 89
+
+		extra_tech_building_start = 0.5
+	}
+
+	# Other Buildings
+	ct_brewery = {
+        trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = {
+			OR = {
+		    	province_id = 7 # Calleva
+				province_id = 53 # Combe
+				province_id = 20 # Glevum
+				province_id = 31 # Cicucium
+				province_id = 34 # Caer Gei
+				province_id = 37 # Eburacum
+				province_id = 72 # Din Eidyn
+	            province_id = 80 # Augustodurum
+				province_id = 93 # Connacht
+				province_id = 89 # Ulaid
+				province_id = 100 # Manapia
+				province_id = 103 # Concagh
+				province_id = 105 # Ui Liathain
+				province_id = 48 # Thunreslea
+				province_id = 47 # Londinium
+				province_id = 49 # Camulodunum
+				province_id = 50 # Theodford
+				province_id = 44 # Durovernum
+				province_id = 66 # Dunadd
+				province_id = 73 # Caledonia
+				province_id = 137  # Aldeburgh
+				province_id = 151  # Arundel
+				province_id = 152  # Durobrivae
+				province_id = 153  # Nortwic
+			}            
+        }
+		gold_cost = 40
+		build_time = 120
+		tax_income = 0.65
+		ai_creation_factor = 91
+		
+		extra_tech_building_start = 1.0
+	}
+	ct_masons_1 = {
+	  	trigger = { 
+			TECH_CITY_CONSTRUCTION = 2 
+			TECH_CONSTRUCTION = 2
+		}
+		potential = {
+			FROM = {
+				OR = {
+					culture = armorican
+					culture = breton
+					culture = briton
+					is_roman_culture_trigger = yes
+					is_istvaeonic_culture_trigger = yes
+					is_romanized_germanic_trigger = yes
+				}
+			}
+		}
+		prerequisites = { ct_marketplace_1 ct_justice_1 ct_wall_2 }
+	    gold_cost = 110
+		build_time = 365
+		fort_level = 0.5
+		local_build_time_modifier = -0.05
+		local_build_cost_modifier = -0.05
+		economy_techpoints = 0.025
+		tax_income = -0.5
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.5
+	}
+
+	# Sanitation Buildings
+	ct_health_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = {
+			OR = {
+				culture = briton
+				culture = armorican
+				culture = breton
+				culture = oldirish
+				culture = cumbrian
+				is_istvaeonic_culture_trigger = yes
+			}
+		}
+		prerequisites = { ct_wall_1 }
+		gold_cost = 60
+		build_time = 180
+		disease_defence = 0.02
+		ai_creation_factor = 79
+
+		extra_tech_building_start = 0.2
+	}
+	ct_health_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		potential = {
+			OR = {
+				culture = briton
+				culture = armorican
+				culture = breton
+				culture = oldirish
+				culture = cumbrian
+				is_istvaeonic_culture_trigger = yes
+			}
+		}
+		upgrades_from = ct_health_1
+		prerequisites = { ct_town_hall_1 ct_marketplace_2 }
+		gold_cost = 100
+		build_time = 365
+		disease_defence = 0.03
+		ai_creation_factor = 78
+
+		extra_tech_building_start = 0.5
+	}
+	ct_rom_health_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = {
+			is_roman_culture_trigger = yes
+		}
+		prerequisites = { ct_wall_2 }
+		gold_cost = 60
+		build_time = 180
+		disease_defence = 0.02
+		ai_creation_factor = 100
+
+		extra_tech_building_start = 0.5
+	}
+	ct_rom_health_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 2 }
+		potential = {
+			is_roman_culture_trigger = yes
+		}
+		upgrades_from = ct_rom_health_1
+		prerequisites = { ct_justice_1 }
+		gold_cost = 100
+		build_time = 240
+		disease_defence = 0.02
+		ai_creation_factor = 99
+
+		extra_tech_building_start = 0.5
+	}
+	ct_rom_health_3 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		potential = {
+			is_roman_culture_trigger = yes
+		}
+		upgrades_from = ct_rom_health_2
+		prerequisites = { ct_wall_3 ct_justice_2 }
+		gold_cost = 180
+		build_time = 365
+		disease_defence = 0.03
+		tax_income = 0.35
+		ai_creation_factor = 98
+
+		extra_tech_building_start = 0.5
+	}
+	ct_rom_health_4 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 5 }
+		potential = {
+			is_roman_culture_trigger = yes
+		}
+		upgrades_from = ct_rom_health_3
+		prerequisites = { ct_wall_4 ct_masons_1 ct_marketplace_2 }
+		gold_cost = 700
+		build_time = 730
+		economy_techpoints = 0.025
+		disease_defence = 0.05
+		tax_income = 0.85
+		ai_creation_factor = 87
+
+		extra_tech_building_start = 0.5
+	}
+	ct_rom_health_5 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 7 }
+		potential = {
+			is_roman_culture_trigger = yes
+		}
+		upgrades_from = ct_rom_health_4
+		prerequisites = { ct_marketplace_4 }
+		gold_cost = 1000
+		build_time = 1460
+		economy_techpoints = 0.025
+		disease_defence = 0.075
+		tax_income = 1.35
+		ai_creation_factor = 86
+
+		extra_tech_building_start = 0.0
+	}
+
+	# Farming
+	ct_farms_1 = {
+        trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = { 
+            OR = {
+                terrain = farmlands
+				province_id = 3 # Avalon
+		    	province_id = 4 # Aquae Sulis
+				province_id = 5 # Ambra
+	            province_id = 11 # Corinium
+				province_id = 20 # Glevum
+				province_id = 7 # Calleva
+				province_id = 51 # The Fens
+            }                   
+        } 
+		gold_cost = 75
+		build_time = 90
+		tax_income = 1.3
+		ai_creation_factor = 92
+		
+		extra_tech_building_start = 0.2
+	}
+	ct_farms_2 = {
+        trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = { 
+            OR = {
+                terrain = farmlands
+				province_id = 3 # Avalon
+		    	province_id = 4 # Aquae Sulis
+				province_id = 5 # Ambra
+	            province_id = 11 # Corinium
+				province_id = 20 # Glevum
+				province_id = 7 # Calleva
+				province_id = 51 # The Fens
+            }                   
+        } 
+		upgrades_from = ct_farms_1 
+		gold_cost = 400
+		build_time = 365
+		tax_income = 3.2
+		ai_creation_factor = 91
+		
+		extra_tech_building_start = 1.5
+	}
+	ct_winery_1 = {
+	    trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		potential = { 
+			OR = {
+				province_id = 75 # Armorica
+				province_id = 78 # Ynys Trebes
+				province_id = 82 # Lutetia
+				province_id = 122 # Abrincatae
+				province_id = 81 # Noviomagus
+				province_id = 86 # Juliobona
+				province_id = 150 # Agedincum
+				province_id = 200 # Tours
+				province_id = 202 # Laval
+				province_id = 207 # Anjou
+				province_id = 220 # Langres
+				province_id = 221 # Divio
+				province_id = 222 # Lugdunum
+				province_id = 192 # Blois
+				province_id = 196 # Orleans
+				province_id = 193 # Provinum
+				province_id = 201 # Vindinium
+				province_id = 216 # Alvernia
+			}	
+		}
+	    gold_cost = 45
+		build_time = 90
+		tax_income = 0.95
+		ai_creation_factor = 82
+		
+		extra_tech_building_start = 0.5
+	}
+	
+	# Religion
+	ct_church_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = {
+			religion_group = christian
+		}
+		prerequisites = { ct_wall_1 }
+		gold_cost = 60
+		build_time = 120
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.02
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.3
+	}
+	ct_church_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 1 }
+		potential = {
+			religion_group = christian
+		}
+		upgrades_from = ct_church_1
+		gold_cost = 120
+		build_time = 365
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.02
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.5
+	}
+	ct_church_3 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 3 }
+		potential = {
+			religion_group = christian
+		}
+		upgrades_from = ct_church_2
+		gold_cost = 360
+		build_time = 1095
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.05
+		culture_techpoints = 0.05
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.5
+	}
+	ct_temple_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+				religion_group = zoroastrian_group
+			}
+		}
+		prerequisites = { ct_wall_1 }
+		gold_cost = 60
+		build_time = 120
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.02
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.3
+	}
+	ct_temple_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 1 }
+		potential = {
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+				religion_group = zoroastrian_group
+			}
+		}
+		upgrades_from = ct_temple_1
+		gold_cost = 120
+		build_time = 365
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.02
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.5
+	}
+	ct_temple_3 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 3 }
+		potential = {
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+				religion_group = zoroastrian_group
+			}
+		}
+		upgrades_from = ct_temple_2
+		gold_cost = 360
+		build_time = 1095
+		local_tax_modifier = 0.05
+		local_revolt_risk = -0.05
+		culture_techpoints = 0.05
+		ai_creation_factor = 120
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.5
+	}
+
+	# Ports and Fishing
+	ct_fishing = {
+	     trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		 potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		gold_cost = 65
+		build_time = 365
+		tax_income = 0.65
+		ai_creation_factor = 88
+		
+		extra_tech_building_start = 0.4
+	}
+	ct_port_1 = {
+		trigger = { TECH_TRADE_PRACTICES = 0 }
+		potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		gold_cost = 100
+		build_time = 365
+		galleys = 2
+		tax_income = 2
+		ai_creation_factor = 110
+		
+		extra_tech_building_start = 0.8
+	}
+	ct_port_2 = {
+		trigger = { TECH_TRADE_PRACTICES = 1 }
+		potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		prerequisites = { ct_wall_1 }
+		upgrades_from = ct_port_1
+		gold_cost = 120
+		build_time = 730
+		galleys = 2
+		tax_income = 2.5
+		ai_creation_factor = 109
+
+		extra_tech_building_start = 1.0
+	}
+	ct_port_3 = {
+		trigger = { TECH_TRADE_PRACTICES = 2 }
+		potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_port_2
+		gold_cost = 250
+		build_time = 730
+		galleys = 2
+		tax_income = 3
+		ai_creation_factor = 108
+
+		extra_tech_building_start = 1.0
+	}
+	ct_port_4 = {
+		trigger = { TECH_TRADE_PRACTICES = 4 }
+		potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		prerequisites = { ct_marketplace_4 }
+		upgrades_from = ct_port_3
+		gold_cost = 600
+		build_time = 1460
+		galleys = 3
+		disease_defence = -0.01
+		tax_income = 3
+		ai_creation_factor = 107
+
+		extra_tech_building_start = 0.5
+	}
+	ct_port_5 = {
+		trigger = { TECH_TRADE_PRACTICES = 7 }
+		potential = { 
+			port = yes
+			NOT = {
+                province_id = 11  # Corinium
+            }                   
+		}	
+		prerequisites = { ct_marketplace_5 }
+		upgrades_from = ct_port_4
+		gold_cost = 1050
+		build_time = 2920
+		galleys = 3
+		economy_techpoints = 0.05
+		disease_defence = -0.03
+		tax_income = 3.5
+		ai_creation_factor = 106
+
+		extra_tech_building_start = 0.2
+	}
+
+	# Weaponsmith of Cunetio
+	ct_cunetio_smith = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		potential = {
+			FROMFROM = { title = b_cunetio }
+		}
+		gold_cost = 200
+		build_time = 450
+		heavy_infantry_offensive = 0.07
+		light_infantry_offensive = 0.02
+		pikemen_offensive = 0.05
+		archers_offensive = 0.04
+		light_cavalry_offensive = 0.03
+		knights_offensive = 0.05
+		land_morale = 0.02
+		military_techpoints = 0.05
+		ai_creation_factor = 300
+		
+		extra_tech_building_start = 0.0
+	}
+
+	#	Caers
+	ct_caer_1 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevum }				#Glevum
+				FROMFROM = { title = b_eburacumtown }		#Eburacum
+				FROMFROM = { title = b_lindumtown }			#Lindum
+				#FROMFROM = { title = b_viroconiumcastle }	#Viroconium if ct
+				#FROMFROM = { title = b_edencastle }	#Luguvallum if ct
+				#Altclut but not right now
+				#FROMFROM = { title = b_devacastle }			#Deva if ct
+				FROMFROM = { title = b_londiniumtown }		#Londinium if we keep city after 460
+				#Aquae Sulis but not right now
+				FROMFROM = { title = b_camulodunumtown }	#Camulodunum
+				FROMFROM = { title = b_lindinis }			#Lindinis
+				FROMFROM = { title = b_durnovaria }			#Durnovaria
+				#FROMFROM = { title = b_din_tagell }		#Din Tagell if ct
+				FROMFROM = { title = b_isca_siluriacastle }#Isca Siluria if ct
+				FROMFROM = { title = b_iscacastle }		#Isca D if ct
+				#FROMFROM = { title = b_ayrcastle }			#Ayr if ct
+				FROMFROM = { title = b_venta }				#Venta
+				FROMFROM = { title = b_venta_siluria }		#Burrium
+				#Avalon but not right now
+				FROMFROM = { title = b_corinium }			#Corinium
+				FROMFROM = { title = b_cantiatown }			#Durovernum
+				FROMFROM = { title = b_calleva } 			#Calleva
+				FROMFROM = { title = b_letocetumcastle }	#Letocetum if ct
+				#FROMFROM = { title = b_din_eidyncastle }	#Din Eidyn if ct
+				#FROMFROM = { title = b_old_tynecastle }		#Old Tyne if ct
+				#FROMFROM = { title = b_hibernicumcastle }	#Cornovia if ct
+				#FROMFROM = { title = b_caer_swyscastle }	#Caer Swys if ct
+				FROMFROM = { title = b_durocobrivistown }	#Durovobrivis
+				FROMFROM = { title = b_verulaniumtown }	#Verulanium
+				#province_id = 106 					#If avona had town 
+				#FROMFROM = { title = b_arfoncastle}			#Arfon if ct
+				#FROMFROM = { title = b_ioredalecastle }		#Ioredale if ct
+				FROMFROM = { title = b_rataecastle }		#Ratae if ct
+				#FROMFROM = { title = b_thetfordcastle }	#Thetford if ct
+				#FROMFROM = { title = b_tipperarycastle }	#Tipperary if ct
+			}
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}
+		}
+		#desc = ct_caer_1_desc
+		#trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		#prerequisites = ct_wall_2
+		
+		gold_cost = 300
+		build_time = 7300
+		
+		fort_level = 0.5
+		garrison_size = 0.05
+
+		retinuesize = 10
+		levy_size = 0.02
+		archers = 20
+
+		local_tax_modifier = 0.05
+		tax_income = 1
+		
+		tech_growth_modifier = 0.02
+		
+		extra_tech_building_start = 0
+	}	
+		
+	ct_caer_2 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevum }				#Glevum
+				FROMFROM = { title = b_eburacumtown }		#Eburacum
+				FROMFROM = { title = b_lindumtown }			#Lindum
+				#FROMFROM = { title = b_viroconiumcastle }	#Viroconium if ct
+				#FROMFROM = { title = b_edencastle }	#Luguvallum if ct
+				#Altclut but not right now
+				#FROMFROM = { title = b_devacastle }			#Deva if ct
+				FROMFROM = { title = b_londiniumtown }		#Londinium if we keep city after 460
+				#Aquae Sulis but not right now
+				FROMFROM = { title = b_camulodunumtown }	#Camulodunum
+				FROMFROM = { title = b_durnovaria }			#Durnovaria
+				#FROMFROM = { title = b_din_tagell }		#Din Tagell if ct
+				#FROMFROM = { title = b_isca_siluriacastle }#Isca Siluria if ct
+				#FROMFROM = { title = b_iscacastle }			#Isca D if ct
+				#FROMFROM = { title = b_ayrcastle }			#Ayr if ct
+				FROMFROM = { title = b_venta }				#Venta
+				FROMFROM = { title = b_corinium }			#Corinium in 410
+				FROMFROM = { title = b_durocobrivistown }	#Durovobrivis
+				FROMFROM = { title = b_verulaniumtown }		#Verulanium
+				#FROMFROM = { title = b_din_eidyncastle }	#Din Eidyn if ct
+				#FROMFROM = { title = b_rataecastle }		#Ratae if ct
+			}
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}
+		}
+		#desc = ct_caer_2_desc
+		#trigger = { TECH_CITY_CONSTRUCTION = 7 }
+		
+		upgrades_from = ct_caer_1
+		gold_cost = 300
+		build_time = 7300
+		
+		fort_level = 1
+		garrison_size = 0.05
+		
+		retinuesize = 20
+		levy_size = 0.03
+		pikemen = 25
+		
+		local_tax_modifier = 0.10
+		tax_income = 1
+		
+		tech_growth_modifier = 0.03
+		economy_techpoints = 0.01
+		
+		extra_tech_building_start = 0
+	}
+	
+	ct_caer_3 = {
+		potential = {
+			OR = {
+				FROMFROM = { title = b_glevum }			#Glevum maybe 410
+				#FROMFROM = { title = b_eburacumtown }		#Eburacum mb 410
+				#FROMFROM = { title = b_lindumtown }		#Lindum maybe 410
+				#FROMFROM = { title = b_viroconiumcastle }	#Viroconium if ct
+				#FROMFROM = { title = b_edencastle }	#Luguvallum if ct
+				#Altclut but not right now
+				#FROMFROM = { title = b_devacastle }			#Deva if ct
+				FROMFROM = { title = b_londiniumtown }		#Londinium if we keep city after 460
+				#FROMFROM = { title = b_venta }				#Venta maybe 410
+			}
+			owner = {
+				OR = {
+					NOT = { culture_group = germanic }
+					is_romanized_germanic_trigger = yes
+				}
+			}
+			OR = {
+				NOT = { culture_group = germanic }
+				is_romanized_germanic_trigger = yes
+			}
+		}
+		#desc = ct_caer_3_desc
+		#trigger = { TECH_CITY_CONSTRUCTION = 10 }
+		
+		upgrades_from = ct_caer_2
+		gold_cost = 300
+		build_time = 7300
+		
+		fort_level = 1
+		garrison_size = 0.10
+		
+		retinuesize = 20
+		levy_size = 0.05
+		heavy_infantry = 25
+		pikemen = 5
+		
+		local_tax_modifier = 0.10
+		tax_income = 2
+		
+		tech_growth_modifier = 0.05
+		economy_techpoints = 0.01
+		
+		extra_tech_building_start = 0
+	}
+
+	# Military
+	ct_guard_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 120
+		light_infantry = 35
+		ai_creation_factor = 96
+		
+		extra_tech_building_start = 0.5
+	}
+	ct_guard_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		prerequisites = { ct_wall_1 }
+		upgrades_from = ct_guard_1
+		gold_cost = 240
+		build_time = 120
+		light_infantry = 35
+		tax_income = -0.75
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	}
+	ct_guard_3 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 2 }
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_guard_2
+		gold_cost = 200
+		build_time = 365
+		pikemen = 35
+		light_infantry = -35
+		disease_defence = -0.01
+		tax_income = -1
+		ai_creation_factor = 94
+		
+		extra_tech_building_start = 0.2
+	}
+	ct_guard_4 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 4 }
+		upgrades_from = ct_guard_3
+		gold_cost = 325
+		build_time = 365
+		pikemen = 35
+		light_infantry = -35
+		levy_reinforce_rate = 0.025
+		local_build_time_modifier = -0.015
+		disease_defence = -0.01
+		tax_income = -1.5
+		ai_creation_factor = 93
+		
+		extra_tech_building_start = 0.2
+	}
+	ct_guard_5 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 6 }
+		upgrades_from = ct_guard_4
+		gold_cost = 600
+		build_time = 730
+		pikemen = 15
+		heavy_infantry = 35
+		heavy_infantry_offensive = 0.05
+		levy_reinforce_rate = 0.025
+		retinuesize = 50
+		local_build_time_modifier = -0.015
+		military_techpoints = 0.05
+		disease_defence = -0.02
+		tax_income = -2.25
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 0.2
+	}
+	ct_guard_6 = {
+		prerequisites = { ct_wall_5 }
+		trigger = { TECH_CITY_CONSTRUCTION = 8 }
+		upgrades_from = ct_guard_5
+		gold_cost = 1150
+		build_time = 1460
+		heavy_infantry = 35
+		heavy_infantry_offensive = 0.05
+		heavy_infantry_defensive = 0.05
+		levy_reinforce_rate = 0.025
+		retinuesize = 100
+		local_build_time_modifier = -0.015
+		military_techpoints = 0.05
+		disease_defence = -0.03
+		tax_income = -3.0
+		ai_creation_factor = 91
+
+		extra_tech_building_start = 0.0
+	}
+	
+	ct_barracks_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 120
+		archers = 15
+		ai_creation_factor = 95
+		
+		extra_tech_building_start = 1.0
+	}
+	ct_barracks_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		prerequisites = { ct_wall_1 }
+		upgrades_from = ct_barracks_1
+		gold_cost = 120
+		build_time = 240
+		light_infantry = 15
+		archers = 30
+		tax_income = -0.5
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 1.0
+	}
+	ct_barracks_3 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		prerequisites = { ct_wall_2 }
+		upgrades_from = ct_barracks_2
+		gold_cost = 200
+		build_time = 365
+		archers = 35
+		archers_offensive = 0.05
+		tax_income = -1.5
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 1.0
+	}
+	ct_barracks_4 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 5 }
+		prerequisites = { ct_training_grounds_5 }
+		upgrades_from = ct_barracks_3
+		gold_cost = 450
+		build_time = 730
+		light_infantry = -15
+		archers = 50
+		archers_offensive = 0.05
+		disease_defence = -0.01
+		tax_income = -2.5
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 1.0
+	}
+	
+	ct_training_grounds_1 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 120
+		levy_reinforce_rate = 0.1
+		ai_creation_factor = 98
+
+		extra_tech_building_start = 1.0
+	}
+	ct_training_grounds_2 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 1 }
+		prerequisites = { ct_wall_1 }
+		upgrades_from = ct_training_grounds_1
+		gold_cost = 200
+		build_time = 180
+		levy_reinforce_rate = 0.1
+		ai_creation_factor = 97
+
+		extra_tech_building_start = 1.0
+	} 
+	ct_training_grounds_3 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 2 }
+		upgrades_from = ct_training_grounds_2
+		gold_cost = 300
+		build_time = 240
+		land_morale = 0.05
+		levy_reinforce_rate = 0.1
+		tax_income = -0.75
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 1.0
+	} 
+	ct_training_grounds_4 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 3 }
+		upgrades_from = ct_training_grounds_3
+		gold_cost = 525
+		build_time = 365
+		land_morale = 0.05
+		levy_reinforce_rate = 0.1
+		tax_income = -1.25
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	} 
+	ct_training_grounds_5 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 5 }
+		upgrades_from = ct_training_grounds_4
+		gold_cost = 750
+		build_time = 730
+		land_morale = 0.1
+		levy_reinforce_rate = 0.1
+		military_techpoints = 0.05
+		tax_income = -1.75
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 0.2
+	}
+	ct_training_grounds_6 = {
+		trigger = { TECH_CITY_CONSTRUCTION = 7 }
+		upgrades_from = ct_training_grounds_5
+		gold_cost = 950
+		build_time = 1460
+		land_morale = 0.15
+		levy_reinforce_rate = 0.15
+		military_techpoints = 0.05
+		tax_income = -2.5
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 0.2
+	}
+}
+
+# Temple
+temple = {
+	
+	# Defensive Structures
+	tp_wall_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		gold_cost = 50
+		build_time = 180
+		fort_level = 0.5
+		ai_creation_factor = 97
+
+		extra_tech_building_start = 1.0
+	}
+	tp_wall_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 2 }
+		upgrades_from = tp_wall_1
+		gold_cost = 50
+		build_time = 365
+		fort_level = 0.5
+		ai_creation_factor = 96
+
+		extra_tech_building_start = 0.5
+	}
+	tp_wall_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 4 }
+		upgrades_from = tp_wall_2
+		gold_cost = 100
+		build_time = 365
+		fort_level = 1.0
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	}
+	tp_wall_q_1 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+		prerequisites = { tp_wall_1 }
+		gold_cost = 50
+		build_time = 90
+		fort_level = 0.4
+		ai_creation_factor = 82
+		
+		extra_tech_building_start = 1.0
+	}
+	tp_wall_q_2 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+		prerequisites = { tp_wall_2 }
+		upgrades_from = tp_wall_q_1
+		gold_cost = 50
+		build_time = 120
+		fort_level = 0.4
+		ai_creation_factor = 81
+
+		extra_tech_building_start = 1.0
+	}	
+	tp_wall_q_3 = {
+		trigger = { TECH_FORTIFICATIONS_CONSTRUCTION = 3 }
+		upgrades_from = tp_wall_q_2
+		gold_cost = 100
+		build_time = 180
+		fort_level = 0.5
+		ai_creation_factor = 80
+
+		extra_tech_building_start = 1.0
+	}
+	
+	# Catholic Churches
+	tp_monastery_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		gold_cost = 75
+		build_time = 90
+		tax_income = 1
+		ai_creation_factor = 115
+		
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	}
+	tp_monastery_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		upgrades_from = tp_monastery_1
+		gold_cost = 125
+		build_time = 180
+		culture_techpoints = 0.05
+		tax_income = 2
+		ai_creation_factor = 110
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_monastery_3 = {
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 2 }
+		upgrades_from = tp_monastery_2
+		gold_cost = 200
+		build_time = 365
+		culture_techpoints = 0.05
+		tax_income = 2.5
+		ai_creation_factor = 104
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_monastery_4 = {
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 4 }
+		upgrades_from = tp_monastery_3
+		prerequisites = { tp_wall_1 }
+		gold_cost = 400
+		build_time = 730
+		culture_techpoints = 0.05
+		tax_income = 3.5
+		ai_creation_factor = 103
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_monastery_5 = {
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 6 }
+		upgrades_from = tp_monastery_4
+		gold_cost = 750
+		build_time = 1480
+		culture_techpoints = 0.05
+		tax_income = 4.5
+		ai_creation_factor = 102
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	}
+	tp_monastery_6 = {
+		potential = {
+			FROM = { religion_group = christian }
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 8 }
+		upgrades_from = tp_monastery_5
+		gold_cost = 1400
+		build_time = 2920
+		culture_techpoints = 0.05
+		tax_income = 6
+		ai_creation_factor = 101
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.0
+	}
+	
+	# Pagan Temples
+	tp_pagan_temple_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			FROM = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		gold_cost = 50
+		build_time = 90
+		tax_income = 1
+		ai_creation_factor = 115
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	}
+	tp_pagan_temple_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			FROM = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		upgrades_from = tp_pagan_temple_1
+		gold_cost = 100
+		build_time = 180
+		tax_income = 2
+		ai_creation_factor = 110
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_pagan_temple_3 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 2 }
+		potential = { 
+			FROM = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		upgrades_from = tp_pagan_temple_2
+		gold_cost = 200
+		build_time = 365
+		culture_techpoints = 0.05
+		tax_income = 2.5
+		ai_creation_factor = 104
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_pagan_temple_4 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 4 }
+		potential = { 
+			FROM = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		prerequisites = { tp_wall_1 }
+		upgrades_from = tp_pagan_temple_3
+		gold_cost = 400
+		build_time = 730
+		military_techpoints = 0.05
+		culture_techpoints = 0.05
+		tax_income = 3
+		ai_creation_factor = 103
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	} 
+	tp_pagan_temple_5 = {
+		potential = { 
+			FROM = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 6 }
+		upgrades_from = tp_pagan_temple_4
+		gold_cost = 750
+		build_time = 1480
+		military_techpoints = 0.05
+		culture_techpoints = 0.05
+		tax_income = 4.5
+		ai_creation_factor = 102
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.2
+	}
+	tp_pagan_temple_6 = {
+		potential = { 
+			FROM = {
+				OR = {
+					religion = briton_pagan
+					religion = briton_pagan_reformed
+					religion = gael_pagan
+					religion = gael_pagan_reformed
+					religion = pict_pagan
+					religion = pict_pagan_reformed
+					religion_group = zoroastrian_group
+				}
+			}
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 8 }
+		upgrades_from = tp_pagan_temple_5
+		gold_cost = 1400
+		build_time = 2920
+		military_techpoints = 0.05
+		culture_techpoints = 0.05
+		tax_income = 6
+		ai_creation_factor = 101
+
+		add_number_to_name = no
+		liege_piety = 0.05
+		
+		extra_tech_building_start = 0.0
+	}
+	
+	# Barracks
+	tp_barracks_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 120
+		light_infantry = 25
+		archers = 25
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 1.0
+	}
+	tp_barracks_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 1 }
+		prerequisites = { tp_wall_1 }
+		upgrades_from = tp_barracks_1
+		gold_cost = 120
+		build_time = 240
+		light_infantry = 30
+		archers = 30
+		levy_size = 0.1
+		garrison_size = 0.1
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 1.0
+	}
+	tp_barracks_3 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 3 }
+		prerequisites = { tp_wall_2 }
+		upgrades_from = tp_barracks_2
+		gold_cost = 200
+		build_time = 365
+		light_infantry = 40
+		archers = 40
+		levy_size = 0.1
+		garrison_size = 0.1
+		disease_defence = -0.01
+		tax_income = -0.15
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 1.0
+	}
+	tp_barracks_4 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 5 }
+		prerequisites = { tp_wall_3 }
+		upgrades_from = tp_barracks_3
+		gold_cost = 300
+		build_time = 550
+		light_infantry = 50
+		archers = 40
+		levy_size = 0.1
+		garrison_size = 0.1
+		disease_defence = -0.02
+		tax_income = -0.3
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 1.0
+	}
+	
+	
+	tp_elite_barracks_1 = {
+		desc = tp_elite_barracks_1_desc
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 365
+		heavy_infantry = 20
+		pikemen = 10
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.5
+	}
+	tp_elite_barracks_2 = {
+		desc = tp_elite_barracks_1_desc
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 2 }
+		prerequisites = { tp_wall_1 }
+		upgrades_from = tp_elite_barracks_1
+		gold_cost = 150
+		build_time = 550
+		heavy_infantry = 30
+		pikemen = 20
+		light_infantry = -20
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 1.0
+	}
+	tp_elite_barracks_3 = {
+		desc = tp_elite_barracks_1_desc
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 4 }
+		prerequisites = { tp_wall_2 }
+		upgrades_from = tp_elite_barracks_2
+		gold_cost = 250
+		build_time = 730
+		heavy_infantry = 40
+		pikemen = 30
+		light_infantry = -40
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 0.2
+	}
+	
+	# Towns
+	tp_town_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		gold_cost = 100
+		build_time = 180
+		levy_size = 0.1
+		garrison_size = 0.1
+		tax_income = 1.5
+		ai_creation_factor = 95
+
+		extra_tech_building_start = 0.8
+	}
+	tp_town_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 1 }
+		prerequisites = { tp_wall_1 }
+		upgrades_from = tp_town_1
+		gold_cost = 120
+		build_time = 365
+		levy_size = 0.1
+		garrison_size = 0.1
+		tax_income = 2
+		ai_creation_factor = 94
+
+		extra_tech_building_start = 0.5
+	}
+	tp_town_3 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 3 }
+		prerequisites = { tp_wall_2 }
+		upgrades_from = tp_town_2
+		gold_cost = 200
+		build_time = 730
+		levy_size = 0.1
+		garrison_size = 0.1
+		local_build_time_modifier = -0.025
+		tax_income = 2.5
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 0.5
+	}
+	tp_town_4 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 6 }
+		upgrades_from = tp_town_3
+		gold_cost = 350
+		build_time = 1460
+		levy_size = 0.1
+		garrison_size = 0.1
+		local_build_time_modifier = -0.05
+		disease_defence = -0.01
+		tax_income = 3
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 0.5
+	}
+	
+	# Education
+	tp_school_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 2 }
+		gold_cost = 125
+		build_time = 180
+		culture_techpoints = 0.05
+		ai_creation_factor = 93
+
+		extra_tech_building_start = 0.2
+	}
+	tp_school_2 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 5 }
+		prerequisites = { tp_wall_1 }
+		upgrades_from = tp_school_1
+		gold_cost = 250
+		build_time = 730
+		culture_techpoints = 0.05
+		disease_defence = 0.01
+		tax_income = -0.25
+		ai_creation_factor = 92
+
+		extra_tech_building_start = 0.2
+	}
+	tp_university_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 1 }
+		potential = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+				is_romanized_germanic_trigger = yes
+				is_istvaeonic_culture_trigger = yes
+				culture_group = romance
+			}
+		}
+		gold_cost = 200
+		build_time = 180
+		tech_growth_modifier = 0.1
+		tax_income = -0.75
+		ai_creation_factor = 107
+
+		extra_tech_building_start = 1.0
+	}
+	tp_university_2 = {
+		potential = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+				is_romanized_germanic_trigger = yes
+				is_istvaeonic_culture_trigger = yes
+				culture_group = romance
+			}
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 4 }
+		upgrades_from = tp_university_1
+		gold_cost = 600
+		build_time = 730
+		tech_growth_modifier = 0.15
+		tax_income = -1.75
+		ai_creation_factor = 106
+
+		extra_tech_building_start = 0.5
+	}
+	tp_university_3 = {
+		potential = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+				is_romanized_germanic_trigger = yes
+				is_istvaeonic_culture_trigger = yes
+				culture_group = romance
+			}
+		}
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 6 }
+		upgrades_from = tp_university_2
+		gold_cost = 750
+		build_time = 1460
+		tech_growth_modifier = 0.2
+		tax_income = -2.00
+		ai_creation_factor = 105
+
+		extra_tech_building_start = 0.2
+	}
+	# Agriculture Buildings
+	tp_farms_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+            OR = {
+                terrain = farmlands
+				province_id = 3 	# Avalon
+				province_id = 4 	# Aquae Sulis
+				province_id = 5 	# Ambra
+	            province_id = 11 	# Corinium
+				province_id = 20 	# Glevum
+				province_id = 7 	# Calleva
+				province_id = 51 	# The Fens
+				province_id = 155 	# Alchester
+				province_id = 62	# Epidion/Islay
+            }                   
+        } 
+		gold_cost = 30
+		build_time = 365
+		tax_income = 1
+		ai_creation_factor = 92
+		
+		extra_tech_building_start = 0.7
+	}
+	tp_cattle = {
+	    trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = {
+			terrain = hills
+			NOT = {
+				province_id = 55 # Trent Hills
+				province_id = 30 # Buelt
+				province_id = 34 # Caer Gei
+				province_id = 24 # Isca Siluria
+				province_id = 13 # Dartmoor
+				province_id = 14 # Exmoor
+				province_id = 43 # Setantia
+				province_id = 62 # Epidion
+				province_id = 66 # Dunadd
+				province_id = 129 # Scotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum
+				province_id = 245 # Aberdeen
+				province_id = 262 # Inverness
+			}	
+        }
+		prerequisites = { tp_wall_1 }
+	    gold_cost = 25
+		build_time = 1095
+		tax_income = 0.95
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.4
+	}
+	tp_sheep_1 = {
+		trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				terrain = highlands
+				province_id = 13 # Dartmoor
+				province_id = 43 # Setantia
+				province_id = 35 # Gwynedd
+				province_id = 39 # Legiolium
+				province_id = 40 # Hibernicum
+				province_id = 41 # Old Tyne
+				province_id = 60 # Ynys Mon
+				province_id = 61 # Ynys Man
+				province_id = 64 # Ynys Aru
+				province_id = 66 # Dunadd
+				province_id = 68 # Bernicia
+				province_id = 69 # Gallow
+				province_id = 71 # Lothian
+				province_id = 73 # Caledonia
+				province_id = 91 # Ui Neill
+				province_id = 98 # Longford
+				province_id = 99 # Kildare
+				province_id = 96 # Connemara
+				province_id = 95 # Ui Maine
+				province_id = 102 # Limerick
+				province_id = 109 # Teviotdale
+				province_id = 129 # Attacotia
+				province_id = 135 # Kilkenny
+				province_id = 140 # Loch Duin
+				province_id = 147 # Carvetia
+				province_id = 148 # Hibernicum (North)
+				province_id = 261 # Scotia
+			}	
+		}
+		prerequisites = { tp_town_1 }
+	    gold_cost = 20
+		build_time = 1095
+		tax_income = 0.8
+		ai_creation_factor = 89
+		
+		extra_tech_building_start = 0.4
+	}
+	tp_goat = {
+	    trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			OR = {
+				province_id = 30 # Buelt
+				province_id = 34 # Caer Gei
+				province_id = 24 # Isca Siluria
+				province_id = 14 # Exmoor
+				province_id = 35 # Gwynedd
+				province_id = 59 # Henis Wyren
+				province_id = 128 # East Caledonia
+			}	
+		}
+		prerequisites = { tp_town_1 }
+	    gold_cost = 20
+		build_time = 1095
+		tax_income = 0.6
+		ai_creation_factor = 87
+		
+		extra_tech_building_start = 0.6
+	}
+	tp_swine_pen = {
+	    trigger = { TECH_TEMPLE_CONSTRUCTION = 0 }
+		potential = { 
+			terrain = marsh
+		}	
+	   	prerequisites = { tp_town_1 }
+		gold_cost = 30
+		build_time = 1095
+		tax_income = 1.3
+		ai_creation_factor = 90
+		
+		extra_tech_building_start = 0.6
+	}
+}
+
+# Family Palace
+family_palace = {
+
+	# Mansions
+	fp_mansion_1 = {
+		desc = fp_mansion_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 200
+		build_time = 1095
+		ai_creation_factor = 110
+		
+		levy_size = 0.1
+		tax_income = 2
+		
+		extra_tech_building_start = 0.0
+	}
+	fp_mansion_2 = {
+		desc = fp_mansion_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		upgrades_from = fp_mansion_1
+		gold_cost = 300
+		build_time = 1460
+		ai_creation_factor = 109
+		
+		levy_size = 0.2
+		tax_income = 6
+		max_tradeposts = 3
+		
+		extra_tech_building_start = 2.0
+	}
+	fp_mansion_3 = {
+		desc = fp_mansion_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		upgrades_from = fp_mansion_2
+		gold_cost = 400
+		build_time = 2190
+		ai_creation_factor = 108
+		
+		levy_size = 0.3
+		tax_income = 8
+		max_tradeposts = 3
+		
+		extra_tech_building_start = 3.5
+	}
+	fp_mansion_4 = {
+		desc = fp_mansion_4_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		upgrades_from = fp_mansion_3
+		gold_cost = 500
+		build_time = 2190
+		ai_creation_factor = 107
+		
+		levy_size = 0.4
+		tax_income = 10
+		max_tradeposts = 3
+		
+		extra_tech_building_start = 5.0
+	}
+	
+	# Barracks
+	fp_barracks_1 = {
+		desc = fp_barracks_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		heavy_infantry = 45
+		pikemen = 35
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_barracks_2 = {
+		desc = fp_barracks_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		upgrades_from = fp_barracks_1
+		prerequisites = { fp_mansion_2 }
+		gold_cost = 250
+		build_time = 1095
+		ai_creation_factor = 104
+		
+		heavy_infantry = 55
+		pikemen = 45
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_barracks_3 = {
+		desc = fp_barracks_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		upgrades_from = fp_barracks_2
+		prerequisites = { fp_mansion_3 }
+		gold_cost = 350
+		build_time = 1460
+		ai_creation_factor = 103
+		
+		heavy_infantry = 70
+		pikemen = 50
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Stables
+	fp_stable_1 = {
+		desc = fp_stable_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		light_cavalry = 25
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_stable_2 = {
+		desc = fp_stable_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_stable_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		light_cavalry = 45
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_stable_3 = {
+		desc = fp_stable_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		upgrades_from = fp_stable_2
+		prerequisites = { fp_mansion_3 }
+		ai_creation_factor = 103
+		
+		light_cavalry = 45
+		knights = 15
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Bowyers
+	fp_bowyer_1 = {
+		desc = fp_bowyer_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		light_infantry = 65
+		archers = 65
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_bowyer_2 = {
+		desc = fp_bowyer_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_bowyer_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		light_infantry = 70
+		archers = 70
+		
+		extra_tech_building_start = 2.5
+	}
+	
+	# Shipyards
+	fp_shipyard_1 = {
+		desc = fp_shipyard_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		galleys = 3
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_shipyard_2 = {
+		desc = fp_shipyard_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_shipyard_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		galleys = 5
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_shipyard_3 = {
+		desc = fp_shipyard_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		upgrades_from = fp_shipyard_2
+		prerequisites = { fp_mansion_3 }
+		ai_creation_factor = 103
+		
+		galleys = 7
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Warehouses
+	fp_warehouse_1 = {
+		desc = fp_warehouse_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		land_morale = 0.1
+		levy_reinforce_rate = 0.1
+		retinuesize = 200
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_warehouse_2 = {
+		desc = fp_warehouse_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_warehouse_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		stewardship = 1
+		land_morale = 0.2
+		levy_reinforce_rate = 0.2
+		retinuesize = 400
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_warehouse_3 = {
+		desc = fp_warehouse_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		upgrades_from = fp_warehouse_2
+		prerequisites = { fp_mansion_3 }
+		ai_creation_factor = 103
+		
+		stewardship = 1
+		land_morale = 0.3
+		levy_reinforce_rate = 0.3
+		retinuesize = 600
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Gardens
+	fp_garden_1 = {
+		desc = fp_garden_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		monthly_character_prestige = 0.20
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_garden_2 = {
+		desc = fp_garden_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		ai_creation_factor = 104
+
+		upgrades_from = fp_garden_1
+		prerequisites = { fp_mansion_2 }
+
+		diplomacy = 1
+		monthly_character_prestige = 0.30
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_garden_3 = {
+		desc = fp_garden_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		ai_creation_factor = 103
+
+		upgrades_from = fp_garden_2
+		prerequisites = { fp_mansion_3 }
+
+		diplomacy = 1
+		monthly_character_prestige = 0.50
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Cellars
+	fp_cellar_1 = {
+		desc = fp_cellar_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		fertility = 0.1
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_cellar_2 = {
+		desc = fp_cellar_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		ai_creation_factor = 104
+
+		upgrades_from = fp_cellar_1
+		prerequisites = { fp_mansion_2 }
+		
+		martial = 1
+		monthly_character_piety = 0.25
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_cellar_3 = {
+		desc = fp_cellar_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		ai_creation_factor = 103
+		
+		upgrades_from = fp_cellar_2
+		prerequisites = { fp_mansion_3 }
+		
+		martial = 1
+		monthly_character_prestige = 0.25
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Shrines
+	fp_shrine_1 = {
+		desc = fp_shrine_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		church_opinion = 10
+		monthly_character_piety = 0.10
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_shrine_2 = {
+		desc = fp_shrine_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_shrine_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		learning = 1
+		monthly_character_piety = 0.25
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_shrine_3 = {
+		desc = fp_shrine_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		upgrades_from = fp_shrine_2
+		prerequisites = { fp_mansion_3 }
+		ai_creation_factor = 103
+		
+		learning = 1
+		monthly_character_piety = 0.50
+		
+		extra_tech_building_start = 4.0
+	}
+	
+	# Vaults
+	fp_vault_1 = {
+		desc = fp_vault_1_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 150
+		build_time = 730
+		ai_creation_factor = 105
+		
+		tax_income = 4
+		
+		extra_tech_building_start = 1.0
+	}
+	fp_vault_2 = {
+		desc = fp_vault_2_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 250
+		build_time = 1095
+		upgrades_from = fp_vault_1
+		prerequisites = { fp_mansion_2 }
+		ai_creation_factor = 104
+		
+		tax_income = 5
+		intrigue = 1
+		
+		extra_tech_building_start = 2.5
+	}
+	fp_vault_3 = {
+		desc = fp_vault_3_desc
+		trigger = { TECH_CASTLE_CONSTRUCTION = 0 }
+		gold_cost = 350
+		build_time = 1460
+		upgrades_from = fp_vault_2
+		prerequisites = { fp_mansion_3 }
+		ai_creation_factor = 103
+		
+		tax_income = 6
+		intrigue = 1
+		
+		extra_tech_building_start = 4.0
+	}
+}

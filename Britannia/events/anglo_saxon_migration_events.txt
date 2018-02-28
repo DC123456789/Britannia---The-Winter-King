@@ -1,0 +1,2394 @@
+###################################
+#
+# Anglo Saxon Migration Events
+#
+# Id 301400 - 301599
+#
+###################################
+
+### SCYLDING/ICLINGAS MIGRATION TO MIDDLE ANGLIA ###
+
+# Preparing to leave
+character_event = {
+	id = 301400
+	desc = "EVTDESC301400"
+	hide_new = yes
+	picture = "GFX_evt_coastal_village"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA301400"
+		hidden_tooltip = {
+			character_event = { 
+				id = 301401
+				days = 10
+			}
+		}
+	}
+}
+
+# The Migration
+narrative_event = {
+	id = 301401
+	title = "EVTNAME301401"
+	desc = "EVTDESC301401"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_anglosaxons_ashore"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = angles_migrated_britannia
+	}
+	
+	option = {
+		name = "EVTOPTA301401"
+		trigger = {
+			OR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+			}
+		}
+		set_character_flag = angeln_king
+		custom_tooltip = { text = EVTOPTA301401TT }
+		hidden_tooltip = {
+			any_realm_lord = {			# Let's not game over player vassals if that somehow happens
+				limit = { ai = no }
+				set_defacto_liege = THIS
+				any_realm_province = {
+					set_variable = { which = prosperity_value value = 0 }
+					remove_province_modifier = prosperity_modifier_1
+					remove_province_modifier = prosperity_modifier_2
+					remove_province_modifier = prosperity_modifier_3
+					add_province_modifier = {
+						name = depopulated_3
+						duration = -1
+					}
+					set_province_flag = angeln_depopulation
+				}
+			}
+			any_independent_ruler = {			# Let's not game over player rulers in Angeln if that somehow happens
+				limit = { 
+					culture = angle
+					capital_scope = {
+						OR = {
+							region = world_germania_jutland
+							region = world_germania_angeln
+						}
+					}
+					NOT = { character = ROOT }
+					ai = no 
+				}
+				any_realm_province = {
+					set_variable = { which = prosperity_value value = 0 }
+					remove_province_modifier = prosperity_modifier_1
+					remove_province_modifier = prosperity_modifier_2
+					remove_province_modifier = prosperity_modifier_3
+					add_province_modifier = {
+						name = depopulated_3
+						duration = -1
+					}
+					set_province_flag = angeln_depopulation
+				}
+			}
+			activate_title = {
+				title = c_angeln_host 
+				status = yes
+			}
+			c_angeln_host = {
+				grant_title = ROOT
+				succession = elective_gavelkind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				culture = proto_norse
+				religion = norse_pagan
+				female = no
+				age = 25
+			}
+			new_character = {
+				save_event_target_as = hedeby_king
+			}
+			any_province = {			# Add depopulation and change culture of some of the provinces
+				limit = {
+					is_angeln_migration_province_trigger = yes 
+					is_ingvaeonic_culture_trigger = yes
+				}
+				if = {
+					limit = {
+						any_neighbor_province = {
+							OR = {
+								culture = proto_norse
+								province_id = 474 # Storebælt
+							}
+						}
+					}
+					set_province_flag = norse_province
+					remove_province_modifier = depopulated_3
+					add_province_modifier = {
+						name = depopulated_2
+						duration = -1
+					}
+					set_province_flag = angeln_depopulation
+				}
+				else = {
+					remove_province_modifier = depopulated_2
+					add_province_modifier = {
+						name = depopulated_3
+						duration = -1
+					}
+					set_province_flag = angeln_depopulation
+				}
+			}
+			any_province = {
+				limit = { 
+					is_angeln_migration_province_trigger = yes
+					has_province_flag = norse_province
+				}
+				culture = proto_norse
+				religion = norse_pagan
+				clr_province_flag = norse_province
+			}
+			d_barvid = {
+				holder_scope = {
+					if = {
+						limit = {
+							culture = proto_norse
+							NOT = { same_realm = ROOT }
+						}
+						save_event_target_as = barvid_holder
+					}
+				}
+			}
+			any_province = {
+				limit = { is_angeln_migration_province_trigger = yes }
+				owner = {
+					save_event_target_as = province_holder
+				}
+				event_target:province_holder = {
+					if = {
+						limit = {
+							NOT = { 
+								any_demesne_title = {
+									OR = {
+										lower_tier_than = DUKE
+										is_landless_type_title = yes
+									}
+									NAND = { 
+										tier = COUNT
+										location = { 
+											province = PREVPREVPREV 
+										} 
+									}
+								}
+							}
+						}
+						any_courtier = {
+							move_character = ROOT
+						}
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							duchy = {
+								title = d_barvid
+							}
+							province_id = 469 # Sylt
+						}
+						d_barvid = {
+							holder_scope = {
+								culture = proto_norse
+								NOT = { same_realm = ROOT }
+							}
+						}
+					}
+					county = {
+						event_target:barvid_holder = {
+							grant_title_no_opinion = PREV
+						}
+					}
+				}
+				else = {
+					county = {
+						event_target:hedeby_king = {
+							grant_title_no_opinion = PREV
+							set_defacto_liege = THIS
+						}
+					}
+				}
+				event_target:province_holder = {
+					if = {
+						limit = { 
+							OR = {
+								is_ruler = no 
+								NOT = { 
+									any_demesne_title = {
+										OR = {
+											lower_tier_than = DUKE
+											is_landless_type_title = yes
+										}
+									}
+								}
+							}
+						}
+						any_demesne_title = {
+							limit = {
+								NOR = {
+									lower_tier_than = DUKE
+									is_landless_type_title = yes
+								}
+							}
+							destroy_landed_title = THIS
+						}
+						move_character = ROOT
+					}
+				}
+			}
+			event_target:hedeby_king = {
+				if = {
+					limit = { 
+						is_landed = yes
+					}
+					d_angeln = {
+						gain_title = PREV
+					}
+					set_government_type = tribal_government
+				}
+			}
+			k_angeln = {
+				destroy_landed_title = THIS
+				any_direct_de_jure_vassal_title = {
+					de_jure_liege = k_jutland
+				}
+				set_global_flag = angeln_conquered_norse
+			}
+			any_demesne_title = {
+				limit = { 
+					NOT = { title = c_angeln_host } 
+					lower_tier_than = DUKE
+				}
+				event_target:hedeby_king = {
+					gain_title = PREV
+				}
+			}
+			any_demesne_title = {
+				limit = { NOT = { title = c_angeln_host } }
+				destroy_landed_title = THIS
+			}
+			set_defacto_liege = ROOT
+			character_event = { 
+				id = 301402
+				days = 5
+			}
+			any_claim = {
+				remove_claim = ROOT
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB301402"
+		trigger = {
+			NOR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+			}
+			top_liege = {
+				OR = {
+					has_landed_title = k_angeln
+					AND = {
+						has_landed_title = d_angeln
+						k_angeln = { has_holder = no }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC301402"
+		trigger = {
+			NOR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				top_liege = {
+					has_landed_title = k_angeln
+				}
+				top_liege = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+			}
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTD301402"
+		trigger = {
+			NOR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				top_liege = {
+					has_landed_title = k_angeln
+				}
+				top_liege = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+			}
+			is_north_germanic_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTE301402"
+		trigger = {
+			NOR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				top_liege = {
+					has_landed_title = k_angeln
+				}
+				top_liege = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+			}
+			is_brythonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTF301402"
+		trigger = {
+			NOR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				top_liege = {
+					has_landed_title = k_angeln
+				}
+				top_liege = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				is_ingvaeonic_culture_trigger = yes
+				is_north_germanic_trigger = yes
+				is_brythonic_culture_trigger = yes
+			}
+		}
+	}
+}
+
+# Bounce request event to appropriate kingdom (if applicable) and choose appropriate province
+character_event = {
+	id = 301402
+	picture = "GFX_evt_anglosaxons_ashore"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {			# Prefer Ratae
+			limit = {
+				33 = {
+					NOT = { has_province_flag = angles_invading_province }
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			33 = {
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+					}
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+		}
+		if = {			# Go for any Middle Anglia province
+			limit = {
+				any_province = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = custom_middleanglia
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = custom_middleanglia
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+					}
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+		}
+		if = {			# Go for any Tomsaete province
+			limit = {
+				any_province = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = custom_tomsaete
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = custom_tomsaete
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+					}
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+		}	
+		if = {			# Go for provinces in Grentbryce or Pegansaete
+			limit = {
+				any_province = {
+					NOT = { has_province_flag = angles_invading_province }
+					OR = {
+						region = custom_grentbryce
+						region = custom_pegansaete
+					}
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					NOT = { has_province_flag = angles_invading_province }
+					OR = {
+						region = custom_grentbryce
+						region = custom_pegansaete
+					}
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = yes
+									}
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+					}
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+		}		
+		if = {			# Go for anywhere in Mercia or East Anglia
+			limit = {
+				any_province = {
+					NOT = { has_province_flag = angles_invading_province }
+					OR = {
+						region = custom_mercia
+						region = custom_eastanglia
+					}
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								OR = {
+									owner = {
+										top_liege = {
+											is_ingvaeonic_culture_trigger = yes
+										}
+									}
+									province_id = 295		# Eastern Coast
+									province_id = 312
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					NOT = { has_province_flag = angles_invading_province }
+					OR = {
+						region = custom_mercia
+						region = custom_eastanglia
+					}
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								OR = {
+									owner = {
+										top_liege = {
+											is_ingvaeonic_culture_trigger = yes
+										}
+									}
+									province_id = 295		# Eastern Coast
+									province_id = 312
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+						break = yes
+					}
+					ROOT = { character_event = { id = 301410 } }
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+		}	
+		if = {			# Just go for anywhere in Britannia
+			limit = {
+				any_province = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = world_britannia
+					NOT = { region = world_britannia_cymry_wales }
+					NOT = { region = world_britannia_cymry_cornwall_proper }
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								OR = {
+									owner = {
+										top_liege = {
+											is_ingvaeonic_culture_trigger = yes
+										}
+									}
+									province_id = 294		# Eastern or Southern Coast
+									province_id = 295		
+									province_id = 303
+									province_id = 304
+									province_id = 310
+									province_id = 312
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+			}
+			random_province = {
+				limit = {
+					NOT = { has_province_flag = angles_invading_province }
+					region = world_britannia
+					NOT = { region = world_britannia_cymry_wales }
+					NOT = { region = world_britannia_cymry_cornwall_proper }
+					OR = {
+						AND = {
+							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = no
+								}
+							}
+							any_neighbor_province = {
+								OR = {
+									owner = {
+										top_liege = {
+											is_ingvaeonic_culture_trigger = yes
+										}
+									}
+									province_id = 294		# Eastern or Southern Coast
+									province_id = 295		
+									province_id = 303
+									province_id = 304
+									province_id = 310
+									province_id = 312
+								}
+							}
+						}
+						AND = {
+							holder_scope = {
+								NOT = { has_character_flag = refused_angles_settlement }
+								higher_tier_than = COUNT
+								num_of_count_titles = 2
+								is_ingvaeonic_culture_trigger = yes
+							}
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										is_ingvaeonic_culture_trigger = no
+									}
+								}
+							}
+							is_ingvaeonic_culture_trigger = no
+						}
+					}
+				}
+				save_event_target_as = angles_province
+				set_province_flag = angles_invading_province
+				if = {
+					limit = {
+						owner = {
+							top_liege = {
+								is_ingvaeonic_culture_trigger = no
+							}
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								character_event = { id = 301403 }
+							}
+						}
+						break = yes
+					}
+					ROOT = { character_event = { id = 301410 } }
+					break = yes
+				}
+				owner = {
+					character_event = { id = 301417 }
+				}
+				break = yes
+			}
+			character_event = { id = 301420 }		# Give up and disperse
+		}
+	}
+}
+
+# Request for help in invasion
+character_event = {
+	id = 301403
+	title = "EVTNAME301403"
+	desc = "EVTDESC301403"
+	picture = "GFX_evt_anglosaxons_ashore"
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept in return for vassal
+		name = EVTOPTA301403
+		ai_chance = {
+			factor = 100
+		}
+		wealth = -50
+		prestige = 50
+		FROM = {
+			if = {
+				limit = { lower_tier_than = ROOT }
+				tooltip = {
+					set_defacto_liege = ROOT
+				}
+			}
+			opinion = {
+				modifier = opinion_grateful
+				who = ROOT
+				years = 10
+			}
+			character_event = { id = 301404 }
+		}
+	}
+	
+	option = {
+		name = EVTOPTB301403
+		ai_chance = {
+			factor = 0
+		}
+		prestige = -50
+		FROM = {
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 10
+			}
+			character_event = { id = 301405 }
+		}
+	}
+}
+
+# Aid accepted - declare war
+character_event = {
+	id = 301404
+	title = "EVTNAME301404"
+	desc = "EVTDESC301404"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301404
+		wealth = 75
+		event_target:angles_province = {
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = 153 # Land at Nortwic
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 1250 1250 }
+						heavy_infantry = { 650 650 }
+						pikemen = { 400 400 }
+						light_cavalry = { 150 150 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = 153 # Land at Nortwic
+					home = PREV
+					troops = {
+						archers = { 650 650 }
+						light_infantry = { 800 800 }
+						heavy_infantry = { 450 450 }
+						pikemen = { 150 150 }
+					}
+					attrition = 0.5
+					maintenance_multiplier = 0.25
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = {
+									num_of_count_titles_in_realm = 10
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 450 450 }
+							light_infantry = { 500 500 }
+							heavy_infantry = { 550 550 }
+							pikemen = { 300 300 }
+							light_cavalry = { 100 100 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = {
+									num_of_count_titles_in_realm = 20
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 250 250 }
+							light_infantry = { 400 400 }
+							heavy_infantry = { 200 200 }
+							pikemen = { 150 150 }
+							light_cavalry = { 100 100 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						c_angeln_host = {
+							has_title_flag = failed_first_invasion
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 350 350 }
+							light_infantry = { 500 500 }
+							heavy_infantry = { 150 150 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						PREV = {
+							OR = {
+								owner = { ai = no }
+								top_liege = {
+									ai = no
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 250 250 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 150 150 }
+						}
+						attrition = 0.5
+						maintenance_multiplier = 0.5
+					}
+				}
+			}
+			county = {
+				declare_conquest_war = yes
+			}
+		}
+		if = {
+			limit = { FROM = { higher_tier_than = ROOT } }
+			set_defacto_liege = FROM
+		}
+	}
+}
+
+# Aid denied - declare war
+character_event = {
+	id = 301405
+	title = "EVTNAME301405"
+	desc = "EVTDESC301405"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301405
+		event_target:angles_province = {
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = 153 # Land at Nortwic
+					home = PREV
+					troops = {
+						archers = { 600 600 }
+						light_infantry = { 1250 1250 }
+						heavy_infantry = { 600 600 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = 153 # Land at Nortwic
+					home = PREV
+					troops = {
+						archers = { 850 850 }
+						light_infantry = { 1050 1050 }
+						heavy_infantry = { 450 450 }
+					}
+					attrition = 0.5
+				}
+				if = {
+					limit = {
+						event_target:angles_province = {
+							owner = {
+								top_liege = {
+									num_of_count_titles_in_realm = 10
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 400 400 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 450 450 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						event_target:angles_province = {
+							owner = {
+								top_liege = {
+									num_of_count_titles_in_realm = 20
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 450 450 }
+							light_infantry = { 400 400 }
+							heavy_infantry = { 350 350 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						c_angeln_host = {
+							has_title_flag = failed_first_invasion
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 550 550 }
+							light_infantry = { 500 500 }
+							heavy_infantry = { 400 400 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+				if = {
+					limit = {
+						event_target:angles_province = {
+							owner = {
+								top_liege = {
+									ai = no
+									num_of_count_titles_in_realm = 10
+								}
+							}
+						}
+					}
+					spawn_unit = {
+						owner = ROOT
+						province = 121 # Land at Elmham
+						home = PREV
+						troops = {
+							archers = { 350 350 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 300 300 }
+						}
+						attrition = 0.5
+						maintenance_multiplier = 0.5
+					}
+				}
+			}
+			county = {
+				declare_conquest_war = yes
+			}
+		}
+	}
+}
+
+
+# Coastal Invasion (no aid) - declare war
+character_event = {
+	id = 301410
+	title = "EVTNAME301410"
+	desc = "EVTDESC301410"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301410
+		event_target:angles_province = {
+			spawn_unit = {
+				owner = ROOT
+				province = THIS
+				home = THIS
+				troops = {
+					archers = { 500 500 }
+					light_infantry = { 1250 1250 }
+					heavy_infantry = { 500 500 }
+				}
+				attrition = 0.5
+				disband_on_peace = yes
+				maintenance_multiplier = 0.5
+			}
+			spawn_unit = {
+				owner = ROOT
+				province = THIS
+				home = THIS
+				troops = {
+					archers = { 850 850 }
+					light_infantry = { 950 950 }
+					heavy_infantry = { 400 400 }
+				}
+				attrition = 0.5
+			}
+			if = {
+				limit = {
+					owner = {
+						top_liege = {
+							num_of_count_titles_in_realm = 10
+						}
+					}
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = THIS
+					home = THIS
+					troops = {
+						archers = { 300 300 }
+						light_infantry = { 400 400 }
+						heavy_infantry = { 250 250 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+			}
+			if = {
+				limit = {
+					owner = {
+						top_liege = {
+							num_of_count_titles_in_realm = 20
+						}
+					}
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = THIS
+					home = THIS
+					troops = {
+						archers = { 300 300 }
+						light_infantry = { 400 400 }
+						heavy_infantry = { 250 250 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+			}
+			if = {
+				limit = {
+					c_angeln_host = {
+						has_title_flag = failed_first_invasion
+					}
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = THIS
+					home = THIS
+					troops = {
+						archers = { 400 400 }
+						light_infantry = { 550 550 }
+						heavy_infantry = { 300 300 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+			}
+			if = {
+				limit = {
+					owner = {
+						top_liege = {
+							ai = no
+							num_of_count_titles_in_realm = 10
+						}
+					}
+				}
+				spawn_unit = {
+					owner = ROOT
+					province = THIS
+					home = THIS
+					troops = {
+						archers = { 300 300 }
+						light_infantry = { 600 600 }
+						heavy_infantry = { 300 300 }
+					}
+					attrition = 0.5
+					maintenance_multiplier = 0.5
+				}
+			}
+			county = {
+				add_claim = ROOT
+				reverse_war = {
+					target = c_angeln_host
+					casus_belli = claim
+				}
+			}
+		}
+	}
+}
+
+# War ends - settle down
+character_event = {
+	id = 301406
+	title = "EVTNAME301406"
+	desc = "EVTDESC301406"
+	picture = "GFX_evt_traveller_hills"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA301406
+		prestige = 50
+		any_province = {
+			clr_province_flag = angles_invading_province
+		}
+		capital_scope = {
+			culture = ROOT
+			religion = ROOT
+			germanic_convert_to_tribal_effect = yes
+			if = {
+				limit = {
+					has_province_modifier = depopulated_1
+				}
+				remove_province_modifier = depopulated_1
+				clr_province_flag = angeln_depopulation
+				clr_province_flag = southern_britain_depopulation
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_2
+				}
+				remove_province_modifier = depopulated_2
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_3
+				}
+				remove_province_modifier = depopulated_3
+			}
+		}
+		if = {
+			limit = { NOT = { government = high_tribal_government } }
+			set_government_type = high_tribal_government
+		}
+		hidden_tooltip = {
+			c_angeln_host = {
+				destroy_landless_count_level_title_effect = yes
+			}
+		}
+	}
+}
+
+# War ends - invalidation
+character_event = {
+	id = 301407
+	desc = "EVTDESC301407"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {		# Let's just try again
+		name = EVTOPTA301407
+		hidden_tooltip = {
+			any_province = {
+				clr_province_flag = angles_invading_province
+			}
+			character_event = { 
+				id = 301402
+				days = 2
+			}
+		}
+	}
+}
+
+# War ends - first failure
+character_event = {
+	id = 301408
+	title = "EVTNAME301408"
+	desc = "EVTDESC301408"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {		# One more time!
+		name = EVTOPTA301408
+		prestige = -50
+		hidden_tooltip = {
+			c_angeln_host = {
+				set_title_flag = failed_first_invasion
+			}
+			character_event = { 
+				id = 301402
+				days = 2
+			}
+		}
+	}
+}
+	
+# War ends - second failure
+character_event = {
+	id = 301409
+	title = "EVTNAME301409"
+	desc = "EVTDESC301409"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {		# Let's hope someone will let us settle...
+		name = EVTOPTA301409
+		prestige = -100
+		hidden_tooltip = {
+			any_province = {
+				clr_province_flag = angles_invading_province
+			}
+			set_character_flag = failed_all_invasions
+			character_event = { 
+				id = 301402
+				days = 2
+			}
+		}
+	}
+}
+
+# Settlement in your lands
+character_event = {
+	id = 301417
+	title = "EVTNAME301417"
+	desc = "EVTDESC301417"
+	picture = "GFX_evt_anglosaxons_ashore"
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = EVTOPTA301417
+		ai_chance = {
+			factor = 100
+		}
+		prestige = 100
+		FROM = {
+			set_defacto_liege = ROOT
+			opinion = {
+				modifier = opinion_grateful
+				who = ROOT
+				years = 10
+			}
+			character_event = { id = 301418 }
+		}
+	}
+	
+	option = {
+		name = EVTOPTB301417
+		ai_chance = {
+			factor = 0
+		}
+		set_character_flag = refused_angles_settlement
+		prestige = -50
+		FROM = {
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 10
+			}
+			character_event = { id = 301419 }
+		}
+	}
+}
+
+# Settlement accepted
+character_event = {
+	id = 301418
+	title = "EVTNAME301418"
+	desc = "EVTDESC301418"
+	picture = "GFX_evt_traveller_hills"
+	
+	is_triggered_only = yes
+	
+	option = {		# Great!
+		name = EVTOPTA301418
+		prestige = 50
+		any_province = {
+			clr_province_flag = angles_invading_province
+		}
+		event_target:angles_province = {
+			county = {
+				grant_title = ROOT
+			}
+			culture = ROOT
+			religion = ROOT
+			germanic_convert_to_tribal_effect = yes
+			ROOT = {
+				spawn_unit = {
+					owner = THIS
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 250 250 }
+						light_infantry = { 600 600 }
+						heavy_infantry = { 150 150 }
+					}
+					attrition = 0.5
+					maintenance_multiplier = 0.5
+				}
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_1
+				}
+				remove_province_modifier = depopulated_1
+				clr_province_flag = angeln_depopulation
+				clr_province_flag = southern_britain_depopulation
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_2
+				}
+				remove_province_modifier = depopulated_2
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_3
+				}
+				remove_province_modifier = depopulated_3
+			}
+		}
+		if = {
+			limit = { NOT = { government = high_tribal_government } }
+			set_government_type = high_tribal_government
+		}
+		hidden_tooltip = {
+			c_angeln_host = {
+				destroy_landless_count_level_title_effect = yes
+			}
+		}
+	}
+}
+
+# Settlement denied - bounce back to find another host
+character_event = {
+	id = 301419
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	immediate = {		# Try someone else
+		character_event = { 
+			id = 301402
+		}
+	}
+}
+
+# Defeat - disperse tribe
+character_event = {
+	id = 301420
+	title = "EVTNAME301420"
+	desc = "EVTDESC301420"
+	picture = "GFX_evt_traveller_hills"
+	
+	is_triggered_only = yes
+	
+	option = {		# We tried...
+		name = EVTOPTA301420
+		prestige = -200
+		any_province = {
+			clr_province_flag = angles_invading_province
+		}
+		c_angeln_host = {
+			destroy_landless_count_level_title_effect = yes
+		}
+	}
+}
+
+# # Province population recovers over time
+# province_event = {
+	# id = 301425
+	# picture = GFX_evt_village_road
+	
+	# desc = {
+		# text = "EVTDESC301425"
+		# trigger = {
+			# has_province_modifier = depopulated_3
+		# }
+	# }
+	
+	# desc = {
+		# text = "EVTDESC301425_1"
+		# trigger = {
+			# has_province_modifier = depopulated_2
+		# }
+	# }
+	
+	# desc = {
+		# text = "EVTDESC301425_2"
+		# trigger = {
+			# has_province_modifier = depopulated_1
+		# }
+	# }
+	
+	# lacks_dlc = "Reapers"
+	
+	# trigger = {
+		# OR = {
+			# has_province_modifier = depopulated_3
+			# has_province_modifier = depopulated_2
+			# has_province_modifier = depopulated_1
+		# }
+		# region = world_germania
+		# NOT = {
+			# county = {
+				# any_direct_de_jure_vassal_title = {
+					# is_occupied = yes
+				# }
+			# }
+		# }
+	# }
+	
+	# mean_time_to_happen = {
+		# months = 360
+		# modifier = {
+			# factor = 1.5
+			# owner = { NOT = { stewardship = 5 } }
+		# }
+		# modifier = {
+			# factor = 0.9
+			# owner = { stewardship = 10 }
+		# }
+		# modifier = {
+			# factor = 0.8
+			# owner = { stewardship = 14 }
+		# }
+		# modifier = {
+			# factor = 0.8
+			# owner = { stewardship = 18 }
+		# }
+		# modifier = {
+			# factor = 0.8
+			# owner = { stewardship = 22 }
+		# }
+		# modifier = {
+			# factor = 1.2
+			# owner = { trait = arbitrary }
+		# }
+		# modifier = {
+			# factor = 0.9
+			# owner = { trait = just }
+		# }
+		# modifier = {
+			# factor = 0.8
+			# owner = { trait = diligent }
+		# }
+		# modifier = {
+			# factor = 2
+			# is_ingvaeonic_culture_trigger = yes
+		# }
+		# modifier = {
+			# factor = 5
+			# NOT = { year = 520 }
+			# is_ingvaeonic_culture_trigger = yes
+		# }
+		# modifier = {
+			# factor = 3
+			# owner = {
+				# NOT = { culture = ROOT }
+			# }
+		# }
+		# modifier = {
+			# factor = 1.3
+			# owner = {
+				# OR = {
+					# war = yes
+					# top_liege = {
+						# war = yes
+					# }
+				# }
+			# }
+		# }
+		# modifier = {
+			# factor = 0.5
+			# year = 550
+		# }
+		# modifier = {
+			# factor = 0.5
+			# year = 570
+		# }
+		# modifier = {
+			# factor = 0.25
+			# year = 580
+		# }
+		# modifier = {
+			# factor = 0.25
+			# year = 590
+		# }
+		# modifier = {
+			# factor = 0.1
+			# year = 600
+		# }
+	# }
+
+	# option = {
+		# name = "EVTOPTA301425"
+		# if = {
+			# limit = { has_province_modifier = depopulated_3 }
+			# remove_province_modifier = depopulated_3
+			# add_province_modifier =  { 
+				# name = depopulated_2
+				# duration = -1
+			# }
+			# break = yes
+		# }
+		# if = {
+			# limit = { has_province_modifier = depopulated_2 }
+			# remove_province_modifier = depopulated_2
+			# add_province_modifier =  { 
+				# name = depopulated_1
+				# duration = -1
+			# }
+			# break = yes
+		# }
+		# remove_province_modifier = depopulated_1
+		# clr_province_flag = angeln_depopulation
+	# }
+# }
+
+### BENOCING MIGRATION TO BERNICIA ###
+
+# Sending emissary to Bryneich
+character_event = {
+	id = 301440
+	desc = "EVTDESC301440"
+	hide_new = yes
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {
+		# Ask the king
+		name = "EVTOPTA301440"
+		k_bryneich = {
+			holder_scope = {
+				character_event = { 
+					id = 301441
+					days = 5
+				}
+			}
+		}
+	}
+}
+
+# Bryneich receives request for settlement
+character_event = {
+	id = 301441
+	title = "EVTNAME301441"
+	desc = "EVTDESC301441"
+	hide_new = yes
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	# Determine target province
+	immediate = {
+		# Try to grant Bernicia first
+		if = {
+			limit = {
+				completely_controls = c_bernicia
+			}
+			c_bernicia = {
+				save_event_target_as = angle_target_province
+			}
+			break = yes
+		}
+		# Try a non-capital coastal county
+		random_realm_province = {
+			limit = { 
+				NOT = {
+					ROOT = {
+						capital_scope = {
+							province = PREVPREV
+						}
+					}
+				}
+				any_neighbor_province = {
+					is_land = no
+				}
+			}
+			county = {
+				save_event_target_as = angle_target_province
+			}
+			break = yes
+		}
+		# Give any non-capital county
+		random_realm_province = {
+			limit = { 
+				NOT = {
+					ROOT = {
+						capital_scope = {
+							province = PREVPREV
+						}
+					}
+				}
+			}
+			county = {
+				save_event_target_as = angle_target_province
+			}
+		}
+	}
+	
+	option = {
+		# Refuse settlement
+		name = "EVTOPTB301441"
+		ai_chance = {
+			factor = 0
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_angry
+				who = ROOT
+				years = 15
+			}
+		}
+		hidden_tooltip = {
+			FROM = {
+				character_event = { id = 301443 }
+			}
+		}
+	}
+	option = {
+		# Agree to settlement
+		name = "EVTOPTA301441"
+		ai_chance = {
+			factor = 100
+		}
+		FROM = {
+			opinion = {
+				modifier = opinion_grateful
+				who = ROOT
+				years = 15
+			}
+		}	
+		wealth = -20
+		if = {
+			limit = { NOT = { trait = foederate_employer } }
+			add_trait = foederate_employer
+		}
+		hidden_tooltip = {
+			FROM = {
+				character_event = { id = 301442 }
+			}
+		}
+		tooltip = {
+			event_target:angle_target_province = {
+				location = {
+					culture = FROM
+					religion = FROM
+					add_province_modifier = { 
+						name = anglosaxon_settlement
+						duration = -1 
+					}
+				}
+				FROM = {
+					grant_title = PREV
+					grant_title = d_north_angles
+					ROOT = { make_tributary = { who = FROM tributary_type = foederati } }
+				}
+			}
+		}
+	}
+}
+
+# Foederati status agreed - Benoc's Folc settles
+character_event = {
+	id = 301442
+	title = "EVTNAME301442"
+	desc = "EVTDESC301442"
+	hide_new = yes
+	picture = "GFX_evt_anglosaxons_ashore"
+	
+	is_triggered_only = yes
+	
+	option = {
+		# Excellent!
+		name = "EVTOPTA301442"
+		set_character_flag = bernicia_invader
+		set_global_flag = benoc_folc_migrated_bernicia
+		opinion = {
+			modifier = opinion_grateful
+			who = FROM
+			years = 15
+		}
+		wealth = 20
+		add_trait = foederate
+		d_north_angles = {
+			activate_title = { 
+				title = d_north_angles 
+				status = yes 
+			}
+			ROOT = {
+				primary_title = {
+					d_north_angles = {
+						copy_title_laws = PREV
+					}
+				}
+			}
+			grant_title = ROOT
+		}
+		event_target:angle_target_province = {
+			grant_title = ROOT
+			location = {
+				culture = ROOT
+				religion = ROOT
+				add_province_modifier = { 
+					name = anglosaxon_settlement
+					duration = -1 
+				}
+			}
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					leader = ROOT
+					troops = {
+						pikemen = { 150 150 }
+						light_infantry = { 200 200 }
+						heavy_infantry = { 150 150 }
+						archers = { 100 100 }
+					}
+					attrition = 0.75
+				}
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_1
+				}
+				remove_province_modifier = depopulated_1
+				clr_province_flag = angeln_depopulation
+				clr_province_flag = southern_britain_depopulation
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_2
+				}
+				remove_province_modifier = depopulated_2
+			}
+			if = {
+				limit = {
+					has_province_modifier = depopulated_3
+				}
+				remove_province_modifier = depopulated_3
+			}
+		}
+		hidden_tooltip = {
+			c_benoc_folc = {
+				destroy_landless_count_level_title_effect = yes
+			}
+		}
+		set_defacto_liege = THIS
+		FROM = { make_tributary = { who = ROOT tributary_type = foederati } }
+	}
+}
+
+# Foederati status denied
+character_event = {
+	id = 301443
+	title = "EVTNAME301443"
+	desc = "EVTDESC301443"
+	hide_new = yes
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = bernicia_settlers_denied
+	}
+	
+	option = {
+		name = "EVTOPTA301443"
+		opinion = {
+			modifier = opinion_angry
+			who = FROM
+			years = 15
+		}
+	}
+}
+
+# Benoc Folc Maintenance Event - if they end up landed, give the title away to a family member
+character_event = {
+	id = 301444
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_emissary"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_benoc_folc
+		is_landed = yes
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				any_sibling = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+			}
+			random_sibling = {
+				limit = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+				c_benoc_folc = {
+					grant_title = PREV
+				}
+				wealth = 30
+				break = yes
+			}
+		}
+		if = {
+			limit = {
+				any_child = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+			}
+			random_child = {
+				limit = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+				c_benoc_folc = {
+					grant_title = PREV
+				}
+				wealth = 30
+				break = yes
+			}
+		}
+		if = {
+			limit = {
+				any_dynasty_member = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+			}
+			random_dynasty_member = {
+				limit = {
+					is_female = no
+					is_ruler = no
+					is_incapable = no
+					is_adult = yes
+					dynasty = ROOT
+					NOT = { ROOT = { current_heir = { character = PREVPREV } } }
+				}
+				c_benoc_folc = {
+					grant_title = PREV
+				}
+				wealth = 30
+				break = yes
+			}
+		}
+		create_character = {
+			dynasty = culture
+			culture = angle
+			religion = ROOT
+			female = no
+			age = 25
+			employer = ROOT
+			attributes = {
+				martial = 8
+			}
+		}
+		new_character = {
+			c_benoc_folc = {
+				grant_title = PREV
+			}
+			wealth = 30
+		}			
+	}
+}
+
+# Benoc Folc Maintenance Event - if they end up landed, give the title away to a family member
+character_event = {
+	id = 301445
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_emissary"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_benoc_folc
+		any_demesne_title = {
+			higher_tier_than = COUNT
+			is_landless_type_title = no
+		}
+		NOT = { 
+			any_demesne_title = {
+				lower_tier_than = DUKE
+				is_landless_type_title = no
+			} 
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				independent = no
+			}
+			any_demesne_title = {
+				limit = {
+					higher_tier_than = COUNT
+					is_landless_type_title = no
+				}
+				ROOT = { top_liege = { grant_title_no_opinion = PREVPREV } }
+			}
+			break = yes
+		}
+		any_demesne_title = {
+			limit = {
+				higher_tier_than = COUNT
+				is_landless_type_title = no
+			}
+			destroy_landed_title = THIS
+		}
+	}
+}

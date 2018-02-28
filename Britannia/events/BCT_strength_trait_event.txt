@@ -1,0 +1,467 @@
+namespace = bct
+
+character_event = {
+	id = bct.400
+	desc = "EVTDESCstrength_inheritance.0"
+	picture = GFX_evt_child_playing
+	
+	hide_window = yes
+
+	max_age = 3
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = strength_inheritance }
+	}
+	
+	option = {
+		name = "EVTOPTAstrength_inheritance.0"
+		if = {
+			limit = {
+				AND = {
+					father = { trait = strong } #Father has rank 3
+					mother = { trait = strong } #Mother has rank 3
+					NOT = { has_character_flag = strength_inheritance }
+				}
+			}
+			random_list = {
+				30 = { set_character_flag = strong }
+				38 = { set_character_flag = tough }
+				25 = { set_character_flag = robust }
+				7 = { } #7 chance of normal
+			}  
+			set_character_flag = strength_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = strong } #Father has rank 3
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						mother = { trait = strong } #Mother has rank 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = strong }
+				34 = { set_character_flag = tough }
+				34 = { set_character_flag = robust }
+				16 = { } #16 chance of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+						father = { trait = strong } #Father has rank 3
+						mother = { trait = robust }#Mother has rank 1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = robust } #Father has rank 1
+						mother = { trait = strong } #Mother has rank 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				6 = { set_character_flag = strong }
+				24 = { set_character_flag = tough }
+				38 = { set_character_flag = robust }
+				32 = { } #32 chance of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = strong } #Father has rank 3
+						NOT = { mother = { trait = strong } } #Mother has neither rank 3...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = feeble } } #...nor -1...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = weak } } #...nor -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						mother = { trait = robust } #Mother has rank 1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = robust } #Father has rank 1
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = strong } } #Father has neither rank 3...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = weak } } #...nor -3
+						mother = { trait = strong } #Mother has rank 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				2 = { set_character_flag = strong }
+				14 = { set_character_flag = tough }
+				34 = { set_character_flag = robust }
+				50 = { } #50 of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = strong } #Father has rank 3
+						NOT = { mother = { trait = strong } } #Mother has neither rank 3...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = weak } } #...nor -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						NOT = { mother = { trait = strong } } #Mother has neither rank 3...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = robust } } #...nor -1...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = weak } } #...nor -3...
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = robust } #Father has rank 1
+						mother = { trait = robust } #Mother has rank 1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = strong } } #Father has neither rank 3...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = weak } } #...nor -3...
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = strong } } #Father has neither rank 3...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = weak } } #...nor -3
+						mother = { trait = strong } #Mother has rank 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				1 = { set_character_flag = strong }
+				6 = { set_character_flag = tough }
+				25 = { set_character_flag = robust }
+				68 = { } #68 of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = strong } #Father has rank 3
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strong_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						mother = { trait = feeble } #Mother has rank -1
+						NOT = { has_character_flag = strong_inheritance }
+					}
+					AND = {
+						father = { trait = robust } #Father has rank 1
+						NOT = { mother = { trait = strong } } #Mother has neither rank 3...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = feeble } } #...nor -1...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = weak } } #...nor -3...
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = strong } #Mother has rank 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = feeble } #Father has rank -1
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = strong } } #Father has rank 3
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = weak } } #...nor -3...
+						mother = { trait = robust } #Mother has rank 1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				1 = { set_character_flag = strong }
+				3 = { set_character_flag = tough }
+				15 = { set_character_flag = robust }
+				81 = { } #81 of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+	#!!!!!!!!!!!!!!!!!!!!!!!!!! Orientation of Neg and Pos flipped for copy paste!!!!!!                            
+		if = {
+			limit = {
+				AND = {
+					father = { trait = weak } #Father has rank -3
+					mother = { trait = weak } #Mother has rank -3
+					NOT = { has_character_flag = strength_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = weak }
+				38 = { set_character_flag = fragile }
+				25 = { set_character_flag = feeble }
+				7 = { } #7 of normal
+			} 
+			set_character_flag = strength_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = weak } #Father has rank -3
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = weak }
+				34 = { set_character_flag = fragile }
+				34 = { set_character_flag = feeble }
+				16 = { } #16 chance of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = weak } #Father has rank -3
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = { 
+						father = { trait = weak } #Father has rank -3
+						mother = { trait = feeble }#Mother has rank -1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = fragile } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = feeble } #Father has rank -1
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = {
+				6 = { set_character_flag = weak }
+				24 = { set_character_flag = fragile }
+				38 = { set_character_flag = feeble }
+				32 = { } #32 of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = weak } #Father has rank -3
+						NOT = { mother = { trait = weak } } #Mother has neither rank -3...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = feeble } } #...nor -1...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = strong } } #...nor 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = feeble } #Mother has rank -1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = feeble } #Father has rank -1
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = weak } } #Father has neither rank -3...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = strong } } #...nor 3
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				2 = { set_character_flag = weak }
+				14 = { set_character_flag = fragile }
+				34 = { set_character_flag = feeble }
+				50 = { } #50 of normal
+			} 
+			set_character_flag = strong_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = weak } #Father has rank -3
+						NOT = { mother = { trait = weak } } #Mother has neither rank -3...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = feeble } } #...nor -1...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = strong } } #...nor 3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						NOT = { mother = { trait = weak } } #Mother has neither rank -3...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = strong } } #...nor 3...
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = feeble } #Father has rank -1
+						mother = { trait = feeble } #Mother has rank -1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = weak } } #Father has neither rank -3...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = strong } } #...nor 3...
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = weak } } #Father has neither rank -3...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = strong } } #...nor 3
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = {
+				1 = { set_character_flag = weak }
+				6 = { set_character_flag = fragile }
+				25 = { set_character_flag = feeble }
+				68 = { } #68 chance of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = weak } #Father has rank -3
+						mother = { trait = tough } #Mother has rank 2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = fragile } #Father has rank -2
+						mother = { trait = robust } #Mother has rank 1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = feeble } #Father has rank -1
+						NOT = { mother = { trait = weak } } #Mother has neither rank -3...
+						NOT = { mother = { trait = fragile } } #...nor -2...
+						NOT = { mother = { trait = feeble } } #...nor -1...
+						NOT = { mother = { trait = robust } } #...nor 1...
+						NOT = { mother = { trait = tough } } #...nor 2...
+						NOT = { mother = { trait = strong } } #...nor 3...
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = tough } #Father has rank 2
+						mother = { trait = weak } #Mother has rank -3
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						father = { trait = robust } #Father has rank 1
+						mother = { trait = fragile } #Mother has rank -2
+						NOT = { has_character_flag = strength_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = strong } } #Father has rank 3
+						NOT = { father = { trait = tough } } #...nor 2...
+						NOT = { father = { trait = robust } } #...nor 1...
+						NOT = { father = { trait = feeble } } #...nor -1...
+						NOT = { father = { trait = fragile } } #...nor -2...
+						NOT = { father = { trait = weak } } #...nor -3...
+						mother = { trait = feeble } #Mother has rank -1
+						NOT = { has_character_flag = strength_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				1 = { set_character_flag = weak }
+				3 = { set_character_flag = fragile }
+				15 = { set_character_flag = feeble }
+				81 = { } #81 of normal
+			} 
+			set_character_flag = strength_inheritance
+		}
+		set_character_flag = strength_inheritance 
+    }
+}

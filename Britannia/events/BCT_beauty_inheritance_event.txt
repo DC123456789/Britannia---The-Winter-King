@@ -1,0 +1,445 @@
+namespace = bct
+
+character_event = {
+	id = bct.100
+	desc = "EVTDESCbeauty_inheritance.0"        
+	picture = GFX_evt_children_talking
+	
+	hide_window = yes
+    
+	max_age = 3
+    
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_character_flag = beauty_inheritance }
+	}
+	
+	option = {
+		name = "EVTOPTAbeauty_inheritance.0"
+		if = {
+			limit = {
+				AND = {
+					father = { trait = beautiful } #Father has rank 3
+					mother = { trait = beautiful } #Mother has rank 3
+					NOT = { has_character_flag = beauty_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = beautiful }
+				38 = { set_character_flag = pretty }
+				25 = { set_character_flag = fair }
+				7 = { } #7 chance of normal
+			} 
+			set_character_flag = beauty_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = beautiful } #Father has rank 3
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						mother = { trait = beautiful } #Mother has rank 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = beautiful }
+				34 = { set_character_flag = pretty }
+				34 = { set_character_flag = fair }
+				16 = { } #16 chance of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+						father = { trait = beautiful } #Father has rank 3
+						mother = { trait = fair }#Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						mother = { trait = beautiful } #Mother has rank 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				6 = { set_character_flag = beautiful }
+				24 = { set_character_flag = pretty }
+				38 = { set_character_flag = fair }
+				32 = { } #32 chance of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = beautiful } #Father has rank 3
+						NOT = { mother = { trait = beautiful } } #Mother has neither rank 3...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = unsightly } } #...nor -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						mother = { trait = fair } #Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = beautiful } } #Father has neither rank 3...
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = unsightly } } #...nor -3
+						mother = { trait = beautiful } #Mother has rank 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				2 = { set_character_flag = beautiful }
+				14 = { set_character_flag = pretty }
+				34 = { set_character_flag = fair }
+				50 = { } #50 of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = beautiful } #Father has rank 3
+						mother = { trait = plain } #Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						NOT = { mother = { trait = beautiful } } #Mother has neither rank 3...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = unsightly } } #...nor -3...
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						mother = { trait = fair } #Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = beautiful } } #Father has neither rank 3...
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = unsightly } } #...nor -3...
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = plain } #Father has rank -1
+						mother = { trait = beautiful } #Mother has rank 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+					1 = { set_character_flag = beautiful }
+					6 = { set_character_flag = pretty }
+					25 = { set_character_flag = fair }
+					68 = { } #45 of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = beautiful } #Father has rank 3
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						mother = { trait = plain } #Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						NOT = { mother = { trait = beautiful } } #Mother has neither rank 3...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = unsightly } } #...nor -3...
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = ugly } #Father has rank -2
+						mother = { trait = beautiful } #Mother has rank 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = plain } #Father has rank -1
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = beautiful } } #Father has rank 3
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = unsightly } } #...nor -3...
+						mother = { trait = fair } #Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+					1 = { set_character_flag = beautiful }
+					3 = { set_character_flag = pretty }
+					15 = { set_character_flag = fair }
+					81 = { } #45 of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+#!!!!!!!!!!!!!!!!!!!!!!!!!! Orientation of Neg and Pos flipped for copy paste!!!!!!                            
+		if = {
+			limit = {
+				AND = {
+					father = { trait = unsightly } #Father has rank -3
+					mother = { trait = unsightly } #Mother has rank -3
+					NOT = { has_character_flag = beauty_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = unsightly }
+				38 = { set_character_flag = ugly }
+				25 = { set_character_flag = plain }
+				7 = { } #7 of normal
+			} 
+			set_character_flag = beauty_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = unsightly } #Father has rank -3
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						father = { trait = ugly } #Father has rank -2
+						mother = { trait = unsightly } #Mother has rank -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                }
+			}
+			random_list = { 
+                16 = { set_character_flag = unsightly }
+                34 = { set_character_flag = ugly }
+                34 = { set_character_flag = plain }
+                16 = { } #24 chance of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+                    AND = { 
+						father = { trait = unsightly } #Father has rank -3
+						mother = { trait = plain }#Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						father = { trait = ugly } #Father has rank -2
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						father = { trait = plain } #Father has rank -1
+						mother = { trait = unsightly } #Mother has rank -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = {
+                6 = { set_character_flag = unsightly }
+                24 = { set_character_flag = ugly }
+                38 = { set_character_flag = plain }
+                32 = { } #32 of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+                    AND = {
+						father = { trait = unsightly } #Father has rank -3
+						NOT = { mother = { trait = unsightly } } #Mother has neither rank -3...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = beautiful } } #...nor 3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						father = { trait = ugly } #Father has rank -2
+						mother = { trait = plain } #Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						father = { trait = plain } #Father has rank -1
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+                    AND = {
+						NOT = { father = { trait = unsightly } } #Father has neither rank -3...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = beautiful } } #...nor 3
+						mother = { trait = unsightly } #Mother has rank -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+                2 = { set_character_flag = unsightly }
+                14 = { set_character_flag = ugly }
+                34 = { set_character_flag = plain }
+                50 = { } #50 of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = unsightly } #Father has rank -3
+						mother = { trait = fair } #Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = ugly } #Father has rank -2
+						NOT = { mother = { trait = unsightly } } #Mother has neither rank -3...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = beautiful } } #...nor 3...
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = plain } #Father has rank -1
+						mother = { trait = plain } #Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = unsightly } } #Father has neither rank -3...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = beautiful } } #...nor 3...
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						mother = { trait = unsightly } #Mother has rank -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = {
+				1 = { set_character_flag = unsightly }
+				6 = { set_character_flag = ugly }
+				25 = { set_character_flag = plain }
+				68 = { } #68 chance of normal
+			} 
+			set_character_flag = beauty_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = unsightly } #Father has rank -3
+						mother = { trait = pretty } #Mother has rank 2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = ugly } #Father has rank -2
+						mother = { trait = fair } #Mother has rank 1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = plain } #Father has rank -1
+						NOT = { mother = { trait = unsightly } } #Mother has neither rank -3...
+						NOT = { mother = { trait = ugly } } #...nor -2...
+						NOT = { mother = { trait = plain } } #...nor -1...
+						NOT = { mother = { trait = fair } } #...nor 1...
+						NOT = { mother = { trait = pretty } } #...nor 2...
+						NOT = { mother = { trait = beautiful } } #...nor 3...
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = pretty } #Father has rank 2
+						mother = { trait = unsightly } #Mother has rank -3
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						father = { trait = fair } #Father has rank 1
+						mother = { trait = ugly } #Mother has rank -2
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = beautiful } } #Father has rank 3
+						NOT = { father = { trait = pretty } } #...nor 2...
+						NOT = { father = { trait = fair } } #...nor 1...
+						NOT = { father = { trait = plain } } #...nor -1...
+						NOT = { father = { trait = ugly } } #...nor -2...
+						NOT = { father = { trait = unsightly } } #...nor -3...
+						mother = { trait = plain } #Mother has rank -1
+						NOT = { has_character_flag = beauty_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				1 = { set_character_flag = unsightly }
+				3 = { set_character_flag = ugly }
+				15 = { set_character_flag = plain }
+				81 = { }
+			} #81 of normal
+			set_character_flag = beauty_inheritance
+		}
+		set_character_flag = beauty_inheritance 
+	}
+}

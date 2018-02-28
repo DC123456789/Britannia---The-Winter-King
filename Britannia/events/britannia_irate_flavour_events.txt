@@ -1,0 +1,2420 @@
+namespace = romeflavorevent
+################################################################################
+# Flavour Events		ID 
+################################################################################
+
+############################ Roman finds infrastructure shut down
+
+character_event = {
+	id = romeflavorevent.45001
+	desc = EVTDESCROMANFLAVOR1A
+	desc = EVTDESCROMANFLAVOR1B
+	desc = EVTDESCROMANFLAVOR1C
+	desc = EVTDESCROMANFLAVOR1D
+	picture = GFX_evt_roman_brickwall
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		lower_tier_than = emperor
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			trait = roman_trained
+			religion_group = zoroastrian_group
+			religion_group = christian
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR1 # I will fix this immediately.
+		wealth = -21
+		prestige = 40
+			random_list = {
+			10 = { add_trait = diligent }
+			90 = { }
+		}
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR1 # We have no right to squander the gifts granted by our forefathers. We rebuild.
+		trigger = {
+			learning = 14
+		}
+		
+		wealth = -25
+		prestige = 50
+		random_list = {
+			20 = { add_trait = romanitas_trait }
+			20 = { add_trait = diligent }
+			10 = { change_stewardship = 2 }
+			50 = { }
+		}
+		
+		tooltip_info = learning
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR1 # We should make structures from human flesh in future.
+		trigger = {
+			trait = lunatic
+		}
+		
+		prestige = -50
+		random_list = {
+			20 = { add_trait = architect }
+			30 = { add_trait = arbitrary }
+			50 = { }
+		}
+		
+		tooltip_info = lunatic
+	}
+		
+	option = {
+		name = EVTOPTDROMANFLAVOR1 # Such times we live in.
+		random_list = {
+			40 = { change_learning = 1 }
+			10 = { add_trait = humble }
+			10 = { add_trait = stressed }
+			40 = { }
+		}
+	}
+}
+##############
+
+#Roman and foreigner altercation in forum
+character_event = {
+	id = romeflavorevent.45002
+	desc = EVTDESCROMANFLAVOR2
+	picture = GFX_evt_roman_market
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		lower_tier_than = emperor
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+			trait = romanitas_trait
+		}
+	}
+
+	option = {
+		name = EVTOPTAROMANFLAVOR2 # This is clearly just a misunderstanding. Lower the weapons.
+		trigger = {
+			learning = 7
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45003
+				days = 1
+			}
+		}
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR2 # He's gone savage, put him down.
+			trigger = {
+				OR = {
+					trait = romanitas_trait
+					trait = paranoid
+					trait = cruel
+					trait = impaler
+					trait = craven
+				}
+			}
+			hidden_tooltip = {
+				character_event = { 
+				id = romeflavorevent.45004
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR2 # Run away!
+		
+		prestige = -30
+		random_list = {
+			30 = { add_trait = craven }
+			70 = { }
+		}
+	}
+}
+################### Weapons lowered
+character_event = {
+	id = romeflavorevent.45003
+	desc = EVTDESCROMANFLAVOR3
+	picture = GFX_evt_roman_brickwall
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR3 # There's plenty of gold available in my employ, amicus. Come.
+		
+		trigger = {
+			OR = {
+				trait = foederate_employer
+				trait = kind
+				trait = tolerant
+				trait = patient
+				trait = charitable
+				trait = romanitas_trait
+			}
+		}
+			
+		prestige = -20
+		create_character = {
+			female = no
+			dynasty = none
+			age = 28
+			culture = visigoth
+			fertility = 1.4
+			trait = tough_soldier
+			trait = veteran
+			trait = drunkard
+			trait = strong
+			trait = barbarian_trait
+			trait = loyal
+			attributes = {
+				martial = 7
+				diplomacy = 7
+				intrigue = 8
+				stewardship = 5
+				learning = 9
+			}
+		}
+		new_character = {
+			random_list = {
+				20 = {
+					culture = vasconian
+					religion = roman_pagan
+				}
+				20 = {
+					convert_to_thuringian_culture_effect = yes
+					religion = germanic_pagan
+				}
+				20 = {
+					culture = ostrogoth
+					religion = arian
+				}
+				20 = {
+					culture = visigoth
+					religion = arian
+				}
+				20 = {
+					culture = vandal
+					religion = arian
+				}
+				20 = {
+					culture = alan
+					religion = catholic
+				}
+			}
+			random_list = {
+				20 = { add_trait = poet }
+				20 = { add_trait = hunter }
+				30 = { add_trait = trained_warrior }
+				30 = { add_trait = skilled_warrior }
+				20 = { add_trait = master_warrior }
+			}
+		}
+		tooltip_info = "kind"
+#		
+#		create_character = { # Brings child with him
+#			age = 3
+#			trait = blinded
+#		}
+#		new_character = {
+#			set_father = prev
+#		}
+	}
+	option = {
+		name = EVTOPTBROMANFLAVOR3 # I grant you mercy, but a beggar offers me nothing.
+		
+		piety = 40
+		random_list = {
+			15 = { add_trait = patient }
+			15 = { add_trait = stubborn }
+			70 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR3 # Beer-sodden barbarians are useless to me. Have this swine flogged.
+		
+		trigger = {
+			OR = {
+				trait = romanitas_trait
+				trait = cruel
+				trait = arbitrary
+			}
+		}
+		
+		prestige = 30
+		random_list = {
+			20 = { add_trait = romanitas_trait }
+			30 = { add_trait = arbitrary }
+			50 = { }
+		}
+		
+		tooltip_info = "romanitas_trait"
+	}
+}
+######################## Barbarian killed by guards
+character_event = {
+	id = romeflavorevent.45004
+	desc = EVTDESCROMANFLAVOR4A
+	desc = EVTDESCROMANFLAVOR4B
+	picture = GFX_evt_large_town_rain
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR4 # Return that to his family along with this donative.
+		
+		wealth = -20
+		prestige = 20
+		piety = 15
+		random_list = {
+			10 = { add_trait = just }
+			15 = { add_trait = humble }
+			5 = { add_trait = depressed }
+			70 = { }
+		}
+	}
+	option = {
+		name = EVTOPTBROMANFLAVOR4 # That trinket should be fair payment for the fright I was given.
+		
+		wealth = 20
+		piety = -20
+		random_list = {
+			25 = { add_trait = greedy }
+			10 = { add_trait = cruel }
+			60 = { }
+		}
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR4 # That's for the Eternal City.
+		trigger = {
+			trait = romanitas_trait
+		}
+		prestige = 40
+		add_character_modifier = { name = the_vicious duration = 360 }
+		random_list = {
+			30 = { add_trait = wroth }
+			10 = { add_trait = cruel }
+			60 = { }
+		}
+		tooltip_info = "romanitas_trait"
+	}
+}
+################### Mosaic repairs
+character_event = {
+	id = romeflavorevent.45005
+	desc = {
+		trigger = {
+			religion_group = christian		
+		}
+		text = EVTDESCROMANFLAVOR5A # Christian variation
+	}
+	desc = {
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+		text = EVTDESCROMANFLAVOR5B # Hellenic variation
+	}
+	picture = GFX_evt_roman_mosaic
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	prisoner = no
+	capable_only = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		in_command = no
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+			trait = roman_trained
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR5 # It was a waste of money anyway.
+		random_list = {
+			15 = { add_trait = cynical }
+			15 = { add_trait = greedy }
+			70 = { }
+		}
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR5 # We'll just have to go further afield.
+		wealth = -15
+		prestige = 20
+		random_list = {
+			10 = { add_trait = diligent }
+			20 = { add_trait = stubborn }
+			70 = { }
+		}
+	}
+			
+	option = {
+		name = EVTOPTCROMANFLAVOR5 # That was an ancestor's favorite you fool. Spare no expense.
+	
+		trigger = {
+			trait = romanitas_trait
+		}
+		wealth = -32
+		piety = 50
+		prestige = 30
+		random_list = {
+			10 = { add_trait = gregarious }
+			20 = { change_learning = 2 }
+			30 = { add_trait = proud }
+			40 = { }
+		}
+			
+		tooltip_info = romanitas_trait
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR5 # Where's the blood and violence? Replace it with the Titanomachy or Iliupersis.
+		trigger = {
+			OR = {
+				trait = veteran
+				trait = war_hero
+				trait = cruel
+				trait = impaler
+				}
+			}
+		wealth = -78
+		prestige = 50
+		
+		random_list = {
+			25 = { change_martial = 1 }
+			25 = { change_learning = -3 }
+			50 = { }
+		}
+		
+		tooltip_info = veteran
+	}
+}	
+####################### Will the legions ever return?
+character_event = {
+	id = romeflavorevent.45006
+	desc = EVTDESCROMANFLAVOR6
+	picture = GFX_evt_roman_ship
+	
+	only_playable = yes
+	culture = romanobritish
+	min_age = 30
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		year = 410
+		NOR = { 
+			year = 450
+			has_global_flag = britannia_reconquered_roman 
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR6 # Of course. They would never abandon us.
+		piety = 40
+		random = {
+			chance = 10
+			add_trait = stressed
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR6 # We can take care of ourselves.
+		prestige = 20
+		random = {
+			chance = 10
+			add_trait = brave
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR6 # The sun has set on the empire of the Romans. We're on our own.
+		random = {
+			chance = 30
+			add_trait = honest
+			}
+		random = {
+			chance = 50
+			remove_trait = romanitas_trait
+			}
+		}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR6 # Get out of my sight!
+		trigger = {
+			trait = romanitas_trait
+		}
+		random = {
+			chance = 10
+			add_trait = depressed
+		}
+		random = {
+			chance = 20
+			add_trait = wroth
+		}
+		random = {
+			chance = 20
+			add_trait = ambitious
+		}
+		tooltip_info = romanitas_trait	
+	}
+}
+########################### Reading about opposite faith
+character_event = {
+	id = romeflavorevent.45007
+	desc = {
+		trigger = {
+			religion_group = christian		
+		}
+		text = EVTDESCROMANFLAVOR7A # Christian
+	}
+	desc = {
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+		text = EVTDESCROMANFLAVOR7B # Hellenic
+	}
+	picture = GFX_evt_roman_plate
+	
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		calc_true_if = {
+			amount = 2
+			religion_group = christian
+			religion_group = zoroastrian_group
+			culture = romanobritish
+			culture = armorican
+			culture_group = imperiale
+		}
+		learning = 8
+	}	
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR7 # Just a foolish pagan superstition.
+		trigger = {
+			religion_group = christian
+		}
+		piety = 20
+		random = {
+			chance = 40
+			add_trait = zealous
+		}
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 4
+				ROOT = { trait = zealous }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = content }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR7 # I suppose it could make sense...
+		trigger = {
+			religion_group = christian
+		}
+		piety = -30
+		random = {
+			chance = 40
+			religion = roman_pagan
+		}
+		random = {
+			chance = 60
+			add_trait = tolerant
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = ambitious }
+			}
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = brave }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = tolerant }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = romanitas_trait }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = hellenophone_trait }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = homosexual }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR7 # Galilean nonsense. All of it.
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+		piety = 50
+		random = {
+			chance = 30
+			add_trait = zealous
+		}
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 4
+				ROOT = { trait = zealous }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = content }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR7 # I suppose it could make sense...
+		trigger = {
+			religion_group = zoroastrian_group
+		}
+		piety = -30
+		random = {
+			chance = 40
+			religion = arian
+		}
+		random = {
+			chance = 60
+			add_trait = tolerant
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = ambitious }
+			}
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = brave }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = tolerant }
+			}
+		}
+	}
+}
+############################# Slave treatment
+character_event = {
+	id = romeflavorevent.45008
+	desc = EVTDESCROMANFLAVOR8A
+	desc = EVTDESCROMANFLAVOR8B
+	picture = GFX_evt_villa_court
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		is_female = no
+		lower_tier_than = emperor
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR8 # No harm done eh?
+		prestige = -50
+		random = {
+			chance = 20
+			add_trait = kind
+		}
+		random = {
+			chance = 20
+			add_trait = temperate
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR8TT }
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 2
+				ROOT = { trait = patient }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = kind }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = humble }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = temperate }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR8 # Why are slaves so useless?
+		prestige = -5
+		random_list = {
+			20 = { add_trait = wroth }
+			20 = { add_trait = proud }
+			10 = { add_trait = just }
+			50 = { }
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR8TT }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 4
+				ROOT = { trait = proud }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR8 # You're going to regret that...
+		trigger = {
+			NOT = { trait = homosexual }
+		}
+		piety = -20
+		random_list = {
+			50 = { add_trait = lustful }
+			20 = { add_trait = cruel }
+			30 = { }
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR8TT }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 4
+				ROOT = { trait = lustful }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = cruel }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = arbitrary }
+			}
+			modifier = {
+				factor = 2
+				ROOT = { trait = paranoid }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR8 # Feed her to Argus and Cerberus.
+		trigger = {
+			OR = {
+				trait = cruel
+				trait = arbitrary
+				trait = wroth
+			}
+		}
+		piety = -30
+		prestige = -20
+		random_list = {
+			20 = { add_trait = arbitrary }
+			80 = { }
+		}
+		custom_tooltip = { text = EVTOPTDROMANFLAVOR8TT }
+		
+		tooltip_info = cruel
+	}
+}
+########################### Opinion on mosaic.
+character_event = {
+	id = romeflavorevent.45009
+	desc = EVTDESCROMANFLAVOR9
+
+	picture = GFX_evt_roman_mosaic
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	war = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR9 # That looks awful.
+			random_list = {
+			30 = { add_trait = honest }
+			70 = { }
+		}
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR9 # Only fools buy overpriced mosaics like this.
+		
+		random_list = {
+			25 = { add_trait = cynical }
+			25 = { add_trait = humble }
+			50 = { }
+		}
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR9 # That troop formation looks woefully inaccurate.
+		trigger = {
+			trait = roman_trained
+		}
+		
+		random_list = {
+			40 = { add_trait = diligent }
+			20 = { add_trait = paranoid }
+			60 = { }
+		}
+		
+		tooltip_info = roman_trained
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 8
+				ROOT = { trait = roman_trained }
+			}
+		}
+	}
+		
+	option = {
+		name = EVTOPTDROMANFLAVOR9 # Only now do I understand the imagery. Fascinating.
+		trigger = {
+			learning = 16
+		}
+		random_list = {
+			10 = { add_trait = content }
+			20 = { add_trait = erudite }
+			70 = { }
+		}
+		tooltip_info = learning
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 4
+				ROOT = { learning = 16 }
+			}
+		}
+	}
+}
+###################### Road's out
+character_event = {
+	id = romeflavorevent.45010
+	desc = EVTDESCROMANFLAVOR10
+	picture = GFX_evt_roman_rider
+	
+	is_triggered_only = yes
+	
+	ai = no
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		calc_true_if = {
+			amount = 2
+			region = world_britannia # i.e. is it in an area with Roman roads
+			region = world_gaul
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR10 # We'll just have to go the long way round.
+		random = {
+			chance = 10
+			add_trait = craven
+		}
+		random = {
+			chance = 10
+			add_trait = patient
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45011
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR10TT }
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR10 # Well we can't go over it, we can't go under it...
+		random = {
+			chance = 20
+			add_trait = stubborn
+		}
+		random = {
+			chance = 5
+			add_trait = brave
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45017
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR10TT }
+	}
+		
+	option = {
+		name = EVTOPTCROMANFLAVOR10 # This is an ambush! Kill them all!
+		trigger = {
+			OR = {
+				trait = paranoid
+				trait = lunatic
+				trait = arbitrary
+			}
+		}
+		random = {
+			chance = 20
+			add_trait = stubborn
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45018
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR10TT }
+		tooltip_info = paranoid
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 4
+				ROOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = cruel }
+			}
+			modifier = {
+				factor = 1.5
+				ROOT = { trait = arbitrary }
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR10 # Network?
+		trigger = {
+			NOT = { learning = 5 }
+		}
+		prestige = -10
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45011
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTDROMANFLAVOR10TT }
+		tooltip_info = learning
+		ai_chance = {
+			factor = 20
+			modifier = {
+			factor = 4
+				ROOT = { NOT = { learning = 5 } }
+			}
+		}
+	}
+}
+##################### Bandits attack and are killed.
+character_event = {
+	id = romeflavorevent.45011
+	desc = EVTDESCROMANFLAVOR11
+	picture = GFX_evt_bandits_night
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR11 # Let's take a look.
+		hidden_tooltip = {
+			random_list = {
+				35 = { character_event = { id = romeflavorevent.45012 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45013 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45016 days = 4 } }
+				5 = { }
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR11TT }
+	}
+}
+################# Behind door no. 1
+character_event = {
+	id = romeflavorevent.45012
+	desc = EVTDESCROMANFLAVOR12
+	picture = GFX_evt_roman_plate
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR12 # I suppose it is worthless to them now...
+		wealth = 84
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR12TT }
+	}
+}
+################# Behind door no. 2
+character_event = {
+	id = romeflavorevent.45013
+	desc = EVTDESCROMANFLAVOR13
+	picture = GFX_evt_people_captured
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR13 # You are welcome to come with us domina.
+		piety = 20
+		create_character = {
+			female = yes
+			age = 24
+			religion = catholic
+			culture = greek
+			trait = scholarly_theologian
+			trait = erudite
+			trait = kind
+			trait = hellenophone_trait
+			trait = shy
+			trait = nun
+			trait = pregnant
+			trait = stressed
+			attributes = {
+				martial = 5
+				diplomacy = 7
+				intrigue = 6
+				stewardship = 6
+				learning = 7
+			}
+		}
+		new_character = {
+			random_list = {
+				20 = {
+					culture = romanosyrian
+					religion = catholic
+				}
+				20 = {
+					culture = bedouin_arabic
+					religion = nestorian
+				}
+				20 = {
+					culture = armenian
+					religion = nestorian
+				}
+				40 = {
+					culture = greek
+					religion = catholic
+				}
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR13TT }
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR13 # A learned noble should fetch a substantial price.
+		wealth = 20
+		piety = -50
+		random_list = {
+			15 = { add_trait = cruel }
+			85 = { }
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR13TT }
+		tooltip_info = cruel
+	}	
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR13 # Nothing like a woman after a fight.
+		trigger = {
+		is_female = no
+			calc_true_if = {
+				amount = 2
+				trait = cruel
+				trait = lunatic
+				trait = lustful
+			}
+		}
+		piety = -40
+		random_list = {
+			10 = { add_trait = cruel }
+			20 = { add_trait = lustful }
+			70 = { }
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45014
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR13TT }
+		
+		tooltip_info = cruel
+	}	
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR13 # Do you speak Greek, Gune? (madam)
+
+		trigger = {
+			trait = hellenophone_trait
+		}
+		piety = 50
+		random_list = {
+			30 = { add_trait = kind }
+			10 = { add_trait = trusting }
+			40 = { }
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45015
+				days = 4
+			}
+		}
+		custom_tooltip = { text = EVTOPTDROMANFLAVOR13TT }
+		tooltip_info = hellenophone_trait
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 5
+				ROOT = { trait = hellenophone_trait }
+			}
+		}
+	}
+}
+############### Just desserts
+character_event = {
+	id = romeflavorevent.45014
+	desc = EVTDESCROMANFLAVOR14
+	picture = GFX_evt_hall_in_forest
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR14 # This is not justice!
+		random = {
+			chance = 40
+			add_trait = eunuch
+		}
+		random = {
+			chance = 70
+			add_trait = humble
+		}
+		random = {
+			chance = 70
+			remove_trait = lustful
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR14TT }
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR14 # And that's what happens...
+		trigger = {
+			trait = chaste
+		}
+		random = {
+			chance = 30
+			add_trait = eunuch
+		}
+		random = {
+			chance = 70
+			add_trait = humble
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR14TT }
+		tooltip_info = chaste
+	}
+		
+	option = {
+		name = EVTOPTCROMANFLAVOR14 # Do you have mortus comitialis? I'll stitch it myself!
+		trigger = {
+			trait = lunatic
+		}
+		random = {
+			chance = 50
+			add_trait = eunuch
+		}
+		random = {
+			chance = 50
+			add_trait = brave
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR14TT }
+		tooltip_info = lunatic
+	}
+}
+########### Speaking Greek to a Greek speaker, more friendly.
+character_event = {
+	id = romeflavorevent.45015
+	desc = EVTDESCROMANFLAVOR15
+	picture = GFX_evt_hall_in_forest
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR15 # We'll get you to a nice warm fire and some food.
+		create_character = {
+			female = yes
+			age = 20
+			health = 2
+			religion = catholic
+			culture = greek
+			trait = scholarly_theologian
+			trait = erudite
+			trait = loyal
+			trait = kind
+			trait = hellenophone_trait
+			trait = gregarious
+			trait = pregnant
+			attributes = {
+				martial = 5
+				diplomacy = 9
+				intrigue = 12
+				stewardship = 10
+				learning = 14
+			}
+		}
+		new_character = {
+			random_list = {
+				20 = {
+					culture = numidian
+					religion = catholic
+				}
+				20 = {
+					culture = bedouin_arabic
+					religion = nestorian
+				}
+				20 = {
+					culture = armenian
+					religion = nestorian
+				}
+				40 = {
+					culture = greek
+					religion = catholic
+				}
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR15TT }
+	
+	}
+	option = {
+		name = EVTOPTBROMANFLAVOR15 # It will be nice to have someone to discuss Homer with.
+		trigger = {
+			learning = 13
+		}
+		add_trait = humble
+		create_character = {
+			female = yes
+			age = 20
+			health = 2
+			religion = catholic
+			culture = greek
+			trait = scholarly_theologian
+			trait = erudite
+			trait = loyal
+			trait = kind
+			trait = pretty
+			trait = hellenophone_trait
+			trait = gregarious
+			trait = pregnant
+			attributes = {
+				martial = 3
+				diplomacy = 8
+				intrigue = 10
+				stewardship = 9
+				learning = 14
+			}
+		}
+		new_character = {
+			random_list = {
+				20 = {
+					culture = numidian
+					religion = catholic
+				}
+				20 = {
+					culture = bedouin_arabic
+					religion = nestorian
+				}
+				20 = {
+					culture = armenian
+					religion = nestorian
+				}
+				40 = {
+					culture = greek
+					religion = catholic
+				}
+			}
+		}
+		tooltip_info = learning
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR15 # Stab stab stab!
+		trigger = {
+			trait = lunatic
+		}
+		piety = -100
+		add_character_modifier = { name = the_vicious duration = 720 }
+		tooltip_info = lunatic
+	}
+}
+#################### Behind door no. 3
+character_event = {
+	id = romeflavorevent.45016
+	desc = EVTDESCROMANFLAVOR16
+	picture = GFX_evt_dying_character
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR16 # The bear... the bear...
+		prestige = 80
+		add_trait = wounded
+		hidden_tooltip = { character_event = { id = romeflavorevent.45019 days = 4 } }
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR16TT }
+	}
+}
+##################### Attacked from behind
+character_event = {
+	id = romeflavorevent.45017
+	desc = EVTDESCROMANFLAVOR17
+	picture = GFX_evt_bandits_night
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR17 # What do we have here?
+		prestige = 50
+		hidden_tooltip = {
+			random_list = {
+				35 = { character_event = { id = romeflavorevent.45012 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45013 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45016 days = 4 } }
+				5 = { }
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR17TT }
+	}
+}
+#################### Paranoid pre-emptive strike on bandits
+character_event = {
+	id = romeflavorevent.45018
+	desc = EVTDESCROMANFLAVOR18
+	picture = GFX_evt_bandits_night
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR18 #
+		prestige = 30
+		hidden_tooltip = {
+			random_list = {
+				35 = { character_event = { id = romeflavorevent.45012 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45013 days = 4 } }
+				35 = { character_event = { id = romeflavorevent.45016 days = 4 } }
+				5 = { }
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR18TT }
+	}
+}
+################## Waking up
+character_event = {
+	id = romeflavorevent.45019
+	desc = EVTDESCROMANFLAVOR19
+	picture = GFX_evt_pillage_burn
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR19 # Let's see what the haul is.
+		hidden_tooltip = {
+			random_list = {
+				50 = { character_event = { id = romeflavorevent.45012 days = 4 } }
+				50 = { character_event = { id = romeflavorevent.45013 days = 4 } }
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR19TT }
+	}
+}
+########################## Changing demographics
+character_event = {
+	id = romeflavorevent.45020
+	desc = EVTDESCROMANFLAVOR20
+	picture = GFX_evt_roman_market
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR20 # Rome for Romans that's what I say.
+		random_list = {
+			40 = { add_trait = proud }
+			10 = { add_trait = romanitas_trait }
+			50 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR20 # Maybe this is for the best?
+		random_list = {
+			40 = { add_trait = tolerant }
+			10 = { add_trait = depressed }
+			50 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR20 # I expect it's always been this way.
+		piety = -10
+		random_list = {
+			40 = { add_trait = cynical }
+			60 = { }
+		}
+	}
+}
+#################################### Wistful nostalgia
+character_event = {
+	id = romeflavorevent.45021
+	desc = EVTDESCROMANFLAVOR21
+	picture = GFX_evt_roman_ship
+	
+	only_playable = yes
+	culture = romanobritish
+	min_age = 40
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		year = 420
+		NOR = { 
+			year = 470
+			has_global_flag = britannia_reconquered_roman 
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR21 # Britannia and I have to move on.
+		random_list = {
+			5 = { add_trait = ambitious }
+			5 = { add_trait = stressed }
+			90 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR21 # Maybe one day we will be able to drink together again.
+		random_list = {
+			10 = { add_trait = drunkard }
+			90 = { }
+		}
+	}	
+
+	option = {
+		name = EVTOPTCROMANFLAVOR21 # I would give anything to see you once last time.
+		trigger = {
+			trait = homosexual
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45022
+				days = 20
+			}
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR21TT }
+		
+		tooltip_info = homosexual
+	}
+}			
+#################### Poetry		
+character_event = {
+	id = romeflavorevent.45022
+	desc = EVTDESCROMANFLAVOR22
+	picture = GFX_evt_roman_statue
+	
+	only_playable = yes
+	min_age = 25
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = zoroastrian_group
+			religion_group = christian
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR22 # I think i'm ready for this.
+		trigger = {
+			calc_true_if = {
+				amount = 4
+				trait = humble
+				trait = kind
+				trait = temperate
+				trait = lustful
+				trait = proud
+				trait = honest
+			}
+		}	
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45023
+				days = 94
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR22TT }
+	}
+		
+	option = {
+		name = EVTOPTBROMANFLAVOR22 # Well i'll give it a try...
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45024
+				days = 38
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR22TT }
+	}
+	
+	option = {
+		name = {
+			text = EVTOPTCROMANFLAVOR22A # I'll become the greatest poet of the West using Alcaeus as my guide.
+			trigger = {
+				is_female = no
+			}
+		}
+		name = {
+			text = EVTOPTCROMANFLAVOR22B # I'll become the greatest poet of the West using Sappho as my guide.
+			trigger = {
+				is_female = yes
+			}
+		}
+			
+		trigger = {
+			trait = hellenophone_trait
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45023
+				days = 78
+			}
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR22TT }
+		tooltip_info = hellenophone_trait
+	}
+}
+#################### Poetry success
+character_event = {
+	id = romeflavorevent.45023
+	desc = EVTDESCROMANFLAVOR23
+	picture = GFX_evt_druid_room
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR23 # That's fantastic news.
+		wealth = 40
+		add_trait = poet
+		random = {
+			chance = 15
+			add_trait = erudite
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR23 # It's not so surprising.
+		wealth = 40
+		add_trait = poet
+		random = {
+			chance = 70
+			add_trait = proud
+		}
+	}
+}
+################# Poetry failure
+character_event = {
+	id = romeflavorevent.45024
+	desc = EVTDESCROMANFLAVOR24
+	picture = GFX_evt_Character_reading_library
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR24 # I'm not upset about this.
+		random = {
+			chance = 20
+			add_trait = depressed
+		}
+		random = {
+			chance = 30
+			add_trait = shy
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR24 # Those fools wouldn't know great art if it hit them in the skull.
+		trigger = {
+			trait = wroth
+		}
+		tooltip_info = wroth
+	}
+}
+###################### Greek speaking frustration
+character_event = {
+	id = romeflavorevent.45025
+	desc = EVTDESCROMANFLAVOR25
+	picture = GFX_evt_roman_mural
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = hellenophone_trait
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR25 # I need more Greek texts!
+		wealth = -8
+		random = {
+			chance = 30
+			add_trait = wroth
+		}
+		random = {
+			chance = 80
+			change_learning = 1
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR25 # How I wish I could be a true Greek. # Will sort out before long
+		trigger = {
+			culture_group = imperiale
+		}
+		hidden_tooltip = {
+			character_event = { 
+				id = romeflavorevent.45026
+				days = 340
+			}
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR25TT }
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR25 # This language is absolutely useless!
+		random = {
+			chance = 40
+			remove_trait = hellenophone_trait
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR25TT }
+	}
+}
+############################# Get him to the Greek
+character_event = {
+	id = romeflavorevent.45026
+	desc = EVTDESCROMANFLAVOR26
+	picture = GFX_evt_roman_mural
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR26 # Barbaros no longer.
+		culture = greek
+		random = {
+			chance = 50
+			change_learning = 2
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR26TT }
+		tooltip_info = hellenophone_trait
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR26 # Let's not be hasty.
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR26TT }
+		tooltip_info = hellenophone_trait
+	}
+}
+################################# Feelings about Senate Restoration.
+character_event = {
+	id = romeflavorevent.45027
+	desc = {
+		trigger = {
+			culture_group = imperiale
+		}
+		text = EVTDESCROMANFLAVOR27A # Romans
+	}
+		
+	desc = {
+		trigger = {
+			OR = {
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+		text = EVTDESCROMANFLAVOR27B # Romanised peoples
+	}
+	
+	desc = {
+		trigger = {
+			OR = {
+				culture_group = germanic
+				culture_group = celtic
+			}
+			NOR = {
+				culture = roman
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+		text = EVTDESCROMANFLAVOR27C # Non-Romans beyond
+	}
+	
+	picture = GFX_evt_roman_senate
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {	
+		has_global_flag = senate_restored 
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR27 # With such wise counsel what could go wrong?
+		trigger = { culture = roman }
+		prestige = 20
+		random = {
+			chance = 10
+			add_trait = romanitas_trait
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR27 # I suppose we'll have to wait and see.
+		trigger = {
+			OR = {
+				culture = romanobritish
+				culture = briton
+				culture_group = imperiale
+			}
+			NOT = { culture = roman }
+		}
+			
+		random_list = {
+			15 = { add_trait = patient }
+			5 = { add_trait = stressed }
+			82 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR27 # We'll give those Romans a bloody good drubbing.
+		trigger = {
+			OR = {
+				culture_group = germanic
+				culture_group = celtic
+			}
+			NOR = {
+				culture = roman
+				culture = romanobritish
+				culture = armorican
+			}
+		}
+		
+		random_list = {
+			30 = { add_trait = barbarian_trait }
+			20 = { add_trait = proud }
+			5 = { add_trait = stressed }
+			45 = { }
+		}
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR27 # I'll make those old men till my crops 'till their backs break!
+		trigger = { trait = barbarian_trait	}
+	
+		random = {
+			chance = 40
+			change_martial = 2
+		}
+	}
+}
+############################# Roman military training flavor
+character_event = {
+	id = romeflavorevent.45028
+	desc = EVTDESCROMANFLAVOR28
+	picture = GFX_evt_roman_soldiers_training
+	
+	min_age = 10
+	max_age = 14
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+
+	trigger = {
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			trait = roman_trained
+			trait = romanitas_trait
+			trait = duelist
+			trait = trained_warrior
+			trait = skilled_warrior
+			trait = master_warrior
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR28 # The scutum shield!
+		random = {
+			chance = 30
+			add_trait = defensive_leader
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR28 # The spatha sword!
+		random = {
+			chance = 30
+			add_trait = aggressive_leader
+		}
+	}
+		
+	option = {
+		name = EVTOPTCROMANFLAVOR28 # The plumbata darts!
+		random = {
+			chance = 30
+			add_trait = mountain_terrain_leader
+		}
+	}
+		
+	option = {
+		name = EVTOPTDROMANFLAVOR28 # The caligae sandals.
+		trigger = { learning = 8 }
+		random = {
+			chance = 30
+			add_trait = organizer
+		}
+		random = {
+			chance = 30
+			add_trait = diligent
+		}
+	}
+}
+############################# Roman military training flavor 2
+character_event = {
+	id = romeflavorevent.45029
+	desc = EVTDESCROMANFLAVOR29
+	picture = GFX_evt_roman_soldiers_training
+	
+	only_playable = yes
+	min_age = 10
+	max_age = 14
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR29 # No slave has the right to hit me.
+		random = {
+			chance = 20
+			add_trait = cruel
+		}
+		random = {
+			chance = 30
+			add_trait = romanitas_trait
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR29TT }
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR29 # I'll just have to improve then magister!
+		random = {
+			chance = 25
+			add_trait = patient
+		}
+		custom_tooltip = { text = EVTOPTBROMANFLAVOR29TT }
+		tooltip_info = humble
+	}
+		
+	option = {
+		name = EVTOPTCROMANFLAVOR29 # Why sir why?
+		random = {
+			chance = 25
+			add_trait = craven
+		}
+		custom_tooltip = { text = EVTOPTCROMANFLAVOR29TT }
+	}
+}
+############################# Roman military training flavor 3
+character_event = {
+	id = romeflavorevent.45030
+	desc = EVTDESCROMANFLAVOR30
+	picture = GFX_evt_roman_soldiers_training
+	
+	only_playable = yes
+	min_age = 10
+	max_age = 14
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+
+	trigger = {
+		OR = { 
+			learning = 10
+			trait = brilliant
+			trait = genius
+			trait = quick
+			trait = kind
+			trait = shrewd
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR30 # I'll sneak away and read instead!
+		random = {
+			chance = 80
+			change_martial = -4
+		}
+		random = {
+			chance = 70
+			add_trait = hellenophone_trait
+		}
+		random = {
+			chance = 70
+			add_trait = romanitas_trait
+		}
+		random = {
+			chance = 60
+			add_trait = temperate
+		}
+		custom_tooltip = { text = EVTOPTAROMANFLAVOR30TT }
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR30 # Although I do like the battles...
+		trigger = {
+			OR = { 
+				martial = 15
+				trait = skilled_tactician
+			}
+		}
+	}
+}
+########################### Roman childhood event 1 - Slave
+character_event = {
+	id = romeflavorevent.45031
+	desc = EVTDESCROMANFLAVOR31
+	picture = GFX_evt_love_court
+	
+	only_playable = yes
+	only_men = yes
+	min_age = 12
+	max_age = 14
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = zoroastrian_group
+			religion_group = christian
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR31 # I'm a man!
+		piety = -10
+		random = {
+			chance = 40
+			add_trait = lustful
+			}
+		random = {
+			chance = 20
+			add_trait = arbitrary
+			}
+		random = {
+			chance = 20
+			add_trait = romanitas_trait
+		}
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR31 # I hope she enjoyed it too.
+		random = {
+			chance = 40
+			add_trait = kind
+		}
+		random = {
+			chance = 20
+			add_trait = chaste
+		}
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR31 # And she won't be the last barbarian either!
+		trigger = {
+			OR = {
+				trait = romanitas_trait
+				trait = lustful
+				trait = cruel
+				trait = arbitrary
+			}
+		}
+		piety = -20
+		random = {
+			chance = 30
+			add_trait = zealous
+		}
+		random = {
+			chance = 20
+			add_trait = proud
+		}
+	}	
+		
+	option = {
+		name = EVTOPTDROMANFLAVOR31 # Was that seriously it?
+		trigger = { trait = cynical }
+		random = {
+			chance = 30
+			add_trait = greedy
+		}
+		tooltip_info = cynical
+	}
+}
+########################## Roman childhood event 2 - History
+character_event = {
+	id = romeflavorevent.45032
+	desc = EVTDESCROMANFLAVOR32A
+	desc = EVTDESCROMANFLAVOR32B
+	desc = EVTDESCROMANFLAVOR32C
+	picture = GFX_evt_roman_siege
+	
+	ai = no
+	min_age = 10
+	max_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR32 # Uh... the Getae?
+		prestige = -5
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR32 # Uh... the Persians?
+		prestige = -5
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR32 # Uh... the Teutons?
+		prestige = -5
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR32 #
+		trigger = { NOT = { learning = 7 } }
+		prestige = 10
+		random = {
+			chance = 10
+			add_trait = wounded
+		}
+	}
+}
+####################### Roman forum day
+character_event = {
+	id = romeflavorevent.45033
+	desc = EVTDESCROMANFLAVOR33
+	picture = GFX_evt_roman_market
+	
+	only_playable = yes
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		calc_true_if = {
+			amount = 2
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			religion_group = christian
+			religion_group = zoroastrian_group
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR33 # I love civilisation.
+		prestige = 10
+	}
+	
+	option = {
+		name = EVTOPTBROMANFLAVOR33 # None of this will last, good things never do.
+		trigger = { trait = cynical }
+		piety = -30
+		random = {
+			chance = 40
+			add_trait = perceptive
+		}
+		tooltip_info = cynical
+	}
+	
+	option = {
+		name = EVTOPTCROMANFLAVOR33 # I don't think i'm feeling up to it today.
+		trigger = {
+			trait = shy 
+		}
+		random = {
+			chance = 40
+			add_trait = honest
+		}
+		tooltip_info = shy
+	}
+	
+	option = {
+		name = EVTOPTDROMANFLAVOR33 # I bet I could rack up a massive body count here.
+		trigger = { trait = lunatic }
+		prestige = -60
+		random = {
+			chance = 50
+			add_trait = cruel
+		}
+		random = {
+			chance = 60
+			change_martial = 2
+		}
+		tooltip_info = lunatic
+	}
+}
+####################################### Roman troop inspection
+character_event = {
+	id = romeflavorevent.45034
+	desc = EVTDESCROMANFLAVOR34
+	picture = GFX_evt_roman_legions_snow
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		war = yes
+		in_command = yes
+		location = { is_winter = yes }
+		culture_group = imperiale
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR34 # Absolutely shameful. You're not fit to be Romans.
+		random = {
+			chance = 80
+			add_trait = ill
+		}
+	}
+	option = {
+		name = EVTOPTBROMANFLAVOR34 # Get your act together or i'll bring back decimation!
+		random = {
+			chance = 50
+			add_trait = wroth
+		}
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR34 # Good enough.
+		random = {
+			chance = 60
+			add_trait = slothful
+		}
+	}
+}
+############################################# "Humour"
+character_event = {
+	id = romeflavorevent.45035
+	desc = EVTDESCROMANFLAVOR35A
+	desc = EVTDESCROMANFLAVOR35B
+	desc = EVTDESCROMANFLAVOR35C
+	desc = EVTDESCROMANFLAVOR35D
+	picture = GFX_evt_roman_market
+	
+	ai = no
+	min_age = 15
+	war = no
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_abroad = no
+		culture_group = imperiale
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR35
+		remove_trait = stressed
+	}
+}
+################################################ Soldiers acclaim their leader (trigger with on_major_battle_won) WIP
+character_event = {
+	id = romeflavorevent.45036
+	desc = {
+		trigger = {
+			OR = { 
+				has_landed_title = e_western_roman_empire	
+				has_landed_title = e_gaul
+				has_landed_title = e_roman_britannia
+			}
+		}
+	
+		text = EVTDESCROMANFLAVOR36A # Imperator
+	}
+	desc = {
+		trigger = {
+			tier = king
+			independent = no
+		}
+		text = EVTDESCROMANFLAVOR36B # Governor/King under imperator
+	}
+	desc = {
+		trigger = {
+			tier = king
+			independent = yes
+		}
+		text = EVTDESCROMANFLAVOR36C # Governor/King that is independent
+	}
+	desc = {
+		trigger = {
+			tier = duke
+		}
+		text = EVTDESCROMANFLAVOR36D # Praetor/Duke
+	}	
+	picture = GFX_evt_roman_legions_snow
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		in_command = yes
+		war = yes
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+	}
+	
+	option = {
+		name = EVTOPTAROMANFLAVOR36 # A glorious victory to be sure. (For imperator)
+		trigger = {
+			tier = emperor
+		}
+		prestige = 80
+		wealth = -20
+	}
+	option = {
+		name = EVTOPTBROMANFLAVOR36 # A glorious victory to be sure. (For independents king or lower)
+		trigger = {
+			lower_tier_than = emperor
+			independent = yes
+		}
+		prestige = 20
+	}
+	option = {
+		name = EVTOPTCROMANFLAVOR36 # This victory belongs to my liege. (Add some prestige, keep on good side of liege.)
+		trigger = {
+			independent = no
+		}
+		prestige = 20
+		ai_chance = {
+			factor = 80
+		}
+	}
+	option = {
+		name = EVTOPTDROMANFLAVOR36 # More victories await us under my leadership. (Add lots of prestige, massive drop in liege opinion, possibility of another event granting weak claim.)
+		trigger = {
+			independent = no
+		}
+		prestige = 70
+		liege = {
+			opinion = {
+				modifier = opinion_furious
+				who = ROOT
+				months = 36
+			}
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 3
+				ROOT = { trait = ambitious }
+			}
+			modifier = {
+				factor = 3
+				ROOT = { trait = unloyal }
+			}
+			modifier = {
+				factor = 0
+				ROOT = { 
+					OR = {
+						trait = content 
+						trait = loyal
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				ROOT = { trait = craven }
+			}
+		}
+	}
+}

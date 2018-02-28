@@ -1,0 +1,5240 @@
+###################################
+#
+# Events for Roman Empire & Gaul
+#
+# IDs 315100-315399
+#
+###################################
+
+# Restoration of Roman Senate
+character_event = {
+	id = 315100
+	title = "EVTNAME315100"
+	desc = "EVTDESC315100"
+	picture = GFX_evt_roman_aquila_pillar
+	
+	hide_from = yes	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315100"
+		set_character_flag = senate_restore_choice
+		set_global_flag = senate_restored
+		wealth = -200
+		character_event = { id = 315101 days = 1 tooltip = "EVTTOOLTIP315100" }
+		add_character_modifier = {
+			name = restored_roman_senate
+			duration = 36500
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					NOT = { has_character_flag = senate_restore_choice }
+				}	
+				character_event = { id = 315105 days = 1 }
+			}
+			if = {
+				limit = { has_global_flag = senate_restored_first_time }
+				set_global_flag = senate_restored_first_time
+				create_character = {
+					dynasty = culture
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 41
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = arian
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 68
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = ROOT
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 64
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 37
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = catholic
+					culture = greek
+					employer = ROOT
+					female = no
+					age = 54
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 42
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+				
+				create_character = {
+					dynasty = culture
+					religion = roman_pagan
+					culture = roman
+					employer = ROOT
+					female = no
+					age = 34
+				}
+				new_character = {
+					set_character_flag = senator_flag
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = senate_restored_first_time } }
+				set_global_flag = senate_restored_first_time
+				create_character = {
+					name = "Caius"
+					dynasty = 1018
+					religion = ROOT
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 51
+					attributes = {
+						diplomacy = 10
+						learning = 10
+						stewardship = 12
+					}
+					trait = grey_eminence
+					trait = scholar
+					trait = tolerant
+					trait = homosexual
+					trait = authoritative
+					trait = ambitious
+				}
+				new_character = {
+					dynasty = 1018
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 15 }
+						25 = { piety = 30 }
+						25 = { piety = 60 }
+						20 = { piety = 90 }
+						5 = { piety = 150 }
+					}
+				}
+				
+				create_character = {
+					name = "Marcus Apollo"
+					dynasty = 1023
+					religion = roman_pagan
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 41
+					attributes = {
+						diplomacy = 10
+						martial = 13
+						learning = 10
+						stewardship = 11
+					}
+					trait = thrifty_clerk
+					trait = greedy
+					trait = veteran
+					trait = roman_trained
+					trait = trained_warrior
+					trait = authoritative
+					trait = ambitious
+				}
+				new_character = {
+					dynasty = 1023
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 15 }
+						25 = { piety = 30 }
+						25 = { piety = 60 }
+						20 = { piety = 90 }
+						5 = { piety = 150 }
+					}
+				}
+				
+				create_character = {
+					name = "Lucretius"
+					dynasty = 1014
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 49
+					attributes = {
+						diplomacy = 10
+						martial = 5
+						learning = 10
+						intrigue = 10
+						stewardship = 11
+					}
+					trait = intricate_webweaver
+					trait = deceitful
+					trait = cruel
+					trait = scholar
+					trait = diligent
+				}
+				new_character = {
+					dynasty = 1014
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 75 }
+						25 = { prestige = 100 }
+						25 = { prestige = 150 }
+						20 = { prestige = 200 }
+						5 = { prestige = 300 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 5 }
+						25 = { piety = 15 }
+						25 = { piety = 20 }
+						20 = { piety = 35 }
+						5 = { piety = 75 }
+					}
+				}
+				
+				create_character = {
+					name = "Pompeius"
+					dynasty = 1028
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 51
+					attributes = {
+						diplomacy = 10
+						martial = 6
+						learning = 12
+						intrigue = 9
+						stewardship = 10
+					}
+					trait = fortune_builder
+					trait = authoritative
+					trait = gregarious
+					trait = scholar
+					trait = diligent
+				}
+				new_character = {
+					dynasty = 1028
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 50 }
+						25 = { wealth = 100 }
+						25 = { wealth = 150 }
+						20 = { wealth = 200 }
+						5 = { wealth = 300 }
+					}
+					random_list = {
+						25 = { piety = 15 }
+						25 = { piety = 30 }
+						25 = { piety = 60 }
+						20 = { piety = 90 }
+						5 = { piety = 150 }
+					}
+				}
+				
+				create_character = {
+					name = "Gratianus"
+					dynasty = 1050
+					religion = ROOT
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 60
+					attributes = {
+						diplomacy = 11
+						martial = 4
+						learning = 10
+						intrigue = 6
+						stewardship = 8
+					}
+					trait = quick
+					trait = patient
+					trait = honorable
+					trait = authoritative
+					trait = scholar
+					trait = diligent
+					trait = tough_soldier
+				}
+				new_character = {
+					dynasty = 1050
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 15 }
+						25 = { piety = 25 }
+						25 = { piety = 50 }
+						20 = { piety = 70 }
+						5 = { piety = 120 }
+					}
+				}
+				
+				create_character = {
+					name = "Vespasianus"
+					dynasty = 1042
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 47
+					attributes = {
+						diplomacy = 10
+						martial = 4
+						learning = 12
+						intrigue = 6
+						stewardship = 7
+					}
+					trait = ambitious
+					trait = authoritative
+					trait = lustful
+					trait = scholar
+					trait = diligent
+					trait = fortune_builder
+				}
+				new_character = {
+					dynasty = 1042
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 75 }
+						25 = { wealth = 100 }
+						25 = { wealth = 175 }
+						20 = { wealth = 220 }
+						5 = { wealth = 350 }
+					}
+					random_list = {
+						25 = { piety = 10 }
+						25 = { piety = 20 }
+						25 = { piety = 40 }
+						20 = { piety = 70 }
+						5 = { piety = 100 }
+					}
+				}
+				
+				create_character = {
+					dynasty = 369
+					religion = nestorian
+					culture = greek
+					employer = ROOT
+					health = 8
+					female = no
+					age = 46
+					attributes = {
+						diplomacy = 9
+						martial = 4
+						learning = 11
+						intrigue = 6
+						stewardship = 10
+					}
+					trait = loyal
+					trait = authoritative
+					trait = chaste
+					trait = scholar
+					trait = diligent
+					trait = tolerant
+					trait = charismatic_negotiator
+				}
+				new_character = {
+					dynasty = 369
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 15 }
+						25 = { piety = 30 }
+						25 = { piety = 60 }
+						20 = { piety = 90 }
+						5 = { piety = 150 }
+					}
+				}
+				
+				create_character = {
+					name = "Horatius"
+					dynasty = 1008
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 43
+					attributes = {
+						diplomacy = 11
+						martial = 6
+						learning = 11
+						intrigue = 9
+						stewardship = 6
+					}
+					trait = ambitious
+					trait = scholar
+					trait = authoritative
+					trait = veteran
+					trait = skilled_tactician
+					trait = diligent
+				}
+				new_character = {
+					dynasty = 1008
+					set_character_flag = senator_flag
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 35 }
+						25 = { wealth = 60 }
+						25 = { wealth = 110 }
+						20 = { wealth = 160 }
+						5 = { wealth = 250 }
+					}
+					random_list = {
+						25 = { piety = 10 }
+						25 = { piety = 20 }
+						25 = { piety = 40 }
+						20 = { piety = 70 }
+						5 = { piety = 120 }
+					}
+				}
+				
+				create_character = {
+					name = "Cicero"
+					dynasty = 1049
+					religion = catholic
+					culture = roman
+					employer = ROOT
+					health = 8
+					female = no
+					age = 57
+					attributes = {
+						diplomacy = 12
+						martial = 5
+						learning = 11
+						intrigue = 10
+						stewardship = 10
+					}
+					trait = scholarly_theologian
+					trait = authoritative
+					trait = temperate
+					trait = scholar
+					trait = deceitful
+				}
+				new_character = {
+					dynasty = 1049
+					set_character_flag = senator_flag
+					give_nickname = nick_the_elder
+					random_list = {
+						25 = { prestige = 125 }
+						25 = { prestige = 175 }
+						25 = { prestige = 250 }
+						20 = { prestige = 320 }
+						5 = { prestige = 520 }
+					}
+					random_list = {
+						25 = { wealth = 25 }
+						25 = { wealth = 50 }
+						25 = { wealth = 100 }
+						20 = { wealth = 120 }
+						5 = { wealth = 150 }
+					}
+					random_list = {
+						25 = { piety = 35 }
+						25 = { piety = 70 }
+						25 = { piety = 120 }
+						20 = { piety = 175 }
+						5 = { piety = 300 }
+					}
+				}
+			}
+			
+			any_courtier = {
+				limit = {
+					has_character_flag = senator_flag
+				}
+				give_minor_title = title_senator
+			}
+			
+			any_vassal = {
+				limit = {
+					is_female = no
+					age = 40
+					prestige = 300
+					diplomacy = 10
+					learning = 8
+					intrigue = 8
+				}
+				give_minor_title = title_senator
+			}
+			
+			primary_title = { set_title_flag = senate_restored_title }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315100"
+		trigger = {
+			ai = no
+		}
+		set_character_flag = senate_restore_choice
+		piety = 100
+		#add_trait = honorable
+	}
+}
+character_event = {
+	id = 315101
+	title = "EVTNAME315101"
+	desc = "EVTDESC315101"
+	picture = GFX_evt_roman_aquila_pillar
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA315101"
+		any_courtier = {
+			limit = { has_character_flag = senator_flag }
+			hidden_tooltip = {
+				character_event = { id = 315102 days = 1 }
+			}
+		}
+	}
+}
+character_event = {
+	id = 315102
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_roman_aquila_pillar
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		has_character_flag = senator_flag
+	}
+	
+	immediate = {
+		prestige = 50
+		change_diplomacy = 1
+	}
+
+	option = {
+		name = "You're not supposed to see this..."
+	}
+}
+
+# News of restored Senate reaching other rulers
+character_event = {
+	id = 315105
+	title = "EVTNAME315105"
+	desc = {
+		text = EVTDESC315105
+		trigger = {
+			NOT = {
+				any_playable_ruler = {
+					NOT = { character = FROM }
+					any_demesne_title = { has_title_flag = senate_restored_title }
+				}
+			}
+		}
+	}
+	desc = { # Multiple competing Senates
+		text = EVTDESC315105_1
+		trigger = {
+			any_playable_ruler = {
+				NOT = { character = FROM }
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+		}
+	}
+	picture = GFX_evt_roman_aquila_pillar
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_playable_ruler = {
+			limit = {
+				NOT = { character = FROM }
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+			save_event_target_as = other_senate_holder
+		}
+	}
+
+	option = {
+		name = "EVTOPTA315105"	# Others
+		trigger = {
+			NOR = {
+				top_liege = { character = FROM }
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+			NOT = {
+				any_playable_ruler = {
+					NOT = { character = FROM }
+					any_demesne_title = { has_title_flag = senate_restored_title }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315105"	# Romans of Soissons
+		trigger = {
+			top_liege = { character = FROM }
+		}
+	}
+
+	option = {
+		name = "EVTOPTC315105"	# Has own Senate
+		trigger = {
+			NOT = {
+				top_liege = { character = FROM }
+			}
+			any_demesne_title = { has_title_flag = senate_restored_title }
+		}
+	}
+
+	option = {
+		name = "EVTOPTD315105"	# Others, if there are now multiple senates
+		trigger = {
+			NOR = {
+				top_liege = { character = FROM }
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+			any_playable_ruler = {
+				NOT = { character = FROM }
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+		}
+	}
+}
+# Confirm the Senate on ruler's succession
+character_event = {
+	id = 315106
+	title = "EVTNAME315106"
+	desc = "EVTDESC315106"
+	picture = GFX_evt_roman_aquila_pillar
+	
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_title = { has_title_flag = senate_restored_title }
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+		NOT = { has_character_flag = senate_restore_choice }
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	option = {
+		name = "EVTOPTA315106"
+		set_character_flag = senate_restore_choice
+		set_global_flag = senate_restored
+		add_character_modifier = {
+			name = restored_roman_senate
+			duration = 36500
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315106"
+		trigger = {
+			ai = no
+		}
+		piety = 50
+		set_character_flag = senate_restore_choice
+		any_demesne_title = {
+			clr_title_flag = senate_restored_title
+		}
+		custom_tooltip = { 
+			text = EVTOPTB315106TT
+			hidden_tooltip = {
+				any_courtier = {
+					limit = {
+						has_minor_title = title_senator
+					}
+					remove_title = title_senator
+				}
+				any_vassal = {
+					limit = {
+						has_minor_title = title_senator
+					}
+					remove_title = title_senator
+				}
+				any_realm_character = {
+					limit = {
+						has_minor_title = title_senator
+					}
+					remove_title = title_senator
+				}
+			}
+		}
+	}
+}
+# Dissolve the Senate if Romans are defeated
+character_event = {
+	id = 315107
+	title = "EVTNAME315107"
+	desc = "EVTDESC315107"
+	picture = GFX_evt_roman_aquila_pillar
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = restored_roman_senate
+		is_alive = yes
+		NOT = { any_demesne_title = { has_title_flag = senate_restored_title } }
+		NOT = {
+			any_liege = {
+				any_demesne_title = { has_title_flag = senate_restored_title }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA315107"
+		remove_character_modifier = restored_roman_senate
+		any_courtier = {
+			limit = {
+				has_minor_title = title_senator
+			}
+			remove_title = title_senator
+		}
+		any_vassal = {
+			limit = {
+				has_minor_title = title_senator
+			}
+			remove_title = title_senator
+		}
+	}
+}
+# Remove the Senate modifier if main titles are lost
+character_event = {
+	id = 315108
+	desc = "EVTDESC315108"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = restored_roman_senate
+		is_alive = yes
+		NOT = { any_demesne_title = { has_title_flag = senate_restored_title } }
+		any_liege = {
+			any_demesne_title = { has_title_flag = senate_restored_title }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA315108"
+		remove_character_modifier = restored_roman_senate
+	}
+}
+# Transfer the Senate restored title flag if gains a new primary title
+character_event = {
+	id = 315109
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	hide_window = yes
+	
+	trigger = {
+		any_demesne_title = { 
+			has_title_flag = senate_restored_title 
+			ROOT = {
+				primary_title = { 
+					OR = {
+						NOT = { has_title_flag = senate_restored_title }
+						NOT = { title = PREVPREV }
+					}
+					OR = {
+						has_title_flag = roman_province
+						title = e_gaul
+						title = e_roman_britannia
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_demesne_title = {
+			clr_title_flag = senate_restored_title 
+		}
+		primary_title = {
+			set_title_flag = senate_restored_title 
+		}
+		any_character = {
+			limit = { 
+				is_landed = no
+				has_character_modifier = restored_roman_senate
+			}
+			remove_character_modifier = restored_roman_senate
+		}
+	}
+}
+
+
+
+
+# Arrival of the Legio VI Gallicana
+narrative_event = {
+	id = 315130
+	title = "EVTNAME315130"
+	desc = "EVTDESC315130"
+	major = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	only_rulers = yes
+	
+	trigger = {
+		year = 490
+		NOT = { year = 575 }
+		OR = {
+			has_landed_title = e_gaul
+			AND = {
+				has_landed_title = e_roman_britannia
+				has_global_flag = britannia_reconquered_roman
+			}
+			AND = {
+				has_landed_title = k_gaul
+				e_gaul = { has_holder = no }
+			}
+		}
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+		realm_size = 6.0
+		NOT = { has_global_flag = legio_vi_arrived }
+		d_legio_vi_gallicana = { has_holder = no }
+		completely_controls = c_lutetia
+	}
+	
+	mean_time_to_happen = {
+		months = 480
+		modifier = {
+			factor = 0.0001
+			OR = {
+				has_landed_title = e_gaul
+				AND = {
+					has_landed_title = e_roman_britannia
+					has_global_flag = britannia_reconquered_roman
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			has_global_flag = senate_restored
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { realm_size = 12.0 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { prestige = 350 }
+		}
+		modifier = {
+			factor = 0.8
+			prestige = 1000
+		}
+		modifier = {
+			factor = 0.8
+			prestige = 1500		
+		}
+		modifier = {
+			factor = 0.8
+			trait = authoritative		
+		}
+		modifier = {
+			factor = 2.0
+			trait = weak		
+		}
+		modifier = {
+			factor = 2.0
+			trait = arbitrary		
+		}
+		modifier = {
+			factor = 0.8
+			wealth = 500	
+		}
+		modifier = {
+			factor = 0.75
+			wealth = 1000	
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16	
+		}
+		modifier = {
+			factor = 0.85
+			trait = brave	
+		}
+		modifier = {
+			factor = 2.0
+			trait = craven	
+		}
+		modifier = {
+			factor = 1.3
+			NOT = { trait = veteran }	
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { martial = 10 }	
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { diplomacy = 10 }	
+		}
+		modifier = {
+			factor = 0.9
+			trait = honorable		
+		}
+		modifier = {
+			factor = 2
+			NOT = { has_global_flag = frankish_war_480 }		
+		}
+	}
+
+	immediate = {
+		set_character_flag = legio_vi_liege
+		set_global_flag = legio_vi_arrived
+		set_global_flag = legio_six_gallicana_created
+		
+		create_character = {
+			name = "Asterius"
+			random_traits = no
+			dynasty = random
+			religion = catholic
+			culture = romanogallic
+			female = no
+			age = 37
+			employer = ROOT
+			attributes = {
+				martial = 13
+				diplomacy = 12
+				stewardship = 10
+				learning = 11
+				intrigue = 7
+			}
+			trait = skilled_tactician
+			trait = war_hero
+			trait = brave
+			trait = proud
+			trait = loyal
+			trait = heavy_infantry_leader
+			trait = roman_trained
+		}
+		d_legio_vi_gallicana = {
+			activate_title = {
+				title = d_legio_vi_gallicana
+				status = yes
+			}
+		}
+		new_character = {
+			d_legio_vi_gallicana = {
+				gain_title = PREV
+				gender_succ = agnatic
+				succession_w_cooldown = open_elective
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315130"
+		trigger = {
+			has_character_flag = legio_vi_liege
+			OR = {
+				has_landed_title = e_gaul
+				has_landed_title = e_roman_britannia
+				has_landed_title = k_gaul
+			}
+		}	
+		capital_scope = {
+			ROOT = {
+				spawn_legio_VI_gallicana = yes
+			}
+		}
+		custom_tooltip = { 
+			text = EVTOPTA315130TT
+			hidden_tooltip = {
+				ROOT = {
+					d_legio_vi_gallicana = {
+						holder_scope = {
+							set_defacto_liege = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315130"
+		trigger = {
+			NOT = { has_character_flag = legio_vi_liege }
+			NOT = {	has_landed_title = e_gaul }
+			NOT = {	has_landed_title = e_roman_britannia }
+			NOT = {	has_landed_title = k_gaul }
+		}
+	}
+}
+# narrative_event = {			# The Legio VI Gallicana becomes a mercenary company if Romans are defeated
+	# id = 315131
+	# title = "EVTNAME315131"
+	# desc = "EVTDESC315131"
+	# major = yes
+	# picture = "GFX_evt_large_army"
+	
+	# only_rulers = yes
+	
+	# trigger = {
+		# has_landed_title = d_legio_vi_gallicana
+		# has_global_flag = legio_vi_arrived
+		# ai = yes
+		# NOT = { has_global_flag = legio_vi_mercenaries }
+		# NOT = { higher_tier_than = DUKE }
+		# OR = {
+			# NOT = {
+				# OR = {
+					# culture_group = imperiale
+					# culture = romanobritish
+					# culture = armorican
+				# }
+			# }
+			# AND = {
+				# liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = armorican
+						# }
+					# }
+				# }
+				# top_liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = armorican
+						# }
+					# }
+				# }
+			# }
+			# AND = {
+				# k_gaul = { has_holder = no }
+				# e_gaul = { has_holder = no }
+			# }
+		# }
+	# }
+	
+	# mean_time_to_happen = {
+		# days = 10
+	# }
+
+	# immediate = {
+		# add_trait = ambitious
+		# add_trait = greedy
+		# set_global_flag = legio_vi_mercenaries
+		# ROOT = {
+			# set_defacto_liege = ROOT
+		# }
+		# d_legio_vi_gallicana = {
+			# set_name = "Lutetian Legionarii"
+			# adjective = "Lutetian Legionarii"
+		# }
+	# }
+	
+	# option = {
+		# name = "EVTOPTA315131"
+	# }
+# }
+# narrative_event = {			# The Legio III Gallica becomes a mercenary company if Romans are defeated
+	# id = 315132
+	# desc = "You're not supposed to see this..."
+	# major = no
+	# picture = "GFX_evt_large_army"
+	
+	# only_rulers = yes
+	
+	# trigger = {
+		# has_landed_title = d_legio_iii_gallica
+		# NOT = { has_global_flag = legio_iii_mercenaries }
+		# ai = yes
+		# NOT = { higher_tier_than = DUKE }
+		# OR = {
+			# NOT = {
+				# OR = {
+					# culture_group = imperiale
+					# culture = romanobritish
+					# culture = armorican
+				# }
+			# }
+			# AND = {
+				# liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = armorican
+						# }
+					# }
+				# }
+				# top_liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = armorican
+						# }
+					# }
+				# }
+			# }
+			# AND = {
+				# k_gaul = { has_holder = no }
+				# e_gaul = { has_holder = no }
+			# }
+		# }
+	# }
+	
+	# mean_time_to_happen = {
+		# days = 10
+	# }
+
+	# immediate = {
+		# add_trait = ambitious
+		# add_trait = greedy
+		# set_global_flag = legio_iii_mercenaries
+		# ROOT = {
+			# set_defacto_liege = ROOT
+		# }
+		# d_legio_iii_gallica = {
+			# set_name = "Gallic Legionarii"
+			# adjective = "Gallic Legionarii"
+		# }
+	# }
+	
+	# option = {
+		# name = "OK"
+	# }
+# }
+# narrative_event = {			# The Legio VI Victrix changes name if Romans are defeated
+	# id = 315133
+	# desc = "You're not supposed to see this..."
+	# major = no
+	# picture = "GFX_evt_large_army"
+	
+	# only_rulers = yes
+	
+	# trigger = {
+		# ai = yes
+		# NOT = { has_global_flag = legio_victrix_mercenaries }
+		# has_landed_title = d_legio_vi_victrix
+		# NOT = { higher_tier_than = DUKE }
+		# OR = {
+			# NOT = {
+				# OR = {
+					# culture_group = imperiale
+					# culture = romanobritish
+					# culture = cumbrian
+				# }
+			# }
+			# AND = {
+				# liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = cumbrian
+						# }
+					# }
+				# }
+				# top_liege = {
+					# NOT = {
+						# OR = {
+							# culture_group = imperiale
+							# culture = romanobritish
+							# culture = cumbrian
+						# }
+					# }
+				# }
+			# }
+			# AND = {
+				# k_gaul = { has_holder = no }
+				# e_gaul = { has_holder = no }
+			# }
+		# }
+	# }
+	
+	# mean_time_to_happen = {
+		# days = 1
+	# }
+
+	# immediate = {
+		# add_trait = ambitious
+		# add_trait = greedy
+		# set_global_flag = legio_victrix_mercenaries
+		# ROOT = {
+			# set_defacto_liege = ROOT
+		# }
+		# d_legio_vi_victrix = {
+			# set_name = "Aelian Legionarii"
+			# adjective = "Aelian Legionarii"
+		# }
+	# }
+	
+	# option = {
+		# name = "OK"
+	# }
+# }
+
+
+# Augustus Trait
+character_event = {
+	id = 315140
+	picture = "GFX_evt_roman_emperor_salute"
+	
+	desc = {
+		text = "EVTDESC315140"
+		trigger = {
+			has_landed_title = e_gaul
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315140_1"
+		trigger = {
+			has_landed_title = e_roman_britannia
+		}
+	}
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		NOT = { trait = northaugustus }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA315140"
+		add_trait = northaugustus
+	}
+}
+# Remove Augustus trait if dethroned
+character_event = {
+	id = 315141
+	picture = "GFX_evt_roman_aquila_pillar"
+	
+	desc = {
+		text = "EVTDESC315141"
+		trigger = {
+			e_gaul = {
+				any_previous_holder = {
+					character = ROOT
+				}
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315141_1"
+		trigger = {
+			e_roman_britannia = {
+				any_previous_holder = {
+					character = ROOT
+				}
+			}
+		}
+	}
+	
+	trigger = {
+		trait = northaugustus
+		NOR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		is_alive = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTA315141"
+		remove_trait = northaugustus
+	}
+}
+
+### SOISSONS VASSALIZE TRIBUTARIES CHAIN ###
+# Demand to Tributaries
+character_event = {
+	id = 315150
+	desc = "EVTDESC315150"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = "EVTOPTA315150"
+		prestige = -50
+		reverse_opinion = {
+			modifier = opinion_accepted_vassalage
+			who = FROM
+			years = 10
+		}
+		FROM = { character_event = { id = 315151 } }
+		tooltip = {
+			FROM = { remove_tributary = ROOT }
+			any_demesne_title = {
+				limit = { tier = KING }
+				destroy_landed_title = THIS
+			}
+			set_defacto_liege = FROM
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					trait = ambitious
+					trait = unloyal
+					NOT = { opinion = { who = FROM value = 20 } }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = FROM value = 40 } }
+			}
+			modifier = {
+				factor = 0.5
+				realm_levies = 1000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 1500
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 2000
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture_group = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROM }
+			}
+		}
+	}
+	
+	option = {			# Never!
+		name = "EVTOPTB315150"
+		prestige = 50
+		reverse_opinion = {
+			modifier = opinion_furious
+			who = FROM
+			years = 10
+		}
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 0
+				opinion = { who = FROM value = 70 }
+			}
+		}
+		FROM = { character_event = { id = 315152 } }
+		custom_tooltip = {
+			text = EVTOPTB315150TT
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { NOT = { any_independent_ruler = { has_character_flag = soissons_revolt_leader } } }
+				set_character_flag = soissons_revolt_leader
+				any_war = {
+					limit = { attacker = { character = ROOT } }
+					end_war = whitepeace
+				}
+				war = {
+					casus_belli = bid_for_independence_tributaries_soissons
+					target = k_gaul					
+				}
+				break = yes
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = soissons_revolt_leader }
+				ROOT = { join_attacker_wars = PREV }
+			}
+		}
+	}
+}
+
+# Tributary accepts
+character_event = {
+	id = 315151
+	desc = "EVTDESC315151"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315151"
+		prestige = 50
+		remove_tributary = FROM
+		FROM = {
+			if = {
+				limit = { tier = KING }
+				any_vassal = {
+					limit = {
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									higher_tier_than = PREVPREV
+									NOT = { higher_tier_than = DUKE }
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				any_demesne_title = {
+					limit = { tier = KING }
+					destroy_landed_title = THIS
+				}
+			}
+			set_defacto_liege = ROOT
+		}
+	}
+}
+
+# Tributary refuses
+character_event = {
+	id = 315152
+	desc = "EVTDESC315152"
+	picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315152"
+	}
+}
+
+# Bounce event to each tributary
+character_event = {
+	id = 315153
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = k_gaul
+	}
+	
+	immediate = {
+		any_independent_ruler = {
+			limit = {
+				OR = {
+					is_tributary = {
+						type = client_state
+						suzerain = ROOT
+					}
+					is_tributary = {
+						type = foederati
+						suzerain = ROOT
+					}
+				}
+				primary_title = {
+					OR = {
+						kingdom = { title = k_gaul }
+						kingdom = { title = k_benoic }
+						kingdom = { title = k_broceliande }
+						title = k_benoic
+						title = k_broceliande
+					}
+				}
+			}
+			character_event = { id = 315150 }
+		}
+	}
+}
+
+# Set flag for rebels' heirs
+character_event = {
+	id = 315154
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_war = {
+			any_attacker = {
+				character = ROOT
+			}
+			using_cb = bid_for_independence_tributaries_soissons
+		}
+	}
+	
+	immediate = {
+		ROOT = { 
+			current_heir = { 
+				set_character_flag = soissons_rebel_heir
+			} 
+		}
+	}
+}
+
+# Event for new heir
+character_event = {
+	id = 315155
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = soissons_rebel_heir
+	}
+	
+	immediate = {
+		any_independent_ruler = {
+			limit = { 
+				any_war = { 
+					attacker = { character = PREVPREV } 
+					using_cb = bid_for_independence_tributaries_soissons
+				}
+			}
+			ROOT = { 
+				join_attacker_wars = PREV 
+			}
+		}
+		clr_character_flag = soissons_rebel_heir
+	}
+}
+
+### CULTURE CHANGES ###
+# Province Converts to Roman Culture
+province_event = {
+	id = 315190
+	desc = "EVTDESC315190"
+	picture = GFX_evt_SPQR
+	
+	trigger = {
+		NOT = { culture = roman }
+		OR = {
+			culture = romanobritish
+			culture_group = imperiale
+		}
+		owner = {
+			culture = roman
+			top_liege = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+				}
+				culture = roman
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 5000
+		modifier = {
+			factor = 0.6
+			is_capital = yes
+		}
+		modifier = {
+			factor = 0.75
+			is_roman_pagan_or_reformed_trigger = yes
+		}
+		modifier = {
+			factor = 0.75
+			AND = {
+				religion_group = zoroastrian_group
+				owner = {
+					top_liege = {
+						religion_group = zoroastrian_group
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			religion_group = pagan_group
+		}
+		modifier = {
+			factor = 0.5
+			AND = {
+				religion_group = christian
+				e_gaul = {
+					holder_scope = {
+						religion_group = christian
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 2 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 4 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 6 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 8 } }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 11 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 12 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 13 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 14 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 15 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 16 }
+		}
+		modifier = {
+			factor = 2.0
+			continent = continent_britain
+		}
+		modifier = {
+			factor = 0.5
+			continent = continent_europe
+		}
+		modifier = {
+			factor = 4.0
+			NOT = {
+				any_neighbor_province = {
+					culture = roman
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			any_neighbor_province = {
+				culture = roman
+			}
+		}
+		modifier = {
+			factor = 0.6
+			owner = { trait = augustus }
+		}
+		modifier = {
+			factor = 0.7
+			owner = { has_minor_title = title_senator }
+		}
+		modifier = {
+			factor = 2.0
+			terrain = mountain
+		}
+		modifier = {
+			factor = 2.0
+			terrain = forest
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { num_of_settlements = 3 }
+		}
+		modifier = {
+			factor = 0.65
+			OR = {
+				province_id = 4
+				province_id = 8
+				province_id = 10
+				province_id = 11
+				province_id = 12
+				province_id = 20
+				province_id = 22
+				province_id = 37
+				province_id = 46
+				province_id = 47
+				province_id = 80
+				province_id = 82
+				province_id = 83
+				province_id = 85
+				province_id = 125
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA315190"
+		ROOT = { culture = roman }
+	}
+}
+# Province Converts to Local Romanized Culture
+province_event = {
+	id = 315191
+	picture = GFX_evt_town_palisade
+	
+	desc = {
+		text = "EVTDESC315191_british"
+		trigger = {
+			OR = {
+				region = world_britannia
+				region = world_caledonia
+				region = world_ireland 
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315191_gallic"
+		trigger = {
+			region = world_gaul
+			NOR = { 
+				region = world_gaul_romangermania 
+				region = world_gaul_aquitania_tertia
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315191_germanic"
+		trigger = {
+			OR = {
+				region = world_gaul_romangermania 
+				region = world_germania 
+			}
+			NAND = {
+				region = world_germania_jutland
+				has_global_flag = jutland_conquered_norse
+			}
+			NAND = {
+				region = world_germania_angeln
+				has_global_flag = angeln_conquered_norse
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315191_scandian"
+		trigger = {
+			region = custom_scandinavia 
+			OR = {
+				NOT = { region = world_germania_jutland }
+				has_global_flag = jutland_conquered_norse
+			}
+			OR = {
+				NOT = { region = world_germania_angeln }
+				has_global_flag = angeln_conquered_norse
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315191_aquitanian"
+		trigger = {
+			region = world_gaul_aquitania_tertia
+		}
+	}
+	
+	trigger = {
+		NOT = { culture = roman }
+		OR = {
+			culture_group = imperiale
+			culture_group = celtic
+			culture_group = germanic
+			culture_group = basque
+		}
+		OR = {
+			NOR = {
+				region = world_britannia
+				region = world_caledonia
+				region = world_ireland
+				AND = {
+					region = world_gaul
+					NOT = { region = world_gaul_romangermania }
+				}
+			}
+			NOT = { culture_group = germanic }		# Germanic invaders are dealt with in different event
+		}
+		is_local_roman_culture_trigger = no
+		owner = {
+			is_roman_culture_trigger = yes
+			top_liege = {
+				is_roman_culture_trigger = yes
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 560
+		modifier = {
+			factor = 3.0
+			OR = {
+				culture = pictish
+				culture = oldirish
+				culture = gaelic
+			}
+		}
+		modifier = {
+			factor = 1.5
+			culture = armorican
+		}
+		modifier = {
+			factor = 2
+			culture = breton
+		}
+		modifier = {
+			factor = 2.5
+			culture = oldfrisian
+		}
+		modifier = {
+			factor = 3.0
+			culture = frisian
+		}
+		modifier = {
+			factor = 1.5
+			culture = oldfrankish
+		}
+		modifier = {
+			factor = 1.25
+			OR = {		
+				culture = frankish
+				culture = dutch
+			}
+		}
+		modifier = {
+			factor = 0.75
+			religion = roman_pagan
+		}
+		modifier = {
+			factor = 2
+			culture_group = basque
+		}
+		modifier = {
+			factor = 0.75
+			AND = {
+				religion_group = zoroastrian_group
+				owner = {
+					top_liege = {
+						religion_group = zoroastrian_group
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			religion_group = pagan_group
+		}
+		modifier = {
+			factor = 0.5
+			AND = {
+				religion_group = christian
+				owner = {
+					top_liege = {
+						religion_group = christian
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 2 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 4 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 6 } }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { stewardship = 8 } }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 11 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 12 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 13 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 14 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 15 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { stewardship = 16 }
+		}
+		modifier = {
+			factor = 1.5
+			owner = { NOT = { diplomacy = 6 } }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { diplomacy = 12 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { diplomacy = 14 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { diplomacy = 16 }
+		}
+		modifier = {
+			factor = 0.9
+			owner = { diplomacy = 18 }
+		}
+		modifier = {
+			factor = 5.3
+			NOR = {
+				AND = {
+					region = world_gaul
+					NOR = { 
+						region = world_gaul_romangermania 
+						region = world_gaul_aquitania_tertia
+					}
+					any_neighbor_province = {
+						culture = romanogallic
+					}
+				}
+				AND = { 
+					OR = {
+						region = world_britannia
+						region = world_caledonia
+						region = world_ireland 
+					}
+					any_neighbor_province = {
+						culture = romanobritish
+					}
+				}
+				AND = { 
+					OR = {
+						region = world_gaul_romangermania 
+						region = world_germania 
+					}
+					NAND = {
+						region = world_germania_jutland
+						has_global_flag = jutland_conquered_norse
+					}
+					NAND = {
+						region = world_germania_angeln
+						has_global_flag = angeln_conquered_norse
+					}
+					any_neighbor_province = {
+						culture = romanogermanic
+					}
+				}
+				AND = { 
+					region = custom_scandinavia 
+					OR = {
+						NOT = { region = world_germania_jutland }
+						has_global_flag = jutland_conquered_norse
+					}
+					OR = {
+						NOT = { region = world_germania_angeln }
+						has_global_flag = angeln_conquered_norse
+					}
+					any_neighbor_province = {
+						culture = romanoscandian
+					}
+				}
+				AND = { 
+					region = world_gaul_aquitania_tertia
+					any_neighbor_province = {
+						culture = romanoaquitanian
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			owner = { trait = augustus }
+		}
+		modifier = {
+			factor = 0.75
+			owner = { has_minor_title = title_senator }
+		}
+		modifier = {
+			factor = 0.8
+			terrain = fosse_way
+		}
+		modifier = {
+			factor = 2.0
+			terrain = mountain
+		}
+		modifier = {
+			factor = 2.0
+			terrain = forest
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { num_of_settlements = 3 }
+		}
+		modifier = {
+			factor = 0.65
+			OR = {
+				province_id = 4
+				province_id = 8
+				province_id = 10
+				province_id = 11
+				province_id = 12
+				province_id = 20
+				province_id = 21
+				province_id = 22
+				province_id = 24
+				province_id = 36
+				province_id = 37
+				province_id = 38
+				province_id = 41
+				province_id = 46
+				province_id = 47
+				province_id = 56				
+			}
+		}
+		modifier = {
+			factor = 3.0
+			NOT = {
+				owner = {
+					top_liege = {
+						tier = EMPEROR
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA315191"
+		ROOT = { convert_to_local_roman_culture_effect = yes }
+	}
+}
+
+
+### All Gaul Reconquered ###
+narrative_event = {
+	id = 315200
+	title = "EVTNAME315200"
+	major = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	
+	desc = {
+		text = "EVTDESC315200"
+		trigger = {
+			has_landed_title = e_gaul
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315200_1"
+		trigger = {
+			has_landed_title = e_roman_britannia
+		}
+	}
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		NOT = { has_global_flag = gaul_reconquered_roman }
+		completely_controls_region = world_gaul
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = gaul_reconquered_roman
+		
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			restore_roman_provinces_gaul_effect = yes
+		}
+		
+		if = {
+			limit = { has_landed_title = e_roman_britannia }
+			e_roman_britannia = { set_name = "Imperium Romanum" }
+			any_title = {
+				limit = { is_gallic_province_title_trigger = yes }
+				de_jure_liege = e_roman_britannia
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315200"
+		trigger = {
+			has_landed_title = e_gaul
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315200"
+		trigger = {
+			top_liege = { has_landed_title = e_gaul }
+			NOT = { has_landed_title = e_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315200"
+		trigger = {
+			NOT = { 
+				OR = {
+					has_landed_title = e_gaul
+					top_liege = { has_landed_title = e_gaul }
+					has_landed_title = e_roman_britannia
+					top_liege = { has_landed_title = e_roman_britannia }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315200"
+		trigger = {
+			has_landed_title = e_roman_britannia
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTC315200"
+		trigger = {
+			top_liege = { has_landed_title = e_roman_britannia }
+			NOT = { has_landed_title = e_roman_britannia }
+		}
+	}
+}
+### All Britannia Reconquered ###
+narrative_event = {
+	id = 315201
+	title = "EVTNAME315201"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	desc = {
+		text = "EVTDESC315201"
+		trigger = {
+			has_landed_title = e_gaul
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315201_1"
+		trigger = {
+			has_landed_title = e_roman_britannia
+		}
+	}
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		NOT = { has_global_flag = britannia_reconquered_roman }
+		completely_controls_region = custom_roman_britannia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = britannia_reconquered_roman
+		
+		if = {
+			limit = { has_landed_title = e_gaul }
+			e_gaul = { set_name = "Imperium Romanum" }
+			any_title = {
+				limit = { is_british_province_title_trigger = yes }
+				de_jure_liege = e_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315201"
+		trigger = {
+			has_landed_title = e_gaul
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315201"
+		trigger = {
+			top_liege = { has_landed_title = e_gaul }
+			NOT = { has_landed_title = e_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315201"
+		trigger = {
+			NOT = { 
+				OR = {
+					has_landed_title = e_gaul
+					top_liege = { has_landed_title = e_gaul }
+					has_landed_title = e_roman_britannia
+					top_liege = { has_landed_title = e_roman_britannia }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315201"
+		trigger = {
+			has_landed_title = e_roman_britannia
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTC315201"
+		trigger = {
+			top_liege = { has_landed_title = e_roman_britannia }
+			NOT = { has_landed_title = e_roman_britannia }
+		}
+	}
+}
+
+### Caledonia Conquered ###
+narrative_event = {
+	id = 315202
+	title = "EVTNAME315202"
+	desc = "EVTDESC315202"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		NOT = { has_global_flag = caledonia_conquered_roman }
+		completely_controls_region = world_caledonia
+		completely_controls_region = custom_valentia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = caledonia_conquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315202"
+		trigger = {
+			completely_controls_region = world_caledonia
+			completely_controls_region = custom_valentia
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315202"
+		trigger = {
+			top_liege = {
+				completely_controls_region = world_caledonia
+				completely_controls_region = custom_valentia
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315202"
+		trigger = {
+			NOT = {
+				top_liege = {
+					completely_controls_region = world_caledonia
+					completely_controls_region = custom_valentia
+				}
+			}
+		}
+	}
+}
+
+### Hibernia Conquered ###      # De Jure Cleanup and Future Legion Trigger
+narrative_event = {
+	id = 315203
+	title = "EVTNAME315203"
+	desc = "EVTDESC315203"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+		}
+		NOT = { has_global_flag = hibernia_conquered_roman }
+		completely_controls_region = world_ireland
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = hibernia_conquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315203"
+		trigger = {
+			completely_controls_region = world_ireland
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315203"
+		trigger = {
+			top_liege = {
+				completely_controls_region = world_ireland
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315203"
+		trigger = {
+			NOT = {
+				top_liege = {
+					completely_controls_region = world_ireland
+				}
+			}
+		}
+	}
+}
+
+
+
+### ROMAN DEFEAT ###
+narrative_event = {
+	id = 315300
+	title = "EVTNAME315300"
+	picture = "GFX_evt_roman_legionary_dark"
+	
+	desc = {
+		text = EVTDESC315300
+		trigger = {
+			NOT = {
+				any_independent_ruler = {
+					OR = {
+						any_demesne_title = {
+							is_british_province_title_trigger = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	desc = {
+		text = EVTDESC315300_1
+		trigger = {
+			any_independent_ruler = {
+				OR = {
+					any_demesne_title = {
+						is_british_province_title_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	hide_from = yes
+	major = yes
+	
+	only_rulers = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		NOT = { has_global_flag = roman_defeat }
+		k_gaul = { has_holder = no }
+		e_gaul = { has_holder = no }
+		NOT = {
+			any_independent_ruler = {
+				culture_group = imperiale
+				higher_tier_than = DUKE
+				is_alive = yes
+				is_landed = yes
+				capital_scope = {
+					region = world_gaul
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	immediate = {
+		set_global_flag = roman_defeat
+		
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			restore_roman_provinces_gaul_effect = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315300"
+		trigger = {
+			NOT = { culture_group = imperiale }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315300"
+		trigger = {
+			culture_group = imperiale
+			NOT = {
+				top_liege = {
+					any_demesne_title = {
+						is_british_province_title_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315300"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			top_liege = {
+				any_demesne_title = {
+					is_british_province_title_trigger = yes
+				}
+			}
+		}
+	}
+}
+
+## Gallic Usurpers ##
+# Usurper in Gaul (bounce)
+character_event = {
+	id = 315600
+	title = "EVTNAME315600"
+	desc = "EVTDESC315600"
+	picture = "GFX_evt_roman_legion_marching"
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_global_flag = usurper_gaul }
+		has_landed_title = e_gaul
+		e_western_roman_empire = { has_holder = yes }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = usurper_gaul
+		clr_global_flag = usurper_defeat
+		set_character_flag = usurper
+	}
+	
+	option = {
+		name = "EVTOPTA315600"
+		any_playable_ruler  = {
+			narrative_event = { id = 315500 }
+		}
+	}
+}
+	
+	
+	
+# Usurper in Gaul
+narrative_event = {
+	id = 315500
+	title = "EVTNAME315500"
+	desc = "EVTDESC315500"
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315500"
+		trigger = {
+			NOT = { culture_group = imperiale }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315500"
+		trigger = {
+			culture_group = imperiale
+		}
+	}
+}
+
+# Usurper defeated (bounce)
+character_event = {
+	id = 315700
+	title = "EVTNAME315700"
+	desc = "EVTDESC315700"
+	picture = "GFX_evt_roman_emperor_salute"
+	
+	trigger = {
+		has_global_flag = usurper_gaul
+		has_character_flag = usurper
+		NOT = { has_global_flag = usurper_defeat }
+		e_western_roman_empire = { has_holder = yes }
+		e_gaul = { has_holder = no }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = usurper_defeat
+		clr_global_flag = usurper_gaul
+		clr_character_flag = usurper
+	}
+	
+	option = {
+		name = "EVTOPTA315700"
+		any_playable_ruler = {
+			narrative_event = { id = 315400 }
+		}
+	}
+}
+
+# Usurper defeated
+narrative_event = {
+	id = 315400
+	title = "EVTNAME315400"
+	desc = "EVTDESC315400"
+	picture = "GFX_evt_roman_emperor_salute"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315400"
+		trigger = {
+			NOT = { culture_group = imperiale }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315400"
+		trigger = {
+			culture_group = imperiale
+		}
+	}
+}
+
+# Remove Augustus trait from someone who no longer rules (i.e Constantine III)
+#character_event = {
+#	id = 315800
+#	title = "EVTNAME315800"
+#	desc = "EVTDESC315800"
+#	picture = "GFX_evt_royal_court"
+#	
+#	trigger = {
+#		trait = augustus
+#		OR = {
+#			NOT = { has_landed_title = e_gaul }
+#			NOT = { has_landed_title = e_western_roman_empire }
+#			NOT = { has_landed_title = e_roman_britannia }
+#		}
+#	}
+#	
+#	mean_time_to_happen = {
+#		days = 1
+#	}
+#	
+#	option = {
+#		name = "EVTOPTA315800"
+#		remove_trait = augustus
+#		prestige = -50
+#	}
+#}
+
+##### LEGION EVENTS #####
+
+# Creation of the Legio VI Victrix
+narrative_event = {
+	id = 315850
+	title = "EVTNAME315850"
+	desc = "EVTDESC315850"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315850
+		trigger = {
+			has_character_flag = legio_VI_victrix_raised
+		}
+		clr_character_flag = legio_VI_victrix_raised
+		d_legio_vi_victrix = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_victrix = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_vi_victrix
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanobritish
+				female = no
+				age = 32
+				attributes = {
+					martial = 8
+					diplomacy = 6
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_vi_victrix = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315850"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_VI_victrix_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315850"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_VI_victrix_raised }
+		}	
+	}
+}
+
+# Creation of the Legio XX Valeria Victrix
+narrative_event = {
+	id = 315852
+	title = "EVTNAME315852"
+	desc = "EVTDESC315852"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315852
+		trigger = {
+			has_character_flag = legio_XX_valeria_victrix_raised
+		}
+		clr_character_flag = legio_XX_valeria_victrix_raised
+		d_legio_xx_valeria_victrix = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XX_valeria_victrix = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_xx_valeria_victrix
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanobritish
+				female = no
+				age = 36
+				attributes = {
+					martial = 9
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_xx_valeria_victrix = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315852"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XX_valeria_victrix_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315852"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XX_valeria_victrix_raised }
+		}	
+	}
+}
+
+# Creation of the Legio II Augusta
+narrative_event = {
+	id = 315854
+	title = "EVTNAME315854"
+	desc = "EVTDESC315854"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315854
+		trigger = {
+			has_character_flag = legio_II_augusta_raised
+		}
+		clr_character_flag = legio_II_augusta_raised
+		d_legio_ii_augusta = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_augusta = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_ii_augusta
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanobritish
+				female = no
+				age = 33
+				attributes = {
+					martial = 8
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_ii_augusta = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315854"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_II_augusta_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315854"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_II_augusta_raised }
+		}	
+	}
+}
+
+# Creation of the Legio II Britannica
+narrative_event = {
+	id = 315856
+	title = "EVTNAME315856"
+	desc = "EVTDESC315856"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315856
+		trigger = {
+			has_character_flag = legio_II_britannica_raised
+		}
+		clr_character_flag = legio_II_britannica_raised
+		d_legio_ii_britannica = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_britannica = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_ii_britannica
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanobritish
+				female = no
+				age = 39
+				attributes = {
+					martial = 10
+					diplomacy = 6
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_ii_britannica = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315856"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_II_britannica_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315856"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_II_britannica_raised }
+		}	
+	}
+}
+
+# Creation of the Legio I Flavia Gallicana Constantia
+narrative_event = {
+	id = 315860
+	title = "EVTNAME315860"
+	desc = "EVTDESC315860"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315860
+		trigger = {
+			has_character_flag = legio_I_flavia_gallicana_constantia_raised
+		}
+		clr_character_flag = legio_I_flavia_gallicana_constantia_raised
+		d_legio_i_flavia_gallicana_constantia = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_gallicana_constantia = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_i_flavia_gallicana_constantia
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogallic
+				female = no
+				age = 28
+				attributes = {
+					martial = 6
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_i_flavia_gallicana_constantia = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315860"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_flavia_gallicana_constantia_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315860"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_flavia_gallicana_constantia_raised }
+		}	
+	}
+}
+
+# Creation of the Legio I Flavia Martis
+narrative_event = {
+	id = 315862
+	title = "EVTNAME315862"
+	desc = "EVTDESC315862"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315862
+		trigger = {
+			has_character_flag = legio_I_flavia_martis_raised
+		}
+		clr_character_flag = legio_I_flavia_martis_raised
+		d_legio_i_flavia_martis = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_martis = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_i_flavia_martis
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogallic
+				female = no
+				age = 31
+				attributes = {
+					martial = 8
+					diplomacy = 6
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_i_flavia_martis = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315862"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_flavia_martis_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315862"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_flavia_martis_raised }
+		}	
+	}
+}
+
+# Creation of the Legio I Flavia Minervia
+narrative_event = {
+	id = 315864
+	title = "EVTNAME315864"
+	desc = "EVTDESC315864"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315864
+		trigger = {
+			has_character_flag = legio_I_minervia_raised
+		}
+		clr_character_flag = legio_I_minervia_raised
+		d_legio_i_minervia = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_minervia = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_i_minervia
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogermanic
+				female = no
+				age = 36
+				attributes = {
+					martial = 9
+					diplomacy = 6
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_i_minervia = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315864"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_minervia_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315864"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_I_minervia_raised }
+		}	
+	}
+}
+
+# Creation of the Legio XXX Ulpia Victrix
+narrative_event = {
+	id = 315866
+	title = "EVTNAME315866"
+	desc = "EVTDESC315866"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315866
+		trigger = {
+			has_character_flag = legio_XXX_ulpia_victrix_raised
+		}
+		clr_character_flag = legio_XXX_ulpia_victrix_raised
+		d_legio_xxx_ulpia_victrix = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XXX_ulpia_victrix = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_xxx_ulpia_victrix
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogermanic
+				female = no
+				age = 27
+				attributes = {
+					martial = 6
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_xxx_ulpia_victrix = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315866"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XXX_ulpia_victrix_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315866"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XXX_ulpia_victrix_raised }
+		}	
+	}
+}
+
+# Creation of the Legio XII Victrix
+narrative_event = {
+	id = 315868
+	title = "EVTNAME315868"
+	desc = "EVTDESC315868"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315868
+		trigger = {
+			has_character_flag = legio_XII_victrix_raised
+		}
+		clr_character_flag = legio_XII_victrix_raised
+		d_legio_xii_victrix = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XII_victrix = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_xii_victrix
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogallic
+				female = no
+				age = 29
+				attributes = {
+					martial = 7
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_xii_victrix = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315868"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XII_victrix_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315868"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_XII_victrix_raised }
+		}	
+	}
+}
+
+# Creation of the Legio VI Gallicana
+narrative_event = {
+	id = 315870
+	title = "EVTNAME315870"
+	desc = "EVTDESC315870"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315870
+		trigger = {
+			has_character_flag = legio_VI_gallicana_raised
+		}
+		clr_character_flag = legio_VI_gallicana_raised
+		d_legio_vi_gallicana = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_gallicana = yes
+				}
+			}
+			activate_title = {
+				title = d_legio_vi_gallicana
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogallic
+				female = no
+				age = 33
+				attributes = {
+					martial = 8
+					diplomacy = 6
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_legio_vi_gallicana = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315870"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_VI_gallicana_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315870"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = legio_VI_gallicana_raised }
+		}	
+	}
+}
+
+# Legion destroyed
+character_event = {
+	id = 315900
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		government = legion_government
+		liege = { war = no }
+		OR = {
+			AND = {
+				has_landed_title = d_legio_vi_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_six_victrix }
+					NOT = { completely_controls = c_eburacum }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xx_valeria_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+					NOT = { completely_controls = c_deva }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_ii_augusta
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_two_augusta }
+					NOT = { completely_controls = c_portus_dubris }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_ii_britannica
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_two_britannica }
+					NOT = { completely_controls = c_portus_dubris }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_flavia_gallicana_constantia
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_constantia }
+					NOT = { completely_controls = c_constantia }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_flavia_martis
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_flavia }
+					NOT = { completely_controls = c_fanum_martis }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_minervia
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_minervia }
+					NOT = { completely_controls = c_bonna }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xxx_ulpia_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_thirty_ulpia }
+					NOT = { completely_controls = c_tricensimae }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xii_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_twelve_victrix }
+					NOT = { completely_controls = c_treverorum }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_vi_gallicana
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_six_gallicana }
+					NOT = { completely_controls = c_beda }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		character_event = { id = 315903 days = 10 }
+	}
+	
+}
+# Enforce 10-day delay to allow other maintenance events to kick in first
+narrative_event = {
+	id = 315903
+	title = "EVTNAME315900"
+	desc = "EVTDESC315900"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		government = legion_government
+		liege = { war = no }
+		OR = {
+			AND = {
+				has_landed_title = d_legio_vi_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_six_victrix }
+					NOT = { completely_controls = c_eburacum }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xx_valeria_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+					NOT = { completely_controls = c_deva }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_ii_augusta
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_two_augusta }
+					NOT = { completely_controls = c_portus_dubris }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_ii_britannica
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_two_britannica }
+					NOT = { completely_controls = c_portus_dubris }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_flavia_gallicana_constantia
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_constantia }
+					NOT = { completely_controls = c_constantia }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_flavia_martis
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_flavia }
+					NOT = { completely_controls = c_fanum_martis }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_i_minervia
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_one_minervia }
+					NOT = { completely_controls = c_bonna }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xxx_ulpia_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_thirty_ulpia }
+					NOT = { completely_controls = c_tricensimae }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_xii_victrix
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_twelve_victrix }
+					NOT = { completely_controls = c_treverorum }
+				}
+			}
+			AND = {
+				has_landed_title = d_legio_vi_gallicana
+				liege = { 
+					NOT = { has_earmarked_regiments = legio_six_gallicana }
+					NOT = { completely_controls = c_beda }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315900"
+		trigger = {
+			character = ROOT
+			NOT = { 
+				ROOT = {
+					top_liege = { character = PREVPREV }
+				}
+			}
+		}
+		prestige = -100
+		if = {
+			limit = { ai = no }
+			primary_title = {
+				unsafe_destroy_landed_title = THIS
+				activate_title = { title = THIS status = no }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315900"
+		trigger = {
+			ROOT = {
+				top_liege = { character = PREVPREV }
+			}
+		}
+		prestige = -100
+		if = {
+			limit = { ai = no }
+			ROOT = {
+				primary_title = {
+					unsafe_destroy_landed_title = THIS
+					activate_title = { title = THIS status = no }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315900"
+		trigger = {
+			NOR = {
+				character = ROOT
+				ROOT = {
+					top_liege = { character = PREVPREV }
+				}
+			}
+			same_realm = ROOT
+		}
+		if = {
+			limit = { 
+				ai = no 
+				ROOT = { is_ruler = yes }
+			}
+			hidden_tooltip = {
+				ROOT = {
+					primary_title = {
+						unsafe_destroy_landed_title = THIS
+						activate_title = { title = THIS status = no }
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315900"
+		trigger = {
+			NOR = {
+				character = ROOT
+				ROOT = {
+					top_liege = { character = PREVPREV }
+				}
+				same_realm = ROOT
+			}
+		}
+		if = {
+			limit = { 
+				ai = no 
+				ROOT = { is_ruler = yes }
+			}
+			hidden_tooltip = {
+				ROOT = {
+					primary_title = {
+						unsafe_destroy_landed_title = THIS
+						activate_title = { title = THIS status = no }
+					}
+				}
+			}
+		}
+	}
+}
+
+# Legion commanders getting granted other titles automatically abdicate their legion position
+character_event = {
+	id = 315901
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	desc = {
+		text = EVTDESC315901
+		trigger = {
+			independent = yes
+		}
+	}
+	
+	desc = {
+		text = EVTDESC315901_1
+		trigger = {
+			independent = no
+		}
+	}
+	
+	trigger = {
+		any_demesne_title = {
+			is_roman_legion_title_trigger = yes
+		}
+		any_demesne_title = {
+			is_roman_legion_title_trigger = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315901"
+		trigger = {
+			independent = yes
+		}
+		save_event_target_as = legionary_liege
+		any_demesne_title = {
+			limit = { is_roman_legion_title_trigger = yes }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+							any_demesne_title = { is_roman_legion_title_trigger = no } 
+							any_demesne_title = {
+								count = 2
+								is_roman_legion_title_trigger = yes
+							}
+						}
+					}
+				}
+				roman_legion_succession_effect = yes
+			}
+			hidden_tooltip = {
+				holder_scope = { save_event_target_as = new_legion_commander }
+				event_target:legionary_liege = {
+					event_target:new_legion_commander = {
+						set_defacto_liege = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315901"
+		trigger = {
+			independent = no
+		}
+		liege = {
+			save_event_target_as = legionary_liege
+		}
+		any_demesne_title = {
+			limit = { is_roman_legion_title_trigger = yes }
+			if = {
+				limit = {
+					ROOT = {
+						OR = {
+							any_demesne_title = { is_roman_legion_title_trigger = no } 
+							any_demesne_title = {
+								count = 2
+								is_roman_legion_title_trigger = yes
+							}
+						}
+					}
+				}
+				roman_legion_succession_effect = yes
+			}
+			hidden_tooltip = {
+				holder_scope = { save_event_target_as = new_legion_commander }
+				event_target:legionary_liege = {
+					event_target:new_legion_commander = {
+						set_defacto_liege = PREV
+					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			event_target:legionary_liege = {
+				ROOT = {
+					set_defacto_liege = PREV
+				}
+			}
+		}
+	}
+}
+
+# New legionary commanders get military traits
+character_event = {
+	id = 315902
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = { is_roman_legion_title_trigger = yes }
+		NOT = { has_character_flag = new_legion_commander }
+	}
+	
+	immediate = {
+		set_character_flag = new_legion_commander
+		# Reset education
+		remove_trait = amateurish_plotter
+		remove_trait = flamboyant_schemer
+		remove_trait = intricate_webweaver
+		remove_trait = elusive_shadow
+		remove_trait = naive_appeaser
+		remove_trait = underhanded_rogue
+		remove_trait = charismatic_negotiator
+		remove_trait = grey_eminence
+		remove_trait = indulgent_wastrel
+		remove_trait = thrifty_clerk
+		remove_trait = fortune_builder
+		remove_trait = midas_touched
+		remove_trait = detached_priest
+		remove_trait = martial_cleric
+		remove_trait = scholarly_theologian
+		remove_trait = mastermind_theologian
+		remove_trait = misguided_warrior
+		remove_trait = tough_soldier
+		remove_trait = skilled_tactician
+		remove_trait = brilliant_strategist
+		random_list = {
+			5 = { add_trait = misguided_warrior }
+			35 = { add_trait = tough_soldier }
+			40 = { add_trait = skilled_tactician }
+			20 = { add_trait = brilliant_strategist }
+		}
+		
+		remove_trait = poor_warrior
+		remove_trait = trained_warrior
+		if = {
+			limit = { NOT = { trait = master_warrior } }
+			add_trait = skilled_warrior
+		}
+		
+		if = {
+			limit = { NOT = { trait = war_hero } }
+			add_trait = veteran
+		}
+		add_trait = roman_trained
+		
+		# Stat boost
+		change_martial = 3
+		if = {
+			limit = { NOT = { diplomacy = 4 } }
+			change_diplomacy = 2
+		}
+		if = {
+			limit = { NOT = { diplomacy = 4 } }
+			change_diplomacy = 2
+		}
+		
+		# Add rebel opinion modifier if in rebellion
+		if = {
+			limit = { primary_title = { has_title_flag = revolting_legion } }
+			liege = {
+				reverse_opinion = {
+					modifier = opinion_rebel_leader
+					who = ROOT
+					years = 100
+				}
+			}
+		}
+	}
+}
+
+
+# Legions aren't allowed to have vassals
+character_event = {
+	id = 315905
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		government = legion_government
+	}
+	
+	immediate = {
+		set_character_flag = legionary_commander
+		liege = { character_event = { id = 315906 days = 1 } }	# Delay required for engine reasons
+	}
+}
+
+character_event = {
+	id = 315906
+	desc = "EVTDESC315906"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315906"
+		reverse_remove_opinion = {
+			who = FROM
+			modifier = opinion_vassal_transfer
+		}
+		FROM = {
+			any_vassal = {
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+}
+
+# Legions aren't allowed to be transferred under vassals
+character_event = {
+	id = 315907
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legionary_dark"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		character_event = { id = 315908 days = 1 }	# Delay required for engine reasons
+	}
+}
+
+character_event = {
+	id = 315908
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { 
+				independent = no
+				any_vassal = { government = legion_government } 
+			}
+			liege = {
+				reverse_remove_opinion = {
+					who = ROOT
+					modifier = opinion_vassal_transfer
+				}
+				ROOT = {
+					any_vassal = {
+						limit = { government = legion_government }
+						set_defacto_liege = PREVPREV
+					}
+				}
+			}
+		}
+	}
+}
+
+# Puting legions under faction leader in faction revolt and apply proper opinion modifiers (called from faction leader)
+character_event = {
+	id = 315910
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	immediate = {
+		liege_before_war = {
+			primary_title = { save_event_target_as = defending_liege_title }
+			any_current_enemy = {
+				limit = {
+					government = legion_government
+					liege_before_war = {
+						character = PREVPREV
+					}
+				}
+				set_defacto_liege = ROOT
+				opinion = {
+					modifier = opinion_rebel_leader
+					who = ROOT
+					years = 100
+				}
+				primary_title = { 
+					set_title_flag = revolting_legion
+					set_title_flag = revolting_legion_@event_target:defending_liege_title
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = { government = legion_government }
+			}
+			save_event_target_as = faction_revolt_leader
+			character_event = { id = 315920 }
+		}
+	}
+}
+
+# Deal with revolting legions after end of major revolt (called from faction leader)
+character_event = {
+	id = 315911
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	immediate = {
+		liege = {
+			primary_title = { save_event_target_as = liege_primary_title }
+			if = {
+				limit = { 
+					any_character = {	
+						government = legion_government
+						primary_title = { has_title_flag = revolting_legion_@event_target:liege_primary_title }
+					}
+				}
+				character_event = { id = 315922 }
+			}
+		}
+	}
+}
+
+# Special case for successful independence revolt
+character_event = {
+	id = 315912
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	immediate = {
+		any_character = {
+			limit = { has_character_flag = former_liege_@ROOT }
+			primary_title = { save_event_target_as = liege_primary_title }
+			clr_character_flag = former_liege_@ROOT
+		}
+		any_character = {
+			limit = {
+				government = legion_government
+				primary_title = { has_title_flag = revolting_legion_@event_target:liege_primary_title }
+			}
+			primary_title = { 
+				clr_title_flag = revolting_legion_@event_target:liege_primary_title 
+				clr_title_flag = revolting_legion
+			}
+			any_opinion_modifier_target = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = PREV
+						modifier = opinion_rebel_leader
+					}
+				}
+				reverse_remove_opinion = {
+					who = PREV
+					modifier = opinion_rebel_leader
+				}
+			}
+			
+			# Try to give to governor of capital first
+			if = {
+				limit = { 
+					primary_title = { 
+						capital_scope = { 
+							kingdom = {
+								has_title_flag = roman_province
+								holder_scope = {
+									has_character_flag = independence_faction_@ROOT
+								}
+							}
+						}
+					}
+				}
+				primary_title = { 
+					capital_scope = { 
+						kingdom = {
+							holder_scope = {
+								save_event_target_as = governor_liege
+							}
+						}
+					}
+				}
+				event_target:governor_liege = {
+					set_defacto_vassal = PREV
+				}
+				set_character_flag = liege_given
+			}
+			# Try to give to faction leader if governor not involved
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+					ROOT = { higher_real_tier_than = DUKE } 
+				}
+				set_defacto_liege = ROOT
+				set_character_flag = liege_given
+			}
+			# Try to give to any king-level revolter if available
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+					any_character = {
+						has_character_flag = independence_faction_@ROOT
+						higher_real_tier_than = DUKE
+					}
+				}
+				random_character = {
+					limit = {
+						has_character_flag = independence_faction_@ROOT
+						higher_real_tier_than = DUKE
+					}
+					set_defacto_vassal = PREV
+				}
+				set_character_flag = liege_given
+			}
+			# Otherwise, disband the legion (nothing we can do about it)
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+				}
+				primary_title = {
+					unsafe_destroy_landed_title = THIS
+					activate_title = { title = THIS status = no }
+				}
+			}
+			clr_character_flag = liege_given
+		}
+		clr_character_flag = success_independence
+		any_character = {
+			limit = { has_character_flag = independence_faction_@ROOT }
+			clr_character_flag = independence_faction_@ROOT
+		}
+	}
+}
+
+# Deal with revolt wars being invalidated
+character_event = {
+	id = 315913
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	immediate = {
+		any_character = {
+			limit = { has_character_flag = prewar_liege_@ROOT }
+			clr_character_flag = prewar_liege_@ROOT
+			save_event_target_as = pre_war_liege
+		}
+		# For if revolt was destroyed or prewar liege can still retake legions
+		if = {
+			limit = { 
+				OR = {
+					is_landed = no 
+					event_target:pre_war_liege = {
+						is_landed = yes
+						higher_real_tier_than = DUKE
+					}
+				}
+			}
+			if = {
+				limit = { is_landed = no }
+				set_character_flag = faction_defeated
+			}
+			event_target:pre_war_liege = {
+				primary_title = { save_event_target_as = liege_primary_title }
+				if = {
+					limit = { 
+						any_character = {	
+							government = legion_government
+							primary_title = { has_title_flag = revolting_legion_@event_target:liege_primary_title }
+						}
+					}
+					character_event = { id = 315922 }
+				}
+				break = yes
+			}
+		}
+		# For if pre-war liege was destroyed or somehow disrupted
+		any_vassal = {
+			limit = {
+				government = legion_government
+				primary_title = { 
+					has_title_flag = revolting_legion
+				}
+			}
+			primary_title = {
+				any_title = {
+					clr_title_flag = revolting_legion_@THIS
+				}
+				clr_title_flag = revolting_legion
+			}
+			any_opinion_modifier_target = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = PREV
+						modifier = opinion_rebel_leader
+					}
+				}
+				reverse_remove_opinion = {
+					who = PREV
+					modifier = opinion_rebel_leader
+				}
+			}
+			# If the revolters have a new Roman liege, give the legions to them
+			if = {
+				limit = { 
+					NOT = { has_character_flag = liege_given }
+					ROOT = {
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+							is_roman_ruler_trigger = yes
+						}
+					}
+				}
+				set_character_flag = liege_given
+				ROOT = {
+					liege = {
+						set_defacto_vassal = PREVPREV
+					}
+				}
+			}
+			# Try to give to governor of capital
+			if = {
+				limit = { 
+					primary_title = { 
+						capital_scope = { 
+							kingdom = {
+								has_title_flag = roman_province
+								holder_scope = {
+									liege = {
+										character = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				primary_title = { 
+					capital_scope = { 
+						kingdom = {
+							holder_scope = {
+								save_event_target_as = governor_liege
+							}
+						}
+					}
+				}
+				event_target:governor_liege = {
+					set_defacto_vassal = PREV
+				}
+				set_character_flag = liege_given
+			}
+			# Try to give to faction leader if governor not involved (i.e. do nothing)
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+					ROOT = { higher_real_tier_than = DUKE } 
+				}
+				set_character_flag = liege_given
+			}
+			# Try to give to any king-level revolter if available
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+					ROOT = {
+						any_vassal = {
+							higher_real_tier_than = DUKE
+						}
+					}
+				}
+				ROOT = {
+					random_vassal = {
+						limit = { higher_real_tier_than = DUKE }
+						set_defacto_vassal = PREV
+					}
+				}
+				set_character_flag = liege_given
+			}
+			# Otherwise, disband the legion (nothing we can do about it)
+			if = {
+				limit = {
+					NOT = { has_character_flag = liege_given }
+				}
+				primary_title = {
+					unsafe_destroy_landed_title = THIS
+					activate_title = { title = THIS status = no }
+				}
+			}
+			clr_character_flag = liege_given
+		}
+	}
+}
+
+# Legions join rebels in faction revolt
+character_event = {
+	id = 315920
+	title = "EVTNAME315920"
+	desc = "EVTDESC315920"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315920"
+		any_vassal = {
+			limit = { government = legion_government }
+			custom_tooltip = {
+				text = EVTOPTA315920TT
+			}
+			#hidden_tooltip = {
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_victrix 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_victrix } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xx_valeria_victrix 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_twenty_valeria_victrix } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XX_valeria_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_augusta 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_augusta } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_augusta = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_britannica 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_britannica } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_britannica = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_gallicana_constantia 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_constantia } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_gallicana_constantia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_martis 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_flavia } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_martis = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_minervia 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_minervia } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_minervia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xxx_ulpia_victrix 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_thirty_ulpia } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XXX_ulpia_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xii_victrix 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_twelve_victrix } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XII_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_gallicana 
+						ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_gallicana } }
+					}
+					ROOT = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_gallicana = yes
+							}
+						}
+					}
+				}
+			#}
+		}
+		hidden_tooltip = {
+			liege_before_war = { character_event = { id = 315921 } }
+		}
+	}
+}
+
+# Legions join rebels in faction revolt (Inform liege)
+character_event = {
+	id = 315921
+	title = "EVTNAME315921"
+	desc = "EVTDESC315921"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315921"
+		event_target:faction_revolt_leader = {
+			any_vassal = {
+				limit = { government = legion_government }
+				custom_tooltip = {
+					text = EVTOPTA315921TT
+				}
+				#hidden_tooltip = {
+					if = {
+						limit = { 
+							has_landed_title = d_legio_vi_victrix 
+							ROOT = { has_earmarked_regiments = legio_six_victrix }
+						}
+						ROOT = {
+							disband_event_forces = legio_six_victrix
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_xx_valeria_victrix 
+							ROOT = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+						}
+						ROOT = {
+							disband_event_forces = legio_twenty_valeria_victrix
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_ii_augusta 
+							ROOT = { has_earmarked_regiments = legio_two_augusta }
+						}
+						ROOT = {
+							disband_event_forces = legio_two_augusta
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_ii_britannica 
+							ROOT = { has_earmarked_regiments = legio_two_britannica }
+						}
+						ROOT = {
+							disband_event_forces = legio_two_britannica
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_i_flavia_gallicana_constantia 
+							ROOT = { has_earmarked_regiments = legio_one_constantia }
+						}
+						ROOT = {
+							disband_event_forces = legio_one_constantia
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_i_flavia_martis 
+							ROOT = { has_earmarked_regiments = legio_one_flavia }
+						}
+						ROOT = {
+							disband_event_forces = legio_one_flavia
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_i_minervia 
+							ROOT = { has_earmarked_regiments = legio_one_minervia }
+						}
+						ROOT = {
+							disband_event_forces = legio_one_minervia
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_xxx_ulpia_victrix 
+							ROOT = { has_earmarked_regiments = legio_thirty_ulpia }
+						}
+						ROOT = {
+							disband_event_forces = legio_thirty_ulpia
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_xii_victrix 
+							ROOT = { has_earmarked_regiments = legio_twelve_victrix }
+						}
+						ROOT = {
+							disband_event_forces = legio_twelve_victrix
+						}
+					}
+					if = {
+						limit = { 
+							has_landed_title = d_legio_vi_gallicana 
+							ROOT = { has_earmarked_regiments = legio_six_gallicana }
+						}
+						ROOT = {
+							disband_event_forces = legio_six_gallicana
+						}
+					}
+				#}
+			}
+		}
+	}
+}
+
+# Legions come back under your control after rebellion
+character_event = {
+	id = 315922
+	title = "EVTNAME315922"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"
+	
+	desc = {
+		text = "EVTDESC315922"
+		trigger = {
+			FROM = { has_character_flag = faction_defeated }
+		}
+	}
+	
+	desc = {
+		text = "EVTDESC315922_1"
+		trigger = {
+			NOT = { FROM = { has_character_flag = faction_defeated } }
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315922"
+		any_character = {
+			limit = { 
+				government = legion_government 
+				primary_title = { has_title_flag = revolting_legion_@event_target:liege_primary_title }
+			}
+			if = {	
+				limit = { FROM = { has_character_flag = faction_defeated } }
+				custom_tooltip = {
+					text = EVTOPTA315922TT
+				}
+			}
+			if = {	
+				limit = { NOT = { FROM = { has_character_flag = faction_defeated } } }
+				custom_tooltip = {
+					text = EVTOPTA315922TT_1
+				}
+			}
+			hidden_tooltip = {
+				# Respawn legion event troops
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_victrix 
+						FROM = { has_earmarked_regiments = legio_six_victrix }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xx_valeria_victrix 
+						FROM = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XX_valeria_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_augusta 
+						FROM = { has_earmarked_regiments = legio_two_augusta }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_augusta = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_britannica 
+						FROM = { has_earmarked_regiments = legio_two_britannica }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_britannica = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_gallicana_constantia 
+						FROM = { has_earmarked_regiments = legio_one_constantia }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_gallicana_constantia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_martis 
+						FROM = { has_earmarked_regiments = legio_one_flavia }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_martis = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_minervia 
+						FROM = { has_earmarked_regiments = legio_one_minervia }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_minervia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xxx_ulpia_victrix 
+						FROM = { has_earmarked_regiments = legio_thirty_ulpia }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XXX_ulpia_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xii_victrix 
+						FROM = { has_earmarked_regiments = legio_twelve_victrix }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XII_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_gallicana 
+						FROM = { has_earmarked_regiments = legio_six_gallicana }
+					}
+					FROM = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_gallicana = yes
+							}
+						}
+					}
+				}
+				
+				# Set proper liege and remove rebel opinions and flags
+				primary_title = { 
+					clr_title_flag = revolting_legion_@event_target:liege_primary_title 
+					clr_title_flag = revolting_legion
+				}
+				if = {
+					limit = { FROM = { has_character_flag = faction_defeated } }
+					prisoner = ROOT
+				}
+				any_opinion_modifier_target = {
+					limit = {
+						reverse_has_opinion_modifier = {
+							who = PREV
+							modifier = opinion_rebel_leader
+						}
+					}
+					reverse_remove_opinion = {
+						who = PREV
+						modifier = opinion_rebel_leader
+					}
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_army = {			
+				limit = { 
+					location = {
+						FROM = {
+							capital_scope = {
+								province = PREVPREV
+							}
+						}
+					}
+				}
+				if = {	# Legions returned half-strength and demoralized (if defeated)
+					limit = { FROM = { has_character_flag = faction_defeated } }
+					troops = -0.5
+					morale = -0.9
+				}
+				if = {	# Otherwise, minor penalty
+					limit = { NOT = { FROM = { has_character_flag = faction_defeated } } }
+					troops = -0.2
+					morale = -0.2
+				}	
+			}
+			# Disband rebel legions
+			FROM = {
+				clr_character_flag = faction_defeated
+				disband_event_forces = legio_six_victrix
+				disband_event_forces = legio_twenty_valeria_victrix
+				disband_event_forces = legio_two_augusta
+				disband_event_forces = legio_two_britannica
+				disband_event_forces = legio_one_constantia
+				disband_event_forces = legio_one_flavia
+				disband_event_forces = legio_one_minervia
+				disband_event_forces = legio_thirty_ulpia
+				disband_event_forces = legio_twelve_victrix
+				disband_event_forces = legio_six_gallicana
+			}
+		}
+	}
+}
+
+# New Emperor (from war/claim/faction) gets control over legions
+character_event = {
+	id = 315925
+	title = "EVTNAME315925"
+	desc = "EVTDESC315925"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"	
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315925"
+		hidden_tooltip = {
+			any_character = {
+				limit = { has_character_flag = transfer_legions_@ROOT }
+				clr_character_flag = transfer_legions_@ROOT 
+				save_event_target_as = previous_ruler
+			}
+		}
+		any_character = {
+			limit = { 
+				government = legion_government 
+				has_character_flag = legion_to_transfer_@ROOT
+			}
+			custom_tooltip = {
+				text = EVTOPTA315925TT
+			}
+			hidden_tooltip = {
+				# Respawn legion event troops
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_victrix 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_six_victrix }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xx_valeria_victrix 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XX_valeria_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_augusta 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_two_augusta }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_augusta = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_ii_britannica 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_two_britannica }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_II_britannica = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_gallicana_constantia 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_one_constantia }
+					}
+					set_character_flag = here
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_gallicana_constantia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_flavia_martis 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_one_flavia }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_flavia_martis = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_i_minervia 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_one_minervia }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_I_minervia = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xxx_ulpia_victrix 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_thirty_ulpia }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XXX_ulpia_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_xii_victrix 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_twelve_victrix }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_XII_victrix = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_legio_vi_gallicana 
+						event_target:previous_ruler = { has_earmarked_regiments = legio_six_gallicana }
+					}
+					event_target:previous_ruler = {
+						capital_scope = {
+							ROOT = {
+								spawn_legio_VI_gallicana = yes
+							}
+						}
+					}
+				}
+				
+				clr_character_flag = legion_to_transfer_@ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_army = {			
+				limit = { 
+					location = {
+						event_target:previous_ruler = {
+							capital_scope = {
+								province = PREVPREV
+							}
+						}
+					}
+				}
+				# Minor penalty to legions
+				troops = -0.2
+				morale = -0.2
+			}
+			# Disband previous legions
+			event_target:previous_ruler = {
+				disband_event_forces = legio_six_victrix
+				disband_event_forces = legio_twenty_valeria_victrix
+				disband_event_forces = legio_two_augusta
+				disband_event_forces = legio_two_britannica
+				disband_event_forces = legio_one_constantia
+				disband_event_forces = legio_one_flavia
+				disband_event_forces = legio_one_minervia
+				disband_event_forces = legio_thirty_ulpia
+				disband_event_forces = legio_twelve_victrix
+				disband_event_forces = legio_six_gallicana
+			}
+		}
+	}
+}
+
+# Add modifier to Legionary Camp
+province_event = {
+	id = 315930
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_roman_aquila_pillar
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				capital_holding = { 
+					NOT = { has_building = ca_legion_castrum_1 }
+				}
+				OR = { 
+					has_province_modifier = legion_castrum_modifier_1 
+					has_province_modifier = legion_castrum_modifier_2
+				}
+			}
+			AND = {
+				capital_holding = { 
+					has_building = ca_legion_castrum_1 
+					NOT = { has_building = ca_legion_castrum_2 }
+				}
+				NOT = { has_province_modifier = legion_castrum_modifier_1 }
+			}
+			AND = {
+				capital_holding = { has_building = ca_legion_castrum_2 }
+				NOT = { has_province_modifier = legion_castrum_modifier_2 }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				capital_holding = { 
+					NOT = { has_building = ca_legion_castrum_1 }
+				}
+			}
+			remove_province_modifier = legion_castrum_modifier_1 
+			remove_province_modifier = legion_castrum_modifier_2
+		}
+		if = {
+			limit = {
+				capital_holding = { 
+					has_building = ca_legion_castrum_1 
+					NOT = { has_building = ca_legion_castrum_2 }
+				}
+			}
+			remove_province_modifier = legion_castrum_modifier_2
+			add_province_modifier = {
+				name = legion_castrum_modifier_1 
+				hidden = yes
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				capital_holding = { has_building = ca_legion_castrum_2 }
+			}
+			remove_province_modifier = legion_castrum_modifier_1
+			add_province_modifier = {
+				name = legion_castrum_modifier_2 
+				hidden = yes
+				duration = -1
+			}
+		}
+	}
+}

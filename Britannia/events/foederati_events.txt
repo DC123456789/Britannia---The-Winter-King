@@ -1,0 +1,1017 @@
+## Foederate maintenance Events ##
+
+namespace = foederati
+
+# Flip foederate counties to correct culture/religion/tribal
+province_event = {
+	id = foederati.1
+	title = "EVTNAMEFOEDERATI1"
+	desc = "EVTDESCFOEDERATI1"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			owner = {
+				NOT = { culture = ROOT }
+			}
+			owner = {
+				NOR = { 
+					religion = ROOT
+					is_heresy_of = ROOT
+					ROOT = {
+						is_heresy_of = PREV
+					}
+				}
+			}
+			NOT = { has_province_modifier = anglosaxon_settlement }
+		}
+		owner = { trait = foederate }
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI1"
+		owner = {
+			ROOT = {
+				culture = PREV
+				religion = PREV
+			}
+		}
+		add_province_modifier = { 
+			name = anglosaxon_settlement duration = -1 
+		}
+		germanic_convert_to_tribal_effect = yes
+		hidden_tooltip = {
+			remove_province_modifier = tribal_settlements	
+			remove_province_modifier = brythonic_settlements
+			remove_province_modifier = brythonic_settlements_foreign
+			remove_province_modifier = large_brythonic_settlements
+			remove_province_modifier = large_brythonic_settlements_foreign
+			remove_province_modifier = depopulated_1
+			remove_province_modifier = depopulated_2
+			remove_province_modifier = depopulated_3
+			clr_province_flag = lightly_depopulated_province
+			clr_province_flag = depopulated_province
+		}
+	}
+}
+
+# Event to make sure foederati vassals have the 'foederatus' trait
+character_event = {
+	id = foederati.2
+	title = "EVTNAMEFOEDERATI2"
+	desc = "EVTDESCFOEDERATI2"
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	
+	trigger = {
+		culture_group = germanic
+		age = 15
+		is_female = no
+		NOT = { trait = foederate }
+		is_tributary = { type = foederati }
+		#liege = {
+			#culture_group = celtic
+		#}
+		#top_liege = {
+			#culture_group = celtic
+		#}
+		#always = no			# Disable automatic for now, as it causes too many problems - targetted decision later?
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI2"
+		add_trait = foederate
+	}
+}
+
+# Event to remove 'foederatus' trait from foederati who become independent
+character_event = {
+	id = foederati.3
+	title = "EVTNAMEFOEDERATI3"
+	desc = "EVTDESCFOEDERATI3"
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	only_independent = yes
+	
+	trigger = {
+		culture_group = germanic
+		trait = foederate
+		top_liege = {
+			NOT = { culture_group = celtic }
+		}
+		in_revolt = no
+		NOR = { 
+			has_character_flag = foederate_revolt
+			any_war = {
+				using_cb = vassalize_foederati
+			}
+		}
+		NOT = { is_tributary = { type = foederati } }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI3"
+		remove_trait = foederate
+	}
+}
+
+# Event to remove 'foederatus' trait from foederati who are placed under vassals who are themselves foederati
+character_event = {
+	id = foederati.4
+	title = "EVTNAMEFOEDERATI4"
+	desc = "EVTDESCFOEDERATI4"
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	
+	trigger = {
+		culture_group = germanic
+		trait = foederate
+		independent = no
+		in_revolt = no
+		NOT = { has_character_flag = foederate_revolt }
+		OR = {
+			liege = {
+				NOT = { culture_group = celtic }
+			}
+			top_liege = {
+				NOT = { culture_group = celtic }
+			}
+			AND = {
+				independent = yes
+				NOT = {
+					is_tributary = {
+						type = foederati
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI4"
+		remove_trait = foederate
+	}
+}
+
+# Event to grant 'foederati employer' trait to anyone who should have it
+character_event = {
+	id = foederati.5
+	title = "EVTNAMEFOEDERATI5"
+	desc = "EVTDESCFOEDERATI5"
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	
+	trigger = {
+		independent = yes
+		culture_group = celtic
+		NOT = { trait = foederate_employer }
+		OR = {
+			any_vassal = {
+				trait = foederate
+			}
+			any_independent_ruler = {
+				is_tributary = {
+					type = foederati
+					suzerain = PREV
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI5"
+		add_trait = foederate_employer
+	}
+}
+
+# Event to force Britons to reallocate a Saxon leader if their land is revoked (bounce)
+province_event = {
+	id = foederati.6
+	title = "EVTNAMEFOEDERATI6"
+	desc = "EVTDESCFOEDERATI6"
+	picture = "GFX_evt_saxon_army"
+	
+	trigger = {
+		is_ingvaeonic_culture_trigger = yes
+		NOT = { has_province_flag = needs_new_saxon }
+		has_province_flag = foederate_province
+		owner = {
+			NOT = { is_ingvaeonic_culture_trigger = yes }
+		}
+		holder_scope = {
+			top_liege = { trait = foederate_employer }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 0.0001
+			always = yes
+		}
+	}
+	
+	immediate = {
+		set_province_flag = needs_new_saxon
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI6"
+		create_character = {
+			religion = germanic_pagan
+			culture = ROOT
+			female = no
+			age = 35
+			random_traits = yes
+			attributes = {
+				martial = 10
+				diplomacy = 7
+				intrigue = 8
+				stewardship = 7
+				learning = 6
+			}
+			health = 6
+			trait = tough
+		}
+		new_character = {
+#			save_event_target_as = new_saxon
+			set_character_flag = new_saxon
+		}
+		holder_scope = {
+			top_liege = { 
+				character_event = { id = foederati.7 }
+			}
+		}
+	}
+}
+
+# Event to force Britons to reallocate a Saxon leader if their land is revoked
+character_event = {
+	id = foederati.7
+	title = "EVTNAMEFOEDERATI7"
+	desc = "EVTDESCFOEDERATI7"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {						# A new ruler
+		name = "EVTOPTAFOEDERATI7"
+		ai_chance = {
+			factor = 2
+		}
+		ROOT = {
+			any_realm_character = {
+				limit = {
+					has_character_flag = new_saxon
+				}
+				ROOT = {
+					any_realm_province = {
+						limit = { has_province_flag = needs_new_saxon }
+						county = {
+							grant_title = PREVPREVPREV
+						}
+					}
+				}
+				clr_character_flag = new_saxon
+				add_trait = foederate
+			}
+		}
+		any_realm_province = {
+			limit = { has_province_flag = needs_new_saxon }
+			clr_province_flag = needs_new_saxon
+		}
+	}
+
+#	option = {						# No new ruler
+#		name = "EVTOPTBFOEDERATI7"
+#	}
+}
+
+# Event to remove 'foederatus employer' trait from anyone who shouldn't have it
+character_event = {
+	id = foederati.8
+	title = "EVTNAMEFOEDERATI8"
+	desc = "EVTDESCFOEDERATI8"
+	picture = "GFX_evt_saxon_army"
+	
+	trigger = {
+		trait = foederate_employer
+		OR = {
+			independent = no
+			NOT = { culture_group = celtic }
+			NOR = {
+				any_vassal = {
+					trait = foederate
+				}
+				any_independent_ruler = {
+					is_tributary = {
+						type = foederati
+						suzerain = PREV
+					}
+				}
+				any_war = {
+					using_cb = vassalize_foederati
+				}
+			}
+			is_landed = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI8"
+		remove_trait = foederate_employer
+	}
+}
+
+# Mark all provinces controlled by foederati
+province_event = {
+	id = foederati.9
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	trigger = {
+		owner = { trait = foederate }
+		NOT = { has_province_flag = foederate_province }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_province_flag = foederate_province
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Remove foederate province flag
+province_event = {
+	id = foederati.11
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	trigger = {
+		NOT = { owner = { trait = foederate } }
+		OR = {
+			has_province_flag = needs_new_saxon
+			owner = {
+				is_ingvaeonic_culture_trigger = no
+			}
+		}
+		has_province_flag = foederate_province
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_province_flag = foederate_province
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Heirs of foederati inherit the trait
+character_event = {
+	id = foederati.12
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROMFROM = { trait = foederate }
+		NOT = { trait = foederate }
+		culture_group = germanic
+		OR = {
+			AND = {
+				independent = no
+				liege = {
+					culture_group = celtic
+				}
+				top_liege = {
+					culture_group = celtic
+				}
+			}
+			AND = {
+				independent = yes
+				is_tributary = yes
+				suzerain = {
+					culture_group = celtic
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		add_trait = foederate
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Unlanded foederati lose the trait
+character_event = {
+	id = foederati.13
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = foederate
+		is_landed = no
+	}
+	
+	immediate = {
+		remove_trait = foederate
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Foederate tributary relationships last through generations
+character_event = {
+	id = foederati.20
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_playable = yes
+		any_independent_ruler = {
+			OR = {
+				AND = {
+					is_tributary = {
+						type = foederati
+						suzerain = ROOT
+					}
+				}
+				# ROOT = { 
+					# pays_tribute_to = PREV 
+					# trait = foederate
+				# }
+			}
+		}
+	}
+	
+	immediate = {
+		# if = {
+			# limit = { is_tributary = yes }
+			# suzerain = { save_event_target_as = current_suzerain }
+			# current_heir = {
+				# if = {
+					# limit = { NOT = { trait = foederate } }
+					# add_trait = foederate
+				# }
+				# event_target:current_suzerain = {
+					# if = {
+						# limit = { NOT = { has_dlc = "Horse Lords" } }
+						# set_defacto_vassal = PREV
+						# break = yes
+					# }
+					# make_tributary = { who = PREV type = foederati }
+				# }
+			# }
+			# break = yes
+		# }
+		any_independent_ruler = {
+			limit = {
+				pays_tribute_to = ROOT
+			}
+			ROOT = {
+				current_heir = {
+					if = {
+						limit = { NOT = { trait = foederate_employer } }
+						add_trait = foederate_employer
+					}
+					# if = {
+						# limit = { NOT = { has_dlc = "Horse Lords" } }
+						# ROOT = { set_defacto_vassal = PREVPREVPREV }
+						# break = yes
+					# }
+					# make_tributary = { who = PREVPREV tributary_type = foederati }
+				}
+			}
+		}		
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Handle claim/subjugation wars
+character_event = {
+	id = foederati.21
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { NOT = { event_target:former_foederate_liege = { always = yes } } }
+			FROMFROM = { 
+				save_event_target_as = former_foederate_liege
+			}
+		}
+		any_independent_ruler = {
+			limit = {
+				is_tributary = {
+					type = foederati
+					suzerain = event_target:former_foederate_liege
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						event_target:former_foederate_liege = { any_liege = { character = ROOT } }
+						any_realm_province = {
+							county = {
+								ROOT = {
+									any_demesne_title = {
+										de_jure_vassal_or_below = PREVPREV
+									}
+								}
+							}
+						}
+						AND = {
+							any_realm_province = {
+								any_neighbor_province = {
+									owner = {
+										OR = {
+											character = ROOT
+											is_liege_or_above = ROOT
+										}
+									}
+								}
+							}
+							NOT = {
+								any_realm_province = {
+									county = {
+										ROOT = {
+											any_demesne_title = {
+												de_jure_vassal_or_below = PREVPREV
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				event_target:former_foederate_liege = {
+					remove_tributary = PREV
+				}
+				ROOT = {
+					make_tributary = { who = PREV tributary_type = foederati }
+					if = {
+						limit = { NOT = { trait = foederate_employer } }
+						character_event = { id = foederati.5 }
+					}
+				}
+			}
+		}		
+	}
+}
+
+### FOEDERATI REVOCATION EVENTS ###
+
+# Foederate suzerain demands submission
+character_event = {
+	id = foederati.30
+	desc = "EVTDESCFOEDERATI30"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {		# Over my dead body!
+		name = "EVTOPTAFOEDERATI30"
+		trigger = {
+			NAND = { 
+				prisoner = yes
+				host = { character = FROMFROM }
+			}
+		}
+		ai_chance = { factor = 100 }
+		custom_tooltip = {
+			text = EVTTOOLTIPAFOEDERATI30
+		}
+		hidden_tooltip = { FROMFROM = { character_event = { id = foederati.31 } } }
+	}
+	option = {		# Very well, we submit
+		name = "EVTOPTBFOEDERATI30"
+		ai_chance = { factor = 0 }
+		prestige = -100
+		remove_trait = foederate
+		set_defacto_liege = FROMFROM
+		any_realm_province = {
+			clr_province_flag = foederate_province
+		}
+		custom_tooltip = {
+			text = EVTTOOLTIPBFOEDERATI30
+		}
+		hidden_tooltip = { FROMFROM = { character_event = { id = foederati.34 } } }
+	}
+}
+
+# Demand rejected
+character_event = {
+	id = foederati.31
+	desc = "EVTDESCFOEDERATI31"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {		# To war!
+		name = "EVTOPTAFOEDERATI31"
+		ai_chance = { factor = 100 }
+		reverse_opinion = {
+			modifier = opinion_hatred
+			who = FROM
+			years = 20
+		}
+		FROM = { 
+			primary_title = {
+				reverse_unsafe_war = {
+					target = ROOT
+					casus_belli = vassalize_foederati
+				}
+			}
+			hidden_tooltip = { character_event = { id = foederati.32 } }
+		}
+	}
+	option = {		# On second thought...
+		name = "EVTOPTBFOEDERATI31"
+		ai_chance = { factor = 0 }
+		prestige = -150
+		reverse_opinion = {
+			modifier = opinion_hatred
+			who = FROM
+			years = 10
+		}
+		FROM = { hidden_tooltip = { character_event = { id = foederati.33 } } }
+	}
+}
+
+# Notify War
+character_event = {
+	id = foederati.32
+	desc = "EVTDESCFOEDERATI32"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	is_triggered_only = yes
+	
+	option = {		# To war!
+		name = "EVTOPTAFOEDERATI32"
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					earmark = foederati_revolt_army
+					troops = {
+						light_infantry = { 500 500 }
+						heavy_infantry = { 600 600 }
+						pikemen = { 450 450 }
+						archers = { 150 150 }
+					}
+					attrition = 0.5
+				}
+			}
+		}
+	}
+}
+
+# Notify Backing Down
+character_event = {
+	id = foederati.33
+	desc = "EVTDESCFOEDERATI33"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {		# Cowards...
+		name = "EVTOPTAFOEDERATI33"
+		prestige = 100
+	}
+}
+
+# Demand accepted
+character_event = {
+	id = foederati.34
+	desc = "EVTDESCFOEDERATI34"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {		# Excellent
+		name = "EVTOPTAFOEDERATI34"
+		prestige = 50
+		tooltip = {
+			set_defacto_vassal = FROM
+		}
+		reverse_opinion = {
+			modifier = opinion_hatred
+			who = FROM
+			years = 20
+		}
+		if = {
+			limit = {
+				NOR = {
+					any_vassal = {
+						trait = foederate
+					}
+					any_independent_ruler = {
+						is_tributary = {
+							type = foederati
+							suzerain = PREV
+						}
+					}
+					any_war = {
+						using_cb = vassalize_foederati
+					}
+				}
+			}
+			remove_trait = foederate_employer
+		}
+	}
+}
+
+# Foederati defeated (Foederati)
+character_event = {
+	id = foederati.35
+	desc = "EVTDESCFOEDERATI35"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI35"
+		remove_trait = foederate
+		any_realm_province = {
+			clr_province_flag = foederate_province
+		}
+		hidden_tooltip = { suzerain = { character_event = { id = foederati.36 } } }
+	}
+}
+
+# Foederati defeated (Foederati Employer)
+character_event = {
+	id = foederati.36
+	desc = "EVTDESCFOEDERATI36"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI36"
+		if = {
+			limit = { 
+				NOR = {
+					any_vassal = {
+						trait = foederate
+					}
+					any_independent_ruler = {
+						is_tributary = {
+							type = foederati
+							suzerain = PREV
+						}
+					}
+					any_war = {
+						using_cb = vassalize_foederati
+					}
+				}
+			}
+			remove_trait = foederate_employer
+		}
+	}
+}
+
+# White Peace (Foederati)
+character_event = {
+	id = foederati.37
+	desc = "EVTDESCFOEDERATI37"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		suzerain = { save_event_target_as = foederati_employer }
+	}
+	
+	option = {
+		name = "EVTOPTAFOEDERATI37"
+		hidden_tooltip = { suzerain = { character_event = { id = foederati.38 } } }
+	}
+}
+
+# White Peace (Foederati Employer)
+character_event = {
+	id = foederati.38
+	desc = "EVTDESCFOEDERATI38"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI38"
+	}
+}
+
+# Liege defeated (Foederati)
+character_event = {
+	id = foederati.39
+	desc = "EVTDESCFOEDERATI39"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		suzerain = { save_event_target_as = foederati_employer }
+	}
+	
+	option = {		# Depose Liege
+		name = "EVTOPTAFOEDERATI39"
+		ai_chance = { factor = 50 }
+		tooltip = {
+			suzerain = {
+				abdicate_to_most_liked_by = ROOT
+			}
+		}
+		hidden_tooltip = {
+			suzerain = { character_event = { id = foederati.40 } }
+			disband_event_forces = foederati_revolt_army 
+		}
+	}
+	option = {		# Imprison Liege
+		name = "EVTOPTBFOEDERATI39"
+		ai_chance = { factor = 40 }
+		suzerain = {
+			imprison = ROOT
+		}
+		hidden_tooltip = { disband_event_forces = foederati_revolt_army }
+	}
+	option = {		# Declare Independence
+		name = "EVTOPTCFOEDERATI39"
+		ai_chance = { factor = 10 }
+		suzerain = { remove_tributary = ROOT }
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					troops = {
+						light_infantry = { 250 250 }
+						heavy_infantry = { 300 300 }
+						pikemen = { 200 200 }
+						archers = { 75 75 }
+					}
+					attrition = 0.5
+				}
+			}
+		}
+		remove_trait = foederate
+		any_realm_province = {
+			clr_province_flag = foederate_province
+		}
+	}
+}
+
+# Liege deposed (Foederati Employer)
+character_event = {
+	id = foederati.40
+	desc = "EVTDESCFOEDERATI40"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI40"
+		primary_title = { save_event_target_as = old_primary_title }
+		abdicate_to_most_liked_by = FROM
+		event_target:old_primary_title = {
+			holder_scope = {
+				add_trait = foederate_employer
+				ROOT = {
+					any_vassal = {
+						limit = { trait = foederate }
+						set_defacto_liege = PREVPREV
+					}
+					any_independent_ruler = {
+						limit = { 
+							is_tributary = {
+								type = foederati
+								suzerain = PREV
+							}
+						}
+						ROOT = { remove_tributary = PREV }
+						event_target:old_primary_title = {
+							holder_scope = {
+								make_tributary = { who = PREVPREV tributary_type = foederati }
+							}
+						}
+					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			remove_trait = foederate_employer
+		}
+	}
+}
+
+# Liege imprisoned (Foederati Employer)
+character_event = {
+	id = foederati.41
+	desc = "EVTDESCFOEDERATI41"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI41"
+		tooltip = { reverse_imprison = FROM }
+	}
+}
+
+# Declare independence (Foederati Employer)
+character_event = {
+	id = foederati.42
+	desc = "EVTDESCFOEDERATI42"
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAFOEDERATI42"
+		tooltip = { remove_tributary = ROOT }
+		if = {
+			limit = {
+				NOR = {
+					any_vassal = {
+						trait = foederate
+					}
+					any_independent_ruler = {
+						is_tributary = {
+							type = foederati
+							suzerain = PREV
+						}
+					}
+					any_war = {
+						using_cb = vassalize_foederati
+					}
+				}
+			}
+			remove_trait = foederate_employer
+		}
+	}
+}

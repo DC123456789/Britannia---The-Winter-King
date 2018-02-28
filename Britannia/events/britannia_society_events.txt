@@ -1,0 +1,51 @@
+###################################
+#
+# Britannia Society Events
+#
+# IDs 302000 - 302199
+#
+###################################
+
+##### BENEDICTINE ORDER #####
+# 529 AD - Benedictine Order Founded
+narrative_event = { 
+	id = 302000
+	title = "EVTNAME302000"
+	desc = "EVTDESC302000"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_monastery_monks"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	hide_from = yes
+	
+	trigger = {
+		year = 529
+		NOT = { has_global_flag = benedictine_order_founded }
+	}
+	
+	major_trigger = {
+		religion_group = christian
+	}
+	
+	immediate = {
+		set_global_flag = benedictine_order_founded
+	}
+	
+	option = {
+		name = "EVTOPTA302000"
+		trigger = {
+			religion = catholic
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302000"	
+		trigger = {
+			NOT = { religion = catholic }
+		}
+	}
+}

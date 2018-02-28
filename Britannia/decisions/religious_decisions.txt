@@ -1,0 +1,586 @@
+decisions = {
+	celebrate_bema = {
+		only_playable = yes
+		ai_check_interval = 2
+		potential = {
+			NOT = { is_inaccessible_trigger = yes }
+			is_adult = yes
+			prisoner = no
+			religion = manichean
+			NOT = { has_character_modifier = held_bema_timer }
+			NOT = {	has_character_flag = holding_bema }
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = UNOCCUPIED_DEMESNE_TITLE
+				hidden_tooltip = {
+					any_demesne_title = {
+						NOT = { higher_tier_than = count }
+						is_occupied = no
+					}
+				}
+			}
+			month = 1
+			NOT = { month = 3 }
+			wealth = 50
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			wealth = -50
+			set_character_flag = holding_bema
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			hidden_tooltip = { character_event = { id = 39818 days = 150 } } # Safety catch flag clearing
+			hidden_tooltip = { 
+				character_event = { id = 39812 } 
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 8 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 300
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = shy
+			}
+			modifier = {
+				factor = 0
+				NOT = { diplomacy = 10 }
+			}	
+			modifier = {
+				factor = 0
+				has_character_flag = recent_minor_decision
+				NOT = {
+					had_character_flag = {
+						flag = recent_minor_decision
+						days = 730
+					}
+				}
+			}
+		}
+	}
+	
+	create_arian_papacy = {
+		only_independent = yes
+		
+		is_high_prio = yes
+	
+		potential = {
+			is_playable = yes
+			religion = arian
+			NOT = { has_global_flag = arian_papacy_created }
+			d_arian_papacy = {
+				has_holder = no
+			}
+			has_dlc = "Sons of Abraham"
+		}
+		
+		allow = {
+			independent = yes
+			higher_tier_than = DUKE
+			piety = 1000
+			completely_controls = c_poitou
+			completely_controls = c_lutetia 
+			completely_controls = c_lugdunum
+		}
+		
+		effect = {
+			activate_title = { title = d_arian_papacy status = yes }
+			hidden_tooltip = {
+				create_random_priest = {
+					random_traits = yes
+				}
+				new_character = {
+					d_arian_papacy = {
+						grant_title = PREV
+					}
+					wealth = 500
+					opinion = {
+						who = ROOT
+						modifier = opinion_creator_of_rel_heal
+					}
+					set_defacto_liege = PREV
+				}
+				
+				religion_authority = {
+					modifier = papacy_instituted
+					years = 20
+				}
+			}
+			piety = 1000
+			set_global_flag = arian_papacy_created
+			hidden_tooltip = {
+				narrative_event = { id = 39100 }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	claim_briton_archdruid_successor = {
+		only_rulers = yes	
+		is_high_prio = yes
+	
+		potential = {
+			religion = briton_pagan_reformed
+			has_global_flag = no_briton_archdruid_successor
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_briton_pagan }
+			is_landed = yes
+			d_briton_pagan = {
+				has_holder = yes
+			}
+			NOT = { has_character_flag = denied_briton_successor }
+			NOT = { has_character_modifier = briton_archdruid_successor }
+		}
+		
+		allow = {
+			piety = 100
+		}
+		
+		effect = {
+			d_briton_pagan = {
+				holder_scope = {
+					character_event = { id = 316020 }
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	claim_briton_archdruid = {
+		only_rulers = yes			
+		is_high_prio = yes
+	
+		potential = {
+			religion = briton_pagan_reformed
+			has_global_flag = no_briton_archdruid
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_briton_pagan }
+			is_landed = yes
+			d_briton_pagan = {
+				has_holder = no
+			}
+		}
+		
+		allow = {
+			piety = 300
+			learning = 15
+			age = 30
+		}
+		
+		effect = {
+			character_event = { id = 316028 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	claim_pict_archdruid_successor = {
+		only_rulers = yes		
+		is_high_prio = yes
+	
+		potential = {
+			religion = pict_pagan_reformed
+			has_global_flag = no_pict_archdruid_successor
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_pict_pagan }
+			is_landed = yes
+			d_pict_pagan = {
+				has_holder = yes
+			}
+			NOT = { has_character_flag = denied_pict_successor }
+			NOT = { has_character_modifier = pict_archdruid_successor }
+		}
+		
+		allow = {
+			piety = 100
+		}
+		
+		effect = {
+			d_pict_pagan = {
+				holder_scope = {
+					character_event = { id = 316120 }
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	claim_pict_archdruid = {
+		only_rulers = yes			
+		is_high_prio = yes
+	
+		potential = {
+			religion = pict_pagan_reformed
+			has_global_flag = no_pict_archdruid
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_pict_pagan }
+			is_landed = yes
+			d_pict_pagan = {
+				has_holder = no
+			}
+		}
+		
+		allow = {
+			piety = 300
+			learning = 15
+			age = 30
+		}
+		
+		effect = {
+			character_event = { id = 316128 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	claim_gael_archdruid_successor = {
+		only_rulers = yes		
+		is_high_prio = yes
+	
+		potential = {
+			religion = gael_pagan_reformed
+			has_global_flag = no_gael_archdruid_successor
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_gael_pagan }
+			is_landed = yes
+			d_gael_pagan = {
+				has_holder = yes
+			}
+			NOT = { has_character_flag = denied_gael_successor }
+			NOT = { has_character_modifier = gael_archdruid_successor }
+		}
+		
+		allow = {
+			piety = 100
+		}
+		
+		effect = {
+			d_gael_pagan = {
+				holder_scope = {
+					character_event = { id = 316220 }
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	claim_gael_archdruid = {
+		only_rulers = yes			
+		is_high_prio = yes
+	
+		potential = {
+			religion = gael_pagan_reformed
+			has_global_flag = no_gael_archdruid
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
+			NOT = { has_landed_title = d_gael_pagan }
+			is_landed = yes
+			d_gael_pagan = {
+				has_holder = no
+			}
+		}
+		
+		allow = {
+			piety = 300
+			learning = 15
+			age = 30
+		}
+		
+		effect = {
+			character_event = { id = 316228 }
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1000
+		}
+	}
+	
+	restore_old_gods = {
+		only_rulers = yes
+		is_high_prio = yes
+	
+		potential = {
+			age = 16
+			religion = briton_pagan	
+			NOT = { trait = incapable }
+			NOT = {
+				AND = {
+					has_character_flag = abandoned_restore_quest
+					NOT = { has_character_flag = char_restored_old_gods }
+				}
+			}
+			NOT = { has_global_flag = old_gods_restored }
+			OR = {
+				NOT = { has_global_flag = ritual_performed }
+				had_global_flag = {
+					flag = ritual_performed
+					days = 3650
+				}
+			}
+			NOT = { has_character_flag = restoring_old_gods }
+		}			
+		
+		allow = {
+			prisoner = no
+			piety = 300
+			NOT = { trait = content }
+			NOT = { trait = tolerant }
+			NOT = { trait = imbecile }
+			OR = {
+				NOT = { trait = cynical }
+				custom_tooltip = {
+					text = is_merlin_tooltip
+					has_character_flag = merlin_of_avalon
+				}
+			}
+			OR = {
+				has_focus = focus_theology
+				custom_tooltip = {
+					text = restore_old_gods_foci_tooltip
+					NOT = { has_dlc = "Way of Life" }
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0.02				# Slow it down
+			}
+			modifier = {
+				factor = 3.0
+				trait = zealous
+			}
+			modifier = {
+				factor = 1.3
+				trait = diligent
+			}
+			modifier = {
+				factor = 1.8
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 0.2
+				trait = slow
+			}
+			modifier = {
+				factor = 0.1
+				trait = cynical
+			}
+			modifier = {
+				factor = 0.1
+				trait = tolerant
+			}
+			modifier = {
+				factor = 0.1
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { culture = briton }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { learning = 12 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { learning = 16 }
+			}
+			modifier = {
+				factor = 1.5
+				learning = 18
+			}
+			modifier = {
+				factor = 1.5
+				martial = 13
+			}
+			modifier = {
+				factor = 0.25
+				NOT = { trait = druid }
+			}
+			modifier = {
+				factor = 2.0
+				OR = {
+					trait = scholarly_theologian
+					trait = mastermind_theologian
+				}
+			}
+			modifier = {
+				factor = 3.0
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.3
+				trait = arbitrary
+			}
+			modifier = {
+				factor = 1.4
+				trait = honorable
+			}
+		}
+		
+		effect = {
+			set_character_flag = restoring_old_gods
+			custom_tooltip = {
+				text = restore_old_gods_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 3124500 }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+
+	}
+	
+	rejuvenate_mani = {
+		only_independent = yes
+		
+		is_high_prio = yes
+	
+		potential = {
+			is_playable = yes
+			religion = manichean
+			NOT = { has_global_flag = manicheanism_rising }
+		}
+		
+		allow = {
+			independent = yes
+			holder_scope = {
+				OR = {
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+					has_landed_title = e_franks #On the off chance the Frankish ruler is a Manichean
+				}
+			}
+			piety = 2000
+			completely_controls = c_treverorum
+			completely_controls = c_lutetia
+			completely_controls = c_lugdunum
+			completely_controls = c_tolosa
+			completely_controls = c_narbo
+			completely_controls = c_burdigala
+			OR = {
+				trait = manichaean_elect
+				trait = manichaean_child_of_elect
+			}
+		}
+		
+		effect = {
+			hidden_tooltip = {
+				religion_authority = {
+					modifier = manichean_restored
+					years = 75 #Subject to change
+				}
+			}
+			piety = 1000
+			prestige = 2000
+			set_global_flag = manicheanism_rising
+			hidden_tooltip = {
+				narrative_event = { id = 301720 }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

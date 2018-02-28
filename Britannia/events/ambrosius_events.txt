@@ -1,0 +1,1401 @@
+namespace = history
+
+## Ambrosius Events ##
+# Ids history.1000 - history.1999
+
+# Death of AAtE (bounce)
+narrative_event = {
+	id = history.1001
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_dying_character"
+	
+	is_triggered_only = yes
+	
+	hide_window = yes
+	
+	trigger = {
+		character = 1637		
+	}
+	
+	immediate = {
+		k_maxima_cesariensis = {
+			current_heir = {
+				set_character_flag = maxima_caesariensis_heir
+				character_event = { id = history.1006 days = 1 }
+			}
+		}
+	}
+		
+	option = {
+		name = "OK"
+	}
+}
+
+# Last Roman Governor
+character_event = {
+	id = history.1002
+	title = "EVTNAMEAMBROSIUS2"
+	desc = "EVTDESCAMBROSIUS2"
+	picture = "GFX_evt_roman_town_forum"
+	
+	has_character_flag = aurelius_ambrosius_the_elder
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_global_flag = ambrosius_introduction }
+		character = 1637
+		has_landed_title = k_maxima_cesariensis
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+		
+	immediate = {
+		set_global_flag = ambrosius_introduction
+		set_character_flag = ambrosius
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS2"	
+	}
+}
+
+# Aurelius Marries
+character_event = {
+	id = history.1003
+	title = "EVTNAMEAMBROSIUS3"
+	desc = "EVTDESCAMBROSIUS3"
+	picture = "GFX_evt_church_small"
+	
+	only_men = yes
+	has_character_flag = ambrosius
+	
+	trigger = {
+		NOT = { has_character_flag = ambrosius_married }
+		is_married = yes
+		spouse = {
+			culture_group = celtic
+		}
+		NOT = { year = 433 }
+		NOT = { has_global_flag = aurelianus_born }
+	}
+		
+	mean_time_to_happen = {
+		days = 5
+	}
+		
+	immediate = {
+		set_character_flag = ambrosius_married
+		fertility = -10
+		health = 2
+		spouse = {
+			save_global_event_target_as = ambrosius_wife
+			fertility = -10
+			health = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS3"
+	}
+}
+
+# Pregnant with Aurelianus
+character_event = {
+   	id = history.1004
+   	title = "EVTNAMEAMBROSIUS4"
+    desc = "EVTDESCAMBROSIUS4"
+    picture = "GFX_evt_love_court"
+	
+	has_character_flag = ambrosius_married
+	only_men = yes
+	
+	trigger = {
+		has_character_flag = ambrosius_married
+		year = 429
+		character = 1637
+		is_married = yes
+		NOT = { has_global_flag = aurelianus_born }
+		spouse = {
+			culture_group = celtic
+			NOT = { trait = pregnant }
+			NOT = { has_character_flag = pregnant_aurelianus }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+		modifier = {
+			factor = 0.05
+			year = 430
+		}
+	}
+	
+	immediate = {
+		spouse = {
+			fertility = -1
+			add_trait = pregnant_aurelianus
+			set_character_flag = pregnant_aurelianus
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS4"
+		hidden_tooltip = {
+			character_event = { 
+				id = history.1005 
+				days = 270  
+				random = 10
+			}
+		}
+	}
+}
+
+
+# Birth of Aurelianus
+character_event = {
+	id = history.1005
+	title = "EVTNAMEAMBROSIUS5"
+	desc = "EVTDESCAMBROSIUS5"
+	picture = "GFX_evt_child_sword_training"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		spouse = {
+			fertility = 1
+			health = -2
+			remove_trait = pregnant_aurelianus
+			create_character = {
+				random_traits = no
+				name = "Ambrosius"
+				dynasty = 1069
+				religion = ROOT
+				culture = romanobritish
+				female = no
+				age = 0
+				attributes = {
+					martial = 3
+					diplomacy = 3
+					intrigue = 3
+					stewardship = 3
+					learning = 3
+				}
+				health = 6
+				trait = quick
+				trait = robust
+				trait = tall
+			}
+			new_character = {
+				dynasty = 1069
+				set_father = ROOT
+				set_mother = PREV
+				give_nickname = nick_aurelianus
+				set_character_flag = aurelianus
+				save_global_event_target_as = ambrosius_aurelianus_the_younger
+			}
+		}
+		fertility = 11
+		health = -2
+		set_global_flag = aurelianus_born
+		event_target:ambrosius_wife = {
+			fertility = 10
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS3"
+	}
+}
+
+# Death of AAtE
+narrative_event = {
+	id = history.1006
+	title = "EVTNAMEAMBROSIUS6"
+	desc = "EVTDESCAMBROSIUS6"
+	major = yes
+	picture = "GFX_evt_dying_character"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = aurelius_dead 
+	}
+	
+	option = {														# AAtY
+		name = "EVTOPTDAMBROSIUS6"
+		trigger = {
+			has_character_flag = aurelianus
+		}
+	}
+		
+	option = {														# The Heir (but not if AAtY is heir)
+		name = "EVTOPTAAMBROSIUS6"
+		trigger = {
+			has_character_flag = maxima_caesariensis_heir
+			NOT = { has_character_flag = aurelianus }
+		}
+	}
+	
+	option = {														# Other Romans
+		name = "EVTOPTBAMBROSIUS6"
+		trigger = {
+			culture_group = imperiale
+			NOT = { has_character_flag = maxima_caesariensis_heir }
+			NOT = { has_character_flag = aurelianus }
+		}
+	}
+	
+	option = {														# Else
+		name = "EVTOPTCAMBROSIUS6"
+		trigger = {
+			NOT = {
+				culture_group = imperiale
+				has_character_flag = maxima_caesariensis_heir
+				has_character_flag = aurelianus
+			}
+		}
+	}
+}
+
+# Britons under Maxima Caeseriensis declare independence
+character_event = {
+   	id = history.1007
+   	title = "EVTNAMEAMBROSIUS7"
+    desc = "EVTDESCAMBROSIUS7"
+    picture = "GFX_evt_royal_court"
+	
+	only_rulers = yes
+	min_age = 15
+	
+	trigger = {
+		liege = {
+			has_landed_title = k_maxima_cesariensis
+			independent = yes
+		}
+		NOT = {
+			top_liege = {
+				tier = EMPEROR
+			}
+		}
+		prisoner = no
+		year = 410
+		NOT = { year = 460 }
+		NOT = { culture_group = imperiale }
+		NOT = { has_global_flag = maxima_caesariensis_collapsed }
+		is_landed = yes
+		OR = {
+			NOT = { liege = { has_character_flag = aurelius_ambrosius_the_elder } }
+			has_global_flag = saxon_revolt_begun
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 480
+		modifier = {
+			factor = 0.2
+			NOT = {			# AAtE is dead
+				event_target:aurelius_ambrosius_the_elder = {
+					always = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 10
+			liege = { has_character_flag = aurelius_ambrosius_the_elder }
+		}
+		modifier = {
+			factor = 0.2
+			has_global_flag = saxon_revolt_begun
+		}
+		modifier = {
+			factor = 4
+			has_global_flag = saxon_revolt_finished
+		}
+		modifier = {
+			factor = 0.8
+			year = 420
+		}
+		modifier = {
+			factor = 0.8
+			year = 430
+		}
+		modifier = {
+			factor = 0.8
+			year = 435
+		}
+		modifier = {
+			factor = 0.8
+			year = 445
+		}
+		modifier = {
+			factor = 0.7
+			NOT = { religion = catholic }
+		}
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2
+			culture = romanobritish
+		}
+		modifier = {
+			factor = 2
+			trait = loyal
+		}
+		modifier = {
+			factor = 3
+			trait = content
+		}
+		modifier = {
+			factor = 1.5
+			religion = catholic
+		}
+		modifier = {
+			factor = 1.25
+			opinion = { who = LIEGE value = 25 } 
+		}
+		modifier = {
+			factor = 1.25
+			opinion = { who = LIEGE value = 50 } 
+		}
+		modifier = {
+			factor = 1.5
+			opinion = { who = LIEGE value = 75 } 
+		}
+		modifier = {
+			factor = 1.5
+			opinion = { who = LIEGE value = 100 } 
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { opinion = { who = LIEGE value = 0 } }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { opinion = { who = LIEGE value = -25 } }
+		}
+		modifier = {
+			factor = 0.6
+			NOT = { opinion = { who = LIEGE value = -50 } }
+		}
+		modifier = {
+			factor = 0.6
+			NOT = { opinion = { who = LIEGE value = -75 } }
+		}
+		modifier = {
+			factor = 0.2
+			capital_scope = {
+				region = world_britannia_lloegyr_guenet
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS7"
+		set_defacto_liege = ROOT
+		k_maxima_cesariensis = {
+			holder_scope = {
+				character_event = { id = history.1008 }
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBAMBROSIUS7"
+	}
+}
+
+# Governor informed
+character_event = {
+   	id = history.1008
+   	title = "EVTNAMEAMBROSIUS8"
+    desc = "EVTDESCAMBROSIUS8"
+    picture = "GFX_evt_royal_court"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS8"
+		prestige = -100
+	}
+}
+
+# First Council of Aurelius
+character_event = {
+   	id = history.1009
+   	title = "EVTNAMEAMBROSIUS9"
+    desc = "EVTDESCAMBROSIUS9"
+    picture = "GFX_evt_royal_court"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = k_maxima_cesariensis
+		year = 435
+		has_global_flag = hengist_in_cantia
+		e_britannia = { has_holder = yes }
+		NOT = { has_global_flag = first_council_start }
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	immediate = {
+		set_global_flag = first_council_start
+	}
+	
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS9"
+		hidden_tooltip = {
+			character_event = { id = history.1010 days = 3 }
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBAMBROSIUS9"
+		prestige = -50
+	}
+}
+
+# Council Declares War
+character_event = {
+   	id = history.1010
+   	title = "EVTNAMEAMBROSIUS10"
+    desc = "EVTDESCAMBROSIUS10"
+    picture = "GFX_evt_warband_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = battle_of_guoloph
+		set_global_flag = first_civil_war
+		e_britannia = { add_claim = ROOT }
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS10"
+		e_britannia = {
+			holder_scope = {
+				ROOT = {
+					war = { target = PREVPREV casus_belli = claim thirdparty_title = PREVPREV } 
+				}
+			}
+		}
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					owner = ROOT
+					province = PREV
+					home = PREV
+					troops = {
+						archers = { 500 500 }
+						light_infantry = { 1500 1500 }
+						heavy_infantry = { 300 300 }
+						light_cavalry = { 200 200 }
+					}
+					attrition = 1.0
+					disband_on_peace = yes
+					maintenance_multiplier = 0.5
+				}
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					independent = yes
+					OR = {
+						culture = briton
+						culture = romanobritish
+					}
+				}
+				character_event = { id = history.1011 }
+			}
+		}
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBAMBROSIUS10"
+		prestige = -50
+	}
+}
+
+# Civil War Narrative Event - other Kings can join
+character_event = {
+   	id = history.1011
+   	title = "EVTNAMEAMBROSIUS11"
+    desc = "EVTDESCAMBROSIUS11"
+    picture = "GFX_evt_warband_on_hill"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS11"
+		join_attacker_wars = FROM
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				e_britannia = {
+					holder_scope = {
+						ROOT = { likes_better_than = { who = FROM than = PREV } } 
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBAMBROSIUS11"
+		e_britannia = {
+			holder_scope = {
+				ROOT = {
+					join_defender_wars = PREV
+				}
+			}
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 2
+				e_britannia = {
+					holder_scope = {
+						ROOT = { likes_better_than = { who = PREV than = FROM } } 
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCAMBROSIUS11"
+		ai_chance = {
+			factor = 3
+		}
+	}
+}
+
+# Battle of Guoloph
+narrative_event = {
+   	id = history.1012
+   	title = "EVTNAMEAMBROSIUS12"
+    desc = "EVTDESCAMBROSIUS12"
+    picture = "GFX_evt_battle_overwatch"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = battle_of_guoloph
+		has_landed_title = k_maxima_cesariensis
+		any_war = {
+			war_score = 90
+			using_cb = claim
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		clr_global_flag = battle_of_guoloph
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					culture = briton
+					culture = romanobritish
+					is_ingvaeonic_culture_trigger = yes
+				}
+			}
+			narrative_event = { id = history.1013 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS12"
+		any_war = {
+			limit = {
+				using_cb = claim
+			}
+			end_war = invalid
+		}
+		prestige = 150
+		d_centgwent = {
+			grant_title = PREV
+		}
+		c_glevum = {
+			grant_title = PREV
+		}
+		c_avona = {
+			grant_title = PREV
+		}
+		c_tripontium = {
+			grant_title = PREV
+		}
+		c_wychwood = {
+			grant_title = PREV
+		}
+		c_abona = {
+			grant_title = PREV
+		}
+		c_aquae_sulis = {
+			grant_title = PREV
+		}
+		c_corinium = {
+			grant_title = PREV
+		}
+		c_verlucio = {
+			grant_title = PREV
+		}
+	}
+}
+
+# Civil War Over
+narrative_event = {
+   	id = history.1013
+   	title = "EVTNAMEAMBROSIUS13"
+    desc = "EVTDESCAMBROSIUS13"
+    picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = first_civil_war_over
+		set_global_flag = ravaged_lands
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS12"
+	}
+}
+
+# Ambrosius catches the plague
+character_event = {
+   	id = history.1015
+   	title = "EVTNAMEAMBROSIUS15"
+    desc = "EVTDESCAMBROSIUS15"
+    picture = "GFX_evt_dying_character"
+	
+	only_rulers = yes
+	has_character_flag = aurelius_ambrosius_the_elder
+	
+	trigger = {
+		character = 1637
+		has_landed_title = k_maxima_cesariensis
+		year = 442
+		has_global_flag = saxon_plague
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	immediate = {
+		set_global_flag = aurelius_plague
+	}
+	
+	option  = {
+		name = "EVTOPTAAMBROSIUS15"
+		add_trait = has_saxon_plague
+	}
+}
+
+#Ambrosius dies from plague
+character_event = {
+   	id = history.1016
+   	title = "EVTNAMEAMBROSIUS16"
+    desc = "EVTDESCAMBROSIUS16"
+    picture = "GFX_evt_dying_character"
+	
+	only_rulers = yes
+	has_character_flag = aurelius_ambrosius_the_elder
+	
+	trigger = {
+		character = 1637
+		has_landed_title = k_maxima_cesariensis
+		has_global_flag = aurelius_plague
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	immediate = {
+		death = { death_reason = has_saxon_plague_death } 
+	}
+	
+	option  = {
+		name = "EVTOPTAAMBROSIUS16"
+	}
+}
+
+# Maxima Caesariensis Collapses
+narrative_event = {
+   	id = history.1017
+   	title = "EVTNAMEAMBROSIUS17"
+    picture = "GFX_evt_burning_fire"
+	major = yes
+	
+	only_rulers = yes
+	
+	desc = {
+		text = "EVTDESCAMBROSIUS17"
+		trigger = {
+			OR = {
+				d_centgwent = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+				d_corinium = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+				d_baddon = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+			}
+			dynasty = 1069
+			any_realm_province = {
+				region = world_britannia_lloegyr_guenet
+			}
+		}
+	}
+	
+	desc = {
+		text = "EVTDESCAMBROSIUS17_1"
+		trigger = {
+			NAND = {
+				OR = {
+					d_centgwent = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+					d_corinium = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+					d_baddon = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+				}
+				dynasty = 1069
+				any_realm_province = {
+					region = world_britannia_lloegyr_guenet
+				}
+			}
+		}
+	}
+	
+	trigger = {
+		has_landed_title = k_maxima_cesariensis
+		NOT = { year = 460 }
+		NOT = { has_global_flag = maxima_caesariensis_collapsed }
+		OR = {
+			NOT = { has_character_flag = aurelius_ambrosius_the_elder }
+			has_global_flag = saxon_revolt_begun
+		}
+		OR = {
+			NOT = { age = 15 }
+			NOT = { diplomacy = 15 }
+			NOT = { martial = 12 }
+			NOT = { realm_diplomacy = 27 }
+			NOT = { realm_martial = 25 }
+			NOT = { prestige = 700 }
+			NOT = { realm_size = 12 }
+			prisoner = yes
+			trait = incapable
+			is_weak_trigger = yes
+			trait = slow
+			trait = idiot
+			trait = imbecile
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+		modifier = {
+			factor = 0.75
+			NOT = { age = 20 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { diplomacy = 10 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { diplomacy = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 4
+			has_global_flag = saxon_revolt_finished
+		}
+		modifier = {
+			factor = 1.5
+			culture_group = imperiale
+		}
+	}
+	
+	immediate = {
+		set_global_flag = maxima_caesariensis_collapsed
+	}
+	
+	option = {
+		name = "EVTOPTAAMBROSIUS17"
+		trigger = {
+			has_landed_title = k_maxima_cesariensis
+			OR = {
+				d_centgwent = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+				d_corinium = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+				d_baddon = {
+					holder_scope = {
+						top_liege = {
+							character = ROOT
+						}
+					}
+				}
+			}
+			dynasty = 1069
+			any_realm_province = {
+				region = world_britannia_lloegyr_guenet
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = { has_landed_title = d_centgwent }
+			}
+			d_centgwent = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				any_vassal = { has_landed_title = d_corinium }
+			}
+			d_corinium = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				any_vassal = { has_landed_title = d_baddon }
+			}
+			d_baddon = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				any_realm_character = { 
+					NOT = { character = ROOT }
+					has_landed_title = c_glevum 
+				}
+			}
+			c_glevum = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				any_realm_character = { 
+					NOT = { character = ROOT }
+					has_landed_title = c_corinium 
+				}
+			}
+			c_corinium = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				any_realm_character = { 
+					NOT = { character = ROOT }
+					has_landed_title = c_aquae_sulis 
+				}
+			}
+			c_aquae_sulis = { grant_title = ROOT }
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_demesne_title = {
+						tier = COUNT
+						location = {
+							region = world_britannia_lloegyr_guenet
+						}
+					}
+				}
+			}
+			random_realm_province = {
+				limit = { region = world_britannia_lloegyr_guenet }
+				county = {
+					grant_title = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				job_chancellor = {
+					lower_tier_than = COUNT
+					NOT = {
+						any_demesne_title = {
+							location = {
+								region = world_britannia_lloegyr_guenet
+							}
+						}
+					}
+				}
+			}
+			job_chancellor = {
+				ROOT = {
+					any_demesne_title = {
+						limit = {
+							NOT = { title = k_maxima_cesariensis }
+							NOT = { title = d_centgwent }
+							NOT = { title = d_corinium }
+							NOT = { title = d_baddon }
+							NOT = {
+								AND = {
+									lower_tier_than = DUKE
+									location = {
+										region = world_britannia_lloegyr_guenet
+									}
+								}
+							}
+						}
+						usurp_title = PREVPREV
+					}
+				}
+				if = {
+					limit = { is_feudal = no }
+					set_government_type = sub_roman_brythonic_government
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					job_chancellor = {
+						lower_tier_than = COUNT
+						NOT = {
+							any_demesne_title = {
+								location = {
+									region = world_britannia_lloegyr_guenet
+								}
+							}
+						}
+					}
+				}
+				job_marshal = {
+					lower_tier_than = COUNT
+					NOT = {
+						any_demesne_title = {
+							location = {
+								region = world_britannia_lloegyr_guenet
+							}
+						}
+					}
+				}
+			}
+			job_marshal = {
+				ROOT = {
+					any_demesne_title = {
+						limit = {
+							NOT = { title = k_maxima_cesariensis }
+							NOT = { title = d_centgwent }
+							NOT = { title = d_corinium }
+							NOT = { title = d_baddon }
+							NOT = {
+								AND = {
+									lower_tier_than = DUKE
+									location = {
+										region = world_britannia_lloegyr_guenet
+									}
+								}
+							}
+						}
+						usurp_title = PREVPREV
+					}
+				}
+				if = {
+					limit = { is_feudal = no }
+					set_government_type = sub_roman_brythonic_government
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					job_chancellor = {
+						lower_tier_than = COUNT
+						NOT = {
+							any_demesne_title = {
+								location = {
+									region = world_britannia_lloegyr_guenet
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					job_marshal = {
+						lower_tier_than = COUNT
+						NOT = {
+							any_demesne_title = {
+								location = {
+									region = world_britannia_lloegyr_guenet
+								}
+							}
+						}
+					}
+				}
+			}
+			random_courtier = {
+				limit = {
+					is_female = no
+					prisoner = no
+					is_landed = no
+				}
+				ROOT = {
+					any_demesne_title = {
+						limit = {
+							NOT = { title = k_maxima_cesariensis }
+							NOT = { title = d_centgwent }
+							NOT = { title = d_corinium }
+							NOT = { title = d_baddon }
+							NOT = {
+								AND = {
+									lower_tier_than = DUKE
+									location = {
+										region = world_britannia_lloegyr_guenet
+									}
+								}
+							}
+						}
+						usurp_title = PREVPREV
+					}
+				}
+				if = {
+					limit = { is_feudal = no }
+					set_government_type = sub_roman_brythonic_government
+				}
+			}
+		}
+		any_independent_ruler = {
+			limit = {
+				ROOT = { pays_tribute_to = PREV }
+			}
+			save_event_target_as = tributary_liege
+		}
+		any_vassal = {
+			limit = {
+				higher_tier_than = BARON
+				NOT = {
+					AND = {
+						tier = COUNT
+						capital_scope = {
+							region = world_britannia_lloegyr_guenet
+						}
+					}
+				}
+			}
+			set_defacto_liege = THIS
+			hidden_tooltip = {
+				event_target:tributary_liege = {
+					make_tributary = {
+						who = PREV
+						percentage = 0.2
+					}
+				}
+			}
+		}
+		clear_event_target = tributary_liege
+		k_maxima_cesariensis = { destroy_landed_title = THIS }
+		prestige = -200
+		any_independent_ruler = {
+			limit = { pays_tribute_to = ROOT }
+			ROOT = {
+				remove_tributary = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBAMBROSIUS17"
+		trigger = {
+			has_landed_title = k_maxima_cesariensis
+			NAND = {
+				OR = {
+					d_centgwent = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+					d_corinium = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+					d_baddon = {
+						holder_scope = {
+							top_liege = {
+								character = ROOT
+							}
+						}
+					}
+				}
+				dynasty = 1069
+				any_realm_province = {
+					region = world_britannia_lloegyr_guenet
+				}
+			}
+		}
+		k_maxima_cesariensis = { destroy_landed_title = THIS }
+		prestige = -200
+		any_independent_ruler = {
+			limit = { pays_tribute_to = ROOT }
+			ROOT = {
+				remove_tributary = PREV
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCAMBROSIUS17"
+		trigger = {
+			OR = {
+				culture = briton
+				culture = romanobritish
+				culture = cumbrian
+			}
+			NOT = { has_landed_title = k_maxima_cesariensis }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTDAMBROSIUS17"
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			NOT = { has_landed_title = k_maxima_cesariensis }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTEAMBROSIUS17"
+		trigger = {
+			NOR = {
+				culture = briton
+				culture = romanobritish
+				culture = cumbrian
+				is_ingvaeonic_culture_trigger = yes
+			}
+			NOT = { has_landed_title = k_maxima_cesariensis }
+		}
+	}
+}
+
+# Turn Aurelianus Romano-British if he becomes Roman
+character_event = {
+   	id = history.1018
+   	title = "EVTNAMEAMBROSIUS18"
+    desc = "EVTDESCAMBROSIUS18"
+    picture = "GFX_evt_forest_warrior_alone"
+	
+	only_playable = yes
+	has_character_flag = aurelianus
+	
+	trigger = {
+		culture = roman
+		ROOT = {
+			father_even_if_dead = {
+				is_alive = no
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	option  = {
+		name = "EVTOPTAAMBROSIUS18"
+		culture = romanobritish
+	}
+}
+
+
+# Vortigern deposed
+#narrative_event = {
+#	id = history.1013
+#   	title = "EVTNAMEAMBROSIUS13"
+#    desc = "EVTDESCAMBROSIUS13"
+#    picture = "GFX_evt_lord_overlooking_bridge"
+#
+#	trigger = {
+#		has_global_flag = first_civil_war
+#		NOT = { has_global_flag = first_civil_war_won }
+#		war = no
+#		e_britannia = {
+#			holder_scope = {
+#				has_character_flag = high_king_usurper
+#			}
+#		}
+#	}
+#	
+#	immediate = {
+#		set_global_flag = first_civil_war_won
+#	}
+#	
+#	option = {
+#		name = "EVTOPTAAMBROSIUS13"
+#	}
+#}
+
+# Vortigern plans an attack
+#character_event = {
+#	id = history.1014
+#   	title = "EVTNAMEAMBROSIUS14"
+#    desc = "EVTDESCAMBROSIUS14"
+#    picture = "GFX_evt_forest_warrior_alone"
+#	
+#	trigger = {
+#		has_character_flag = high_king_usurpee
+#		NOT = { has_landed_title = e_britannia }
+#		has_global_flag = first_civil_war_won
+#		e_britannia = {
+#			holder_scope = {
+#				has_character_flag = high_king_usurper
+#			}
+#		}
+#	}
+#	
+#	mean_time_to_happen = {
+#		months = 6
+#	}
+#
+#	option = {
+#		name = "EVTOPTAAMBROSIUS14"
+#		add_trait = deceitful
+#		spouse = {
+#			e_britannia = {
+#				holder_scope = {
+#					death = {
+#						death_reason = death_murder killer = PREVPREV
+#					}
+#				}
+#			}
+#		}
+#		e_britannia = {
+#			grant_title = ROOT
+#		}
+#		hidden_tooltip = {
+#			any_playable_ruler  = {
+#				limit = {
+#					OR = {
+#						culture = briton
+#						culture = romanobritish
+#						has_landed_title = k_maxima_cesariensis
+#					}
+#				}
+#					narrative_event = { id = history.1015 }
+#			}
+#		}
+#		ai_chance = {
+#			factor = 2
+#		}
+#	}
+#	
+#	option = {
+#		name = "EVTOPTBAMBROSIUS14"
+#		prestige = -100
+#	}
+#}
+
+# Vortimer is notified he will be supported if he rebels against Vortigern
+#character_event = {
+#   	id = history.1010
+#   	title = "EVTNAMEAMBROSIUS10"
+#    desc = "EVTDESCAMBROSIUS10"
+#    picture = "GFX_evt_royal_court"
+#	
+#	is_triggered_only = yes
+#	
+#	immediate = {
+#		set_global_flag = vortimer_informed
+#	}
+#	
+#	option = {
+#		name = "EVTOPTAAMBROSIUS10"
+#		set_character_flag = high_king_usurper
+#		e_britannia = { add_claim = ROOT }
+#		e_britannia = {
+#			holder_scope = {
+#				set_character_flag = high_king_usurpee
+#			}
+#		}
+#		e_britannia = {
+#			holder_scope = {
+#				ROOT = {
+#					war = { target = PREVPREV casus_belli = claim thirdparty_title = PREVPREV } 
+#				}
+#			}
+#		}
+#		FROM = {
+#			character_event = { id = history.1011 }
+#		}
+#		ai_chance = {
+#			factor = 2
+#		}
+#	}
+#	
+#	option = {
+#		name = "EVTOPTBAMBROSIUS10"
+#		prestige = -50
+#	}
+#}

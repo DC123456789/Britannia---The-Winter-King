@@ -1,0 +1,340 @@
+namespace = bct
+
+character_event = {
+	id = bct.0
+	desc = "EVTDESCagility_inheritance.0"        
+	picture = GFX_evt_children_talking
+	
+	hide_window = yes
+    
+	max_age = 3
+	
+	is_triggered_only = yes
+    
+	trigger = {
+		NOT = { has_character_flag = agility_inheritance }
+	}
+	
+	option = {
+		name = "EVTOPTAagility_inheritance.0"
+		if = {
+			limit = {
+				AND = {
+					father = { trait = agile } # Father has rank 3
+					mother = { trait = agile } # Mother has rank 3
+					NOT = { has_character_flag = agility_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = agile }
+				38 = { set_character_flag = nimble }
+				25 = { set_character_flag = fast }
+				7 = { } # 7 chance of normal
+			} 
+			set_character_flag = agility_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = agile } # Father has rank 3
+						mother = { trait = nimble } # Mother has rank 2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = nimble } # Father has rank 2
+						mother = { trait = agile } # Mother has rank 3
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = agile }
+				34 = { set_character_flag = nimble }
+				34 = { set_character_flag = fast }
+				16 = { } # 16 chance of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = { 
+						father = { trait = agile } # Father has rank 3
+						mother = { trait = fast } # Mother has rank 1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = nimble } # Father has rank 2
+						mother = { trait = nimble } # Mother has rank 2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = fast } # Father has rank 1
+						mother = { trait = agile } # Mother has rank 3
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				6 = { set_character_flag = agile }
+				24 = { set_character_flag = nimble }
+				38 = { set_character_flag = fast }
+				32 = { } # 32 chance of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = agile } # Father has rank 3
+						NOT = { mother = { trait = agile } } # Mother has neither rank 3...
+						NOT = { mother = { trait = nimble } } # ...nor 2...
+						NOT = { mother = { trait = fast } } # ...nor 1...
+						NOT = { mother = { trait = stiff } } # ...nor -1...
+						NOT = { mother = { trait = clumsy } } # ...nor -2...
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = nimble } # Father has rank 2
+						mother = { trait = fast } # Mother has rank 1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = fast } # Father has rank 1
+						mother = { trait = nimble } # Mother has rank 2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = agile } } # Father has neither rank 3...
+						NOT = { father = { trait = nimble } } # ...nor 2...
+						NOT = { father = { trait = fast } } # ...nor 1...
+						NOT = { father = { trait = stiff } } # ...nor -1...
+						NOT = { father = { trait = clumsy } } # ...nor -2...
+						mother = { trait = agile } # Mother has rank 3
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				2 = { set_character_flag = agile }
+				14 = { set_character_flag = nimble }
+				34 = { set_character_flag = fast }
+				50 = { } # 50 of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = agile } # Father has rank 3
+						mother = { trait = stiff } # Mother has rank -1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = nimble } # Father has rank 2
+						NOT = { mother = { trait = agile } } # Mother has neither rank 3...
+						NOT = { mother = { trait = nimble } } # ...nor 2...
+						NOT = { mother = { trait = fast } } # ...nor 1...
+						NOT = { mother = { trait = stiff } } # ...nor -1...
+						NOT = { mother = { trait = clumsy } } # ...nor -2...
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = fast } # Father has rank 1
+						mother = { trait = fast } # Mother has rank 1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = agile } } # Father has neither rank 3...
+						NOT = { father = { trait = nimble } } # ...nor 2...
+						NOT = { father = { trait = fast } } # ...nor 1...
+						NOT = { father = { trait = stiff } } # ...nor -1...
+						NOT = { father = { trait = clumsy } } # ...nor -2...
+						mother = { trait = nimble } # Mother has rank 2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = stiff } #Father has rank -1
+						mother = { trait = agile } #Mother has rank 3
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+					1 = { set_character_flag = agile }
+					6 = { set_character_flag = nimble }
+					25 = { set_character_flag = fast }
+					68 = { } # 68 of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = agile } #Father has rank 3
+						mother = { trait = clumsy } #Mother has rank -2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = nimble } #Father has rank 2
+						mother = { trait = stiff } #Mother has rank -1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = fast } #Father has rank 1
+						NOT = { mother = { trait = agile } } #Mother has neither rank 3...
+						NOT = { mother = { trait = nimble } } #...nor 2...
+						NOT = { mother = { trait = fast } } #...nor 1...
+						NOT = { mother = { trait = stiff } } #...nor -1...
+						NOT = { mother = { trait = clumsy } } #...nor -2...
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = clumsy } #Father has rank -2
+						mother = { trait = agile } #Mother has rank 3
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = stiff } #Father has rank -1
+						mother = { trait = nimble } #Mother has rank 2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = agile } } #Father has rank 3
+						NOT = { father = { trait = nimble } } #...nor 2...
+						NOT = { father = { trait = fast } } #...nor 1...
+						NOT = { father = { trait = stiff } } #...nor -1...
+						NOT = { father = { trait = clumsy } } #...nor -2...
+						mother = { trait = fast } #Mother has rank 1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				1 = { set_character_flag = agile }
+				3 = { set_character_flag = nimble }
+				15 = { set_character_flag = fast }
+				81 = { } #81 of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+	#!!!!!!!!!!!!!!!!!!!!!!!!!! Orientation of Neg and Pos flipped for copy paste!!!!!!                            
+		if = {
+			limit = {
+				AND = {
+					father = { trait = clumsy } #Father has rank -2
+					mother = { trait = clumsy } #Mother has rank -2
+					NOT = { has_character_flag = agility_inheritance }
+				}
+			}
+			random_list = { 
+				30 = { set_character_flag = clumsy }
+				38 = { set_character_flag = stiff }
+				32 = { } #32 of normal
+			} 
+			set_character_flag = agility_inheritance 
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = clumsy } #Father has rank -2
+						mother = { trait = stiff } #Mother has rank -1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = stiff } #Father has rank -1
+						mother = { trait = clumsy } #Mother has rank -2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				16 = { set_character_flag = clumsy }
+				34 = { set_character_flag = stiff }
+				50 = { } #50 of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = clumsy } #Father has rank -2
+						NOT = { mother = { trait = clumsy } } #...nor -2...
+						NOT = { mother = { trait = stiff } } #...nor -1...
+						NOT = { mother = { trait = fast } } #...nor 1...
+						NOT = { mother = { trait = nimble } } #...nor 2...
+						NOT = { mother = { trait = agile } } #...nor 3...
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = stiff } #Father has rank -1
+						mother = { trait = stiff } #Mother has rank -1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = clumsy } } #...nor -2...
+						NOT = { father = { trait = stiff } } #...nor -1...
+						NOT = { father = { trait = fast } } #...nor 1...
+						NOT = { father = { trait = nimble } } #...nor 2...
+						NOT = { father = { trait = agile } } #...nor 3...
+						mother = { trait = clumsy } #Mother has rank -2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = {
+				7 = { set_character_flag = clumsy }
+				25 = { set_character_flag = stiff }
+				68 = { } #68 chance of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						father = { trait = clumsy } #Father has rank -2
+						mother = { trait = fast } #Mother has rank 1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = stiff } #Father has rank -1
+						NOT = { mother = { trait = clumsy } } #...nor -2...
+						NOT = { mother = { trait = stiff } } #...nor -1...
+						NOT = { mother = { trait = fast } } #...nor 1...
+						NOT = { mother = { trait = nimble } } #...nor 2...
+						NOT = { mother = { trait = agile } } #...nor 3...
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						father = { trait = fast } #Father has rank 1
+						mother = { trait = clumsy } #Mother has rank -2
+						NOT = { has_character_flag = agility_inheritance }
+					}
+					AND = {
+						NOT = { father = { trait = agile } } #...nor 3...
+						NOT = { father = { trait = nimble } } #...nor 2...
+						NOT = { father = { trait = fast } } #...nor 1...
+						NOT = { father = { trait = stiff } } #...nor -1...
+						NOT = { father = { trait = clumsy } } #...nor -2...
+						mother = { trait = stiff } #Mother has rank -1
+						NOT = { has_character_flag = agility_inheritance }
+					}
+				}
+			}
+			random_list = { 
+				4 = { set_character_flag = clumsy }
+				15 = { set_character_flag = stiff }
+				81 = { } #81 of normal
+			} 
+			set_character_flag = agility_inheritance
+		}
+		set_character_flag = agility_inheritance
+	}
+}

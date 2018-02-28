@@ -1,0 +1,224 @@
+###################################
+#
+# 	Ransom All Prisoners
+#	Release Agreeable Prisoners
+#
+###################################
+
+namespace = ransomall
+
+character_event = {
+	id = ransomall.0
+	desc = "ransomall.0.desc"
+	picture = "GFX_evt_into_the_dungeon"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "ransomall.0.a"
+		
+		ai_chance = { factor = 100 }
+				
+		if = {
+            limit = {
+				tier = emperor
+				wealth = 350
+			} 
+
+			wealth = -385
+			host = {
+				wealth = 385
+			}
+			prisoner = no
+        }
+      	if = {
+            limit = {
+				tier = king
+				wealth = 200
+			} 
+		
+			wealth = -250
+			host = {
+				wealth = 250
+			}
+			prisoner = no
+        }
+		if = {
+            limit = {
+				tier = duke
+				wealth = 120
+			} 
+		
+			wealth = -145
+			host = {
+				wealth = 145
+			}
+			prisoner = no
+        }
+		if = {
+            limit = {
+				tier = count
+				wealth = 50
+			} 
+		
+			wealth = -70
+			host = {
+				wealth = 70
+			}
+			prisoner = no
+        }
+		if = {
+            limit = {
+				tier = baron
+				wealth = 20
+			} 
+		
+			wealth = -25
+			host = {
+				wealth = 25
+			}
+			prisoner = no
+        }
+		if = {
+            limit = {
+				is_ruler = no
+				wealth = 10
+			} 
+
+			wealth = -10
+			host = {
+				wealth = 10
+			}
+			prisoner = no
+        }
+        if = {
+            limit = {
+				is_ruler = no
+				NOT = { wealth = 10 }
+			} 
+			liege = { character_event = { id = ransomall.1 } }
+        }	
+	}
+	
+	option = {
+		name = "ransomall.0.b"
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+character_event = {
+	id = ransomall.1
+	desc = "ransomall.0.w"
+	picture = "GFX_evt_into_the_dungeon"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "ransomall.0.w1"
+		
+		ai_chance = { 
+			factor = 1
+			modifier = {
+				factor = 2 
+				trait = charitable
+			}
+			modifier = {
+				factor = 2 
+				trait = kind
+			}
+			modifier = {
+				factor = 2 
+				trait = just
+			}
+			modifier = {
+				factor = 1.25 
+				wealth = 200
+			}
+			modifier = {
+				factor = 1.5 
+				wealth = 250
+			}
+			modifier = {
+				factor = 2 
+				wealth = 300
+			}
+			modifier = {
+				factor = 50 
+				wealth = 400
+			}
+			modifier = {
+				factor = 100 
+				wealth = 500
+			}
+			modifier = {
+				factor = 100 
+				FROM = { is_close_relative = ROOT } 
+			}
+		}
+
+		ROOT = { wealth = -10 }
+		FROMFROM = { wealth = 10 }
+		
+		FROM = { prisoner = no }
+	}
+
+	option = {
+		name = "ransomall.0.w2"
+		
+		ai_chance = {
+			factor = 0.5
+			modifier = {
+				factor = 2 
+				trait = greedy
+			}
+			modifier = {
+				factor = 2 
+				trait = wroth
+			}
+			modifier = {
+				factor = 1.5 
+				trait = cruel
+			}
+			modifier = {
+				factor = 2.5 
+				NOT = { wealth = 75 } 
+			}
+			modifier = {
+				factor = 5 
+				NOT = { wealth = 50 } 
+			}
+			modifier = {
+				factor = 10 
+				NOT = { wealth = 25 } 
+			}
+		}
+		
+		hidden_tooltip = {
+			FROMFROM = { character_event = { id = ransomall.2 } }
+		}
+	}
+}
+character_event = {
+	id = ransomall.2
+	desc = "ransomall.0.ww"
+	picture = "GFX_evt_into_the_dungeon"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "ransomall.0.ww1"
+	}
+}
+
+letter_event = {		# Released from Prison
+	id = 31996312
+	desc = "PRSNLET31996312"
+	picture = "GFX_evt_castle_yard"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "PRSNLETOPT31996312"
+	}
+}

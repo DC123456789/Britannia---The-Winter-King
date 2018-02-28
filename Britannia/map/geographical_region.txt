@@ -1,0 +1,979 @@
+# Geographical regions
+# Regions can be declared with one or more of the following fields:
+#	duchies = { }, takes duchy title names declared in landed_titles.txt
+#	counties = { }, takes county title names declared in landed_titles.txt
+#	provinces = { }, takes province id numbers declared in /history/provinces
+#	regions = { }, a region can also include other regions, however the subregions needs to be declared before the parent region. 
+#		E.g. If the region world_europe contains the region world_europe_west then world_europe_west needs to be declared as a region before (i.e. higher up in this file) world_europe.
+
+###########################################################################
+# World Regions
+#	These groups are mutually exclusive on the same tier
+###########################################################################
+world_britannia_cymry_henogledd_ynysmanaw = {
+	duchies = {
+		d_ynys_man
+	}
+}
+
+world_elmet = {
+	duchies = {
+		d_elmet
+	}
+}
+
+world_britannia_cymry_henogledd = {
+	duchies = {
+		# Ebrauc
+		d_ebrauc
+		# Rheged
+		d_westrheged d_argoed
+		# The Pennines
+		d_the_peak d_dunoting
+		# Ystrad Clud/Strathclyde
+		d_aeron d_lennox d_galloway d_novant
+		# Lothian
+		d_eidyn d_manaw
+		# Bryneich
+		d_eastrheged d_bryneich
+	}
+	regions = {
+		world_britannia_cymry_henogledd_ynysmanaw world_elmet
+	}
+}
+
+world_henis_wyren = {
+	duchies = {
+		# Henis Wyren
+		d_osmaeliog
+	}
+}
+
+world_demetia = {
+	duchies = {
+		# Demetia/Deheubarth
+		d_deheubarth d_ystrad_tywi
+	}
+}
+
+world_britannia_cymry_wales = {
+	duchies = {
+		# Gwent
+		d_gwent
+		# Siluria/Glywissing
+		d_glywissing d_brycheiniog
+		# Powys
+		d_centpowys d_buelt d_westpowys
+		# Gwynedd
+		d_meirion d_northgwynedd
+	}
+	regions = {
+		# Henis Wyren
+		world_henis_wyren
+		# Demetia/Deheubarth
+		world_demetia
+	}
+}
+
+world_lyonesse = {
+	duchies = {
+		d_lyonesse
+	}
+}
+
+world_britannia_cymry_cornwall_proper = {
+	duchies = {
+		d_penwith d_kernow
+	}
+	regions = {
+		world_lyonesse
+	}
+}
+
+world_britannia_cymry_cornwall = {
+	duchies = {
+		# Dumnonia
+		d_westdumnonia
+	}
+	regions = {
+		world_britannia_cymry_cornwall_proper
+	}
+}
+
+world_britannia_cymry = {
+	duchies = {
+		# Gwent
+		d_westgwent
+		# Powys
+		d_eastpowys d_luitcoyt
+		# Gwynedd
+		d_deceanglia
+	}
+	regions = {
+		world_britannia_cymry_henogledd world_britannia_cymry_wales world_britannia_cymry_cornwall
+	}
+}
+
+world_britannia_lloegyr_guenet = {
+	duchies = {
+		# Guenet
+		d_corinium d_baddon d_centgwent
+	}
+}
+world_britannia_lloegyr = {
+	duchies = {
+		# Dumnonia
+		d_centdumnonia d_avalon 
+		# Gwinntguic/Atrebatia
+		d_eastdumnonia d_the_belgae d_gradawc		
+		# Stronggore/Cynwidion
+		d_eastgwent d_calchfynydd
+		# Icenia
+		d_cantabrigia d_grwath d_durobrivae
+		# Cantuaria
+		d_cantuaria d_dubris d_rhegin
+		# Londinium
+		d_lundein d_mincip d_trinovantia
+		# Lindum
+		d_lindum d_lerion
+	}
+	regions = {
+		world_britannia_lloegyr_guenet
+	}
+}
+
+world_britannia = {
+	regions = {
+		world_britannia_lloegyr world_britannia_cymry
+	}
+}
+
+world_caledonia_dalriada = {
+	duchies = {
+		d_argyll d_hebrides d_lorne
+	}
+	counties = {
+		c_scotia c_dunadd c_ardnamurchan
+	}
+}
+
+world_outer_hebrides = {
+	duchies = {
+		d_hyperborea
+	}
+}
+
+world_shetland = {
+	duchies = {
+		d_shetland
+	}
+}
+
+world_caledonia = {
+	duchies = {
+		# Pictavia
+		d_cat d_ce d_fotla d_fiobha d_fidach d_fortriu d_circind d_galeth 
+	}
+	regions = {
+		# Pictavia
+		world_outer_hebrides world_shetland
+		# Dalriada
+		world_caledonia_dalriada
+	}
+}
+
+world_ireland_ulidia = {
+	duchies = {
+		# Ulaid
+		d_antrim d_down d_cuib
+	}
+}
+
+world_ireland = {
+	duchies = {
+		# Ulaid
+		d_ulaid d_airgialla d_ui_neill
+		# Connacht
+		d_westconnacht d_eastconnacht d_northconnacht d_ui_maine d_breifne
+		# Midhe
+		d_northmide d_southmide
+		# Leinster
+		d_ui_ceinnselaig d_ui_dunlainge
+		# Munster
+		d_ui_liathain d_thomond d_ormond d_westmunster d_deisi_munster d_osraige
+	}
+	regions = {
+		# Ulaid
+		world_ireland_ulidia
+	}
+}
+
+world_gaul_lugdunensis_armorica = {
+	duchies = {
+		d_broerec d_finis_terrae d_domnonea
+	}
+}
+
+world_gaul_lugdunensis_prima = {
+	duchies = {
+		d_sapaudia d_aeduia d_nivernia d_matiscia d_cabiolonia d_lingonia
+	}
+}
+
+world_gaul_lugdunensis_secunda = {
+	duchies = {
+		d_trebes d_normannia d_baiocassia d_sagia d_sequania d_veliocassia d_lexovia d_eburovicia
+	}
+}
+
+world_gaul_lugdunensis_tertia = {
+	duchies = {
+		d_andecavia d_cenomannia d_redonia d_namnetia d_turonia
+	}
+	regions = {
+		world_gaul_lugdunensis_armorica
+	}
+}
+
+world_gaul_lugdunensis_quartia = {
+	duchies = {
+		d_parisia d_meldia d_senonia d_autissiodoria d_carnutia d_aureliania d_tricassia
+	}
+}
+
+world_gaul_lugdunensis = {
+	regions = {
+		world_gaul_lugdunensis_prima
+		world_gaul_lugdunensis_secunda
+		world_gaul_lugdunensis_tertia
+		world_gaul_lugdunensis_quartia
+	}
+}
+
+world_gaul_belgica_prima = {
+	duchies = {
+		d_mediomatricia d_treveria d_verodunensia d_leucia
+	}
+}
+
+world_dentelinus = {
+	duchies = {
+		d_morinia d_menapia d_atrebatia d_nervia
+	}
+}
+
+world_gaul_belgica_secunda = {
+	duchies = {
+		d_suessionia d_alaudania d_catalaunia d_ambiania d_viromanduia d_bellovacia
+	}
+	regions = {
+		world_dentelinus
+	}
+}
+
+world_gaul_belgica = {
+	regions = {
+		world_gaul_belgica_prima
+		world_gaul_belgica_secunda
+	}
+}
+
+world_gaul_aquitania_prima = {
+	duchies = {
+		d_biturigia d_lemovicia d_alvernia d_gabalia d_vellavia d_cadurcia d_rutenia d_albigensia
+	}
+}
+
+world_gaul_aquitania_secunda = {
+	duchies = {
+		d_aquitania d_santonia d_ecolismensia d_viviscia d_petrocoria d_nitiobrogia
+	}
+}
+
+world_gaul_aquitania_tertia = {
+	duchies = {
+		d_elusatia d_auscia d_lactoratia d_convenia d_consorannia d_bigerria d_aturensia d_vasatia d_benearia d_iluronensia d_boiatia d_tarbellia
+	}
+}
+
+world_gaul_aquitania = {
+	regions = {
+		# Aquitania Prima
+		world_gaul_aquitania_prima
+		# Aquitania Secunda
+		world_gaul_aquitania_secunda
+		# Aquitania Tertia
+		world_gaul_aquitania_tertia
+	}
+}
+
+world_gaul_viennensis_prima = {
+	duchies = {
+		d_allobrigia d_segovellaunia d_helvia d_gratianopolitia d_vocontia d_genavensia
+	}
+}
+
+world_gaul_viennensis_secunda = {
+	duchies = {
+		d_arelatensia d_massiliensia d_tolonensia d_avenionensia d_arausicensia d_tricastinensia d_vasensia d_carpentoratensia d_cavilonensia
+	}
+}
+
+world_gaul_narbonensis_septimania = {
+	duchies = {
+		d_narbonensia d_biterrensia d_lutevania d_nemausensia d_ucetiensia
+	}
+}
+
+world_gaul_narbonensis_prima = {
+	duchies = {
+		d_tolosatia
+	}
+	regions = {
+		world_gaul_narbonensis_septimania
+	}
+}
+
+world_gaul_narbonensis_secunda = {
+	duchies = {
+		d_aquensia d_aptensia d_segesteronensia d_vapincensia d_regensia d_forojuliensia
+	}
+}
+
+world_gaul_narbonensis = {
+	regions = {
+		world_gaul_narbonensis_prima world_gaul_narbonensis_secunda world_gaul_viennensis_prima world_gaul_viennensis_secunda
+	}
+}
+
+world_gaul_germania_secunda = {
+	duchies = {
+		d_tungria d_toxandria d_batavia d_cananefatia d_ubia 
+	}
+}
+
+world_gaul_romangermania = {
+	regions = {
+		world_gaul_germania_secunda
+	}
+}
+
+world_gaul = {
+	regions = {
+		# Lugdunensis
+		world_gaul_lugdunensis
+		# Belgica
+		world_gaul_belgica
+		# Aquitania
+		world_gaul_aquitania
+		# Narbonensis
+		world_gaul_narbonensis
+		# Germania Cisrhenania
+		world_gaul_romangermania
+	}
+}
+
+#world_hispania = {
+#	duchies = {
+#		d_britonia
+#	}
+#}
+
+world_germania_saxony_westphalia = {
+	duchies = {
+		d_emsland d_westweser d_dreinland d_grainland d_westfalia
+	}
+}
+
+world_germania_saxony_angria = {
+	duchies = {
+		d_bremunland d_paderborn d_angria d_verden d_detmold
+	}
+}
+
+world_germania_saxony_nordalbingia = {
+	duchies = {
+		d_nordalbingia
+	}
+}
+
+world_germania_saxony = {
+	regions = {
+		world_germania_saxony_westphalia
+		world_germania_saxony_angria
+		world_germania_saxony_nordalbingia
+	}
+}
+
+world_germania_jutland = {
+	duchies = {
+		# Jutland
+		d_eastjutland d_westjutland d_northjutland d_limfjord d_viborg
+	}
+}
+
+world_germania_danish_march = {
+	duchies = {
+		d_myrging
+	}
+}
+
+world_germania_angeln = {
+	duchies = {
+		# Angeln
+		d_angeln d_north_frisia d_myrging d_barvid
+	}
+}
+
+world_hamaland_salland = {
+	duchies = {
+		d_salland d_hamaland
+	}
+}
+
+world_bructeria = {
+	duchies = {
+		# Ripuarian Franks
+		d_brukterer
+	}
+}
+
+world_germania = {
+	duchies = {
+		# Frisia
+		d_west_frisia d_friesland d_east_frisia
+	}
+	regions = {
+		# Jutland
+		world_germania_jutland
+		# Angeln
+		world_germania_angeln
+		# Saxony
+		world_germania_saxony 
+		# Ripuarian Franks
+		world_hamaland_salland world_bructeria
+	}
+}
+
+world_gotland = {
+	duchies = {
+		d_gotland
+	}
+}
+
+
+###########################################################################
+# Custom Regions
+###########################################################################
+
+custom_maxima_caesariensis = {
+	duchies = {
+		# Londinium
+		d_lundein d_mincip
+		# Icenia
+		d_cantabrigia d_trinovantia
+		# Cantuaria
+		d_cantuaria d_dubris
+		# Gwinntguic/Atrebatia
+		d_rhegin	
+		# Stronggore/Cynwidion
+		d_calchfynydd d_grwath
+	}
+	counties = {
+		# Gwinntguic/Atrebatia
+		c_fearnhamme 
+		# Stronggore/Cynwidion
+		c_chiltern_hills c_lactodorum c_ciniubantum c_brinavae c_the_fens c_ely c_holme_fen
+	}
+}
+
+custom_flavia_caesariensis = {
+	duchies = {
+		# Lindum
+		d_lindum
+	}
+	counties = {
+		# Lindum
+		c_ratae c_ad_pontem c_margidunum c_gwash c_bannaventa c_causennae c_durobrivae
+		# Powys
+		c_repton c_manduessedum
+		# Guenet
+		c_tripontium
+		# Elmet
+		c_segelocum c_scarsdale
+		# The Pennines
+		c_trent_hills
+	}
+}
+
+custom_britannia_prima = {
+	duchies = {
+		# Guenet
+		d_corinium d_baddon
+		# Gwinntguic/Atrebatia
+		d_the_belgae d_gradawc
+		# Dumnonia
+		d_centdumnonia d_avalon d_westdumnonia
+		# Kernow
+		d_penwith d_kernow d_lyonesse
+		# Gwent
+		d_gwent d_westgwent
+		# Siluria/Glywissing
+		d_glywissing d_brycheiniog
+		# Powys
+		d_centpowys d_buelt d_westpowys d_eastpowys
+		# Gwynedd
+		d_meirion d_northgwynedd d_deceanglia
+		# Henis Wyren
+		d_osmaeliog
+		# Demetia/Deheubarth
+		d_deheubarth d_ystrad_tywi
+	}
+	counties = {
+		# Gwinntguic/Atrebatia
+		c_calleva c_spinae c_hen_vicus c_cunetio
+		# Powys
+		c_letocetum c_arden_forest
+		# Guenet
+		c_glevum c_avona c_wychwood
+		# The Pennines
+		c_dovedale
+	}
+}
+
+custom_britannia_secunda = {
+	duchies = {
+		# Ebrauc
+		d_ebrauc
+		# The Pennines
+		d_dunoting
+		# Rheged
+		d_argoed d_westrheged
+		# Bryneich
+		d_eastrheged
+	}
+	counties = {
+		# The Pennines
+		c_aquae_arnemetiae c_cambodunum
+		# Elmet
+		c_legiolium c_ioredale c_danu
+	}
+}
+
+custom_roman_britannia = {
+	regions = {
+		custom_maxima_caesariensis custom_flavia_caesariensis custom_britannia_prima custom_britannia_secunda
+	}
+}
+
+custom_valentia = {
+	duchies = {
+		# Bryneich
+		d_bryneich
+		# Lothian
+		d_eidyn
+		# Ystrad Clud
+		d_aeron d_galloway d_novant
+	}
+	counties = {
+		# Ystrad Clud
+		c_ayr
+		# Lothian
+		c_lothian
+	}
+	regions = {
+		# Manau
+		world_britannia_cymry_henogledd_ynysmanaw
+	}
+}
+
+custom_wre = {
+	regions = {
+		world_gaul custom_roman_britannia # world_hispania
+	}
+}
+
+custom_gaul_coast = {
+	duchies = {
+		d_finis_terrae d_trebes d_normannia d_baiocassia d_lexovia d_sequania d_ambiania d_morinia d_menapia d_atrebatia
+	}
+	counties = {
+		c_rotomagus c_uggade c_broceliande c_fanum_martis
+	}
+}
+
+custom_britannia_coast = {
+	duchies = {
+		# Kernow
+		d_penwith d_kernow d_lyonesse
+		# Dumnonia
+		d_westdumnonia d_centdumnonia d_avalon 
+		# Guenet
+		d_corinium d_baddon
+		# Gwinntguic/Atrebatia
+		d_eastdumnonia d_the_belgae d_rhegin d_gradawc
+		# Cantuaria
+		d_cantuaria d_dubris
+		# Londinium
+		d_lundein
+	}
+}
+
+custom_frisia = {
+	duchies = {
+		d_west_frisia d_friesland d_east_frisia
+	}
+	counties = {
+		c_walacria c_wasia c_waal c_aardenburg c_hadrianicum c_dordrecht c_traiectum c_dorestad
+	}
+}
+
+#custom_north_aquitania_prima = {
+#	duchies = {
+#		d_biturigia d_lemovicia d_alvernia d_gabalia d_vellavia
+#	}
+#}
+
+custom_tolosa = {
+	duchies = {
+		d_tolosatia
+	}
+}
+
+custom_northern_provence = {
+	duchies = {
+		d_avenionensia d_arausicensia d_tricastinensia d_vasensia d_carpentoratensia d_cavilonensia d_aptensia d_segesteronensia d_vapincensia
+	}
+}
+
+custom_southern_provence = {
+	duchies = {
+		d_arelatensia d_massiliensia d_tolonensia d_aquensia d_regensia d_forojuliensia
+	}
+}
+
+custom_southaquitania = {
+	duchies = {
+		# Narbonensis Prima
+		d_tolosatia 
+		# Aquitania Prima
+		d_rutenia d_albigensia
+		# Aquitania Tertia
+		d_elusatia d_auscia d_lactoratia d_convenia d_consorannia d_bigerria d_aturensia d_vasatia d_benearia d_iluronensia d_tarbellia
+	}
+}
+
+custom_northwest_gaul = {
+	duchies = {
+		d_aquitania d_bellovacia d_sequania d_veliocassia d_carnutia d_ambiania
+	}
+	regions = {
+		world_gaul_lugdunensis_secunda world_gaul_lugdunensis_tertia
+	}
+}
+
+custom_benoic = {
+	duchies = {
+		d_trebes d_normannia d_redonia
+	}
+}
+
+custom_scandinavia = {
+	duchies = {
+		# Sjaelland
+		d_fyn d_zealand d_lolland d_mon
+		# Skane
+		d_bornholm d_scania d_halland d_blekinge
+		# Vestlandet
+		d_agder d_rogaland d_hordaland d_sogn d_firtha d_sunnmore
+		# Upplond
+		d_thelamork d_hedmark d_upplond d_buskerud d_gudbrandsdalen d_osterdalen d_harjedalen
+		# Vikin
+		d_vestfold d_vingulmork d_alfheimar d_grenland
+		# Smaland
+		d_oland d_varend d_more d_njudung d_tjust d_finnveden d_handbord d_aspeland d_vista d_vedbo d_tveta d_sevede d_kinda
+		# Vestgautarland
+		d_westgotaland d_dal d_varmland
+		# Austgautarland
+		d_eastgotaland d_gotland
+		# Sodermanland
+		d_sodermanland d_toren d_rekarne
+		# Uppland
+		d_tiundaland d_fjardhundraland d_attundaland d_roden
+		# Vastmannland
+		d_vastmanland d_narke d_lower_dalarna d_upper_dalarna
+		# Halsingland
+		d_halsingland
+	}
+	regions = {
+		# Jutland
+		world_germania_jutland
+		# Angeln
+		world_germania_angeln
+	}
+}
+
+custom_lindsey = {
+	duchies = {
+		d_lindum
+	}
+}
+
+custom_grentbryce = {
+	counties = {
+		c_the_fens c_godmundceaster c_grantabrycge c_ely c_holme_fen c_durobrivae
+	}
+}
+
+custom_middleanglia = {
+	counties = {
+		c_ratae c_ad_pontem c_margidunum c_gwash c_bannaventa c_lactodorum c_ciniubantum c_brinavae c_causennae
+	}
+}
+
+custom_pegansaete = {
+	counties = {
+		c_trent_hills c_scarsdale c_segelocum c_dovedale c_aquae_arnemetiae
+	}
+}
+
+custom_tomsaete = {
+	counties = {
+		c_arden_forest c_letocetum c_manduessedum c_repton
+	}
+}
+
+custom_hwicce = {
+	counties = {
+		c_glevum c_avona c_aquae_sulis c_corinium c_ariconium c_tripontium c_wychwood
+	}
+}
+
+custom_cilternsaete = {
+	counties = {
+		c_alchester c_chiltern_hills c_magiovinium c_durocobrivis
+	}
+}
+
+custom_wrocensaete = {
+	counties = {
+		c_viroconium c_deva c_maelor c_tegeingl c_hibernicum
+	}
+}
+
+custom_magonsaete = {
+	counties = {
+		c_magnis c_lugg_vale c_pengwern
+	}
+}
+	
+custom_mercia = {
+	regions = {
+		custom_grentbryce custom_middleanglia custom_pegansaete custom_tomsaete custom_hwicce custom_cilternsaete custom_wrocensaete custom_magonsaete
+	}
+}
+
+custom_norfolk = {
+	counties = {
+		c_nortwic c_elmham c_thetford c_swaffham
+	}
+}
+
+custom_suffolk = {
+	counties = {
+		c_beodericsworth c_aldeburgh c_gippelwich c_ixworth
+	}
+}
+
+custom_eastanglia = {
+	regions = {
+		custom_norfolk custom_suffolk
+	}
+}
+
+custom_essex = {
+	counties = {
+		c_camulodunum c_thunreslea c_lukintune c_londinium c_chester_forest c_verulanium
+	}
+}
+
+custom_surrey = {
+	counties = {
+		c_the_downs c_anderida c_fearnhamme
+	}
+}
+
+custom_sussex = {
+	counties = {
+		c_cantia c_hastings c_arundel c_regentium
+	}
+}
+
+custom_cantware = {
+	counties = {
+		c_durovernum c_portus_dubris c_portus_lemanis c_aylesford c_thanet
+	}
+}
+
+custom_cantia = {
+	regions = {
+		custom_cantware custom_surrey
+	}
+}
+
+custom_hampshire = {
+	counties = {
+		c_clausentum c_vectis c_venta c_portus_adurni c_vindomis
+	}
+}
+
+custom_meonware = {
+	counties = {
+		c_venta c_portus_adurni c_vindomis
+	}
+}
+
+custom_berkshire = {
+	counties = {
+		c_calleva c_hen_vicus c_spinae
+	}
+}
+
+custom_dorset = {
+	counties = {
+		c_durnovaria c_lindinis c_vindocladia
+	}
+}
+
+custom_wiltshire = {
+	counties = {
+		c_cunetio c_verlucio c_durocornovium c_ambra c_sorviodunum
+	}
+}
+
+custom_somerset = {
+	counties = {
+		c_avalon c_abona c_combe c_tone
+	}
+}
+
+custom_devon = {
+	counties = {
+		c_isca_dumnonia c_exmoor c_dartmoor c_artland
+	}
+}
+
+custom_wessex = {
+	regions = {
+		custom_hampshire custom_berkshire custom_dorset custom_wiltshire custom_somerset custom_devon
+	}
+}
+
+custom_bernicia = {
+	duchies = {
+		d_eastrheged d_bryneich
+	}
+}
+
+custom_deira = {
+	duchies = {
+		d_ebrauc
+	}
+}
+
+custom_southumbria = {
+	counties = {
+		c_varfedale c_legiolium c_ioredale c_danu c_cambodunum
+	}
+}
+
+custom_lancaster = {
+	counties = {
+		c_northhibernicum c_coccium c_cornovia
+	}
+}
+
+custom_cumbria = {
+	counties = {
+		c_carvetia c_eden c_kirby_thore c_armterid
+	}
+}
+
+custom_anglelothian = {
+	counties = {
+		c_lothian c_din_eidyn c_teviotdale c_dunpender
+	}
+}
+
+custom_northumbria = {
+	regions = {
+		custom_bernicia custom_deira custom_southumbria custom_lancaster custom_cumbria custom_anglelothian custom_lindsey
+	}
+}
+
+custom_alba = {
+	duchies = {
+		# Ystrad Clud/Strathclyde
+		d_aeron d_lennox d_galloway d_novant
+		# Lothian
+		d_eidyn d_manaw
+	}
+	regions = {
+		world_caledonia
+		world_britannia_cymry_henogledd_ynysmanaw
+	}
+}
+
+custom_dutch_area = {
+	duchies = {
+		d_toxandria d_batavia d_cananefatia d_hamaland d_west_frisia
+	}
+	counties = {
+		c_leuven c_tongeren c_herstal c_leodicum c_hoium c_novaesium c_tricensimae c_duisburg
+	}
+	regions = {
+		world_dentelinus 
+	}
+}
+
+custom_germania_secunda = {
+	duchies = {
+		d_tungria d_toxandria d_batavia d_cananefatia d_ubia d_west_frisia d_friesland  d_hamaland d_salland d_brukterer
+	}
+}
+
+custom_germania_tertia = {
+	duchies = {
+		d_east_frisia d_emsland d_westweser d_dreinland d_grainland d_westfalia d_angria d_bremunland d_paderborn d_verden d_detmold 
+	}
+}
+
+custom_franconian_area = {
+	counties = {
+		c_cologne c_juliacum c_bonna c_icorigium c_hatterun c_deutz c_avalgowe c_aquae_granni c_dinant
+	}
+	regions = {
+		world_gaul_belgica_prima 
+	}
+}
+
+custom_arpitan_area = {
+	duchies = {
+		d_allobrigia d_gratianopolitia d_genavensia
+	}
+	regions = {
+		world_gaul_lugdunensis_prima 
+	}
+}
+
+custom_roman_soissons_area = {
+	duchies = {
+		# Lugdunensis Tertia
+		d_andecavia d_cenomannia d_redonia d_namnetia d_turonia
+		# Belgica Secunda
+		d_suessionia d_alaudania d_catalaunia d_ambiania d_viromanduia d_bellovacia
+	}
+	regions = {
+		world_gaul_lugdunensis_secunda world_gaul_lugdunensis_quartia
+	}
+}

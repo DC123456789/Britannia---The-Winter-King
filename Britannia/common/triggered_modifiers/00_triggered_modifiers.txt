@@ -1,0 +1,1507 @@
+##################################################
+#
+# STRATEGIC EFFECTS - A.K.A. "TRIGGERED MODIFIERS"
+#
+##################################################
+
+# Good 			<=> 		Bad
+#
+#  1 - Martial 				- 19
+#  2 - Learning 				- 20
+#  3 - Diplomacy 			- 21
+#  4 - Stewardship 			- 22
+#  5 - Intrigue 				- 23
+#  6 - Money 				- 24
+#  7 - Prestige 				- 25
+#  8 - Piety 				- 26
+#  9 - Titles 				- 27
+# 10 - Council 				- 28 
+# 11 - Laws 				- 29
+# 12 - Tech 				- 30 
+# 13 - Military 				- 31
+# 14 - Plots 				- 32
+# 15 - Messages 			- 33
+# 16 - Diplomatic actions 		- 34
+# 17 - Church 				- 35
+# 18 - Characters 			- 36
+# 37 - Prison 				- 38
+
+
+# # Frankish Coastal Gaul Control
+# frank_gaul_control = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# culture = oldfrankish
+		# completely_controls_region = custom_gaul_coast
+	# }
+	
+	# icon = 9
+	
+	# global_tax_modifier = 0.1
+	# monthly_character_prestige = 0.15
+	# general_opinion = 5
+	
+# #	ai_ambition = 40
+# #	ai_rationality = 20
+# }	
+# # Roman Coastal Gaul Control
+# roman_gaul_control = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# NOT = {
+			# culture = oldfrankish
+		# }
+		# completely_controls_region = custom_gaul_coast
+	# }
+	
+	# icon = 9
+	
+	# global_tax_modifier = 0.1
+	# monthly_character_prestige = 0.15
+	# general_opinion = 5
+	
+# #	ai_ambition = 40
+# #	ai_rationality = 20
+# }	
+
+# # Conqueror
+# conqueror = {
+	# potential = {
+		# is_ruler = yes
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_female = no
+		# age = 25
+		# OR = {
+			# tier = EMPEROR
+			# AND = {
+				# has_landed_title = k_gaul
+				# has_global_flag = senate_restored
+				# culture_group = imperiale
+			# }
+		# }				
+		# prestige = 2000
+		# martial = 17
+		# diplomacy = 15
+		# OR = {
+			# trait = brilliant_strategist
+			# trait = skilled_tactician
+		# }
+		# NOT = { trait = weak }
+		# NOT = { trait = shy }
+		# NOT = { trait = slow }
+		# NOT = { trait = blinded }
+		# NOT = { trait = incapable }
+		# NOT = { trait = slothful }
+		# NOT = { trait = imbecile }
+		# NOT = { trait = content }
+		# NOT = { trait = craven }
+	# }
+	
+	# icon = 7
+	
+	# land_morale = 0.25
+	# monthly_character_prestige = 0.25
+	
+# #	ai_ambition = 50
+# #	ai_honor = 20
+# #	ai_rationality = 20
+# }	
+
+# #Local Control
+# small_demesne = {
+	# potential = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# demesne_size = 1
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+	# }
+	# trigger = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+		# NOT = { demesne_size = 2 }
+		# war = no
+	# }
+	
+	# icon = 6
+	
+	# global_tax_modifier = 0.5
+# }
+# small_demesne = {
+	# potential = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# demesne_size = 1
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+	# }
+	# trigger = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+		# demesne_size = 2
+		# NOT = { demesne_size = 3 }
+		# war = no
+	# }
+	
+	# icon = 6
+	
+	# global_tax_modifier = 0.3
+# }
+# small_demesne = {
+	# potential = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# demesne_size = 1
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+	# }
+	# trigger = {
+		# is_ruler = yes
+		# OR = {
+			# tier = count
+			# tier = duke
+		# }
+		# is_landed = yes
+		# num_of_count_titles = 1
+		# NOT = { trait = incapable }
+		# realm_stewardship = 20
+		# demesne_size = 3
+		# NOT = { demesne_size = 4 }
+		# war = no
+	# }
+	
+	# icon = 6
+	
+	# global_tax_modifier = 0.15
+# }
+
+# # Rightful Attack
+# attack_just = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# any_war = {
+			# OR = {
+				# using_cb = overthrow_ruler
+				# using_cb = depose_liege
+				# using_cb = bid_for_independence
+				# using_cb = cb_faction_independence		
+			# }
+			# attacker = {
+				# character = ROOT
+			# }
+		# }
+		# NOT = {
+			# any_war = {
+				# defender = {
+					# character = ROOT
+				# }
+			# }	
+		# }
+	# }
+	
+	# city_vassal_min_levy = 0.1
+	# city_vassal_max_levy = 0.1
+	# castle_vassal_min_levy = 0.1
+	# castle_vassal_max_levy = 0.1
+	# temple_vassal_min_levy = 0.1
+	# temple_vassal_max_levy = 0.1
+	
+	# land_morale = 0.1
+	# land_organisation = 0.1
+	
+	# global_tax_modifier = 0.1
+
+	# icon = 13
+	
+# #	ai_ambition = 20
+# }
+# # In Command
+# commanding = {
+	# potential = {
+		# is_married = yes
+		# higher_tier_than = baron
+		# in_command = yes
+		# NOT = { trait = incapable }
+	# }
+	# trigger = {
+		# in_command = yes
+		# war = yes
+	# }
+
+	# icon = 1
+
+	# fertility = -0.75
+	# monthly_character_prestige = 0.1
+# }
+
+# # Levies Reduction for Large Realms
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 30
+		# NOT = { realm_size = 40 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.05
+	# city_vassal_max_levy = -0.05
+	# temple_vassal_max_levy = -0.05
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 40
+		# NOT = { realm_size = 50 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.10
+	# city_vassal_max_levy = -0.10
+	# temple_vassal_max_levy = -0.10
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 50
+		# NOT = { realm_size = 60 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.15
+	# city_vassal_max_levy = -0.15
+	# temple_vassal_max_levy = -0.15
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 60
+		# NOT = { realm_size = 70 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.20
+	# city_vassal_max_levy = -0.20
+	# temple_vassal_max_levy = -0.20
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 70
+		# NOT = { realm_size = 80 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.25
+	# city_vassal_max_levy = -0.25
+	# temple_vassal_max_levy = -0.25
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 80
+		# NOT = { realm_size = 90 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.30
+	# city_vassal_max_levy = -0.30
+	# temple_vassal_max_levy = -0.30
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 90
+		# NOT = { realm_size = 100 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.35
+	# city_vassal_max_levy = -0.35
+	# temple_vassal_max_levy = -0.35
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 100
+		# NOT = { realm_size = 110}
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.40
+	# city_vassal_max_levy = -0.40
+	# temple_vassal_max_levy = -0.40
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 110
+		# NOT = { realm_size = 120 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.45
+	# city_vassal_max_levy = -0.45
+	# temple_vassal_max_levy = -0.45
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 120
+		# NOT = { realm_size = 130 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.50
+	# city_vassal_max_levy = -0.50
+	# temple_vassal_max_levy = -0.50
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 130
+		# NOT = { realm_size = 140 }
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.55
+	# city_vassal_max_levy = -0.55
+	# temple_vassal_max_levy = -0.55
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 140
+		# NOT = { realm_size = 150}
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.60
+	# city_vassal_max_levy = -0.60
+	# temple_vassal_max_levy = -0.60
+# }
+# base_levies = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { has_character_modifier = restored_roman_senate }
+		# NOT = { culture = roman }
+		# primary_title = {
+			# OR = {
+				# has_law = crown_authority_0
+				# has_law = crown_authority_1
+				# has_law = crown_authority_2
+			# }
+		# }
+		# realm_size = 150
+	# }
+	
+	# icon = 11
+	
+	# castle_vassal_max_levy = -0.65
+	# city_vassal_max_levy = -0.65
+	# temple_vassal_max_levy = -0.65
+# }
+
+
+# # Martial Skill Modifiers
+# martial_very_low = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# NOT = { martial = 4 }
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 19
+	
+	# castle_vassal_max_levy = -0.15
+	# city_vassal_max_levy = -0.15
+	# temple_vassal_max_levy = -0.15
+	# levy_reinforce_rate = -0.1
+	# general_opinion = -10
+# }
+# martial_low = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# AND = {
+			# martial = 4
+			# NOT = { martial = 7 }
+		# }
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 19
+	
+	# castle_vassal_max_levy = -0.10
+	# city_vassal_max_levy = -0.10
+	# temple_vassal_max_levy = -0.10
+	# levy_reinforce_rate = -0.05
+	# general_opinion = -5
+# }
+# martial_low_medium = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# AND = {
+			# martial = 7
+			# NOT = { martial = 9 }
+		# }
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 19
+	
+	# castle_vassal_max_levy = -0.05
+	# city_vassal_max_levy = -0.05
+	# temple_vassal_max_levy = -0.05
+	# levy_reinforce_rate = -0.02
+# }
+# martial_medium_high = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# AND = {
+			# martial = 17
+			# NOT = { martial = 20 }
+		# }
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 1
+	
+	# castle_vassal_max_levy = 0.05
+	# city_vassal_max_levy = 0.05
+	# temple_vassal_max_levy = 0.05
+	# levy_reinforce_rate = 0.02
+# }
+# martial_high = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# AND = {
+			# martial = 20
+			# NOT = { martial = 23 }
+		# }
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 1
+	
+	# castle_vassal_max_levy = 0.10
+	# city_vassal_max_levy = 0.10
+	# temple_vassal_max_levy = 0.10
+	# levy_reinforce_rate = 0.05
+	# general_opinion = 5
+	
+# #	ai_ambition = 20
+# }
+# martial_very_high = {
+	# potential = {
+		# is_ruler = yes
+		# age = 16
+		# NOT = { trait = incapable }
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# age = 16
+		# primary_title = { higher_tier_than = COUNT }
+		# martial = 23
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+	# }
+	
+	# icon = 1
+	
+	# castle_vassal_max_levy = 0.15
+	# city_vassal_max_levy = 0.15
+	# temple_vassal_max_levy = 0.15
+	# levy_reinforce_rate = 0.15
+	# general_opinion = 10
+	
+# #	ai_ambition = 40
+# }
+
+
+# # Various Ruler Modifiers
+# master_of_intrigues = {
+	# potential = {
+		# is_ruler = yes
+		# NOT = { trait = incapable }		
+	# }	
+	# trigger = {
+        # age = 16
+		# intrigue = 16
+	# }
+	# assassinate_chance_modifier = 0.15
+	# arrest_chance_modifier = 0.15
+	# general_opinion = 5
+	
+	# icon = 5
+	
+# #	ai_ambition = 30
+# #	ai_honor = -30
+# }
+# war_torn = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+        # NOT = { stewardship = 10 }
+		# OR = {
+            # liege = { war = yes }
+			# war = yes
+		# } 
+	# }
+	
+	# icon = 22
+	
+	# global_tax_modifier = -0.15
+	# assassinate_chance_modifier = 0.05
+# }
+# political_ineptitude = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+	# }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = COUNT }
+		# independent = yes
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+		# NOT = { diplomacy = 10 }
+		# NOT = { intrigue = 10 }
+	# }
+	
+    # assassinate_chance_modifier = -0.10
+	# arrest_chance_modifier = -0.10
+	# general_opinion = -20
+	
+	# icon = 23
+# # }
+# corrupted_court = {
+	# potential = {
+		# is_feudal = yes
+    # }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = BARON }
+		# is_feudal = yes
+		# NOT = { stewardship = 8 }
+        # demesne_size = 6
+	# }
+	
+	# general_opinion = -10
+	# build_cost_modifier = 0.33
+	# build_time_modifier = 0.33
+	# global_tax_modifier = -0.2   
+    # assassinate_chance_modifier = -0.05
+	
+	# icon = 22
+# }
+# bureaucratic_court = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+	# }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = COUNT }
+		# is_feudal = yes
+		# stewardship = 18
+        # NOT = { demesne_size = 10 }
+	# }
+	# general_opinion = 5
+	# build_cost_modifier = -0.15
+	# build_time_modifier = -0.03
+	# global_tax_modifier = 0.15
+	
+	# icon = 4
+	
+# #	ai_rationality = 30
+# # }
+# refuge_for_heretics = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { has_landed_title = k_nuncio_britanniae }
+		# NOT = { trait = incapable }
+	# }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = count }
+		# is_feudal = yes
+		# trait = tolerant
+		# trait = cynical
+		# NOT = { piety = 25 }
+	# }
+	# church_opinion = -20
+	# tech_growth_modifier = 0.1
+	
+	# icon = 26
+# }
+# bastion_of_the_zealous = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+	# }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = BARON }
+		# is_feudal = yes
+		# trait = zealous
+		# piety = 750
+	# }
+	# church_opinion = 20
+	# monthly_character_prestige = 0.025
+	# monthly_character_piety = 0.5
+	# tech_growth_modifier = -0.15
+	
+	# icon = 28
+	
+# #	ai_zeal = 50
+# }
+# patron_of_the_learned = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+    # }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = BARON }
+		# is_feudal = yes
+		# learning = 18
+	# }
+	# monthly_character_prestige = 0.15
+	# general_opinion = 5
+	# tech_growth_modifier = 0.35
+	
+	# icon = 2
+	
+# #	ai_rationality = 50
+# }
+# court_of_ignogrance = {
+	# potential = {
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+    # }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = BARON }
+		# is_feudal = yes
+		# NOT = { trait = incapable }
+		# NOT = { learning = 7 }
+		# }
+
+	# monthly_character_prestige = -0.25
+	# general_opinion = -15
+	# tech_growth_modifier = -0.2
+	
+	# icon = 20
+	
+# #	ai_rationality = -20
+# }
+# wealthy_and_affluent = {
+	# potential = {
+		# is_feudal = yes
+	# }	
+	# trigger = {
+        # age = 16
+		# is_ruler = yes
+		# primary_title = { higher_tier_than = BARON }
+		# OR = {
+			# AND = {
+				# yearly_income = 150
+				# wealth = 250
+			# }
+			# AND = {
+				# yearly_income = 100
+				# wealth = 750
+			# }
+			# AND = {
+				# yearly_income = 50
+				# wealth = 1250
+			# }
+			# wealth = 1500
+		# }
+	# }
+	# monthly_character_prestige = 0.15
+	# general_opinion = 10
+	
+# #	ai_ambition = 40
+	
+	# icon = 18
+# }
+
+
+# # Large Realms
+# too_many_kingdoms = {
+	# potential = {
+		# is_feudal = yes
+		# is_ruler = yes	
+	# }
+	# trigger = {
+		# is_ingvaeonic_culture_trigger = yes
+		# num_of_king_titles = 2
+		# NOT = { higher_tier_than = KING }
+		# NOT = { num_of_king_titles = 4 }
+	# }
+	
+	# monthly_character_prestige = 0.1
+	# general_opinion = -10
+	# global_tax_modifier = -0.05
+	
+	# castle_vassal_max_levy = -0.05
+    # city_vassal_max_levy = -0.05
+    # temple_vassal_max_levy = -0.05
+	# castle_vassal_min_levy = -0.05
+    # city_vassal_min_levy = -0.05
+    # temple_vassal_min_levy = -0.05
+	
+	# icon = 27
+# }
+# too_many_kingdoms = {
+	# potential = {
+		# is_feudal = yes
+		# is_ruler = yes
+	# }
+	# trigger = {
+		# is_ingvaeonic_culture_trigger = yes
+		# NOT = { higher_tier_than = KING }
+		# num_of_king_titles = 4
+	# }
+	
+	# monthly_character_prestige = 0.15
+	# general_opinion = -20
+	# global_tax_modifier = -0.15
+	
+	# castle_vassal_max_levy = -0.3
+    # city_vassal_max_levy = -0.3
+    # temple_vassal_max_levy = -0.3
+	# castle_vassal_min_levy = -0.3
+    # city_vassal_min_levy = -0.3
+    # temple_vassal_min_levy = -0.3
+	
+	# icon = 27
+# }
+# too_many_kingdoms_bretwalda = {
+	# potential = {
+		# is_feudal = yes
+		# is_ruler = yes
+	# }
+	# trigger = {
+		# is_ingvaeonic_culture_trigger = yes
+		# OR = {
+			# has_landed_title = e_aengland
+			# higher_tier_than = KING
+		# }
+		# num_of_king_titles = 2
+	# }
+	
+	# monthly_character_prestige = 0.2
+	# general_opinion = -30
+	# global_tax_modifier = -0.35
+	
+	# castle_vassal_max_levy = -0.35
+    # city_vassal_max_levy = -0.35
+    # temple_vassal_max_levy = -0.35
+	# castle_vassal_min_levy = -0.35
+    # city_vassal_min_levy = -0.35
+    # temple_vassal_min_levy = -0.35
+	
+	# icon = 27
+# }
+
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 10
+			# diplomacy = 10
+		# }
+		# realm_size = 60
+		# NOT = { realm_size = 70 }
+	# }
+	
+	# global_tax_modifier = -0.05
+	# levy_reinforce_rate = -0.05
+	# vassal_opinion = -5
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 12
+			# diplomacy = 12
+		# }
+		# realm_size = 70
+		# NOT = { realm_size = 80 }
+	# }
+	
+	# global_tax_modifier = -0.1
+	# levy_reinforce_rate = -0.1
+	# vassal_opinion = -10
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 13
+			# diplomacy = 13
+		# }
+		# realm_size = 80
+		# NOT = { realm_size = 90 }
+	# }
+	
+	# global_tax_modifier = -0.15
+	# levy_reinforce_rate = -0.15
+	# vassal_opinion = -15
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 14
+			# diplomacy = 14
+		# }
+		# realm_size = 90
+		# NOT = { realm_size = 100 }
+	# }
+	
+	# global_tax_modifier = -0.2
+	# levy_reinforce_rate = -0.2
+	# vassal_opinion = -20
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 15
+			# diplomacy = 15
+		# }
+		# realm_size = 100
+		# NOT = { realm_size = 110 }
+	# }
+	
+	# global_tax_modifier = -0.3
+	# levy_reinforce_rate = -0.25
+	# vassal_opinion = -25
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 16
+			# diplomacy = 16
+		# }
+		# realm_size = 110
+		# NOT = { realm_size = 120 }
+	# }
+	
+	# global_tax_modifier = -0.4
+	# levy_reinforce_rate = -0.3
+	# vassal_opinion = -30
+	
+	# icon = 28
+# }
+# too_large_realm = {
+	# potential = {
+		# is_ruler = yes
+	# }
+
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { culture_group = imperiale }
+		# NOT = { culture = romanobritish }
+		# NOT = { culture = armorican }
+		# NOT = { culture = breton }
+		# NOT = { culture = oldfrankish }
+		# NOT = {
+			# stewardship = 17
+			# diplomacy = 17
+		# }
+		# realm_size = 120
+	# }
+	
+	# global_tax_modifier = -0.5
+	# levy_reinforce_rate = -0.35
+	# vassal_opinion = -40
+	
+	# icon = 28
+# }
+
+
+# # Bankruptcy
+# negative_money_1 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# wealth = -200
+		# NOT = { wealth = 0 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -0.5
+	# monthly_character_prestige = -0.15
+	# general_opinion = -10
+# }
+# negative_money_2 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# wealth = -400
+		# NOT = { wealth = -200 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -1.0
+	# monthly_character_prestige = -0.25
+	# general_opinion = -20
+# }
+# negative_money_3 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# wealth = -600
+		# NOT = { wealth = -400 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -1.5
+	# monthly_character_prestige = -0.5
+	# general_opinion = -30
+# }
+# negative_money_4 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# wealth = -800
+		# NOT = { wealth = -600 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -2.0
+	# monthly_character_prestige = -1.0
+	# general_opinion = -40
+# }
+# negative_money_5 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# wealth = -1000
+		# NOT = { wealth = -800 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -2.5
+	# monthly_character_prestige = -1.5
+	# general_opinion = -50
+# }
+# negative_money_6 = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# NOT = { wealth = -1000 }
+	# }
+	
+	# icon = 24
+	
+	# land_morale = -3
+	# monthly_character_prestige = -2.0
+	# general_opinion = -60
+# }
+
+# #Lack of Authority
+# negative_authority = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# NOT = { prestige = 0 }
+	# }
+	
+	# icon = 25
+	
+	# general_opinion = -20
+	# city_vassal_min_levy = -0.2
+	# city_vassal_max_levy = -0.2
+	# castle_vassal_min_levy = -0.2
+	# castle_vassal_max_levy = -0.2
+	# temple_vassal_min_levy = -0.2
+	# temple_vassal_max_levy = -0.2
+	# global_tax_modifier = -0.2
+# }
+
+# # Vestigial Kingdom
+# vestigial_kingdom = {
+	# potential = {
+		# is_ruler = yes
+		# is_landed = yes
+		# independent =  yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes
+		# is_landed = yes
+		# war = no
+		# primary_title = {
+			# OR = {
+				# title = k_dumnonia
+				# title = k_powys
+				# title = k_gaul
+				# title = k_anglia
+				# title = k_rheged
+				# title = k_ulaid
+				# title = k_munster
+				# title = k_connacht
+			# }
+		# }
+		# NOT = { realm_size = 8 }
+	# }
+	
+	# monthly_character_prestige = -0.5
+
+	# diplomacy = -1
+	
+	# icon = 27
+# }
+
+
+# # Different Religion in Capital
+# wrong_religion_group_capital = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes	
+		# ai = no
+		# capital_scope = {
+			# NOT = { religion_group = ROOT }
+		# }
+	# }
+	
+	# icon = 35
+	
+	# global_tax_modifier = -0.2
+	
+	# # active = no
+# }
+# wrong_religion_capital = {
+	# potential = {
+		# is_ruler = yes
+	# }
+	
+	# trigger = {
+		# is_ruler = yes	
+		# ai = no
+		# capital_scope = {
+			# religion_group = ROOT
+			# NOT = { religion = ROOT }
+		# }
+	# }
+	
+	# icon = 35
+	
+	# global_tax_modifier = -0.1
+	
+	# active = no
+# }
+
+# # Gaelic King mechanic
+# unfit_gaelic_king = {
+	# potential = {
+		# is_ruler = yes
+		# OR = {
+			# religion = gael_pagan
+			# religion = gael_pagan_reformed
+		# }
+	# }
+	
+	# trigger = {
+		# OR = {
+			# trait = maimed
+			# trait = eunuch
+			# trait = blinded
+		# }
+	# }
+	
+	# icon = 25
+	
+	# land_morale = -0.20
+	# general_opinion = -10
+	
+	# active = no
+# }
+
+# # Saxon Revolt
+# ravaged_lands = {
+	# potential = {
+		# is_ruler = yes
+	# }	
+	# trigger = {
+		# has_global_flag = ravaged_lands
+		# NOT = { has_global_flag = saxon_revolt_finished }
+		# OR = {
+			# culture = romanobritish
+			# culture = briton
+			# AND = {
+				# culture = roman
+				# has_landed_title = k_maxima_cesariensis
+			# }
+		# }
+	# }
+	
+    # city_vassal_min_levy = -0.5
+	# city_vassal_max_levy = -0.5
+	# castle_vassal_min_levy = -0.5
+	# castle_vassal_max_levy = -0.5
+	# temple_vassal_min_levy = -0.5
+	# temple_vassal_max_levy = -0.5
+	# global_tax_modifier = -0.5
+	
+	# icon = 31
+# }

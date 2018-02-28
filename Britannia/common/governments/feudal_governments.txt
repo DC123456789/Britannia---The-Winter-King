@@ -1,0 +1,425 @@
+feudal_governments = {
+	
+	imperial_government = {
+		preferred_holdings = { CITY }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			CITY
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		
+		free_revoke_on_tiers = {
+			duke
+			king
+		}
+
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				is_roman_emperor_trigger = yes
+				top_liege = {
+					OR = {
+						is_roman_emperor_trigger = yes
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								is_roman_emperor_trigger = yes
+							}
+						}
+						is_tributary = { type = roman_province }
+					}
+				}
+			}
+			NOT = { is_government_potential = legion_government }
+		}
+		
+		color = { 0.45 0.35 0.62 }
+		
+		character_modifier = {
+			global_tax_modifier = -0.20
+			land_morale = 0.1
+			land_organisation = 0.1
+			levy_size = -0.25
+			castle_vassal_max_levy = -0.25
+			city_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			castle_vassal_min_levy = -0.1
+			city_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+		}
+		
+		title_prefix = "imperial_"
+		dukes_called_kings = no
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		
+		free_retract_vassalage = yes
+
+		free_levies_in_offensive_war = yes
+		
+		can_grant_kingdoms_and_empires_to_other_government = yes
+		
+		vassal_limit = 35
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+			legion_government
+		}
+		capital_move_delay = 240
+	}
+	
+	sub_roman_brythonic_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			CITY
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = {
+			feudal_government
+			imperial_government
+			germanic_government
+			sub_roman_government
+		}
+		
+		#free_revoke_on_tiers = {
+		#	duke
+		#	king
+		#}
+
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				has_global_flag = startup
+				is_brythonic_culture_trigger = yes
+				AND = {
+					OR = {
+						culture_group = imperiale
+						is_romanized_germanic_trigger = yes
+					}
+					capital_scope = {
+						region = world_britannia
+					}
+				}
+			}
+			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = imperial_government }
+		}
+		
+		color = { 124 184 70 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		
+		free_retract_vassalage = yes
+
+		free_levies_in_offensive_war = yes
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+			legion_government
+		}
+		capital_move_delay = 240
+	}
+	
+	sub_roman_government = {
+		#preferred_holdings = { CITY }
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			CITY
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = {
+			feudal_government
+			imperial_government
+			germanic_government
+			sub_roman_brythonic_government
+		}
+		
+		# free_revoke_on_tiers = {
+			# duke
+			# king
+		# }
+
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				has_global_flag = startup
+				culture_group = imperiale
+				is_romanized_germanic_trigger = yes
+				culture_group = basque
+				culture_group = sarmatian
+			}
+			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = imperial_government }
+		}
+		
+		color = { 0.6 0.7 0.3 }
+		
+		title_prefix = "subroman_"
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		
+		free_retract_vassalage = yes
+
+		free_levies_in_offensive_war = yes
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		vassal_limit = 30
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+			legion_government
+		}
+		capital_move_delay = 240
+	}
+	
+	germanic_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = {
+			feudal_government
+			imperial_government
+			sub_roman_government
+			sub_roman_brythonic_government
+		}
+		
+		# free_revoke_on_tiers = {
+			# duke
+		# }
+
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			NOR = {
+				has_landed_title = e_gaul
+				has_landed_title = e_roman_britannia
+				has_landed_title = e_western_roman_empire
+			}
+			OR = {
+				has_global_flag = startup
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+			}
+			NOT = { is_government_potential = legion_government }
+			OR = {
+				NOT = { is_government_potential = imperial_government }
+				trait = foederate
+			}
+		}
+		
+		color = { 0.67 0.48 0.33 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		
+		max_consorts = 3
+		
+		free_retract_vassalage = yes
+
+		free_levies_in_offensive_war = yes
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		vassal_limit = 45
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 240
+	}
+	
+	legion_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+		}
+		accepts_liege_governments = {
+			feudal_government
+			sub_roman_government
+			sub_roman_brythonic_government
+			germanic_government
+			imperial_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			primary_title = {
+				is_roman_legion_title_trigger = yes
+			}
+			is_landed = no
+		}
+		
+		color = { 0.73 0.15 0.09 }
+		
+		dukes_called_kings = no
+		barons_need_dynasty = no
+
+		can_build_holdings = no
+		can_build_forts = no
+		can_build_hospitals = no
+		
+		can_create_kingdoms = no
+		can_be_granted_kingdoms_and_empires_by_other_government = no
+		have_gender_laws = no
+		
+		capital_move_delay = 120
+	}
+
+	feudal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			imperial_government
+		}
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				has_global_flag = startup
+				NOR = {
+					is_government_potential = sub_roman_government 
+					is_government_potential = sub_roman_brythonic_government 
+					is_government_potential = germanic_government 
+				}
+			}
+			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = legion_government }
+		}
+		
+		color = { 91 133 207 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
+	
+	muslim_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			feudal_government
+			imperial_government
+		}
+		free_revoke_on_tiers = {
+			duke
+		}
+		frame_suffix = "_iqta"
+		potential = {
+			NAND = {
+				controls_religion = yes
+				has_theocratic_religion_head_trigger = yes
+			}
+			religion_group = muslim
+			is_patrician = no
+			NOT = { is_government_potential = legion_government }
+		}
+		
+		color = { 10 138 57 }
+		
+		uses_decadence = yes
+		uses_piety_for_law_change = yes
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+		have_gender_laws = no
+		allows_matrilineal_marriage = no
+		free_retract_vassalage = yes
+
+		free_levies_in_offensive_war = yes # Took away the hardcoded stuff for muslims where they could raise levies without pissing off vassals if in an offensive war.
+
+		can_build_tribal = no
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
+}

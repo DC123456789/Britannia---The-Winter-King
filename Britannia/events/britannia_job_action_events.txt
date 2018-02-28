@@ -1,0 +1,288 @@
+###################################
+#
+# Britannia Job Action Events
+#
+# IDs 302200 - 302399
+#
+###################################
+
+
+##############################
+# CHANCELLOR
+# JOB: action_sponsor_bards
+##############################
+
+# 302200: Bards Praising Liege
+character_event = {
+	id = 302200
+	title = "EVTNAME302200"
+	desc = "EVTDESC302200"
+	picture = GFX_evt_heretic
+	border = GFX_event_normal_frame_diplomacy
+
+	min_age = 15
+	#only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_job_action = action_sponsor_bards
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { liege = { has_character_modifier = praised_by_bards } }
+	}
+	
+	mean_time_to_happen = {
+		months = 360
+		
+		modifier = {
+			factor = 2
+			NOT = { opinion = { who = liege value = -100 } }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = liege value = -75 } }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = liege value = -50 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { opinion = { who = liege value = -25 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { opinion = { who = liege value = 0 } }
+		}
+		modifier = {
+			factor = 0.95
+			opinion = { who = liege value = 25 }
+		}
+		modifier = {
+			factor = 0.9
+			opinion = { who = liege value = 50 }
+		}
+		modifier = {
+			factor = 0.9
+			opinion = { who = liege value = 75 }
+		}
+		modifier = {
+			factor = 0.85
+			opinion = { who = liege value = 100 }
+		}	
+		modifier = {
+			factor = 1.25
+			NOT = { diplomacy = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { diplomacy = 3 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { diplomacy = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { diplomacy = 5 }
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 10
+		}
+		modifier = {
+			factor = 0.95
+			diplomacy = 11
+		}
+		modifier = {
+			factor = 0.85
+			diplomacy = 12
+		}
+		modifier = {
+			factor = 0.85
+			diplomacy = 13
+		}
+		modifier = {
+			factor = 0.85
+			diplomacy = 14
+		}
+		modifier = {
+			factor = 0.75
+			diplomacy = 15
+		}
+		modifier = {
+			factor = 0.75
+			diplomacy = 16
+		}
+		modifier = {
+			factor = 0.85
+			diplomacy = 17
+		}
+		modifier = {
+			factor = 0.85
+			diplomacy = 18
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302200"
+		prestige = 30
+		liege = { character_event = { id = 302201 tooltip = "EVTTOOLTIP302201" } }
+	}
+}
+
+# 302201: Liege hears of the songs
+character_event = {
+	id = 302201
+	title = "EVTNAME302201"
+	desc = "EVTDESC302201"
+	picture = GFX_evt_heretic
+	border = GFX_event_normal_frame_diplomacy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302201"
+		prestige = 50
+		if = {
+			limit = { has_character_modifier = mocked_by_bards }
+			remove_character_modifier = mocked_by_bards
+		}
+		add_character_modifier = {
+			name = praised_by_bards
+			duration = 1825
+		}
+		opinion = {
+			who = FROM
+			modifier = opinion_grateful
+			months = 60
+		}
+	}
+}
+
+# 302210: Bards are mocking liege
+character_event = {
+	id = 302210
+	title = "EVTNAME302210"
+	desc = "EVTDESC302210"
+	picture = GFX_evt_jugglers_and_entertainers
+	border = GFX_event_normal_frame_diplomacy
+
+	min_age = 15
+	#only_men = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_job_action = action_sponsor_bards
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { liege = { has_character_modifier = mocked_by_bards } }
+	}
+	
+	mean_time_to_happen = {
+		months = 360
+		
+		modifier = {
+			factor = 0.5
+			NOT = { opinion = { who = liege value = -100 } }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { opinion = { who = liege value = -75 } }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { opinion = { who = liege value = -50 } }
+		}
+		modifier = {
+			factor = 0.85
+			NOT = { opinion = { who = liege value = -25 } }
+		}
+		modifier = {
+			factor = 0.85
+			NOT = { opinion = { who = liege value = 0 } }
+		}
+		modifier = {
+			factor = 1.15
+			opinion = { who = liege value = 25 }
+		}
+		modifier = {
+			factor = 1.15
+			opinion = { who = liege value = 50 }
+		}
+		modifier = {
+			factor = 1.25
+			opinion = { who = liege value = 75 }
+		}
+		modifier = {
+			factor = 1.5
+			opinion = { who = liege value = 100 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { diplomacy = 2 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { diplomacy = 3 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { diplomacy = 4 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { diplomacy = 5 }
+		}
+		modifier = {
+			factor = 1.15
+			diplomacy = 10
+		}
+		modifier = {
+			factor = 1.15
+			diplomacy = 11
+		}
+		modifier = {
+			factor = 1.25
+			diplomacy = 12
+		}
+		modifier = {
+			factor = 1.25
+			diplomacy = 13
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302210"
+		liege = { character_event = { id = 302211 tooltip = "EVTTOOLTIP302211" } }
+	}
+}
+
+# 302211: Liege hears of mocking songs
+character_event = {
+	id = 302211
+	title = "EVTNAME302211"
+	desc = "EVTDESC302211"
+	picture = GFX_evt_jugglers_and_entertainers
+	border = GFX_event_normal_frame_economy
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302211"
+		prestige = -50
+		if = {
+			limit = { has_character_modifier = praised_by_bards }
+			remove_character_modifier = praised_by_bards
+		}
+		add_character_modifier = {
+			name = mocked_by_bards
+			duration = 1825
+		}
+		opinion = {
+			who = FROM
+			modifier = opinion_furious
+			months = 60
+		}
+	}
+}

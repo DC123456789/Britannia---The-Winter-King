@@ -1,0 +1,230 @@
+county_conquest_on_success_title_effect = {
+	any_direct_de_jure_vassal_title = { # take all baronies under the one we're fighting for
+		limit = {
+			has_holder = yes
+			holder_scope = {
+				NOT = { culture = ROOT }
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		usurp_title_plus_barony_if_unlanded = ROOT
+	}
+	usurp_title_plus_barony_if_unlanded = ROOT
+	any_attacker = {
+		limit = { character = ROOT }
+		participation_scaled_prestige = 100
+	}
+	any_attacker = {
+		limit = {
+			character = ROOT
+			NOT = { religion_group = christian }
+		}
+		piety = 50
+	}
+	any_attacker = {
+		limit = {
+			NOT = { character = ROOT }
+		}
+		hidden_tooltip = { participation_scaled_prestige = 100 }
+	}
+	if = {
+		limit = {
+			higher_tier_than = BARON
+			NOT = { culture = ROOT }
+		}
+		hidden_tooltip = { conquest_culture = ROOT }
+	}
+	if = {
+		limit = { ROOT = { has_character_flag = foederate_revolt } }
+		hidden_tooltip = { ROOT = { character_event = {	id = 313038 } } }
+	}
+}
+
+county_conquest_on_fail_title_effect = {
+	ROOT = {
+		prestige = -100
+	}
+	if = {
+		limit = { ROOT = { has_character_flag = foederate_revolt } }
+		hidden_tooltip = { ROOT = { character_event = {	id = 313040 } } }
+	}
+	any_defender = {
+		limit = { character = FROM }
+		participation_scaled_prestige = 50
+	}
+	any_defender = {
+		limit = { NOT = { character = FROM } }
+		hidden_tooltip = { participation_scaled_prestige = 50 }
+	}
+}
+
+county_conquest_on_reverse_demand_effect = {
+	ROOT = {
+		prestige = -200
+		transfer_scaled_wealth = {
+			to = FROM
+			value = 4.0
+		}
+	}
+	if = {
+		limit = { ROOT = { has_character_flag = foederate_revolt } }
+		hidden_tooltip = { ROOT = { character_event = {	id = 313039 } } }
+	}
+	any_defender = {
+		limit = { character = FROM }
+		participation_scaled_prestige = 100
+	}
+	any_defender = {
+		limit = { NOT = { character = FROM } }
+		hidden_tooltip = { participation_scaled_prestige = 100 }
+	}
+}
+
+usurp_all_top_level_titles_to_ROOT_effect = {
+	if = {
+		limit = { tier = BARON }
+		any_demesne_title = {
+			limit = { tier = BARON }
+			usurp_title = ROOT
+		}
+	}
+	if = {
+		limit = { tier = COUNT }
+		any_demesne_title = {
+			limit = { tier = COUNT }
+			usurp_title = ROOT
+		}
+	}
+	if = {
+		limit = { tier = DUKE }
+		any_demesne_title = {
+			limit = { tier = DUKE }
+			usurp_title = ROOT
+		}
+	}
+	if = {
+		limit = { tier = KING }
+		any_demesne_title = {
+			limit = { tier = KING }
+			usurp_title = ROOT
+		}
+	}
+	if = {
+		limit = { tier = EMPEROR }
+		any_demesne_title = {
+			limit = { tier = EMPEROR }
+			usurp_title = ROOT
+		}
+	}
+}
+
+vassalize_under_ROOT_tribal_effect = {
+	# First, just vassalize if possible
+	if = {
+		limit = { lower_tier_than = ROOT }
+		set_defacto_liege = ROOT
+	}
+	# If not, usurp FROM's top-level titles if FROM is duke or higher
+	else_if = {
+		limit = {
+			higher_tier_than = COUNT
+		}
+		usurp_all_top_level_titles_to_ROOT_effect = yes
+		set_defacto_liege = ROOT
+	}
+	# If it's a count subjugating a count, try to give ROOT his capital duchy
+	else_if = {
+		limit = {
+			ROOT = { 
+				capital_scope = { 
+					duchy = {
+						has_holder = no
+						ROOT = { is_landed_title_allowed = PREV }
+					}
+				}
+			}
+		}
+		ROOT = {
+			capital_scope = { 
+				duchy = {
+					grant_title = ROOT
+				}
+			}
+			set_defacto_vassal = PREV
+		}
+	}
+	# Otherwise, try any duchy that ROOT holds a province in
+	else_if = {
+		limit = {
+			ROOT = { 
+				any_demesne_title = { 
+					duchy = {
+						has_holder = no
+						ROOT = { is_landed_title_allowed = PREV }
+					}
+				}
+			}
+		}
+		ROOT = {
+			random_demesne_title = { 
+				limit = {
+					duchy = {
+						has_holder = no
+						ROOT = { is_landed_title_allowed = PREV }
+					}
+				}
+				duchy = {
+					grant_title = ROOT
+				}
+			}
+			set_defacto_vassal = PREV
+		}
+	}
+	# Otherwise, try any duchy that FROM holds a province in (since ROOT will rule over FROM after this)
+	else_if = {
+		limit = {
+			any_demesne_title = { 
+				duchy = {
+					has_holder = no
+					ROOT = { is_landed_title_allowed = PREV }
+				}
+			}
+		}
+		random_demesne_title = { 
+			limit = {
+				duchy = {
+					has_holder = no
+					ROOT = { is_landed_title_allowed = PREV }
+				}
+			}
+			duchy = {
+				grant_title = ROOT
+			}
+		}
+		set_defacto_vassal = ROOT
+	}	
+	# If not, make a temporary custom duchy title for ROOT to hold
+	else = {
+		ROOT = {
+			primary_title = {
+				create_title = {
+					tier = DUKE
+					landless = no
+					temporary = no
+					custom_created = yes
+					culture = ROOT
+					holder = ROOT
+					base_title = THIS
+					copy_title_laws = yes
+				}
+				new_title = {
+					set_title_flag = temporary_tribal_title
+				}
+			}
+			set_defacto_vassal = PREV
+		}
+	}
+}

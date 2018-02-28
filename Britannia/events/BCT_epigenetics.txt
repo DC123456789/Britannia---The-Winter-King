@@ -1,0 +1,2696 @@
+namespace = BCT_epigenetics
+# 0-1 is Stength. Each event sets same character flag, but uses "opposite" modifiers #Needs Traits
+# 2-3 is Intelligence #Needs Traits
+# 4-5 is Beauty #Needs Traits
+# 6-7 is Height #Needs more traits
+# 8-9 is Agility #Needs more traits
+# 10-11 is Fighter #Needs: Not children of player; relies on martial education(?).#Needs more balancing
+
+character_event = {
+	id = BCT_epigenetics.0 #Raising Strength
+	desc = "EVTDESCBCT_epigenetics.0"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		martial = 8
+		NOT = { has_character_flag = strength_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}	
+		modifier = {
+			factor = 1.15
+			age = 15
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 0.75
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 0.75
+			trait = changeling
+		}
+		modifier = {
+			factor = 1.3
+			trait = genius
+		}
+		modifier = {
+			factor = 1.2
+			trait = quick
+		}
+		modifier = {
+			factor = 1.1
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.6
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.75
+			trait = slow
+		}
+		modifier = {
+			factor = 0.85
+			trait = dull
+		}
+		modifier = {
+			factor = 1.05
+			trait = robust
+		}
+		modifier = {
+			factor = 1.15
+			trait = tough
+		}
+		modifier = {
+			factor = 2
+			trait = strong
+		}
+		modifier = {
+			factor = 0.95
+			trait = feeble
+		}
+		modifier = {
+			factor = 1.05
+			trait = fast
+		}
+		modifier = {
+			factor = 1.05
+			trait = nimble
+		}
+		modifier = {
+			factor = 1.05
+			trait = agile
+		}
+		modifier = {
+			factor = 0.95
+			trait = stiff
+		}
+		modifier = {
+			factor = 0.95
+			trait = clumsy
+		}										
+		modifier = {
+			factor = 0.6
+			OR = {	
+				trait = weak
+				trait = fragile
+			}	
+			age = 16
+		}
+		modifier = {
+			factor = 1.33
+			NOT = { martial = 9 }
+		}	
+		modifier = {
+			factor = 1.15
+			NOT = { martial = 10 }
+		}		
+		modifier = {
+			factor = 0.9
+			martial = 12
+		}
+		modifier = {
+			factor = 0.9
+			martial = 14
+		}
+		modifier = {
+			factor = 0.9
+			martial = 16
+		}
+		modifier = {
+			factor = 0.9
+			martial = 18
+		}
+		modifier = {
+			factor = 0.9
+			martial = 20
+		}
+		modifier = {
+			factor = 0.9
+			martial = 22
+		}
+		modifier = {
+			factor = 0.9
+			martial = 25
+		}
+		modifier = {
+			factor = 0.9
+			martial = 30
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.0"
+		if = {
+			limit = { trait = weak }
+			remove_trait = weak
+			add_trait = fragile
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = fragile }
+			random_list = {
+				90 = {	
+					remove_trait = fragile
+					add_trait = feeble
+				}
+				10 = { health = 0.5 }	
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = feeble }
+			random_list = {
+				75 = { remove_trait = feeble }
+				25 = { health = 0.5 }
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = weak }
+				NOT = { trait = fragile }
+				NOT = { trait = feeble }
+				NOT = { trait = robust }
+				NOT = { trait = tough }
+				NOT = { trait = strong }
+			}
+			random_list = {
+				67 = { add_trait = robust }
+				33 = { health = 0.5 }
+			}
+			set_character_flag = strength_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = robust }
+			random_list = {
+				50 = {	
+				remove_trait = robust
+				add_trait = tough
+				}
+				50 = { health = 0.5 }
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = tough }
+			random_list = {
+				34 = {	
+				remove_trait = tough
+				add_trait = strong
+				}
+				66 = { health = 0.5 }
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = strong }
+			health = 0.5
+			set_character_flag = strength_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.100} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.100
+	desc = "EVTDESCBCT_epigenetics.100"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.100
+	}
+}	
+character_event = {
+	id = BCT_epigenetics.1 #Lowering Strength
+	desc = "EVTDESCBCT_epigenetics.1"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		NOT = { martial = 8 }
+		NOT = { has_character_flag = strength_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 24
+		modifier = {
+			factor = 1.1
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				ai = yes
+			}	
+		}
+		modifier = {
+			factor = 1.05
+			AND = {
+				liege = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			AND = {
+				ai = yes
+				father = { ai = yes }
+				mother = { ai = yes }
+			}
+		}	
+		modifier = {
+			factor = 1.15
+			NOT = { age = 15 }
+			martial = 4
+		}
+		modifier = {
+			factor = 1.33
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 1.33
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.7
+			trait = genius
+		}
+		modifier = {
+			factor = 0.8
+			trait = quick
+		}
+		modifier = {
+			factor = 0.9
+			trait = shrewd
+		}
+		modifier = {
+			factor = 1.2
+			trait = dull
+		}
+		modifier = {
+			factor = 1.4
+			trait = slow
+		}
+		modifier = {
+			factor = 1.67
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.67
+			martial = 7
+		}
+		modifier = {
+			factor = 1.2
+			martial = 6
+		}
+		modifier = {
+			factor = 0.95
+			NOT = { martial = 5 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 0.85
+			NOT = { martial = 3 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { martial = 1 }
+		}
+		modifier = {
+			factor = 0.66
+			OR = {	
+				trait = strong
+				trait = tough
+			}	
+			age = 16
+		}
+		modifier = {
+			factor = 2
+			trait = weak
+		}
+		modifier = {
+			factor = 1.5
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.25
+			trait = feeble
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.1"
+		if = {
+			limit = { trait = strong }
+			remove_trait = strong
+			add_trait = tough
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = tough }
+			random_list = {
+				90 = {	
+					remove_trait = tough
+					add_trait = robust
+				}
+				10 = { health = -0.5 }	
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = robust }
+			random_list = {
+				75 = { remove_trait = robust }
+				25 = { health = -0.5 }
+			}  
+			set_character_flag = strength_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = weak }
+				NOT = { trait = fragile }
+				NOT = { trait = feeble }
+				NOT = { trait = robust }
+				NOT = { trait = tough }
+				NOT = { trait = strong }
+			}
+			random_list = {
+				66 = { add_trait = feeble }
+				34 = { health = -0.5 }
+			}
+			set_character_flag = strength_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = feeble }
+			random_list = {
+				50 = {	
+				remove_trait = feeble
+				add_trait = fragile
+				}
+				50 = { health = -0.5 }
+			}  
+			set_character_flag = strength_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = fragile }
+			random_list = {
+				33 = {	
+				remove_trait = fragile
+				add_trait = weak
+				}
+				67 = { health = -0.5 }
+			}  
+			set_character_flag = strength_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = weak }
+			health = -0.5
+			set_character_flag = strength_epigenetics
+		}
+			hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.101} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.101
+	desc = "EVTDESCBCT_epigenetics.101"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.101
+	}
+}
+character_event = {
+	id = BCT_epigenetics.2 #Raising intelligence
+	desc = "EVTDESCBCT_epigenetics.2"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		OR = {
+			stewardship = 8 
+			learning = 8
+		}
+		NOT = { has_character_flag = intelligence_epigenetics }	
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			age = 15
+			NOR = {
+				learning = 12
+				stewardship = 12
+			}
+		}
+		modifier = {
+			factor = 0.66
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 0.66
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = erudite
+				trait = idolizer
+			}
+		}
+		modifier = {
+			factor = 0.9
+			trait = brooding
+		}
+		modifier = {
+			factor = 0.85
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 2
+			trait = genius
+		}
+		modifier = {
+			factor = 1.5
+			trait = quick
+		}
+		modifier = {
+			factor = 1.2
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.75
+			trait = dull
+		}
+		modifier = {
+			factor = 0.5
+			trait = slow
+		}
+		modifier = {
+			factor = 0.25
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.33
+			NOR = {
+				learning = 9
+				stewardship = 9
+			}
+		}
+		modifier = {
+			factor = 1.15
+			NOR = {
+				learning = 10
+				stewardship = 10
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 11
+				stewardship = 11
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 12
+				stewardship = 12
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 13
+				stewardship = 13
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 15
+				stewardship = 15
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 17
+				stewardship = 17
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 20
+				stewardship = 20
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 23
+				stewardship = 23
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				learning = 30
+				stewardship = 30
+			}
+		}
+		modifier = { #slow Savant
+			factor = 0.1
+			OR = {	
+				trait = imbecile
+				trait = slow
+			}	
+			OR = {
+				trait = intricate_webweaver
+				trait = elusive_shadow
+				trait = charismatic_negotiator
+				trait = grey_eminence
+				trait = fortune_builder
+				trait = midas_touched
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				trait = scholarly_theologian
+				trait = mastermind_theologian
+			}	
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.2"
+		if = {
+			limit = { trait = imbecile }
+			remove_trait = imbecile
+			add_trait = slow
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = slow }
+			random_list = {
+				90 = {	
+					remove_trait = slow
+					add_trait = dull
+				}
+				10 = { change_learning = 2 }	
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = dull }
+			random_list = {
+				75 = { remove_trait = dull }
+				25 = { change_learning = 2 }
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				NOT = { trait = dull }
+				NOT = { trait = shrewd }
+				NOT = { trait = quick }
+				NOT = { trait = genius }
+			}
+			random_list = {
+				67 = { add_trait = shrewd }
+				33 = { change_learning = 2 }
+			}
+			set_character_flag = intelligence_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = shrewd }
+			random_list = {
+				50 = {	
+				remove_trait = shrewd
+				add_trait = quick
+				}
+				50 = { change_learning = 2 }
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = quick }
+			random_list = {
+				34 = {	
+				remove_trait = quick
+				add_trait = genius
+				}
+				66 = { change_learning = 2 }
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = genius }
+			change_learning = 2
+			set_character_flag = intelligence_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.102} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.102
+	desc = "EVTDESCBCT_epigenetics.102"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.102
+	}
+}
+character_event = {
+	id = BCT_epigenetics.3 #Lowering intelligence
+	desc = "EVTDESCBCT_epigenetics.3"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		AND = { 
+			NOT = { learning = 8 }
+			NOT = { stewardship = 8}
+		}
+		NOT = { has_character_flag = intelligence_epigenetics }	
+	}
+	mean_time_to_happen = {
+		years = 24
+		modifier = {
+			factor = 1.1
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				ai = yes
+			}	
+		}
+		modifier = {
+			factor = 1.05
+			AND = {
+				liege = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			AND = {
+				ai = yes
+				father = { ai = yes }
+				mother = { ai = yes }
+			}
+		}
+		modifier = {
+			factor = 1.2
+			NOT = { age = 15 }
+			OR = {
+				learning = 4
+				stewardship = 4
+			}
+		}
+		modifier = {
+			factor = 1.5
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 1.5
+			trait = changeling
+		}
+		modifier = {
+			factor = 1.33
+			OR = {
+				trait = erudite
+				trait = idolizer
+			}
+		}
+		modifier = {
+			factor = 1.1
+			trait = brooding
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 0.6
+			trait = quick
+		}
+		modifier = {
+			factor = 0.85
+			trait = shrewd
+		}
+		modifier = {
+			factor = 1.25
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 1.25
+			trait = dull
+		}
+		modifier = {
+			factor = 1.67
+			trait = slow
+		}
+		modifier = {
+			factor = 2
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.67
+			OR = {
+				learning = 7
+				stewardship = 7
+			}
+		}
+		modifier = {
+			factor = 1.2
+			OR = {
+				learning = 6
+				stewardship = 6
+			}
+		}
+		modifier = {
+			factor = 0.9
+			AND = {
+				NOT = { learning = 4 }
+				NOT = { stewardship = 4 }
+			}
+		}
+		modifier = {
+			factor = 0.85
+			AND = {
+				NOT = { learning = 2 }
+				NOT = { stewardship = 2 }
+			}
+		}
+		modifier = {
+			factor = 0.75
+			AND = {
+				trait = quick
+				OR = {
+					trait = flamboyant_schemer
+					trait = underhanded_rogue
+					trait = thrifty_clerk
+					trait = martial_cleric
+					trait = misguided_warrior
+				}
+			}	
+		}
+		modifier = {
+			factor = 0.66
+			AND = {
+				trait = genius
+				OR = {
+					trait = flamboyant_schemer
+					trait = underhanded_rogue
+					trait = thrifty_clerk
+					trait = martial_cleric
+					trait = misguided_warrior
+				}
+			}	
+		}
+		modifier = {
+			factor = 0.33
+			AND = {
+				OR = {	
+					trait = genius
+					trait = quick
+				}	
+				OR = {
+					trait = detached_priest
+					trait = amateurish_plotter
+					trait = naive_appeaser
+					trait = indulgent_wastrel
+				}
+			}	
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.3"
+		if = {
+			limit = { trait = genius }
+			remove_trait = genius
+			add_trait = quick
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = quick }
+			random_list = {
+				90 = {	
+					remove_trait = quick
+					add_trait = shrewd
+				}
+				10 = { change_learning = -2 }	
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = shrewd }
+			random_list = {
+				75 = { remove_trait = shrewd }
+				25 = { change_learning = -2 }
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				NOT = { trait = dull }
+				NOT = { trait = shrewd }
+				NOT = { trait = quick }
+				NOT = { trait = genius }
+			}
+			random_list = {
+				66 = { add_trait = dull }
+				34 = { change_learning = -2 }
+			}
+			set_character_flag = intelligence_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = dull }
+			random_list = {
+				50 = {	
+				remove_trait = dull
+				add_trait = slow
+				}
+				50 = { change_learning = -2 }
+			}  
+			set_character_flag = intelligence_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = slow }
+			random_list = {
+				33 = {	
+				remove_trait = slow
+				add_trait = imbecile
+				}
+				67 = { change_learning = -2 }
+			}  
+			set_character_flag = intelligence_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = imbecile }
+			change_learning = -2
+			set_character_flag = intelligence_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.103} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.103
+	desc = "EVTDESCBCT_epigenetics.103"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.103
+	}
+}
+character_event = {
+	id = BCT_epigenetics.4 #Raising beauty
+	desc = "EVTDESCBCT_epigenetics.4"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		diplomacy = 8
+		NOT = { has_character_flag = beauty_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			age = 15
+			NOT = { diplomacy = 12 }
+		}
+		modifier = {
+			factor = 0.5
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 0.5
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.9
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 1.3
+			trait = genius
+		}
+		modifier = {
+			factor = 1.2
+			trait = quick
+		}
+		modifier = {
+			factor = 1.1
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.67
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.8
+			trait = slow
+		}
+		modifier = {
+			factor = 0.9
+			trait = dull
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = haughty
+				trait = proud
+			}
+		}
+		modifier = { 
+			factor = 1.1
+			trait = indolent
+		}
+		modifier = {
+			factor = 1.33
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.67
+			NOT = { diplomacy = 9 }
+		}
+		modifier = {
+			factor = 1.2
+			NOT = { diplomacy = 10 }
+		}	
+		modifier = {
+			factor = 0.95
+			diplomacy = 12
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 14
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 16
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 18
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 20
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 22
+		}
+		modifier = {
+			factor = 0.9
+			diplomacy = 25
+		}
+		modifier = {
+			factor = 0.8
+			diplomacy = 30
+		}
+		modifier = {
+			factor = 0.85
+			trait = elusive_shadow
+		}
+		modifier = {
+			factor = 0.95
+			OR = {
+				trait = grey_eminence
+				trait = charismatic_negotiator
+				trait = intricate_webweaver
+			}	
+		}
+		modifier = {
+			factor = 0.2
+			AND = {
+				OR = {	
+					trait = unsightly
+					trait = ugly
+				}	
+				has_lover = yes
+			}	
+		}
+		modifier = {
+			factor = 2
+			trait = beautiful
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.4"
+		if = {
+			limit = { trait = unsightly }
+			remove_trait = unsightly
+			add_trait = ugly
+			set_character_flag = beauty_epigenetics 
+		}
+		if = {
+			limit = { trait = ugly }
+			random_list = {
+				90 = {	
+					remove_trait = ugly
+					add_trait = plain
+				}
+				10 = { fertility = 0.05 }	
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = plain }
+			random_list = {
+				75 = { remove_trait = plain }
+				25 = { fertility = 0.05 }
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = unsightly }
+				NOT = { trait = ugly }
+				NOT = { trait = plain }
+				NOT = { trait = fair }
+				NOT = { trait = pretty }
+				NOT = { trait = beautiful }
+			}
+			random_list = {
+				67 = { add_trait = fair }
+				34 = { fertility = 0.05 }
+			}
+			set_character_flag = beauty_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = fair }
+			random_list = {
+				50 = {	
+				remove_trait = fair
+				add_trait = pretty
+				}
+				50 = { fertility = 0.05 }
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = pretty }
+			random_list = {
+				34 = {	
+				remove_trait = pretty
+				add_trait = beautiful
+				}
+				66 = { fertility = 0.05 }
+			}  
+			set_character_flag = beauty_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = beautiful }
+			fertility = 0.05
+			set_character_flag = beauty_epigenetics
+		}		
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.104} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.104
+	desc = "EVTDESCBCT_epigenetics.104"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.24
+	}
+}
+character_event = {
+	id = BCT_epigenetics.5 #Lowering beauty
+	desc = "EVTDESCBCT_epigenetics.5"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		NOT = { diplomacy = 8 }
+		NOT = { has_character_flag = beauty_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 24
+		modifier = {
+			factor = 1.1
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				ai = yes
+			}	
+		}
+		modifier = {
+			factor = 1.05
+			AND = {
+				liege = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			AND = {
+				ai = yes
+				father = { ai = yes }
+				mother = { ai = yes }
+			}
+		}
+		modifier = {
+			factor = 1.15
+			NOT = { age = 15 }
+			diplomacy = 4
+		}
+		modifier = {
+			factor = 2
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 2
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.67
+			trait = genius
+		}
+		modifier = {
+			factor = 0.8
+			trait = quick
+		}
+		modifier = {
+			factor = 0.9
+			trait = shrewd
+		}
+		modifier = {
+			factor = 1.2
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 1.2
+			trait = dull
+		}
+		modifier = {
+			factor = 1.6
+			trait = slow
+		}
+		modifier = {
+			factor = 2
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.2
+			trait = elusive_shadow
+		}
+		modifier = {
+			factor = 1.1
+			OR = {
+				trait = intricate_webweaver
+				trait = charismatic_negotiator
+				trait = grey_eminence
+			}
+		}
+		modifier = {
+			factor = 1.2
+			trait = haughty
+		}
+		modifier = {
+			factor = 1.25
+			trait = proud
+		}
+		modifier = {
+			factor = 0.9
+			trait = indolent
+		}
+		modifier = {
+			factor = 0.8
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.33
+			diplomacy = 7
+		}
+		modifier = {
+			factor = 1.15
+			diplomacy = 6
+		}
+		modifier = {
+			factor = 0.95
+			NOT = { diplomacy = 5 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { diplomacy = 4 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { diplomacy = 3 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { diplomacy = 2 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { diplomacy = 1 }
+		}
+		modifier = {
+			factor = 2
+			trait = unsightly
+		}
+		modifier = {
+			factor = 1.5
+			trait = ugly
+		}
+		modifier = {
+			factor = 1.15
+			trait = plain
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.5"
+		if = {
+			limit = { trait = beautiful }
+			remove_trait = beautiful
+			add_trait = pretty
+			set_character_flag = beauty_epigenetics 
+		}
+		break = yes
+		if = {
+			limit = { trait = pretty }
+			random_list = {
+				90 = {	
+					remove_trait = pretty
+					add_trait = fair
+				}
+				10 = { fertility = -0.05 }	
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = fair }
+			random_list = {
+				75 = { remove_trait = fair }
+				25 = { fertility = -0.05 }
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = unsightly }
+				NOT = { trait = ugly }
+				NOT = { trait = plain }
+				NOT = { trait = fair }
+				NOT = { trait = pretty }
+				NOT = { trait = beautiful }
+			}
+			random_list = {
+				66 = { add_trait = plain }
+				34 = { fertility = -0.05 }
+			}
+			set_character_flag = beauty_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = plain }
+			random_list = {
+				50 = {	
+				remove_trait = plain
+				add_trait = ugly
+				}
+				50 = { fertility = -0.05 }
+			} 
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = ugly }
+			random_list = {
+				33 = {	
+				remove_trait = ugly
+				add_trait = unsightly
+				}
+				67 = { fertility = -0.05 }
+			}  
+			set_character_flag = beauty_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = unsightly }
+			fertility = -0.05
+			set_character_flag = beauty_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.105} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.105
+	desc = "EVTDESCBCT_epigenetics.105"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.105
+	}
+}
+character_event = {
+	id = BCT_epigenetics.6 #Raising agility
+	desc = "EVTDESCBCT_epigenetics.6"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		intrigue = 8
+		NOT = { has_character_flag = agility_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			age = 15
+			NOT = { intrigue = 12 }
+		}
+		modifier = {
+			factor = 0.5
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 0.5
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = playful
+				trait = deceitful
+				trait = gregarious
+				trait = lunatic
+			}
+		}
+		modifier = {
+			factor = 0.9
+			trait = rowdy
+		}
+		modifier = {
+			factor = 1.1
+			trait = timid
+		}
+		modifier = {
+			factor = 1.1
+			OR = {
+				trait = fussy
+				trait = patient
+			}
+		}
+		modifier = { 
+			factor = 1.2
+			OR = {
+				trait = indolent
+				trait = slothful
+			}
+		}	
+		modifier = {
+			factor = 1.3
+			trait = genius
+		}
+		modifier = {
+			factor = 1.2
+			trait = quick
+		}
+		modifier = {
+			factor = 1.1
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.9
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 0.6
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.75
+			trait = slow
+		}
+		modifier = {
+			factor = 0.9
+			trait = dull
+		}
+		modifier = {
+			factor = 1.67
+			NOT = { intrigue = 9}
+		}	
+		modifier = {
+			factor = 1.2
+			NOT = { intrigue = 10 }
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 12
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 14
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 16
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 18
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 20
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 22
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 25
+		}
+		modifier = {
+			factor = 0.9
+			intrigue = 30
+		}
+		modifier = { #These are in addition to usual boosts for fighter skill
+			factor = 0.75
+			OR = {
+				AND = {
+					trait = clumsy
+					trait = trained_warrior
+				}
+				AND = {
+					trait = stiff
+					trait = skilled_warrior
+				}
+			}		
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				AND = {
+					trait = clumsy
+					trait = skilled_warrior
+				}
+				AND = {
+					trait = stiff
+					trait = master_warrior
+				}
+			}	
+		}
+		modifier = {
+			factor = 0.25
+			AND = {
+				trait = clumsy
+				trait = master_warrior
+			}
+		}
+		modifier = {
+			factor = 2
+			trait = agile
+		}
+		modifier = {
+			factor = 1.33
+			trait = nimble
+		}
+		modifier = {
+			factor = 1.1
+			trait = fast
+		}
+	}
+	option = {
+		name = "EVTOPTABCT_epigenetics.6"
+		if = {
+			limit = { trait = clumsy }
+			random_list = {
+				90 = {	
+					remove_trait = clumsy
+					add_trait = stiff
+				}
+				10 = { change_intrigue = 2 }	
+			}  
+			set_character_flag = agility_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = stiff }
+			random_list = {
+				75 = { remove_trait = stiff }
+				25 = { change_intrigue = 2 }
+			}  
+			set_character_flag = agility_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = {
+				NOT = { trait = clumsy }
+				NOT = { trait = stiff }
+				NOT = { trait = fast }
+				NOT = { trait = nimble }
+				NOT = { trait = agile }
+			}
+			random_list = {
+				67 = { add_trait = fast }
+				33 = { change_intrigue = 2 }
+			}
+			set_character_flag = agility_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = fast }
+			random_list = {
+				50 = {	
+					remove_trait = fast
+					add_trait = nimble
+				}
+				50 = { change_intrigue = 2 }
+			}  
+			set_character_flag = agility_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = nimble }
+			random_list = {
+				34 = {	
+					remove_trait = nimble
+					add_trait = agile
+				}
+				66 = { change_intrigue = 2 }
+			}  
+			set_character_flag = agility_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = agile }
+			change_intrigue = 2
+			set_character_flag = agility_epigenetics
+		}	
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.106} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.106
+	desc = "EVTDESCBCT_epigenetics.106"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.106
+	}
+}
+character_event = {
+	id = BCT_epigenetics.7 #Lowering agility
+	desc = "EVTDESCBCT_epigenetics.7"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		NOT = { intrigue = 8 }
+		NOT = { has_character_flag = agility_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 24
+		modifier = {
+			factor = 1.1
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				ai = yes
+			}	
+		}
+		modifier = {
+			factor = 1.05
+			AND = {
+				liege = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			AND = {
+				ai = yes
+				father = { ai = yes }
+				mother = { ai = yes }
+			}
+		}
+		modifier = {
+			factor = 1.15
+			NOT = { age = 15 }
+			intrigue = 4
+		}
+		modifier = {
+			factor = 2
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 2
+			trait = changeling
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				trait = playful
+				trait = lunatic
+				trait = gregarious
+				trait = deceitful
+			}
+		}
+		modifier = {
+			factor = 1.1
+			trait = rowdy
+		}
+		modifier = {
+			factor = 0.9
+			trait = timid
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = fussy
+				trait = patient
+			}
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = indolent
+				trait = slothful
+			}
+		}	
+		modifier = {
+			factor = 0.67
+			trait = genius
+		}
+		modifier = {
+			factor = 0.8
+			trait = quick
+		}
+		modifier = {
+			factor = 0.9
+			trait = shrewd
+		}
+		modifier = {
+			factor = 1.2
+			trait = learning_druidic_arts
+		}
+		modifier = {
+			factor = 1.15
+			trait = dull
+		}
+		modifier = {
+			factor = 1.33
+			trait = slow
+		}
+		modifier = {
+			factor = 1.67
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.33
+			intrigue = 7
+		}
+		modifier = {
+			factor = 1.15
+			intrigue = 6
+		}
+		modifier = {
+			factor = 0.95
+			NOT = { intrigue = 5 }
+		}
+		modifier = {
+			factor = 0.9
+			NOT = { intrigue = 4 }
+		}
+		modifier = {
+			factor = 0.85
+			NOT = { intrigue = 3 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { intrigue = 2 }
+		}
+		modifier = {
+			factor = 0.8
+			NOT = { intrigue = 1 }
+		}
+		modifier = {
+			factor = 0.66
+			AND = {
+				OR = {	
+					trait = agile
+					trait = nimble
+				}	
+				age = 15
+			}	
+		}
+		modifier = {
+			factor = 2
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.25
+			trait = stiff
+		}
+	}
+	option = {
+		name = "EVTOPTABCT_epigenetics.7"
+		if = {
+			limit = { trait = agile }
+			remove_trait = agile
+			add_trait = nimble
+			set_character_flag = agility_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = nimble }
+			random_list = {
+				90 = {	
+					remove_trait = nimble
+					add_trait = fast
+				}
+				10 = { change_intrigue = -2 }	
+			}  
+			set_character_flag = agility_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = fast }
+			random_list = {
+				75 = { remove_trait = fast }
+				25 = { change_intrigue = -2 }
+			}  
+			set_character_flag = agility_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = clumsy }
+				NOT = { trait = stiff }
+				NOT = { trait = fast }
+				NOT = { trait = nimble }
+				NOT = { trait = agile }
+			}
+			random_list = {
+				66 = { add_trait = stiff }
+				34 = { change_intrigue = -2 }
+			}
+			set_character_flag = agility_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = stiff }
+			random_list = {
+				50 = {	
+					remove_trait = stiff
+					add_trait = clumsy
+				}
+				50 = { change_intrigue = -2 }
+			}  
+			set_character_flag = agility_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = clumsy }
+			change_intrigue = -2
+			set_character_flag = agility_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.107} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.107
+	desc = "EVTDESCBCT_epigenetics.107"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.107
+	}
+}
+character_event = {
+	id = BCT_epigenetics.8 #Raising height
+	desc = "EVTDESCBCT_epigenetics.8"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		NOT = { trait = hunchback }
+		NOT = { trait = dwarf }
+		NOT = { trait = inbred }
+		NOT = { has_character_flag = height_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 0.33
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.33
+			trait = temperate
+		}
+		modifier = {
+			factor = 0.5
+			OR = {
+				trait = indolent
+				trait = slothful
+			}
+		}	
+		modifier = {
+			factor = 2
+			trait = towering
+		}
+		modifier = {
+			factor = 1.25
+			trait = big 	# Since Towering isn't all good, anyway.
+		}
+		modifier = {
+			factor = 0.66
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 0.66
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = descendant_of_aeneas
+				trait = descendant_of_hector
+				trait = descendant_of_paris
+				trait = descendant_of_achilles
+				trait = descendant_of_odysseus
+				trait = descendant_of_nestor
+				trait = blood_calgacus
+				trait = blood_pendragon
+				trait = blood_merovech
+				trait = blood_coel_hen
+				trait = blood_magnus_maximus
+				trait = blood_vortigern
+				trait = blood_conn
+			}	
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				trait = aeneas_reborn
+				trait = hector_reborn
+				trait = paris_reborn
+				trait = achilles_reborn
+				trait = odysseus_reborn
+				trait = nestor_reborn
+			}
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = grey_eminence
+				trait = brilliant_strategist
+			}
+		}
+		modifier = {
+			factor = 0.95
+			OR = {
+				trait = skilled_tactician
+				trait = charismatic_negotiator
+				trait = midas_touched
+				trait = mastermind_theologian
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTABCT_epigenetics.8"
+		if = {
+			limit = { trait = small }
+			random_list = {
+				90 = {
+					remove_trait = small
+					remove_trait = gluttonous
+					add_trait = short
+				}
+				10 = { 
+					change_martial = 1 
+					remove_trait = gluttonous
+				}	
+			}  
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = short }
+			random_list = {
+				75 = { 
+					remove_trait = short
+					remove_trait = gluttonous 
+				}
+				25 = { 
+					change_martial = 1 
+					remove_trait = gluttonous
+				}
+			}  
+			set_character_flag = height_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = {
+				NOT = { trait = small }
+				NOT = { trait = short }
+				NOT = { trait = tall }
+				NOT = { trait = big }
+				NOT = { trait = towering }
+			}
+			random_list = {
+				67 = { 
+					add_trait = tall
+					remove_trait = gluttonous
+				}
+				33 = { 
+					change_martial = 1
+					remove_trait = gluttonous
+				}
+			}
+			set_character_flag = height_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = tall }
+			random_list = {
+				50 = {	
+					remove_trait = tall
+					add_trait = big
+					remove_trait = gluttonous
+				}
+				50 = { 
+					change_martial = 1 
+					remove_trait = gluttonous
+				}
+			}  
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = big }
+			random_list = {
+				34 = {	
+					remove_trait = big
+					add_trait = towering
+					remove_trait = gluttonous
+				}
+				66 = { 
+					change_martial = 1
+					remove_trait = gluttonous
+				}
+			}
+			set_character_flag = height_epigenetics
+			break = yes   
+		}
+		if = {
+			limit = { trait = towering }
+			change_martial = 1
+			remove_trait = gluttonous
+			set_character_flag = height_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.108} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.108
+	desc = "EVTDESCBCT_epigenetics.108"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.108
+	}
+}
+character_event = {
+	id = BCT_epigenetics.9 #Lowering height
+	desc = "EVTDESCBCT_epigenetics.9"
+	picture = GFX_evt_child_playing
+
+	min_age = 12
+	max_age = 18
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		NOT = { trait = dwarf }
+		NOT = { has_character_flag = height_epigenetics }
+	}
+	mean_time_to_happen = {
+		years = 24
+		modifier = {
+			factor = 1.1
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				ai = yes
+			}	
+		}
+		modifier = {
+			factor = 1.05
+			AND = {
+				liege = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 1.15
+			AND = {
+				ai = yes
+				father = { ai = yes }
+				mother = { ai = yes }
+			}
+		}
+		modifier = {
+			factor = 0.67
+			trait = temperate
+			OR = {
+				trait = tall
+				trait = big
+				trait = towering
+			}
+		}
+		modifier = {
+			factor = 1.5
+			trait = gluttonous
+		}
+		modifier = {
+			factor = 1.33
+			OR = {
+				trait = indolent
+				trait = slothful
+			}
+		}	
+		modifier = {
+			factor = 2
+			trait = small
+		}
+		modifier = {
+			factor = 3
+			has_character_flag = changeling_child
+		}
+		modifier = {
+			factor = 3
+			trait = changeling
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				trait = descendant_of_aeneas
+				trait = descendant_of_hector
+				trait = descendant_of_paris
+				trait = descendant_of_achilles
+				trait = descendant_of_odysseus
+				trait = descendant_of_nestor
+				trait = blood_calgacus
+				trait = blood_pendragon
+				trait = blood_merovech
+				trait = blood_coel_hen
+				trait = blood_magnus_maximus
+				trait = blood_vortigern
+				trait = blood_conn
+			}	
+		}
+		modifier = {
+			factor = 1.2
+			OR = {
+				trait = grey_eminence
+				trait = brilliant_strategist
+			}
+		}
+		modifier = {
+			factor = 1.1
+			OR = {
+				trait = charismatic_negotiator
+				trait = skilled_tactician
+				trait = midas_touched
+				trait = mastermind_theologian
+			}
+		}
+		modifier = {
+			factor = 10
+			OR = {
+				trait = aeneas_reborn
+				trait = hector_reborn
+				trait = paris_reborn
+				trait = achilles_reborn
+				trait = odysseus_reborn
+				trait = nestor_reborn
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTABCT_epigenetics.9"
+		if = {
+			limit = { trait = towering }
+			remove_trait = towering
+			add_trait = big
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = big }
+			random_list = {
+				90 = {	
+					remove_trait = big
+					add_trait = tall
+				}
+				10 = { change_martial = -1 }	
+			}  
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = tall }
+			random_list = {
+				75 = { remove_trait = tall }
+				25 = { change_martial = -1 }
+			}  
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = {
+				NOT = { trait = small }
+				NOT = { trait = short }
+				NOT = { trait = tall }
+				NOT = { trait = big }
+				NOT = { trait = towering }
+			}
+			random_list = {
+				66 = { add_trait = short }
+				34 = { change_martial = -1 }
+			}
+			set_character_flag = height_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = short }
+			random_list = {
+				50 = {	
+					remove_trait = short
+					add_trait = small
+				}
+				50 = { change_martial = -1 }
+			}  
+			set_character_flag = height_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = small }
+			change_martial = -1
+			set_character_flag = height_epigenetics
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.109} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.109
+	desc = "EVTDESCBCT_epigenetics.109"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.109
+	}
+}
+character_event = {
+	id = BCT_epigenetics.10 #Raising Warrior
+	desc = "EVTDESCBCT_epigenetics.10"
+	picture = GFX_evt_child_playing
+
+	min_age = 14
+	max_age = 25
+	only_capable = yes
+
+	trigger = {
+		is_alive = yes
+		martial = 6
+		NOT = { has_character_flag = warrior_epigenetics } 	
+	}
+	mean_time_to_happen = {
+		years = 20
+		modifier = {
+			factor = 0.9
+			AND = {
+				OR = {
+					guardian = { ai = yes }
+					educator = { ai = yes }
+				}
+				liege = { ai = yes }
+				father = { ai = yes }
+				mother = { ai = yes }
+				ai = yes
+			}
+		}
+		modifier = {
+			factor = 5
+			is_female = yes
+		}
+		modifier = {
+			factor = 25
+			trait = master_warrior
+		}
+		modifier = {
+			factor = 10
+			trait = skilled_warrior
+		}
+		modifier = {
+			factor = 4
+			trait = trained_warrior
+		}
+		modifier = {
+			factor = 1.5
+			trait = poor_warrior
+		}
+		modifier = { 
+			factor = 0.1
+			trait = changeling
+		}
+		modifier = {
+			factor = 0.95
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.91
+			trait = quick
+		}
+		modifier = {
+			factor = 0.88
+			trait = genius
+		}
+		modifier = {
+			factor = 0.95
+			trait = robust
+		}
+		modifier = {
+			factor = 0.95
+			trait = tough
+		}
+		modifier = {
+			factor = 0.95
+			trait = strong
+		}
+		modifier = {
+			factor = 0.95
+			trait = fast
+		}
+		modifier = {
+			factor = 0.95
+			trait = nimble
+		}
+		modifier = {
+			factor = 0.9
+			trait = agile
+		}
+		modifier = {
+			factor = 1.1
+			trait = dull
+		}
+		modifier = {
+			factor = 1.2
+			trait = slow
+		}
+		modifier = {
+			factor = 1.33
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.1
+			trait = clumsy
+		}
+		modifier = {
+			factor = 1.05
+			trait = stiff
+		}
+		modifier = {
+			factor = 1.1
+			trait = weak
+		}
+		modifier = {
+			factor = 1.25
+			trait = fragile
+		}
+		modifier = {
+			factor = 1.05
+			trait = feeble
+		}
+		modifier = { 
+			factor = 0.33
+			trait = brother_of_mithra
+		}
+		modifier = {
+			factor = 0.85
+			trait = veteran
+		}
+		modifier = {
+			factor = 0.6
+			trait = war_hero
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = conscientious 
+				trait = diligent
+				trait = temperate
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = willful
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = wroth
+				trait = envious
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = just
+				trait = brooding
+			}
+		}	
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = ambitious
+				trait = brave
+				trait = stubborn
+			}
+		}
+		modifier = {
+			factor = 0.9
+			OR = {
+				trait = idolizer
+				trait = zealous
+			}
+		}	
+		modifier = {
+			factor = 1.5
+			NOT = { martial = 8 }
+		}	 
+		modifier = {
+			factor = 0.95
+			martial = 10
+		}
+		modifier = {
+			factor = 0.95
+			martial = 12
+		}
+		modifier = {
+			factor = 0.95
+			martial = 14
+		}
+		modifier = {
+			factor = 0.9
+			martial = 16
+		}
+		modifier = {
+			factor = 0.9
+			martial = 18
+		}
+		modifier = {
+			factor = 0.9
+			martial = 20
+		}
+		modifier = {
+			factor = 0.85
+			martial = 22
+		}
+		modifier = {
+			factor = 0.85
+			martial = 25
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 0.01
+			trait = duelist	
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				trait = descendant_of_aeneas
+				trait = descendant_of_hector
+				trait = descendant_of_paris
+				trait = descendant_of_achilles
+				trait = descendant_of_odysseus
+				trait = descendant_of_nestor
+				trait = blood_calgacus
+				trait = blood_pendragon
+				trait = blood_merovech
+				trait = blood_coel_hen
+				trait = blood_magnus_maximus
+				trait = blood_vortigern
+				trait = blood_conn
+			}	
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				trait = aeneas_reborn
+				trait = hector_reborn
+				trait = paris_reborn
+				trait = achilles_reborn
+				trait = odysseus_reborn
+				trait = nestor_reborn
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTABCT_epigenetics.10"
+		if = {
+			limit = { 
+				AND = {
+					NOT = { trait = poor_warrior }
+					NOT = { trait = trained_warrior }
+					NOT = { trait = skilled_warrior }
+					NOT = { trait = master_warrior }
+				}	
+			}	
+			remove_trait = duelist
+			add_trait = poor_warrior
+			set_character_flag = warrior_epigenetics
+			break = yes  
+		}
+		if = {
+			limit = { trait = poor_warrior }
+			remove_trait = poor_warrior
+			remove_trait = duelist
+			add_trait = trained_warrior
+			set_character_flag = warrior_epigenetics
+			break = yes 
+		}
+		if = {
+			limit = { trait = trained_warrior }
+			remove_trait = duelist
+			remove_trait = trained_warrior
+			add_trait = skilled_warrior
+			set_character_flag = warrior_epigenetics 
+			break = yes
+		}
+		if = {
+			limit = { trait = skilled_warrior }
+			remove_trait = skilled_warrior
+			add_trait = master_warrior
+			set_character_flag = warrior_epigenetics
+			break = yes
+		}
+		if = {
+			limit = { trait = master_warrior }
+			health = 0.5
+			add_trait = duelist
+			set_character_flag = warrior_epigenetics
+			break = yes
+		}
+		hidden_tooltip = { father = { character_event = {id = BCT_epigenetics.110} } }
+	}
+}
+character_event = {
+	id = BCT_epigenetics.110
+	desc = "EVTDESCBCT_epigenetics.110"
+	picture = GFX_evt_child_playing
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTABCT_epigenetics.110
+	}
+}		
