@@ -1,0 +1,259 @@
+###################################
+#
+# Ostrogothic Events
+#
+# Id 302800 - 302899 reserved
+#
+###################################
+
+### HISTORICAL EVENTS ###
+
+# 493 AD - Ostrogothic Conquest of Italy
+narrative_event = { 
+	id = 302800
+	title = "EVTNAME302800"
+	desc = "EVTDESC302800"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_smoke"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = western_roman_empire_fallen
+		NOT = { has_global_flag = ostrogoths_conquered_italy }
+		year = 493
+		OR = {
+			has_landed_title = k_ostrogoths
+			k_ostrogoths = { has_holder = no }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 90
+	}
+	
+	immediate = {
+		set_global_flag = ostrogoths_conquered_italy
+	}
+	
+	option = {								# Romans
+		name = "EVTOPTA302800"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}
+	}
+	
+	option = {								# Fellow Goths
+		name = "EVTOPTB302800"				
+		trigger = {
+			is_roman_ruler_trigger = no
+			OR = {
+				culture = visigoth
+				culture = ostrogoth
+			}
+		}	
+	}
+	
+	option = {								# Others
+		name = "EVTOPTC302800"				
+		trigger = {
+			is_roman_ruler_trigger = no
+			NOR = {
+				culture = visigoth
+				culture = ostrogoth
+			}
+		}	
+	}
+}
+
+# 535 AD - Start of the Gothic War
+narrative_event = { 
+	id = 302801
+	title = "EVTNAME302801"
+	desc = "EVTDESC302801"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = ostrogoths_conquered_italy
+		NOT = { has_global_flag = gothic_war_started }
+		year = 535
+		OR = {
+			has_landed_title = k_ostrogoths
+			k_ostrogoths = { has_holder = no }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 60
+	}
+	
+	immediate = {
+		set_global_flag = gothic_war_started
+	}
+	
+	option = {								# Governor of Provence
+		name = "EVTOPTA302801"
+		trigger = {
+			has_landed_title = k_praetorian_prefecture_of_gaul
+		}
+		d_ostrogothic_guard = {
+			activate_title = { title = d_ostrogothic_guard status = no }
+			destroy_landed_title = THIS
+		}
+	}
+	
+	option = {								# Other Ostrogothic tributaries
+		name = "EVTOPTB302801"
+		trigger = {
+			NOT = { has_landed_title = k_praetorian_prefecture_of_gaul }
+			is_tributary = yes
+			suzerain = {
+				has_landed_title = k_ostrogoths
+			}
+		}
+		suzerain = {
+			remove_tributary = PREV
+		}
+	}
+	
+	option = {								# Romans
+		name = "EVTOPTC302801"
+		trigger = {
+			is_roman_ruler_trigger = yes
+			NOR = { 
+				has_landed_title = k_praetorian_prefecture_of_gaul 
+				suzerain = {
+					has_landed_title = k_ostrogoths
+				}
+			}
+		}
+	}
+	
+	option = {								# Fellow Goths
+		name = "EVTOPTD302801"				
+		trigger = {
+			is_roman_ruler_trigger = no
+			OR = {
+				culture = visigoth
+				culture = ostrogoth
+			}
+			NOR = { 
+				has_landed_title = k_praetorian_prefecture_of_gaul 
+				suzerain = {
+					has_landed_title = k_ostrogoths
+				}
+			}
+		}	
+	}
+	
+	option = {								# Others
+		name = "EVTOPTE302801"				
+		trigger = {
+			NOR = {
+				is_roman_ruler_trigger = yes
+				culture = visigoth
+				culture = ostrogoth
+				has_landed_title = k_praetorian_prefecture_of_gaul 
+				suzerain = {
+					has_landed_title = k_ostrogoths
+				}
+			}
+		}	
+	}
+}
+
+# 554 AD - End of the Gothic War
+narrative_event = { 
+	id = 302802
+	title = "EVTNAME302802"
+	desc = "EVTDESC302802"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_legion_marching"
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_global_flag = gothic_war_started
+		NOT = { has_global_flag = gothic_war_ended }
+		year = 554
+		OR = {
+			has_landed_title = k_ostrogoths
+			k_ostrogoths = { has_holder = no }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 60
+	}
+	
+	immediate = {
+		set_global_flag = gothic_war_ended
+	}
+	
+	option = {								# Governor of Provence
+		name = "EVTOPTA302802"
+		trigger = {
+			has_landed_title = k_praetorian_prefecture_of_gaul
+		}
+		suzerain = {
+			remove_tributary = PREV
+		}
+	}
+	
+	option = {								# Romans
+		name = "EVTOPTB302802"
+		trigger = {
+			is_roman_ruler_trigger = yes
+			NOT = { 
+				has_landed_title = k_praetorian_prefecture_of_gaul
+			}
+		}
+	}
+	
+	option = {								# Fellow Goths
+		name = "EVTOPTC302802"				
+		trigger = {
+			is_roman_ruler_trigger = no
+			OR = {
+				culture = visigoth
+				culture = ostrogoth
+			}
+			NOT = { 
+				has_landed_title = k_praetorian_prefecture_of_gaul
+			}
+		}	
+	}
+	
+	option = {								# Others
+		name = "EVTOPTD302802"				
+		trigger = {
+			NOR = {
+				is_roman_ruler_trigger = yes
+				culture = visigoth
+				culture = ostrogoth
+				has_landed_title = k_praetorian_prefecture_of_gaul
+			}
+		}	
+	}
+	
+	after = {
+		k_ostrogoths = {			
+			activate_title = { title = k_ostrogoths status = no }
+			holder_scope = {
+				death = {
+					death_reason = death_battle
+				}
+			}
+			destroy_landed_title = THIS
+		}	
+	}
+}
