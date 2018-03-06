@@ -858,123 +858,17 @@ character_event = {
 	immediate = {
 		k_visigoths = {
 			holder_scope = {
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							region = world_gaul
-							NOT = { region = world_gaul_narbonensis_septimania }
+				any_province = {
+					limit = { 
+						region = world_gaul
+						NOR = { 
+							region = world_gaul_narbonensis_septimania 
+							region = custom_provence
 						}
-						NOT = { character = PREV }
-						higher_tier_than = BARON
 					}
-					set_defacto_liege = ROOT
-					opinion = {
-						modifier = opinion_subjugated
-						who = ROOT
-						months = 120
-					}
-					any_demesne_title = {
-						limit = {
-							lower_tier_than = DUKE
-							NOR = {
-								county = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-								location = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-							}
-						}
-						usurp_title = PREVPREV
-					}
-					any_realm_lord = {
-						limit = {
-							capital_scope = {
-								OR = {
-									NOT = { region = world_gaul }
-									region = world_gaul_narbonensis_septimania
-								}
-							}
-							NOT = { character = PREV }
-						}
-						set_defacto_liege = PREVPREV
-					}
+					set_province_flag = vassalize_province
 				}
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							OR = {
-								NOT = { region = world_gaul }
-								region = world_gaul_narbonensis_septimania
-							}
-						}
-						NOT = { character = PREV }
-					}
-					any_demesne_title = {
-						limit = {
-							lower_tier_than = DUKE
-							OR = {
-								county = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-								location = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-							}
-						}
-						usurp_title = ROOT
-					}
-				}
-				any_demesne_title = {
-					limit = {
-						lower_tier_than = DUKE
-						OR = {
-							county = {
-								region = world_gaul
-								NOT = { region = world_gaul_narbonensis_septimania }
-							}
-							location = {
-								region = world_gaul
-								NOT = { region = world_gaul_narbonensis_septimania }
-							}
-						}
-					}
-					usurp_title = ROOT
-				}
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							region = world_gaul
-							NOT = { region = world_gaul_narbonensis_septimania }
-						}
-						NOT = { character = PREV }
-						tier = BARON
-					}
-					capital_scope = {
-						owner = {
-							set_defacto_vassal = PREVPREV
-						}
-					}
-					any_demesne_title = {
-						limit = {
-							county = {
-								OR = {
-									NOT = { region = world_gaul }
-									region = world_gaul_narbonensis_septimania
-								}
-							}
-						}
-						county = {
-							owner = {
-								usurp_title = PREVPREV
-							}
-						}
-					}
-				}
+				vassalize_all_flagged_provinces_to_ROOT_effect = yes
 				ROOT = {
 					if = {
 						limit = { has_character_flag = conquered_toulouse }
