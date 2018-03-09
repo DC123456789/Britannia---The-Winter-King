@@ -257,3 +257,373 @@ narrative_event = {
 		}	
 	}
 }
+
+### CONQUEST OF PROVENCE ###
+
+# Ping event for province
+province_event = {
+	id = 302810
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_visigoths"
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = ostrogoths_conquered_italy
+		NOT = { has_global_flag = gothic_war_started }
+		NOT = { has_global_flag = ostrogothic_invasion_of_provence }
+		k_praetorian_prefecture_of_gaul = { has_holder = no }
+		# At least 2 bordering provinces/ports are not controlled by Visigoths
+		calc_true_if = {
+			amount = 2
+			c_forum_julii = {
+				is_gothic_controlled_trigger = no
+			}
+			c_regium = {
+				is_gothic_controlled_trigger = no
+			}
+			c_tolosa = {
+				is_gothic_controlled_trigger = no	
+			}
+		}
+		# At least one major city fallen
+		OR = {
+			c_arelate = {
+				is_gothic_controlled_trigger = no	
+			}
+			c_aquae_sextiae = {
+				is_gothic_controlled_trigger = no	
+			}
+			c_massilia = {
+				is_gothic_controlled_trigger = no	
+			}
+		}
+		region = custom_southern_provence
+		OR = {
+			province_id = 662
+			province_id = 1030
+			province_id = 1031
+			province_id = 1032
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.1
+			owner = {
+				top_liege = {
+					war = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			year = 500
+		}
+		modifier = {
+			factor = 0.75
+			year = 510
+		}
+		modifier = {
+			factor = 0.75
+			year = 520
+		}
+	}
+	
+	immediate = {
+		k_ostrogoths = { holder_scope = { character_event = { id = 302811 } } }
+	}
+}
+
+# Actual invasion event
+narrative_event = {
+	id = 302811
+	title = "EVTNAME302811"
+	desc = "EVTDESC302811"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_battle_visigoths"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_character_flag = got_event
+		set_global_flag = ostrogothic_invasion_of_provence	
+		create_character = {
+			random_traits = no
+			name = "Ibbas"
+			dynasty = 1902
+			religion = arian
+			culture = ostrogoth
+			employer = k_ostrogoths
+			female = no
+			age = 32
+			attributes = {
+				martial = 10
+				diplomacy = 9
+				stewardship = 8
+				intrigue = 6
+				learning = 7
+			}
+			trait = brilliant_strategist
+			trait = skilled_warrior
+			trait = veteran
+			trait = brave
+			trait = quick
+			trait = light_infantry_leader
+			trait = wroth
+			trait = diligent
+		}
+		new_character = {
+			spawn_unit = {
+				province = FROM
+				home = 903
+				troops = {
+					light_infantry = { 2100 2100 }
+					heavy_infantry = { 1200 1200 }
+					pikemen = { 1200 1200 }
+					archers = { 550 550 }
+					light_cavalry = { 350 350 }
+				}
+				attrition = 0.5
+				disband_on_peace = yes
+				reinforces = yes
+			}
+			spawn_unit = {
+				province = FROM
+				home = 903
+				troops = {
+					light_infantry = { 1750 1750 }
+					heavy_infantry = { 850 850 }
+					pikemen = { 850 850 }
+					archers = { 350 350 }
+					light_cavalry = { 200 200 }
+				}
+				attrition = 0.5
+				disband_on_peace = yes
+			}
+		}
+		wealth = 500
+		FROM = {
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = provence_conquest
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302811"	# Attacked ruler
+		trigger = {
+			top_liege = {
+				FROM = {
+					owner = {
+						top_liege = {
+							character = PREVPREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB302811"	# Visigoths
+		trigger = {
+			top_liege = {
+				NOT = {
+					FROM = {
+						owner = {
+							top_liege = {
+								character = PREVPREVPREV
+							}
+						}
+					}
+				}
+				OR = {
+					has_landed_title = k_visigoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_visigoths }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC302811"	# Others
+		trigger = {
+			top_liege = {
+				NOR = {
+					FROM = {
+						owner = {
+							top_liege = {
+								character = PREVPREVPREV
+							}
+						}
+					}
+					has_landed_title = k_visigoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_visigoths }
+					}
+				}
+			}
+		}
+	}
+}
+
+# Invasion Successful
+narrative_event = {
+	id = 302812
+	title = "EVTNAME302812"
+	desc = "EVTDESC302812"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = ostrogothic_invasion_successful
+		FROMFROM = {
+			any_province = {
+				limit = { region = custom_southern_provence }
+				set_province_flag = vassalize_province
+			}
+		}
+		if = {
+			limit = { 903 = { has_province_flag = vassalize_province } }
+			c_arelate = {
+				usurp_title_plus_barony_if_unlanded = ROOT
+			}
+		}
+		else_if = {
+			limit = { 1024 = { has_province_flag = vassalize_province } }
+			c_aquae_sextiae = {
+				usurp_title_plus_barony_if_unlanded = ROOT
+			}
+		}
+		else_if = {
+			limit = { 945 = { has_province_flag = vassalize_province } }
+			c_massilia = {
+				usurp_title_plus_barony_if_unlanded = ROOT
+			}
+		}
+		else = {
+			random_province = {
+				limit = { has_province_flag = vassalize_province }
+				county = {
+					usurp_title_plus_barony_if_unlanded = ROOT
+				}
+			}
+		}
+		k_praetorian_prefecture_of_gaul = {
+			grant_title = ROOT
+		}
+		k_ostrogoths = {
+			holder_scope = {
+				make_tributary = {
+					who = ROOT 
+					tributary_type = governor
+				}
+			}
+		}	
+		FROMFROM = {		
+			vassalize_all_flagged_provinces_to_ROOT_effect = yes
+		}
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						pikemen = { 650 650 }
+						archers = { 200 200 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+				}
+			}
+		}
+		wealth = 300
+		
+		# Create the Ostrogothic Guard
+		activate_title = { title = d_ostrogothic_guard status = yes }
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = arian
+			culture = ostrogoth
+			employer = k_praetorian_prefecture_of_gaul
+			female = no
+			age = 28
+			attributes = {
+				martial = 12
+				diplomacy = 8
+				stewardship = 7
+			}
+			trait = brilliant_strategist
+			trait = veteran
+			trait = brave
+			trait = loyal
+			trait = rough_terrain_leader
+			trait = cruel
+		}
+		new_character = {
+			d_ostrogothic_guard = { 
+				gain_title = PREV
+			}
+			set_defacto_liege = ROOT
+		}
+		d_ostrogothic_guard = { 
+			holder_scope = {
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302812"	# Attacked ruler
+		trigger = {
+			top_liege = {
+				character = FROMFROM
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB302812"	# Visigoths
+		trigger = {
+			top_liege = {
+				NOT = {
+				character = FROMFROM
+				}
+				OR = {
+					has_landed_title = k_visigoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_visigoths }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC302812"	# Others
+		trigger = {
+			top_liege = {
+				NOR = {
+				character = FROMFROM
+					has_landed_title = k_visigoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_visigoths }
+					}
+				}
+			}
+		}
+	}
+	
+}
