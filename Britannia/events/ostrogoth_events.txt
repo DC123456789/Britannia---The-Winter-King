@@ -36,6 +36,11 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = ostrogoths_conquered_italy
+		k_ostrogoths = {
+			holder_scope = {
+				save_event_target_as = ostrogothic_king
+			}
+		}
 	}
 	
 	option = {								# Romans
@@ -72,7 +77,18 @@ narrative_event = {
 narrative_event = { 
 	id = 302801
 	title = "EVTNAME302801"
-	desc = "EVTDESC302801"
+	desc = {
+		text = EVTDESC302801
+		trigger = {
+			k_praetorian_prefecture_of_gaul = { has_holder = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC302801_1
+		trigger = {
+			k_praetorian_prefecture_of_gaul = { has_holder = no }
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -96,6 +112,16 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = gothic_war_started
+		k_ostrogoths = {
+			holder_scope = {
+				save_event_target_as = ostrogothic_king
+			}
+		}
+		e_eastern_roman_empire = {
+			holder_scope = {
+				save_event_target_as = eastern_roman_emperor
+			}
+		}
 	}
 	
 	option = {								# Governor of Provence
@@ -197,6 +223,16 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = gothic_war_ended
+		k_ostrogoths = {
+			holder_scope = {
+				save_event_target_as = ostrogothic_king
+			}
+		}
+		e_eastern_roman_empire = {
+			holder_scope = {
+				save_event_target_as = eastern_roman_emperor
+			}
+		}
 	}
 	
 	option = {								# Governor of Provence
@@ -528,7 +564,7 @@ narrative_event = {
 					tributary_type = governor
 				}
 			}
-		}	
+		}
 		FROMFROM = {		
 			vassalize_all_flagged_provinces_to_ROOT_effect = yes
 		}
@@ -583,6 +619,11 @@ narrative_event = {
 				set_defacto_liege = ROOT
 			}
 		}
+		
+		# Visigoths receive demand for submission
+		capital_scope = {
+			province_event = { id = 302815 days = 3 }
+		}
 	}
 	
 	option = {
@@ -598,7 +639,7 @@ narrative_event = {
 		trigger = {
 			top_liege = {
 				NOT = {
-				character = FROMFROM
+					character = FROMFROM
 				}
 				OR = {
 					has_landed_title = k_visigoths
@@ -615,7 +656,7 @@ narrative_event = {
 		trigger = {
 			top_liege = {
 				NOR = {
-				character = FROMFROM
+					character = FROMFROM
 					has_landed_title = k_visigoths
 					AND = {
 						has_landed_title = e_visigoths
@@ -625,5 +666,253 @@ narrative_event = {
 			}
 		}
 	}
+}
+
+# Ping to Visigoths
+province_event = {
+	id = 302815
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
 	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		k_visigoths = { holder_scope = { character_event = { id = 302816 } } }
+	}
+}
+
+# Ostrogoths demand submission of Visigoths
+character_event = {
+	id = 302816
+	title = "EVTNAME302816"
+	desc = "EVTDESC302816"
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		k_ostrogoths = {
+			holder_scope = {
+				save_event_target_as = ostrogothic_king
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302816"	# Accept Submission
+		prestige = -200
+		k_ostrogoths = {
+			holder_scope = {
+				make_tributary = {
+					who = ROOT 
+					percentage = 0.10
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA302816TT_1
+		}
+		hidden_tooltip = {
+			# Vassalize Provence to PPO Gaul
+			k_praetorian_prefecture_of_gaul = { holder_scope = { character_event = { id = 302817 } } }
+			character_event = { id = 302818 }
+		}
+		custom_tooltip = {
+			text = EVTOPTA302816TT_2
+		}
+		set_global_flag = ostrogoths_promised_aid_visigoths
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = {
+		name = "EVTOPTB302816"	# Refuse
+		k_ostrogoths = {
+			holder_scope = {
+				unsafe_war = {
+					target = ROOT
+					casus_belli = tributary_cb
+				}
+			}
+			hidden_tooltip = {
+				k_praetorian_prefecture_of_gaul = {
+					capital_scope = {
+						k_ostrogoths = {
+							holder_scope = {
+								spawn_unit = {
+									province = PREVPREV
+									home = 903
+									troops = {
+										light_infantry = { 1250 1250 }
+										heavy_infantry = { 600 600 }
+										pikemen = { 750 750 }
+										archers = { 300 300 }
+										light_cavalry = { 150 150 }
+									}
+									attrition = 0.5
+									disband_on_peace = yes
+								}
+								spawn_unit = {
+									province = PREVPREV
+									home = 903
+									troops = {
+										light_infantry = { 1250 1250 }
+										heavy_infantry = { 600 600 }
+										pikemen = { 750 750 }
+										archers = { 300 300 }
+										light_cavalry = { 150 150 }
+									}
+									attrition = 0.5
+									disband_on_peace = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		hidden_tooltip = { character_event = { id = 302819 } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { realm_levies = 3000 }
+			}
+			modifier = {
+				factor = 0.25
+				NOT = { realm_levies = 4500 }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { realm_levies = 6000 }
+			}
+		}
+	}
+}
+# Vassalize Provence to Praetorian Prefecture of Gaul
+character_event = {
+	id = 302817
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			any_province = {
+				limit = { region = custom_provence }
+				set_province_flag = vassalize_province
+			}
+			vassalize_all_flagged_provinces_to_ROOT_effect = yes
+		}
+	}
+}
+# Visigoths Become Tributary - Notify World
+narrative_event = {
+	id = 302818
+	title = "EVTNAME302818"
+	desc = "EVTDESC302818"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302818"	# Ostrogoths
+		trigger = {
+			top_liege = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB302818"	# Visigoths
+		trigger = {
+			top_liege = {
+				has_landed_title = k_visigoths
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC302818"	# Others
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
+				}
+			}
+		}
+	}
+}
+# Ostrogoths Attack Visigoths - Notify World
+narrative_event = {
+	id = 302819
+	title = "EVTNAME302819"
+	desc = "EVTDESC302819"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_empire_salute"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302819"	# Ostrogoths
+		trigger = {
+			top_liege = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB302819"	# Visigoths
+		trigger = {
+			top_liege = {
+				has_landed_title = k_visigoths
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC302819"	# Others
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
+				}
+			}
+		}
+	}
 }
