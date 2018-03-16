@@ -8766,11 +8766,19 @@ tributary_cb = {
 	on_add = {
 		ROOT = { clr_character_flag = reestablish_tributary_war }
 		# Chance to surrender early
-		ROOT = { save_event_target_as = tribute_war_suzerain }
-		FROM = {
-			save_event_target_as = tribute_war_target
-			set_character_flag = surrender_tributary_cb
-			character_event = { id = JD.2500 days = 5 tooltip = surrender_tributary_tt }
+		if = {
+			limit = { 
+				NAND = {			# Since you just got asked, no point asking again
+					ROOT = { has_landed_title = k_ostrogoths }
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}			
+			ROOT = { save_event_target_as = tribute_war_suzerain }
+			FROM = {
+				save_event_target_as = tribute_war_target
+				set_character_flag = surrender_tributary_cb
+				character_event = { id = JD.2500 days = 5 tooltip = surrender_tributary_tt }
+			}
 		}
 	}
 
@@ -8856,6 +8864,36 @@ tributary_cb = {
 				}
 			}
 		}
+		
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						any_realm_province = {
+							region = custom_provence
+						}
+					}
+				}
+				custom_tooltip = {
+					text = vassalize_provence_succ_tip
+				}
+				hidden_tooltip = {
+					k_praetorian_prefecture_of_gaul = { 	# Transfer Provence to PPO Gaul
+						holder_scope = { 
+							set_character_flag = vassalize_from_war
+							character_event = { id = 302817 } 
+						} 
+					}
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+		}
 	}
 
 	on_fail = {
@@ -8864,6 +8902,15 @@ tributary_cb = {
 		}
 		FROM = {
 			prestige = 100
+		}
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
 		}
 	}
 
@@ -8879,10 +8926,28 @@ tributary_cb = {
 		FROM = {
 			prestige = 200
 		}
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+		}
 	}
 	
 	on_attacker_leader_death = {
 		end_war = invalid
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+		}
 	}
 
 	attacker_ai_victory_worth = {

@@ -115,6 +115,7 @@ narrative_event = {
 		k_ostrogoths = {
 			holder_scope = {
 				save_event_target_as = ostrogothic_king
+				abdicate = yes
 			}
 		}
 		e_eastern_roman_empire = {
@@ -306,6 +307,7 @@ province_event = {
 	
 	trigger = {
 		has_global_flag = ostrogoths_conquered_italy
+		has_global_flag = visigoths_conquered_provence
 		NOT = { has_global_flag = gothic_war_started }
 		NOT = { has_global_flag = ostrogothic_invasion_of_provence }
 		k_praetorian_prefecture_of_gaul = { has_holder = no }
@@ -384,7 +386,6 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		set_character_flag = got_event
 		set_global_flag = ostrogothic_invasion_of_provence	
 		create_character = {
 			random_traits = no
@@ -523,7 +524,7 @@ narrative_event = {
 	immediate = {
 		set_global_flag = ostrogothic_invasion_successful
 		FROMFROM = {
-			any_province = {
+			any_realm_province = {
 				limit = { region = custom_southern_provence }
 				set_province_flag = vassalize_province
 			}
@@ -624,6 +625,12 @@ narrative_event = {
 		capital_scope = {
 			province_event = { id = 302815 days = 3 }
 		}
+		
+		k_ostrogoths = {
+			holder_scope = {
+				save_event_target_as = ostrogothic_king
+			}
+		}
 	}
 	
 	option = {
@@ -709,17 +716,24 @@ character_event = {
 			holder_scope = {
 				make_tributary = {
 					who = ROOT 
-					percentage = 0.10
+					percentage = 0.20
 				}
 			}
 		}
-		custom_tooltip = {
-			text = EVTOPTA302816TT_1
-		}
-		hidden_tooltip = {
-			# Vassalize Provence to PPO Gaul
-			k_praetorian_prefecture_of_gaul = { holder_scope = { character_event = { id = 302817 } } }
-			character_event = { id = 302818 }
+		if = {
+			limit = {
+				any_realm_province = {
+					region = custom_provence
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTA302816TT_1
+			}
+			hidden_tooltip = {
+				# Vassalize Provence to PPO Gaul
+				k_praetorian_prefecture_of_gaul = { holder_scope = { character_event = { id = 302817 } } }
+				character_event = { id = 302818 }
+			}
 		}
 		custom_tooltip = {
 			text = EVTOPTA302816TT_2
@@ -732,6 +746,7 @@ character_event = {
 	option = {
 		name = "EVTOPTB302816"	# Refuse
 		k_ostrogoths = {
+			set_title_flag = subjugating_visigoths
 			holder_scope = {
 				unsafe_war = {
 					target = ROOT
@@ -790,10 +805,22 @@ character_event = {
 				factor = 0.5
 				NOT = { realm_levies = 6000 }
 			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				is_adult = no
+			}
 		}
 	}
 }
-# Vassalize Provence to Praetorian Prefecture of Gaul
+# Vassalize Provence to Praetorian Prefecture of Gaul (by diplomacy)
 character_event = {
 	id = 302817
 	desc = "You're not supposed to see this..."
@@ -805,12 +832,25 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		FROM = {
-			any_province = {
-				limit = { region = custom_provence }
-				set_province_flag = vassalize_province
+		if = {
+			limit = { NOT = { has_character_flag = vassalize_from_war } }
+			FROM = {
+				any_province = {
+					limit = { region = custom_provence }
+					set_province_flag = vassalize_province
+				}
+				vassalize_all_flagged_provinces_to_ROOT_effect = yes
 			}
-			vassalize_all_flagged_provinces_to_ROOT_effect = yes
+		}
+		else = {
+			clr_character_flag = vassalize_from_war
+			FROMFROM = {
+				any_province = {
+					limit = { region = custom_provence }
+					set_province_flag = vassalize_province
+				}
+				vassalize_all_flagged_provinces_to_ROOT_effect = yes
+			}
 		}
 	}
 }
