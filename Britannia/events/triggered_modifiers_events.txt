@@ -2063,6 +2063,12 @@ character_event = {
 				NOT = { has_character_modifier = negative_money_6 }
 			}
 		}
+		NAND = {
+			government = imperial_government
+			independent = yes
+			in_revolt = no
+			is_landed = yes
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2127,7 +2133,7 @@ character_event = {
 			break = yes
 		}
 		add_character_modifier = {
-			modifier = too_large_realm_1
+			modifier = negative_money_1
 			duration = -1
 		}
 	}
@@ -2150,6 +2156,11 @@ character_event = {
 		NAND = {
 			is_ruler = yes
 			NOT = { wealth = 0 }
+			NAND = {
+				government = imperial_government
+				independent = yes
+				in_revolt = no
+			}
 		}
 	}
 	
@@ -3297,6 +3308,119 @@ character_event = {
 		name = EVTOPTA301959
 	}
 }
+# Imperial Financial Crisis
+character_event = {
+	id = 301960
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				wealth = -500
+				NOT = { wealth = 0 }
+				NOT = { has_character_modifier = imperial_negative_money_1 }
+			}
+			AND = {
+				wealth = -1000
+				NOT = { wealth = -500 }
+				NOT = { has_character_modifier = imperial_negative_money_2 }
+			}
+			AND = {
+				wealth = -1500
+				NOT = { wealth = -1000 }
+				NOT = { has_character_modifier = imperial_negative_money_3 }
+			}
+			AND = {
+				NOT = { wealth = -1500 }
+				NOT = { has_character_modifier = imperial_negative_money_4 }
+			}
+		}
+		government = imperial_government
+		independent = yes
+		in_revolt = no
+		is_landed = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
+		if = {
+			limit = {
+				NOT = { wealth = -1500 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_4
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { wealth = -1000 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_3
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { wealth = -500 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_2
+				duration = -1
+			}
+		}
+		else = {
+			add_character_modifier = {
+				modifier = imperial_negative_money_1
+				duration = -1
+			}
+		}
+	}
+}
+character_event = {
+	id = 301961
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_character_modifier = imperial_negative_money_1
+			has_character_modifier = imperial_negative_money_2
+			has_character_modifier = imperial_negative_money_3
+			has_character_modifier = imperial_negative_money_4
+		}
+		NAND = {
+			is_ruler = yes
+			NOT = { wealth = 0 }
+			government = imperial_government
+			independent = yes
+			in_revolt = no
+			is_landed = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
+	}
+}
 
 character_event = {
 	id = 301999
@@ -3365,6 +3489,10 @@ character_event = {
 			has_character_modifier = wrong_religion_group_capital
 			has_character_modifier = ravaged_lands
 			has_tribal_modifier = yes
+			has_character_modifier = imperial_negative_money_1
+			has_character_modifier = imperial_negative_money_2
+			has_character_modifier = imperial_negative_money_3
+			has_character_modifier = imperial_negative_money_4
 		}
 	}
 	
@@ -3427,5 +3555,9 @@ character_event = {
 		remove_character_modifier = wrong_religion_group_capital
 		remove_character_modifier = ravaged_lands
 		remove_tribal_modifiers = yes
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
 	}
 }

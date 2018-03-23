@@ -1320,7 +1320,7 @@ NMilitary = {
 	LIEGE_LEVY_COST_MULTIPLIER = 0.5,				-- The vassal will pay regular maintenance * this for the liege levy
 	LIEGE_LEVY_SUBUNIT_SIZE_CUTOFF = 1500,			-- The max size of each liege levy subunit.
 	LIEGE_LEVY_SUBUNIT_SIZE_MIN = 500,				-- The min size before liege levy subunits start splitting.
-	LIEGE_LEVY_VICE_ROYALTY_MULTIPLIER = 0.8,		-- Liege levy multiplier for viceroy vassals
+	LIEGE_LEVY_VICE_ROYALTY_MULTIPLIER = 1.0,		-- Liege levy multiplier for viceroy vassals
 
 	LIGHT_INFANTRY_MORALE = 1,
 	LIGHT_INFANTRY_MAINTENANCE = 1,
