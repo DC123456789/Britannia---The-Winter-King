@@ -211,7 +211,10 @@ succession_laws = {
 		dynasty_opinion = -5
 		potential = {
 			holder_scope = {
-				is_tribal = no
+				OR = {
+					is_tribal = no
+					character = 300
+				}
 				is_theocracy = no
 				NOT = { religion_group = muslim }
 				is_merchant_republic = no
@@ -223,6 +226,7 @@ succession_laws = {
 						is_vice_royalty = yes
 					}
 				}
+				holder_scope = { character = 300 }
 				title = c_arthur_company
 				AND = {
 					OR = {
@@ -808,8 +812,10 @@ gender_laws = {
 				}
 				AND = {
 					has_dlc = "Zeus"
-					ROOT = { holder_scope = { primary_title = { has_law = status_of_women_3 } } }
-					ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
+					OR = {
+						ROOT = { holder_scope = { primary_title = { has_law = status_of_women_3 } } }
+						ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
+					}
 					OR = {
 						is_patrician = no
 						liege = {
