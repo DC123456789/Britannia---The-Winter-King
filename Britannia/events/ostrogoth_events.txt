@@ -11,14 +11,14 @@
 # 493 AD - Ostrogothic Conquest of Italy
 narrative_event = { 
 	id = 302800
-	title = "EVTNAME302800"
-	desc = "EVTDESC302800"
-	major = yes
+	desc = "You're not supposed to see this..."
 	hide_new = yes
 	
 	picture = "GFX_evt_battle_smoke"
 	
 	only_rulers = yes
+	
+	hide_window = yes
 	
 	trigger = {
 		has_global_flag = western_roman_empire_fallen
@@ -28,14 +28,35 @@ narrative_event = {
 			has_landed_title = k_ostrogoths
 			k_ostrogoths = { has_holder = no }
 		}
+		ai = yes
 	}
 	
 	mean_time_to_happen = {
-		days = 90
+		days = 1
 	}
 	
 	immediate = {
 		set_global_flag = ostrogoths_conquered_italy
+		any_playable_ruler = {
+			limit = { ai = no }
+			character_event = { id = 302801 }
+		}
+	}
+}	
+	
+# Notify player
+narrative_event = { 
+	id = 302801
+	title = "EVTNAME302800"
+	desc = "EVTDESC302800"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_smoke"
+	
+	is_triggered_only = yes
+	
+	immediate = {
 		k_ostrogoths = {
 			holder_scope = {
 				save_event_target_as = ostrogothic_king
@@ -75,24 +96,11 @@ narrative_event = {
 
 # 535 AD - Start of the Gothic War
 narrative_event = { 
-	id = 302801
-	title = "EVTNAME302801"
-	desc = {
-		text = EVTDESC302801
-		trigger = {
-			k_praetorian_prefecture_of_gaul = { has_holder = yes }
-		}
-	}
-	desc = {
-		text = EVTDESC302801_1
-		trigger = {
-			k_praetorian_prefecture_of_gaul = { has_holder = no }
-		}
-	}
-	major = yes
+	id = 302802
+	desc = "You're not supposed to see this..."
 	hide_new = yes
-	
-	picture = "GFX_evt_battle_cavalry"
+	picture = "GFX_evt_battle_smoke"
+	hide_window = yes
 	
 	only_rulers = yes
 	
@@ -104,6 +112,7 @@ narrative_event = {
 			has_landed_title = k_ostrogoths
 			k_ostrogoths = { has_holder = no }
 		}
+		ai = yes
 	}
 	
 	mean_time_to_happen = {
@@ -112,6 +121,37 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = gothic_war_started
+		any_playable_ruler = {
+			limit = { ai = no }
+			character_event = { id = 302803 }
+		}
+	}
+}	
+	
+# Notify player
+narrative_event = { 
+	id = 302803
+	title = "EVTNAME302803"
+	desc = {
+		text = EVTDESC302803
+		trigger = {
+			k_praetorian_prefecture_of_gaul = { has_holder = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC302803_1
+		trigger = {
+			k_praetorian_prefecture_of_gaul = { has_holder = no }
+		}
+	}
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	
+	immediate = {
 		k_ostrogoths = {
 			holder_scope = {
 				save_event_target_as = ostrogothic_king
@@ -126,7 +166,7 @@ narrative_event = {
 	}
 	
 	option = {								# Governor of Provence
-		name = "EVTOPTA302801"
+		name = "EVTOPTA302803"
 		trigger = {
 			has_landed_title = k_praetorian_prefecture_of_gaul
 		}
@@ -137,7 +177,7 @@ narrative_event = {
 	}
 	
 	option = {								# Other Ostrogothic tributaries
-		name = "EVTOPTB302801"
+		name = "EVTOPTB302803"
 		trigger = {
 			NOT = { has_landed_title = k_praetorian_prefecture_of_gaul }
 			is_tributary = yes
@@ -151,7 +191,7 @@ narrative_event = {
 	}
 	
 	option = {								# Romans
-		name = "EVTOPTC302801"
+		name = "EVTOPTC302803"
 		trigger = {
 			is_roman_ruler_trigger = yes
 			NOR = { 
@@ -164,7 +204,7 @@ narrative_event = {
 	}
 	
 	option = {								# Fellow Goths
-		name = "EVTOPTD302801"				
+		name = "EVTOPTD302803"				
 		trigger = {
 			is_roman_ruler_trigger = no
 			OR = {
@@ -181,7 +221,7 @@ narrative_event = {
 	}
 	
 	option = {								# Others
-		name = "EVTOPTE302801"				
+		name = "EVTOPTE302803"				
 		trigger = {
 			NOR = {
 				is_roman_ruler_trigger = yes
@@ -198,13 +238,11 @@ narrative_event = {
 
 # 554 AD - End of the Gothic War
 narrative_event = { 
-	id = 302802
-	title = "EVTNAME302802"
-	desc = "EVTDESC302802"
-	major = yes
+	id = 302804
+	desc = "You're not supposed to see this..."
 	hide_new = yes
-	
-	picture = "GFX_evt_roman_legion_marching"
+	picture = "GFX_evt_battle_smoke"
+	hide_window = yes
 	
 	only_rulers = yes
 	
@@ -216,6 +254,7 @@ narrative_event = {
 			has_landed_title = k_ostrogoths
 			k_ostrogoths = { has_holder = no }
 		}
+		ai = yes
 	}
 	
 	mean_time_to_happen = {
@@ -224,6 +263,35 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = gothic_war_ended
+		any_playable_ruler = {
+			limit = { ai = no }
+			character_event = { id = 302805 }
+		}
+		k_ostrogoths = {			
+			activate_title = { title = k_ostrogoths status = no }
+			holder_scope = {
+				death = {
+					death_reason = death_battle
+				}
+			}
+			destroy_landed_title = THIS
+		}
+	}
+}
+
+# Notify players
+narrative_event = { 
+	id = 302805
+	title = "EVTNAME302805"
+	desc = "EVTDESC302805"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_legion_marching"
+	
+	is_triggered_only = yes
+	
+	immediate = {
 		k_ostrogoths = {
 			holder_scope = {
 				save_event_target_as = ostrogothic_king
@@ -237,7 +305,7 @@ narrative_event = {
 	}
 	
 	option = {								# Governor of Provence
-		name = "EVTOPTA302802"
+		name = "EVTOPTA302805"
 		trigger = {
 			has_landed_title = k_praetorian_prefecture_of_gaul
 		}
@@ -247,7 +315,7 @@ narrative_event = {
 	}
 	
 	option = {								# Romans
-		name = "EVTOPTB302802"
+		name = "EVTOPTB302805"
 		trigger = {
 			is_roman_ruler_trigger = yes
 			NOT = { 
@@ -257,7 +325,7 @@ narrative_event = {
 	}
 	
 	option = {								# Fellow Goths
-		name = "EVTOPTC302802"				
+		name = "EVTOPTC302805"				
 		trigger = {
 			is_roman_ruler_trigger = no
 			OR = {
@@ -271,7 +339,7 @@ narrative_event = {
 	}
 	
 	option = {								# Others
-		name = "EVTOPTD302802"				
+		name = "EVTOPTD302805"				
 		trigger = {
 			NOR = {
 				is_roman_ruler_trigger = yes
@@ -279,18 +347,6 @@ narrative_event = {
 				culture = ostrogoth
 				has_landed_title = k_praetorian_prefecture_of_gaul
 			}
-		}	
-	}
-	
-	after = {
-		k_ostrogoths = {			
-			activate_title = { title = k_ostrogoths status = no }
-			holder_scope = {
-				death = {
-					death_reason = death_battle
-				}
-			}
-			destroy_landed_title = THIS
 		}	
 	}
 }
