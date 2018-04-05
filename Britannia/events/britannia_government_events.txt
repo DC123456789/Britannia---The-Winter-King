@@ -83,3 +83,91 @@ character_event = {
 		}
 	}
 }
+
+##### IMPERIAL GOVERNMENT #####
+# Assign cultural flexibility modifier to all Imperial/Sub-Roman/Germanic realm counties at start, and every year
+character_event = { 
+	id = 302530
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_null
+	}
+	
+	immediate = {
+		any_province = {
+			province_event = { id = 302532 }
+		}
+	}
+}
+
+# When a county changes hands
+character_event = {
+	id = 302531
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			if = {
+				limit = {
+					tier = COUNT
+				}
+				location = {
+					province_event = { id = 302532 }
+				}
+			}
+		}
+	}
+}
+
+# Actual event for province
+province_event = {
+	id = 302532
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				owner = {
+					top_liege = {
+						OR = {
+							government = imperial_government
+							government = sub_roman_government
+							government = germanic_government
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_province_modifier = imperial_cultural_tolerance } }
+				add_province_modifier = {
+					name = imperial_cultural_tolerance
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = { has_province_modifier = imperial_cultural_tolerance }
+			remove_province_modifier = imperial_cultural_tolerance
+		}
+	}
+}
