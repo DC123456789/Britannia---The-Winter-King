@@ -505,6 +505,59 @@ county_conquest_is_valid_title_trigger = {
 	}
 }
 
+county_conquest_or_neighbouring_isolated_island_is_valid_title_trigger = {
+	OR = {
+		location = {				# Must be bordering province
+			any_neighbor_province = {
+				OR = {
+					AND = {
+						has_owner = yes
+						owner = {
+							OR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
+						}
+					}
+					AND = {
+						is_land = no
+						any_neighbor_province = {
+							has_owner = yes
+							owner = {
+								OR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+							OR = {
+								is_isolated_island_trigger = yes
+								PREVPREV = { is_isolated_island_trigger = yes }
+							}
+						}
+					}
+				}
+			}
+		}
+		any_direct_de_jure_vassal_title = {	# Or owns barony inside county
+			owner = {
+				OR = {
+					character = ROOT
+					is_liege_or_above = ROOT
+				}
+			}
+		}
+	}
+	OR = {
+		FROM = {
+			has_landed_title = PREV
+		}
+		holder_scope = {
+			is_liege_or_above = FROM
+			NOT = { same_realm = ROOT }
+		}
+	}
+}
+
 duchy_invasion_can_use_gui_trigger = {
 	ROOT = {
 		OR = {
