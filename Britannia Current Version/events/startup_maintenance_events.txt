@@ -434,6 +434,20 @@ character_event = {
 			
 			remove_trait = dead_target
 		}
+		
+		# If holds offmap landless title, skip any already landed heirs
+		if = {
+			limit = { any_demesne_title = { is_landless_normal_title_trigger = yes } }
+			while = {
+				limit = {
+					primary_heir = { is_ruler = yes }
+				}
+				primary_heir = {
+					add_trait = forbid_inheritance
+				}
+				recalc_succession = yes
+			}
+		}			
 	}
 		
 	option = {			# Celtic Pagan
@@ -464,7 +478,6 @@ character_event = {
 	}
 }
 
-
 # Excalibur Inheritance
 character_event = {   
 	id = 31203125
@@ -485,7 +498,6 @@ character_event = {
 		prestige = 25
 	}
 }
-
 
 ### MASTER SUCCESSION Event ###
 character_event = {
@@ -734,8 +746,41 @@ character_event = {
 			}
 			ROOT = { add_trait = northaugustus_offmap }
 		}
+		
+		# Block offmap titles from inheriting and hand out any titles if they somehow get it
+		if = {
+			limit = { 
+				ROOT = {
+					any_demesne_title = {
+						is_landless_normal_title_trigger = yes
+					}
+				}
+			}
+			ROOT = { 
+				add_trait = forbid_inheritance 
+				any_demesne_title = {
+					limit = { is_landless_normal_title_trigger = no }
+					primary_heir = {
+						grant_title = PREV
+					}
+				}
+			}
+			any_character = {
+				limit = {
+					NOT = {
+						any_demesne_title = {
+							is_landless_normal_title_trigger = yes
+						}
+					}
+					has_trait = forbid_inheritance
+				}
+				remove_trait = forbid_inheritance
+			}	
+		}
 	}
 }
+
+
 
 ### Traits Maintenance ###
 character_event = {	# Clearing Loyal and Unloyal traits
