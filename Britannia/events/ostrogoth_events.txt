@@ -444,6 +444,8 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	show_ROOT = yes
+	
 	immediate = {
 		set_global_flag = ostrogothic_invasion_of_provence	
 		create_character = {
@@ -569,20 +571,63 @@ narrative_event = {
 	}
 }
 
+# Invasion Successful - Ping to new Prefect
+character_event = {
+	id = 302812
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_roman_empire_salute"
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:petrus_marcellinus_felix_liberius = {
+			if = {
+				limit = { 
+					is_ruler = no 
+					is_adult = yes
+				}
+				character_event = { id = 302813 }
+				break = yes
+			}
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = culture
+			religion = catholic
+			culture = romanogallic
+			employer = k_ostrogoths
+			female = no
+			age = 41
+			attributes = {
+				martial = 6
+				diplomacy = 10
+				stewardship = 8
+				intrigue = 5
+				learning = 7
+			}
+		}
+		new_character = {
+			character_event = { id = 302813 }
+		}
+	}
+}
+
 # Invasion Successful
 narrative_event = {
-	id = 302812
-	title = "EVTNAME302812"
-	desc = "EVTDESC302812"
+	id = 302813
+	title = "EVTNAME302813"
+	desc = "EVTDESC302813"
 	major = yes
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	show_ROOT = yes
+	picture = "GFX_evt_roman_emperor_salute"
 	
 	is_triggered_only = yes
 	
 	immediate = {
 		set_global_flag = ostrogothic_invasion_successful
-		FROMFROM = {
+		FROMFROMFROM = {
 			any_realm_province = {
 				limit = { region = custom_southern_provence }
 				set_province_flag = vassalize_province
@@ -625,7 +670,7 @@ narrative_event = {
 				}
 			}
 		}
-		FROMFROM = {		
+		FROMFROMFROM = {		
 			vassalize_all_flagged_provinces_to_ROOT_effect = yes
 		}
 		capital_scope = {
@@ -682,18 +727,12 @@ narrative_event = {
 		
 		# Visigoths receive demand for submission
 		capital_scope = {
-			province_event = { id = 302815 days = 3 }
-		}
-		
-		k_ostrogoths = {
-			holder_scope = {
-				save_event_target_as = ostrogothic_king
-			}
+			province_event = { id = 302815 days = 5 random = 3}
 		}
 	}
 	
 	option = {
-		name = "EVTOPTA302812"	# Attacked ruler
+		name = "EVTOPTA302813"	# Attacked ruler
 		trigger = {
 			top_liege = {
 				character = FROMFROM
@@ -701,7 +740,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB302812"	# Visigoths
+		name = "EVTOPTB302813"	# Visigoths
 		trigger = {
 			top_liege = {
 				NOT = {
@@ -718,7 +757,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC302812"	# Others
+		name = "EVTOPTC302813"	# Others
 		trigger = {
 			top_liege = {
 				NOR = {
@@ -739,7 +778,7 @@ province_event = {
 	id = 302815
 	desc = "You're not supposed to see this..."
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	picture = "GFX_evt_roman_emperor_salute"
 	
 	hide_window = yes
 	
@@ -756,7 +795,7 @@ character_event = {
 	title = "EVTNAME302816"
 	desc = "EVTDESC302816"
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	picture = "GFX_evt_emissary"
 	
 	is_triggered_only = yes
 	
@@ -791,7 +830,7 @@ character_event = {
 			hidden_tooltip = {
 				# Vassalize Provence to PPO Gaul
 				k_praetorian_prefecture_of_gaul = { holder_scope = { character_event = { id = 302817 } } }
-				character_event = { id = 302818 }
+				k_ostrogoths = { holder_scope = { character_event = { id = 302818 } } }
 			}
 		}
 		custom_tooltip = {
@@ -849,7 +888,7 @@ character_event = {
 				}
 			}
 		}
-		hidden_tooltip = { character_event = { id = 302819 } }
+		hidden_tooltip = { k_ostrogoths = { holder_scope = { character_event = { id = 302819 } } } }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -884,7 +923,7 @@ character_event = {
 	id = 302817
 	desc = "You're not supposed to see this..."
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	picture = "GFX_evt_emissary"
 	
 	hide_window = yes
 	
@@ -919,8 +958,9 @@ narrative_event = {
 	title = "EVTNAME302818"
 	desc = "EVTDESC302818"
 	major = yes
+	show_ROOT = yes
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	picture = "GFX_evt_roman_emperor_salute"
 	
 	is_triggered_only = yes
 	
@@ -948,7 +988,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC302818"	# Others
+		name = "EVTOPTC302818"	# Other Gallic rulers
 		trigger = {
 			top_liege = {
 				NOR = {
@@ -960,6 +1000,24 @@ narrative_event = {
 					has_landed_title = k_praetorian_prefecture_of_gaul
 					has_landed_title = k_visigoths
 				}
+				capital_scope = { region = world_gaul }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD302818"	# Others
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
+					capital_scope = { region = world_gaul }
+				}
 			}
 		}
 	}
@@ -970,8 +1028,9 @@ narrative_event = {
 	title = "EVTNAME302819"
 	desc = "EVTDESC302819"
 	major = yes
+	show_ROOT = yes
 	hide_new = yes
-	picture = "GFX_evt_roman_empire_salute"
+	picture = "GFX_evt_battle_cavalry"
 	
 	is_triggered_only = yes
 	
@@ -999,7 +1058,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC302819"	# Others
+		name = "EVTOPTC302819"
 		trigger = {
 			top_liege = {
 				NOR = {
@@ -1010,6 +1069,24 @@ narrative_event = {
 					}
 					has_landed_title = k_praetorian_prefecture_of_gaul
 					has_landed_title = k_visigoths
+				}
+				capital_scope = { region = world_gaul }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD302819"
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
+					capital_scope = { region = world_gaul }
 				}
 			}
 		}
