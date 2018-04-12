@@ -1093,6 +1093,199 @@ narrative_event = {
 	}
 }
 
-# 302820 - hidden event for PPO Gaul to attack Burgundy for Northern Provence ~520
+# PPO Gaul to attacks Burgundy for Northern Provence ~520
+character_event = {
+	id = 302820
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	picture = "GFX_evt_battle_visigoths"
+	
+	ai = yes
+	only_independent = yes
+	
+	trigger = {
+		has_landed_title = k_praetorian_prefecture_of_gaul
+		war = no
+		any_realm_province = {
+			any_neighbor_province = {
+				region = custom_provence
+				top_liege = {
+					NOR = { 
+						character = ROOT 
+						reverse_has_truce = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_truce = PREVPREV
+							}
+						}
+						has_non_aggression_pact_with = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_non_aggression_pact_with = PREVPREV
+							}
+						}
+						suzerain = { has_landed_title = k_ostrogoths }
+						realm_levies = 10000		# Not if they're too powerful
+					}
+				}
+			}
+		}
+		had_global_flag = {
+			flag = ostrogothic_invasion_successful
+			days = 1825		# At least 5 years since initial invasion
+		}
+		OR = {
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+			had_global_flag = {
+				flag = ostrogoths_provence_conquest
+				days = 1460		# At least 5 years since last invasion
+			}
+		}
+		NOT = { has_global_flag = gothic_war_started }
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			year = 520
+		}
+		modifier = {
+			factor = 3
+			year = 524
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+		modifier = {
+			factor = 3
+			year = 528
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+		modifier = {
+			factor = 3
+			year = 532
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+	}
+	
+	immediate = {
+		set_global_flag = ostrogoths_provence_conquest
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						pikemen = { 200 200 }
+						archers = { 200 200 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					reinforces = yes
+				}
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 2000 2000 }
+						heavy_infantry = { 1000 1000 }
+						pikemen = { 400 400 }
+						archers = { 400 400 }
+						light_cavalry = { 200 200 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+				}
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						pikemen = { 200 200 }
+						archers = { 200 200 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+				}
+			}
+		}
+		wealth = 300
+		# Target Burgundy first
+		if = {
+			limit = {
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_burgundy
+					any_realm_province = {
+						region = custom_provence
+						any_neighbor_province = {
+							top_liege = { character = ROOT }
+						}
+					}
+					NOR = { 
+						character = ROOT 
+						reverse_has_truce = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_truce = PREVPREV
+							}
+						}
+						has_non_aggression_pact_with = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_non_aggression_pact_with = PREVPREV
+							}
+						}
+						suzerain = { has_landed_title = k_ostrogoths }
+						realm_levies = 10000		# Not if they're too powerful
+					}
+				}
+			}
+			k_burgundy = {
+				holder_scope = {
+					reverse_unsafe_war = {
+						target = ROOT
+						casus_belli = provence_conquest
+					}
+				}
+			}
+		}
+		else = {
+			random_neighbor_independent_ruler = {
+				limit = {
+					any_realm_province = {
+						region = custom_provence
+						any_neighbor_province = {
+							top_liege = { character = ROOT }
+						}
+					}
+					NOR = { 
+						character = ROOT 
+						reverse_has_truce = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_truce = PREVPREV
+							}
+						}
+						has_non_aggression_pact_with = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_non_aggression_pact_with = PREVPREV
+							}
+						}
+						suzerain = { has_landed_title = k_ostrogoths }
+						realm_levies = 10000		# Not if they're too powerful
+					}
+				}
+				reverse_unsafe_war = {
+					target = ROOT
+					casus_belli = provence_conquest
+				}
+			}
+		}
+	}
+}
 
 # 302821 - event for Visigoths calling in Ostrogoths to help with Aquitanian reconquest (possibly add a decision as well?) -> also add AI events to force it
