@@ -39185,15 +39185,25 @@ e_germania = {				# High Kingdom of Germania
 			OR = {
 				AND = {
 					age = 20
-					culture = oldfrisian
+					OR = {
+						is_ingvaeonic_culture_trigger = yes
+						AND = {
+							is_north_germanic_trigger = yes
+							lower_tier_than = KING
+							capital_scope = { region = custom_frisia }
+						}
+					}
 					independent = yes
 					prestige = 1250
 				}
 				AND = {
 					is_frankish_culture_trigger = yes
-					has_global_flag = frisia_subjugated
+					custom_tooltip = {
+						text = frisia_subjugated_tooltip
+						has_global_flag = frisia_subjugated
+					}
 				}
-			}					
+			}				
 		}
 		
 		d_west_frisia = {
