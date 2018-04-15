@@ -575,9 +575,79 @@ action_inquisition = {
 	}
 	
 	display_on_map = {
-		tooltip = JOB_PROSELYTIZE_DIFFERENT_RELIGION
+		tooltip = JOB_PROSELYTIZE_OTHER_PAGAN_RELIGION
 		trigger = {
 			NOT = { religion = FROM }
+			FROM = { religion_group = pagan_group }
+			OR = {
+				religion_group = pagan_group
+				AND = {
+					religion_group = zoroastrian_group
+					culture_group = imperiale
+				}
+				AND = {
+					religion_group = jewish_group
+					culture_group = israelite
+				}
+			}
+			NOR = {
+				is_heresy_of = FROM
+				FROM = {
+					is_heresy_of = PREV
+				}
+			}
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 100 255 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROSELYTIZE_TO_OTHER_PAGAN_RELIGION
+		trigger = {
+			NOT = { religion = FROM }
+			FROM = { religion_group = pagan_group }
+			FROM = { is_same_default_pagan_religion_as_ROOT = no }
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 255 100 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROSELYTIZE_DIFFERENT_RELIGION
+		trigger = {
+			NOR = { 
+				religion = FROM 
+				AND = {
+					FROM = { religion_group = pagan_group }
+					OR = {
+						religion_group = pagan_group
+						AND = {
+							religion_group = zoroastrian_group
+							culture_group = imperiale
+						}
+						AND = {
+							religion_group = jewish_group
+							culture_group = israelite
+						}
+					}
+					NOR = {
+						is_heresy_of = FROM
+						FROM = {
+							is_heresy_of = PREV
+						}
+					}
+				}
+			}
 			any_province_lord = {
 				OR = {
 					character = FROM
