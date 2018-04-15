@@ -13,7 +13,31 @@ decisions = {
 		}
 		allow = {
 			any_war = {
-				using_cb = visigoth_reconquest
+				custom_tooltip = {
+					text = using_visigoth_reconquest_cb_tooltip
+					using_cb = visigoth_reconquest
+				}
+			}
+			NOT = {
+				any_war = {
+					custom_tooltip = {
+						text = not_using_visigoth_reconquest_cb_tooltip
+						NOT = { using_cb = visigoth_reconquest }
+					}
+				}
+			}
+			k_ostrogoths = {
+				holder_scope = {
+					war = no
+				}
+			}
+			k_praetorian_prefecture_of_gaul = {
+				OR = {
+					holder_scope = {
+						war = no
+					}
+					has_holder = no
+				}
 			}
 		}
 		effect = {
@@ -21,7 +45,7 @@ decisions = {
 				text = visigoths_call_ostrogoths_to_war_tooltip
 			}
 			hidden_tooltip = {
-				character_event = { id = 302825 }
+				character_event = { id = 302826 days = 10 }
 				set_global_flag = called_on_ostrogothic_aid_visigoths
 			}
 		}

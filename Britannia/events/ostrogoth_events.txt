@@ -1093,7 +1093,7 @@ narrative_event = {
 	}
 }
 
-# PPO Gaul to attacks Burgundy for Northern Provence ~520
+# PPO Gaul to attacks Burgundy for Northern Provence ~520 (for AI)
 character_event = {
 	id = 302820
 	desc = "You're not supposed to see this..."
@@ -1102,6 +1102,7 @@ character_event = {
 	
 	ai = yes
 	only_independent = yes
+	hide_window = yes
 	
 	trigger = {
 		has_landed_title = k_praetorian_prefecture_of_gaul
@@ -1145,7 +1146,7 @@ character_event = {
 	}
 	
 	weight_multiplier = {
-		days = 1
+		factor = 1
 		modifier = {
 			factor = 2
 			year = 520
@@ -1288,4 +1289,223 @@ character_event = {
 	}
 }
 
-# 302825 - event for Visigoths calling in Ostrogoths to help with Aquitanian reconquest (possibly add a decision as well?) -> also add AI events to force it
+# AI event for Visigothic reconquest
+character_event = {
+	id = 302825
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	picture = "GFX_evt_battle_visigoths"
+	
+	ai = yes
+	only_independent = yes
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = k_visigoths
+		war = no
+		has_global_flag = ostrogoths_promised_aid_visigoths
+		NOT = { has_global_flag = called_on_ostrogothic_aid_visigoths }
+		suzerain = { has_landed_title = k_ostrogoths }
+		NOT = { has_global_flag = gothic_war_started }
+		k_ostrogoths = {
+			holder_scope = {
+				war = no
+			}
+		}
+		k_praetorian_prefecture_of_gaul = {
+			OR = {
+				holder_scope = {
+					war = no
+				}
+				has_holder = no
+			}
+		}
+		any_neighbor_independent_ruler = {
+			ROOT = {
+				can_use_cb = {
+					target = PREV
+					casus_belli = visigoth_reconquest
+					only_check_triggers = yes
+				}
+			}
+			OR = {
+				AND = {
+					has_global_flag = visigoths_reconquest_1
+					NOT = { has_global_flag = visigoths_reconquest_2 }
+					OR = {
+						any_realm_province = {
+							count = 5
+							region = custom_southaquitania
+						}
+						NOT = {
+							ROOT = {
+								any_neighbor_independent_ruler = {
+									ROOT = {
+										can_use_cb = {
+											target = PREV
+											casus_belli = visigoth_reconquest
+										}
+									}
+									any_realm_province = {
+										count = 5
+										region = custom_southaquitania
+									}
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					has_global_flag = visigoths_reconquest_2
+					OR = {
+						any_realm_province = {
+							count = 10
+							region = world_gaul_aquitania
+						}
+						NOT = {
+							ROOT = {
+								any_neighbor_independent_ruler = {
+									ROOT = {
+										can_use_cb = {
+											target = PREV
+											casus_belli = visigoth_reconquest
+										}
+									}
+									any_realm_province = {
+										count = 10
+										region = world_gaul_aquitania
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		set_global_flag = called_on_ostrogothic_aid_visigoths		
+		random_neighbor_independent_ruler = {
+			limit = {
+				ROOT = {
+					can_use_cb = {
+						target = PREV
+						casus_belli = visigoth_reconquest
+						only_check_triggers = yes
+					}
+				}
+				OR = {
+					AND = {
+						has_global_flag = visigoths_reconquest_1
+						NOT = { has_global_flag = visigoths_reconquest_2 }
+						OR = {
+							any_realm_province = {
+								count = 5
+								region = custom_southaquitania
+							}
+							NOT = {
+								ROOT = {
+									any_neighbor_independent_ruler = {
+										ROOT = {
+											can_use_cb = {
+												target = PREV
+												casus_belli = visigoth_reconquest
+											}
+										}
+										any_realm_province = {
+											count = 5
+											region = custom_southaquitania
+										}
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						has_global_flag = visigoths_reconquest_2
+						OR = {
+							any_realm_province = {
+								count = 10
+								region = world_gaul_aquitania
+							}
+							NOT = {
+								ROOT = {
+									any_neighbor_independent_ruler = {
+										ROOT = {
+											can_use_cb = {
+												target = PREV
+												casus_belli = visigoth_reconquest
+											}
+										}
+										any_realm_province = {
+											count = 10
+											region = world_gaul_aquitania
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = visigoth_reconquest
+			}
+		}
+	}
+}
+
+# Ostrogothic troops called in
+character_event = {
+	id = 302826
+	title = "EVTNAME302826"
+	desc = "EVTDESC302826"
+	picture = "GFX_evt_battle_visigoths"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302826"
+		prestige = -50
+		k_ostrogoths = {
+			show_scope_change = no
+			holder_scope = {
+				join_attacker_wars = ROOT
+			}
+		}
+		k_praetorian_prefecture_of_gaul = {
+			show_scope_change = no
+			holder_scope = {
+				join_attacker_wars = ROOT
+			}
+			capital_scope = {
+				show_scope_change = no
+				k_ostrogoths = {
+					show_scope_change = no
+					holder_scope = {
+						spawn_unit = {
+							province = PREVPREV
+							home = PREVPREV
+							troops = {
+								light_infantry = { 1500 1500 }
+								heavy_infantry = { 750 750 }
+								pikemen = { 300 300 }
+								archers = { 300 300 }
+								light_cavalry = { 150 150 }
+							}
+							attrition = 0.5
+							disband_on_peace = yes
+							reinforces = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}

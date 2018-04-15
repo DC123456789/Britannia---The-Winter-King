@@ -160,6 +160,20 @@ county_conquest_can_use_trigger = {
 		FROM = { is_north_germanic_trigger = yes }
 		ROOT = { is_north_germanic_trigger = yes }
 	}
+	
+	# Cannot use on Ostrogothic governor if tributary of Ostrogoths
+	NAND = {
+		FROM = { suzerain = { has_landed_title = k_ostrogoths } }
+		ROOT = { suzerain = { has_landed_title = k_ostrogoths } }
+		k_ostrogoths = {
+			holder_scope = {
+				OR = {
+					FROM = { is_tributary = { type = governor suzerain = PREV } }
+					ROOT = { is_tributary = { type = governor suzerain = PREV } }
+				}
+			}
+		}
+	}
 }
 
 county_conquest_can_use_title_minus_neighbour_condition_trigger = {
@@ -659,6 +673,20 @@ duchy_invasion_can_use_trigger = {
 					}
 					FROM = {
 						culture = romanogallic 
+					}
+				}
+			}
+			
+			# Cannot use on Ostrogothic governor if tributary of Ostrogoths
+			NAND = {
+				FROM = { suzerain = { has_landed_title = k_ostrogoths } }
+				ROOT = { suzerain = { has_landed_title = k_ostrogoths } }
+				k_ostrogoths = {
+					holder_scope = {
+						OR = {
+							FROM = { is_tributary = { type = governor suzerain = PREV } }
+							ROOT = { is_tributary = { type = governor suzerain = PREV } }
+						}
 					}
 				}
 			}

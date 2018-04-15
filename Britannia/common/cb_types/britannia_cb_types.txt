@@ -1441,17 +1441,18 @@ county_conquest = {
 		# Stop AI from using county conquest if it can use duchy invasion instead
 		modifier = {
 			factor = 0
-			# duchy = {		# Doesn't work apparently
-				# ROOT = { 
-					# can_use_cb = {
-						# target = FROM
-						# casus_belli = duchy_invasion
-						# thirdparty_title = PREV
-					# }
-				# }
-			# }
-			duchy_invasion_can_use_trigger = yes
-			duchy_invasion_can_use_gui_trigger = yes
+			duchy = {
+				ROOT = { 
+					can_use_cb = {
+						target = FROM
+						casus_belli = duchy_invasion
+						thirdparty_title = PREV
+						only_check_triggers = yes
+					}
+				}
+			}
+			#duchy_invasion_can_use_trigger = yes
+			#duchy_invasion_can_use_gui_trigger = yes
 		}
 		# Stop Franks from attacking Soissons too early and stopping invasion event from triggering
 		modifier = {
@@ -6344,6 +6345,22 @@ visigoth_reconquest = {
 	}
 	
 	can_use_title = {
+	}
+	
+	on_add = {
+		ROOT = {
+			if = {
+				limit = {
+					ai = yes
+					has_landed_title = k_visigoths
+					has_global_flag = ostrogoths_promised_aid_visigoths
+					NOT = { has_global_flag = called_on_ostrogothic_aid_visigoths }
+					suzerain = { has_landed_title = k_ostrogoths }
+					NOT = { has_global_flag = gothic_war_started }
+				}
+				character_event = { id = 302826 days = 10 }
+			}
+		}
 	}
 
 	on_success = {
