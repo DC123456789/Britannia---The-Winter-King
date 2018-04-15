@@ -2679,25 +2679,19 @@ tribal_invasion = {
 	allowed_to_target_tributaries = no
 	
 	can_use_gui = {
-		OR = {
-			hidden_tooltip = {
-				ROOT = { has_character_flag = frankish_invasion_allowed }
-				FROM = { has_character_flag = frankish_invasion_target }
+		ROOT = {
+			OR = {
+				trait = tough_soldier
+				trait = skilled_tactician
+				trait = brilliant_strategist
 			}
-			ROOT = {
-				OR = {
-					trait = tough_soldier
-					trait = skilled_tactician
-					trait = brilliant_strategist
-				}
-				martial = 15
-				prestige = 1500
-				NOR = {
-					trait = craven
-					trait = weak
-					trait = incapable
-					trait = imbecile
-				}
+			martial = 15
+			prestige = 1500
+			NOR = {
+				trait = craven
+				trait = weak
+				trait = incapable
+				trait = imbecile
 			}
 		}
 		conditional_tooltip = {
@@ -2791,11 +2785,7 @@ tribal_invasion = {
 	
 	on_add_title = {
 		ROOT = {
-			clr_character_flag = frankish_invasion_allowed
 			set_character_flag = frankish_invasion_used 
-		}
-		FROM = {
-			clr_character_flag = frankish_invasion_target
 		}
 	}
 

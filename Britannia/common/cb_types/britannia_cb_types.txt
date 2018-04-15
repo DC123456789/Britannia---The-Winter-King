@@ -3044,45 +3044,29 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 	allowed_to_target_tributaries = no
 	
 	can_use = {
-		OR = {
-			ROOT = { has_character_flag = saxon_gallic_invasion_allowed }
-			AND = {
-				ROOT = {
-					has_character_flag = duchy_invader
-				}
-				FROM = { 
-					has_character_flag = duchy_invasion_target
-				}
-			}
-		}
+		ROOT = { has_character_flag = saxon_gallic_invasion_allowed }
 	}
 	
 	can_use_title = {
-		OR = {
-			ROOT = { has_character_flag = duchy_invader }
-			AND = {
-				ROOT = { has_character_flag = saxon_gallic_invasion_allowed }
-				any_direct_de_jure_vassal_title = {
-					location = {
-						region = custom_northwest_gaul
-						any_neighbor_province = {
-							#is_land = no
-							OR = {
-								province_id = 304
-								province_id = 294
-								province_id = 299
-								province_id = 298
-								province_id = 286
-								province_id = 284
-								province_id = 285
-							}
-						}
-					}
-					holder_scope = {
-						NOT = { culture_group = germanic }
-						top_liege = { NOT = { culture_group = germanic } }
+		any_direct_de_jure_vassal_title = {
+			location = {
+				region = custom_northwest_gaul
+				any_neighbor_province = {
+					#is_land = no
+					OR = {
+						province_id = 304
+						province_id = 294
+						province_id = 299
+						province_id = 298
+						province_id = 286
+						province_id = 284
+						province_id = 285
 					}
 				}
+			}
+			holder_scope = {
+				NOT = { culture_group = germanic }
+				top_liege = { NOT = { culture_group = germanic } }
 			}
 		}
 	}
@@ -3099,11 +3083,7 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 				}
 				character_event = { id = 301618 }
 			}
-			clr_character_flag = duchy_invader
 			clr_character_flag = saxon_gallic_invasion_allowed
-		}
-		FROM = {
-			clr_character_flag = duchy_invasion_target
 		}
 	}
 	
