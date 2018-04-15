@@ -55,6 +55,26 @@ county_conquest_can_use_gui_trigger = {
 			}
 		}
 	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { has_character_modifier = friendly_with_romans }
+			FROM = { culture = romanogallic }
+		}
+		NAND = {			# Block Childeric against Soissons
+			ROOT = { has_character_modifier = friendly_with_romans }
+			FROM = { culture = romanogallic }
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { culture = romanogallic }
+			FROM = { has_character_modifier = friendly_with_romans }
+		}
+		NAND = {			# Block Soissons against Childeric
+			ROOT = { culture = romanogallic }
+			FROM = { has_character_modifier = friendly_with_romans }
+		}
+	}
 }
 
 county_conquest_can_use_trigger = {
@@ -96,24 +116,6 @@ county_conquest_can_use_trigger = {
 				ai = yes
 			}
 			FROM = { religion = ROOT }
-		}
-		NOR = {			# Block Childeric against Soissons
-			AND = {
-				ROOT = {
-					has_character_flag = friendly_with_romans
-				}
-				FROM = {
-					culture = romanogallic 
-				}
-			}		
-			AND = {		# Block Romano-Gallics against Childeric
-				ROOT = {
-					culture = romanogallic 
-				}
-				FROM = {
-					has_character_flag = friendly_with_romans
-				}
-			}
 		}
 		NAND = {					# Block Irish and Gaels against each other
 			ROOT = { is_gaelic_culture_trigger = yes }
@@ -617,6 +619,24 @@ duchy_invasion_can_use_gui_trigger = {
 			num_of_count_titles_in_realm = 8
 		}
 	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = {
+				has_character_modifier = friendly_with_romans
+			}
+			FROM = {
+				culture = romanogallic 
+			}
+		}
+		NAND = {			# Block Childeric against Soissons
+			ROOT = {
+				has_character_modifier = friendly_with_romans
+			}
+			FROM = {
+				culture = romanogallic 
+			}
+		}
+	}
 }
 
 duchy_invasion_can_use_trigger = {
@@ -663,16 +683,6 @@ duchy_invasion_can_use_trigger = {
 						any_tributary = {
 							character = FROM
 						}
-					}
-				}
-			}
-			NOT = {			# Block Childeric against Soissons
-				AND = {
-					ROOT = {
-						has_character_flag = friendly_with_romans
-					}
-					FROM = {
-						culture = romanogallic 
 					}
 				}
 			}
