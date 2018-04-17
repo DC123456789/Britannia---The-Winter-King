@@ -23,7 +23,8 @@
 # 314401 - 314419	Caledonia and the North
 # 314420 - 314449	Armoricans
 # 314451 - 314499	Britons
-# 314500 - 314699	Romans (Britannia)
+# 314500 - 314599	Romans (Britannia)
+# 314600 - 314699	Romans (Germania)
 # 314700 - 314749	Visigoths
 # 314750 - 314774	Saxons
 # 314775 - 314799	Vasconians
@@ -6995,6 +6996,11 @@ narrative_event = {	# Lugdunensis Prima reconquered
 			has_landed_title = e_visigoths
 		}
 		has_global_flag = lugdunensisprima_conquered_burgundy
+		NOT = { 
+			primary_title = {
+				title = k_burgundy
+			}
+		}
 		completely_controls_region = world_gaul_lugdunensis_prima
 	}
 	
@@ -7080,6 +7086,11 @@ narrative_event = {	# Viennensis Prima reconquered
 			has_landed_title = e_visigoths
 		}
 		has_global_flag = viennensisprima_conquered_burgundy
+		NOT = { 
+			primary_title = {
+				title = k_burgundy
+			}
+		}
 		completely_controls_region = world_gaul_viennensis_prima
 	}
 	
@@ -7204,10 +7215,325 @@ narrative_event = {	# Reconquest of Germania Secunda
 	}
 }
 
-narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
+# Northern Provence reconquered
+narrative_event = {
 	id = 318103
 	title = "EVTNAME318103"
-	desc = "EVTDESC318103"
+	major = yes
+	hide_new = yes
+	
+	desc = {
+		text = EVTDESC318103
+		trigger = { 
+			NOT = { has_global_flag = roman_provinces_gaul_restored }
+		}
+	}
+	
+	desc = {
+		text = EVTDESC318103_1
+		trigger = { 
+			has_global_flag = roman_provinces_gaul_restored
+		}
+	}
+	
+	picture = "GFX_evt_roman_aquila_pillar"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+			has_landed_title = k_gaul
+			has_landed_title = e_visigoths
+		}
+		OR = {
+			AND = {
+				has_global_flag = northern_provence_conquered_burgundians
+				NOT = { 
+					primary_title = {
+						title = k_burgundy
+					}
+				}
+			}
+			AND = {
+				has_global_flag = northern_provence_conquered_ostrogoths
+				NOR = { 
+					primary_title = {
+						title = k_ostrogoths
+						title = k_praetorian_prefecture_of_gaul
+					}
+				}
+			}
+		}
+		completely_controls_region = custom_northern_provence
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_avenionensia = { de_jure_liege = k_gaul }
+			d_arausicensia = { de_jure_liege = k_gaul }
+			d_tricastinensia = { de_jure_liege = k_gaul }
+			d_vasensia = { de_jure_liege = k_gaul }
+			d_carpentoratensia = { de_jure_liege = k_gaul }
+			d_cavilonensia = { de_jure_liege = k_gaul }
+			d_aptensia = { de_jure_liege = k_gaul }
+			d_segesteronensia = { de_jure_liege = k_gaul }
+			d_vapincensia = { de_jure_liege = k_gaul }
+			d_ebrodunensia = { de_jure_liege = k_gaul }
+		}
+		if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			d_avenionensia = { de_jure_liege = k_viennensis_secunda }
+			d_arausicensia = { de_jure_liege = k_viennensis_secunda }
+			d_tricastinensia = { de_jure_liege = k_viennensis_secunda }
+			d_vasensia = { de_jure_liege = k_viennensis_secunda }
+			d_carpentoratensia = { de_jure_liege = k_viennensis_secunda }
+			d_cavilonensia = { de_jure_liege = k_viennensis_secunda }
+			d_aptensia = { de_jure_liege = k_narbonensis_secunda }
+			d_segesteronensia = { de_jure_liege = k_narbonensis_secunda }
+			d_vapincensia = { de_jure_liege = k_narbonensis_secunda }
+			d_ebrodunensia = { de_jure_liege = k_alpes_maritimae }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA318100"
+		trigger = {
+			OR = {
+				AND = {
+					culture_group = imperiale
+					NOT = { top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul } }
+				}
+				top_liege = { character = ROOT }
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTB318100"
+		trigger = {
+			NOR = { 
+				culture_group = imperiale
+				top_liege = { character = ROOT }
+				AND = {
+					culture = burgundian
+					has_global_flag = northern_provence_conquered_burgundians
+				}
+				AND = {
+					OR = {
+						culture = ostrogoth
+						top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+					}
+					has_global_flag = northern_provence_conquered_ostrogoths
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318100"
+		trigger = {
+			NOT = { top_liege = { character = ROOT } }
+			OR = {
+				AND = {
+					culture = burgundian
+					has_global_flag = northern_provence_conquered_burgundians
+				}
+				AND = {
+					OR = {
+						culture = ostrogoth
+						top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+					}
+					has_global_flag = northern_provence_conquered_ostrogoths
+				}
+			}
+		}	
+	}
+	
+	after = {
+		clr_global_flag = northern_provence_conquered_burgundians
+		clr_global_flag = northern_provence_conquered_ostrogoths
+	}
+}
+
+# Southern Provence reconquered
+narrative_event = {
+	id = 318104
+	title = "EVTNAME318104"
+	major = yes
+	hide_new = yes
+	
+	desc = {
+		text = EVTDESC318104
+		trigger = { 
+			NOT = { has_global_flag = roman_provinces_gaul_restored } 
+		}
+	}
+	
+	desc = {
+		text = EVTDESC318104_1
+		trigger = { 
+			has_global_flag = roman_provinces_gaul_restored 
+		}
+	}
+	
+	picture = "GFX_evt_roman_army_aquila"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+			has_landed_title = k_gaul
+			has_landed_title = e_visigoths
+		}
+		OR = {
+			AND = {
+				has_global_flag = southern_provence_conquered_visigoths
+				NOT = { 
+					primary_title = {
+						title = k_visigoths
+					}
+				}
+			}
+			AND = {
+				has_global_flag = southern_provence_conquered_burgundians
+				NOT = { 
+					primary_title = {
+						title = k_burgundy
+					}
+				}
+			}
+			AND = {
+				has_global_flag = southern_provence_conquered_ostrogoths
+				NOR = { 
+					primary_title = {
+						title = k_ostrogoths
+						title = k_praetorian_prefecture_of_gaul
+					}
+				}
+			}
+		}
+		completely_controls_region = custom_southern_provence
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_arelatensia = { de_jure_liege = k_gaul }
+			d_massiliensia = { de_jure_liege = k_gaul }
+			d_tolonensia = { de_jure_liege = k_gaul }
+			d_aquensia = { de_jure_liege = k_gaul }
+			d_regensia = { de_jure_liege = k_gaul }
+			d_forojuliensia = { de_jure_liege = k_gaul }
+			d_diniensia = { de_jure_liege = k_gaul }
+			d_sanitiensia = { de_jure_liege = k_gaul }
+			d_glannativia = { de_jure_liege = k_gaul }
+			d_vintiensia = { de_jure_liege = k_gaul }
+			d_antipolitania = { de_jure_liege = k_gaul }
+			d_cemelenensia = { de_jure_liege = k_gaul }
+		}
+		if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			d_arelatensia = { de_jure_liege = k_viennensis_secunda }
+			d_massiliensia = { de_jure_liege = k_viennensis_secunda }
+			d_tolonensia = { de_jure_liege = k_viennensis_secunda }
+			d_aquensia = { de_jure_liege = k_narbonensis_secunda }
+			d_regensia = { de_jure_liege = k_narbonensis_secunda }
+			d_forojuliensia = { de_jure_liege = k_narbonensis_secunda }
+			d_diniensia = { de_jure_liege = k_alpes_maritimae }
+			d_sanitiensia = { de_jure_liege = k_alpes_maritimae }
+			d_glannativia = { de_jure_liege = k_alpes_maritimae }
+			d_vintiensia = { de_jure_liege = k_alpes_maritimae }
+			d_antipolitania = { de_jure_liege = k_alpes_maritimae }
+			d_cemelenensia = { de_jure_liege = k_alpes_maritimae }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA318100"
+		trigger = {
+			OR = {
+				AND = {
+					culture_group = imperiale
+					NOT = { top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul } }
+				}
+				top_liege = { character = ROOT }
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTB318100"
+		trigger = {
+			NOR = { 
+				top_liege = { character = ROOT }
+				culture_group = imperiale
+				AND = {
+					culture = burgundian
+					has_global_flag = southern_provence_conquered_burgundians
+				}
+				AND = {
+					culture = visigoth
+					has_global_flag = southern_provence_conquered_visigoths
+				}
+				AND = {
+					OR = {
+						culture = ostrogoth
+						top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+					}
+					has_global_flag = southern_provence_conquered_ostrogoths
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318100"
+		trigger = {
+			NOT = { top_liege = { character = ROOT } }
+			OR = {
+				AND = {
+					culture = burgundian
+					has_global_flag = southern_provence_conquered_burgundians
+				}
+				AND = {
+					culture = visigoth
+					has_global_flag = southern_provence_conquered_visigoths
+				}
+				AND = {
+					OR = {
+						culture = ostrogoth
+						top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+					}
+					has_global_flag = southern_provence_conquered_ostrogoths
+				}
+			}
+		}	
+	}
+	
+	after = {
+		clr_global_flag = southern_provence_conquered_burgundians
+		clr_global_flag = southern_provence_conquered_ostrogoths
+		clr_global_flag = southern_provence_conquered_visigoths
+	}
+}
+
+# ROMAN CONQUESTS IN GERMANIA
+
+narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
+	id = 314600
+	title = "EVTNAME314600"
+	desc = "EVTDESC314600"
 	major = yes
 	hide_new = yes
 	
@@ -7220,13 +7546,13 @@ narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
 	}
 	
 	option = {
-		name = "EVTOPTA318103"
+		name = "EVTOPTA314600"
 		trigger = {
 			culture_group = imperiale
 		}	
 	}
 	option = {
-		name = "EVTOPTB318103"
+		name = "EVTOPTB314600"
 		trigger = {
 			NOR = { 
 				culture_group = imperiale
@@ -7238,7 +7564,7 @@ narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
 		}	
 	}
 	option = {
-		name = "EVTOPTC318103"
+		name = "EVTOPTC314600"
 		trigger = {
 			culture_group = germanic
 			is_romanized_germanic_trigger = no
@@ -7246,13 +7572,11 @@ narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
 	}
 }
 
-# ROMAN CONQUESTS IN GERMANIA
-
 # Civitas of Frisia 
 narrative_event = {	
-	id = 318104
-	title = "EVTNAME318104"
-	desc = "EVTDESC318104"
+	id = 314601
+	title = "EVTNAME314601"
+	desc = "EVTDESC314601"
 	major = yes
 	hide_new = yes
 	
@@ -7292,13 +7616,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318104"
+		name = "EVTOPTA314601"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318104"
+		name = "EVTOPTB314601"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7308,9 +7632,9 @@ narrative_event = {
 
 # Civitas of Chamavia
 narrative_event = {	
-	id = 318105
-	title = "EVTNAME318105"
-	desc = "EVTDESC318105"
+	id = 314602
+	title = "EVTNAME314602"
+	desc = "EVTDESC314602"
 	major = yes
 	hide_new = yes
 	
@@ -7348,13 +7672,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318105"
+		name = "EVTOPTA314602"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318105"
+		name = "EVTOPTB314602"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7363,9 +7687,9 @@ narrative_event = {
 
 # Civitas of Bructeria
 narrative_event = {	
-	id = 318106
-	title = "EVTNAME318106"
-	desc = "EVTDESC318106"
+	id = 314603
+	title = "EVTNAME314603"
+	desc = "EVTDESC314603"
 	major = yes
 	hide_new = yes
 	
@@ -7398,13 +7722,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318106"
+		name = "EVTOPTA314603"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318106"
+		name = "EVTOPTB314603"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7413,9 +7737,9 @@ narrative_event = {
 
 # Civitas of Ampsivaria
 narrative_event = {	
-	id = 318107
-	title = "EVTNAME318107"
-	desc = "EVTDESC318107"
+	id = 314604
+	title = "EVTNAME314604"
+	desc = "EVTDESC314604"
 	major = yes
 	hide_new = yes
 	
@@ -7459,13 +7783,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318107"
+		name = "EVTOPTA314604"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318107"
+		name = "EVTOPTB314604"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7474,9 +7798,9 @@ narrative_event = {
 
 # Civitas of Chaucia 
 narrative_event = {	
-	id = 318108
-	title = "EVTNAME318108"
-	desc = "EVTDESC318108"
+	id = 314605
+	title = "EVTNAME314605"
+	desc = "EVTDESC314605"
 	major = yes
 	hide_new = yes
 	
@@ -7517,13 +7841,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318108"
+		name = "EVTOPTA314605"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318108"
+		name = "EVTOPTB314605"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7532,9 +7856,9 @@ narrative_event = {
 
 # Civitas of Usipia 
 narrative_event = {	
-	id = 318109
-	title = "EVTNAME318109"
-	desc = "EVTDESC318109"
+	id = 314606
+	title = "EVTNAME314606"
+	desc = "EVTDESC314606"
 	major = yes
 	hide_new = yes
 	
@@ -7573,13 +7897,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318109"
+		name = "EVTOPTA314606"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318109"
+		name = "EVTOPTB314606"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7588,9 +7912,9 @@ narrative_event = {
 
 # Civitas of Cheruscia
 narrative_event = {	
-	id = 318110
-	title = "EVTNAME318110"
-	desc = "EVTDESC318110"
+	id = 314607
+	title = "EVTNAME314607"
+	desc = "EVTDESC314607"
 	major = yes
 	hide_new = yes
 	
@@ -7628,13 +7952,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318110"
+		name = "EVTOPTA314607"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318110"
+		name = "EVTOPTB314607"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7643,9 +7967,9 @@ narrative_event = {
 
 # Civitas of Sicambria
 narrative_event = {	
-	id = 318111
-	title = "EVTNAME318111"
-	desc = "EVTDESC318111"
+	id = 314608
+	title = "EVTNAME314608"
+	desc = "EVTDESC314608"
 	major = yes
 	hide_new = yes
 	
@@ -7686,13 +8010,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA318111"
+		name = "EVTOPTA314608"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}	
 	}
 	option = {
-		name = "EVTOPTB318111"
+		name = "EVTOPTB314608"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
@@ -7700,9 +8024,9 @@ narrative_event = {
 }
 
 narrative_event = {	# Creation of Germania Tertia
-	id = 318113
-	title = "EVTNAME318113"
-	desc = "EVTDESC318113"
+	id = 314610
+	title = "EVTNAME314610"
+	desc = "EVTDESC314610"
 	major = yes
 	hide_new = yes
 	
@@ -7725,14 +8049,14 @@ narrative_event = {	# Creation of Germania Tertia
 	}
 	
 	option = {
-		name = "EVTOPTA318113"
+		name = "EVTOPTA314610"
 		trigger = {
 			has_landed_title = k_germania_tertia
 		}	
 		prestige = 100
 	}
 	option = {
-		name = "EVTOPTB318113"
+		name = "EVTOPTB314610"
 		trigger = {
 			OR = {
 				culture_group = imperiale
@@ -7744,7 +8068,7 @@ narrative_event = {	# Creation of Germania Tertia
 		}	
 	}
 	option = {
-		name = "EVTOPTC318113"
+		name = "EVTOPTC314610"
 		trigger = {
 			NOR = { 
 				culture_group = imperiale
@@ -7760,7 +8084,7 @@ narrative_event = {	# Creation of Germania Tertia
 		}	
 	}
 	option = {
-		name = "EVTOPTD318113"
+		name = "EVTOPTD314610"
 		trigger = {
 			top_liege = {
 				culture_group = germanic
