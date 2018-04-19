@@ -12688,11 +12688,130 @@ narrative_event = {
 	}
 }
 
-# Subjugation of Frisia
+# Conquest of Provence
 narrative_event = {
 	id = 314206
 	title = "EVTNAME314206"
 	desc = "EVTDESC314206"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_coastal_town"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = northern_provence_conquered_ostrogoths }
+			c_avennio = { de_jure_liege = d_avignon }
+			c_arausio = { de_jure_liege = d_avignon }
+			c_tricastinorum = { de_jure_liege = d_avignon }
+			c_vasio = { de_jure_liege = d_avignon }
+			c_carpentoratensium = { de_jure_liege = d_avignon }
+			c_cabellio = { de_jure_liege = d_avignon }
+			c_apta_julia = { de_jure_liege = d_gap }
+			c_segesteriorum = { de_jure_liege = d_gap }
+			c_vappincum = { de_jure_liege = d_gap }
+			c_mons_seleucus = { de_jure_liege = d_gap }
+			c_ebrodunum = { de_jure_liege = d_embrum }
+			c_brigantium = { de_jure_liege = d_embrum }
+			
+			d_avignon = { de_jure_liege = k_provence }
+			d_gap = { de_jure_liege = k_provence }
+			d_embrum = { de_jure_liege = k_provence }
+			
+			set_global_flag = avignon_created
+			set_global_flag = gap_created
+			set_global_flag = embrum_created
+		}
+		if = {
+			limit = { has_global_flag = southern_provence_conquered_ostrogoths }
+			c_arelate = { de_jure_liege = d_arles }
+			c_ernaginum = { de_jure_liege = d_arles }
+			c_massilia = { de_jure_liege = d_marseille }
+			c_telo_martius = { de_jure_liege = d_marseille }
+			c_aquae_sextiae = { de_jure_liege = d_marseille }
+			c_ad_turrem = { de_jure_liege = d_marseille }
+			c_regium = { de_jure_liege = d_frejus }
+			c_forum_julii = { de_jure_liege = d_frejus }
+			c_heraclia = { de_jure_liege = d_frejus }
+			c_dinia = { de_jure_liege = d_frejus }
+			c_sanitium = { de_jure_liege = d_frejus }
+			c_glanate = { de_jure_liege = d_antibes }
+			c_vintium = { de_jure_liege = d_antibes }
+			c_antipolis = { de_jure_liege = d_antibes }
+			c_cemenelum = { de_jure_liege = d_antibes }
+			
+			d_arles = { de_jure_liege = k_provence }
+			d_marseille = { de_jure_liege = k_provence }
+			d_frejus = { de_jure_liege = k_provence }
+			d_antibes = { de_jure_liege = k_provence }
+			
+			set_global_flag = arles_created
+			set_global_flag = marseille_created
+			set_global_flag = frejus_created
+			set_global_flag = antibes_created
+		}
+		
+		hidden_tooltip = {
+			k_praetorian_prefecture_of_gaul = {
+				any_de_jure_vassal_title = {
+					limit = { higher_tier_than = COUNT }
+					holder_scope = {
+						if = {
+							limit = { 
+								independent = no
+								NOT = {
+									any_demesne_title = {
+										higher_tier_than = COUNT
+										NOT = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+									}
+								}
+							}
+							any_vassal = {
+								limit = { higher_tier_than = BARON }
+								top_liege = {
+									set_defacto_vassal = PREVPREV
+								}
+							}
+							destroy_landed_title = PREV
+							if = {
+								limit = { independent = yes	}
+								top_liege = {
+									set_defacto_vassal = PREVPREV
+								}
+							}
+						}			
+					}
+					if = {
+						limit = {
+							capital_scope = {
+								owner = {
+									top_liege = {
+										character = ROOT
+									}
+								}
+							}
+						}
+						destroy_landed_title = THIS
+					}
+				}
+			}
+		}
+		
+		set_global_flag = provence_conquered 
+	}
+	
+	option = {
+		name = "EVTOPTA314206"
+	}
+}
+
+# Subjugation of Frisia
+narrative_event = {
+	id = 314207
+	title = "EVTNAME314207"
+	desc = "EVTDESC314207"
 	major = yes
 	hide_new = yes
 	
@@ -12736,15 +12855,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314206"
+		name = "EVTOPTA314207"
 	}
 }
 
 # Subjugation of Saxony
 narrative_event = {
-	id = 314209
-	title = "EVTNAME314209"
-	desc = "EVTDESC314209"
+	id = 314208
+	title = "EVTNAME314208"
+	desc = "EVTDESC314208"
 	major = yes
 	hide_new = yes
 	
@@ -12780,16 +12899,16 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314209"
+		name = "EVTOPTA314208"
 	}
 }
 
 
 # Creation of the Empire of Francia
 narrative_event = {
-	id = 314207
-	title = "EVTNAME314207"
-	desc = "EVTDESC314207"
+	id = 314209
+	title = "EVTNAME314209"
+	desc = "EVTDESC314209"
 	picture = "GFX_evt_pope"
 	
 	major = yes
@@ -12811,11 +12930,11 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314207"
+		name = "EVTOPTA314209"
 		trigger = { has_landed_title = e_franks }
 	}	
 	option = {
-		name = "EVTOPTB314207"
+		name = "EVTOPTB314209"
 		trigger = { 
 			NOT = { has_landed_title = e_franks }
 			OR = {
@@ -12825,44 +12944,44 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC314207"
+		name = "EVTOPTC314209"
 		trigger = {
 			is_frankish_culture_trigger = no
 		}
 	}
 }
 
-# Creation of the County of Calz/Eorldom of Roðem
+# Creation of the County of Rouen/Eorldom of Roðem
 narrative_event = {
-	id = 314208
+	id = 318036
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
 	
 	title = {
-		text = EVTNAME314208
+		text = EVTNAME318036
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME314208_1
+		text = EVTNAME318036_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314208
+		text = EVTDESC318036
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314208_1
+		text = EVTDESC318036_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -12912,41 +13031,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314208"
+		name = "EVTOPTA318036"
 	}
 }
 
 # Creation of the County of Beauvais/Eorldom of Beawæs
 narrative_event = {
-	id = 3142081
+	id = 3180361
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
 	
 	title = {
-		text = EVTNAME3142081
+		text = EVTNAME3180361
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142081_1
+		text = EVTNAME3180361_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142081
+		text = EVTDESC3180361
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142081_1
+		text = EVTDESC3180361_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -12993,7 +13112,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142081"
+		name = "EVTOPTA3180361"
 	}
 }
 

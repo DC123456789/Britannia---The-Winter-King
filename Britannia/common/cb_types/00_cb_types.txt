@@ -2879,6 +2879,17 @@ tribal_invasion = {
 				}
 				ROOT = { set_character_flag = conquered_burgundy }
 			}
+			if = {
+				limit = {
+					title = k_praetorian_prefecture_of_gaul
+					holder_scope = {
+						character = FROM
+					}
+					NOT = { has_global_flag = provence_conquered }
+					ROOT = { is_istvaeonic_culture_trigger = yes }
+				}
+				ROOT = { set_character_flag = conquered_provence }
+			}
 			ROOT = {
 				occupy_minors_of_occupied_settlements = FROM
 				gain_all_occupied_titles = FROM
@@ -3067,6 +3078,15 @@ tribal_invasion = {
 				ROOT = {
 					#clr_character_flag = conquered_burgundy
 					character_event = { id = 314205 } 
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_character_flag = conquered_provence }
+				}
+				ROOT = {
+					clr_character_flag = conquered_provence
+					character_event = { id = 314206 } 
 				}
 			}
 		}
