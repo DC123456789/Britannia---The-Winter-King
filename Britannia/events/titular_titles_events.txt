@@ -7250,7 +7250,7 @@ narrative_event = {
 		}
 		OR = {
 			AND = {
-				has_global_flag = northern_provence_conquered_burgundians
+				has_global_flag = northern_provence_conquered_burgundy
 				NOT = { 
 					primary_title = {
 						title = k_burgundy
@@ -7323,7 +7323,7 @@ narrative_event = {
 				top_liege = { character = ROOT }
 				AND = {
 					culture = burgundian
-					has_global_flag = northern_provence_conquered_burgundians
+					has_global_flag = northern_provence_conquered_burgundy
 				}
 				AND = {
 					OR = {
@@ -7342,7 +7342,7 @@ narrative_event = {
 			OR = {
 				AND = {
 					culture = burgundian
-					has_global_flag = northern_provence_conquered_burgundians
+					has_global_flag = northern_provence_conquered_burgundy
 				}
 				AND = {
 					OR = {
@@ -7356,7 +7356,7 @@ narrative_event = {
 	}
 	
 	after = {
-		clr_global_flag = northern_provence_conquered_burgundians
+		clr_global_flag = northern_provence_conquered_burgundy
 		clr_global_flag = northern_provence_conquered_ostrogoths
 	}
 }
@@ -7404,7 +7404,7 @@ narrative_event = {
 				}
 			}
 			AND = {
-				has_global_flag = southern_provence_conquered_burgundians
+				has_global_flag = southern_provence_conquered_burgundy
 				NOT = { 
 					primary_title = {
 						title = k_burgundy
@@ -7481,7 +7481,7 @@ narrative_event = {
 				culture_group = imperiale
 				AND = {
 					culture = burgundian
-					has_global_flag = southern_provence_conquered_burgundians
+					has_global_flag = southern_provence_conquered_burgundy
 				}
 				AND = {
 					culture = visigoth
@@ -7504,7 +7504,7 @@ narrative_event = {
 			OR = {
 				AND = {
 					culture = burgundian
-					has_global_flag = southern_provence_conquered_burgundians
+					has_global_flag = southern_provence_conquered_burgundy
 				}
 				AND = {
 					culture = visigoth
@@ -7522,7 +7522,7 @@ narrative_event = {
 	}
 	
 	after = {
-		clr_global_flag = southern_provence_conquered_burgundians
+		clr_global_flag = southern_provence_conquered_burgundy
 		clr_global_flag = southern_provence_conquered_ostrogoths
 		clr_global_flag = southern_provence_conquered_visigoths
 	}
@@ -16903,11 +16903,19 @@ narrative_event = {	# Romanized Germanic claims the Empire
 			clr_global_flag = aquitania_secunda_conquered_visigoths
 			clr_global_flag = aquitania_tertia_conquered_visigoths
 			clr_global_flag = septimania_conquered_visigoths
+			clr_global_flag = southern_provence_conquered_visigoths
 		}
 		if = {
 			limit = { has_landed_title = k_burgundy }
 			clr_global_flag = lugdunensisprima_conquered_burgundy
 			clr_global_flag = viennensisprima_conquered_burgundy
+			clr_global_flag = northern_provence_conquered_burgundy
+			clr_global_flag = southern_provence_conquered_burgundy
+		}
+		if = {
+			limit = { has_landed_title = k_ostrogoths }
+			clr_global_flag = northern_provence_conquered_ostrogoths
+			clr_global_flag = southern_provence_conquered_ostrogoths
 		}
 		#if = {
 			#limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
@@ -17028,7 +17036,7 @@ narrative_event = {	# Romanized Germanic claims the Empire
 
 ### BURGUNDIANS ###
 
-narrative_event = {	# Conquest of Lugudnensis Prima
+narrative_event = {	# Conquest of Lugdunensis Prima
 	id = 318300
 	title = "EVTNAME318300"
 	desc = EVTDESC318300
@@ -17096,7 +17104,7 @@ narrative_event = {	# Conquest of Viennensis Prima
 	major = yes
 	hide_new = yes
 	
-	picture = "GFX_evt_coastal_town"
+	picture = "GFX_evt_roman_market"
 	
 	only_playable = yes
 	
@@ -17146,6 +17154,253 @@ narrative_event = {	# Conquest of Viennensis Prima
 		name = "EVTOPTC318300"
 		trigger = {
 			culture_group = imperiale
+		}	
+	}
+}
+
+narrative_event = {	# Conquest of Northern Provence
+	id = 318302
+	title = "EVTNAME318302"
+	desc = EVTDESC318302
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_playable = yes
+	
+	trigger = {
+		top_liege = { 
+			NOR = {
+				is_roman_ruler_trigger = yes
+				has_landed_title = e_visigoths
+			}
+		}
+		completely_controls_region = custom_northern_provence
+		OR = {
+			AND = {
+				has_landed_title = k_burgundy
+				NOT = { has_global_flag = burgundy_subjugated }
+				NOT = { has_global_flag = northern_provence_conquered_burgundy }
+			}
+			AND = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+				NOT = { has_global_flag = northern_provence_conquered_ostrogoths }
+			}
+		}
+		NOR = {
+			AND = {
+				has_landed_title = k_burgundy
+				NOT = { has_global_flag = burgundy_subjugated }
+				has_global_flag = northern_provence_conquered_burgundy
+			}
+			AND = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+				has_global_flag = northern_provence_conquered_ostrogoths
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		clr_global_flag = northern_provence_conquered_burgundy
+		clr_global_flag = northern_provence_conquered_ostrogoths
+		if = {
+			limit = { has_landed_title = k_burgundy }
+			set_global_flag = northern_provence_conquered_burgundy
+			d_avenionensia = { de_jure_liege = k_burgundy }
+			d_arausicensia = { de_jure_liege = k_burgundy }
+			d_tricastinensia = { de_jure_liege = k_burgundy }
+			d_vasensia = { de_jure_liege = k_burgundy }
+			d_carpentoratensia = { de_jure_liege = k_burgundy }
+			d_cavilonensia = { de_jure_liege = k_burgundy }
+			d_aptensia = { de_jure_liege = k_burgundy }
+			d_segesteronensia = { de_jure_liege = k_burgundy }
+			d_vapincensia = { de_jure_liege = k_burgundy }
+			d_ebrodunensia = { de_jure_liege = k_burgundy }
+		}
+		else = {
+			set_global_flag = northern_provence_conquered_ostrogoths
+			d_avenionensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_arausicensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_tricastinensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_vasensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_carpentoratensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_cavilonensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_aptensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_segesteronensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_vapincensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_ebrodunensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA318300"
+		trigger = {
+			any_liege = { character = ROOT }
+		}	
+	}
+	option = {
+		name = "EVTOPTB318300"
+		trigger = {
+			NOR = { 
+				culture_group = imperiale
+				any_liege = { character = ROOT }
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318300"
+		trigger = {
+			culture_group = imperiale
+			NOT = { any_liege = { character = ROOT } }
+		}	
+	}
+}
+
+narrative_event = {	# Conquest of Southern Provence
+	id = 318303
+	title = "EVTNAME318303"
+	desc = EVTDESC318303
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_coastal_town"
+	
+	only_playable = yes
+	
+	trigger = {
+		top_liege = { 
+			NOR = {
+				is_roman_ruler_trigger = yes
+				has_landed_title = e_visigoths
+			}
+		}
+		completely_controls_region = custom_southern_provence
+		OR = {
+			AND = {
+				has_landed_title = k_burgundy
+				NOT = { has_global_flag = burgundy_subjugated }
+				NOT = { has_global_flag = southern_provence_conquered_burgundy }
+			}
+			AND = {
+				has_landed_title = k_visigoths
+				NOT = { has_global_flag = southern_provence_conquered_visigoths }
+			}
+			AND = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+				NOT = { has_global_flag = southern_provence_conquered_ostrogoths }
+			}
+		}
+		NOR = {
+			AND = {
+				has_landed_title = k_burgundy
+				NOT = { has_global_flag = burgundy_subjugated }
+				has_global_flag = southern_provence_conquered_burgundy
+			}
+			AND = {
+				has_landed_title = k_visigoths
+				has_global_flag = southern_provence_conquered_visigoths
+			}
+			AND = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+				has_global_flag = southern_provence_conquered_ostrogoths
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		clr_global_flag = southern_provence_conquered_burgundy
+		clr_global_flag = southern_provence_conquered_visigoths
+		clr_global_flag = southern_provence_conquered_ostrogoths
+		if = {
+			limit = { has_landed_title = k_visigoths }
+			set_global_flag = southern_provence_conquered_visigoths
+			d_arelatensia = { de_jure_liege = k_visigoths }
+			d_massiliensia = { de_jure_liege = k_visigoths }
+			d_tolonensia = { de_jure_liege = k_visigoths }
+			d_aquensia = { de_jure_liege = k_visigoths }
+			d_regensia = { de_jure_liege = k_visigoths }
+			d_forojuliensia = { de_jure_liege = k_visigoths }
+			d_diniensia = { de_jure_liege = k_visigoths }
+			d_sanitiensia = { de_jure_liege = k_visigoths }
+			d_glannativia = { de_jure_liege = k_visigoths }
+			d_vintiensia = { de_jure_liege = k_visigoths }
+			d_antipolitania = { de_jure_liege = k_visigoths }
+			d_cemelenensia = { de_jure_liege = k_visigoths }
+		}
+		else_if = {
+			limit = { has_landed_title = k_burgundy }
+			set_global_flag = southern_provence_conquered_burgundy
+			d_arelatensia = { de_jure_liege = k_burgundy }
+			d_massiliensia = { de_jure_liege = k_burgundy }
+			d_tolonensia = { de_jure_liege = k_burgundy }
+			d_aquensia = { de_jure_liege = k_burgundy }
+			d_regensia = { de_jure_liege = k_burgundy }
+			d_forojuliensia = { de_jure_liege = k_burgundy }
+			d_diniensia = { de_jure_liege = k_burgundy }
+			d_sanitiensia = { de_jure_liege = k_burgundy }
+			d_glannativia = { de_jure_liege = k_burgundy }
+			d_vintiensia = { de_jure_liege = k_burgundy }
+			d_antipolitania = { de_jure_liege = k_burgundy }
+			d_cemelenensia = { de_jure_liege = k_burgundy }
+		}
+		else = {
+			set_global_flag = southern_provence_conquered_ostrogoths
+			d_arelatensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_massiliensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_tolonensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_aquensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_regensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_forojuliensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_diniensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_sanitiensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_glannativia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_vintiensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_antipolitania = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+			d_cemelenensia = { de_jure_liege = k_praetorian_prefecture_of_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA318300"
+		trigger = {
+			any_liege = { character = ROOT }
+		}	
+	}
+	option = {
+		name = "EVTOPTB318300"
+		trigger = {
+			NOR = { 
+				culture_group = imperiale
+				any_liege = { character = ROOT }
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318300"
+		trigger = {
+			culture_group = imperiale
+			NOT = { any_liege = { character = ROOT } }
 		}	
 	}
 }
