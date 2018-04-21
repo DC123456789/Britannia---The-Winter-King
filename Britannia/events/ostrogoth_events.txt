@@ -47,8 +47,8 @@ narrative_event = {
 # Notify player
 narrative_event = { 
 	id = 302801
-	title = "EVTNAME302800"
-	desc = "EVTDESC302800"
+	title = "EVTNAME302801"
+	desc = "EVTDESC302801"
 	major = yes
 	hide_new = yes
 	
@@ -65,14 +65,14 @@ narrative_event = {
 	}
 	
 	option = {								# Romans
-		name = "EVTOPTA302800"
+		name = "EVTOPTA302801"
 		trigger = {
 			is_roman_ruler_trigger = yes
 		}
 	}
 	
 	option = {								# Fellow Goths
-		name = "EVTOPTB302800"				
+		name = "EVTOPTB302801"				
 		trigger = {
 			is_roman_ruler_trigger = no
 			OR = {
@@ -83,7 +83,7 @@ narrative_event = {
 	}
 	
 	option = {								# Others
-		name = "EVTOPTC302800"				
+		name = "EVTOPTC302801"				
 		trigger = {
 			is_roman_ruler_trigger = no
 			NOR = {
@@ -416,7 +416,7 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 24
+		months = 12
 		modifier = {
 			factor = 0.1
 			owner = {
@@ -672,6 +672,8 @@ narrative_event = {
 		}
 		k_praetorian_prefecture_of_gaul = {
 			grant_title = ROOT
+			add_law = succ_primogeniture
+			succession = primogeniture			
 		}
 		k_ostrogoths = {
 			holder_scope = {
@@ -841,13 +843,15 @@ character_event = {
 			hidden_tooltip = {
 				# Vassalize Provence to PPO Gaul
 				k_praetorian_prefecture_of_gaul = { holder_scope = { character_event = { id = 302817 } } }
-				k_ostrogoths = { holder_scope = { character_event = { id = 302818 } } }
 			}
 		}
 		custom_tooltip = {
 			text = EVTOPTA302816TT_2
 		}
 		set_global_flag = ostrogoths_promised_aid_visigoths
+		hidden_tooltip = {
+			k_ostrogoths = { holder_scope = { character_event = { id = 302818 } } }
+		}
 		ai_chance = {
 			factor = 50
 		}
