@@ -4768,6 +4768,105 @@ narrative_event = {		# Burgundy
 		name = "OK"
 	}
 }
+
+narrative_event = {		# Provence
+	id = 315011
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = yes
+	only_playable = yes
+	only_independent = yes
+	culture_group = germanic
+	
+	trigger = {
+		is_romanized_germanic_trigger = no
+	}
+	
+	immediate = {
+		if = {			# Arles
+			limit = {
+				d_arles = { has_holder = no }
+				is_landed_title_allowed = d_arles
+				NOT = { has_global_flag = arles_created }
+			}
+			d_arles = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Marseille
+			limit = {
+				d_marseille = { has_holder = no }
+				is_landed_title_allowed = d_marseille
+				NOT = { has_global_flag = marseille_created }
+			}
+			d_marseille = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Frejus
+			limit = {
+				d_frejus = { has_holder = no }
+				is_landed_title_allowed = d_frejus
+				NOT = { has_global_flag = frejus_created }
+			}
+			d_frejus = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Antibes
+			limit = {
+				d_antibes = { has_holder = no }
+				is_landed_title_allowed = d_antibes
+				NOT = { has_global_flag = antibes_created }
+			}
+			d_antibes = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Avignon
+			limit = {
+				d_avignon = { has_holder = no }
+				is_landed_title_allowed = d_avignon
+				NOT = { has_global_flag = avignon_created }
+			}
+			d_avignon = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Gap
+			limit = {
+				d_gap = { has_holder = no }
+				is_landed_title_allowed = d_gap
+				NOT = { has_global_flag = gap_created }
+			}
+			d_gap = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Embrum
+			limit = {
+				d_embrum = { has_holder = no }
+				is_landed_title_allowed = d_embrum
+				NOT = { has_global_flag = embrum_created }
+			}
+			d_embrum = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+	}
+}
+
 ### CYNERICE OF AENGLALAND ###
 
 character_event = {		# Triggered from Decision / Claim is sent to other Kings
@@ -16083,6 +16182,257 @@ narrative_event = {
 	}
 }
 
+# Creation of the County of Arles
+narrative_event = {
+	id = 318036
+	title = "EVTNAME318036"
+	desc = "EVTDESC318036"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_arles
+		NOT = { has_global_flag = arles_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_arelate = { de_jure_liege = d_arles }
+		c_ernaginum = { de_jure_liege = d_arles }
+		d_arles = { de_jure_liege = k_provence }
+		
+		set_global_flag = arles_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Marseille
+narrative_event = {
+	id = 318037
+	title = "EVTNAME318037"
+	desc = "EVTDESC318037"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_marseille
+		NOT = { has_global_flag = marseille_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_massilia = { de_jure_liege = d_marseille }
+		c_telo_martius = { de_jure_liege = d_marseille }
+		c_aquae_sextiae = { de_jure_liege = d_marseille }
+		c_ad_turrem = { de_jure_liege = d_marseille }
+		d_marseille = { de_jure_liege = k_provence }
+		
+		set_global_flag = marseille_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Frejus
+narrative_event = {
+	id = 318038
+	title = "EVTNAME318038"
+	desc = "EVTDESC318038"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_frejus
+		NOT = { has_global_flag = frejus_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_regium = { de_jure_liege = d_frejus }
+		c_forum_julii = { de_jure_liege = d_frejus }
+		c_heraclia = { de_jure_liege = d_frejus }
+		c_dinia = { de_jure_liege = d_frejus }
+		c_sanitium = { de_jure_liege = d_frejus }
+		d_frejus = { de_jure_liege = k_provence }
+		
+		set_global_flag = frejus_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Antibes
+narrative_event = {
+	id = 318039
+	title = "EVTNAME318039"
+	desc = "EVTDESC318039"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_antibes
+		NOT = { has_global_flag = antibes_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_glanate = { de_jure_liege = d_antibes }
+		c_vintium = { de_jure_liege = d_antibes }
+		c_antipolis = { de_jure_liege = d_antibes }
+		c_cemenelum = { de_jure_liege = d_antibes }
+		d_antibes = { de_jure_liege = k_provence }
+		
+		set_global_flag = antibes_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Avignon
+narrative_event = {
+	id = 318040
+	title = "EVTNAME318040"
+	desc = "EVTDESC318040"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_avignon
+		NOT = { has_global_flag = avignon_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_avennio = { de_jure_liege = d_avignon }
+		c_arausio = { de_jure_liege = d_avignon }
+		c_tricastinorum = { de_jure_liege = d_avignon }
+		c_vasio = { de_jure_liege = d_avignon }
+		c_carpentoratensium = { de_jure_liege = d_avignon }
+		c_cabellio = { de_jure_liege = d_avignon }
+		d_avignon = { de_jure_liege = k_provence }
+		
+		set_global_flag = avignon_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Gap
+narrative_event = {
+	id = 318041
+	title = "EVTNAME318041"
+	desc = "EVTDESC318041"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_gap
+		NOT = { has_global_flag = gap_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_apta_julia = { de_jure_liege = d_gap }
+		c_segesteriorum = { de_jure_liege = d_gap }
+		c_vappincum = { de_jure_liege = d_gap }
+		c_mons_seleucus = { de_jure_liege = d_gap }
+		d_gap = { de_jure_liege = k_provence }
+		
+		set_global_flag = gap_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Embrum
+narrative_event = {
+	id = 318042
+	title = "EVTNAME318042"
+	desc = "EVTDESC318042"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_embrum
+		NOT = { has_global_flag = embrum_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_ebrodunum = { de_jure_liege = d_embrum }
+		c_brigantium = { de_jure_liege = d_embrum }
+		d_embrum = { de_jure_liege = k_provence }
+		
+		set_global_flag = embrum_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+			
 # Creation of the County of Picard/Eorldom of Ambeanas
 narrative_event = {
 	id = 314221
@@ -23372,6 +23722,95 @@ narrative_event = {	# Fezensac, Comminges, Bigorre, Marsan, Bazas, Bearn, Dax, V
 			limit = { has_global_flag = vasconia_citerior_created }
 			c_lapurdum = { de_jure_liege = d_vasconia_citerior }
 			c_subola = { de_jure_liege = d_vasconia_citerior }
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+narrative_event = {	# Arles, Marseille, Frejus, Antibes, Avignon, Gap, Embrum
+	id = 314298
+	desc = "You're not supposed to see this..."
+	major = no
+	hide_new = yes
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	only_playable = no
+	min_age = 20
+	max_age = 30
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_global_flag = arles_created
+			has_global_flag = marseille_created
+			has_global_flag = frejus_created
+			has_global_flag = antibes_created
+			has_global_flag = avignon_created
+			has_global_flag = gap_created
+			has_global_flag = embrum_created
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = arles_created }
+			c_arelate = { de_jure_liege = d_arles }
+			c_ernaginum = { de_jure_liege = d_arles }
+		}
+		if = {
+			limit = { has_global_flag = marseille_created }
+			c_massilia = { de_jure_liege = d_marseille }
+			c_telo_martius = { de_jure_liege = d_marseille }
+			c_aquae_sextiae = { de_jure_liege = d_marseille }
+			c_ad_turrem = { de_jure_liege = d_marseille }
+		}
+		if = {
+			limit = { has_global_flag = frejus_created }
+			c_regium = { de_jure_liege = d_frejus }
+			c_forum_julii = { de_jure_liege = d_frejus }
+			c_heraclia = { de_jure_liege = d_frejus }
+			c_dinia = { de_jure_liege = d_frejus }
+			c_sanitium = { de_jure_liege = d_frejus }
+		}
+		if = {
+			limit = { has_global_flag = antibes_created }
+			c_glanate = { de_jure_liege = d_antibes }
+			c_vintium = { de_jure_liege = d_antibes }
+			c_antipolis = { de_jure_liege = d_antibes }
+			c_cemenelum = { de_jure_liege = d_antibes }
+		}
+		if = {
+			limit = { has_global_flag = avignon_created }
+			c_avennio = { de_jure_liege = d_avignon }
+			c_arausio = { de_jure_liege = d_avignon }
+			c_tricastinorum = { de_jure_liege = d_avignon }
+			c_vasio = { de_jure_liege = d_avignon }
+			c_carpentoratensium = { de_jure_liege = d_avignon }
+			c_cabellio = { de_jure_liege = d_avignon }
+		}
+		if = {
+			limit = { has_global_flag = gap_created }
+			c_apta_julia = { de_jure_liege = d_gap }
+			c_segesteriorum = { de_jure_liege = d_gap }
+			c_vappincum = { de_jure_liege = d_gap }
+			c_mons_seleucus = { de_jure_liege = d_gap }
+		}
+		if = {
+			limit = { has_global_flag = dax_created }
+			c_aquae_tarbellicae = { de_jure_liege = d_dax }
+			c_coequosa = { de_jure_liege = d_dax }
+			c_cocosatia = { de_jure_liege = d_dax }
+		}
+		if = {
+			limit = { has_global_flag = embrum_created }
+			c_ebrodunum = { de_jure_liege = d_embrum }
+			c_brigantium = { de_jure_liege = d_embrum }
 		}
 	}
 	
