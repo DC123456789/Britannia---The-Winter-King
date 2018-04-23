@@ -1209,15 +1209,27 @@ province_event = {
 			culture_group = basque
 		}
 		owner = {
-			NOT = { culture = ROOT }
-			NOT = {
-				any_liege = {
-					culture = ROOT
+			OR = {
+				AND = {
+					NOT = { culture = ROOT }
+					NOT = {
+						any_liege = {
+							culture = ROOT
+						}
+					}
+					NAND = {
+						is_ingvaeonic_culture_trigger = yes
+						ROOT = { is_ingvaeonic_culture_trigger = yes }
+					}
 				}
-			}
-			NAND = {
-				is_ingvaeonic_culture_trigger = yes
-				ROOT = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = {
+					job_chancellor = {
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
 			}
 		}
 		OR = {
@@ -1328,6 +1340,21 @@ province_event = {
 				AND = {
 					region = world_gaul_aquitania_tertia
 					owner = { culture = romanoaquitanian }
+				}
+			}
+		}
+		modifier = {
+			factor = 4.0
+			owner = {
+				OR = {
+					culture = ROOT
+					any_liege = {
+						culture = ROOT
+					}
+					AND = {
+						is_ingvaeonic_culture_trigger = yes
+						ROOT = { is_ingvaeonic_culture_trigger = yes }
+					}
 				}
 			}
 		}
@@ -1456,6 +1483,10 @@ province_event = {
 				}
 			}
 		}
+		modifier = {
+			factor = 0.9
+			has_province_modifier = roman_colonies
+		}
 	}
 
 	option = {
@@ -1464,6 +1495,27 @@ province_event = {
 		if = {
 			limit = { NOT = { religion_group = christian } }
 			religion = catholic
+		}
+		hidden_tooltip = {
+			top_liege = {
+				if = {
+					limit = {
+						job_chancellor = {
+							has_job_action = action_promote_romanization
+							location = {
+								province = ROOT
+							}
+						}
+					}
+					job_chancellor = { character_event = { id = 315193 } }
+				}
+				if = {
+					limit = {
+						NOT = { character = PREV }
+					}
+					character_event = { id = 315192 }
+				}
+			}
 		}
 	}
 }
