@@ -237,5 +237,132 @@ decisions = {
 				text = expanded_germania_secunda_tooltip
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	claim_liege_title_roman = {
+		is_high_prio = yes
+		only_playable = yes
+		potential = {
+			independent = no
+			OR = {
+				government = imperial_government
+				government = sub_roman_government
+				government = sub_roman_brythonic_government
+				government = legion_government
+			}
+			is_roman_culture_trigger = yes
+			liege = {
+				in_revolt = no
+				OR = {
+					government = imperial_government
+					government = sub_roman_government
+					government = sub_roman_brythonic_government
+					government = legion_government
+				}
+				is_roman_culture_trigger = yes
+				independent = yes
+			}
+			is_female = no
+			NOT = { liege = { primary_title = { ROOT = { has_claim = PREV } } } }
+		}
+		allow = {
+			is_adult = yes
+			prestige = 1200
+			diplomacy = 7
+			martial = 10
+			OR = {
+				prestige = 5000
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				martial = 15
+				diplomacy = 15
+			}
+			NOR = {
+				trait = content
+				trait = loyal
+				trait = humble
+				trait = craven
+				trait = imbecile
+				trait = slow
+				trait = weak
+				is_incapable = yes
+				prisoner = yes
+			}
+		}
+		effect = {
+			prestige = -500
+			liege = {
+				primary_title = { add_claim = ROOT }
+				opinion = {
+					modifier = opinion_furious
+					who = ROOT
+					months = 120
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.2
+			modifier = {
+				factor = 0
+				opinion = { 
+					who = LIEGE
+					value = 60
+				}
+			}
+			modifier = {
+				factor = 0
+				opinion = { 
+					who = LIEGE
+					value = 40
+				}
+				NOR = {
+					trait = ambitious
+					trait = disloyal
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = LIEGE value = 20 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = LIEGE value = 0 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = LIEGE value = -20 } }
+			}
+			modifier = {
+				factor = 5
+				NOT = { opinion = { who = LIEGE value = -40 } }
+			}
+			modifier = {
+				factor = 7.5
+				NOT = { opinion = { who = LIEGE value = -60 } }
+			}
+			modifier = {
+				factor = 10
+				NOT = { opinion = { who = LIEGE value = -80 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { liege = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { liege = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 0
+				in_faction = faction_claimant	# Not if already supporting another claimant
+			}
+		}
 	}
 }

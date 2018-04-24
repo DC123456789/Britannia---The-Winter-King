@@ -3070,18 +3070,17 @@ letter_event = {
 								any_vassal = { 
 									limit = {
 										government = legion_government
-										in_revolt = no
 									}
-									set_character_flag = legion_to_transfer_@PREVPREV
+									set_character_flag = legion_to_transfer_@PREVPREVPREVPREV
 								}
-								set_character_flag = transfer_legions_@PREVPREV 
+								set_character_flag = transfer_legions_@PREVPREVPREV 
 							}
 						}
 					}
 					
 					usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = PREVPREV type = faction_demand }
 					
-					# Transfer foederati
+					# Transfer foederati and client states
 					if = {
 						limit = { higher_tier_than = COUNT }
 						hidden_tooltip = {
@@ -3093,9 +3092,11 @@ letter_event = {
 					# Transfer Legions
 					if = {
 						limit = {
-							FROM = { has_character_flag = transfer_legions_@PREVPREV }
+							FROM = { has_character_flag = transfer_legions_@PREVPREVPREV }
 						}
-						PREVPREV = { character_event = { id = 315925 } }
+						PREVPREV = {
+							character_event = { id = 315925 } 
+						}
 					}
 				}
 			}
