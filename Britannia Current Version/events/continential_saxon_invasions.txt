@@ -1240,13 +1240,16 @@ character_event = {
 		set_character_flag = saxon_gallic_invader
 		FROM = {
 			owner = {
-				top_liege = { set_character_flag = duchy_invasion_target }
+				top_liege = { 
+					set_character_flag = duchy_invasion_target 
+					save_event_target_as = target_ruler
+				}
 			}
 			duchy = {
 				ROOT = {
-					war = {
+					unsafe_war = {
 						casus_belli = duchy_invasion_event
-						target = PREVPREV
+						target = event_target:target_ruler
 						thirdparty_title = PREVPREV
 						tier = DUKE
 					}
