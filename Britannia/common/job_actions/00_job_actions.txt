@@ -63,6 +63,57 @@ action_clan_sentiment = {
 	events = { 20235 }
 }
 
+action_promote_romanization = {
+	attribute = diplomacy
+	
+	potential = {
+		FROM = {
+			government = imperial_government
+			tier = EMPEROR
+		}
+	}
+	
+	trigger = {
+		any_province_lord = {
+			OR = {
+				character = FROM
+				is_liege_or_above = FROM
+			}
+		}
+	}
+	
+	
+	display_on_map = {
+		tooltip = JOB_PROMOTE_ROMANIZATION_ROMAN_CULTURE
+		trigger = {
+			is_roman_culture_trigger = yes
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 0 255 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROMOTE_ROMANIZATION_NOT_ROMAN_CULTURE
+		trigger = {
+			NOT = { is_roman_culture_trigger = yes }
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 255 0 }
+	}
+	
+	events = { 302220 302222 }
+}
+
 action_fabricate_claims = {
 	attribute = diplomacy
 	
@@ -70,6 +121,10 @@ action_fabricate_claims = {
 		FROM = { 
 			is_nomadic = no 
 			is_tribal = no
+			NAND = {
+				government = imperial_government
+				tier = EMPEROR
+			}
 		}
 	}
 	

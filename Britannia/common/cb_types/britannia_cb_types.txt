@@ -519,10 +519,10 @@ imperial_invasion_hibernia = {				# Imperial Conquest
 	
 	on_success = {
 		ROOT = {
-			prestige = 200
+			prestige = 100
 		}
 		ROOT = {
-			participation_scaled_prestige = 200
+			participation_scaled_prestige = 100
 		}
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
@@ -558,7 +558,7 @@ imperial_invasion_hibernia = {				# Imperial Conquest
 
 	on_fail = {
 		ROOT = {
-			prestige = -200
+			prestige = -100
 		}
 		FROM = {
 			prestige = 100
@@ -784,14 +784,14 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 	
 	on_success = {
 		ROOT = {
-			prestige = 200
+			prestige = 100
 		}
 		ROOT = {
-			participation_scaled_prestige = 200
+			participation_scaled_prestige = 100
 		}
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
-			hidden_tooltip = { participation_scaled_prestige = 200 }
+			hidden_tooltip = { participation_scaled_prestige = 100 }
 		}
 		
 		FROM = {
@@ -823,7 +823,7 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 
 	on_fail = {
 		ROOT = {
-			prestige = -200
+			prestige = -100
 		}
 		FROM = {
 			prestige = 100
@@ -879,6 +879,218 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 	# ai importance placed on this CB: scope is the targeted title, ROOT is the attacking character, FROM is the defending character
 	ai_will_do = { 
 		factor = 0
+	}
+}
+
+imperial_subjugation = {
+	name = CB_IMPERIAL_SUBJUGATION
+	war_name = WAR_NAME_IMPERIAL_SUBJUGATION
+	sprite = 17
+	truce_days = 1825
+	hostile_against_others = yes
+	reflect_titleholder_change = yes
+	is_permanent = yes
+	
+	allow_distant = yes
+	
+	battle_warscore_mult = 0.5
+	
+	allowed_to_target_tributaries = no
+	
+	can_use_gui = {
+		ROOT = {
+			ruled_years = 15
+			prestige = 5000
+			scaled_wealth = {
+				value = 2.0
+				min = 500
+				max = 2000
+			}
+			OR = {
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				martial = 15
+				AND = {
+					OR = {
+						trait = ambitious
+						trait = inspiring_leader
+					}
+					diplomacy = 15
+					martial = 12
+				}
+			}
+			independent = yes
+			prisoner = no
+			NOR = { 
+				trait = content
+				trait = incapable
+				trait = slow
+				trait = imbecile
+				trait = weak
+			}
+			NOT = { has_character_modifier = imperial_subjugation_timer }
+		}
+		FROM = {
+			NOT = { realm_size = 75 }
+		}
+	}
+	
+	can_use = {
+		ROOT = {
+			is_roman_emperor_trigger = yes
+			NOT = { same_realm = FROM }
+			is_female = no
+			independent = yes
+		}
+		FROM = {
+			primary_title = {
+				capital_scope = { region = custom_wre }
+				empire = {
+					NOR = {
+						title = e_aengland
+						title = e_franks
+						title = e_germania
+						title = e_danes
+					}
+				}
+			}
+			any_realm_province = {
+				any_neighbor_province = {
+					owner = {
+						OR = {
+							character = ROOT
+							is_liege_or_above = ROOT
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_add = {
+		ROOT = {
+			prestige = -2000
+			scaled_wealth = {
+				value = -2.0
+				max = -2000
+				min = -500
+			}
+			hidden_tooltip = {
+				add_character_modifier = {
+					name = imperial_subjugation_timer 
+					duration = 7300
+				}
+			}
+		}
+	}
+
+	is_valid = {
+		ROOT = {
+			NOT = { same_realm = FROM }
+			is_roman_emperor_trigger = yes
+		}
+	}
+	
+	on_success = {
+		ROOT = {
+			prestige = 250
+		}
+		ROOT = {
+			participation_scaled_prestige = 250
+		}
+		any_attacker = {
+			limit = { NOT = { character = ROOT } }
+			hidden_tooltip = { participation_scaled_prestige = 250 }
+		}
+		
+		FROM = {
+			prestige = -500
+			if = {
+				limit = { tier = EMPEROR }
+				any_vassal = {
+					limit = { tier = KING }
+					set_defacto_liege = ROOT
+					any_demesne_title = {
+						limit = { tier = KING }
+						destroy_landed_title = THIS
+					}
+				}
+				any_demesne_title = {
+					limit = { tier = EMPEROR }
+					destroy_landed_title = THIS
+				}
+			}
+			set_defacto_liege = ROOT
+			any_demesne_title = {
+				limit = { tier = KING }
+				destroy_landed_title = THIS
+			}
+		}
+	}
+
+	on_fail = {
+		ROOT = {
+			prestige = -250
+		}
+		FROM = {
+			prestige = 100
+		}
+		FROM = {
+			participation_scaled_prestige = 100
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 100 }
+		}
+	}
+
+	on_reverse_demand = {
+		ROOT = {
+			prestige = -500
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 10.0
+			}
+		}
+		FROM = {
+			prestige = 250
+		}
+		FROM = {
+			participation_scaled_prestige = 250
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 250 }
+		}
+	}
+
+	on_reverse_demand_title = {
+	}
+
+	attacker_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	attacker_ai_defeat_worth = {
+		factor = 100
+	}
+
+	defender_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	defender_ai_defeat_worth = {
+		factor = 100
+	}
+	
+	ai_will_do = { 
+		factor = 100
+		modifier = {
+			factor = 0
+			FROM = {
+				NOT = { num_of_count_titles_in_realm = 8 }	# Won't waste their gold on small realms
+			}
+		}	
 	}
 }
 

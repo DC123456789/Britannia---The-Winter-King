@@ -4161,11 +4161,19 @@ laws = {
 	
 	mil_train_0 = {
 		group = mil_train_laws
-		potential = {
-			NOT = { tier = baron }
-			holder_scope = {
-				independent = yes
-				demesne_size = 1
+		default_selection = {
+			factor = 0
+		}
+		allow = {
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = { independent = no }
+				}
+				holder_scope = {
+					top_liege = {
+						has_law = mil_train_0
+					}
+				}
 			}
 		}
 		revoke_allowed = {
@@ -4224,23 +4232,45 @@ laws = {
 				revoke_law = mil_train_1
 				revoke_law = mil_train_2
 				holder_scope = {
-					set_character_flag = issued_mil_train_0
+					if = {
+						limit = { independent = yes }
+						set_character_flag = issued_mil_train_0
+						revoke_law = mil_train_1
+						revoke_law = mil_train_2
+						any_realm_lord = {
+							limit = { NOT = { character = PREV } }
+							primary_title = {
+								add_law = { 
+									law = mil_train_0
+									cooldown = no 
+									opinion_effect = no 
+								}
+							}
+						}
+					}
 				}
 			}
 		}
-		land_morale = -0.3
-		land_organisation = -0.2
-		levy_reinforce_rate = 0.4
+		land_morale = -0.2
+		land_organisation = -0.15
+		levy_reinforce_rate = 0.3
 	}
 	
 	mil_train_1 = {
 		group = mil_train_laws
-		default = yes
-		potential = {
-			NOT = { tier = baron }
-			holder_scope = {
-				independent = yes
-				demesne_size = 1
+		default_selection = {
+			factor = 10
+		}
+		allow = {
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = { independent = no }
+				}
+				holder_scope = {
+					top_liege = {
+						has_law = mil_train_0
+					}
+				}
 			}
 		}
 		revoke_allowed = {
@@ -4308,7 +4338,22 @@ laws = {
 				revoke_law = mil_train_1
 				revoke_law = mil_train_2
 				holder_scope = {
-					set_character_flag = issued_mil_train_1
+					if = {
+						limit = { independent = yes }
+						set_character_flag = issued_mil_train_1
+						revoke_law = mil_train_0
+						revoke_law = mil_train_2
+						any_realm_lord = {
+							limit = { NOT = { character = PREV } }
+							primary_title = {
+								add_law = { 
+									law = mil_train_1
+									cooldown = no 
+									opinion_effect = no 
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -4316,11 +4361,31 @@ laws = {
 	
 	mil_train_2 = {
 		group = mil_train_laws
-		potential = {
-			NOT = { tier = baron }
-			holder_scope = {
-				independent = yes
-				demesne_size = 1
+		default_selection = {
+			factor = 0
+			additive_modifier = { 
+				value = 20			
+				holder_scope = {
+					is_romanized_government_trigger = yes
+					top_liege = {
+						OR = { 
+							primary_title = { title = k_gaul }
+							government = imperial_government
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = { independent = no }
+				}
+				holder_scope = {
+					top_liege = {
+						has_law = mil_train_2
+					}
+				}
 			}
 		}
 		revoke_allowed = {
@@ -4409,12 +4474,28 @@ laws = {
 				revoke_law = mil_train_1
 				revoke_law = mil_train_2
 				holder_scope = {
-					set_character_flag = issued_mil_train_2
+					if = {
+						limit = { independent = yes }
+						set_character_flag = issued_mil_train_2
+						revoke_law = mil_train_0
+						revoke_law = mil_train_1
+						any_realm_lord = {
+							limit = { NOT = { character = PREV } }
+							primary_title = {
+								add_law = { 
+									law = mil_train_2
+									cooldown = no 
+									opinion_effect = no 
+								}
+							}
+						}
+					}
 				}
 			}
 		}
-		land_morale = 0.3
+		land_morale = 0.25
 		land_organisation = 0.2
-		levy_reinforce_rate = -0.4
+		levy_reinforce_rate = -0.2
+		global_tax_modifier = -0.15
 	}
 }

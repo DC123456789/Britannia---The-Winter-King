@@ -567,9 +567,15 @@ character_event = {
 		}
 		any_independent_ruler = {
 			limit = {
-				is_tributary = {
-					type = foederati
-					suzerain = event_target:former_foederate_liege
+				OR = {
+					is_tributary = {
+						type = foederati
+						suzerain = event_target:former_foederate_liege
+					}
+					is_tributary = {
+						type = client_state
+						suzerain = event_target:former_foederate_liege
+					}
 				}
 			}
 			if = {
@@ -610,14 +616,35 @@ character_event = {
 						}
 					}
 				}
+				if = {
+					limit = {
+						is_tributary = { type = foederati }
+					}
+					set_character_flag = is_foederati
+				}
+				else_if = {
+					limit = {
+						is_tributary = { type = client_state }
+					}
+					set_character_flag = is_client_state
+				}
 				event_target:former_foederate_liege = {
 					remove_tributary = PREV
 				}
 				ROOT = {
-					make_tributary = { who = PREV tributary_type = foederati }
 					if = {
-						limit = { NOT = { trait = foederate_employer } }
-						character_event = { id = foederati.5 }
+						limit = { PREV = { has_character_flag = is_foederati } } 
+						make_tributary = { who = PREV tributary_type = foederati }
+						if = {
+							limit = { NOT = { trait = foederate_employer } }
+							character_event = { id = foederati.5 }
+						}
+						PREV = { clr_character_flag = is_foederati }
+					}
+					else_if = {
+						limit = { PREV = { has_character_flag = is_client_state } } 
+						make_tributary = { who = PREV tributary_type = client_state }
+						PREV = { clr_character_flag = is_client_state }
 					}
 				}
 			}

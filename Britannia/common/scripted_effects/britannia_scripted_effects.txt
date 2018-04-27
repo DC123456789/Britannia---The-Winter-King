@@ -220,43 +220,6 @@ restore_roman_provinces_gaul_effect = {
 convert_to_local_roman_culture_effect = {
 	if = {
 		limit = {
-			region = world_gaul
-			NOR = { 
-				region = world_gaul_romangermania 
-				region = world_gaul_aquitania_tertia
-			}
-		}
-		culture = romanogallic
-	}
-	if = {
-		limit = {
-			OR = {
-				region = world_britannia
-				region = world_caledonia
-				region = world_ireland 
-			}
-		}
-		culture = romanobritish
-	}
-	if = {
-		limit = {
-			OR = {
-				region = world_gaul_romangermania 
-				region = world_germania 
-			}
-			NAND = {
-				region = world_germania_jutland
-				has_global_flag = jutland_conquered_norse
-			}
-			NAND = {
-				region = world_germania_angeln
-				has_global_flag = angeln_conquered_norse
-			}
-		}
-		culture = romanogermanic
-	}
-	if = {
-		limit = {
 			region = custom_scandinavia 
 			OR = {
 				NOT = { region = world_germania_jutland }
@@ -269,11 +232,36 @@ convert_to_local_roman_culture_effect = {
 		}
 		culture = romanoscandian
 	}
-	if = {
+	else_if = {
+		limit = {
+			OR = {
+				region = world_gaul_romangermania 
+				region = world_germania 
+			}
+		}
+		culture = romanogermanic
+	}
+	else_if = {
 		limit = {
 			region = world_gaul_aquitania_tertia
 		}
 		culture = romanoaquitanian
+	}
+	else_if = {
+		limit = {
+			region = world_gaul
+		}
+		culture = romanogallic
+	}
+	else_if = {
+		limit = {
+			OR = {
+				region = world_britannia
+				region = world_caledonia
+				region = world_ireland 
+			}
+		}
+		culture = romanobritish
 	}
 }
 
