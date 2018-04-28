@@ -412,6 +412,7 @@ province_event = {
 			province_id = 1039
 			province_id = 1040
 		}
+		is_gothic_controlled_trigger = no
 	}
 	
 	mean_time_to_happen = {
@@ -752,7 +753,7 @@ narrative_event = {
 		
 		# Visigoths receive demand for submission
 		capital_scope = {
-			province_event = { id = 302815 days = 5 random = 3}
+			province_event = { id = 302815 days = 5 random = 3 }
 		}
 	}
 	
@@ -908,6 +909,22 @@ character_event = {
 									}
 									attrition = 0.5
 									disband_on_peace = yes
+								}
+								if = {
+									limit = { ROOT = { realm_levies = 6000 } }
+									spawn_unit = {
+										province = PREVPREV
+										home = 903
+										troops = {
+											light_infantry = { 500 500 }
+											heavy_infantry = { 350 350 }
+											pikemen = { 150 150 }
+											archers = { 150 150 }
+											light_cavalry = { 50 50 }
+										}
+										attrition = 0.5
+										disband_on_peace = yes
+									}
 								}
 							}
 						}
@@ -1139,197 +1156,71 @@ narrative_event = {
 		}
 	}
 }
-
-# PPO Gaul to attacks Burgundy for Northern Provence ~520 (for AI)
-character_event = {
+# Visigoths Subjugated - Notify World
+narrative_event = {
 	id = 302820
-	desc = "You're not supposed to see this..."
-	hide_window = yes
-	picture = "GFX_evt_battle_visigoths"
+	title = "EVTNAME302820"
+	desc = "EVTDESC302820"
+	major = yes
+	show_ROOT = yes
+	hide_new = yes
+	picture = "GFX_evt_emissary_byzantine"
 	
-	ai = yes
-	only_independent = yes
-	hide_window = yes
+	is_triggered_only = yes
 	
-	trigger = {
-		has_landed_title = k_praetorian_prefecture_of_gaul
-		war = no
-		any_realm_province = {
-			any_neighbor_province = {
-				region = custom_provence
-				top_liege = {
-					NOR = { 
-						character = ROOT 
-						reverse_has_truce = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_truce = PREVPREV
-							}
-						}
-						has_non_aggression_pact_with = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_non_aggression_pact_with = PREVPREV
-							}
-						}
-						suzerain = { has_landed_title = k_ostrogoths }
-						realm_levies = 10000		# Not if they're too powerful
+	option = {
+		name = "EVTOPTA302820"	# Ostrogoths
+		trigger = {
+			top_liege = {
+				OR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
 					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
 				}
 			}
-		}
-		had_global_flag = {
-			flag = ostrogothic_invasion_successful
-			days = 1825		# At least 5 years since initial invasion
-		}
-		OR = {
-			NOT = { has_global_flag = ostrogoths_provence_conquest }
-			had_global_flag = {
-				flag = ostrogoths_provence_conquest
-				days = 1460		# At least 5 years since last invasion
-			}
-		}
-		NOT = { has_global_flag = gothic_war_started }
-	}
-	
-	weight_multiplier = {
-		factor = 1
-		modifier = {
-			factor = 2
-			year = 520
-		}
-		modifier = {
-			factor = 3
-			year = 524
-			NOT = { has_global_flag = ostrogoths_provence_conquest }
-		}
-		modifier = {
-			factor = 3
-			year = 528
-			NOT = { has_global_flag = ostrogoths_provence_conquest }
-		}
-		modifier = {
-			factor = 3
-			year = 532
-			NOT = { has_global_flag = ostrogoths_provence_conquest }
 		}
 	}
-	
-	immediate = {
-		set_global_flag = ostrogoths_provence_conquest
-		capital_scope = {
-			ROOT = {
-				spawn_unit = {
-					province = PREV
-					home = PREV
-					troops = {
-						light_infantry = { 1000 1000 }
-						heavy_infantry = { 500 500 }
-						pikemen = { 200 200 }
-						archers = { 200 200 }
-						light_cavalry = { 100 100 }
-					}
-					attrition = 0.5
-					disband_on_peace = yes
-					reinforces = yes
-				}
-				spawn_unit = {
-					province = PREV
-					home = PREV
-					troops = {
-						light_infantry = { 2000 2000 }
-						heavy_infantry = { 1000 1000 }
-						pikemen = { 400 400 }
-						archers = { 400 400 }
-						light_cavalry = { 200 200 }
-					}
-					attrition = 0.5
-					disband_on_peace = yes
-				}
-				spawn_unit = {
-					province = PREV
-					home = PREV
-					troops = {
-						light_infantry = { 1000 1000 }
-						heavy_infantry = { 500 500 }
-						pikemen = { 200 200 }
-						archers = { 200 200 }
-						light_cavalry = { 100 100 }
-					}
-					attrition = 0.5
-				}
+	option = {
+		name = "EVTOPTB302820"	# Visigoths
+		trigger = {
+			top_liege = {
+				has_landed_title = k_visigoths
 			}
 		}
-		wealth = 300
-		# Target Burgundy first
-		if = {
-			limit = {
-				any_neighbor_independent_ruler = {
-					has_landed_title = k_burgundy
-					any_realm_province = {
-						region = custom_provence
-						any_neighbor_province = {
-							top_liege = { character = ROOT }
-						}
+	}
+	option = {
+		name = "EVTOPTC302820"
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
 					}
-					NOR = { 
-						character = ROOT 
-						reverse_has_truce = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_truce = PREVPREV
-							}
-						}
-						has_non_aggression_pact_with = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_non_aggression_pact_with = PREVPREV
-							}
-						}
-						suzerain = { has_landed_title = k_ostrogoths }
-						realm_levies = 10000		# Not if they're too powerful
-					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
 				}
-			}
-			k_burgundy = {
-				holder_scope = {
-					reverse_unsafe_war = {
-						target = ROOT
-						casus_belli = provence_conquest
-					}
-				}
+				capital_scope = { region = world_gaul }
 			}
 		}
-		else = {
-			random_neighbor_independent_ruler = {
-				limit = {
-					any_realm_province = {
-						region = custom_provence
-						any_neighbor_province = {
-							top_liege = { character = ROOT }
-						}
+	}
+	option = {
+		name = "EVTOPTD302820"
+		trigger = {
+			top_liege = {
+				NOR = {
+					has_landed_title = k_ostrogoths
+					AND = {
+						has_landed_title = e_visigoths
+						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
 					}
-					NOR = { 
-						character = ROOT 
-						reverse_has_truce = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_truce = PREVPREV
-							}
-						}
-						has_non_aggression_pact_with = ROOT
-						k_ostrogoths = {
-							holder_scope = {
-								has_non_aggression_pact_with = PREVPREV
-							}
-						}
-						suzerain = { has_landed_title = k_ostrogoths }
-						realm_levies = 10000		# Not if they're too powerful
-					}
-				}
-				reverse_unsafe_war = {
-					target = ROOT
-					casus_belli = provence_conquest
+					has_landed_title = k_praetorian_prefecture_of_gaul
+					has_landed_title = k_visigoths
+					capital_scope = { region = world_gaul }
 				}
 			}
 		}
@@ -1549,6 +1440,325 @@ character_event = {
 							attrition = 0.5
 							disband_on_peace = yes
 							reinforces = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# PPO Gaul to attacks Burgundy for Northern Provence ~520 (for AI)
+character_event = {
+	id = 302830
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	picture = "GFX_evt_battle_visigoths"
+	
+	ai = yes
+	only_playable = yes
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = k_praetorian_prefecture_of_gaul
+		war = no
+		any_realm_province = {
+			any_neighbor_province = {
+				region = custom_provence
+				owner = {
+					top_liege = {
+						NOR = { 
+							character = ROOT 
+							reverse_has_truce = ROOT
+							k_ostrogoths = {
+								holder_scope = {
+									has_truce = PREVPREV
+								}
+							}
+							has_non_aggression_pact_with = ROOT
+							k_ostrogoths = {
+								holder_scope = {
+									has_non_aggression_pact_with = PREVPREV
+								}
+							}
+							suzerain = { has_landed_title = k_ostrogoths }
+							realm_levies = 10000		# Not if they're too powerful
+						}
+					}
+				}
+			}
+		}
+		had_global_flag = {
+			flag = ostrogothic_invasion_successful
+			days = 1825		# At least 5 years since initial invasion
+		}
+		OR = {
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+			had_global_flag = {
+				flag = ostrogoths_provence_conquest
+				days = 1460		# At least 5 years since last invasion
+			}
+		}
+		NOT = { has_global_flag = gothic_war_started }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 2
+			year = 520
+		}
+		modifier = {
+			factor = 3
+			year = 524
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+		modifier = {
+			factor = 3
+			year = 528
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+		modifier = {
+			factor = 3
+			year = 532
+			NOT = { has_global_flag = ostrogoths_provence_conquest }
+		}
+	}
+	
+	immediate = {
+		set_global_flag = ostrogoths_provence_conquest
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						pikemen = { 200 200 }
+						archers = { 200 200 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+					reinforces = yes
+				}
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 2000 2000 }
+						heavy_infantry = { 1000 1000 }
+						pikemen = { 400 400 }
+						archers = { 400 400 }
+						light_cavalry = { 200 200 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+				}
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 500 500 }
+						pikemen = { 200 200 }
+						archers = { 200 200 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+				}
+			}
+		}
+		wealth = 300
+		# Target Burgundy first
+		if = {
+			limit = {
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_burgundy
+					any_realm_province = {
+						region = custom_provence
+						any_neighbor_province = {
+							owner = { top_liege = { character = ROOT } }
+						}
+					}
+					NOR = { 
+						character = ROOT 
+						reverse_has_truce = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_truce = PREVPREV
+							}
+						}
+						has_non_aggression_pact_with = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_non_aggression_pact_with = PREVPREV
+							}
+						}
+						suzerain = { has_landed_title = k_ostrogoths }
+						realm_levies = 10000		# Not if they're too powerful
+					}
+				}
+			}
+			k_burgundy = {
+				holder_scope = {
+					reverse_unsafe_war = {
+						target = ROOT
+						casus_belli = provence_conquest
+					}
+				}
+			}
+		}
+		else = {
+			random_neighbor_independent_ruler = {
+				limit = {
+					any_realm_province = {
+						region = custom_provence
+						any_neighbor_province = {
+							owner = { top_liege = { character = ROOT } }
+						}
+					}
+					NOR = { 
+						character = ROOT 
+						reverse_has_truce = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_truce = PREVPREV
+							}
+						}
+						has_non_aggression_pact_with = ROOT
+						k_ostrogoths = {
+							holder_scope = {
+								has_non_aggression_pact_with = PREVPREV
+							}
+						}
+						suzerain = { has_landed_title = k_ostrogoths }
+						realm_levies = 10000		# Not if they're too powerful
+					}
+				}
+				reverse_unsafe_war = {
+					target = ROOT
+					casus_belli = provence_conquest
+				}
+			}
+		}
+	}
+}
+
+# PPO Gaul consolidates control over Provence
+character_event = {
+	id = 302831
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	picture = "GFX_evt_battle_visigoths"
+	
+	ai = yes
+	only_playable = yes
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = k_praetorian_prefecture_of_gaul
+		war = no
+		any_realm_province = {
+			any_neighbor_province = {
+				region = custom_southern_provence
+				owner = {
+					top_liege = {
+						NOR = { 
+							character = ROOT 
+							reverse_has_truce = ROOT
+							k_ostrogoths = {
+								holder_scope = {
+									has_truce = PREVPREV
+								}
+							}
+							has_non_aggression_pact_with = ROOT
+							k_ostrogoths = {
+								holder_scope = {
+									has_non_aggression_pact_with = PREVPREV
+								}
+							}
+							suzerain = { has_landed_title = k_ostrogoths }
+							realm_levies = 6000		# Not if they're too powerful
+						}
+					}
+				}
+			}
+		}
+		had_global_flag = {
+			flag = ostrogothic_invasion_successful
+			days = 20		# Give Visigothic tributary events time to trigger and resolve
+		}
+		NOT = {
+			had_global_flag = {
+				flag = ostrogothic_invasion_successful
+				days = 3650		# Max 10 years after invasion
+			}
+		}
+		NOT = { has_global_flag = southern_provence_conquered_ostrogoths }
+		NOT = { has_global_flag = gothic_war_started }
+	}
+	
+	mean_time_to_happen = {
+		months = 3
+	}
+	
+	immediate = {
+		wealth = 75
+		random_neighbor_independent_ruler = {
+			limit = {
+				any_realm_province = {
+					region = custom_southern_provence
+					any_neighbor_province = {
+						owner = { top_liege = { character = ROOT } }
+					}
+				}
+				NOR = { 
+					character = ROOT 
+					reverse_has_truce = ROOT
+					k_ostrogoths = {
+						holder_scope = {
+							has_truce = PREVPREV
+						}
+					}
+					has_non_aggression_pact_with = ROOT
+					k_ostrogoths = {
+						holder_scope = {
+							has_non_aggression_pact_with = PREVPREV
+						}
+					}
+					suzerain = { has_landed_title = k_ostrogoths }
+					realm_levies = 6000		# Not if they're too powerful
+				}
+			}
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = provence_conquest
+			}
+			if = {
+				limit = { 
+					relative_power_including_allies_defender = {
+						who = ROOT
+						power = 0.75
+					}
+				}
+				ROOT = {
+					capital_scope = {
+						ROOT = {
+							spawn_unit = {
+								province = PREV
+								home = PREV
+								troops = {
+									light_infantry = { 600 600 }
+									heavy_infantry = { 350 350 }
+									pikemen = { 250 250 }
+									archers = { 150 150 }
+									light_cavalry = { 50 50 }
+								}
+								attrition = 0.5
+								disband_on_peace = yes
+							}
 						}
 					}
 				}
