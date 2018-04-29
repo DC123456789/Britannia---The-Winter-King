@@ -1437,6 +1437,107 @@ character_event = {
 	}
 }
 
+
+# Force Emperors and family to marry someone
+character_event = {
+	id = 315143
+	desc = "You're not supposed to see this..."
+	
+	ai = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		primary_title = {
+			is_landless_normal_title_trigger = yes
+		}
+		OR = {
+			AND = {
+				is_married = no
+				can_marry = yes
+				age = 18
+			}
+			any_courtier = {
+				is_married = no
+				can_marry = yes
+				age = 18
+				is_ruler = no
+				is_incapable = no
+				is_close_relative = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				is_married = no
+			}
+			save_event_target_as = character_to_marry
+		}
+		else = {
+			random_courtier = {
+				limit = {
+					is_married = no
+					can_marry = yes
+					is_incapable = no
+					age = 18
+					is_ruler = no
+					is_close_relative = ROOT
+				}
+			}
+			save_event_target_as = character_to_marry			
+		}
+		event_target:character_to_marry = {
+			ROOT = {
+				random_courtier = {			# Marry a suitable courtier that already exists if possible
+					limit = {
+						is_married = no
+						can_marry = yes
+						is_adult = yes
+						is_incapable = no
+						is_ruler = no
+						NOT = { is_close_relative = PREV }
+						OR = {
+							AND = {
+								is_female = yes
+								PREV = { is_female = no }
+							}
+							AND = {
+								is_female = no
+								PREV = { is_female = yes }
+							}
+						}
+						OR = {
+							is_female = no
+							NOT = { age = 35 }
+						}
+					}
+					add_spouse = ROOT
+					break = yes
+				}
+			}
+			create_character = {
+				age = 20
+				fertility = 0.8
+				random_traits = yes
+				female = yes
+				culture = ROOT
+				religion = ROOT
+			}
+			new_character = {
+				remove_trait = celibate
+				remove_trait = chaste
+				add_spouse = ROOT
+			}
+		}
+	}
+}
+
 ### SOISSONS VASSALIZE TRIBUTARIES CHAIN ###
 # Demand to Tributaries
 character_event = {
