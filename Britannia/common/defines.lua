@@ -1296,7 +1296,7 @@ NMilitary = {
 	SETTLED_ADVENTURER_MODIFIER_YEARS = 20,			-- How long provinces are spared from raiding after settling a raider adventurer.
 	
 	RETINUE_FROM_REALMSIZE = 6.0,
-	RETINUE_TITLE_MODIFIER = 0.5,
+	RETINUE_TITLE_MODIFIER = 0.35,
 	RETINUE_INCREASE_PER_TECH = 0.25,
 	RETINUE_HIRE_COST_MULTIPLIER = 0.075,			-- Retinues are free to hire atm, but they cost a lot to reinforce
 	RETINUE_REINFORCE_RATE = 0.08,
