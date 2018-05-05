@@ -433,6 +433,9 @@ imperial_reclaim = {
 				conquest_culture = ROOT
 			}
 			save_event_target_as = conquered_duchy
+			event_target:conquered_duchy = {
+				set_title_flag = conquered_duchy_title
+			}
 			# Try to vassalize any Roman-cultured lords first
 			FROM = {
 				any_realm_lord = {
@@ -459,7 +462,7 @@ imperial_reclaim = {
 							}
 							NOT = { duchy = { title = event_target:conquered_duchy } }
 						}
-						usurp_title = FROM
+						usurp_title = PREVPREV
 					}
 					any_realm_lord = {
 						limit = {
@@ -470,12 +473,11 @@ imperial_reclaim = {
 								}
 							}
 						}
-						set_defacto_liege = FROM
+						set_character_flag = not_conquered_character
+						set_defacto_liege = PREVPREV
 					}
 				}
-			}
-			# Vassalize all remaining Roman baron-tier characters
-			FROM = {
+				# Vassalize all remaining Roman baron-tier characters
 				any_realm_lord = {
 					limit = {
 						capital_scope = {
@@ -500,7 +502,7 @@ imperial_reclaim = {
 							}
 							NOT = { duchy = { title = event_target:conquered_duchy } }
 						}
-						usurp_title = FROM
+						usurp_title = PREVPREV
 					}
 				}
 			}
