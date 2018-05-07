@@ -152,6 +152,17 @@ imperial_subjugation = {
 		
 		FROM = {
 			prestige = -500
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						OR = {
+							mercenary = yes
+							holy_order = yes
+						}
+					}
+					set_defacto_liege = THIS
+				}
+			}
 			if = {
 				limit = { tier = EMPEROR }
 				any_vassal = {
@@ -477,15 +488,17 @@ imperial_reclaim = {
 						set_defacto_liege = PREVPREV
 					}
 				}
-				# Vassalize all remaining Roman baron-tier characters
-				any_realm_lord = {
+				# Vassalize FROM if Roman cultured and holds nothing outside the duchy
+				if = {
 					limit = {
-						capital_scope = {
-							region = custom_wre
-							duchy = { title = event_target:conquered_duchy }
+						NOT = {
+							any_realm_province = {
+								OR = {
+									duchy = { NOT = { title = event_target:conquered_duchy } }
+									NOT = { region = custom_wre }
+								}
+							}
 						}
-						is_roman_culture_trigger = yes
-						tier = BARON
 					}
 					set_defacto_liege = ROOT
 					opinion = {
@@ -493,16 +506,35 @@ imperial_reclaim = {
 						who = ROOT
 						months = 120
 					}
-					any_demesne_title = {
+				}
+				else = {
+					# Vassalize all remaining Roman baron-tier characters
+					any_realm_lord = {
 						limit = {
-							lower_tier_than = DUKE
-							NOR = {
-								county = { region = custom_wre }
-								location = { region = custom_wre }
+							capital_scope = {
+								region = custom_wre
+								duchy = { title = event_target:conquered_duchy }
 							}
-							NOT = { duchy = { title = event_target:conquered_duchy } }
+							is_roman_culture_trigger = yes
+							tier = BARON
 						}
-						usurp_title = PREVPREV
+						set_defacto_liege = ROOT
+						opinion = {
+							modifier = opinion_subjugated
+							who = ROOT
+							months = 120
+						}
+						any_demesne_title = {
+							limit = {
+								lower_tier_than = DUKE
+								NOR = {
+									county = { region = custom_wre }
+									location = { region = custom_wre }
+								}
+								NOT = { duchy = { title = event_target:conquered_duchy } }
+							}
+							usurp_title = PREVPREV
+						}
 					}
 				}
 			}
@@ -518,6 +550,10 @@ imperial_reclaim = {
 								character = FROM
 								is_liege_or_above = FROM
 							}
+							NOR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
 						}
 					}
 					location = {
@@ -527,6 +563,10 @@ imperial_reclaim = {
 									OR = {
 										character = FROM
 										is_liege_or_above = FROM
+									}
+									NOR = {
+										character = ROOT
+										is_liege_or_above = ROOT
 									}
 								}
 								is_capital = no		# Dealt with afterwards so that county is properly usurped
