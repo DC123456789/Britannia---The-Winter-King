@@ -491,6 +491,7 @@ imperial_reclaim = {
 				# Vassalize FROM if Roman cultured and holds nothing outside the duchy
 				if = {
 					limit = {
+						is_roman_culture_trigger = yes
 						NOT = {
 							any_realm_province = {
 								OR = {
@@ -499,6 +500,27 @@ imperial_reclaim = {
 								}
 							}
 						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								any_demesne_title = {
+									OR = {
+										tier = COUNT
+										tier = DUKE
+									}
+								}
+							}
+						}
+						any_vassal = {
+							set_defacto_liege = ROOT
+						}
+					}
+					any_demesne_title = {
+						limit = {
+							higher_tier_than = DUKE
+						}
+						destroy_landed_title = THIS
 					}
 					set_defacto_liege = ROOT
 					opinion = {
