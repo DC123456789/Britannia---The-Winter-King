@@ -237,119 +237,8 @@ character_event = {	# Event for King Mordred
 		}
 	}
 }
-long_character_event = {	# Event for Arthur - Guinevere Marriage
-	id = 312102
-	desc = "EVTDESC312102"
-	picture = GFX_evt_council
-	
-	only_rulers = yes
-	has_character_flag = arthur	
 
-	trigger = {
-		NOT = { has_global_flag = arthur_married }
-		#has_global_flag = arthur_returned
-		is_married = no
-		is_landed = yes
-		OR = {				
-			top_liege = {
-				has_landed_title = k_dumnonia
-				regent = {
-					character = ROOT
-				}
-				character = 5 		#Either, Mordred is King and independent, and Arthur is regent
-			}
-			ROOT = { has_landed_title = k_dumnonia }	#or, King Arthur	
-			year = 490			# For now - until we figure something out for if Mordred gets deposed somehow
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 10
-	}
-	
-	immediate = {
-		fertility = 0.55
-		remove_trait = forbid_marriage	#Arthur
-		any_lover = {
-			remove_lover = 3
-		}
-		any_consort = {
-			remove_consort = yes
-		}	
-		event_target:guinevere = {
-			remove_trait = forbid_marriage
-			remove_spouse = yes
-			remove_consort = yes
-			any_lover = {
-				remove_lover = 26	#Guinevere
-			}
-			fertility = 0.35
-		}
-		hidden_tooltip = {
-			event_target:derfel_cadarn = {
-				remove_trait = forbid_marriage
-				remove_spouse = yes
-				any_consort = {
-					remove_consort = yes
-				}
-				any_lover = {
-					remove_lover = 10 	#Derfel
-				}
-			}
-			event_target:ceinwyn_seren = {
-				remove_trait = forbid_marriage
-				remove_spouse = yes
-				remove_consort = yes
-				any_lover = {
-					remove_lover = 27	#Ceinwyn
-				}
-				fertility = 0.45
-			}
-			event_target:lancelot_dulac = {
-				remove_trait = forbid_marriage
-				remove_spouse = yes
-				any_consort = {
-					remove_consort = yes
-				}	
-				any_lover = {
-					remove_lover = 31 	#Lancelot
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA312102"
-		ai_chance = {
-			factor = 95
-		}
-		add_spouse = 26		#Guinevere
-		add_lover = 26		#Guinevere
-		event_target:ceinwyn_seren = {
-			add_spouse = 10
-			add_lover = 10
-		}
-		set_global_flag = arthur_married
-	}
-	
-	option = {
-		name = "EVTOPTB312102"
-		ai_chance = {
-			factor = 5
-		}
-		add_spouse = 27 	#Ceinwyn
-		event_target:lancelot_dulac = { 
-			add_spouse = 26 	#Guinevere
-			add_lover = 26		#Guinevere
-		}
-		event_target:nimue = {	#Nimue
-			remove_lover = 2 	#Merlin
-			add_lover = 10 		#Derfel
-		}
-		set_global_flag = arthur_married
-	}
-}
-
+### ARTHUR REGENCY CHAIN ###
 character_event = {	# Regent decides to give power to Arthur
 	id = 312103
 	picture = GFX_evt_council
@@ -1060,6 +949,194 @@ character_event = {	# Arthur becomes a legitimized bastard if he becomes king
 		add_trait = legit_bastard
 		recalc_succession = yes
 		prestige = 300
+	}
+}
+
+### ARTHUR - GUINEVERE AND DERFEL - CEINWYN MARRIAGE ###
+long_character_event = {	
+	id = 312130
+	desc = "EVTDESC312130"
+	picture = GFX_evt_council
+	
+	only_rulers = yes
+	has_character_flag = arthur	
+
+	trigger = {
+		NOT = { has_global_flag = arthur_married }
+		#has_global_flag = arthur_returned
+		is_married = no
+		is_landed = yes
+		OR = {
+			top_liege = {
+				has_landed_title = k_dumnonia
+				regent = {
+					character = ROOT
+				}
+				character = 5 		#Either, Mordred is King and independent, and Arthur is regent
+			}
+			ROOT = { has_landed_title = k_dumnonia }	#or, King Arthur	
+			year = 490			# For now - until we figure something out for if Mordred gets deposed somehow
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		fertility = 0.55
+		remove_trait = forbid_marriage	#Arthur
+		any_lover = {
+			remove_lover = 3
+		}
+		any_consort = {
+			remove_consort = yes
+		}	
+		event_target:guinevere = {
+			remove_trait = forbid_marriage
+			remove_spouse = yes
+			remove_consort = yes
+			any_lover = {
+				remove_lover = 26	#Guinevere
+			}
+			fertility = 0.35
+		}
+		hidden_tooltip = {
+			event_target:derfel_cadarn = {
+				remove_trait = forbid_marriage
+				remove_spouse = yes
+				any_consort = {
+					remove_consort = yes
+				}
+				any_lover = {
+					remove_lover = 10 	#Derfel
+				}
+			}
+			event_target:ceinwyn_seren = {
+				remove_trait = forbid_marriage
+				remove_spouse = yes
+				remove_consort = yes
+				any_lover = {
+					remove_lover = 27	#Ceinwyn
+				}
+				fertility = 0.45
+			}
+			event_target:lancelot_dulac = {
+				remove_trait = forbid_marriage
+				remove_spouse = yes
+				any_consort = {
+					remove_consort = yes
+				}	
+				any_lover = {
+					remove_lover = 31 	#Lancelot
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA312130"
+		ai_chance = {
+			factor = 95
+		}
+		tooltip = {
+			add_spouse = 26		#Guinevere
+			add_lover = 26		#Guinevere
+		}
+		hidden_tooltip = {
+			event_target:guinevere = {
+				host = {
+					character_event = { id = 312131 }
+				}
+			}
+		}
+		event_target:ceinwyn_seren = {
+			add_spouse = 10
+			add_lover = 10
+			hidden_tooltip = {
+				host = {
+					character_event = { id = 312133 }
+				}
+			}
+		}
+		set_global_flag = arthur_married
+	}
+	
+	option = {
+		name = "EVTOPTB312130"
+		ai_chance = {
+			factor = 5
+		}
+		add_spouse = 27 	#Ceinwyn
+		event_target:lancelot_dulac = { 
+			add_spouse = 26 	#Guinevere
+			add_lover = 26		#Guinevere
+		}
+		event_target:nimue = {	#Nimue
+			remove_lover = 2 	#Merlin
+			add_lover = 10 		#Derfel
+		}
+		set_global_flag = arthur_married
+	}
+}
+
+# Notify Guinevere's liege
+character_event = {
+	id = 312131
+	desc = {
+		text = EVTDESC312131
+		trigger = {
+			ROOT = { NOT = { character = 26 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312131_1		# Special text for Guinevere
+		trigger = {
+			ROOT = { character = 26 }
+		}
+	}
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312131"
+			trigger = {
+				ROOT = { NOT = { character = 26 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312131_1"
+			trigger = {
+				ROOT = { character = 26 }
+			}
+		}
+		event_target:guinevere = {
+			add_spouse = 3
+			add_lover = 3
+		}
+	}
+	
+	option = {
+		text = "EVTOPTB312131"
+		trigger = {
+			ROOT = { character = 26 }
+		}
+	}
+}
+
+# Guinevere refuses
+character_event = {
+	id = 312132
+	desc = EVTDESC312132
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	option = {
+		text = "EVTOPTA312132"
+		add_trait = depressed
 	}
 }
 
