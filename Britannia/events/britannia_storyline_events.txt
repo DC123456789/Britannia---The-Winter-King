@@ -1051,8 +1051,10 @@ long_character_event = {
 			}
 		}
 		event_target:ceinwyn_seren = {
-			add_spouse = 10
-			add_lover = 10
+			tooltip = {
+				add_spouse = 10
+				add_lover = 10
+			}
 			hidden_tooltip = {
 				host = {
 					character_event = { id = 312133 }
@@ -1080,7 +1082,7 @@ long_character_event = {
 	}
 }
 
-# Notify Guinevere's liege
+# Notify Guinevere's host (marriage with Arthur)
 character_event = {
 	id = 312131
 	desc = {
@@ -1116,12 +1118,18 @@ character_event = {
 			add_spouse = 3
 			add_lover = 3
 		}
+		ai_chance = {
+			factor = 100
+		}
 	}
 	
 	option = {
 		text = "EVTOPTB312131"
 		trigger = {
 			ROOT = { character = 26 }
+		}
+		ai_chance = {
+			factor = 0
 		}
 	}
 }
@@ -1137,6 +1145,109 @@ character_event = {
 	option = {
 		text = "EVTOPTA312132"
 		add_trait = depressed
+	}
+}
+
+# Notify Ceinwyn's host (marriage with Derfel)
+character_event = {
+	id = 312133
+	desc = {
+		text = EVTDESC312133
+		trigger = {
+			ROOT = { NOT = { character = 27 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312133_1		# Special text for Ceinwyn herself
+		trigger = {
+			ROOT = { character = 27 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312133"
+			trigger = {
+				ROOT = {
+					NOR = { 
+						character = 27 
+						character = 16
+					} 
+				}
+			}
+		}
+		name = {
+			text = "EVTOPTA312133_1"
+			trigger = {
+				ROOT = { character = 27 }
+			}
+		}
+		name = {
+			text = "EVTOPTA312133_2"		# Special text for Gorfyddyd
+			trigger = {
+				ROOT = { character = 16 }
+			}
+		}
+		tooltip = {
+			event_target:ceinwyn_seren = {
+				add_spouse = 10
+				add_lover = 10
+			}
+		}
+		hidden_tooltip = {
+			event_target:derfel_cadarn = {
+				if = {
+					limit = { NOT = { top_liege = { character = ROOT } } }
+					character_event = { id = 312134 }
+				}
+				else = {
+					add_spouse = 27
+					add_lover = 27
+				}
+			}
+		}
+	}
+}
+
+# Notify Derfel's host (marriage with Ceinwyn)
+character_event = {
+	id = 312134
+	desc = {
+		text = EVTDESC312134
+		trigger = {
+			ROOT = { NOT = { character = 10 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312134_1		# Special text for Derfel himself
+		trigger = {
+			ROOT = { character = 10 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312134"
+			trigger = {
+				ROOT = { NOT = { character = 10 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312134_1"
+			trigger = {
+				ROOT = { character = 10 }
+			}
+		}
+		event_target:derfel_cadarn = {
+			add_spouse = 27
+			add_lover = 27
+		}
 	}
 }
 
