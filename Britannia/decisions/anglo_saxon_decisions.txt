@@ -552,7 +552,13 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			ai = no
-			NOT = { year = 550 }
+			OR = {
+				NOT = { year = 550 }
+				AND = {
+					NOT = { year = 600 }
+					NOT = { has_global_flag = roman_defeat }
+				}
+			}
 			is_ingvaeonic_culture_trigger = yes
 			is_tribal = yes
 			top_liege = { is_ingvaeonic_culture_trigger = yes }
@@ -589,7 +595,16 @@ decisions = {
 			}
 		}
 		allow = {
-			NOT = { year = 550 }
+			OR = {
+				NOT = { year = 550 }
+				AND = {
+					NOT = { year = 600 }
+					custom_tooltip = {
+						text = "The Romans have not been defeated in Gaul"
+						NOT = { has_global_flag = roman_defeat }
+					}
+				}
+			}
 			age = 25
 			prestige = 1000
 			wealth = 50
@@ -610,6 +625,7 @@ decisions = {
 			#NOT = { trait = idiot }
 			NOT = { trait = imbecile }
 			NOT = { trait = weak }
+			NOT = { has_character_modifier = saxon_invasion_gaul_timer }
 		}
 		effect = {
 			set_character_flag = preparing_gallic_invasion_saxon

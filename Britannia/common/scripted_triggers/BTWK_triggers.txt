@@ -26,6 +26,10 @@ is_roman_ruler_trigger = {
 			}
 		}
 	}
+	NAND = {
+		primary_title = { title = k_praetorian_prefecture_of_gaul }
+		k_praetorian_prefecture_of_gaul = { NOT = { has_title_flag = roman_province } }
+	}
 }
 
 is_roman_legion_title_trigger = {
@@ -1000,18 +1004,30 @@ is_gothic_controlled_trigger = {
 	holder_scope = {
 		top_liege = {
 			OR = {
-				culture = visigoth
-				culture = ostrogoth
-				has_landed_title = k_visigoths
-				has_landed_title = k_ostrogoths
+				is_gothic_ruler_trigger = yes
 				AND = {
-					has_landed_title = e_visigoths
-					OR = {
-						e_visigoths = { has_title_flag = empire_claimed_visigoths }
-						e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+					in_revolt = yes
+					liege_before_war = {
+						is_gothic_ruler_trigger = yes
 					}
 				}
 			}
 		}
+	}
+}
+
+is_gothic_ruler_trigger = {
+	OR = {
+		culture = visigoth
+		culture = ostrogoth
+		has_landed_title = k_visigoths
+		has_landed_title = k_ostrogoths
+		AND = {
+			has_landed_title = e_visigoths
+			OR = {
+				e_visigoths = { has_title_flag = empire_claimed_visigoths }
+				e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+			}
+		}				
 	}
 }

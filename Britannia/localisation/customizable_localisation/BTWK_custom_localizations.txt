@@ -341,3 +341,37 @@ defined_text = {
 		localisation_key = e_western_roman_empire_adj
 	}
 }
+
+#Returns Arthur's current status
+defined_text = {
+	name = GetArthurTitle
+
+	text = {
+		trigger = { 
+			event_target:arthur_pendragon = { has_landed_title = e_britannia }
+		}
+		localisation_key = String_imperator_britannia
+	}	
+	text = {
+		trigger = { 
+			event_target:arthur_pendragon = { has_landed_title = k_dumnonia }
+		}
+		localisation_key = String_king_dumnonia
+	}	
+	text = {
+		trigger = {
+			event_target:arthur_pendragon = { 
+				top_liege = {
+					has_landed_title = k_dumnonia
+					regent = {
+						character = ROOT
+					}
+				}
+			}
+		}
+		localisation_key = String_regent_dumnonia
+	}
+	fallback_text = {
+		localisation_key = String_prince_dumnonia
+	}
+}

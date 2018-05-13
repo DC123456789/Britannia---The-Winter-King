@@ -171,3 +171,49 @@ province_event = {
 		}
 	}
 }
+
+# Remove born in the purple trait
+character_event = {
+	id = 302535
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				trait = born_in_the_purple
+			}
+			remove_trait = born_in_the_purple
+		}
+	}
+}
+
+# Notification for debasing currency
+character_event = {
+	id = 302540
+	desc = "EVTDESC302540"
+	
+	picture = "GFX_evt_bribe_accepted"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302540"
+		tooltip = {
+			any_realm_province = {
+				add_province_modifier = {
+					name = inflationary_pressures
+					duration = 3650
+					stacking = yes
+				}	
+			}
+		}
+		custom_tooltip = {
+			text = all_provinces_lose_significant_prosperity_custom_tooltip
+		}
+	}
+}

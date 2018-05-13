@@ -939,7 +939,13 @@ character_event = {
 	prisoner = no
 
 	trigger = {
-		NOT = { year = 550 }
+		OR = {
+			NOT = { year = 550 }
+			AND = {
+				NOT = { year = 600 }
+				NOT = { has_global_flag = roman_defeat }
+			}
+		}
 		is_ingvaeonic_culture_trigger = yes
 		top_liege = { is_ingvaeonic_culture_trigger = yes }
 		any_realm_province = {
@@ -970,20 +976,20 @@ character_event = {
 		}
 		is_tribal = yes
 		higher_tier_than = BARON
-		age = 25
-		prestige = 500
-		wealth = 50
+		age = 22
+		prestige = 400
+		wealth = 30
 		war = no
 		prisoner = no
-		diplomacy = 7
-		martial = 12
+		diplomacy = 6
+		martial = 10
 		NOR = { 
 			trait = incapable
 			trait = infirm
 			trait = content
 			trait = craven
 			trait = slow
-			trait = idiot
+			#trait = idiot
 			trait = imbecile
 			trait = weak
 			num_of_count_titles_in_realm = 12
@@ -992,7 +998,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 360
+		months = 300
 		modifier = {
 			factor = 0.85
 			trait = brave
@@ -1080,7 +1086,7 @@ character_event = {
 			}
 		}
 		modifier = {
-			factor = 0.75
+			factor = 0.85
 			OR = {
 				k_gaul = { has_holder = yes }
 				e_gaul = { has_holder = yes }
@@ -1099,7 +1105,7 @@ character_event = {
 			}
 		}
 		modifier = {
-			factor = 0.75
+			factor = 0.85
 			OR = {
 				k_gaul = { has_holder = yes }
 				e_gaul = { has_holder = yes }
@@ -1135,6 +1141,10 @@ character_event = {
 					}
 				}
 			}
+		}
+		modifier = {
+			factor = 2
+			year = 550
 		}
 	}
 	
@@ -1313,12 +1323,14 @@ character_event = {
 		
 		# Invade duchy
 		set_character_flag = saxon_gallic_invader
+		
+		FROM = { owner = { top_liege = { save_event_target_as = target_ruler } } }
 		FROM = {
 			duchy = {
 				ROOT = {
 					unsafe_war = {
 						casus_belli = duchy_invasion_event
-						target = PREVPREV
+						target = event_target:target_ruler
 						thirdparty_title = PREVPREV
 						tier = DUKE
 					}
@@ -1327,288 +1339,295 @@ character_event = {
 		}
 		clr_character_flag = preparing_gallic_invasion_saxon
 		
-		# Spawn troops and fleet
-		random_realm_province = {
-			limit = {
-				any_neighbor_province = {
-					is_land = no
-				}
+		if = {
+			limit = { war = yes }
+			add_character_modifier = {
+				name = saxon_invasion_gaul_timer
+				duration = 7300
 			}
-			ROOT = {
-				spawn_unit = {
-					owner = ROOT
-					province = PREV
-					home = PREV
-					troops = {
-						archers = { 200 200 }
-						pikemen = { 500 500 }
-						light_infantry = { 650 650 }
-						heavy_infantry = { 450 450 }
+			# Spawn troops and fleet
+			random_realm_province = {
+				limit = {
+					any_neighbor_province = {
+						is_land = no
 					}
-					maintenance_multiplier = 0.25
 				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								NOR = {
-									culture = armorican
-									culture = breton
+				ROOT = {
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						home = PREV
+						troops = {
+							archers = { 200 200 }
+							pikemen = { 500 500 }
+							light_infantry = { 650 650 }
+							heavy_infantry = { 450 450 }
+						}
+						maintenance_multiplier = 0.25
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									NOR = {
+										culture = armorican
+										culture = breton
+									}
 								}
 							}
 						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 250 250 }
-							pikemen = { 300 300 }
-							light_infantry = { 400 400 }
-							heavy_infantry = { 250 250 }
-						}
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 15 }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 200 200 }
-							pikemen = { 300 300 }
-							light_infantry = { 400 400 }
-							heavy_infantry = { 300 300 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 30 }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 200 200 }
-							pikemen = { 300 300 }
-							light_infantry = { 350 350 }
-							heavy_infantry = { 200 200 }
-							light_cavalry = { 50 50 }
-						}
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-					random = {
-						chance = 50
 						spawn_unit = {
 							owner = ROOT
 							province = PREV
 							home = PREV
 							troops = {
-								archers = { 100 100 }
-								pikemen = { 150 150 }
-								light_infantry = { 200 200 }
-								heavy_infantry = { 50 50 }
+								archers = { 250 250 }
+								pikemen = { 300 300 }
+								light_infantry = { 300 300 }
+								heavy_infantry = { 350 350 }
 							}
 							merge = yes
 							maintenance_multiplier = 0.25
 						}
 					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 45 }
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 15 }
+								}
 							}
 						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 150 150 }
-							pikemen = { 200 200 }
-							light_infantry = { 300 300 }
-							heavy_infantry = { 200 200 }
-							light_cavalry = { 50 50 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-					random = {
-						chance = 50
 						spawn_unit = {
 							owner = ROOT
 							province = PREV
 							home = PREV
 							troops = {
-								archers = { 100 100 }
-								pikemen = { 150 150 }
-								light_infantry = { 200 200 }
-								heavy_infantry = { 50 50 }
+								archers = { 200 200 }
+								pikemen = { 300 300 }
+								light_infantry = { 400 400 }
+								heavy_infantry = { 300 300 }
 							}
 							disband_on_peace = yes
 							merge = yes
 							maintenance_multiplier = 0.25
 						}
 					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 60 }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 150 150 }
-							pikemen = { 200 200 }
-							light_infantry = { 300 300 }
-							heavy_infantry = { 200 200 }
-							light_cavalry = { 50 50 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 80 }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 150 150 }
-							pikemen = { 200 200 }
-							light_infantry = { 300 300 }
-							heavy_infantry = { 200 200 }
-							light_cavalry = { 50 50 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { num_of_count_titles_in_realm = 100 }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 150 150 }
-							pikemen = { 200 200 }
-							light_infantry = { 300 300 }
-							heavy_infantry = { 200 200 }
-							light_cavalry = { 50 50 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { tier = EMPEROR }
-							}
-						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 200 200 }
-							pikemen = { 300 300 }
-							light_infantry = { 500 500 }
-							heavy_infantry = { 250 250 }
-							light_cavalry = { 150 150 }
-						}
-						disband_on_peace = yes
-						merge = yes
-						maintenance_multiplier = 0.25
-					}
-				}
-				if = {
-					limit = { 
-						FROM = {
-							owner = {
-								top_liege = { 
-									ai = no
-									num_of_count_titles_in_realm = 20
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 30 }
 								}
 							}
 						}
-					}
-					spawn_unit = {
-						owner = ROOT
-						province = PREV
-						home = PREV
-						troops = {
-							archers = { 250 250 }
-							pikemen = { 150 150 }
-							light_infantry = { 300 300 }
-							heavy_infantry = { 150 150 }
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 150 150 }
+								pikemen = { 250 250 }
+								light_infantry = { 250 250 }
+								heavy_infantry = { 400 400 }
+								light_cavalry = { 50 50 }
+							}
+							merge = yes
+							maintenance_multiplier = 0.25
 						}
-						merge = yes
-						maintenance_multiplier = 0.25
+						random = {
+							chance = 50
+							spawn_unit = {
+								owner = ROOT
+								province = PREV
+								home = PREV
+								troops = {
+									archers = { 100 100 }
+									pikemen = { 100 100 }
+									light_infantry = { 150 150 }
+									heavy_infantry = { 150 150 }
+								}
+								merge = yes
+								maintenance_multiplier = 0.25
+							}
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 45 }
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 150 150 }
+								light_infantry = { 250 250 }
+								heavy_infantry = { 350 350 }
+								light_cavalry = { 50 50 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+						random = {
+							chance = 50
+							spawn_unit = {
+								owner = ROOT
+								province = PREV
+								home = PREV
+								troops = {
+									archers = { 100 100 }
+									pikemen = { 100 100 }
+									light_infantry = { 150 150 }
+									heavy_infantry = { 150 150 }
+								}
+								disband_on_peace = yes
+								merge = yes
+								maintenance_multiplier = 0.25
+							}
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 60 }
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 150 150 }
+								light_infantry = { 250 250 }
+								heavy_infantry = { 350 350 }
+								light_cavalry = { 50 50 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 80 }
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 150 150 }
+								light_infantry = { 250 250 }
+								heavy_infantry = { 350 350 }
+								light_cavalry = { 50 50 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { num_of_count_titles_in_realm = 100 }
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 150 150 }
+								light_infantry = { 250 250 }
+								heavy_infantry = { 350 350 }
+								light_cavalry = { 50 50 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { tier = EMPEROR }
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 150 150 }
+								light_infantry = { 200 200 }
+								heavy_infantry = { 400 400 }
+								light_cavalry = { 50 50 }
+							}
+							disband_on_peace = yes
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
+					}
+					if = {
+						limit = { 
+							FROM = {
+								owner = {
+									top_liege = { 
+										ai = no
+										num_of_count_titles_in_realm = 20
+									}
+								}
+							}
+						}
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							home = PREV
+							troops = {
+								archers = { 200 200 }
+								pikemen = { 150 150 }
+								light_infantry = { 300 300 }
+								heavy_infantry = { 200 200 }
+							}
+							merge = yes
+							maintenance_multiplier = 0.25
+						}
 					}
 				}
 			}
-		}
-		spawn_fleet = {
-			owner = ROOT
-			province = closest
-			disband_on_peace = yes
-			troops = {
-				galleys = { 120 120 }
+			spawn_fleet = {
+				owner = ROOT
+				province = closest
+				disband_on_peace = yes
+				troops = {
+					galleys = { 120 120 }
+				}
+				maintenance_multiplier = 0.1
 			}
-			maintenance_multiplier = 0.1
+			
+			wealth = 50
 		}
-		
-		wealth = 50
 	}
 	
 	option = {

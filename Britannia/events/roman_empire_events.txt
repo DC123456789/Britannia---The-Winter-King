@@ -133,9 +133,9 @@ character_event = {
 					female = no
 					age = 51
 					attributes = {
-						diplomacy = 10
-						learning = 10
-						stewardship = 12
+						diplomacy = 7
+						learning = 9
+						stewardship = 7
 					}
 					trait = grey_eminence
 					trait = scholar
@@ -180,10 +180,10 @@ character_event = {
 					female = no
 					age = 41
 					attributes = {
-						diplomacy = 10
-						martial = 13
-						learning = 10
-						stewardship = 11
+						diplomacy = 9
+						martial = 8
+						learning = 7
+						stewardship = 6
 					}
 					trait = thrifty_clerk
 					trait = greedy
@@ -229,11 +229,11 @@ character_event = {
 					female = no
 					age = 49
 					attributes = {
-						diplomacy = 10
+						diplomacy = 7
 						martial = 5
-						learning = 10
+						learning = 8
 						intrigue = 10
-						stewardship = 11
+						stewardship = 6
 					}
 					trait = intricate_webweaver
 					trait = deceitful
@@ -277,11 +277,11 @@ character_event = {
 					female = no
 					age = 51
 					attributes = {
-						diplomacy = 10
-						martial = 6
-						learning = 12
-						intrigue = 9
-						stewardship = 10
+						diplomacy = 6
+						martial = 3
+						learning = 7
+						intrigue = 2
+						stewardship = 8
 					}
 					trait = fortune_builder
 					trait = authoritative
@@ -325,9 +325,9 @@ character_event = {
 					female = no
 					age = 60
 					attributes = {
-						diplomacy = 11
+						diplomacy = 7
 						martial = 4
-						learning = 10
+						learning = 5
 						intrigue = 6
 						stewardship = 8
 					}
@@ -375,11 +375,11 @@ character_event = {
 					female = no
 					age = 47
 					attributes = {
-						diplomacy = 10
+						diplomacy = 8
 						martial = 4
-						learning = 12
+						learning = 7
 						intrigue = 6
-						stewardship = 7
+						stewardship = 6
 					}
 					trait = ambitious
 					trait = authoritative
@@ -423,11 +423,11 @@ character_event = {
 					female = no
 					age = 46
 					attributes = {
-						diplomacy = 9
+						diplomacy = 7
 						martial = 4
-						learning = 11
+						learning = 8
 						intrigue = 6
-						stewardship = 10
+						stewardship = 8
 					}
 					trait = loyal
 					trait = authoritative
@@ -473,10 +473,10 @@ character_event = {
 					female = no
 					age = 43
 					attributes = {
-						diplomacy = 11
+						diplomacy = 7
 						martial = 6
-						learning = 11
-						intrigue = 9
+						learning = 6
+						intrigue = 8
 						stewardship = 6
 					}
 					trait = ambitious
@@ -522,11 +522,11 @@ character_event = {
 					female = no
 					age = 57
 					attributes = {
-						diplomacy = 12
+						diplomacy = 9
 						martial = 5
-						learning = 11
-						intrigue = 10
-						stewardship = 10
+						learning = 8
+						intrigue = 8
+						stewardship = 5
 					}
 					trait = scholarly_theologian
 					trait = authoritative
@@ -1042,11 +1042,11 @@ narrative_event = {
 			age = 37
 			employer = ROOT
 			attributes = {
-				martial = 13
-				diplomacy = 12
-				stewardship = 10
-				learning = 11
-				intrigue = 7
+				martial = 8
+				diplomacy = 8
+				stewardship = 4
+				learning = 6
+				intrigue = 6
 			}
 			trait = skilled_tactician
 			trait = war_hero
@@ -1437,6 +1437,110 @@ character_event = {
 	}
 }
 
+
+# Force Emperors and family to marry someone
+character_event = {
+	id = 315143
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	ai = yes
+	only_rulers = yes
+	
+	trigger = {
+		primary_title = {
+			is_landless_normal_title_trigger = yes
+		}
+		OR = {
+			AND = {
+				is_married = no
+				can_marry = yes
+				age = 18
+			}
+			any_courtier = {
+				is_married = no
+				can_marry = yes
+				age = 18
+				is_ruler = no
+				is_incapable = no
+				is_close_relative = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				is_married = no
+				can_marry = yes
+				age = 18
+			}
+			save_event_target_as = character_to_marry
+		}
+		else = {
+			random_courtier = {
+				limit = {
+					is_married = no
+					can_marry = yes
+					is_incapable = no
+					age = 18
+					is_ruler = no
+					is_close_relative = ROOT
+				}
+			}
+			save_event_target_as = character_to_marry			
+		}
+		event_target:character_to_marry = {
+			ROOT = {
+				random_courtier = {			# Marry a suitable courtier that already exists if possible
+					limit = {
+						is_married = no
+						can_marry = yes
+						is_adult = yes
+						is_incapable = no
+						is_ruler = no
+						NOT = { is_close_relative = PREVPREV }
+						OR = {
+							AND = {
+								is_female = yes
+								PREVPREV = { is_female = no }
+							}
+							AND = {
+								is_female = no
+								PREVPREV = { is_female = yes }
+							}
+						}
+						OR = {
+							is_female = no
+							NOT = { age = 35 }
+						}
+					}
+					add_spouse = PREVPREV
+					break = yes
+				}
+			}
+			create_character = {
+				age = 20
+				fertility = 0.8
+				random_traits = yes
+				female = yes
+				culture = ROOT
+				religion = ROOT
+			}
+			new_character = {
+				remove_trait = celibate
+				remove_trait = chaste
+				add_spouse = THIS
+			}
+		}
+	}
+}
+
 ### SOISSONS VASSALIZE TRIBUTARIES CHAIN ###
 # Demand to Tributaries
 character_event = {
@@ -1544,6 +1648,24 @@ character_event = {
 				war = {
 					casus_belli = bid_for_independence_tributaries_soissons
 					target = k_gaul					
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 100 100 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 400 400 }
+								light_cavalry = { 50 50 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
 				}
 				break = yes
 			}

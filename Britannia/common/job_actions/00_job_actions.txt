@@ -119,8 +119,18 @@ action_fabricate_claims = {
 	
 	potential = {
 		FROM = { 
-			is_nomadic = no 
-			is_tribal = no
+			is_nomadic = no
+			OR = {
+				is_tribal = no
+				AND = {
+					government = high_tribal_government
+					OR = {
+						is_brythonic_culture_trigger = yes
+						culture_group = imperiale
+						is_romanized_germanic_trigger = yes
+					}
+				}
+			}
 			NAND = {
 				government = imperial_government
 				tier = EMPEROR
@@ -203,6 +213,14 @@ action_sponsor_bards = {
 	potential = {
 		FROM = {
 			is_tribal = yes
+			NAND = {
+				government = high_tribal_government
+				OR = {
+					is_brythonic_culture_trigger = yes
+					culture_group = imperiale
+					is_romanized_germanic_trigger = yes
+				}
+			}
 		}
 	}
 

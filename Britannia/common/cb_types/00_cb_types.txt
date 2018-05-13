@@ -8900,7 +8900,10 @@ tributary_cb = {
 					}
 				}
 			}
-			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+			k_ostrogoths = { 
+				clr_title_flag = subjugating_visigoths 
+				holder_scope = { character_event = { id = 302820 } }
+			}
 		}
 	}
 
@@ -8946,15 +8949,16 @@ tributary_cb = {
 	}
 	
 	on_attacker_leader_death = {
-		end_war = invalid
 		if = {
-			limit = { 
-				ROOT = { 
-					has_landed_title = k_ostrogoths
-					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+			limit = {
+				NOT = {
+					ROOT = { 
+						has_landed_title = k_ostrogoths
+						k_ostrogoths = { has_title_flag = subjugating_visigoths }
+					}
 				}
 			}
-			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+			end_war = invalid
 		}
 	}
 

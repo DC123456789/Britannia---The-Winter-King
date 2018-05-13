@@ -273,11 +273,12 @@ decisions = {
 			diplomacy = 7
 			martial = 10
 			OR = {
-				prestige = 5000
+				prestige = 4000
 				trait = skilled_tactician
 				trait = brilliant_strategist
-				martial = 15
-				diplomacy = 15
+				trait = grey_eminence
+				martial = 14
+				diplomacy = 14
 			}
 			NOR = {
 				trait = content
@@ -319,7 +320,7 @@ decisions = {
 				}
 				NOR = {
 					trait = ambitious
-					trait = disloyal
+					trait = unloyal
 				}
 			}
 			modifier = {
@@ -361,6 +362,105 @@ decisions = {
 			modifier = {
 				factor = 0
 				in_faction = faction_claimant	# Not if already supporting another claimant
+			}
+		}
+	}
+	
+	debase_currency = {
+		only_playable = yes
+		potential = {
+			independent = yes
+			government = imperial_government
+			tier = EMPEROR
+			is_landed = yes
+		}
+		allow = {
+			NOT = { has_character_modifier = recently_debased_currency }
+		}
+		effect = {
+			prestige = -200
+			if = {
+				limit = { has_global_flag = winter_season }
+				scaled_wealth = {
+					min = 300
+					value = 3.0
+				}
+			}
+			else_if = {
+				limit = { has_global_flag = autumn_season }
+				scaled_wealth = {
+					min = 300
+					value = 1.3
+				}
+			}
+			else = {
+				scaled_wealth = {
+					min = 300
+					value = 2.0
+				}
+			}
+			any_realm_province = {
+				add_province_modifier = {
+					name = inflationary_pressures
+					duration = 3650
+					stacking = yes
+				}	
+				if = {
+					limit = {
+						has_dlc = "Reapers"
+					}
+					hidden_tooltip = {
+						subtract_variable = { which = prosperity_value value = 10 }
+					}
+				}		
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = all_provinces_lose_significant_prosperity_custom_tooltip
+				}
+			}
+			hidden_effect = {
+				add_character_modifier = {
+					name = recently_debased_currency
+					duration = 1095
+				}
+				any_realm_lord = {
+					character_event = { id = 302540 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				factor = 0
+				wealth = 1
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					scaled_wealth = -0.5
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					scaled_wealth = -1.0
+				}
+			}
+			modifier = {
+				factor = 3
+				NOT = {
+					scaled_wealth = -1.5
+				}
+			}
+			modifier = {
+				factor = 5
+				NOT = {
+					scaled_wealth = -2.0
+				}
 			}
 		}
 	}

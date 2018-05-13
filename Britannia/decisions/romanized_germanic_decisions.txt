@@ -165,11 +165,11 @@ decisions = {
 			is_adult = yes
 			prestige = 1000
 			realm_size = 70
-			wealth = 200
+			wealth = 100
 			NOT = { trait = incapable }
 		}
 		effect = {
-			wealth = -100
+			wealth = -50
 			custom_tooltip = {
 				text = claim_provence_tooltip
 			}
@@ -263,6 +263,38 @@ decisions = {
 										light_cavalry = { 75 75 }
 									}
 									attrition = 0.5
+									disband_on_peace = yes
+								}
+							}
+						}
+						if = {
+							limit = { 
+								any_war = {
+									using_cb = provence_conquest
+									attacker = { character = ROOT }
+									defender = {
+										relative_power_including_allies_defender = {
+											who = ROOT
+											power = 1
+										}
+									}
+								}
+							}
+							capital_scope = {
+								ROOT = {
+									spawn_unit = {
+										province = PREV
+										home = PREV
+										troops = {
+											light_infantry = { 500 500 }
+											heavy_infantry = { 400 400 }
+											pikemen = { 250 250 }
+											archers = { 150 150 }
+											light_cavalry = { 50 50 }
+										}
+										attrition = 0.5
+										disband_on_peace = yes
+									}
 								}
 							}
 						}

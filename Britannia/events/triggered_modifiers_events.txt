@@ -703,7 +703,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 150 }
+				check_variable = { which = base_levies_realm_size value = 200 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_13 } }
@@ -717,7 +717,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 140 }
+				check_variable = { which = base_levies_realm_size value = 180 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_12 } }
@@ -731,7 +731,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 130 }
+				check_variable = { which = base_levies_realm_size value = 155 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_11 } }
@@ -745,7 +745,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 120 }
+				check_variable = { which = base_levies_realm_size value = 140 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_10 } }
@@ -759,7 +759,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 110 }
+				check_variable = { which = base_levies_realm_size value = 125 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_9 } }
@@ -773,7 +773,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 100 }
+				check_variable = { which = base_levies_realm_size value = 110 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_8 } }
@@ -787,7 +787,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 90 }
+				check_variable = { which = base_levies_realm_size value = 95 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_7 } }
@@ -1133,9 +1133,8 @@ character_event = {
 	
 	trigger = {
 		NOT = { has_character_modifier = war_torn }
-        NOT = { stewardship = 10 }
 		OR = {
-            liege = { war = yes }
+            any_liege = { war = yes }
 			war = yes
 		}
 	}
@@ -1161,9 +1160,8 @@ character_event = {
 		has_character_modifier = war_torn
 		NAND = {
 			is_ruler = yes
-			NOT = { stewardship = 10 }
 			OR = {
-				liege = { war = yes }
+				any_liege = { war = yes }
 				war = yes
 			}
 		}
@@ -1932,80 +1930,72 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
-		NAND = {
-			is_ruler = yes
-			NOR = {
-				culture_group = imperiale
-				culture = romanobritish
-				culture = armorican
-				culture = breton
-				is_frankish_culture_trigger = yes
-				culture = visigoth  
-				culture = burgundian 
+		OR = {
+			has_character_modifier = too_large_realm_1
+			has_character_modifier = too_large_realm_2
+			has_character_modifier = too_large_realm_3
+			has_character_modifier = too_large_realm_4
+			has_character_modifier = too_large_realm_5
+			has_character_modifier = too_large_realm_6
+			has_character_modifier = too_large_realm_7
+		}
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			culture = breton
+			is_frankish_culture_trigger = yes
+			culture = visigoth  
+			culture = burgundian 
+			NOT = { realm_size = 60 }
+			AND = {
+				OR = {
+					stewardship = 10
+					diplomacy = 10
+				}
+				has_character_modifier = too_large_realm_1
 			}
-			OR = {
-				AND = {
-					NOT = {
-						stewardship = 10
-						diplomacy = 10
-					}
-					realm_size = 60
-					NOT = { realm_size = 70 }
-					NOT = { has_character_modifier = too_large_realm_1 }
+			AND = {
+				OR = {
+					stewardship = 12
+					diplomacy = 12
 				}
-				AND = {
-					NOT = {
-						stewardship = 12
-						diplomacy = 12
-					}
-					realm_size = 70
-					NOT = { realm_size = 80 }
-					NOT = { has_character_modifier = too_large_realm_2 }
+				has_character_modifier = too_large_realm_2
+			}
+			AND = {
+				OR = {
+					stewardship = 13
+					diplomacy = 13
 				}
-				AND = {
-					NOT = {
-						stewardship = 13
-						diplomacy = 13
-					}
-					realm_size = 80
-					NOT = { realm_size = 90 }
-					NOT = { has_character_modifier = too_large_realm_3 }
+				has_character_modifier = too_large_realm_3
+			}
+			AND = {
+				OR = {
+					stewardship = 14
+					diplomacy = 14
 				}
-				AND = {
-					NOT = {
-						stewardship = 14
-						diplomacy = 14
-					}
-					realm_size = 90
-					NOT = { realm_size = 100 }
-					NOT = { has_character_modifier = too_large_realm_4 }
+				has_character_modifier = too_large_realm_4
+			}
+			AND = {
+				OR = {
+					stewardship = 15
+					diplomacy = 15
 				}
-				AND = {
-					NOT = {
-						stewardship = 15
-						diplomacy = 15
-					}
-					realm_size = 100
-					NOT = { realm_size = 110 }
-					NOT = { has_character_modifier = too_large_realm_5 }
+				has_character_modifier = too_large_realm_5
+			}
+			AND = {
+				OR = {
+					stewardship = 16
+					diplomacy = 16
 				}
-				AND = {
-					NOT = {
-						stewardship = 16
-						diplomacy = 16
-					}
-					realm_size = 110
-					NOT = { realm_size = 120 }
-					NOT = { has_character_modifier = too_large_realm_6 }
+				has_character_modifier = too_large_realm_6
+			}
+			AND = {
+				OR = {
+					stewardship = 17
+					diplomacy = 17
 				}
-				AND = {
-					NOT = {
-						stewardship = 17
-						diplomacy = 17
-					}
-					realm_size = 120
-					NOT = { has_character_modifier = too_large_realm_7 }
-				}
+				has_character_modifier = too_large_realm_7
 			}
 		}
 	}
