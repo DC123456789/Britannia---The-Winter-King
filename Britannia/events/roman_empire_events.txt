@@ -5590,7 +5590,7 @@ character_event = {
 		}
 		set_variable = {
 			which = high_payment_cost
-			value = 100
+			value = 110
 		}
 		multiply_variable = {
 			which = high_payment_cost
@@ -5682,6 +5682,12 @@ character_event = {
 		ai_chance = {
 			factor = 75
 		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 30		# Some of it goes to the soldiers
+			}
+		}
 	}
 	
 	option = {
@@ -5693,6 +5699,12 @@ character_event = {
 				who = ROOT
 				modifier = opinion_large_payment
 				years = 5
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 45		# Some of it goes to the soldiers
 			}
 		}
 		ai_chance = {
@@ -5792,22 +5804,5 @@ character_event = {
 				}
 			}
 		}
-	}
-}
-
-character_event = {
-	id = 315936
-	desc = "You're not supposed to see this..."
-	picture = GFX_evt_roman_aquila_pillar
-	hide_window = yes
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		FROM = { is_roman_empire_title_trigger = yes }
-	}
-	
-	immediate = {
-		set_character_flag = created_roman_empire_title
 	}
 }

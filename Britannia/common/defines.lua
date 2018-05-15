@@ -1267,7 +1267,7 @@ NMilitary = {
 	TOTAL_OCCUPATION_SCALE = 0.75,					-- The % of occupation which gives you 100% warscore
 	ATTACKER_ASSULT_DAMAGE_FACTOR = 15,				-- Attacker damage scale factor when assaulting
 	DEFENDER_ASSULT_DAMAGE_FACTOR = 0.6,			-- Defender damage scale factor when assaulting
-	DAYS_PER_FORTLEVEL_BEFORE_ASSAULT = 7,			-- Number of days until attacker can assault
+	DAYS_PER_FORTLEVEL_BEFORE_ASSAULT = 10,			-- Number of days until attacker can assault
 	FLANKING_DAMAGE_BONUS = 0.35,					-- Percentage bonus when flanking in combat
 	WAR_CONTRIBUTION_OCCUPATION_PER_DAY = 10,		-- Occupying a Holding gives this Contribution score per day
 	WAR_CONTRIBUTION_PROVINCE_WITHOUT_SETTLEMENT_OCCUPATION_PER_DAY = 3, -- Occupying a province without settlements gives this score per day, multiplied with the number of empty holdings
@@ -1481,7 +1481,7 @@ NMilitary = {
 
 NTechnology = {
 	DONT_EXECUTE_TECH_BEFORE = 410,				-- Set this to your earliest starting year
-	POINTS_PER_ATTRIBUTE = 0.04,
+	POINTS_PER_ATTRIBUTE = 0.035,
 
 	BASE_NEIGHBOUR_SPREAD_BONUS = 0.25, 		-- bonus for each neighbour with the tech
 	NEIGHBOUR_SAME_RELIGON_GROUP_MULT = 1.25, 	-- multiplier to the above bonus if neighbour is of your religious group
