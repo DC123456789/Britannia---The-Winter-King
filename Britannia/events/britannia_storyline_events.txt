@@ -1458,9 +1458,7 @@ character_event = {
 			}
 			hidden_tooltip = {
 				event_target:lancelot_dulac = {
-					host = {
-						character_event = { id = 312170 }
-					}
+					character_event = { id = 312170 }
 				}
 			}
 		}
@@ -1468,17 +1466,31 @@ character_event = {
 }
 
 
-# Notify Lancelot's host (marriage with Guinevere)
+# Bounce event from Lancelot to get the relation
 character_event = {
 	id = 312170
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		host = { character_event = { id = 312171 } }
+	}
+}
+
+# Notify Lancelot's host (marriage with Guinevere)
+character_event = {
+	id = 312171
 	desc = {
-		text = EVTDESC312170
+		text = EVTDESC312171
 		trigger = {
 			ROOT = { NOT = { character = 31 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312170_1		# Special text for Lancelot himself
+		text = EVTDESC312171_1		# Special text for Lancelot himself
 		trigger = {
 			ROOT = { character = 31 }
 		}
@@ -1489,13 +1501,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312170"
+			text = "EVTOPTA312171"
 			trigger = {
 				ROOT = { NOT = { character = 31 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312170_1"
+			text = "EVTOPTA312171_1"
 			trigger = {
 				ROOT = { character = 31 }
 			}
