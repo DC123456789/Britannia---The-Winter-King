@@ -803,7 +803,7 @@ claim_on_liege = {
 			ROOT = { has_character_flag = faction_claimant_war_allowed }
 		}
 	}
-
+	
 	on_success = {
 		ROOT = {
 			participation_scaled_prestige = 100
@@ -1421,14 +1421,24 @@ other_claim_on_liege = {
 			}
 		}
 	}
+	
+	on_invalidation = {
+		if = {
+			limit = { is_liege_or_above = FROM }
+			hidden_tooltip = {
+				FROM = { set_character_flag = prewar_liege_@ROOT }
+				ROOT = { character_event = { id = 315913 } }
+			}
+		}
+	}
 
 	on_success = {
 		ROOT = {
 			participation_scaled_prestige = 100
-			hidden_tooltip = {  disband_event_forces = faction_revolters }
+			hidden_tooltip = { disband_event_forces = faction_revolters }
 		}
 		participation_scaled_prestige = 100
-		hidden_tooltip = {  disband_event_forces = faction_revolters }
+		hidden_tooltip = { disband_event_forces = faction_revolters }
 		any_attacker = {
 			limit = { 
 				NOT = { character = ROOT } 
@@ -1523,6 +1533,19 @@ other_claim_on_liege = {
 			}
 		}
 		
+		# Revassalize any legions back to FROM
+		any_title = {
+			limit = { has_title_flag = revolting_legion_@PREV }
+			set_defacto_liege = FROM
+			clr_title_flag = revolting_legion_@PREV
+			holder_scope = {
+				if = {
+					limit = { government = legion_government }
+					set_character_flag = legion_to_transfer_@ROOT
+				}
+			}
+		}
+		
 		if = {
 			limit = { 
 				FROM = {
@@ -1541,7 +1564,7 @@ other_claim_on_liege = {
 						}
 					}
 				}
-				FROM = { 
+				FROM = {
 					any_vassal = { 
 						limit = {
 							government = legion_government
@@ -1555,14 +1578,6 @@ other_claim_on_liege = {
 		
 		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
 		
-		# Transfer Legions
-		if = {
-			limit = {
-				FROM = { has_character_flag = transfer_legions_@ROOT }
-			}
-			ROOT = { character_event = { id = 315925 } }
-		}
-		
 		if = {
 			limit = {
 				higher_tier_than = BARON
@@ -1573,6 +1588,17 @@ other_claim_on_liege = {
 	}
 
 	on_success_posttitle = {
+		set_character_flag = rebel_leader_@ROOT
+		ROOT = { set_character_flag = check_rebel_leader_for_legions }
+		
+		# Transfer Legions
+		if = {
+			limit = {
+				FROM = { has_character_flag = transfer_legions_@ROOT }
+			}
+			ROOT = { character_event = { id = 315925 } }
+		}
+		
 		hidden_tooltip = {
 			if = {
 				limit = {
@@ -1623,6 +1649,13 @@ other_claim_on_liege = {
 	}
 
 	on_fail = {
+		if = {
+			limit = { is_liege_or_above = FROM }
+			hidden_tooltip = {
+				character_event = { id = 315911 } 
+			}
+		}
+		
 		prestige = -100
 		
 		imprison = FROM
@@ -1657,6 +1690,13 @@ other_claim_on_liege = {
 
 	on_reverse_demand = {
 		prestige = -200
+		if = {
+			limit = { is_liege_or_above = FROM }
+			hidden_tooltip = { 
+				set_character_flag = faction_defeated
+				character_event = { id = 315911 } 
+			}
+		}
 		
 		imprison = FROM
 		if = {
@@ -1814,7 +1854,7 @@ claim_all = {
 		# Transfer Legions
 		if = {
 			limit = { FROM = { has_character_flag = usurped_primary_title } }
-			FROM = { clr_character_flag = usurped_primary_title}
+			FROM = { clr_character_flag = usurped_primary_title }
 			if = {
 				limit = {
 					FROM = { 
