@@ -4302,7 +4302,7 @@ character_event = {
 		add_trait = roman_trained
 		
 		# Stat boost
-		change_martial = 3
+		#change_martial = 3
 		if = {
 			limit = { NOT = { diplomacy = 4 } }
 			change_diplomacy = 2
@@ -4936,7 +4936,7 @@ character_event = {
 				custom_tooltip = {
 					text = EVTOPTA315921TT
 				}
-				#hidden_tooltip = {
+				hidden_tooltip = {
 					if = {
 						limit = { 
 							has_landed_title = d_legio_vi_victrix 
@@ -5027,7 +5027,7 @@ character_event = {
 							disband_event_forces = legio_six_gallicana
 						}
 					}
-				#}
+				}
 			}
 		}
 	}
@@ -5539,6 +5539,269 @@ province_event = {
 				name = legion_castrum_modifier_2 
 				hidden = yes
 				duration = -1
+			}
+		}
+	}
+}
+
+# Legions demand payment
+character_event = {
+	id = 315935
+	title = "EVTNAME315935"
+	desc = "EVTDESC315935"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"	
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_roman_emperor_trigger = yes
+		any_vassal = {
+			government = legion_government
+		}
+		NOT = { has_character_flag = created_roman_empire_title }
+	}
+	
+	immediate = {
+		set_variable = {
+			which = num_legions
+			value = 0
+		}
+		any_vassal = {
+			limit = { government = legion_government }
+			ROOT = {
+				change_variable = {
+					which = num_legions
+					value = 1
+				}
+			}
+		}
+		set_variable = {
+			which = normal_payment_cost
+			value = 75
+		}
+		multiply_variable = {
+			which = normal_payment_cost
+			which = num_legions
+		}
+		multiply_variable = {
+			which = normal_payment_cost
+			value = -1
+		}
+		set_variable = {
+			which = high_payment_cost
+			value = 110
+		}
+		multiply_variable = {
+			which = high_payment_cost
+			which = num_legions
+		}
+		multiply_variable = {
+			which = high_payment_cost
+			value = -1
+		}
+		
+		# Determine relative wealth for AI
+		export_to_variable = {
+			which = current_wealth
+			value = wealth
+		}
+		export_to_variable = {		# Get normalized monthly income
+			which = current_monthly_income
+			value = monthly_income
+		}
+		if = {
+			limit = { has_global_flag = winter_season }
+			multiply_variable = {
+				which = current_monthly_income
+				value = 1.5
+			}
+		}
+		else_if = {
+			limit = { has_global_flag = autumn_season }
+			multiply_variable = {
+				which = current_monthly_income
+				value = 0.67
+			}
+		}
+		set_variable = {
+			which = normal_payment_debt
+			which = normal_payment_cost
+		}
+		change_variable = {
+			which = normal_payment_debt
+			which = current_wealth
+		}		
+		set_variable = {
+			which = months_to_pay_debt
+			value = 0
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						normal_payment_debt
+						value = 0
+					}
+				}
+			}
+			set_variable = {
+				which = months_to_pay_debt
+				which = normal_payment_debt
+			}
+			if = {
+				limit = {
+					NOT = {
+						is_variable_equal = {
+							which = current_monthly_income
+							value = 0
+						}
+					}
+				}
+				divide_variable = {
+					which = months_to_pay_debt
+					which = current_monthly_income
+				}
+				multiply_variable = {
+					which = normal_payment_debt
+					value = -1
+				}
+			}
+			else = {
+				set_variable = {
+					which = months_to_pay_debt
+					value = 1000
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315935"		# Pay them
+		wealth = normal_payment_cost
+		ai_chance = {
+			factor = 75
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 30		# Some of it goes to the soldiers
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315935"		# Pay them a lot
+		wealth = high_payment_cost
+		any_vassal = {
+			limit = { government = legion_government }
+			opinion = {
+				who = ROOT
+				modifier = opinion_large_payment
+				years = 5
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 45		# Some of it goes to the soldiers
+			}
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				NOT = { 
+					check_variable = {
+						which = current_wealth
+						which = high_payment_cost
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 0
+				trait = greedy
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315935"		# No
+		prestige = 50
+		any_vassal = {
+			limit = { government = legion_government }
+			opinion = {
+				who = ROOT
+				modifier = opinion_refused_payment
+				years = 5
+			}
+		}
+		add_character_modifier = {
+			name = angered_army
+			duration = 1825
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.75
+				trait = charitable
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { 
+					check_variable = {
+						which = current_wealth
+						which = normal_payment_cost
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 6
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 12
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 18
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 24
+				}
 			}
 		}
 	}

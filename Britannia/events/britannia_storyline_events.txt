@@ -980,7 +980,7 @@ long_character_event = {
 	}
 	
 	mean_time_to_happen = {
-		days = 10
+		days = 30
 	}
 	
 	immediate = {
@@ -1051,13 +1051,13 @@ long_character_event = {
 			}
 		}
 		event_target:ceinwyn_seren = {
-			tooltip = {
-				add_spouse = 10
-				add_lover = 10
+			show_scope_change = no
+			custom_tooltip = {
+				text = "§Y[ceinwyn_seren.GetBestName]§! will run off with §YDerfel Cadarn§!."
 			}
 			hidden_tooltip = {
 				host = {
-					character_event = { id = 312133 }
+					character_event = { id = 312133 days = 2 }
 				}
 			}
 		}
@@ -1069,13 +1069,49 @@ long_character_event = {
 		ai_chance = {
 			factor = 5
 		}
-		add_spouse = 27 	#Ceinwyn
-		event_target:lancelot_dulac = { 
-			add_spouse = 26 	#Guinevere
-			add_lover = 26		#Guinevere
+		tooltip = {
+			add_spouse = 27 	#Ceinwyn
+		}
+		if = {
+			limit = {
+				liege = {
+					NOT = { character = ROOT }
+					regent = {
+						character = ROOT
+					}
+				}
+			}
+			liege = {
+				show_scope_change = no
+				event_target:ceinwyn_seren = {
+					show_scope_change = no
+					host = {
+						show_scope_change = no
+						custom_tooltip = {
+							text = EVTOPTB312130_TOOLTIP
+						}
+					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			event_target:ceinwyn_seren = {
+				character_event = { id = 312135 }
+			}
+		}
+		tooltip = {
+			event_target:lancelot_dulac = { 
+				add_spouse = 26 	#Guinevere
+				add_lover = 26		#Guinevere
+			}
+			hidden_tooltip = {
+				host = {
+					character_event = { id = 312139 days = 2 }
+				}
+			}
 		}
 		event_target:nimue = {	#Nimue
-			remove_lover = 2 	#Merlin
+			hidden_tooltip = { remove_lover = 2 } 	#Merlin
 			add_lover = 10 		#Derfel
 		}
 		set_global_flag = arthur_married
@@ -1127,6 +1163,9 @@ character_event = {
 		text = "EVTOPTB312131"
 		trigger = {
 			ROOT = { character = 26 }
+		}
+		hidden_tooltip = {
+			FROM = { character_event = { id = 312132 } }
 		}
 		ai_chance = {
 			factor = 0
@@ -1247,6 +1286,235 @@ character_event = {
 		event_target:derfel_cadarn = {
 			add_spouse = 27
 			add_lover = 27
+		}
+	}
+}
+
+# Bounce event from Ceinwyn to get the relation
+character_event = {
+	id = 312135
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		host = { character_event = { id = 312136 } }
+	}
+}
+
+# Notify Ceinywn's host (marriage with Arthur)
+character_event = {
+	id = 312136
+	desc = {
+		text = EVTDESC312136
+		trigger = {
+			ROOT = { NOT = { character = 27 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312136_1		# Special text for Ceinwyn
+		trigger = {
+			ROOT = { character = 27 }
+		}
+	}
+	picture = GFX_evt_council
+	hide_FROM = yes
+	show_FROMFROM = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312136"
+			trigger = {
+				ROOT = { NOT = { character = 27 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312136_1"
+			trigger = {
+				ROOT = { character = 27 }
+			}
+		}
+		event_target:ceinwyn_seren = {
+			show_scope_change = no
+			add_spouse = 3
+		}
+		FROMFROM = {
+			show_scope_change = no
+			liege = {
+				show_scope_change = no
+				if = {
+					limit = { 
+						NOT = { character = PREV } 
+						regent = {
+							character = PREVPREV
+						}
+					}
+					custom_tooltip = {
+						text = EVTOPTA312136_TOOLTIP
+					}
+					hidden_tooltip = {
+						character_event = { id = 312137 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB312136"
+		ai_chance = {
+			factor = 0
+		}
+		hidden_tooltip = {
+			FROMFROM = { character_event = { id = 312138 } }
+		}
+	}
+}
+
+# Notify Arthur's liege (i.e. Mordred)
+character_event = {
+	id = 312137
+	desc = EVTDESC312137
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA312137"
+		custom_tooltip = {
+			text = EVTOPTA312137_TOOLTIP
+			opinion = {
+				modifier = in_non_aggression_pact
+				years = 10
+				who = FROM
+			}
+			FROM = {
+				opinion = {
+					modifier = in_non_aggression_pact
+					years = 10
+					who = ROOT
+				}
+			}
+		}
+	}
+}
+
+# Ceinwyn refuses
+character_event = {
+	id = 312138
+	desc = EVTDESC312138
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA312138"
+	}
+}
+
+# Notify Guinevere's host (marriage with Lancelot)
+character_event = {
+	id = 312139
+	desc = {
+		text = EVTDESC312139
+		trigger = {
+			ROOT = { NOT = { character = 26 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312139_1		# Special text for Guinevere
+		trigger = {
+			ROOT = { character = 26 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312139"
+			trigger = {
+				ROOT = { NOT = { character = 26 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312139_1"
+			trigger = {
+				ROOT = { character = 26 }
+			}
+		}
+		event_target:guinevere = {
+			tooltip = {
+				add_spouse = 31
+				add_lover = 31
+			}
+			hidden_tooltip = {
+				event_target:lancelot_dulac = {
+					character_event = { id = 312170 }
+				}
+			}
+		}
+	}
+}
+
+
+# Bounce event from Lancelot to get the relation
+character_event = {
+	id = 312170
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		host = { character_event = { id = 312171 } }
+	}
+}
+
+# Notify Lancelot's host (marriage with Guinevere)
+character_event = {
+	id = 312171
+	desc = {
+		text = EVTDESC312171
+		trigger = {
+			ROOT = { NOT = { character = 31 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312171_1		# Special text for Lancelot himself
+		trigger = {
+			ROOT = { character = 31 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312171"
+			trigger = {
+				ROOT = { NOT = { character = 31 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312171_1"
+			trigger = {
+				ROOT = { character = 31 }
+			}
+		}
+		event_target:lancelot_dulac = {
+			add_spouse = 26
+			add_lover = 26
 		}
 	}
 }

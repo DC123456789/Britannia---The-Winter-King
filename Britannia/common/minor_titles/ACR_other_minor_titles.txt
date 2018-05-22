@@ -34,20 +34,6 @@ title_court_wizard = {
 	message = yes
 }
 
-title_pagan_wizard = {
-	grant_limit = 1
-
-	allowed_to_hold = {
-		NOT = { has_minor_title = title_court_wizard }
-	}
-
-	allowed_to_grant = { always = no }
-
-	gain_effect = { }
-	lose_effect = { }
-
-	message = no
-}
 title_acr_champion = {
 	dignity = 0.2
 	realm_in_name = yes
@@ -62,7 +48,30 @@ title_acr_champion = {
 		
 		OR = {
 			is_female = no
-			is_feminist_religion_trigger = yes
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { religion = PREV }
+			}
+			AND = {
+				liege = {
+					primary_title = {
+						has_law = status_of_women_3
+					}
+				}
+				OR = {
+					liege = {
+						OR = {
+							dynasty = ROOT
+							is_close_relative = ROOT
+							any_spouse = { character = ROOT }
+							any_consort = { character = ROOT }
+						}
+					}
+					is_landed = yes
+					
+				}
+			}
+			has_law = status_of_women_4
 		}
 	}
 
@@ -100,7 +109,30 @@ title_master_arms = {
 		
 		OR = {
 			is_female = no
-			is_feminist_religion_trigger = yes
+			AND = {
+				is_feminist_religion_trigger = yes
+				liege = { religion = PREV }
+			}
+			AND = {
+				liege = {
+					primary_title = {
+						has_law = status_of_women_3
+					}
+				}
+				OR = {
+					liege = {
+						OR = {
+							dynasty = ROOT
+							is_close_relative = ROOT
+							any_spouse = { character = ROOT }
+							any_consort = { character = ROOT }
+						}
+					}
+					is_landed = yes
+					
+				}
+			}
+			has_law = status_of_women_4
 		}
 
 		martial = 6
