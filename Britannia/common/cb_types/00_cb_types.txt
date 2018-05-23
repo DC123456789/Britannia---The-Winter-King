@@ -1424,10 +1424,22 @@ other_claim_on_liege = {
 	
 	on_invalidation = {
 		if = {
-			limit = { is_liege_or_above = FROM }
+			limit = { 
+				OR = {
+					is_liege_or_above = FROM 
+					liege_before_war = {
+						character = FROM
+					}
+				}
+			}
 			hidden_tooltip = {
-				FROM = { set_character_flag = prewar_liege_@ROOT }
-				ROOT = { character_event = { id = 315913 } }
+				FROM = { set_character_flag = prewar_liege_@PREV }
+				character_event = { id = 315913 }
+			}
+		}
+		else = {
+			FROM = {
+				character_event = { id = 315923 } 
 			}
 		}
 	}
@@ -1544,6 +1556,7 @@ other_claim_on_liege = {
 					set_character_flag = legion_to_transfer_@ROOT
 				}
 			}
+			FROM = { set_character_flag = transfer_legions_@ROOT }
 		}
 		
 		if = {
