@@ -1040,3 +1040,55 @@ is_gothic_ruler_trigger = {
 		}				
 	}
 }
+
+is_from_and_this_top_liege_roman_province_trigger = {
+	top_liege = {
+		is_tributary = { type = roman_province }
+		suzerain = {
+			FROM = { 
+				is_tributary = { 
+					type = roman_province 
+					suzerain = PREV
+				} 
+			}
+		}
+	}
+}
+
+# Checks if FROM is a client state, foederate, or province of the same suzerain as your top liege
+shares_same_permanent_suzerain_with_from_trigger = {
+	FROM = {
+		OR = {
+			is_tributary = { type = client_state }
+			is_tributary = { type = foederati }
+			is_tributary = { type = roman_province }
+			AND = {
+				in_revolt = yes
+				top_liege = {
+					liege_before_war = {
+						OR = {
+							is_tributary = { type = client_state }
+							is_tributary = { type = foederati }
+							is_tributary = { type = roman_province }
+						}
+					}
+				}
+			}
+		}
+	}
+	top_liege = {
+		suzerain = {
+			any_tributary = {
+				OR = {
+					character = FROM
+					FROM = {
+						in_revolt = yes
+						liege_before_war = {
+							character = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+}
