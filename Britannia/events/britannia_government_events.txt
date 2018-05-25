@@ -217,3 +217,29 @@ character_event = {
 		}
 	}
 }
+
+
+# If Imperial characters somehow become not Imperial, set them back
+character_event = {
+	id = 302545
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_feudal = yes
+		is_government_potential = imperial_government
+		NOT = { government = imperial_government }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_government_type = imperial_government
+	}
+}
