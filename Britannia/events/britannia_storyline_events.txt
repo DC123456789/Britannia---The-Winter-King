@@ -4,7 +4,7 @@
 #
 # Ids 311180 - 311189
 # Ids 312090 - 312160
-# Ids 312170 - 312199
+# Ids 312174 - 312199
 # Ids 313260 - 313269
 #
 ###################################
@@ -992,16 +992,16 @@ long_character_event = {
 		any_consort = {
 			remove_consort = yes
 		}	
-		event_target:guinevere = {
-			remove_trait = forbid_marriage
-			remove_spouse = yes
-			remove_consort = yes
-			any_lover = {
-				remove_lover = 26	#Guinevere
-			}
-			fertility = 0.35
-		}
 		hidden_tooltip = {
+			event_target:guinevere = {
+				remove_trait = forbid_marriage
+				remove_spouse = yes
+				remove_consort = yes
+				any_lover = {
+					remove_lover = 26	#Guinevere
+				}
+				fertility = 0.35
+			}
 			event_target:derfel_cadarn = {
 				remove_trait = forbid_marriage
 				remove_spouse = yes
@@ -1043,6 +1043,9 @@ long_character_event = {
 			add_spouse = 26		#Guinevere
 			add_lover = 26		#Guinevere
 		}
+		event_target:guinevere = {
+			show_portrait = yes
+		}
 		hidden_tooltip = {
 			event_target:guinevere = {
 				host = {
@@ -1057,7 +1060,7 @@ long_character_event = {
 			}
 			hidden_tooltip = {
 				host = {
-					character_event = { id = 312133 days = 2 }
+					character_event = { id = 312133 days = 1 }
 				}
 			}
 		}
@@ -1067,6 +1070,9 @@ long_character_event = {
 		name = "EVTOPTB312130"
 		ai_chance = {
 			factor = 5
+		}
+		event_target:ceinwyn_seren = {
+			show_portrait = yes
 		}
 		tooltip = {
 			add_spouse = 27 	#Ceinwyn
@@ -1098,25 +1104,24 @@ long_character_event = {
 				character_event = { id = 312135 }
 			}
 		}
-		tooltip = {
-			event_target:lancelot_dulac = { 
-				add_spouse = 26 	#Guinevere
-				add_lover = 26		#Guinevere
-			}
-			hidden_tooltip = {
+		custom_tooltip = {
+			text = "§Y[lancelot_dulac.GetBestName]§! will fall in love with and marry §Y[guinevere.GetBestName]§!."
+		}
+		hidden_tooltip = {
+			event_target:guinevere = {
 				host = {
-					character_event = { id = 312139 days = 2 }
+					character_event = { id = 312139 days = 1 }
 				}
 			}
 		}
 		event_target:derfel_cadarn = {
 			show_scope_change = no
-			custom_tooltip = {
+			tooltip = {
 				add_lover = 6
 			}
 			hidden_tooltip = {
 				host = {
-					character_event = { id = 312172 days = 2 }
+					character_event = { id = 312174 days = 1 }
 				}
 			}
 		}
@@ -1467,7 +1472,7 @@ character_event = {
 			}
 			hidden_tooltip = {
 				event_target:lancelot_dulac = {
-					character_event = { id = 312170 }
+					character_event = { id = 312172 }
 				}
 			}
 		}
@@ -1476,7 +1481,7 @@ character_event = {
 
 # Bounce event from Lancelot to get the relation
 character_event = {
-	id = 312170
+	id = 312172
 	desc = "You're not supposed to see this..."
 	picture = GFX_evt_council
 	hide_window = yes
@@ -1484,21 +1489,21 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		host = { character_event = { id = 312171 } }
+		host = { character_event = { id = 312173 } }
 	}
 }
 
 # Notify Lancelot's host (marriage with Guinevere)
 character_event = {
-	id = 312171
+	id = 312173
 	desc = {
-		text = EVTDESC312171
+		text = EVTDESC312173
 		trigger = {
 			ROOT = { NOT = { character = 31 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312171_1		# Special text for Lancelot himself
+		text = EVTDESC312173_1		# Special text for Lancelot himself
 		trigger = {
 			ROOT = { character = 31 }
 		}
@@ -1509,13 +1514,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312171"
+			text = "EVTOPTA312173"
 			trigger = {
 				ROOT = { NOT = { character = 31 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312171_1"
+			text = "EVTOPTA312173_1"
 			trigger = {
 				ROOT = { character = 31 }
 			}
@@ -1529,15 +1534,15 @@ character_event = {
 
 # Notify Derfel's host (falls in love with Nimue)
 character_event = {
-	id = 312172
+	id = 312174
 	desc = {
-		text = EVTDESC312172
+		text = EVTDESC312174
 		trigger = {
 			ROOT = { NOT = { character = 10 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312172_1		# Special text for Derfel himself
+		text = EVTDESC312174_1		# Special text for Derfel himself
 		trigger = {
 			ROOT = { character = 10 }
 		}
@@ -1548,13 +1553,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312172"
+			text = "EVTOPTA312174"
 			trigger = {
 				ROOT = { NOT = { character = 10 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312172_1"
+			text = "EVTOPTA312174_1"
 			trigger = {
 				ROOT = { character = 10 }
 			}
@@ -1567,7 +1572,7 @@ character_event = {
 				host = {
 					if = {
 						limit = { NOT = { character = ROOT } }
-						character_event = { id = 312173 }
+						character_event = { id = 312175 }
 					}
 					else = {
 						PREV = { remove_lover = 2 } 	#Merlin
@@ -1580,15 +1585,15 @@ character_event = {
 
 # Notify Nimue's host (falls in love with Derfel)
 character_event = {
-	id = 312173
+	id = 312175
 	desc = {
-		text = EVTDESC312173
+		text = EVTDESC312175
 		trigger = {
 			ROOT = { NOT = { character = 6 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312173_1		# Special text for Nimue herself
+		text = EVTDESC312175_1		# Special text for Nimue herself
 		trigger = {
 			ROOT = { character = 6 }
 		}
@@ -1599,13 +1604,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312173"
+			text = "EVTOPTA312175"
 			trigger = {
 				ROOT = { NOT = { character = 6 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312173_1"
+			text = "EVTOPTA312175_1"
 			trigger = {
 				ROOT = { character = 6 }
 			}
