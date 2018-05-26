@@ -1061,7 +1061,6 @@ long_character_event = {
 				}
 			}
 		}
-		set_global_flag = arthur_married
 	}
 	
 	option = {
@@ -1110,10 +1109,20 @@ long_character_event = {
 				}
 			}
 		}
-		event_target:nimue = {	#Nimue
-			hidden_tooltip = { remove_lover = 2 } 	#Merlin
-			add_lover = 10 		#Derfel
+		event_target:derfel_cadarn = {
+			show_scope_change = no
+			custom_tooltip = {
+				add_lover = 6
+			}
+			hidden_tooltip = {
+				host = {
+					character_event = { id = 312172 days = 2 }
+				}
+			}
 		}
+	}
+	
+	after = {
 		set_global_flag = arthur_married
 	}
 }
@@ -1465,7 +1474,6 @@ character_event = {
 	}
 }
 
-
 # Bounce event from Lancelot to get the relation
 character_event = {
 	id = 312170
@@ -1519,6 +1527,104 @@ character_event = {
 	}
 }
 
+# Notify Derfel's host (falls in love with Nimue)
+character_event = {
+	id = 312172
+	desc = {
+		text = EVTDESC312172
+		trigger = {
+			ROOT = { NOT = { character = 10 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312172_1		# Special text for Derfel himself
+		trigger = {
+			ROOT = { character = 10 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312172"
+			trigger = {
+				ROOT = { NOT = { character = 10 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312172_1"
+			trigger = {
+				ROOT = { character = 10 }
+			}
+		}
+		event_target:derfel_cadarn = {
+			add_lover = 6
+		}
+		hidden_tooltip = {
+			event_target:nimue = {
+				host = {
+					if = {
+						limit = { NOT = { character = ROOT } }
+						character_event = { id = 312173 }
+					}
+					else = {
+						PREV = { remove_lover = 2 } 	#Merlin
+					}
+				}
+			}
+		}
+	}
+}
+
+# Notify Nimue's host (falls in love with Derfel)
+character_event = {
+	id = 312173
+	desc = {
+		text = EVTDESC312173
+		trigger = {
+			ROOT = { NOT = { character = 6 } }
+		}
+	}
+	desc = {
+		text = EVTDESC312173_1		# Special text for Nimue herself
+		trigger = {
+			ROOT = { character = 6 }
+		}
+	}
+	picture = GFX_evt_lovers
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA312173"
+			trigger = {
+				ROOT = { NOT = { character = 6 } }
+			}
+		}
+		name = {
+			text = "EVTOPTA312173_1"
+			trigger = {
+				ROOT = { character = 6 }
+			}
+		}
+		if = {
+			limit = {
+				any_lover = {
+					character = 2	#Merlin
+				}
+				remove_lover = 2
+			}
+		}
+		tooltip = {
+			event_target:nimue = {
+				add_lover = 10
+			}
+		}
+	}
+}
 # Decline of Dumnonia
 narrative_event = {
 	id = 312115

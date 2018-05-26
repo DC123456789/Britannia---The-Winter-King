@@ -140,30 +140,7 @@ county_conquest_can_use_trigger = {
 				}
 			}
 		}
-		# Stops client states, foederati, and provinces from being declared on by other tributaries of the same suzerain
-		NAND = {
-			FROM = {
-				OR = {
-					is_tributary = { type = client_state }
-					is_tributary = { type = foederati }
-					is_tributary = { type = roman_province }
-				}
-			}
-			OR = {
-				suzerain = {
-					any_tributary = {
-						character = FROM
-					}
-				}
-				top_liege = {
-					suzerain = {
-						any_tributary = {
-							character = FROM
-						}
-					}
-				}
-			}
-		}
+		shares_same_permanent_suzerain_with_from_trigger = no
 	}
 	
 	# Norse Mutual Protection
@@ -679,21 +656,7 @@ duchy_invasion_can_use_trigger = {
 						region = world_ireland
 					}
 				}
-				# Stops client states, foederati, and provinces from being declared on by other tributaries of the same suzerain
-				NAND = {
-					FROM = {
-						OR = {
-							is_tributary = { type = client_state }
-							is_tributary = { type = foederati }
-							is_tributary = { type = roman_province }
-						}
-					}
-					suzerain = {
-						any_tributary = {
-							character = FROM
-						}
-					}
-				}
+				shares_same_permanent_suzerain_with_from_trigger = no
 			}
 			
 			# Cannot use on Ostrogothic governor if tributary of Ostrogoths
