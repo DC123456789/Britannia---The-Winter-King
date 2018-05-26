@@ -2428,6 +2428,25 @@ province_event = {
 			factor = 0.9
 			has_province_modifier = roman_colonies
 		}
+		modifier = {
+			factor = 2
+			any_province_holding = {
+				holding_type = tribal
+			}
+		}
+		modifier = {
+			factor = 2
+			any_province_holding = {
+				holding_type = tribal
+				NOR = { 
+					has_building = tb_hillfort_4 
+					has_building = tb_hillfort_5 
+					has_building = tb_hillfort_6 
+					has_building = tb_hillfort_7 
+					has_building = tb_hillfort_8 
+				}
+			}
+		}
 	}
 
 	option = {
@@ -2503,6 +2522,66 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20000"
 		prestige = 20
+	}
+}
+
+# Romano-British culture and Imperial cultures get reduced maluses to each other (equivalent to same culture group)
+province_event = {
+	id = 315195
+	desc = "You're not supposed to see this..."
+	
+	trigger = {
+		NOT = { has_province_modifier = cultural_bonds }
+		OR = {
+			AND = {
+				culture = romanobritish
+				owner = { culture_group = imperiale }
+			}
+			AND = {
+				culture_group = imperiale
+				owner = { culture = romanobritish }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		add_province_modifier = {
+			name = cultural_bonds 
+			hidden = yes
+			duration = -1
+		}
+	}
+}
+
+# Remove Cultural Bonds modifier if no longer applies
+province_event = {
+	id = 315195
+	desc = "You're not supposed to see this..."
+	
+	trigger = {
+		has_province_modifier = cultural_bonds
+		NOR = {
+			AND = {
+				culture = romanobritish
+				owner = { culture_group = imperiale }
+			}
+			AND = {
+				culture_group = imperiale
+				owner = { culture = romanobritish }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		remove_province_modifier = cultural_bonds
 	}
 }
 

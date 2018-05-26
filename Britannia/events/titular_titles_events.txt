@@ -1009,8 +1009,14 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_the_belgae = { 
-			de_jure_liege = k_dumnonia
+		d_the_belgae = {
+			if = {
+				limit = { has_global_flag = gwinntguic_created }
+				de_jure_liege = k_belgae
+			}
+			else = {			
+				de_jure_liege = k_dumnonia
+			}
 			set_name = "The Belgae"
 			adjective = "Belgic"
 			destroy_landed_title = THIS
