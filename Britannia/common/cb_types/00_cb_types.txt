@@ -4113,7 +4113,19 @@ overthrow_ruler = {
 			higher_tier_than = ROOT
 		}
 	}
-
+	
+	on_add = {
+		hidden_tooltip = {
+			# Legions that join the rebellion defect
+			FROM = {
+				any_vassal = {
+					limit = { government = legion_government }
+					character_event = { id = 315915 days = 2 }
+				}
+			}
+		}
+	}
+	
 	on_success = {
 		ROOT = {
 			primary_title = {
@@ -4184,6 +4196,10 @@ overthrow_ruler = {
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 250 }
+			hidden_tooltip = {
+				# Return revolting legions
+				character_event = { id = 315917 days = 2 }
+			}
 		}
 	}
 
@@ -4195,6 +4211,12 @@ overthrow_ruler = {
 			remove_opinion = {
 				who = ROOT
 				modifier = declared_war
+			}
+		}
+		any_attacker = {
+			hidden_tooltip = {
+				# Return revolting legions
+				character_event = { id = 315917 days = 2 }
 			}
 		}
 	}
@@ -4221,6 +4243,12 @@ overthrow_ruler = {
 			hidden_tooltip = { participation_scaled_prestige = 50 }
 		}
 		hidden_tooltip = {
+			any_attacker = {
+				hidden_tooltip = {
+					# Return revolting legions
+					character_event = { id = 315917 days = 2 }
+				}
+			}
 			any_attacker = {
 				limit = { liege = { character = FROM } }
 				prisoner = FROM
