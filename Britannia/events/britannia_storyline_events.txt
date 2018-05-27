@@ -1120,9 +1120,7 @@ long_character_event = {
 				add_lover = 6
 			}
 			hidden_tooltip = {
-				host = {
-					character_event = { id = 312174 days = 1 }
-				}
+				character_event = { id = 312174 days = 1 }
 			}
 		}
 	}
@@ -1532,17 +1530,31 @@ character_event = {
 	}
 }
 
-# Notify Derfel's host (falls in love with Nimue)
+# Bounce event from Derfel to get the relation
 character_event = {
 	id = 312174
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		host = { character_event = { id = 312175 } }
+	}
+}
+
+# Notify Derfel's host (falls in love with Nimue)
+character_event = {
+	id = 312175
 	desc = {
-		text = EVTDESC312174
+		text = EVTDESC312175
 		trigger = {
 			ROOT = { NOT = { character = 10 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312174_1		# Special text for Derfel himself
+		text = EVTDESC312175_1		# Special text for Derfel himself
 		trigger = {
 			ROOT = { character = 10 }
 		}
@@ -1553,13 +1565,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312174"
+			text = "EVTOPTA312175"
 			trigger = {
 				ROOT = { NOT = { character = 10 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312174_1"
+			text = "EVTOPTA312175_1"
 			trigger = {
 				ROOT = { character = 10 }
 			}
@@ -1569,13 +1581,11 @@ character_event = {
 		}
 		hidden_tooltip = {
 			event_target:nimue = {
+				remove_lover = 2 	#Merlin
 				host = {
 					if = {
 						limit = { NOT = { character = ROOT } }
-						character_event = { id = 312175 }
-					}
-					else = {
-						PREV = { remove_lover = 2 } 	#Merlin
+						character_event = { id = 312176 }
 					}
 				}
 			}
@@ -1585,15 +1595,15 @@ character_event = {
 
 # Notify Nimue's host (falls in love with Derfel)
 character_event = {
-	id = 312175
+	id = 312176
 	desc = {
-		text = EVTDESC312175
+		text = EVTDESC312176
 		trigger = {
 			ROOT = { NOT = { character = 6 } }
 		}
 	}
 	desc = {
-		text = EVTDESC312175_1		# Special text for Nimue herself
+		text = EVTDESC312176_1		# Special text for Nimue herself
 		trigger = {
 			ROOT = { character = 6 }
 		}
@@ -1604,13 +1614,13 @@ character_event = {
 	
 	option = {
 		name = {
-			text = "EVTOPTA312175"
+			text = "EVTOPTA312176"
 			trigger = {
 				ROOT = { NOT = { character = 6 } }
 			}
 		}
 		name = {
-			text = "EVTOPTA312175_1"
+			text = "EVTOPTA312176_1"
 			trigger = {
 				ROOT = { character = 6 }
 			}
