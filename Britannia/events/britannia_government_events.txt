@@ -61,8 +61,37 @@ character_event = {
 		}
 	}
 	
+	immediate = {
+		primary_title = {
+			save_event_target_as = former_primary_title
+		}
+	}
+	
 	option = {
 		name = "EVTOPTA302500"
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = {
+						holder_scope = { character = ROOT }
+						higher_tier_than = DUKE
+						NAND = {
+							tier = KING
+							empire = {
+								OR = {
+									title = e_ireland
+									title = e_alba
+									title = e_britannia
+									title = e_cymru
+								}
+							}
+							ROOT = { culture_group = celtic }
+						}						
+					}
+				}
+				character_event = { id = 302501 }
+			}
+		}
 		any_demesne_title = {
 			limit = {
 				higher_tier_than = DUKE
@@ -80,6 +109,22 @@ character_event = {
 				}
 			}
 			destroy_landed_title = THIS
+		}
+	}
+}
+
+# Notify newly independent vassal
+character_event = {
+	id = 302501
+	desc = "EVTDESC302501"	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302501"
+		tooltip = {
+			set_defacto_liege = THIS
 		}
 	}
 }
