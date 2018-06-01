@@ -84,6 +84,16 @@ targetted_decisions = {
 		effect = {
 			FROM = {
 				piety = -150
+				if = {
+					limit = { 
+						religion_group = christian 
+						ROOT = { NOT = { religion_group = christian } }
+					}
+					add_character_modifier = {
+						name = christian_apostate
+						duration = -1
+					}
+				}
 				religion = ROOT
 			}
 		}
@@ -187,6 +197,16 @@ targetted_decisions = {
 		}
 		effect = {
 			piety = -150
+			if = {
+				limit = { 
+					religion_group = christian 
+					liege = { NOT = { religion_group = christian } }
+				}
+				add_character_modifier = {
+					name = christian_apostate
+					duration = -1
+				}
+			}
 			liege = {
 				reverse_religion = ROOT
 			}
@@ -292,7 +312,7 @@ targetted_decisions = {
 						NOR = {
 							trait = proud
 							trait = cruel
-							trait = honorable 
+							# trait = honorable 
 						}
 						OR = {
 							trait = charitable
@@ -322,7 +342,7 @@ targetted_decisions = {
 						}
 						NOR = {
 							trait = cruel
-							trait = honorable
+							# trait = honorable
 						}
 					}
 					AND = {
@@ -379,7 +399,7 @@ targetted_decisions = {
 							trait = chaste
 						}
 						NOT = { trait = cruel }
-						NOT = { trait = honorable }
+						# NOT = { trait = honorable }
 						NOT = { martial = 10 }
 						OR = {
 							trait = cynical
@@ -402,7 +422,7 @@ targetted_decisions = {
 							trait = diligent
 						}
 						NOT = { trait = cruel }
-						NOT = { trait = honorable }
+						# NOT = { trait = honorable }
 						NOT = { martial = 14 }
 					}
 				}
@@ -527,6 +547,15 @@ targetted_decisions = {
 			set_character_flag = converted_to_roman_religion
 			set_character_flag = converted
 			piety = -150
+			if = {
+				limit = { 
+					religion_group = christian
+				}
+				add_character_modifier = {
+					name = christian_apostate
+					duration = -1
+				}
+			}
 			hidden_tooltip = {
 				character_event = { id = 312504 }
 			}
@@ -595,6 +624,15 @@ targetted_decisions = {
 			set_character_flag = converted_to_old_gods
 			set_character_flag = converted
 			piety = -150
+			if = {
+				limit = { 
+					religion_group = christian
+				}
+				add_character_modifier = {
+					name = christian_apostate
+					duration = -1
+				}
+			}
 			hidden_tooltip = {
 				if = {
 					limit = { NOT = { has_global_flag = briton_reformation } } 
@@ -629,6 +667,7 @@ targetted_decisions = {
 				religion = frankish_pagan
 				religion = suebic_pagan
 				religion = gothic_pagan
+				religion = vasconic_pagan
 			}
 		}
 		allow = {
@@ -668,6 +707,10 @@ targetted_decisions = {
 			if = {
 				limit = { religion = gothic_pagan }
 				religion = gothic_pagan_reformed
+			}
+			if = {
+				limit = { religion = vasconic_pagan }
+				religion = vasconic_pagan_reformed
 			}
 			
 			hidden_tooltip = {
@@ -1132,6 +1175,17 @@ targetted_decisions = {
 					}
 				}		
 			
+				if = {
+					limit = { 
+						religion_group = christian
+						ROOT = { NOT = { religion_group = christian } }
+					}
+					add_character_modifier = {
+						name = christian_apostate
+						duration = -1
+					}
+				}
+				
 				religion = ROOT
 				
 				hidden_tooltip = {

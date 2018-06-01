@@ -4579,21 +4579,17 @@ narrative_event = {
 						}
 					}
 				}
-				NOT = { ROOT = { has_character_flag = duchy_invader } }
+			}
+			ROOT = {
+				set_character_flag = meonware_invader 
 			}
 			6 = {
-				county = {
-					holder_scope = {
-						top_liege = { set_character_flag = duchy_invasion_target }
-					}
-					ROOT = { 
-						set_character_flag = duchy_invader 
-						set_character_flag = meonware_invader 
-					}
-				}
+				show_scope_change = no
 				duchy = {
+					show_scope_change = no
 					ROOT = {
-						war = {
+						show_scope_change = no
+						unsafe_war = {
 							casus_belli = duchy_invasion_event
 							target = PREVPREV
 							thirdparty_title = PREVPREV
@@ -4603,7 +4599,7 @@ narrative_event = {
 				}
 			}
 		}
-		if = {
+		else_if = {
 			limit = {
 				361 = { # Vindomis
 					owner = {
@@ -4625,19 +4621,16 @@ narrative_event = {
 					}
 				}
 			}
-			356 = {
-				county = {
-					holder_scope = {
-						top_liege = { set_character_flag = duchy_invasion_target }
-					}
-					ROOT = { 
-						set_character_flag = duchy_invader 
-						set_character_flag = meonware_invader 
-					}
-				}
+			ROOT = {
+				set_character_flag = meonware_invader 
+			}
+			361 = {
+				show_scope_change = no
 				duchy = {
+					show_scope_change = no
 					ROOT = {
-						war = {
+						show_scope_change = no
+						unsafe_war = {
 							casus_belli = duchy_invasion_event
 							target = PREVPREV
 							thirdparty_title = PREVPREV
@@ -4647,7 +4640,7 @@ narrative_event = {
 				}
 			}
 		}
-		if = {
+		else_if = {
 			limit = {
 				15 = { # Portus Adurni
 					owner = {
@@ -4669,19 +4662,16 @@ narrative_event = {
 					}
 				}
 			}
+			ROOT = {
+				set_character_flag = meonware_invader 
+			}
 			15 = {
-				county = {
-					holder_scope = {
-						top_liege = { set_character_flag = duchy_invasion_target }
-					}
-					ROOT = { 
-						set_character_flag = duchy_invader 
-						set_character_flag = meonware_invader 
-					}
-				}
+				show_scope_change = no
 				duchy = {
+					show_scope_change = no
 					ROOT = {
-						war = {
+						show_scope_change = no
+						unsafe_war = {
 							casus_belli = duchy_invasion_event
 							target = PREVPREV
 							thirdparty_title = PREVPREV
@@ -4690,7 +4680,7 @@ narrative_event = {
 					}
 				}
 			}
-		}					
+		}		
 		create_character = {
 			random_traits = yes
 			dynasty = random
@@ -4771,16 +4761,14 @@ narrative_event = {
 	}
 }
 # Sussex grants Meonware to vassal
-narrative_event = {
+character_event = {
 	id = 3130200
-	desc = "You're not supposed to see this..."
+	desc = EVTDESC3130200
 	picture = "GFX_evt_warships"
 	
-	hide_window = yes
-	only_rulers = yes
+	only_playable = yes
 	
 	trigger = {
-		ai = yes
 		has_landed_title = k_sussex
 		OR = {
 			has_landed_title = c_venta
@@ -4818,7 +4806,15 @@ narrative_event = {
 		new_character = {
 			dynasty = 818
 			wealth = 200
-			move_character = ROOT
+			save_event_target_as = port_of_meonware
+		}
+		set_global_flag = meonware_granted
+	}
+	
+	option = {
+		name = EVTOPTA3130200	# Accept
+		ai_chance = { factor = 100 }
+		event_target:port_of_meonware = {
 			if = {
 				limit = {
 					ROOT = { 
@@ -4846,16 +4842,20 @@ narrative_event = {
 				}
 				c_vindomis = { grant_title = PREV }
 			}
-			d_the_belgae = { 
-				grant_title = ROOT
+			d_the_belgae = {
 				grant_title = PREV 
-			}				
+			}
+			set_defacto_liege = ROOT
 		}
-		set_global_flag = meonware_granted
 	}
-	
 	option = {
-		name = "OK"
+		name = EVTOPTB3130200	# Refuse
+		ai_chance = { factor = 0 }
+		hidden_tooltip = {
+			event_target:port_of_meonware = {
+				death = { death_reason = death_missing }
+			}
+		}
 	}
 }
 # Disband troops
@@ -9569,7 +9569,22 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { liege = { realm_size = 10 } }
+			limit = {
+				OR = {
+					AND = {
+						independent = no
+						liege = { 
+							realm_size = 10 
+						} 
+					}
+					AND = {
+						is_tributary = yes
+						suzerain = { 
+							realm_size = 10 
+						} 
+					}
+				}
+			}
 			capital_scope = {
 				ROOT = {
 					spawn_unit = {
@@ -9588,7 +9603,22 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { liege = { realm_size = 20 } }
+			limit = {
+				OR = {
+					AND = {
+						independent = no
+						liege = { 
+							realm_size = 20 
+						} 
+					}
+					AND = {
+						is_tributary = yes
+						suzerain = { 
+							realm_size = 20 
+						} 
+					}
+				}
+			}
 			capital_scope = {
 				ROOT = {
 					spawn_unit = {
@@ -9606,7 +9636,22 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { liege = { realm_size = 30 } }
+			limit = {
+				OR = {
+					AND = {
+						independent = no
+						liege = { 
+							realm_size = 30 
+						} 
+					}
+					AND = {
+						is_tributary = yes
+						suzerain = { 
+							realm_size = 30 
+						} 
+					}
+				}
+			}
 			capital_scope = {
 				ROOT = {
 					spawn_unit = {
@@ -9624,13 +9669,26 @@ character_event = {
 				}
 			}
 		}
-		liege = {
-			ROOT = {
-				war = {
-					target = PREV
-					casus_belli = bid_for_independence
+		if = {
+			limit = { independent = no }
+			liege = {
+				ROOT = {
+					war = {
+						target = PREV
+						casus_belli = bid_for_independence
+					}
 				}
 			}
+		}
+		else = {
+			suzerain = {
+				ROOT = {
+					war = {
+						target = PREV
+						casus_belli = free_tributary_cb
+					}
+				}
+			}			
 		}
 		hidden_tooltip = {
 			add_character_modifier = {
@@ -10432,9 +10490,19 @@ narrative_event = {
 					}
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
+			limit = { ROOT = { is_tributary = yes } }
+			suzerain = {
+				ROOT = {
+					war = {
+						target = PREV
+						casus_belli = free_tributary_cb
+					}
+				}
+			}
+		}
+		else_if = {
 			limit = { ROOT = { ai = yes } }
 			random_province = {
 				limit = {
@@ -16009,7 +16077,6 @@ province_event = {		# Generic province-granting event for Anglia or Sussex
 			#	NOT = { dynasty = PREV }
 			#}
 		}
-		NOT = { year = 540 }
 	}
 	
 	mean_time_to_happen = {
@@ -16031,6 +16098,7 @@ province_event = {		# Generic province-granting event for Anglia or Sussex
 	}
 	
 	immediate = {
+		set_character_flag = anglo_saxon_forced_grant
 		if = {				# Try to grant to existing count in Middle Anglia
 			limit = {
 				region = custom_middleanglia

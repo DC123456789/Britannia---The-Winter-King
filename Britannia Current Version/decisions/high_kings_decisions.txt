@@ -4,7 +4,12 @@ decisions = {
 		is_high_prio = yes
 		potential = {
 			is_ruler = yes
-			has_landed_title = k_gaul
+			primary_title = {
+				has_title_flag = roman_province
+				capital_scope = {
+					region = world_gaul
+				}
+			}
 			tier = KING
 			OR = {
 				culture_group = imperiale
@@ -57,6 +62,7 @@ decisions = {
 					}
 				}
 			}
+			k_gaul = { destroy_landed_title = THIS }
 		}
 		
 		ai_will_do = {
@@ -148,6 +154,10 @@ decisions = {
 						NOT = { e_visigoths = { has_title_flag = empire_claimed_visigoths } }
 					}
 					AND = {
+						title = k_ostrogoths
+						NOT = { e_visigoths = { has_title_flag = empire_claimed_ostrogoths } }
+					}
+					AND = {
 						title = k_burgundy
 						NOT = { has_global_flag = burgundy_subjugated }
 						NOT = { e_visigoths = { has_title_flag = empire_claimed_burgundians } }
@@ -167,9 +177,10 @@ decisions = {
 				culture = alan
 			}
 			tier = KING
-			e_western_roman_empire = { has_holder = no }
 		}
 		allow = {
+			e_western_roman_empire = { has_holder = no }
+			e_gaul = { has_holder = no }
 			realm_size = 350
 			prestige = 2000
 			piety = 500
@@ -184,12 +195,11 @@ decisions = {
 				trait = imbecile
 				trait = eunuch
 			}
-			e_gaul = { has_holder = no }
 			custom_tooltip = {
-				text = controls_enough_gallic_province_capitals_tooltip
+				text = calc_true_if_11_tooltip
 				hidden_tooltip = {
 					calc_true_if = {
-						amount = 8
+						amount = 11
 						completely_controls = c_lugdunum
 						completely_controls = c_rotomagus
 						completely_controls = c_tours
@@ -202,7 +212,30 @@ decisions = {
 						completely_controls = c_elusa
 						completely_controls = c_tolosa
 						completely_controls = c_vienna
+						completely_controls = c_arelate
+						completely_controls = c_aquae_sextiae
+						completely_controls = c_ebrodunum
 					}
+				}
+			}
+			tooltip = {
+				calc_true_if = {
+					amount = 11
+					completely_controls = c_lugdunum
+					completely_controls = c_rotomagus
+					completely_controls = c_tours
+					completely_controls = c_agedincum
+					completely_controls = c_treverorum
+					completely_controls = c_reims
+					completely_controls = c_cologne
+					completely_controls = c_bourges
+					completely_controls = c_burdigala
+					completely_controls = c_elusa
+					completely_controls = c_tolosa
+					completely_controls = c_vienna
+					completely_controls = c_arelate
+					completely_controls = c_aquae_sextiae
+					completely_controls = c_ebrodunum
 				}
 			}
 			conditional_tooltip = {
@@ -508,7 +541,7 @@ decisions = {
 				trait = war_hero
 				trait = master_warrior
 				trait = inspiring_leader
-				#trait = authoritative
+				# trait = authoritative
 				trait = brilliant_strategist
 				trait = grey_eminence
 				trait = elusive_shadow
@@ -519,7 +552,7 @@ decisions = {
 			NOT = { trait = dwarf }
 			NOT = { trait = leper }
 			NOT = { trait = blinded }
-			NOT = { trait = idiot }
+			# NOT = { trait = idiot }
 			NOT = { trait = imbecile }
 			NOT = { trait = eunuch }
 			NOT = { trait = weak }
@@ -876,11 +909,13 @@ decisions = {
 			e_scandinavia = { has_holder = no }
 			NOT = { has_global_flag = scandinavia_created }
 			primary_title = {
-				OR = {
-					title = e_denmark
-					title = e_norway
-					title = e_sweden
-					title = e_geatland
+				empire = {
+					OR = {
+						title = e_denmark
+						title = e_norway
+						title = e_sweden
+						title = e_geatland
+					}
 				}
 			}
 			independent = yes

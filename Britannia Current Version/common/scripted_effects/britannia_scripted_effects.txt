@@ -174,48 +174,50 @@ restore_roman_provinces_gaul_effect = {
 		d_nemausensia = { de_jure_liege = k_narbonensis_prima }
 		d_ucetiensia = { de_jure_liege = k_narbonensis_prima }
 	}
+	if = {
+		limit = { 
+			NOR = { 
+				has_global_flag = northern_provence_conquered_burgundy
+				has_global_flag = northern_provence_conquered_ostrogoths  
+			} 
+		}
+		d_avenionensia = { de_jure_liege = k_viennensis_secunda }
+		d_arausicensia = { de_jure_liege = k_viennensis_secunda }
+		d_tricastinensia = { de_jure_liege = k_viennensis_secunda }
+		d_vasensia = { de_jure_liege = k_viennensis_secunda }
+		d_carpentoratensia = { de_jure_liege = k_viennensis_secunda }
+		d_cavilonensia = { de_jure_liege = k_viennensis_secunda }
+		d_aptensia = { de_jure_liege = k_narbonensis_secunda }
+		d_segesteronensia = { de_jure_liege = k_narbonensis_secunda }
+		d_vapincensia = { de_jure_liege = k_narbonensis_secunda }
+		d_ebrodunensia = { de_jure_liege = k_alpes_maritimae }
+	}
+	if = {
+		limit = { 
+			NOR = { 
+				has_global_flag = southern_provence_conquered_visigoths 
+				has_global_flag = southern_provence_conquered_ostrogoths 
+				has_global_flag = southern_provence_conquered_burgundy 
+			} 
+		}
+		d_arelatensia = { de_jure_liege = k_viennensis_secunda }
+		d_massiliensia = { de_jure_liege = k_viennensis_secunda }
+		d_tolonensia = { de_jure_liege = k_viennensis_secunda }
+		d_aquensia = { de_jure_liege = k_narbonensis_secunda }
+		d_regensia = { de_jure_liege = k_narbonensis_secunda }
+		d_forojuliensia = { de_jure_liege = k_narbonensis_secunda }
+		d_diniensia = { de_jure_liege = k_alpes_maritimae }
+		d_sanitiensia = { de_jure_liege = k_alpes_maritimae }
+		d_glannativia = { de_jure_liege = k_alpes_maritimae }
+		d_vintiensia = { de_jure_liege = k_alpes_maritimae }
+		d_antipolitania = { de_jure_liege = k_alpes_maritimae }
+		d_cemelenensia = { de_jure_liege = k_alpes_maritimae }
+	}
 	
 	#k_gaul = { destroy_landed_title = THIS }
 }
 
 convert_to_local_roman_culture_effect = {
-	if = {
-		limit = {
-			region = world_gaul
-			NOR = { 
-				region = world_gaul_romangermania 
-				region = world_gaul_aquitania_tertia
-			}
-		}
-		culture = romanogallic
-	}
-	if = {
-		limit = {
-			OR = {
-				region = world_britannia
-				region = world_caledonia
-				region = world_ireland 
-			}
-		}
-		culture = romanobritish
-	}
-	if = {
-		limit = {
-			OR = {
-				region = world_gaul_romangermania 
-				region = world_germania 
-			}
-			NAND = {
-				region = world_germania_jutland
-				has_global_flag = jutland_conquered_norse
-			}
-			NAND = {
-				region = world_germania_angeln
-				has_global_flag = angeln_conquered_norse
-			}
-		}
-		culture = romanogermanic
-	}
 	if = {
 		limit = {
 			region = custom_scandinavia 
@@ -230,11 +232,36 @@ convert_to_local_roman_culture_effect = {
 		}
 		culture = romanoscandian
 	}
-	if = {
+	else_if = {
+		limit = {
+			OR = {
+				region = world_gaul_romangermania 
+				region = world_germania 
+			}
+		}
+		culture = romanogermanic
+	}
+	else_if = {
 		limit = {
 			region = world_gaul_aquitania_tertia
 		}
 		culture = romanoaquitanian
+	}
+	else_if = {
+		limit = {
+			region = world_gaul
+		}
+		culture = romanogallic
+	}
+	else_if = {
+		limit = {
+			OR = {
+				region = world_britannia
+				region = world_caledonia
+				region = world_ireland 
+			}
+		}
+		culture = romanobritish
 	}
 }
 
@@ -3755,8 +3782,8 @@ spawn_legio_VI_victrix = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_six_victrix
 	}
 }
@@ -3770,8 +3797,8 @@ spawn_legio_XX_valeria_victrix = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_twenty_valeria_victrix
 	}
 }
@@ -3783,8 +3810,8 @@ spawn_legio_II_augusta = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_two_augusta
 	}
 }
@@ -3797,8 +3824,8 @@ spawn_legio_II_britannica = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_two_britannica
 	}
 }
@@ -3811,8 +3838,8 @@ spawn_legio_I_flavia_gallicana_constantia = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_one_constantia
 	}
 }
@@ -3827,8 +3854,8 @@ spawn_legio_I_flavia_martis = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_one_flavia
 	}
 }
@@ -3842,8 +3869,8 @@ spawn_legio_I_minervia = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_one_minervia
 	}
 }
@@ -3857,8 +3884,8 @@ spawn_legio_XXX_ulpia_victrix = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_thirty_ulpia
 	}
 }
@@ -3872,8 +3899,8 @@ spawn_legio_XII_victrix = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_twelve_victrix
 	}
 }
@@ -3886,8 +3913,414 @@ spawn_legio_VI_gallicana = {
 		}
 		attrition = 1.0
 		reinforces = yes
-		maintenance_multiplier = 2.5
-		reinforce_rate_multiplier = 1.5
+		maintenance_multiplier = 2.75
+		reinforce_rate_multiplier = 1.25
 		earmark = legio_six_gallicana
+	}
+}
+
+ROOT_rebel_spawn_held_legion_at_capital = {
+	if = {
+		limit = { 
+			has_landed_title = d_legio_vi_victrix 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_victrix } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xx_valeria_victrix 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_twenty_valeria_victrix } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XX_valeria_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_ii_augusta 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_augusta } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_augusta = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_ii_britannica 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_britannica } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_britannica = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_flavia_gallicana_constantia 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_constantia } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_gallicana_constantia = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_flavia_martis 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_flavia } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_martis = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_minervia 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_minervia } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_minervia = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xxx_ulpia_victrix 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_thirty_ulpia } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XXX_ulpia_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xii_victrix 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_twelve_victrix } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XII_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_vi_gallicana 
+			ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_gallicana } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_gallicana = yes
+				}
+			}
+		}
+	}
+}
+
+disband_held_rebel_legion_from_ROOT = {
+	custom_tooltip = {
+		text = EVTOPTA315921TT
+	}
+	hidden_tooltip = {
+		if = {
+			limit = { 
+				has_landed_title = d_legio_vi_victrix 
+				ROOT = { has_earmarked_regiments = legio_six_victrix }
+			}
+			ROOT = {
+				disband_event_forces = legio_six_victrix
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_xx_valeria_victrix 
+				ROOT = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+			}
+			ROOT = {
+				disband_event_forces = legio_twenty_valeria_victrix
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_ii_augusta 
+				ROOT = { has_earmarked_regiments = legio_two_augusta }
+			}
+			ROOT = {
+				disband_event_forces = legio_two_augusta
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_ii_britannica 
+				ROOT = { has_earmarked_regiments = legio_two_britannica }
+			}
+			ROOT = {
+				disband_event_forces = legio_two_britannica
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_i_flavia_gallicana_constantia 
+				ROOT = { has_earmarked_regiments = legio_one_constantia }
+			}
+			ROOT = {
+				disband_event_forces = legio_one_constantia
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_i_flavia_martis 
+				ROOT = { has_earmarked_regiments = legio_one_flavia }
+			}
+			ROOT = {
+				disband_event_forces = legio_one_flavia
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_i_minervia 
+				ROOT = { has_earmarked_regiments = legio_one_minervia }
+			}
+			ROOT = {
+				disband_event_forces = legio_one_minervia
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_xxx_ulpia_victrix 
+				ROOT = { has_earmarked_regiments = legio_thirty_ulpia }
+			}
+			ROOT = {
+				disband_event_forces = legio_thirty_ulpia
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_xii_victrix 
+				ROOT = { has_earmarked_regiments = legio_twelve_victrix }
+			}
+			ROOT = {
+				disband_event_forces = legio_twelve_victrix
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_legio_vi_gallicana 
+				ROOT = { has_earmarked_regiments = legio_six_gallicana }
+			}
+			ROOT = {
+				disband_event_forces = legio_six_gallicana
+			}
+		}
+	}
+}
+
+# Requires the former_rebel event target to be set to place the legion properly
+ROOT_respawn_held_rebel_legion = {
+	# Respawn legion event troops
+	if = {
+		limit = { 
+			has_landed_title = d_legio_vi_victrix
+			any_playable_ruler = { has_earmarked_regiments = legio_six_victrix }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_six_victrix }
+			disband_event_forces = legio_six_victrix
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xx_valeria_victrix 
+			any_playable_ruler = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_twenty_valeria_victrix }
+			disband_event_forces = legio_twenty_valeria_victrix
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XX_valeria_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_ii_augusta 
+			any_playable_ruler = { has_earmarked_regiments = legio_two_augusta }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_two_augusta }
+			disband_event_forces = legio_two_augusta
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_augusta = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_ii_britannica 
+			any_playable_ruler = { has_earmarked_regiments = legio_two_britannica }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_two_britannica }
+			disband_event_forces = legio_two_britannica
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_II_britannica = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_flavia_gallicana_constantia 
+			any_playable_ruler = { has_earmarked_regiments = legio_one_constantia }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_one_constantia }
+			disband_event_forces = legio_one_constantia
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_gallicana_constantia = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_flavia_martis 
+			any_playable_ruler = { has_earmarked_regiments = legio_one_flavia }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_one_flavia }
+			disband_event_forces = legio_one_flavia
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_flavia_martis = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_i_minervia 
+			any_playable_ruler = { has_earmarked_regiments = legio_one_minervia }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_one_minervia }
+			disband_event_forces = legio_one_minervia
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_I_minervia = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xxx_ulpia_victrix 
+			any_playable_ruler = { has_earmarked_regiments = legio_thirty_ulpia }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_thirty_ulpia }
+			disband_event_forces = legio_thirty_ulpia
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XXX_ulpia_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_xii_victrix 
+			any_playable_ruler = { has_earmarked_regiments = legio_twelve_victrix }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_twelve_victrix }
+			disband_event_forces = legio_twelve_victrix
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_XII_victrix = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_legio_vi_gallicana 
+			any_playable_ruler = { has_earmarked_regiments = legio_six_gallicana }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = legio_six_gallicana }
+			disband_event_forces = legio_six_gallicana
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_legio_VI_gallicana = yes
+				}
+			}
+		}
 	}
 }

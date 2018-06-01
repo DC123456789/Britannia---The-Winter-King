@@ -51,11 +51,9 @@ decisions = {
 		only_rulers = yes
 		is_high_prio = yes
 		potential = {
-			year = 480
+			is_tribal = no
 			is_ruler = yes
-			age = 15
-			stewardship = 15
-			diplomacy = 12
+			is_adult = yes
 			war = no
 			NOT = {
 				has_character_flag = mediterranean_trader
@@ -70,33 +68,32 @@ decisions = {
 					has_province_flag = mediterranean_trade_port_start
 				}
 			}
-			NOT = {
-				trait = shy
-				trait = uneducated
-				trait = slow
-				trait = incapable
-				trait = imbecile
-				culture = pictish
-			}
 			any_demesne_province = {
 				port = yes
 				NOT = { has_province_flag = mediterranean_trade_port_start }
 			}
-			NOT = {
-				OR = {
-					culture = pictish
-					AND = {
-						is_ingvaeonic_culture_trigger = yes
-						NOT = { higher_tier_than = DUKE }
-					}
+			NOR = {
+				culture = pictish
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					NOT = { higher_tier_than = DUKE }
 				}
 			}
 		}
 		allow = {
 			prestige = 350
+			stewardship = 15
+			diplomacy = 12
 			realm_stewardship = 25
 			realm_diplomacy = 25
 			wealth = 250
+			NOR = {
+				trait = shy
+				trait = uneducated
+				trait = slow
+				trait = incapable
+				trait = imbecile
+			}
 		}
 		effect = {
 			wealth = -250

@@ -8,7 +8,6 @@ decisions = {
 			tier = KING
 			year = 470
 			NOT = { year = 500 }
-			NOT = { has_character_flag = friendly_with_romans }
 			any_independent_ruler = {
 				culture = oldfrankish
 				lower_tier_than = KING
@@ -45,10 +44,16 @@ decisions = {
 		}
 		allow = {
 			is_adult = yes
+			conditional_tooltip = {
+				trigger = {
+					has_character_modifier = friendly_with_romans
+				}
+				NOT = { has_character_modifier = friendly_with_romans }
+			}
 			war = no
 			prestige = 400
 			martial = 15
-			diplomacy = 12
+			diplomacy = 10
 			realm_size = 12
 			NOT = { trait = content }
 			NOT = { trait = incapable }
@@ -77,6 +82,352 @@ decisions = {
 				factor = 0.75
 				NOT = { realm_levies = 1000 }
 			}
+		}
+	}
+	
+	franks_invade_soissons = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 475
+			NOT = { year = 510 }
+			is_frankish_culture_trigger = yes
+			OR = {
+				has_landed_title = k_franks
+				has_landed_title = k_ripuarian_franks
+			}
+			k_gaul = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+				}
+			}
+			NOT = { has_global_flag = neustria_created }
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_gaul
+			}
+			NOT = { has_character_flag = triggered_313200_event }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_gaul }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			conditional_tooltip = {
+				trigger = {
+					has_character_modifier = friendly_with_romans
+				}
+				NOT = { has_character_modifier = friendly_with_romans }
+			}
+			k_gaul = {
+				holder_scope = {
+					NOT = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+			OR = {
+				year = 500
+				custom_tooltip = {
+					text = frankish_kingdoms_united_tooltip
+					has_global_flag = frankish_kingdoms_united
+				}
+			}
+			custom_tooltip = {
+				text = not_invaded_soissons_in_last_7_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_war_480 }
+					had_global_flag = { flag = frankish_war_480 days = 2555 }
+				}
+			}
+			NOT = { year = 510 }
+		}
+		effect = {
+			set_character_flag = triggered_313200_event
+			character_event = { id = 313200 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	franks_invade_benoic = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 483
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_benoic
+			}
+			NOT = { has_global_flag = normanz_created }
+			NOT = { has_global_flag = frankish_invasion_483 }
+			NOT = { has_global_flag = franks_sack_trebes }
+			NOT = { has_global_flag = franks_renamed }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_benoic }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			k_benoic = {
+				holder_scope = {
+					NOT = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			set_character_flag = triggered_313201_event
+			character_event = { id = 313201 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	franks_invade_aquitania = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 480
+			NOT = { year = 530 }
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_visigoths
+			}
+			k_visigoths = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+				}
+			}
+			NOT = { has_global_flag = toulouse_conquered }
+			NOT = { has_character_flag = triggered_313203_event }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_visigoths }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			year = 500
+			NOT = { year = 530 }
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			k_visigoths = {
+				holder_scope = {
+					NOT = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+			OR = {
+				completely_controls = c_orleans
+				completely_controls = c_tours
+				completely_controls = c_andecavis
+				completely_controls = c_nantes
+				year = 510
+			}
+			custom_tooltip = {
+				text = not_invaded_aquitania_in_last_5_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_visigoths }
+					had_global_flag = { flag = frankish_invasion_visigoths days = 1825 }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = triggered_313203_event
+			character_event = { id = 313203 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	franks_invade_burgundy = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 480
+			NOT = { year = 550 }
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_burgundy
+			}
+			k_burgundy = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+				}
+			}
+			NOT = { has_global_flag = burgundy_subjugated }
+			NOT = { has_character_flag = triggered_313204_event }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_burgundy }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			year = 525
+			NOT = { year = 550 }
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			k_burgundy = {
+				holder_scope = {
+					NOR = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+			custom_tooltip = {
+				text = not_invaded_burgundy_in_last_5_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_burgundians }
+					had_global_flag = { flag = frankish_invasion_burgundians days = 1825 }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = triggered_313204_event
+			character_event = { id = 313204 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	franks_invade_provence = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 480
+			NOT = { year = 560 }
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_praetorian_prefecture_of_gaul
+			}
+			k_praetorian_prefecture_of_gaul = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+				}
+			}
+			NOT = { has_global_flag = provence_conquered }
+			NOT = { has_character_flag = triggered_313205_event }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_praetorian_prefecture_of_gaul }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			OR = {
+				custom_tooltip = {
+					text = gothic_war_started_tooltip
+					has_global_flag = gothic_war_started
+					NOT = { has_global_flag = gothic_war_ended }
+				}
+				custom_tooltip = {
+					text = ostrogoths_destroyed_tooltip
+					has_global_flag = gothic_war_ended
+				}
+				k_praetorian_prefecture_of_gaul = {
+					holder_scope = {
+						OR = {
+							is_tributary = no
+							NOT = {
+								suzerain = {
+									has_landed_title = k_ostrogoths
+								}
+							}
+						}
+					}
+				}
+			}
+			NOT = { year = 560 }
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			k_praetorian_prefecture_of_gaul = {
+				holder_scope = {
+					NOR = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+			custom_tooltip = {
+				text = not_invaded_provence_in_last_5_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_provence }
+					had_global_flag = { flag = frankish_invasion_provence days = 1825 }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = triggered_313205_event
+			character_event = { id = 313205 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
 		}
 	}
 	

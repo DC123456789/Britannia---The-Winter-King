@@ -8,6 +8,7 @@ on_startup = {
 		#JD.30504 # Clean up living members of the chinese dynasty
 		
 		315142 # Augustus Trait for WRE/ERE
+		302530 # Set up Imperial cultural flexibility
 		
 		314453			# Fix Lleyn's flag
 		
@@ -38,6 +39,7 @@ on_startup = {
 		314294
 		314295
 		314296
+		314298
 		
 		# Frisia
 		314300
@@ -113,6 +115,7 @@ on_yearly_pulse = {
 		315008 # Waskonia
 		315009 # Aquitaine
 		315010 # Burgundy
+		315011 # Provence
 		
 		63106 # (Safety flag clearance check event)
 		ZE.1100 # Disobedient daughter is unhappy
@@ -149,6 +152,8 @@ on_yearly_pulse = {
 		314011
 		314012
 		314013
+		
+		302530 # Set up Imperial cultural flexibility
 	}
 	
 	random_events = {
@@ -157,7 +162,6 @@ on_yearly_pulse = {
 	}
 		
 	random_events = {
-
 		# Skills Events
 		75 = 302401
 		75 = 302402
@@ -171,8 +175,13 @@ on_yearly_pulse = {
 		3000 = 0
 	}
 	
+	# AI Invasion events and other random "major" events - all of these events should be mutually exclusive
 	random_events = {
+		10 = 302830		# PPO Gaul invades Northern Provence
+		50 = 0
+	}
 	
+	random_events = {	
 		# Feudal Life Events
 		100 = 4000
 		100 = 4005
@@ -792,13 +801,14 @@ on_decade_pulse = {
 	}
 	
 	random_events = {
+		#500 = 60500 #Mongol Horde starts forming.
 		100 = 63050 #former MTTH event
 		40 = SoA.4020 #former MTTH event
 		100 = 0
 	}
 }
 
-# For characters 2 to 16 years old
+# For characters older than AGE_CHILDHOOD_PULSE but not an adult as defined by ADULT_AGE_FEMALE and ADULT_AGE_MALE
 on_yearly_childhood_pulse = {
 	random_events = {
 		# Childhood Personality Events
@@ -967,11 +977,11 @@ on_combat_pulse = {
 	random_events = {
 		1800 = 0
 		180 = 5556000 		# Battlefield Duel
-		30 = 242 			# Killed
-		60 = 243 			# Wounded
-		20 = 244 			# Maimed
-		25 = 245 			# Serious head injury
-		60 = 246 			# Improves martial education
+		25 = 242 			# Killed
+		50 = 243 			# Wounded
+		15 = 244 			# Maimed
+		20 = 245 			# Serious head injury
+		40 = 246 			# Improves martial education
 		35 = 247 			# Flat improvement to martial skill
 
 		50 = 248 			# Knowledge boost in capital from battle.
@@ -1061,8 +1071,8 @@ on_major_battle_won = {
 #character
 on_battle_lost = {
 	random_events = {
-		75 = 0
-		25 = 250 	# Imprisoned by the enemy
+		90 = 0
+		10 = 250 	# Imprisoned by the enemy
 	}
 }
 
@@ -1091,7 +1101,7 @@ on_battle_lost_owner = {
 
 on_siege_won_leader = {
 	events = {
-		312170 		# Siege of Ynys Trebes
+		312220 		# Siege of Ynys Trebes
 		319952 		# Release Previous Prisoners
 		319900 		# Sacking and Pillaging - Castle (Small)
 		319901 		# Sacking and Pillaging - Castle (Medium)
@@ -1135,6 +1145,7 @@ on_siege_over_loc_chars = {
 	random_events = {
  		1000 = 0 # Nothing happens
 		200 = TOG.1190 # Rebels kill character
+ 		100 = 62100 # Character imprisoned
  	}
 }
 
@@ -1183,6 +1194,7 @@ on_birth = {
 		#39350 # Assign pagan religion trait
 		301702 # Assign Manichean caste trait
 		319001 # Assign Roman culture trait
+		302535 # Remove Born in the Purple
 		
 		bct.0 # BCT congential trait inheritance
 		bct.100
@@ -1249,6 +1261,8 @@ on_adulthood = {
 		MNM.1269 # Horoscoped child gets new modifiers
 		MNM.4302 # Monastic Order education bonus purity effect
 		
+		ZE.40000 # Extra clean up of childhood traits, for incapable etc characters
+		
 		301703 # Assign Manichaean caste trait
 	}
 }
@@ -1293,6 +1307,7 @@ on_become_imprisoned_any_reason = {
 		RIP.12097 # Being thrown in prison removes seclusion modifier
 		MNM.9033 # Imprisoned councillor cannot hunt for relics
 		685 # Remove in-hiding trait on imprisonment
+		86867 # Cleanup event for Hajj.
 	}
 }
 
@@ -1308,6 +1323,7 @@ on_became_imprisoned = {
 	events = {
  		151 # Was imprisoned
 		CM.10024  # Chronicle entry
+		86867 # Cleanup event for Hajj.
  	}
 }
 
@@ -2259,6 +2275,7 @@ on_new_holder = {
 		313095 # sussex_unstable_realm modifier
 		315109 # Transfer Senate title flag
 		31203122 # Master succession event
+		302531 # Check Imperial cultural tolerance
 		
 		319021	# Special maintenance
 		#3129960
@@ -2302,6 +2319,7 @@ on_new_holder_inheritance = {
 		315155 # Death of revolting Soissons tributary
 		31203122 # Master succession event
 		319006 # Assign correct government to inheriting mayors
+		302531 # Check Imperial cultural tolerance
 		
 		319021	# Special maintenance
 	}
@@ -2336,6 +2354,7 @@ on_new_holder_usurpation = {
 		313095 # sussex_unstable_realm modifier
 		315109 # Transfer Senate title flag
 		31203122 # Master succession event
+		302531 # Check Imperial cultural tolerance
 		
 		319021	# Special maintenance
 		#3129960
@@ -2406,6 +2425,8 @@ on_character_convert_religion = {
 		
 		#39350 # Assign pagan religion trait
 		301702 # Assign Manichean caste trait
+		
+		302799 # Swap apostate modifier
 	}
 }
 
@@ -2947,4 +2968,13 @@ on_split_clan_attempted_started_war = {
 	events = {
 		684
  	}
+}
+
+# Triggers on a betrothal being agreed. Sent to employers of both parties
+# Root = Employer of the character getting betrothed
+# From = Character getting betrothed in the court of Root
+# new_character = The other character getting betrothed
+on_betrothal = {
+	events = {
+	}
 }

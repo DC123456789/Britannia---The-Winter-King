@@ -611,7 +611,7 @@ character_event = {
 		if = {
 			limit = {
 				primary_title = {
-					has_law = centralization_3
+					has_law = centralization_4
 				}
 			}
 			divide_variable = {
@@ -703,7 +703,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 150 }
+				check_variable = { which = base_levies_realm_size value = 200 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_13 } }
@@ -717,7 +717,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 140 }
+				check_variable = { which = base_levies_realm_size value = 180 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_12 } }
@@ -731,7 +731,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 130 }
+				check_variable = { which = base_levies_realm_size value = 155 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_11 } }
@@ -745,7 +745,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 120 }
+				check_variable = { which = base_levies_realm_size value = 140 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_10 } }
@@ -759,7 +759,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 110 }
+				check_variable = { which = base_levies_realm_size value = 125 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_9 } }
@@ -773,7 +773,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 100 }
+				check_variable = { which = base_levies_realm_size value = 110 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_8 } }
@@ -787,7 +787,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 90 }
+				check_variable = { which = base_levies_realm_size value = 95 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_7 } }
@@ -1133,9 +1133,8 @@ character_event = {
 	
 	trigger = {
 		NOT = { has_character_modifier = war_torn }
-        NOT = { stewardship = 10 }
 		OR = {
-            liege = { war = yes }
+            any_liege = { war = yes }
 			war = yes
 		}
 	}
@@ -1161,9 +1160,8 @@ character_event = {
 		has_character_modifier = war_torn
 		NAND = {
 			is_ruler = yes
-			NOT = { stewardship = 10 }
 			OR = {
-				liege = { war = yes }
+				any_liege = { war = yes }
 				war = yes
 			}
 		}
@@ -2055,6 +2053,12 @@ character_event = {
 				NOT = { has_character_modifier = negative_money_6 }
 			}
 		}
+		NAND = {
+			government = imperial_government
+			independent = yes
+			in_revolt = no
+			is_landed = yes
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2119,7 +2123,7 @@ character_event = {
 			break = yes
 		}
 		add_character_modifier = {
-			modifier = too_large_realm_1
+			modifier = negative_money_1
 			duration = -1
 		}
 	}
@@ -2142,6 +2146,11 @@ character_event = {
 		NAND = {
 			is_ruler = yes
 			NOT = { wealth = 0 }
+			NAND = {
+				government = imperial_government
+				independent = yes
+				in_revolt = no
+			}
 		}
 	}
 	
@@ -3289,6 +3298,136 @@ character_event = {
 		name = EVTOPTA301959
 	}
 }
+# Imperial Financial Crisis
+character_event = {
+	id = 301960
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				wealth = -300
+				NOT = { wealth = 0 }
+				NOT = { has_character_modifier = imperial_negative_money_1 }
+			}
+			AND = {
+				wealth = -600
+				NOT = { wealth = -300 }
+				NOT = { has_character_modifier = imperial_negative_money_2 }
+			}
+			AND = {
+				wealth = -900
+				NOT = { wealth = -600 }
+				NOT = { has_character_modifier = imperial_negative_money_3 }
+			}
+			AND = {
+				wealth = -1200
+				NOT = { wealth = -900 }
+				NOT = { has_character_modifier = imperial_negative_money_4 }
+			}
+			AND = {
+				NOT = { wealth = -1200 }
+				NOT = { has_character_modifier = imperial_negative_money_5 }
+			}
+		}
+		government = imperial_government
+		independent = yes
+		in_revolt = no
+		is_landed = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
+		remove_character_modifier = imperial_negative_money_5
+		if = {
+			limit = {
+				NOT = { wealth = -1200 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_5
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { wealth = -900 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_4
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { wealth = -600 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_3
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = { wealth = -300 }
+			}
+			add_character_modifier = {
+				modifier = imperial_negative_money_2
+				duration = -1
+			}
+		}
+		else = {
+			add_character_modifier = {
+				modifier = imperial_negative_money_1
+				duration = -1
+			}
+		}
+	}
+}
+character_event = {
+	id = 301961
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_character_modifier = imperial_negative_money_1
+			has_character_modifier = imperial_negative_money_2
+			has_character_modifier = imperial_negative_money_3
+			has_character_modifier = imperial_negative_money_4
+			has_character_modifier = imperial_negative_money_5
+		}
+		NAND = {
+			is_ruler = yes
+			NOT = { wealth = 0 }
+			government = imperial_government
+			independent = yes
+			in_revolt = no
+			is_landed = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
+		remove_character_modifier = imperial_negative_money_5
+	}
+}
 
 character_event = {
 	id = 301999
@@ -3357,6 +3496,10 @@ character_event = {
 			has_character_modifier = wrong_religion_group_capital
 			has_character_modifier = ravaged_lands
 			has_tribal_modifier = yes
+			has_character_modifier = imperial_negative_money_1
+			has_character_modifier = imperial_negative_money_2
+			has_character_modifier = imperial_negative_money_3
+			has_character_modifier = imperial_negative_money_4
 		}
 	}
 	
@@ -3419,5 +3562,9 @@ character_event = {
 		remove_character_modifier = wrong_religion_group_capital
 		remove_character_modifier = ravaged_lands
 		remove_tribal_modifiers = yes
+		remove_character_modifier = imperial_negative_money_1
+		remove_character_modifier = imperial_negative_money_2
+		remove_character_modifier = imperial_negative_money_3
+		remove_character_modifier = imperial_negative_money_4
 	}
 }

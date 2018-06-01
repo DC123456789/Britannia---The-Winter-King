@@ -33,7 +33,7 @@ targetted_decisions = {
 			OR = {
 				trait = zealous
 				trait = cruel
-				trait = ruthless
+				# trait = ruthless
 				trait = impaler
 			}
 			NOT = { trait = kind }
@@ -114,7 +114,7 @@ targetted_decisions = {
 					OR = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}
@@ -125,6 +125,71 @@ targetted_decisions = {
 			modifier = {
 				factor = 1.25
 				trait = paranoid
+			}
+		}
+	}
+	
+	vassal_fatwa_decision = {
+		only_playable = yes
+		filter = vassals				# Only those under me
+		ai_target_filter = vassals		# Only those under me
+		ai_check_interval = 6
+
+		from_potential = {
+			is_playable = yes
+			uses_decadence = yes
+			any_courtier = {
+				has_job_title = job_spiritual
+				uses_decadence = yes
+			}
+		}
+		
+		potential = {
+			vassal_of = FROM
+			is_ruler = yes
+			is_adult = yes
+			is_landed = yes
+			prisoner = no
+			uses_decadence = yes
+			decadence = 40
+			NOT = { piety = 100 }
+			NOT = { dynasty = FROM }
+			NOT = { has_job_title = job_spiritual }
+			NOT = { has_character_modifier = fatwa_timer }
+		}
+		allow = {
+			NOT = { FROM = { decadence = 40 } }
+			FROM = { piety = 100 }
+		}
+		effect = {
+			add_character_modifier = {
+				name = fatwa_timer
+				duration = 1140
+				hidden = yes
+			}
+			custom_tooltip = { text = EVTTOOLTIP88750 }
+			hidden_tooltip = {
+				FROM = {
+					random_courtier = {
+						limit = { has_job_title = job_spiritual }
+						hidden_tooltip = { character_event = { id = 88750 days = 3 } }
+					}
+				}
+			}
+			hidden_tooltip = {
+				FROM = {
+					character_event = { id = 88754 }
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				reverse_opinion = { who = FROM value = 40 }
 			}
 		}
 	}
@@ -148,7 +213,7 @@ targetted_decisions = {
 			}
 			NOT = { trait = just }
 			NOT = { trait = kind }
-			NOT = { trait = honorable }
+			# NOT = { trait = honorable }
 		}
 		potential = {
 			host = { character = FROM }
@@ -174,8 +239,8 @@ targetted_decisions = {
 						character_event = { id = LoR.834 }
 					}
 				}
+				character_event = { id = LoR.833 tooltip = "EVTTOOLTIPLoR.833" }
 			}
-			character_event = { id = LoR.833 tooltip = "EVTTOOLTIPLoR.833" }
 			add_trait = eunuch
 			add_trait = depressed
 			if = {
@@ -194,11 +259,14 @@ targetted_decisions = {
 			FROM = {
 				if = {
 					limit = { NOT = { trait = cruel } }
-					random = {
-						chance = 50
-						add_trait = cruel
-						hidden_tooltip = {
-							character_event = { id = 38259 }
+					custom_tooltip = {
+						text = cruel_imprisoner_trait_chance_TT
+						random = {
+							chance = 50
+							add_trait = cruel
+							hidden_tooltip = {
+								character_event = { id = 38259 }
+							}
 						}
 					}
 				}
@@ -242,7 +310,7 @@ targetted_decisions = {
 					OR = {
 						trait = kind
 						trait = just
-						trait = honorable
+						# trait = honorable
 					}
 				}
 			}
@@ -255,7 +323,7 @@ targetted_decisions = {
 					NOR = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}
@@ -271,7 +339,7 @@ targetted_decisions = {
 					NOR = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}
@@ -300,7 +368,7 @@ targetted_decisions = {
 			}
 			NOT = { trait = just }
 			NOT = { trait = kind }
-			NOT = { trait = honorable }
+			# NOT = { trait = honorable }
 		}
 		potential = {
 			prisoner = yes
@@ -317,8 +385,8 @@ targetted_decisions = {
 				FROM = {
 					character_event = { id = LoR.830 }
 				}
+				character_event = { id = LoR.831 tooltip = "EVTTOOLTIPLoR.831" }
 			}
-			character_event = { id = LoR.831 tooltip = "EVTTOOLTIPLoR.831" }
 			if = {
 				limit = {
 					trait = one_eyed
@@ -376,11 +444,14 @@ targetted_decisions = {
 			FROM = {
 				if = {
 					limit = { NOT = { trait = cruel } }
-					random = {
-						chance = 50
-						add_trait = cruel
-						hidden_tooltip = {
-							character_event = { id = 38259 }
+					custom_tooltip = {
+						text = cruel_imprisoner_trait_chance_TT
+						random = {
+							chance = 50
+							add_trait = cruel
+							hidden_tooltip = {
+								character_event = { id = 38259 }
+							}
 						}
 					}
 				}
@@ -423,7 +494,7 @@ targetted_decisions = {
 					OR = {
 						trait = kind
 						trait = just
-						trait = honorable
+						# trait = honorable
 					}
 				}
 			}
@@ -450,7 +521,7 @@ targetted_decisions = {
 					NOR = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}
@@ -460,7 +531,7 @@ targetted_decisions = {
 					AND = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}
@@ -476,7 +547,7 @@ targetted_decisions = {
 					NOR = {
 						trait = cruel
 						trait = impaler
-						trait = ruthless
+						# trait = ruthless
 					}
 				}
 			}

@@ -74,7 +74,7 @@ character_event = {
 				
 				create_character = {
 					dynasty = culture
-					religion = roman_pagan
+					religion = catholic
 					culture = roman
 					employer = ROOT
 					female = no
@@ -133,9 +133,9 @@ character_event = {
 					female = no
 					age = 51
 					attributes = {
-						diplomacy = 10
-						learning = 10
-						stewardship = 12
+						diplomacy = 7
+						learning = 9
+						stewardship = 7
 					}
 					trait = grey_eminence
 					trait = scholar
@@ -180,10 +180,10 @@ character_event = {
 					female = no
 					age = 41
 					attributes = {
-						diplomacy = 10
-						martial = 13
-						learning = 10
-						stewardship = 11
+						diplomacy = 9
+						martial = 8
+						learning = 7
+						stewardship = 6
 					}
 					trait = thrifty_clerk
 					trait = greedy
@@ -229,11 +229,11 @@ character_event = {
 					female = no
 					age = 49
 					attributes = {
-						diplomacy = 10
+						diplomacy = 7
 						martial = 5
-						learning = 10
+						learning = 8
 						intrigue = 10
-						stewardship = 11
+						stewardship = 6
 					}
 					trait = intricate_webweaver
 					trait = deceitful
@@ -270,18 +270,18 @@ character_event = {
 				create_character = {
 					name = "Pompeius"
 					dynasty = 1028
-					religion = roman_pagan
+					religion = catholic
 					culture = roman
 					employer = ROOT
 					health = 8
 					female = no
 					age = 51
 					attributes = {
-						diplomacy = 10
-						martial = 6
-						learning = 12
-						intrigue = 9
-						stewardship = 10
+						diplomacy = 6
+						martial = 3
+						learning = 7
+						intrigue = 2
+						stewardship = 8
 					}
 					trait = fortune_builder
 					trait = authoritative
@@ -325,9 +325,9 @@ character_event = {
 					female = no
 					age = 60
 					attributes = {
-						diplomacy = 11
+						diplomacy = 7
 						martial = 4
-						learning = 10
+						learning = 5
 						intrigue = 6
 						stewardship = 8
 					}
@@ -368,18 +368,18 @@ character_event = {
 				create_character = {
 					name = "Vespasianus"
 					dynasty = 1042
-					religion = roman_pagan
+					religion = catholic
 					culture = roman
 					employer = ROOT
 					health = 8
 					female = no
 					age = 47
 					attributes = {
-						diplomacy = 10
+						diplomacy = 8
 						martial = 4
-						learning = 12
+						learning = 7
 						intrigue = 6
-						stewardship = 7
+						stewardship = 6
 					}
 					trait = ambitious
 					trait = authoritative
@@ -423,11 +423,11 @@ character_event = {
 					female = no
 					age = 46
 					attributes = {
-						diplomacy = 9
+						diplomacy = 7
 						martial = 4
-						learning = 11
+						learning = 8
 						intrigue = 6
-						stewardship = 10
+						stewardship = 8
 					}
 					trait = loyal
 					trait = authoritative
@@ -473,10 +473,10 @@ character_event = {
 					female = no
 					age = 43
 					attributes = {
-						diplomacy = 11
+						diplomacy = 7
 						martial = 6
-						learning = 11
-						intrigue = 9
+						learning = 6
+						intrigue = 8
 						stewardship = 6
 					}
 					trait = ambitious
@@ -515,18 +515,18 @@ character_event = {
 				create_character = {
 					name = "Cicero"
 					dynasty = 1049
-					religion = roman_pagan
+					religion = catholic
 					culture = roman
 					employer = ROOT
 					health = 8
 					female = no
 					age = 57
 					attributes = {
-						diplomacy = 12
+						diplomacy = 9
 						martial = 5
-						learning = 11
-						intrigue = 10
-						stewardship = 10
+						learning = 8
+						intrigue = 8
+						stewardship = 5
 					}
 					trait = scholarly_theologian
 					trait = authoritative
@@ -1042,11 +1042,11 @@ narrative_event = {
 			age = 37
 			employer = ROOT
 			attributes = {
-				martial = 13
-				diplomacy = 12
-				stewardship = 10
-				learning = 11
-				intrigue = 7
+				martial = 8
+				diplomacy = 8
+				stewardship = 4
+				learning = 6
+				intrigue = 6
 			}
 			trait = skilled_tactician
 			trait = war_hero
@@ -1404,7 +1404,8 @@ character_event = {
 		remove_trait = northaugustus
 	}
 }
-# Augustus Trait for WRE/ERE
+
+# Add Augustus Trait for WRE/ERE at startup
 character_event = {
 	id = 315142
 	picture = "GFX_evt_roman_emperor_salute"
@@ -1431,6 +1432,110 @@ character_event = {
 			limit = { is_landless_normal_title_trigger = yes }
 			holder_scope = {
 				add_trait = forbid_inheritance
+			}
+		}
+	}
+}
+
+
+# Force Emperors and family to marry someone
+character_event = {
+	id = 315143
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	ai = yes
+	only_rulers = yes
+	
+	trigger = {
+		primary_title = {
+			is_landless_normal_title_trigger = yes
+		}
+		OR = {
+			AND = {
+				is_married = no
+				can_marry = yes
+				age = 18
+			}
+			any_courtier = {
+				is_married = no
+				can_marry = yes
+				age = 18
+				is_ruler = no
+				is_incapable = no
+				is_close_relative = ROOT
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				is_married = no
+				can_marry = yes
+				age = 18
+			}
+			save_event_target_as = character_to_marry
+		}
+		else = {
+			random_courtier = {
+				limit = {
+					is_married = no
+					can_marry = yes
+					is_incapable = no
+					age = 18
+					is_ruler = no
+					is_close_relative = ROOT
+				}
+			}
+			save_event_target_as = character_to_marry			
+		}
+		event_target:character_to_marry = {
+			ROOT = {
+				random_courtier = {			# Marry a suitable courtier that already exists if possible
+					limit = {
+						is_married = no
+						can_marry = yes
+						is_adult = yes
+						is_incapable = no
+						is_ruler = no
+						NOT = { is_close_relative = PREVPREV }
+						OR = {
+							AND = {
+								is_female = yes
+								PREVPREV = { is_female = no }
+							}
+							AND = {
+								is_female = no
+								PREVPREV = { is_female = yes }
+							}
+						}
+						OR = {
+							is_female = no
+							NOT = { age = 35 }
+						}
+					}
+					add_spouse = PREVPREV
+					break = yes
+				}
+			}
+			create_character = {
+				age = 20
+				fertility = 0.8
+				random_traits = yes
+				female = yes
+				culture = ROOT
+				religion = ROOT
+			}
+			new_character = {
+				remove_trait = celibate
+				remove_trait = chaste
+				add_spouse = THIS
 			}
 		}
 	}
@@ -1543,6 +1648,24 @@ character_event = {
 				war = {
 					casus_belli = bid_for_independence_tributaries_soissons
 					target = k_gaul					
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 100 100 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 400 400 }
+								light_cavalry = { 50 50 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
 				}
 				break = yes
 			}
@@ -1882,69 +2005,8 @@ province_event = {
 # Province Converts to Local Romanized Culture
 province_event = {
 	id = 315191
+	desc = EVTDESC315191
 	picture = GFX_evt_town_palisade
-	
-	desc = {
-		text = "EVTDESC315191_british"
-		trigger = {
-			OR = {
-				region = world_britannia
-				region = world_caledonia
-				region = world_ireland 
-			}
-		}
-	}
-	
-	desc = {
-		text = "EVTDESC315191_gallic"
-		trigger = {
-			region = world_gaul
-			NOR = { 
-				region = world_gaul_romangermania 
-				region = world_gaul_aquitania_tertia
-			}
-		}
-	}
-	
-	desc = {
-		text = "EVTDESC315191_germanic"
-		trigger = {
-			OR = {
-				region = world_gaul_romangermania 
-				region = world_germania 
-			}
-			NAND = {
-				region = world_germania_jutland
-				has_global_flag = jutland_conquered_norse
-			}
-			NAND = {
-				region = world_germania_angeln
-				has_global_flag = angeln_conquered_norse
-			}
-		}
-	}
-	
-	desc = {
-		text = "EVTDESC315191_scandian"
-		trigger = {
-			region = custom_scandinavia 
-			OR = {
-				NOT = { region = world_germania_jutland }
-				has_global_flag = jutland_conquered_norse
-			}
-			OR = {
-				NOT = { region = world_germania_angeln }
-				has_global_flag = angeln_conquered_norse
-			}
-		}
-	}
-	
-	desc = {
-		text = "EVTDESC315191_aquitanian"
-		trigger = {
-			region = world_gaul_aquitania_tertia
-		}
-	}
 	
 	trigger = {
 		NOT = { culture = roman }
@@ -1968,7 +2030,17 @@ province_event = {
 		}
 		is_local_roman_culture_trigger = no
 		owner = {
-			is_roman_culture_trigger = yes
+			OR = {
+				is_roman_culture_trigger = yes
+				top_liege = {
+					job_chancellor = {
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
 			top_liege = {
 				is_roman_culture_trigger = yes
 			}
@@ -1976,7 +2048,7 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 560
+		months = 600
 		modifier = {
 			factor = 3.0
 			OR = {
@@ -2173,7 +2245,7 @@ province_event = {
 			owner = { trait = augustus }
 		}
 		modifier = {
-			factor = 0.75
+			factor = 0.85
 			owner = { has_minor_title = title_senator }
 		}
 		modifier = {
@@ -2223,14 +2295,297 @@ province_event = {
 				}
 			}
 		}
+		modifier = {
+			factor = 4.0
+			owner = { is_roman_culture_trigger = no }
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 5
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 10
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 15
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 20
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 5
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 10
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 15
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 20
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_province_modifier = roman_colonies
+		}
+		modifier = {
+			factor = 2
+			any_province_holding = {
+				holding_type = tribal
+			}
+		}
+		modifier = {
+			factor = 2
+			any_province_holding = {
+				holding_type = tribal
+				NOR = { 
+					has_building = tb_hillfort_4 
+					has_building = tb_hillfort_5 
+					has_building = tb_hillfort_6 
+					has_building = tb_hillfort_7 
+					has_building = tb_hillfort_8 
+				}
+			}
+		}
 	}
 
 	option = {
 		name = "EVTOPTA315191"
 		ROOT = { convert_to_local_roman_culture_effect = yes }
+		hidden_tooltip = {
+			top_liege = {
+				if = {
+					limit = {
+						job_chancellor = {
+							has_job_action = action_promote_romanization
+							location = {
+								province = ROOT
+							}
+						}
+					}
+					job_chancellor = { character_event = { id = 315193 } }
+				}
+				if = {
+					limit = {
+						NOT = { character = PREV }
+					}
+					character_event = { id = 315192 }
+				}
+			}
+		}
 	}
 }
 
+# Informs top liege (notification)
+character_event = {
+	id = 315192
+	desc = EVTDESC315192
+	picture = GFX_evt_town_palisade
+	
+	is_triggered_only = yes
+	
+	notification = yes
+
+	option = {
+		name = "EVTOPTB315192"
+	}
+}
+
+# Inform Chancellor that Romanization was successful
+character_event = {
+	id = 315193
+	desc = EVTDESC315193
+	title = "EVTNAME315193"
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA315193"
+		prestige = 20
+		tooltip = {
+			FROM = { convert_to_local_roman_culture_effect = yes }
+		}
+		liege = {
+			letter_event = { id = 315194 tooltip = EVTTOOLTIP20000 }
+		}
+	}
+}
+
+# Chancellor informs his liege of the conversion
+letter_event = {
+	id = 315194
+	desc = "EVTDESC315194"
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTA20000"
+		prestige = 20
+	}
+}
+
+# Romano-British culture and Imperial cultures get reduced maluses to each other (equivalent to same culture group)
+province_event = {
+	id = 315195
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	trigger = {
+		NOT = { has_province_modifier = cultural_bonds }
+		OR = {
+			AND = {
+				culture = romanobritish
+				owner = { culture_group = imperiale }
+			}
+			AND = {
+				culture_group = imperiale
+				owner = { culture = romanobritish }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		add_province_modifier = {
+			name = cultural_bonds 
+			hidden = yes
+			duration = -1
+		}
+	}
+}
+
+# Remove Cultural Bonds modifier if no longer applies
+province_event = {
+	id = 315195
+	desc = "You're not supposed to see this..."
+	
+	trigger = {
+		has_province_modifier = cultural_bonds
+		NOR = {
+			AND = {
+				culture = romanobritish
+				owner = { culture_group = imperiale }
+			}
+			AND = {
+				culture_group = imperiale
+				owner = { culture = romanobritish }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		remove_province_modifier = cultural_bonds
+	}
+}
 
 ### All Gaul Reconquered ###
 narrative_event = {
@@ -3596,6 +3951,10 @@ character_event = {
 	trigger = {
 		government = legion_government
 		liege = { war = no }
+		NAND = {
+			independent = yes
+			primary_title = { has_title_flag = revolting_legion }
+		}
 		OR = {
 			AND = {
 				has_landed_title = d_legio_vi_victrix
@@ -4028,7 +4387,7 @@ character_event = {
 		add_trait = roman_trained
 		
 		# Stat boost
-		change_martial = 3
+		#change_martial = 3
 		if = {
 			limit = { NOT = { diplomacy = 4 } }
 			change_diplomacy = 2
@@ -4488,6 +4847,141 @@ character_event = {
 	}
 }
 
+# Revolting legions get their event troops (fallback in case of no faction to revolt with, i.e. with tyranny refusal revolts)
+character_event = {
+	id = 315915
+	desc = "EVTDESC315915"
+	picture = "GFX_evt_roman_legion_marching"
+
+	trigger = {
+		government = legion_government
+		in_revolt = yes
+		war = yes
+		NOT = { primary_title = { has_title_flag = revolting_legion } }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		liege_before_war = {
+			primary_title = {
+				ROOT = {
+					primary_title = {
+						set_title_flag = revolting_legion
+						set_title_flag = revolting_legion_@PREVPREV
+					}
+				}
+			}
+			save_event_target_as = former_liege
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315915"
+		ROOT_rebel_spawn_held_legion_at_capital = yes
+		hidden_tooltip = {
+			liege_before_war = {
+				character_event = { id = 315916 }
+			}
+		}
+	}
+}
+
+# Notify liege and disband liege's troops
+character_event = {
+	id = 315916
+	desc = "EVTDESC315916"
+	picture = "GFX_evt_roman_legion_marching"
+
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315916"
+		FROM = {
+			disband_held_rebel_legion_from_ROOT = yes
+		}
+	}
+}
+
+# Revolt ends, return legion to rightful liege
+character_event = {
+	id = 315917
+	desc = "EVTDESC315917"
+	picture = "GFX_evt_roman_legion_marching"
+	
+	hide_window = yes
+
+	trigger = {
+		government = legion_government
+		independent = yes
+		war = no
+		primary_title = { has_title_flag = revolting_legion }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		primary_title = { clr_title_flag = revolting_legion }
+		any_title = {
+			limit = {
+				ROOT = {
+					primary_title = { has_title_flag = revolting_legion_@PREVPREV }
+				}
+			}
+			ROOT = {
+				primary_title = { clr_title_flag = revolting_legion_@PREVPREV }
+			}
+			holder_scope = {
+				set_defacto_vassal = ROOT
+				character_event = { id = 315918 }
+			}
+			break = yes
+		}
+	}
+}
+
+# Notify liege and restore event troops
+character_event = {
+	id = 315918
+	desc = "EVTDESC315918"
+	picture = "GFX_evt_roman_legion_marching"
+
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = { save_event_target_as = former_rebel }
+	}
+	
+	option = {
+		name = "EVTOPTA315918"
+		FROM = {
+			custom_tooltip = {
+				text = EVTOPTA315922TT_1
+			}
+			hidden_tooltip = {
+				ROOT_respawn_held_rebel_legion = yes
+				# any_army = {
+					# limit = { 
+						# location = {
+							# event_target:former_rebel = {
+								# capital_scope = {
+									# province = PREVPREV
+								# }
+							# }
+						# }
+					# }
+					# troops = -0.2
+					# morale = -0.2
+				# }
+			}
+		}
+	}
+}
+
 # Legions join rebels in faction revolt
 character_event = {
 	id = 315920
@@ -4506,136 +5000,7 @@ character_event = {
 				text = EVTOPTA315920TT
 			}
 			#hidden_tooltip = {
-				if = {
-					limit = { 
-						has_landed_title = d_legio_vi_victrix 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_victrix } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xx_valeria_victrix 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_twenty_valeria_victrix } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XX_valeria_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_ii_augusta 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_augusta } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_augusta = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_ii_britannica 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_two_britannica } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_britannica = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_flavia_gallicana_constantia 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_constantia } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_gallicana_constantia = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_flavia_martis 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_flavia } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_martis = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_minervia 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_one_minervia } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_minervia = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xxx_ulpia_victrix 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_thirty_ulpia } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XXX_ulpia_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xii_victrix 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_twelve_victrix } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XII_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_vi_gallicana 
-						ROOT = { liege_before_war = { has_earmarked_regiments = legio_six_gallicana } }
-					}
-					ROOT = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_gallicana = yes
-							}
-						}
-					}
-				}
+				ROOT_rebel_spawn_held_legion_at_capital = yes
 			#}
 		}
 		hidden_tooltip = {
@@ -4659,101 +5024,7 @@ character_event = {
 		event_target:faction_revolt_leader = {
 			any_vassal = {
 				limit = { government = legion_government }
-				custom_tooltip = {
-					text = EVTOPTA315921TT
-				}
-				#hidden_tooltip = {
-					if = {
-						limit = { 
-							has_landed_title = d_legio_vi_victrix 
-							ROOT = { has_earmarked_regiments = legio_six_victrix }
-						}
-						ROOT = {
-							disband_event_forces = legio_six_victrix
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_xx_valeria_victrix 
-							ROOT = { has_earmarked_regiments = legio_twenty_valeria_victrix }
-						}
-						ROOT = {
-							disband_event_forces = legio_twenty_valeria_victrix
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_ii_augusta 
-							ROOT = { has_earmarked_regiments = legio_two_augusta }
-						}
-						ROOT = {
-							disband_event_forces = legio_two_augusta
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_ii_britannica 
-							ROOT = { has_earmarked_regiments = legio_two_britannica }
-						}
-						ROOT = {
-							disband_event_forces = legio_two_britannica
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_i_flavia_gallicana_constantia 
-							ROOT = { has_earmarked_regiments = legio_one_constantia }
-						}
-						ROOT = {
-							disband_event_forces = legio_one_constantia
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_i_flavia_martis 
-							ROOT = { has_earmarked_regiments = legio_one_flavia }
-						}
-						ROOT = {
-							disband_event_forces = legio_one_flavia
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_i_minervia 
-							ROOT = { has_earmarked_regiments = legio_one_minervia }
-						}
-						ROOT = {
-							disband_event_forces = legio_one_minervia
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_xxx_ulpia_victrix 
-							ROOT = { has_earmarked_regiments = legio_thirty_ulpia }
-						}
-						ROOT = {
-							disband_event_forces = legio_thirty_ulpia
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_xii_victrix 
-							ROOT = { has_earmarked_regiments = legio_twelve_victrix }
-						}
-						ROOT = {
-							disband_event_forces = legio_twelve_victrix
-						}
-					}
-					if = {
-						limit = { 
-							has_landed_title = d_legio_vi_gallicana 
-							ROOT = { has_earmarked_regiments = legio_six_gallicana }
-						}
-						ROOT = {
-							disband_event_forces = legio_six_gallicana
-						}
-					}
-				#}
+				disband_held_rebel_legion_from_ROOT = yes
 			}
 		}
 	}
@@ -4782,6 +5053,10 @@ character_event = {
 	
 	is_triggered_only = yes
 	
+	immediate = {
+		FROM = { save_event_target_as = former_rebel }
+	}
+	
 	option = {
 		name = "EVTOPTA315922"
 		any_character = {
@@ -4802,137 +5077,7 @@ character_event = {
 				}
 			}
 			hidden_tooltip = {
-				# Respawn legion event troops
-				if = {
-					limit = { 
-						has_landed_title = d_legio_vi_victrix 
-						FROM = { has_earmarked_regiments = legio_six_victrix }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xx_valeria_victrix 
-						FROM = { has_earmarked_regiments = legio_twenty_valeria_victrix }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XX_valeria_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_ii_augusta 
-						FROM = { has_earmarked_regiments = legio_two_augusta }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_augusta = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_ii_britannica 
-						FROM = { has_earmarked_regiments = legio_two_britannica }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_britannica = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_flavia_gallicana_constantia 
-						FROM = { has_earmarked_regiments = legio_one_constantia }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_gallicana_constantia = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_flavia_martis 
-						FROM = { has_earmarked_regiments = legio_one_flavia }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_martis = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_i_minervia 
-						FROM = { has_earmarked_regiments = legio_one_minervia }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_minervia = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xxx_ulpia_victrix 
-						FROM = { has_earmarked_regiments = legio_thirty_ulpia }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XXX_ulpia_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_xii_victrix 
-						FROM = { has_earmarked_regiments = legio_twelve_victrix }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XII_victrix = yes
-							}
-						}
-					}
-				}
-				if = {
-					limit = { 
-						has_landed_title = d_legio_vi_gallicana 
-						FROM = { has_earmarked_regiments = legio_six_gallicana }
-					}
-					FROM = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_gallicana = yes
-							}
-						}
-					}
-				}
+				ROOT_respawn_held_rebel_legion = yes
 				
 				# Set proper liege and remove rebel opinions and flags
 				primary_title = { 
@@ -4959,7 +5104,7 @@ character_event = {
 			}
 		}
 		hidden_tooltip = {
-			any_army = {			
+			any_army = {
 				limit = { 
 					location = {
 						FROM = {
@@ -4983,17 +5128,46 @@ character_event = {
 			# Disband rebel legions
 			FROM = {
 				clr_character_flag = faction_defeated
-				disband_event_forces = legio_six_victrix
-				disband_event_forces = legio_twenty_valeria_victrix
-				disband_event_forces = legio_two_augusta
-				disband_event_forces = legio_two_britannica
-				disband_event_forces = legio_one_constantia
-				disband_event_forces = legio_one_flavia
-				disband_event_forces = legio_one_minervia
-				disband_event_forces = legio_thirty_ulpia
-				disband_event_forces = legio_twelve_victrix
-				disband_event_forces = legio_six_gallicana
+				# if = {
+					# limit = { NOT = { character = ROOT } }
+					# disband_event_forces = legio_six_victrix
+					# disband_event_forces = legio_twenty_valeria_victrix
+					# disband_event_forces = legio_two_augusta
+					# disband_event_forces = legio_two_britannica
+					# disband_event_forces = legio_one_constantia
+					# disband_event_forces = legio_one_flavia
+					# disband_event_forces = legio_one_minervia
+					# disband_event_forces = legio_thirty_ulpia
+					# disband_event_forces = legio_twelve_victrix
+					# disband_event_forces = legio_six_gallicana
+				# }
 			}
+		}
+	}
+}
+
+# Bounce event 315922 for invalidation where the attacker cannot be properly found
+character_event = {
+	id = 315923
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_roman_legion_marching"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				primary_title = {
+					any_playable_ruler = {
+						any_demesne_title = {
+							has_title_flag = revolting_legion_@PREVPREV
+						}
+					}
+				}
+			}
+			primary_title = { save_event_target_as = liege_primary_title }
+			character_event = { id = 315922 }
 		}
 	}
 }
@@ -5016,6 +5190,13 @@ character_event = {
 				clr_character_flag = transfer_legions_@ROOT 
 				save_event_target_as = previous_ruler
 			}
+			if = {
+				limit = { has_character_flag = check_rebel_leader_for_legions }
+				any_character = {
+					limit = { has_character_flag = rebel_leader_@ROOT }
+					save_event_target_as = previous_rebel_leader
+				}
+			}
 		}
 		any_character = {
 			limit = { 
@@ -5026,16 +5207,32 @@ character_event = {
 				text = EVTOPTA315925TT
 			}
 			hidden_tooltip = {
+				set_defacto_liege = ROOT
 				# Respawn legion event troops
 				if = {
 					limit = { 
 						has_landed_title = d_legio_vi_victrix 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_six_victrix }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_victrix = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_six_victrix } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_VI_victrix = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_six_victrix } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_VI_victrix = yes
+								}
 							}
 						}
 					}
@@ -5043,12 +5240,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_xx_valeria_victrix 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_twenty_valeria_victrix }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XX_valeria_victrix = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_twenty_valeria_victrix } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XX_valeria_victrix = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_twenty_valeria_victrix } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XX_valeria_victrix = yes
+								}
 							}
 						}
 					}
@@ -5056,12 +5268,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_ii_augusta 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_two_augusta }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_augusta = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_two_augusta } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_II_augusta = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_two_augusta } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_II_augusta = yes
+								}
 							}
 						}
 					}
@@ -5069,12 +5296,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_ii_britannica 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_two_britannica }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_II_britannica = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_two_britannica } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_II_britannica = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_two_britannica } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_II_britannica = yes
+								}
 							}
 						}
 					}
@@ -5082,13 +5324,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_i_flavia_gallicana_constantia 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_one_constantia }
 					}
-					set_character_flag = here
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_gallicana_constantia = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_one_constantia } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_flavia_gallicana_constantia = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_one_constantia } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_flavia_gallicana_constantia = yes
+								}
 							}
 						}
 					}
@@ -5096,12 +5352,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_i_flavia_martis 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_one_flavia }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_flavia_martis = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_one_flavia } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_flavia_martis = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_one_flavia } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_flavia_martis = yes
+								}
 							}
 						}
 					}
@@ -5109,12 +5380,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_i_minervia 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_one_minervia }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_I_minervia = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_one_minervia } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_minervia = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_one_minervia } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_I_minervia = yes
+								}
 							}
 						}
 					}
@@ -5122,12 +5408,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_xxx_ulpia_victrix 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_thirty_ulpia }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XXX_ulpia_victrix = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_thirty_ulpia } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XXX_ulpia_victrix = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_thirty_ulpia } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XXX_ulpia_victrix = yes
+								}
 							}
 						}
 					}
@@ -5135,12 +5436,27 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_xii_victrix 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_twelve_victrix }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_XII_victrix = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_twelve_victrix } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XII_victrix = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_twelve_victrix } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_XII_victrix = yes
+								}
 							}
 						}
 					}
@@ -5148,27 +5464,57 @@ character_event = {
 				if = {
 					limit = { 
 						has_landed_title = d_legio_vi_gallicana 
-						event_target:previous_ruler = { has_earmarked_regiments = legio_six_gallicana }
 					}
-					event_target:previous_ruler = {
-						capital_scope = {
-							ROOT = {
-								spawn_legio_VI_gallicana = yes
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = legio_six_gallicana } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_VI_gallicana = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = legio_six_gallicana } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_legio_VI_gallicana = yes
+								}
 							}
 						}
 					}
 				}
 				
 				clr_character_flag = legion_to_transfer_@ROOT
+				
+				primary_title = {
+					clr_title_flag = revolting_legion	
+					clr_title_flag = revolting_legion_@PREVPREV
+				}
 			}
 		}
 		hidden_tooltip = {
-			any_army = {			
+			any_army = {
 				limit = { 
 					location = {
-						event_target:previous_ruler = {
-							capital_scope = {
-								province = PREVPREV
+						OR = {
+							event_target:previous_ruler = {
+								capital_scope = {
+									province = PREVPREV
+								}
+							}
+							AND = {
+								ROOT = { has_character_flag = check_rebel_leader_for_legions }
+								event_target:previous_rebel_leader = {
+									capital_scope = {
+										province = PREVPREV
+									}
+								}
 							}
 						}
 					}
@@ -5190,6 +5536,44 @@ character_event = {
 				disband_event_forces = legio_twelve_victrix
 				disband_event_forces = legio_six_gallicana
 			}
+			if = {
+				limit = { has_character_flag = check_rebel_leader_for_legions }
+				event_target:previous_rebel_leader = {
+					disband_event_forces = legio_six_victrix
+					disband_event_forces = legio_twenty_valeria_victrix
+					disband_event_forces = legio_two_augusta
+					disband_event_forces = legio_two_britannica
+					disband_event_forces = legio_one_constantia
+					disband_event_forces = legio_one_flavia
+					disband_event_forces = legio_one_minervia
+					disband_event_forces = legio_thirty_ulpia
+					disband_event_forces = legio_twelve_victrix
+					disband_event_forces = legio_six_gallicana
+				}
+			}
+			# Remove opinion modifiers
+			any_vassal = {
+				limit = { government = legion_government }
+				any_opinion_modifier_target = {
+					limit = {
+						reverse_has_opinion_modifier = {
+							who = PREV
+							modifier = opinion_rebel_leader
+						}
+					}
+					reverse_remove_opinion = {
+						who = PREV
+						modifier = opinion_rebel_leader
+					}
+				}
+			}
+		}
+	}
+	
+	after = {
+		clr_character_flag = check_rebel_leader_for_legions
+		event_target:previous_rebel_leader = {
+			clr_character_flag = rebel_leader_@ROOT
 		}
 	}
 }
@@ -5265,6 +5649,277 @@ province_event = {
 				name = legion_castrum_modifier_2 
 				hidden = yes
 				duration = -1
+			}
+		}
+	}
+}
+
+# Legions demand payment
+character_event = {
+	id = 315935
+	title = "EVTNAME315935"
+	desc = "EVTDESC315935"
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"	
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_roman_emperor_trigger = yes
+		any_vassal = {
+			government = legion_government
+		}
+		NOT = { has_character_flag = created_roman_empire_title }
+	}
+	
+	immediate = {
+		set_variable = {
+			which = num_legions
+			value = 0
+		}
+		any_vassal = {
+			limit = { government = legion_government }
+			ROOT = {
+				change_variable = {
+					which = num_legions
+					value = 1
+				}
+			}
+		}
+		set_variable = {
+			which = normal_payment_cost
+			value = 75
+		}
+		multiply_variable = {
+			which = normal_payment_cost
+			which = num_legions
+		}
+		set_variable = {
+			which = normal_payment_cost_negative
+			which = normal_payment_cost
+		}
+		multiply_variable = {
+			which = normal_payment_cost_negative
+			value = -1
+		}
+		set_variable = {
+			which = high_payment_cost
+			value = 110
+		}
+		multiply_variable = {
+			which = high_payment_cost
+			which = num_legions
+		}
+		set_variable = {
+			which = high_payment_cost_negative
+			which = high_payment_cost
+		}
+		multiply_variable = {
+			which = high_payment_cost_negative
+			value = -1
+		}
+		
+		# Determine relative wealth for AI
+		export_to_variable = {
+			which = current_wealth
+			value = wealth
+		}
+		export_to_variable = {		# Get normalized monthly income
+			which = current_monthly_income
+			value = monthly_income
+		}
+		if = {
+			limit = { has_global_flag = winter_season }
+			multiply_variable = {
+				which = current_monthly_income
+				value = 1.5
+			}
+		}
+		else_if = {
+			limit = { has_global_flag = autumn_season }
+			multiply_variable = {
+				which = current_monthly_income
+				value = 0.67
+			}
+		}
+		set_variable = {
+			which = normal_payment_debt
+			which = normal_payment_cost
+		}
+		change_variable = {
+			which = normal_payment_debt
+			which = current_wealth
+		}		
+		set_variable = {
+			which = months_to_pay_debt
+			value = 0
+		}
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = normal_payment_debt
+						value = 0
+					}
+				}
+			}
+			set_variable = {
+				which = months_to_pay_debt
+				which = normal_payment_debt
+			}
+			if = {
+				limit = {
+					NOT = {
+						is_variable_equal = {
+							which = current_monthly_income
+							value = 0
+						}
+					}
+				}
+				divide_variable = {
+					which = months_to_pay_debt
+					which = current_monthly_income
+				}
+				multiply_variable = {
+					which = normal_payment_debt
+					value = -1
+				}
+			}
+			else = {
+				set_variable = {
+					which = months_to_pay_debt
+					value = 1000
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315935"		# Pay them
+		wealth = normal_payment_cost_negative
+		ai_chance = {
+			factor = 75
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 30		# Some of it goes to the soldiers
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315935"		# Pay them a lot
+		wealth = high_payment_cost_negative
+		any_vassal = {
+			limit = { government = legion_government }
+			opinion = {
+				who = ROOT
+				modifier = opinion_large_payment
+				years = 5
+			}
+		}
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { government = legion_government }
+				wealth = 45		# Some of it goes to the soldiers
+			}
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				NOT = { 
+					check_variable = {
+						which = current_wealth
+						which = high_payment_cost
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = charitable
+			}
+			modifier = {
+				factor = 0
+				trait = greedy
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC315935"		# No
+		prestige = 50
+		any_vassal = {
+			limit = { government = legion_government }
+			opinion = {
+				who = ROOT
+				modifier = opinion_refused_payment
+				years = 5
+			}
+		}
+		add_character_modifier = {
+			name = angered_army
+			duration = 1825
+		}
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 0
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.75
+				trait = charitable
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { 
+					check_variable = {
+						which = current_wealth
+						which = normal_payment_cost
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 6
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 12
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 18
+				}
+			}
+			modifier = {
+				factor = 2
+				check_variable = {
+					which = months_to_pay_debt
+					value = 24
+				}
 			}
 		}
 	}

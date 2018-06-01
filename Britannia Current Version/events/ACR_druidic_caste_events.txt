@@ -274,43 +274,63 @@ character_event = {
 				}
 			}
 		}
-		random_courtier = {
-			limit = { 
-				OR = {
-					trait = druid
-					trait = archdruid
-				}
-				is_adult = yes
-				OR = {
-					religion = briton_pagan
-					religion = briton_pagan_reformed
-					religion = pict_pagan
-					religion = pict_pagan_reformed
-					religion = gael_pagan
-					religion = gael_pagan_reformed
+		if = {
+			limit = {
+				any_vassal = {
+					OR = {
+						trait = druid
+						trait = archdruid
+					}
+					is_adult = yes
+					OR = {
+						religion = briton_pagan
+						religion = briton_pagan_reformed
+						religion = pict_pagan
+						religion = pict_pagan_reformed
+						religion = gael_pagan
+						religion = gael_pagan_reformed
+					}
 				}
 			}
-			give_minor_title = title_court_druid
-			break = yes
+			random_vassal = {
+				limit = { 
+					OR = {
+						trait = druid
+						trait = archdruid
+					}
+					is_adult = yes
+					#is_ruler = no # Councillor landed vassals are courtier
+					OR = {
+						religion = briton_pagan
+						religion = briton_pagan_reformed
+						religion = pict_pagan
+						religion = pict_pagan_reformed
+						religion = gael_pagan
+						religion = gael_pagan_reformed
+					}
+				}
+				give_minor_title = title_court_druid
+			}
 		}
-		random_vassal = {
-			limit = { 
-				OR = {
-					trait = druid
-					trait = archdruid
+		else = {
+			random_courtier = {
+				limit = { 
+					OR = {
+						trait = druid
+						trait = archdruid
+					}
+					is_adult = yes
+					OR = {
+						religion = briton_pagan
+						religion = briton_pagan_reformed
+						religion = pict_pagan
+						religion = pict_pagan_reformed
+						religion = gael_pagan
+						religion = gael_pagan_reformed
+					}
 				}
-				is_adult = yes
-				#is_ruler = no # Councillor landed vassals are courtier
-				OR = {
-					religion = briton_pagan
-					religion = briton_pagan_reformed
-					religion = pict_pagan
-					religion = pict_pagan_reformed
-					religion = gael_pagan
-					religion = gael_pagan_reformed
-				}
+				give_minor_title = title_court_druid
 			}
-			give_minor_title = title_court_druid
 		}
 	}
 

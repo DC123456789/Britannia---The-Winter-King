@@ -813,50 +813,110 @@ character_event = {
 	}
 }
 
-#Captured by enemy during siege
+# Imprisoned by the winner. Fired from 'on_siege_over_loc_chars'.
+# Siege winner unit owner in the 'new_character' scope, lost holding title in FROM, local character in ROOT.
 character_event = {
-	id = 62500	
-	desc = "EVTDESC62500"	
-	picture = "GFX_evt_into_the_dungeon"
+	id = 62100
+	picture = GFX_evt_siege	
+	desc = EVTDESC62100
 	
 	is_triggered_only = yes
 	
 	trigger = {
-		is_alive = yes
-		prisoner = no
 		new_character = {
+			NOT = { has_landed_title = e_rebels }
+			rebel = no
+			# NOT = { # Handled by SSI.61
+				# OR = {
+					# has_landed_title = e_mexikha
+					# any_liege = {
+						# has_landed_title = e_mexikha
+					# }
+				# }
+			# }
 			NOT = {
-				character = ROOT
+				FROM = { 
+					holder_scope = { 
+						war_with = PREVPREV 
+						OR = {
+							is_primary_war_attacker = yes
+							is_primary_war_defender = yes
+						}
+					} 
+				}
 			}
-		}	
+		}
+		
+		OR = {
+			is_ruler = yes
+			AND = {
+				is_female = yes
+				NOT = { age = 40 }
+			}
+			
+			host = {
+				OR = {
+					is_close_relative = ROOT
+					any_spouse = {
+						character = ROOT
+					}
+					any_consort = {
+						character = ROOT
+					}
+				}
+			}
+			new_character = {
+				ROOT = {
+					prisoner = yes
+					employer = {
+						character = PREVPREV
+					}
+				}
+			}
+			
+			AND = {
+				new_character = {
+					ROOT = {
+						host = {
+							top_liege = {
+								war_with = PREVPREVPREV
+							}
+						}
+					}
+				}
+				
+				host = {
+					top_liege = {
+						is_close_relative = ROOT
+					}
+				}
+			}
+		}
 	}
-	
 	
 	weight_multiplier = {
 		days = 1
-	
 		modifier = {
-			factor = 0.25
-			is_ruler = no
-			NOT = { father = { is_ruler = yes } }
-			NOT = { mother = { is_ruler = yes } }
-		}		
+			factor = 2
+			is_female = yes
+			new_character = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group
+				}
+			}
+		}
 		modifier = {
-			factor = 1.5
-			tier = baron
+			factor = 4 # Free prisoner
+			new_character = {
+				ROOT = {
+					prisoner = yes
+					employer = {
+						character = PREVPREV
+					}
+				}
+			}
 		}	
-		modifier = {
-			factor = 2.0
-			tier = count
-		}
-		modifier = {
-			factor = 2.5
-			tier = duke
-		}
-		modifier = {
-			factor = 3.0
-			higher_tier_than = duke
-		}		
 		modifier = {
 			factor = 1.25
 			trait = brave
@@ -869,7 +929,6 @@ character_event = {
 			factor = 0.25
 			trait = paranoid
 		}
-
 		modifier = {
 			factor = 1.25
 			trait = stressed
@@ -954,31 +1013,60 @@ character_event = {
 			factor = 1.1
 			trait = has_saxon_plague
 		}
-		
 	}
 	
 	option = {
-		name = "EVTOPTA62500"
+		name = EVTOPTA62100
+		trigger = {
+			center_flank_leader = {
+				mercenary = no
+			}
+		}
 		new_character = {
-			ROOT = { imprison = PREV }
-			hidden_tooltip = { character_event = { id = 62501 } }
+			ROOT = {
+				imprison = PREV
+			}
+		}
+		hidden_tooltip = {
+			new_character = {
+				character_event = { id = 62101 }
+			}
+		}
+	}
+
+	option = {
+		name = EVTOPTA62100
+		trigger = {
+			center_flank_leader = {
+				mercenary = yes
+			}
+		}
+		center_flank_leader = {
+			ROOT = {
+				imprison = PREV
+			}
 		}
 	}
 }
 
+# Jailor informed
 character_event = {
-	id = 62501
+	id = 62101
+	picture = GFX_evt_siege
+	desc = EVTDESC62101
+	border = GFX_event_normal_frame_war
+	
 	is_triggered_only = yes
 	
-	picture = "GFX_evt_into_the_dungeon"
-
-	desc = "EVTDESC62501"
-
+	notification = yes
+	
+	ai = no
+	
 	option = {
-		name = "EVTOPTA62501"
+		name = EVTOPTA62101
 		tooltip = {
 			FROM = {
-				imprison = ROOT		
+				imprison = yes
 			}
 		}
 	}

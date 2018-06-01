@@ -1182,10 +1182,7 @@ province_event = {
 			NOT = {
 				owner = {
 					top_liege = {
-						OR = {
-							culture = romanobritish
-							culture_group = imperiale
-						}
+						is_roman_culture_trigger = yes
 					}
 				}
 			}
@@ -1197,10 +1194,7 @@ province_event = {
 		trigger = {
 			owner = {
 				top_liege = {
-					OR = {
-						culture = romanobritish
-						culture_group = imperiale
-					}
+					is_roman_culture_trigger = yes
 				}
 			}
 		}
@@ -1215,15 +1209,27 @@ province_event = {
 			culture_group = basque
 		}
 		owner = {
-			NOT = { culture = ROOT }
-			NOT = {
-				any_liege = {
-					culture = ROOT
+			OR = {
+				AND = {
+					NOT = { culture = ROOT }
+					NOT = {
+						any_liege = {
+							culture = ROOT
+						}
+					}
+					NAND = {
+						is_ingvaeonic_culture_trigger = yes
+						ROOT = { is_ingvaeonic_culture_trigger = yes }
+					}
 				}
-			}
-			NAND = {
-				is_ingvaeonic_culture_trigger = yes
-				ROOT = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = {
+					job_chancellor = {
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
 			}
 		}
 		OR = {
@@ -1337,41 +1343,179 @@ province_event = {
 				}
 			}
 		}
+		modifier = {
+			factor = 4.0
+			owner = {
+				OR = {
+					culture = ROOT
+					any_liege = {
+						culture = ROOT
+					}
+					AND = {
+						is_ingvaeonic_culture_trigger = yes
+						ROOT = { is_ingvaeonic_culture_trigger = yes }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 5
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 10
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 15
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						diplomacy = 20
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 5
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 10
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 15
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.95
+			owner = {
+				top_liege = {
+					job_chancellor = {
+						stewardship = 20
+						has_job_action = action_promote_romanization
+						location = {
+							province = ROOT
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_province_modifier = roman_colonies
+		}
 	}
 
 	option = {
 		name = "EVTOPTA55010"
-		if = {
-			limit = {
-				region = world_gaul
-				NOR = { 
-					region = world_gaul_romangermania 
-					region = world_gaul_aquitania_tertia
-				}
-			}
-			culture = romanogallic
-		}
-		if = {
-			limit = {
-				region = world_britannia
-			}
-			culture = romanobritish
-		}
-		if = {
-			limit = {
-				region = world_gaul_romangermania
-			}
-			culture = romanogermanic
-		}
-		if = {
-			limit = {
-				region = world_gaul_aquitania_tertia
-			}
-			culture = romanoaquitanian
-		}
+		convert_to_local_roman_culture_effect = yes
 		if = {
 			limit = { NOT = { religion_group = christian } }
 			religion = catholic
+		}
+		hidden_tooltip = {
+			top_liege = {
+				if = {
+					limit = {
+						job_chancellor = {
+							has_job_action = action_promote_romanization
+							location = {
+								province = ROOT
+							}
+						}
+					}
+					job_chancellor = { character_event = { id = 315193 } }
+				}
+				if = {
+					limit = {
+						NOT = { character = PREV }
+					}
+					character_event = { id = 315192 }
+				}
+			}
 		}
 	}
 }
@@ -1485,7 +1629,7 @@ province_event = {
 					culture = ROOT
 				}
 			}
-			top_liege = {			# Romanization under Roman rulers is handled under event 315192
+			top_liege = {			# Romanization under Roman rulers is handled under event 315191
 				NOR = {
 					culture_group = celtic
 					culture_group = imperiale
@@ -5680,6 +5824,189 @@ character_event = {
 				culture = arpitan
 			}
 		}				
+	}
+}
+
+# The Norse-Gaelic Melting Pot
+province_event = {
+	id = 55075
+	desc = "EVTDESC55075"
+	picture = GFX_evt_saxon_army
+	
+	trigger = {
+		year = 750
+		OR = {			
+			region = world_ireland
+		}
+		
+		NOT = {
+			culture = norse_gael
+		}		
+		
+		OR = {	
+			c_eblana = {
+				owner = {
+					top_liege = {
+						culture = dane
+						
+					}
+				}
+			}
+			c_waterford = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+					
+			c_wexford = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_limerick = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_concagh = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}		
+			c_longford = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_connemara = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_donegal = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_ailech = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_dal_naraide = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_conaille = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+			c_arda = {
+				owner = {
+					top_liege = {
+						culture = dane
+					}
+				}
+			}
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 360
+		modifier = {
+			factor = 2
+			NOT = { year = 750 }
+		}
+		
+		modifier = {
+			factor = 0.75
+			year = 750
+		}
+		modifier = {
+			factor = 0.5
+			year = 775
+		}
+		modifier = {
+			factor = 0.5
+			year = 800
+		}
+		modifier = {
+			factor = 0.25
+			year = 825
+		}
+		modifier = {
+			factor = 0.1
+			year = 850
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				culture = norse_gael
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				culture = dane
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				top_liege = {
+					culture = dane
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 1.5
+			any_province_holding = {
+				holding_type = TRIBAL
+			}
+		}
+		modifier = {
+			factor = 1.5
+			owner = {
+				is_tribal = yes
+			}
+		}
+		
+		modifier = {
+			factor = 0.8
+			owner = {
+				top_liege = {
+					has_landed_title = k_norse_ireland
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTA55075"
+		culture = norse_gael
 	}
 }
 

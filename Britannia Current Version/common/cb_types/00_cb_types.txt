@@ -53,8 +53,9 @@ claim = {
 		}
 	}
 	
-	#can_use = {
-	#}
+	can_use = {
+		is_from_and_this_top_liege_roman_province_trigger = no
+	}
 	
 	can_use_title = {
 		OR = {
@@ -88,8 +89,8 @@ claim = {
 					is_pretender = yes # Checks vs ROOT character
 					holder_scope = { has_regent = yes }
 					AND = {
-						ROOT = { is_female = no }
-						holder_scope = { is_female = yes }
+						ROOT = { OR = { is_female = no has_law = status_of_women_4 } }
+						holder_scope ={ AND = { is_female = yes NOR = { has_law = status_of_women_4 has_game_rule = { name = gender value = all } } } }
 					}
 					is_contested = yes # Is already being contested in some form of Claim or Succession War
 				}
@@ -370,6 +371,7 @@ other_claim = {
 	}
 	
 	can_use = {
+		is_from_and_this_top_liege_roman_province_trigger = no
 	}
 
 	can_use_title = {
@@ -414,8 +416,8 @@ other_claim = {
 					is_pretender = yes # Checks vs ROOT character
 					holder_scope = { has_regent = yes }
 					AND = {
-						ROOT = { is_female = no }
-						holder_scope ={ is_female = yes }
+						ROOT = { OR = { is_female = no  has_law = status_of_women_4 } }
+						holder_scope ={ AND = { is_female = yes NOR = { has_law = status_of_women_4 has_game_rule = { name = gender value = all } } } }
 					}
 					is_contested = yes # Is already being contested in some form of Claim or Succession War
 				}
@@ -526,6 +528,34 @@ other_claim = {
 			usurp_title_plus_barony_if_unlanded = ROOT
 			
 			hidden_tooltip = {
+				ROOT = { 
+					any_child =  { 
+						limit = { 
+							is_ruler = no 
+							is_married = no 
+							prisoner = no 
+							is_adult = no
+							is_within_diplo_range = ROOT 
+						} 
+						move_character = ROOT 
+					}
+					any_spouse =  { 
+						limit = { 
+							is_ruler = no 
+							prisoner = no 
+							is_within_diplo_range = ROOT 
+						} 
+						move_character = ROOT 
+					}
+					any_consort =  { 
+						limit = { 
+							is_ruler = no 
+							prisoner = no 
+							is_within_diplo_range = ROOT 
+						} 
+						move_character = ROOT 
+					}
+				}
 			
 				# If we were erroneously vassalized, break free
 				if = {
@@ -545,9 +575,10 @@ other_claim = {
 				# try and vassalize, but only conditionally
 				if = {
 					limit = {
-						NOT = {
-							holder_scope = {
+						holder_scope = {
+							NOR = {
 								is_liege_or_above = FROMFROM
+								character = FROMFROM
 							}
 						}
 						OR = {
@@ -750,8 +781,8 @@ claim_on_liege = {
 					is_pretender = yes # Checks vs ROOT character
 					holder_scope = { has_regent = yes }
 					AND = {
-						ROOT = { is_female = no }
-						holder_scope ={ is_female = yes }
+						ROOT = { OR = { is_female = no has_law = status_of_women_4 } }
+						holder_scope ={ AND = { is_female = yes NOR = { has_law = status_of_women_4 has_game_rule = { name = gender value = all } } } }
 					}
 					is_contested = yes # Is already being contested in some form of Claim or Succession War
 				}
@@ -774,7 +805,7 @@ claim_on_liege = {
 			ROOT = { has_character_flag = faction_claimant_war_allowed }
 		}
 	}
-
+	
 	on_success = {
 		ROOT = {
 			participation_scaled_prestige = 100
@@ -871,6 +902,20 @@ claim_on_liege = {
 					set_character_flag = transfer_legions_@ROOT 
 				}
 			}
+			
+			# If all the legions revolted to ROOT
+			if = {
+				limit = {
+					ROOT = { 
+						any_vassal = { 
+							government = legion_government
+						}
+					}
+				}
+				FROM = {
+					set_character_flag = transfer_legions_@ROOT 
+				}
+			}
 		}
 		
 		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
@@ -931,6 +976,15 @@ claim_on_liege = {
 		
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -1094,6 +1148,20 @@ claim_on_liege_plot = {
 					set_character_flag = transfer_legions_@ROOT 
 				}
 			}
+			
+			# If all the legions revolted to ROOT
+			if = {
+				limit = {
+					ROOT = { 
+						any_vassal = { 
+							government = legion_government
+						}
+					}
+				}
+				FROM = {
+					set_character_flag = transfer_legions_@ROOT 
+				}
+			}
 		}
 		
 		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
@@ -1148,6 +1216,15 @@ claim_on_liege_plot = {
 			participation_scaled_prestige = 100
 			hidden_tooltip = {
 				disband_event_forces = faction_revolters
+			}
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
 			}
 		}
 		any_defender = {
@@ -1355,8 +1432,8 @@ other_claim_on_liege = {
 					is_pretender = yes # Checks vs ROOT character
 					holder_scope = { has_regent = yes }
 					AND = {
-						ROOT = { is_female = no }
-						holder_scope ={ is_female = yes }
+						ROOT = { OR = { is_female = no has_law = status_of_women_4 } }
+						holder_scope ={ AND = { is_female = yes NOR = { has_law = status_of_women_4 has_game_rule = { name = gender value = all } } } }
 					}
 					is_contested = yes # Is already being contested in some form of Claim or Succession War
 				}
@@ -1374,16 +1451,36 @@ other_claim_on_liege = {
 			}
 		}
 	}
+	
+	on_invalidation = {
+		if = {
+			limit = { 
+				OR = {
+					is_liege_or_above = FROM 
+					liege_before_war = {
+						character = FROM
+					}
+				}
+			}
+			hidden_tooltip = {
+				FROM = { set_character_flag = prewar_liege_@PREV }
+				character_event = { id = 315913 }
+			}
+		}
+		else = {
+			FROM = {
+				character_event = { id = 315923 } 
+			}
+		}
+	}
 
 	on_success = {
 		ROOT = {
 			participation_scaled_prestige = 100
-			hidden_tooltip = {  disband_event_forces = faction_revolters }
+			hidden_tooltip = { disband_event_forces = faction_revolters }
 		}
-		PREV = {
-			participation_scaled_prestige = 100
-			hidden_tooltip = {  disband_event_forces = faction_revolters }
-		}
+		participation_scaled_prestige = 100
+		hidden_tooltip = { disband_event_forces = faction_revolters }
 		any_attacker = {
 			limit = { 
 				NOT = { character = ROOT } 
@@ -1478,6 +1575,20 @@ other_claim_on_liege = {
 			}
 		}
 		
+		# Revassalize any legions back to FROM
+		any_title = {
+			limit = { has_title_flag = revolting_legion_@PREV }
+			set_defacto_liege = FROM
+			clr_title_flag = revolting_legion_@PREV
+			holder_scope = {
+				if = {
+					limit = { government = legion_government }
+					set_character_flag = legion_to_transfer_@ROOT
+				}
+			}
+			FROM = { set_character_flag = transfer_legions_@ROOT }
+		}
+		
 		if = {
 			limit = { 
 				FROM = {
@@ -1496,7 +1607,7 @@ other_claim_on_liege = {
 						}
 					}
 				}
-				FROM = { 
+				FROM = {
 					any_vassal = { 
 						limit = {
 							government = legion_government
@@ -1510,14 +1621,6 @@ other_claim_on_liege = {
 		
 		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
 		
-		# Transfer Legions
-		if = {
-			limit = {
-				FROM = { has_character_flag = transfer_legions_@ROOT }
-			}
-			ROOT = { character_event = { id = 315925 } }
-		}
-		
 		if = {
 			limit = {
 				higher_tier_than = BARON
@@ -1528,6 +1631,17 @@ other_claim_on_liege = {
 	}
 
 	on_success_posttitle = {
+		set_character_flag = rebel_leader_@ROOT
+		ROOT = { set_character_flag = check_rebel_leader_for_legions }
+		
+		# Transfer Legions
+		if = {
+			limit = {
+				FROM = { has_character_flag = transfer_legions_@ROOT }
+			}
+			ROOT = { character_event = { id = 315925 } }
+		}
+		
 		hidden_tooltip = {
 			if = {
 				limit = {
@@ -1578,6 +1692,13 @@ other_claim_on_liege = {
 	}
 
 	on_fail = {
+		if = {
+			limit = { is_liege_or_above = FROM }
+			hidden_tooltip = {
+				character_event = { id = 315911 } 
+			}
+		}
+		
 		prestige = -100
 		
 		imprison = FROM
@@ -1612,6 +1733,13 @@ other_claim_on_liege = {
 
 	on_reverse_demand = {
 		prestige = -200
+		if = {
+			limit = { is_liege_or_above = FROM }
+			hidden_tooltip = { 
+				set_character_flag = faction_defeated
+				character_event = { id = 315911 } 
+			}
+		}
 		
 		imprison = FROM
 		if = {
@@ -1628,6 +1756,15 @@ other_claim_on_liege = {
 		
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -1760,7 +1897,7 @@ claim_all = {
 		# Transfer Legions
 		if = {
 			limit = { FROM = { has_character_flag = usurped_primary_title } }
-			FROM = { clr_character_flag = usurped_primary_title}
+			FROM = { clr_character_flag = usurped_primary_title }
 			if = {
 				limit = {
 					FROM = { 
@@ -2009,6 +2146,15 @@ change_seniority_succession_law = {
 		}
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -2177,6 +2323,15 @@ change_primogeniture_succession_law = {
 		}
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -2363,6 +2518,15 @@ change_feudal_elective_succession_law = {
 		}
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -2675,25 +2839,29 @@ tribal_invasion = {
 	allowed_to_target_tributaries = no
 	
 	can_use_gui = {
-		OR = {
-			hidden_tooltip = {
-				ROOT = { has_character_flag = frankish_invasion_allowed }
-				FROM = { has_character_flag = frankish_invasion_target }
+		ROOT = {
+			OR = {
+				trait = tough_soldier
+				trait = skilled_tactician
+				trait = brilliant_strategist
 			}
-			ROOT = {
-				OR = {
-					trait = tough_soldier
-					trait = skilled_tactician
-					trait = brilliant_strategist
-				}
-				martial = 15
-				prestige = 1500
-				NOR = {
-					trait = craven
-					trait = weak
-					trait = incapable
-					trait = imbecile
-				}
+			martial = 15
+			prestige = 1500
+			NOR = {
+				trait = craven
+				trait = weak
+				trait = incapable
+				trait = imbecile
+			}
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { has_character_modifier = friendly_with_romans }
+				FROM = { culture = romanogallic }
+			}
+			NAND = {			# Block Childeric against Soissons
+				ROOT = { has_character_modifier = friendly_with_romans }
+				FROM = { culture = romanogallic }
 			}
 		}
 	}
@@ -2758,14 +2926,6 @@ tribal_invasion = {
 							}
 						}
 						NOT = { year = 700 }
-					}		
-					AND = {			# Block Childeric against Soissons
-						ROOT = {
-							has_character_flag = friendly_with_romans
-						}
-						FROM = {
-							culture = romanogallic 
-						}
 					}
 				}
 			}
@@ -2785,11 +2945,7 @@ tribal_invasion = {
 	
 	on_add_title = {
 		ROOT = {
-			clr_character_flag = frankish_invasion_allowed
 			set_character_flag = frankish_invasion_used 
-		}
-		FROM = {
-			clr_character_flag = frankish_invasion_target
 		}
 	}
 
@@ -2826,7 +2982,7 @@ tribal_invasion = {
 				}
 				ROOT = { 
 					set_character_flag = benoic_defeated_franks
-					character_event = { id = 312170 } # Siege of Trebes
+					character_event = { id = 312220 } # Siege of Trebes
 				}	
 				break = yes
 			}
@@ -2882,6 +3038,17 @@ tribal_invasion = {
 					ROOT = { is_istvaeonic_culture_trigger = yes }
 				}
 				ROOT = { set_character_flag = conquered_burgundy }
+			}
+			if = {
+				limit = {
+					title = k_praetorian_prefecture_of_gaul
+					holder_scope = {
+						character = FROM
+					}
+					NOT = { has_global_flag = provence_conquered }
+					ROOT = { is_istvaeonic_culture_trigger = yes }
+				}
+				ROOT = { set_character_flag = conquered_provence }
 			}
 			ROOT = {
 				occupy_minors_of_occupied_settlements = FROM
@@ -3071,6 +3238,15 @@ tribal_invasion = {
 				ROOT = {
 					#clr_character_flag = conquered_burgundy
 					character_event = { id = 314205 } 
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_character_flag = conquered_provence }
+				}
+				ROOT = {
+					clr_character_flag = conquered_provence
+					character_event = { id = 314206 } 
 				}
 			}
 		}
@@ -3649,6 +3825,15 @@ cb_faction_independence = {
 		FROM = {
 			prestige = 50
 			hidden_tooltip = { disband_event_forces = faction_loyalists }
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		
 		hidden_tooltip = {
@@ -3847,6 +4032,15 @@ depose_liege = {
 		}
 		FROM = {
 			participation_scaled_prestige = 50
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -3919,7 +4113,19 @@ overthrow_ruler = {
 			higher_tier_than = ROOT
 		}
 	}
-
+	
+	on_add = {
+		hidden_tooltip = {
+			# Legions that join the rebellion defect
+			FROM = {
+				any_vassal = {
+					limit = { government = legion_government }
+					character_event = { id = 315915 days = 2 }
+				}
+			}
+		}
+	}
+	
 	on_success = {
 		ROOT = {
 			primary_title = {
@@ -3990,6 +4196,10 @@ overthrow_ruler = {
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 250 }
+			hidden_tooltip = {
+				# Return revolting legions
+				character_event = { id = 315917 days = 2 }
+			}
 		}
 	}
 
@@ -4003,6 +4213,12 @@ overthrow_ruler = {
 				modifier = declared_war
 			}
 		}
+		any_attacker = {
+			hidden_tooltip = {
+				# Return revolting legions
+				character_event = { id = 315917 days = 2 }
+			}
+		}
 	}
 
 	on_reverse_demand = {
@@ -4012,12 +4228,27 @@ overthrow_ruler = {
 		}
 		FROM = {
 			participation_scaled_prestige = 50
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
 			hidden_tooltip = { participation_scaled_prestige = 50 }
 		}
 		hidden_tooltip = {
+			any_attacker = {
+				hidden_tooltip = {
+					# Return revolting legions
+					character_event = { id = 315917 days = 2 }
+				}
+			}
 			any_attacker = {
 				limit = { liege = { character = FROM } }
 				prisoner = FROM
@@ -4165,6 +4396,15 @@ overthrow_ruler_no_calls = {
 		}
 		FROM = {
 			prestige = 50
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 	}
 
@@ -4900,6 +5140,7 @@ dejure_county_claim = {
 	
 	can_use = {
 		ROOT = { NOT = { government = tribal_government } }
+		is_from_and_this_top_liege_roman_province_trigger = no
 	}
 
 	can_use_title = {
@@ -5493,6 +5734,7 @@ other_dejure_county_claim = {
 		}
 		ROOT = { NOT = { government = tribal_government } }
 		NOT = { government = tribal_government }
+		is_from_and_this_top_liege_roman_province_trigger = no
 	}
 
 	can_use_title = {
@@ -5820,6 +6062,15 @@ change_gavelkind_succession_law = {
 		}
 		FROM = {
 			participation_scaled_prestige = 100
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -5981,6 +6232,15 @@ lower_crown_authority_law = {
 		FROM = {
 			participation_scaled_prestige = 100
 			hidden_tooltip = { disband_event_forces = faction_loyalists }
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -6179,6 +6439,15 @@ lower_tribal_organization_law = {
 		FROM = {
 			participation_scaled_prestige = 100
 			hidden_tooltip = { disband_event_forces = faction_loyalists }
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -7808,7 +8077,7 @@ pagan_subjugation = {
 				# culture = oldsaxon
 				# culture = oldfrisian
 			# }
-			NOT = { has_character_modifier = vassalize_tribal_timer }
+			NOT = { has_character_modifier = vassalize_timer }
 		}
 	}
 
@@ -7885,7 +8154,7 @@ pagan_subjugation = {
 		ROOT = {
 			prestige = -200
 			add_character_modifier = {
-				name = vassalize_tribal_timer 
+				name = vassalize_timer 
 				duration = 1095
 			}
 		}
@@ -8762,11 +9031,19 @@ tributary_cb = {
 	on_add = {
 		ROOT = { clr_character_flag = reestablish_tributary_war }
 		# Chance to surrender early
-		ROOT = { save_event_target_as = tribute_war_suzerain }
-		FROM = {
-			save_event_target_as = tribute_war_target
-			set_character_flag = surrender_tributary_cb
-			character_event = { id = JD.2500 days = 5 tooltip = surrender_tributary_tt }
+		if = {
+			limit = { 
+				NAND = {			# Since you just got asked, no point asking again
+					ROOT = { has_landed_title = k_ostrogoths }
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}			
+			ROOT = { save_event_target_as = tribute_war_suzerain }
+			FROM = {
+				save_event_target_as = tribute_war_target
+				set_character_flag = surrender_tributary_cb
+				character_event = { id = JD.2500 days = 5 tooltip = surrender_tributary_tt }
+			}
 		}
 	}
 
@@ -8852,6 +9129,39 @@ tributary_cb = {
 				}
 			}
 		}
+		
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						any_realm_province = {
+							region = custom_provence
+						}
+					}
+				}
+				custom_tooltip = {
+					text = vassalize_provence_succ_tip
+				}
+				hidden_tooltip = {
+					k_praetorian_prefecture_of_gaul = { 	# Transfer Provence to PPO Gaul
+						holder_scope = { 
+							set_character_flag = vassalize_from_war
+							character_event = { id = 302817 } 
+						} 
+					}
+				}
+			}
+			k_ostrogoths = { 
+				clr_title_flag = subjugating_visigoths 
+				holder_scope = { character_event = { id = 302820 } }
+			}
+		}
 	}
 
 	on_fail = {
@@ -8860,6 +9170,15 @@ tributary_cb = {
 		}
 		FROM = {
 			prestige = 100
+		}
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
 		}
 	}
 
@@ -8875,10 +9194,29 @@ tributary_cb = {
 		FROM = {
 			prestige = 200
 		}
+		if = {
+			limit = { 
+				ROOT = { 
+					has_landed_title = k_ostrogoths
+					k_ostrogoths = { has_title_flag = subjugating_visigoths }
+				}
+			}
+			k_ostrogoths = { clr_title_flag = subjugating_visigoths }
+		}
 	}
 	
 	on_attacker_leader_death = {
-		end_war = invalid
+		if = {
+			limit = {
+				NOT = {
+					ROOT = { 
+						has_landed_title = k_ostrogoths
+						k_ostrogoths = { has_title_flag = subjugating_visigoths }
+					}
+				}
+			}
+			end_war = invalid
+		}
 	}
 
 	attacker_ai_victory_worth = {
@@ -9247,6 +9585,31 @@ free_tributary_cb = {
 				}
 			}
 		}
+		
+		if = {
+			limit = {
+				ROOT = {
+					OR = {
+						independent = yes
+						liege = { tier = EMPEROR }
+					}
+					has_character_flag = claiming_iclingas
+				}
+			}
+			ROOT = { character_event = { id = 313071 } }
+		}
+		if = {
+			limit = {
+				ROOT = {
+					NOR = {
+						independent = yes
+						liege = { tier = EMPEROR }
+					}
+					has_character_flag = claiming_iclingas
+				}
+			}
+			ROOT = { character_event = { id = 313072 } }
+		}
 	}
 
 	on_fail = {
@@ -9255,6 +9618,10 @@ free_tributary_cb = {
 		}
 		FROM = {
 			prestige = 100
+		}
+		if = {
+			limit = { ROOT = { has_character_flag = claiming_iclingas } }
+			ROOT = { character_event = { id = 313073 } }
 		}
 	}
 
@@ -9269,6 +9636,10 @@ free_tributary_cb = {
 
 		FROM = {
 			prestige = 100
+		}
+		if = {
+			limit = { ROOT = { has_character_flag = claiming_iclingas } }
+			ROOT = { character_event = { id = 313073 } }
 		}
 	}
 	
@@ -9537,6 +9908,15 @@ cb_install_khan = {
 		}
 		FROM = {
 			participation_scaled_prestige = 50
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
@@ -10945,6 +11325,15 @@ increase_council_power_war = { # Started from faction
 		FROM = {
 			participation_scaled_prestige = 100
 			hidden_tooltip = { disband_event_forces = faction_loyalists }
+			hidden_tooltip = { 
+				if = { 
+					limit = { NOT = { has_opinion_modifier = { modifier = opinion_traitor who = ROOT } } } #Allow free revocation of a title.
+					opinion = {
+						who = ROOT
+						modifier = opinion_traitor
+					}
+				}
+			}
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }

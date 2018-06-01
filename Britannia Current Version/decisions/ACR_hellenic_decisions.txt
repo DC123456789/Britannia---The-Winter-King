@@ -67,9 +67,6 @@ decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
 			factor = 1
 			
@@ -129,8 +126,74 @@ decisions = {
 			# }
 			# set_global_flag = pontificate_restored
 		# }
-		# revoke_allowed = {
-			# always = no
+		# ai_will_do = {
+			# factor = 1
+			
+			# modifier = {
+				# factor = 0
+				# NOT = {
+					# prestige = 500
+				# }
+			# }
+			# modifier = {
+				# factor = 0
+				# NOT = {
+					# piety = 700
+				# }
+			# }			
+			# modifier = {
+				# factor = 0
+				# trait = content
+			# }
+			# modifier = {
+				# factor = 0
+				# NOT = { diplomacy = 10 }
+			# }			
+		# }
+	# }
+	# rebuild_first_academy = {
+		# only_playable = yes
+		# is_high_prio = yes
+		# potential = {
+			# religion = promethean_pagan
+			# primary_title = { higher_real_tier_than = DUKE }
+			# d_promethean_pagan = {
+				# has_holder = no #Covers the case of destroyed title considered active
+			# }
+			# always = no		# Disabled until we can figure out what to do with this - only after Justinian closes the original one in Athens?
+		# }
+		# allow = {
+			# age = 16
+			# prisoner = no
+
+			# completely_controls = c_atheniai
+			# b_piraeaus = {
+				# owner = {
+					# religion = promethean_pagan
+					# is_theocracy = yes
+				# }
+			# }
+			# piety = 500
+			# prestige = 300
+			# religion_authority = 0.5
+		# }
+		# effect = {
+			# piety = -500
+			# prestige = -300
+			# activate_title = { title = d_promethean_pagan status = yes }
+			# b_piraeaus = {
+				# owner = {
+					# d_promethean_pagan = {
+						# grant_title = PREV
+					# }
+					# set_defacto_liege = ROOT
+				# }
+			# }
+			# religion_authority = { modifier = first_academy_restored }
+			# set_character_flag = acr_restorer_of_academy
+			# hidden_tooltip = {
+				# narrative_event = { id = ancrel.3400 }
+			# }
 		# }
 		# ai_will_do = {
 			# factor = 1
@@ -157,131 +220,56 @@ decisions = {
 			# }			
 		# }
 	# }
-	rebuild_first_academy = {
-		only_playable = yes
-		is_high_prio = yes
-		potential = {
-			religion = promethean_pagan
-			primary_title = { higher_real_tier_than = DUKE }
-			d_promethean_pagan = {
-				has_holder = no #Covers the case of destroyed title considered active
-			}
-			always = no		# Disabled until we can figure out what to do with this - only after Justinian closes the original one in Athens?
-		}
-		allow = {
-			age = 16
-			prisoner = no
 
-			completely_controls = c_atheniai
-			b_piraeaus = {
-				owner = {
-					religion = promethean_pagan
-					is_theocracy = yes
-				}
-			}
-			piety = 500
-			prestige = 300
-			religion_authority = 0.5
-		}
-		effect = {
-			piety = -500
-			prestige = -300
-			activate_title = { title = d_promethean_pagan status = yes }
-			b_piraeaus = {
-				owner = {
-					d_promethean_pagan = {
-						grant_title = PREV
-					}
-					set_defacto_liege = ROOT
-				}
-			}
-			religion_authority = { modifier = first_academy_restored }
-			set_character_flag = acr_restorer_of_academy
-			hidden_tooltip = {
-				narrative_event = { id = ancrel.3400 }
-			}
-		}
-		revoke_allowed = {
-			always = no
-		}
-		ai_will_do = {
-			factor = 1
-			
-			modifier = {
-				factor = 0
-				NOT = {
-					prestige = 500
-				}
-			}
-			modifier = {
-				factor = 0
-				NOT = {
-					piety = 700
-				}
-			}			
-			modifier = {
-				factor = 0
-				trait = content
-			}
-			modifier = {
-				factor = 0
-				NOT = { diplomacy = 10 }
-			}			
-		}
-	}
+	# rebuild_crotone = {
+		# only_playable = yes
+		# is_high_prio = yes
+		# potential = {
+			# religion = promethean_pagan
+			# primary_title = { higher_real_tier_than = COUNT }
+			# NOT = {
+				# has_global_flag = acr_crotone_rebuilt
+				# has_global_flag = acr_crotone_building
+			# }
+			# always = no		# Disabled until we can figure out what to do with this
+		# }
+		# allow = {
+			# completely_controls = c_consenza
+			# wealth = 1000
+			# age = 16
 
-	rebuild_crotone = {
-		only_playable = yes
-		is_high_prio = yes
-		potential = {
-			religion = promethean_pagan
-			primary_title = { higher_real_tier_than = COUNT }
-			NOT = {
-				has_global_flag = acr_crotone_rebuilt
-				has_global_flag = acr_crotone_building
-			}
-			always = no		# Disabled until we can figure out what to do with this
-		}
-		allow = {
-			completely_controls = c_consenza
-			wealth = 1000
-			age = 16
-
-			prisoner = no
-			war = no
-			has_regent = no
-		}
-		effect = {
-			wealth = -1000
-			set_global_flag = acr_crotone_building
-			character_event = { id = ancrel.3411 days = 1 }
-		}
-		revoke_allowed = {
-			always = no
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				OR = {
-					NOT = { wealth = 1300 }
-					trait = cynical
-				}
-			}
-			modifier = {
-				factor = 1.25
-				trait = zealous
-			}
-			modifier = {
-				factor = 0.50
-				trait = cynical
-			}
-			modifier = {
-				factor = 0.50
-				trait = content
-			}
-		}
-	}
+			# prisoner = no
+			# war = no
+			# has_regent = no
+		# }
+		# effect = {
+			# wealth = -1000
+			# set_global_flag = acr_crotone_building
+			# character_event = { id = ancrel.3411 days = 1 }
+		# }
+		# ai_will_do = {
+			# factor = 1
+			# modifier = {
+				# factor = 0
+				# OR = {
+					# NOT = { wealth = 1300 }
+					# trait = cynical
+				# }
+			# }
+			# modifier = {
+				# factor = 1.25
+				# trait = zealous
+			# }
+			# modifier = {
+				# factor = 0.50
+				# trait = cynical
+			# }
+			# modifier = {
+				# factor = 0.50
+				# trait = content
+			# }
+		# }
+	# }
 
 	hold_unbinding_festival = {
 		only_playable = yes
@@ -328,9 +316,6 @@ decisions = {
 					character_event = { id = ancrel.3450 }
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -391,9 +376,6 @@ decisions = {
 				text = choose_school_tip
 				hidden_tooltip = { character_event = { id = ancrel.3404 } }
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 0.05 # unlikely
@@ -467,10 +449,6 @@ decisions = {
 			set_character_flag = ancrel_hodling_tristeria
 		}
 
-		revoke_allowed = {
-			always = no
-		}
-
 		ai_will_do = {
 			factor = 0 # TODO: proper ai weighting
 		}
@@ -506,10 +484,6 @@ decisions = {
 				scales_with_influence = yes
 			}
 			set_character_flag = ancrel_holding_dionysia
-		}
-
-		revoke_allowed = {
-			always = no
 		}
 
 		ai_will_do = {

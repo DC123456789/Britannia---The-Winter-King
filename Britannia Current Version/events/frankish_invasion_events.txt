@@ -3,7 +3,7 @@
 # Frankish Invasion Events
 #
 # Id 313200 - 313259
-# Id 313270 - 313299 (Siege of Trebes 312170-1)
+# Id 313270 - 313299
 #
 ###################################
 
@@ -25,16 +25,13 @@ narrative_event = {
 	war = no
 	
 	trigger = {
-		frankish_invasion_gaul_event_trigger_with_neighbour_condition = yes
-		any_realm_province = {
-			any_neighbor_province = {
-				holder_scope = {
-					OR = {
-						has_landed_title = k_gaul
-						top_liege = {
-							has_landed_title = k_gaul
-						}
-					}
+		OR = {
+			has_character_flag = triggered_313200_event
+			AND = {
+				ai = yes
+				frankish_invasion_gaul_event_trigger_with_neighbour_condition = yes
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_gaul
 				}
 			}
 		}
@@ -67,18 +64,11 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA313200"	# Go to war
-		ai_chance = { factor = 100 }
 		trigger = {
-			has_landed_title = k_franks
-		}
-		ROOT = {
-			set_character_flag = frankish_invasion_allowed
+			character = ROOT
 		}
 		k_gaul = {
-			holder_scope = {
-				set_character_flag = frankish_invasion_target
-			}
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
@@ -87,6 +77,7 @@ narrative_event = {
 			limit = {
 				ai = yes
 			}
+			wealth = 200
 			create_character = {
 				random_traits = yes
 				dynasty = random
@@ -113,6 +104,7 @@ narrative_event = {
 						light_cavalry = { 75 75 }
 					}
 					attrition = 0.25
+					maintenance_multiplier = 0.5
 				}
 				spawn_unit = {
 					province = 177 # Tournai
@@ -124,6 +116,7 @@ narrative_event = {
 						light_cavalry = { 50 50 }
 					}
 					attrition = 0.25
+					maintenance_multiplier = 0.5
 					disband_on_peace = yes
 				}
 			}
@@ -139,17 +132,6 @@ narrative_event = {
 			}
 			attrition = 0.25
 		}
-		spawn_unit = {
-			province = 177 # Tournai
-			troops = {
-				light_infantry = { 300 300 }
-				heavy_infantry = { 250 250 }
-				pikemen = { 200 200 }
-				archers = { 150 150 }
-			}
-			attrition = 0.25
-			disband_on_peace = yes
-		}
 		if = {
 			limit = { has_global_flag = frankish_war_480 }		# This is not the first time
 			spawn_unit = {
@@ -162,6 +144,23 @@ narrative_event = {
 					light_cavalry = { 100 100 }
 				}
 				attrition = 0.25
+				maintenance_multiplier = 0.5
+			}
+			if = {
+				limit = { year = 490 }
+				spawn_unit = {
+					province = 177 # Tournai
+					troops = {
+						light_infantry = { 300 300 }
+						heavy_infantry = { 250 250 }
+						pikemen = { 150 150 }
+						archers = { 100 100 }
+						light_cavalry = { 50 50 }
+					}
+					attrition = 0.25
+					maintenance_multiplier = 0.5
+					disband_on_peace = yes
+				}
 			}
 		}
 		if = {
@@ -181,18 +180,10 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB313200"	# Don't go to war
-		ai_chance = { factor = 0 }
-		trigger = {
-			has_landed_title = k_franks
-		}
-		prestige = -100
-	}
-	option = {
 		name = "EVTOPTC313200"	# Other Franks
 		trigger = {
 			is_frankish_culture_trigger = yes
-			NOT = { has_landed_title = k_franks }
+			NOT = { character = ROOT }
 		}
 	}
 	option = {
@@ -206,13 +197,15 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				is_frankish_culture_trigger = yes
-				culture_group = imperiale 
+				culture_group = imperiale
+				character = ROOT
 			}
 		}
 	}
 	
 	after = {
 		set_global_flag = frankish_war_480
+		clr_character_flag = triggered_313200_event
 	}	
 }
 
@@ -231,26 +224,26 @@ narrative_event = {
 	prisoner = no
 	
 	trigger = {
-		year = 483
-		war = no
-		is_frankish_culture_trigger = yes
-		higher_tier_than = DUKE
-		any_realm_province = {
-			any_neighbor_province = {
-				holder_scope = {
-					OR = {
-						has_landed_title = k_benoic
-						top_liege = {
-							has_landed_title = k_benoic
-						}
+		OR = {
+			has_character_flag = triggered_313201_event
+			AND = {
+				ai = yes
+				year = 483
+				war = no
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_benoic
+					NOT = {
+						reverse_has_truce = ROOT
 					}
 				}
+				NOT = { has_global_flag = normanz_created }
+				NOT = { has_global_flag = frankish_invasion_483 }
+				NOT = { has_global_flag = franks_sack_trebes }
+				NOT = { has_global_flag = franks_renamed }
 			}
 		}
-		NOT = { has_global_flag = normanz_created }
-		NOT = { has_global_flag = frankish_invasion_483 }
-		NOT = { has_global_flag = franks_sack_trebes }
-		NOT = { has_global_flag = franks_renamed }
 	}
 	
 	mean_time_to_happen = {
@@ -267,6 +260,7 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = frankish_invasion_483
+		clr_character_flag = triggered_313201_event
 	}
 	
 	option = {
@@ -275,57 +269,12 @@ narrative_event = {
 		trigger = {
 			character = ROOT
 		}
-		ROOT = {
-			set_character_flag = frankish_invasion_allowed
-		}
 		k_benoic = {
-			holder_scope = {
-				set_character_flag = frankish_invasion_target
-			}
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
 		}
-		# if = {
-			# limit = { ROOT = { ai = yes } }
-			# create_character = {
-				# random_traits = yes
-				# dynasty = random
-				# religion = catholic
-				# culture = oldfrankish
-				# female = no
-				# age = 35
-				# attributes = {
-					# martial = 11
-				# }
-				# trait = brilliant_strategist
-				# trait = war_hero
-				# trait = brave
-				# trait = ambitious
-			# }
-			# new_character = {
-				# spawn_unit = {
-					# province = 177 # Tournai
-					# troops = {
-						# light_infantry = { 150 150 }
-						# heavy_infantry = { 100 100 }
-						# pikemen = { 75 75 }
-						# archers = { 50 50 }
-					# }
-					# attrition = 1
-				# }
-			# }
-		# }
-	}
-	
-	option = {
-		name = "EVTOPTB313201"	# Don't go to war
-		ai_chance = { factor = 0 }
-		trigger = {
-			character = ROOT
-		}
-		prestige = -100
 	}
 	
 	option = {
@@ -355,85 +304,85 @@ narrative_event = {
 		}
 	}
 }
-narrative_event = {
-	id = 3132012
-	desc = "You're not supposed to see this..."
-	major = no
-	hide_new = yes
-	picture = "GFX_evt_battle_smoke"
+# narrative_event = {
+	# id = 3132012
+	# desc = "You're not supposed to see this..."
+	# major = no
+	# hide_new = yes
+	# picture = "GFX_evt_battle_smoke"
 	
-	hide_window = yes
+	# hide_window = yes
 	
-	ai = yes
-	only_rulers = yes
-	min_age = 15
-	capable_only = yes
-	prisoner = no
+	# ai = yes
+	# only_rulers = yes
+	# min_age = 15
+	# capable_only = yes
+	# prisoner = no
 	
-	trigger = {
-		year = 483
-		NOT = { year = 510 }
-		has_landed_title = k_franks
-		war = no
-		is_frankish_culture_trigger = yes
-		has_global_flag = frankish_invasion_483
-		NOR = { 
-			has_global_flag = franks_sack_trebes
-			has_global_flag = frankish_reclaim_trebes
-			has_global_flag = franks_renamed 
-		}
-	}
+	# trigger = {
+		# year = 483
+		# NOT = { year = 510 }
+		# has_landed_title = k_franks
+		# war = no
+		# is_frankish_culture_trigger = yes
+		# has_global_flag = frankish_invasion_483
+		# NOR = { 
+			# has_global_flag = franks_sack_trebes
+			# has_global_flag = frankish_reclaim_trebes
+			# has_global_flag = franks_renamed 
+		# }
+	# }
 	
-	mean_time_to_happen = {
-		months = 6
-		modifier = {
-			factor = 0.5
-			year = 487
-		}
-		modifier = {
-			factor = 0.5
-			year = 490
-		}
-	}
+	# mean_time_to_happen = {
+		# months = 6
+		# modifier = {
+			# factor = 0.5
+			# year = 487
+		# }
+		# modifier = {
+			# factor = 0.5
+			# year = 490
+		# }
+	# }
 	
-	immediate = {
-		ROOT = {
-			add_claim = c_ynys_trebes
-		}
-		c_ynys_trebes = {
-			reverse_war = {
-				target = ROOT
-				casus_belli = claim
-			}
-		}
-		ROOT = {
-			spawn_unit = {
-				province = 177 # Tournai
-				troops =
-				{
-					light_infantry = { 350 350 }
-					heavy_infantry = { 500 500 }
-					pikemen = { 200 200 }
-					archers = { 100 100 }
-					light_cavalry = { 130 130 }
-				}
-				attrition = 1
-			}
-		}
-		set_global_flag = frankish_reclaim_trebes
-	}
+	# immediate = {
+		# ROOT = {
+			# add_claim = c_ynys_trebes
+		# }
+		# c_ynys_trebes = {
+			# reverse_war = {
+				# target = ROOT
+				# casus_belli = claim
+			# }
+		# }
+		# ROOT = {
+			# spawn_unit = {
+				# province = 177 # Tournai
+				# troops =
+				# {
+					# light_infantry = { 350 350 }
+					# heavy_infantry = { 500 500 }
+					# pikemen = { 200 200 }
+					# archers = { 100 100 }
+					# light_cavalry = { 130 130 }
+				# }
+				# attrition = 1
+			# }
+		# }
+		# set_global_flag = frankish_reclaim_trebes
+	# }
 	
-	option = {
-		name = "OK"
-	}
-}
+	# option = {
+		# name = "OK"
+	# }
+# }
 
 
 ###### Siege of Trebes ######
 narrative_event = {
-	id = 312170
-	title = "EVTNAME312170"
-	desc = "EVTDESC312170"
+	id = 312220
+	title = "EVTNAME312220"
+	desc = "EVTDESC312220"
 	major = yes
 	
 	picture = "GFX_evt_ynys_trebes"
@@ -535,12 +484,12 @@ narrative_event = {
 					}
 				}
 				k_benoic = { destroy_landed_title = THIS }
-				character_event = { id = 312171 }
+				character_event = { id = 312221 }
 				spouse = {
-					character_event = { id = 312171 }
+					character_event = { id = 312221 }
 				}
 				any_dynasty_member = {
-					character_event = { id = 312171 }
+					character_event = { id = 312221 }
 				}
 			}
 		}
@@ -558,7 +507,7 @@ narrative_event = {
 	}
 	
 	option = {	# For Everyone Else
-		name = "EVTOPTA312170"
+		name = "EVTOPTA312220"
 		trigger = {
 			NOR = {
 				top_liege = { has_landed_title = k_franks }
@@ -568,7 +517,7 @@ narrative_event = {
 		}
 	}
 	option = {	# For Franks
-		name = "EVTOPTB312170"
+		name = "EVTOPTB312220"
 		trigger = {
 			OR = {
 				top_liege = { has_landed_title = k_franks }
@@ -580,7 +529,7 @@ narrative_event = {
 		}
 	}
 	option = {	# For Benoic Royal Family
-		name = "EVTOPTC312170"
+		name = "EVTOPTC312220"
 		trigger = {		
 			has_character_flag = benoic_royals
 		}
@@ -588,8 +537,8 @@ narrative_event = {
 }
 # Benoic Royals Family Escape to Britain
 character_event = {
-	id = 312171
-	desc = "EVTDESC312171"
+	id = 312221
+	desc = "EVTDESC312221"
 	
 	picture = "GFX_evt_ships"
 	
@@ -638,7 +587,7 @@ character_event = {
 	}
 	
 	option = {	
-		name = "EVTOPTA312171"
+		name = "EVTOPTA312221"
 		trigger = {
 			has_character_flag = benoic_royals
 			NOT = { has_global_flag = benoic_royals_fled_to_player }
@@ -646,7 +595,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB312171"
+		name = "EVTOPTB312221"
 		trigger = {
 			has_character_flag = benoic_royals
 			has_global_flag = benoic_royals_fled_to_player
@@ -670,44 +619,39 @@ narrative_event = {
 	prisoner = no
 	
 	trigger = {
-		year = 500
-		NOT = { year = 530 }
-		is_frankish_culture_trigger = yes
-		higher_tier_than = DUKE
-		war = no
-		any_realm_province = {
-			any_neighbor_province = {
-				holder_scope = {
-					OR = {
-						has_landed_title = k_visigoths
-						top_liege = {
-							has_landed_title = k_visigoths
+		OR = {
+			has_character_flag = triggered_313203_event
+			AND = {
+				ai = yes
+				year = 500
+				NOT = { year = 530 }
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				war = no
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_visigoths
+				}
+				k_visigoths = {
+					holder_scope = {
+						is_frankish_culture_trigger = no
+						NOT = {
+							reverse_has_truce = ROOT
 						}
 					}
 				}
-			}
-		}
-		k_visigoths = {
-			holder_scope = {
-				is_frankish_culture_trigger = no
-				ROOT = {
-					NOT = {
-						has_truce = PREV
-					}
+				NOT = { has_global_flag = toulouse_conquered }
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_visigoths }
+					had_global_flag = { flag = frankish_invasion_visigoths days = 1825 }
+				}
+				OR = {
+					completely_controls = c_orleans
+					completely_controls = c_tours
+					completely_controls = c_andecavis
+					completely_controls = c_nantes
+					year = 510
 				}
 			}
-		}
-		NOT = { has_global_flag = toulouse_conquered }
-		OR = {
-			NOT = { has_global_flag = frankish_invasion_visigoths }
-			had_global_flag = { flag = frankish_invasion_visigoths days = 1830 }
-		}
-		OR = {
-			completely_controls = c_orleans
-			completely_controls = c_tours
-			completely_controls = c_andecavis
-			completely_controls = c_nantes
-			year = 510
 		}
 	}
 	
@@ -750,23 +694,15 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = frankish_invasion_visigoths
-		#ROOT = { set_character_flag = frankish_invader_visigoths }
 	}	
 	
 	option = {
 		name = "EVTOPTA313203"	# Go to war
-		ai_chance = { factor = 100 }
 		trigger = {
 			character = ROOT
 		}
-		ROOT = {
-			set_character_flag = frankish_invasion_allowed
-		}
 		k_visigoths = {
-			holder_scope = {
-				set_character_flag = frankish_invasion_target
-			}
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
@@ -814,14 +750,6 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB313203"	# Don't go to war
-		ai_chance = { factor = 0 }
-		trigger = {
-			character = ROOT
-		}
-		prestige = -100
-	}
-	option = {
 		name = "EVTOPTC313203"	# Other Franks
 		trigger = {
 			is_frankish_culture_trigger = yes
@@ -843,6 +771,10 @@ narrative_event = {
 			}
 		}
 	}
+	
+	after = {
+		clr_character_flag = triggered_313203_event
+	}
 }
 
 # Event to handle war ending
@@ -858,123 +790,17 @@ character_event = {
 	immediate = {
 		k_visigoths = {
 			holder_scope = {
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							region = world_gaul
-							NOT = { region = world_gaul_narbonensis_septimania }
+				any_province = {
+					limit = { 
+						region = world_gaul
+						NOR = { 
+							region = world_gaul_narbonensis_septimania 
+							region = custom_provence
 						}
-						NOT = { character = PREV }
-						higher_tier_than = BARON
 					}
-					set_defacto_liege = ROOT
-					opinion = {
-						modifier = opinion_subjugated
-						who = ROOT
-						months = 120
-					}
-					any_demesne_title = {
-						limit = {
-							lower_tier_than = DUKE
-							NOR = {
-								county = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-								location = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-							}
-						}
-						usurp_title = PREVPREV
-					}
-					any_realm_lord = {
-						limit = {
-							capital_scope = {
-								OR = {
-									NOT = { region = world_gaul }
-									region = world_gaul_narbonensis_septimania
-								}
-							}
-							NOT = { character = PREV }
-						}
-						set_defacto_liege = PREVPREV
-					}
+					set_province_flag = vassalize_province
 				}
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							OR = {
-								NOT = { region = world_gaul }
-								region = world_gaul_narbonensis_septimania
-							}
-						}
-						NOT = { character = PREV }
-					}
-					any_demesne_title = {
-						limit = {
-							lower_tier_than = DUKE
-							OR = {
-								county = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-								location = {
-									region = world_gaul
-									NOT = { region = world_gaul_narbonensis_septimania }
-								}
-							}
-						}
-						usurp_title = ROOT
-					}
-				}
-				any_demesne_title = {
-					limit = {
-						lower_tier_than = DUKE
-						OR = {
-							county = {
-								region = world_gaul
-								NOT = { region = world_gaul_narbonensis_septimania }
-							}
-							location = {
-								region = world_gaul
-								NOT = { region = world_gaul_narbonensis_septimania }
-							}
-						}
-					}
-					usurp_title = ROOT
-				}
-				any_realm_lord = {
-					limit = {
-						capital_scope = {
-							region = world_gaul
-							NOT = { region = world_gaul_narbonensis_septimania }
-						}
-						NOT = { character = PREV }
-						tier = BARON
-					}
-					capital_scope = {
-						owner = {
-							set_defacto_vassal = PREVPREV
-						}
-					}
-					any_demesne_title = {
-						limit = {
-							county = {
-								OR = {
-									NOT = { region = world_gaul }
-									region = world_gaul_narbonensis_septimania
-								}
-							}
-						}
-						county = {
-							owner = {
-								usurp_title = PREVPREV
-							}
-						}
-					}
-				}
+				vassalize_all_flagged_provinces_to_ROOT_effect = yes
 				ROOT = {
 					if = {
 						limit = { has_character_flag = conquered_toulouse }
@@ -1029,42 +855,37 @@ narrative_event = {
 	prisoner = no
 	
 	trigger = {
-		year = 525
-		NOT = { year = 550 }
-		is_frankish_culture_trigger = yes
-		higher_tier_than = DUKE
-		war = no
-		any_realm_province = {
-			any_neighbor_province = {
-				holder_scope = {
-					OR = {
-						has_landed_title = k_burgundy
-						top_liege = {
-							has_landed_title = k_burgundy
+		OR = {
+			has_character_flag = triggered_313204_event
+			AND = {
+				ai = yes
+				year = 525
+				NOT = { year = 550 }
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				war = no
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_burgundy
+				}
+				k_burgundy = {
+					holder_scope = {
+						is_frankish_culture_trigger = no
+						NOT = {
+							reverse_has_truce = ROOT
 						}
 					}
 				}
-			}
-		}
-		k_burgundy = {
-			holder_scope = {
-				is_frankish_culture_trigger = no
-				ROOT = {
-					NOT = {
-						has_truce = PREV
-					}
+				NOT = { has_global_flag = burgundy_subjugated }
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_burgundians }
+					had_global_flag = { flag = frankish_invasion_burgundians days = 1825 }
 				}
 			}
-		}
-		NOT = { has_global_flag = burgundy_subjugated }
-		OR = {
-			NOT = { has_global_flag = frankish_invasion_burgundians }
-			had_global_flag = { flag = frankish_invasion_burgundians days = 1830 }
 		}
 	}
 	
 	mean_time_to_happen = {
-		months = 12
+		months = 24
 		modifier = {
 			factor = 0.75
 			year = 530
@@ -1078,7 +899,7 @@ narrative_event = {
 			year = 540
 		}
 		modifier = {
-			factor = 0.21
+			factor = 0.1
 			year = 545
 		}
 	}
@@ -1089,30 +910,15 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA313204"	# Go to war
-		ai_chance = { factor = 100 }
 		trigger = {
 			character = ROOT
 		}
-		ROOT = {
-			set_character_flag = frankish_invasion_allowed
-		}
 		k_burgundy = {
-			holder_scope = {
-				set_character_flag = frankish_invasion_target
-			}
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
 		}
-	}
-	option = {
-		name = "EVTOPTB313204"	# Don't go to war
-		ai_chance = { factor = 0 }
-		trigger = {
-			character = ROOT
-		}
-		prestige = -100
 	}
 	option = {
 		name = "EVTOPTC313204"	# Other Franks
@@ -1135,6 +941,120 @@ narrative_event = {
 				culture = burgundian 
 			}
 		}
+	}
+	
+	after = {
+		clr_character_flag = triggered_313204_event
+	}
+}
+
+	
+#### Frankish Invasion of Provence - 536 AD ####
+narrative_event = {
+	id = 313205
+	title = "EVTNAME313205"
+	desc = EVTDESC313205
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			has_character_flag = triggered_313205_event
+			AND = {
+				ai = yes
+				has_global_flag = gothic_war_started
+				NOT = { year = 560 }
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				war = no
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
+				k_praetorian_prefecture_of_gaul = {
+					holder_scope = {
+						is_frankish_culture_trigger = no
+						NOT = {
+							reverse_has_truce = ROOT
+						}
+					}
+				}
+				NOT = { has_global_flag = provence_conquered }
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_provence }
+					had_global_flag = { flag = frankish_invasion_provence days = 1825 }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.75
+			year = 540
+		}
+		modifier = {
+			factor = 0.5
+			year = 545
+		}
+		modifier = {
+			factor = 0.25
+			year = 550
+		}
+		modifier = {
+			factor = 0.1
+			year = 555
+		}
+	}
+	
+	immediate = {
+		set_global_flag = frankish_invasion_provence
+	}	
+	
+	option = {
+		name = "EVTOPTA313205"	# Go to war
+		trigger = {
+			character = ROOT
+		}
+		k_praetorian_prefecture_of_gaul = {
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = tribal_invasion
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313205"	# Other Franks
+		trigger = {
+			is_frankish_culture_trigger = yes
+			NOT = { character = ROOT }
+		}
+	}
+	option = {
+		name = "EVTOPTD313205"	# PPO of Gaul
+		trigger = {
+			top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+		}
+	}
+	option = {
+		name = "EVTOPTE313205"	# Others
+		trigger = {
+			NOR = { 
+				is_frankish_culture_trigger = yes
+				top_liege = { has_landed_title = k_praetorian_prefecture_of_gaul }
+			}
+		}
+	}
+	
+	after = {
+		clr_character_flag = triggered_313205_event
 	}
 }
 
@@ -2004,6 +1924,7 @@ narrative_event = {
 		k_orleans = { de_jure_liege = e_gaul }
 		k_aquitaine = { de_jure_liege = e_gaul }
 		k_vasconia = { de_jure_liege = e_gaul }
+		k_provence = { de_jure_liege = e_gaul }
 		if = {
 			limit = { has_global_flag = burgundy_subjugated }
 			if = {
@@ -2086,6 +2007,7 @@ narrative_event = {
 			k_orleans = { de_jure_liege = e_franks }
 			k_aquitaine = { de_jure_liege = e_franks }
 			k_vasconia = { de_jure_liege = e_franks }
+			k_provence = { de_jure_liege = e_franks }
 			if = {
 				limit = { has_global_flag = burgundy_subjugated }
 				k_burgundy = { de_jure_liege = e_franks }

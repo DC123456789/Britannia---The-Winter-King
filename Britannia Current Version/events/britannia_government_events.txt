@@ -61,8 +61,37 @@ character_event = {
 		}
 	}
 	
+	immediate = {
+		primary_title = {
+			save_event_target_as = former_primary_title
+		}
+	}
+	
 	option = {
 		name = "EVTOPTA302500"
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = {
+						holder_scope = { character = ROOT }
+						higher_tier_than = DUKE
+						NAND = {
+							tier = KING
+							empire = {
+								OR = {
+									title = e_ireland
+									title = e_alba
+									title = e_britannia
+									title = e_cymru
+								}
+							}
+							ROOT = { culture_group = celtic }
+						}						
+					}
+				}
+				character_event = { id = 302501 }
+			}
+		}
 		any_demesne_title = {
 			limit = {
 				higher_tier_than = DUKE
@@ -81,5 +110,181 @@ character_event = {
 			}
 			destroy_landed_title = THIS
 		}
+	}
+}
+
+# Notify newly independent vassal
+character_event = {
+	id = 302501
+	desc = "EVTDESC302501"	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302501"
+		tooltip = {
+			set_defacto_liege = THIS
+		}
+	}
+}
+
+##### IMPERIAL GOVERNMENT #####
+# Assign cultural flexibility modifier to all Imperial/Sub-Roman/Germanic realm counties at start, and every year
+character_event = { 
+	id = 302530
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = c_null
+	}
+	
+	immediate = {
+		any_province = {
+			province_event = { id = 302532 }
+		}
+	}
+}
+
+# When a county changes hands
+character_event = {
+	id = 302531
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			if = {
+				limit = {
+					tier = COUNT
+				}
+				location = {
+					province_event = { id = 302532 }
+				}
+			}
+		}
+	}
+}
+
+# Actual event for province
+province_event = {
+	id = 302532
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				owner = {
+					top_liege = {
+						OR = {
+							government = imperial_government
+							government = sub_roman_government
+							government = germanic_government
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_province_modifier = imperial_cultural_tolerance } }
+				add_province_modifier = {
+					name = imperial_cultural_tolerance
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = { has_province_modifier = imperial_cultural_tolerance }
+			remove_province_modifier = imperial_cultural_tolerance
+		}
+	}
+}
+
+# Remove born in the purple trait
+character_event = {
+	id = 302535
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				trait = born_in_the_purple
+			}
+			remove_trait = born_in_the_purple
+		}
+	}
+}
+
+# Notification for debasing currency
+character_event = {
+	id = 302540
+	desc = "EVTDESC302540"
+	
+	picture = "GFX_evt_bribe_accepted"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302540"
+		tooltip = {
+			any_realm_province = {
+				add_province_modifier = {
+					name = inflationary_pressures
+					duration = 3650
+					stacking = yes
+				}	
+			}
+		}
+		custom_tooltip = {
+			text = all_provinces_lose_significant_prosperity_custom_tooltip
+		}
+	}
+}
+
+
+# If Imperial characters somehow become not Imperial, set them back
+character_event = {
+	id = 302545
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_feudal = yes
+		is_government_potential = imperial_government
+		NOT = { government = imperial_government }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_government_type = imperial_government
 	}
 }

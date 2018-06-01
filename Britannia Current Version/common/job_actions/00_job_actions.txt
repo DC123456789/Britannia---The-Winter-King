@@ -63,13 +63,78 @@ action_clan_sentiment = {
 	events = { 20235 }
 }
 
+action_promote_romanization = {
+	attribute = diplomacy
+	
+	potential = {
+		FROM = {
+			government = imperial_government
+			tier = EMPEROR
+		}
+	}
+	
+	trigger = {
+		any_province_lord = {
+			OR = {
+				character = FROM
+				is_liege_or_above = FROM
+			}
+		}
+	}
+	
+	
+	display_on_map = {
+		tooltip = JOB_PROMOTE_ROMANIZATION_ROMAN_CULTURE
+		trigger = {
+			is_roman_culture_trigger = yes
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 0 255 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROMOTE_ROMANIZATION_NOT_ROMAN_CULTURE
+		trigger = {
+			NOT = { is_roman_culture_trigger = yes }
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 255 0 }
+	}
+	
+	events = { 302220 302222 }
+}
+
 action_fabricate_claims = {
 	attribute = diplomacy
 	
 	potential = {
 		FROM = { 
-			is_nomadic = no 
-			is_tribal = no
+			is_nomadic = no
+			OR = {
+				is_tribal = no
+				AND = {
+					government = high_tribal_government
+					OR = {
+						is_brythonic_culture_trigger = yes
+						culture_group = imperiale
+						is_romanized_germanic_trigger = yes
+					}
+				}
+			}
+			NAND = {
+				government = imperial_government
+				tier = EMPEROR
+			}
 		}
 	}
 	
@@ -148,6 +213,14 @@ action_sponsor_bards = {
 	potential = {
 		FROM = {
 			is_tribal = yes
+			NAND = {
+				government = high_tribal_government
+				OR = {
+					is_brythonic_culture_trigger = yes
+					culture_group = imperiale
+					is_romanized_germanic_trigger = yes
+				}
+			}
 		}
 	}
 
@@ -575,9 +648,79 @@ action_inquisition = {
 	}
 	
 	display_on_map = {
-		tooltip = JOB_PROSELYTIZE_DIFFERENT_RELIGION
+		tooltip = JOB_PROSELYTIZE_OTHER_PAGAN_RELIGION
 		trigger = {
 			NOT = { religion = FROM }
+			FROM = { religion_group = pagan_group }
+			OR = {
+				religion_group = pagan_group
+				AND = {
+					religion_group = zoroastrian_group
+					culture_group = imperiale
+				}
+				AND = {
+					religion_group = jewish_group
+					culture_group = israelite
+				}
+			}
+			NOR = {
+				is_heresy_of = FROM
+				FROM = {
+					is_heresy_of = PREV
+				}
+			}
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 100 255 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROSELYTIZE_TO_OTHER_PAGAN_RELIGION
+		trigger = {
+			NOT = { religion = FROM }
+			FROM = { religion_group = pagan_group }
+			FROM = { is_same_default_pagan_religion_as_ROOT = no }
+			any_province_lord = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
+				}
+			}
+		}
+		color = { 0 255 100 }
+	}
+	
+	display_on_map = {
+		tooltip = JOB_PROSELYTIZE_DIFFERENT_RELIGION
+		trigger = {
+			NOR = { 
+				religion = FROM 
+				AND = {
+					FROM = { religion_group = pagan_group }
+					OR = {
+						religion_group = pagan_group
+						AND = {
+							religion_group = zoroastrian_group
+							culture_group = imperiale
+						}
+						AND = {
+							religion_group = jewish_group
+							culture_group = israelite
+						}
+					}
+					NOR = {
+						is_heresy_of = FROM
+						FROM = {
+							is_heresy_of = PREV
+						}
+					}
+				}
+			}
 			any_province_lord = {
 				OR = {
 					character = FROM

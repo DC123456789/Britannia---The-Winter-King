@@ -1,7 +1,7 @@
 feudal_governments = {
 	
 	imperial_government = {
-		preferred_holdings = { CITY }
+		preferred_holdings = { CASTLE }
 		allowed_holdings = { 
 			CASTLE 
 			FORT
@@ -11,7 +11,9 @@ feudal_governments = {
 		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
 			TRIBAL
 		}
-		
+		forced_contract = {
+			imperial_government
+		}
 		free_revoke_on_tiers = {
 			duke
 			king
@@ -46,19 +48,18 @@ feudal_governments = {
 		color = { 0.45 0.35 0.62 }
 		
 		character_modifier = {
-			global_tax_modifier = 0.15
-			castle_vassal_tax_modifier = 0.15
-			city_vassal_tax_modifier = 0.15
-			temple_vassal_tax_modifier = 0.15
+			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+			global_tax_modifier = -0.20
 			land_morale = 0.1
 			land_organisation = 0.1
+			retinue_maintenence_cost = 0.25
 			global_levy_size = -0.25
-			castle_vassal_max_levy = -0.25
-			city_vassal_max_levy = -0.25
-			temple_vassal_max_levy = -0.25
-			castle_vassal_min_levy = -0.1
-			city_vassal_min_levy = -0.1
-			temple_vassal_min_levy = -0.1
+			castle_vassal_max_levy = -0.1
+			city_vassal_max_levy = -0.1
+			temple_vassal_max_levy = -0.1
+			castle_vassal_min_levy = -0.08
+			city_vassal_min_levy = -0.08
+			temple_vassal_min_levy = -0.08
 		}
 		
 		title_prefix = "imperial_"
@@ -195,6 +196,10 @@ feudal_governments = {
 		
 		color = { 0.6 0.7 0.3 }
 		
+		character_modifier = {
+			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+		}
+		
 		title_prefix = "subroman_"
 		dukes_called_kings = yes
 		barons_need_dynasty = no
@@ -265,6 +270,10 @@ feudal_governments = {
 		}
 		
 		color = { 0.67 0.48 0.33 }
+		
+		character_modifier = {
+			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+		}
 		
 		dukes_called_kings = yes
 		barons_need_dynasty = no

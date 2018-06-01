@@ -2417,16 +2417,28 @@ jailor_torture_effect = {
 	
 	random_list = {
 		80 = {
-				add_trait = stressed
+			if = {
+				limit = { trait = stressed }
+				health = -0.25
 			}
+			add_trait = stressed
+		}
 		10 = {
+			if = {
+				limit = { OR = { trait = craven trait = berserker } }
+				health = -0.5
+			}
 			if = {
 				limit = { NOR = { trait = craven trait = berserker } }
 				add_trait = craven
 			}
 		}
 		5 = {
-				add_trait = lunatic
+			if = {
+				limit = { trait = lunatic }
+				health = -1.0
+			}
+			add_trait = lunatic
 		}
 		5 = {
 			#nothing
@@ -4290,6 +4302,11 @@ major_soul_corruption_effect = {
 					check_variable = { which = visibility_value value = 40 }
 				}
 			}
+		}
+		random = {
+			chance = 2
+			set_character_flag = has_it_coming
+			character_event = { id = MNM.7854 days = 30 random = 50 } #Demon hunters come after you...
 		}
 	}
 }
@@ -11374,267 +11391,229 @@ clr_religion_char_flag_effect = {
 event_target_old_religion_from_flag_effect = {
 	if = {
     	limit = { has_character_flag = character_was_catholic }
-    	random_character = {
-    		limit = { religion = catholic }
+    	catholic = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_pelagian }
-    	random_character = {
-    		limit = { religion = pelagian }
+    	pelagian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_nestorian }
-    	random_character = {
-    		limit = { religion = nestorian }
+    	nestorian = {
     		save_event_target_as = old_religion
     	}
     }
 	if = {
     	limit = { has_character_flag = character_was_priscillian }
-    	random_character = {
-    		limit = { religion = priscillian }
+    	priscillian = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_arian }
-    	random_character = {
-    		limit = { religion = arian }
+    	arian = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_gnostic }
-    	random_character = {
-    		limit = { religion = gnostic }
+    	gnostic = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_sunni }
-    	random_character = {
-    		limit = { religion = sunni }
+    	sunni = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_shiite }
-    	random_character = {
-    		limit = { religion = shiite }
+    	shiite = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_ibadi }
-    	random_character = {
-    		limit = { religion = ibadi }
+    	ibadi = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_jewish }
-    	random_character = {
-    		limit = { religion = jewish }
+    	jewish = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_briton_pagan }
-    	random_character = {
-    		limit = { religion = briton_pagan }
+    	briton_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_pict_pagan }
-    	random_character = {
-    		limit = { religion = pict_pagan }
+    	pict_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_gael_pagan }
-    	random_character = {
-    		limit = { religion = gael_pagan }
+    	gael_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_norse_pagan }
-    	random_character = {
-    		limit = { religion = norse_pagan }
+    	norse_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_germanic_pagan }
-    	random_character = {
-    		limit = { religion = germanic_pagan }
+    	germanic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_frankish_pagan }
-    	random_character = {
-    		limit = { religion = frankish_pagan }
+    	frankish_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_suebic_pagan }
-    	random_character = {
-    		limit = { religion = suebic_pagan }
+    	suebic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_gothic_pagan }
-    	random_character = {
-    		limit = { religion = gothic_pagan }
+    	gothic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_alan_pagan }
-    	random_character = {
-    		limit = { religion = alan_pagan }
+    	alan_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_tengri_pagan }
-    	random_character = {
-    		limit = { religion = tengri_pagan }
+    	tengri_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_vasconic_pagan }
-    	random_character = {
-    		limit = { religion = vasconic_pagan }
+    	vasconic_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_briton_pagan_reformed }
-    	random_character = {
-    		limit = { religion = briton_pagan_reformed }
+    	briton_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_pict_pagan_reformed }
-    	random_character = {
-    		limit = { religion = pict_pagan_reformed }
+    	pict_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_gael_pagan_reformed }
-    	random_character = {
-    		limit = { religion = gael_pagan_reformed }
+    	gael_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_norse_pagan_reformed }
-    	random_character = {
-    		limit = { religion = norse_pagan_reformed }
+    	norse_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_germanic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = germanic_pagan_reformed }
+    	germanic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_frankish_pagan_reformed }
-    	random_character = {
-    		limit = { religion = frankish_pagan_reformed }
+    	frankish_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_suebic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = suebic_pagan_reformed }
+    	suebic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_gothic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = gothic_pagan_reformed }
+    	gothic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_alan_pagan_reformed }
-    	random_character = {
-    		limit = { religion = alan_pagan_reformed }
+    	alan_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_tengri_pagan_reformed }
-    	random_character = {
-    		limit = { religion = tengri_pagan_reformed }
+    	tengri_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_vasconic_pagan_reformed }
-    	random_character = {
-    		limit = { religion = vasconic_pagan_reformed }
+    	vasconic_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_roman_pagan }
-    	random_character = {
-    		limit = { religion = roman_pagan }
+    	roman_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_roman_pagan_reformed }
-    	random_character = {
-    		limit = { religion = roman_pagan_reformed }
+    	roman_pagan_reformed = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_sol_invictus }
-    	random_character = {
-    		limit = { religion = sol_invictus }
+    	sol_invictus = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_titan_pagan }
-    	random_character = {
-    		limit = { religion = titan_pagan }
+    	titan_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_promethean_pagan }
-    	random_character = {
-    		limit = { religion = promethean_pagan }
+    	promethean_pagan = {
     		save_event_target_as = old_religion
     	}
     }
     if = {
     	limit = { has_character_flag = character_was_manichean }
-    	random_character = {
-    		limit = { religion = manichean }
+    	manichean = {
     		save_event_target_as = old_religion
     	}
     }
@@ -13379,14 +13358,17 @@ clean_up_after_leaving_society_effect = {
 		clr_character_flag = monastic_orders_mission_temple
 		clr_character_flag = ascetic_arriving
 		clr_character_flag = monastic_artifact_lover
-		clr_character_flag = monastic_artifact_seamless_robe_of_jesus
-		clr_character_flag = monastic_artifact_crown_of_thorns
-		clr_character_flag = monastic_artifact_fragment_of_true_cross
-		clr_character_flag = monastic_artifact_holy_foreskin
-		clr_character_flag = monastic_artifact_image_of_edessa
-		clr_character_flag = monastic_artifact_elaborate_danda
-		clr_character_flag = monastic_artifact_sariraka_actual_body_part
-		clr_character_flag = monastic_artifact_sarira
+		if = { 
+			limit = { NOT = { has_character_flag = flag_monastic_mid_theft } }
+			clr_character_flag = monastic_artifact_seamless_robe_of_jesus
+			clr_character_flag = monastic_artifact_crown_of_thorns
+			clr_character_flag = monastic_artifact_fragment_of_true_cross
+			clr_character_flag = monastic_artifact_holy_foreskin
+			clr_character_flag = monastic_artifact_image_of_edessa
+			clr_character_flag = monastic_artifact_elaborate_danda
+			clr_character_flag = monastic_artifact_sariraka_actual_body_part
+			clr_character_flag = monastic_artifact_sarira
+		}
 		clr_character_flag = suggestion_A_flag
 		clr_character_flag = suggestion_B_flag
 		clr_character_flag = 3264_deceitful_flag
@@ -15840,4 +15822,58 @@ add_chinese_artifact_effect = { #Used in event JD.15016 (possible to use elsewhe
 			save_event_target_as = chinese_artifact
 		}
 	}
+}
+
+remove_opinions_with_prison_reason_effect = {
+	#Removes the specified opinion about "who" (PREV), from current scope
+	#NOTE: If you add a new opinion with "prison_reason" to the game, add it here, too!
+	remove_opinion = { modifier = opinion_dishonorable who = PREV }
+	remove_opinion = { modifier = opinion_traitor who = PREV }
+	remove_opinion = { modifier = opinion_rebel_traitor who = PREV }
+	remove_opinion = { modifier = opinion_regicide_traitor who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_spouse who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_child who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_parent who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_sibling who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_vassal who = PREV }
+	remove_opinion = { modifier = attempted_murder_of_spouse_vassal who = PREV }
+	remove_opinion = { modifier = attempted_murder who = PREV }
+	remove_opinion = { modifier = opinion_spouse_slayer who = PREV }
+	remove_opinion = { modifier = opinion_murder_attempt who = PREV }
+	remove_opinion = { modifier = opinion_killed_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_killed_father who = PREV }
+	remove_opinion = { modifier = opinion_hajj_attempt_murder who = PREV }
+	remove_opinion = { modifier = opinion_fatwa_target who = PREV }
+	remove_opinion = { modifier = opinion_refused_order who = PREV }
+	remove_opinion = { modifier = opinion_castrated_me who = PREV }
+	remove_opinion = { modifier = opinion_blinded_me who = PREV }
+	remove_opinion = { modifier = opinion_castrated_family who = PREV }
+	remove_opinion = { modifier = opinion_castrated_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_blinded_family who = PREV }
+	remove_opinion = { modifier = opinion_blinded_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_witch who = PREV }
+	remove_opinion = { modifier = opinion_takfir who = PREV }
+	remove_opinion = { modifier = opinion_attempted_abduction who = PREV }
+	remove_opinion = { modifier = opinion_unfaithful_wife who = PREV }
+	remove_opinion = { modifier = opinion_unfaithful_husband_crime who = PREV }
+	remove_opinion = { modifier = opinion_cuckolded who = PREV }
+	remove_opinion = { modifier = opinion_killed_lover who = PREV }
+	remove_opinion = { modifier = opinion_charge_heresiarch who = PREV }
+	remove_opinion = { modifier = opinion_charge_infidel who = PREV }
+	remove_opinion = { modifier = opinion_charge_deviant who = PREV }
+	remove_opinion = { modifier = opinion_charge_illegitimate who = PREV }
+	remove_opinion = { modifier = opinion_charge_cultist who = PREV }
+	remove_opinion = { modifier = opinion_charge_dw who = PREV }
+	remove_opinion = { modifier = opinion_charge_traitor who = PREV }
+	remove_opinion = { modifier = opinion_charge_slanderer who = PREV }
+	remove_opinion = { modifier = abuse_of_office who = PREV }
+	remove_opinion = { modifier = opinion_tortured_me who = PREV }
+	remove_opinion = { modifier = opinion_tortured_family who = PREV }
+	remove_opinion = { modifier = opinion_tortured_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_me who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_family who = PREV }
+	remove_opinion = { modifier = opinion_mutilated_close_kin who = PREV }
+	remove_opinion = { modifier = opinion_thief who = PREV }
+	remove_opinion = { modifier = opinion_outlawed_society who = PREV }
+	remove_opinion = { modifier = opinion_accused_apostate who = PREV }
 }

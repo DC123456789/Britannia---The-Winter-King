@@ -49,7 +49,28 @@ character_event = {
 		clr_character_flag = loan_refused
 	}
 	option = {
-		name = "EVTOPTC38000" # Do not go to the moneylenders
+		name = {
+			text = EVTOPTC38000
+			trigger = {
+				OR = {
+					religion_group = christian
+					religion_group = jewish_group
+					religion_group = muslim
+				}
+			}
+		}
+
+		name = {
+			text = EVTOPTC38000_pagan
+			trigger = {
+				NOR = {
+					religion_group = christian
+					religion_group = jewish_group
+					religion_group = muslim
+				}
+			}
+		}
+		
 		set_character_flag = loan_refused
 	}
 }
