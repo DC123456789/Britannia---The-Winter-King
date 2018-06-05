@@ -814,7 +814,88 @@ destroy_landed_title_and_transfer_vassals_to_liege_effect = {
 	destroy_landed_title = THIS
 }
 
+decrease_prosperity_or_increase_depopulation_effect = {
+	hidden_tooltip = {
+		set_variable = { which = prosperity_value value = 0 }
+	}
+	# Provinces with prosperity 2 or 3 lose prosperity, but don't become depopulated
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_3
+		}
+		remove_province_modifier = prosperity_modifier_3
+		break = yes
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_2
+		}
+		remove_province_modifier = prosperity_modifier_2
+		break = yes
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_1
+		}
+		remove_province_modifier = prosperity_modifier_1
+	}
+	if = {
+		limit = {
+			has_province_modifier = depopulated_2
+		}
+		remove_province_modifier = depopulated_2
+		add_province_modifier = {
+			name = depopulated_3
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = depopulated_1
+		}
+		remove_province_modifier = depopulated_1
+		add_province_modifier = {
+			name = depopulated_2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			NOR = {
+				has_province_modifier = depopulated_3
+				has_province_modifier = depopulated_2
+				has_province_modifier = depopulated_1
+			}
+		}
+		add_province_modifier = {
+			name = depopulated_1
+			duration = -1
+		}
+	}
+}
+
 increase_depopulation_always_effect = {
+	hidden_tooltip = {
+		set_variable = { which = prosperity_value value = 0 }
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_3
+		}
+		remove_province_modifier = prosperity_modifier_3
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_2
+		}
+		remove_province_modifier = prosperity_modifier_2
+	}
+	if = {
+		limit = {
+			has_province_modifier = prosperity_modifier_1
+		}
+		remove_province_modifier = prosperity_modifier_1
+	}
 	if = {
 		limit = {
 			has_province_modifier = depopulated_2

@@ -233,9 +233,27 @@ province_event = {
 		}
 		set_province_flag = southern_britain_depopulation
 		set_variable = { which = prosperity_value value = 0 }
-		remove_province_modifier = prosperity_modifier_1
-		remove_province_modifier = prosperity_modifier_2
-		remove_province_modifier = prosperity_modifier_3
+		# Provinces with prosperity 2 or 3 lose prosperity, but don't become depopulated
+		if = {
+			limit = {
+				has_province_modifier = prosperity_modifier_3
+			}
+			remove_province_modifier = prosperity_modifier_3
+			break = yes
+		}
+		if = {
+			limit = {
+				has_province_modifier = prosperity_modifier_2
+			}
+			remove_province_modifier = prosperity_modifier_2
+			break = yes
+		}
+		if = {
+			limit = {
+				has_province_modifier = prosperity_modifier_1
+			}
+			remove_province_modifier = prosperity_modifier_1
+		}
 		if = {
 			limit = { has_province_modifier = depopulated_2 }
 			remove_province_modifier = depopulated_2
