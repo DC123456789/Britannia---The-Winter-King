@@ -1493,8 +1493,62 @@ province_event = {
 		name = "EVTOPTA55010"
 		convert_to_local_roman_culture_effect = yes
 		if = {
-			limit = { NOT = { religion_group = christian } }
-			religion = catholic
+			limit = { 
+				religion_group = pagan_group 
+			}
+			if = {
+				limit = { any_neighbor_province = { religion = catholic } }
+				religion = catholic
+			}
+			else_if = {
+				limit = {
+					owner = {
+						is_roman_culture_trigger = yes
+						ROOT = {
+							any_neighbor_province = {
+								religion = PREVPREV
+							}
+						}
+					}
+				}
+				owner = {
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_province = { religion_group = christian }
+				}
+				random_neighbor_province = {
+					limit = { religion_group = christian }
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_province = { 
+						NOR = { 
+							religion_group = pagan_group 
+							religion_group = zoroastrian_group 
+						} 
+					}
+				}
+				random_neighbor_province = {
+					limit = {
+						NOR = { 
+							religion_group = pagan_group 
+							religion_group = zoroastrian_group 
+						} 
+					}
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
 		}
 		hidden_tooltip = {
 			top_liege = {
