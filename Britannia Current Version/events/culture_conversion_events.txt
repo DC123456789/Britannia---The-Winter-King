@@ -372,10 +372,7 @@ province_event = {
 			factor = 0.75
 			region = custom_scandinavia
 			owner = {
-				OR = {
-					culture = dane
-					culture = proto_norse
-				}
+				is_north_germanic_trigger = yes
 			}
 		}
 		modifier = {
@@ -1493,8 +1490,62 @@ province_event = {
 		name = "EVTOPTA55010"
 		convert_to_local_roman_culture_effect = yes
 		if = {
-			limit = { NOT = { religion_group = christian } }
-			religion = catholic
+			limit = { 
+				religion_group = pagan_group 
+			}
+			if = {
+				limit = { any_neighbor_province = { religion = catholic } }
+				religion = catholic
+			}
+			else_if = {
+				limit = {
+					owner = {
+						is_roman_culture_trigger = yes
+						ROOT = {
+							any_neighbor_province = {
+								religion = PREVPREV
+							}
+						}
+					}
+				}
+				owner = {
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_province = { religion_group = christian }
+				}
+				random_neighbor_province = {
+					limit = { religion_group = christian }
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_province = { 
+						NOR = { 
+							religion_group = pagan_group 
+							religion_group = zoroastrian_group 
+						} 
+					}
+				}
+				random_neighbor_province = {
+					limit = {
+						NOR = { 
+							religion_group = pagan_group 
+							religion_group = zoroastrian_group 
+						} 
+					}
+					ROOT = {
+						religion = PREV
+					}
+				}
+			}
 		}
 		hidden_tooltip = {
 			top_liege = {
@@ -5831,105 +5882,32 @@ character_event = {
 province_event = {
 	id = 55075
 	desc = "EVTDESC55075"
-	picture = GFX_evt_saxon_army
+	picture = "GFX_evt_longships_at_sea_oldgods"
 	
 	trigger = {
-		year = 750
-		OR = {			
-			region = world_ireland
+		year = 700
+		owner = {
+			top_liege = {
+				OR = {
+					culture = dane
+					culture = norse_gael
+				}
+			}
+			OR = {
+				culture = dane
+				culture = norse_gael
+			}
 		}
-		
+		OR = {
+			region = world_ireland
+			region = world_caledonia
+		}
 		NOT = {
 			culture = norse_gael
-		}		
-		
-		OR = {	
-			c_eblana = {
-				owner = {
-					top_liege = {
-						culture = dane
-						
-					}
-				}
-			}
-			c_waterford = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-					
-			c_wexford = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_limerick = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_concagh = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}		
-			c_longford = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_connemara = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_donegal = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_ailech = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_dal_naraide = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_conaille = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
-			c_arda = {
-				owner = {
-					top_liege = {
-						culture = dane
-					}
-				}
-			}
+		}
+		OR = {
+			is_north_germanic_trigger = yes
+			is_gaelic_culture_trigger = yes
 		}
 	}
 		
@@ -5937,28 +5915,28 @@ province_event = {
 		months = 360
 		modifier = {
 			factor = 2
-			NOT = { year = 750 }
+			NOT = { year = 700 }
 		}
 		
 		modifier = {
 			factor = 0.75
+			year = 715
+		}
+		modifier = {
+			factor = 0.5
+			year = 725
+		}
+		modifier = {
+			factor = 0.5
 			year = 750
 		}
 		modifier = {
-			factor = 0.5
+			factor = 0.25
 			year = 775
 		}
 		modifier = {
-			factor = 0.5
-			year = 800
-		}
-		modifier = {
-			factor = 0.25
-			year = 825
-		}
-		modifier = {
 			factor = 0.1
-			year = 850
+			year = 800
 		}
 		modifier = {
 			factor = 0.5
@@ -5970,6 +5948,12 @@ province_event = {
 			factor = 0.75
 			owner = {
 				culture = dane
+			}
+		}
+		modifier = {
+			factor = 0.75
+			owner = {
+				culture = norse_gael
 			}
 		}
 		modifier = {
