@@ -219,53 +219,77 @@ is_roman_culture_trigger = {
 	}
 }
 
+is_romanogallic_area_trigger = {
+	region = world_gaul
+	OR = {
+		NOR = { 
+			region = world_gaul_romangermania 
+			region = world_gaul_aquitania_tertia
+		}
+		region = world_gaul_maxima_sequanorum
+	}
+}
+
+is_romanobritish_area_trigger = {
+	OR = {
+		region = world_britannia
+		region = world_caledonia
+		region = world_ireland 
+	}
+}
+
+is_romanogermanic_area_trigger = {
+	OR = {
+		region = world_gaul_romangermania 
+		region = world_germania 
+	}
+	NOT = { region = world_gaul_maxima_sequanorum }
+	NAND = {
+		region = world_germania_jutland
+		has_global_flag = jutland_conquered_norse
+	}
+	NAND = {
+		region = world_germania_angeln
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoscandian_area_trigger = {
+	region = custom_scandinavia 
+	OR = {
+		NOT = { region = world_germania_jutland }
+		has_global_flag = jutland_conquered_norse
+	}
+	OR = {
+		NOT = { region = world_germania_angeln }
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoaquitanian_area_trigger = {
+	region = world_gaul_aquitania_tertia
+}
+
 is_local_roman_culture_trigger = {
 	OR = {
 		AND = {
-			region = world_gaul
-			NOR = { 
-				region = world_gaul_romangermania 
-				region = world_gaul_aquitania_tertia
-			}
+			is_romanogallic_area_trigger = yes
 			culture = romanogallic
 		}
 		AND = { 
-			OR = {
-				region = world_britannia
-				region = world_caledonia
-				region = world_ireland 
-			}
+			is_romanobritish_area_trigger = yes
 			culture = romanobritish
 		}
 		AND = { 
-			OR = {
-				region = world_gaul_romangermania 
-				region = world_germania 
-			}
-			NAND = {
-				region = world_germania_jutland
-				has_global_flag = jutland_conquered_norse
-			}
-			NAND = {
-				region = world_germania_angeln
-				has_global_flag = angeln_conquered_norse
-			}
+			is_romanogermanic_area_trigger = yes
 			culture = romanogermanic
 		}
 		AND = { 
-			region = custom_scandinavia 
-			OR = {
-				NOT = { region = world_germania_jutland }
-				has_global_flag = jutland_conquered_norse
-			}
-			OR = {
-				NOT = { region = world_germania_angeln }
-				has_global_flag = angeln_conquered_norse
-			}
+			is_romanoscandian_area_trigger = yes
 			culture = romanoscandian
 		}
 		AND = { 
-			region = world_gaul_aquitania_tertia
+			is_romanoaquitanian_area_trigger = yes
 			culture = romanoaquitanian
 		}
 	}
