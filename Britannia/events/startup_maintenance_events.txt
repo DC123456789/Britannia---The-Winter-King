@@ -516,6 +516,16 @@ character_event = {
 				NOT = { ROOT = { has_character_flag = gained_aengland } }
 				FROM = { title = e_aengland }
 			}
+			
+			# Flag all vassals to be kept after fall of Aengland
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = { title = e_aengland } 
+					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
+				}
+				set_character_flag = restore_vassalage_@ROOT
+			}
+			
 			if = {						# Jarldoms of Anglia
 				limit = {
 					e_aengland = {
@@ -679,6 +689,18 @@ character_event = {
 			}
 			
 			e_aengland = { destroy_landed_title = e_aengland }
+						
+			# Revassalize all accidentally independent vassals
+			any_character = {
+				limit = { has_character_flag = restore_vassalage_@ROOT }
+				clr_character_flag = restore_vassalage_@ROOT
+				set_defacto_liege = THIS
+				set_defacto_liege = ROOT
+			}
+			any_title = {
+				limit = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
+				clr_title_flag = vassal_before_gained_high_kingdom_aengland
+			}
 		}
 		
 		ROOT = {

@@ -5516,6 +5516,11 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	}
 	
 	immediate = {
+		any_vassal = {
+			any_demesne_title = {
+				set_title_flag = vassal_before_gained_high_kingdom_britannia
+			}
+		}
 		set_character_flag = gained_aengland
 		primary_title = {
 			e_aengland = { 
@@ -5591,6 +5596,22 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	
 	immediate = {
 		clr_character_flag = is_unfit_to_rule_aengland
+		hidden_tooltip = {
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = { title = e_aengland } 
+					NOT = { primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland } }
+				}
+				set_character_flag = former_aengland_vassal
+			}
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = { title = e_aengland } 
+					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
+				}
+				set_character_flag = restore_vassalage_@ROOT
+			}
+		}
 	}
 	
 	option = {
@@ -5779,6 +5800,24 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 		trigger = {
 			NOT = { has_landed_title = e_aengland }
 			is_ingvaeonic_culture_trigger = no
+		}
+	}
+	
+	after = {
+		hidden_tooltip = {
+			if = {
+				limit = { character = ROOT }
+				any_character = {
+					limit = { has_character_flag = restore_vassalage_@ROOT }
+					clr_character_flag = restore_vassalage_@ROOT
+					set_defacto_liege = THIS
+					set_defacto_liege = ROOT
+				}
+				any_title = {
+					limit = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
+					clr_title_flag = vassal_before_gained_high_kingdom_aengland
+				}
+			}
 		}
 	}
 }
@@ -20035,6 +20074,11 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	}
 	
 	immediate = {
+		any_vassal = {
+			any_demesne_title = {
+				set_title_flag = vassal_before_gained_high_kingdom_aengland
+			}
+		}
 		primary_title = {
 			e_britannia = {
 				copy_title_laws = PREV
@@ -20257,8 +20301,18 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 		clr_character_flag = is_unfit_to_rule_britannia
 		hidden_tooltip = {
 			any_vassal = {
-				limit = { defacto_liege_title = { title = e_britannia } }
+				limit = { 
+					defacto_liege_title = { title = e_britannia } 
+					NOT = { primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia } }
+				}
 				set_character_flag = former_britannia_vassal
+			}
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = { title = e_britannia } 
+					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
+				}
+				set_character_flag = restore_vassalage_@ROOT
 			}
 		}
 	}
@@ -20267,23 +20321,6 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 		name = "EVTOPTA312166"		# Lose High Kingdom of Britannia
 		trigger = {
 			has_landed_title = e_britannia
-		}
-		any_demesne_title = {
-			limit = {
-				tier = KING
-			}
-			e_britannia = {
-				any_vassal = {
-					limit = {
-						OR = {
-							tier = BARON
-							tier = COUNT
-							tier = DUKE
-						}
-					}
-					set_defacto_liege = PREVPREV
-				}
-			}
 		}
 		prestige = -100
 		e_britannia = { destroy_landed_title = THIS }
@@ -20320,6 +20357,24 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 				has_landed_title = e_britannia
 				has_character_flag = former_britannia_vassal
 				is_brythonic_culture_trigger = yes
+			}
+		}
+	}
+	
+	after = {
+		hidden_tooltip = {
+			if = {
+				limit = { character = ROOT }
+				any_character = {
+					limit = { has_character_flag = restore_vassalage_@ROOT }
+					clr_character_flag = restore_vassalage_@ROOT
+					set_defacto_liege = THIS
+					set_defacto_liege = ROOT
+				}
+				any_title = {
+					limit = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
+					clr_title_flag = vassal_before_gained_high_kingdom_britannia
+				}
 			}
 		}
 	}
