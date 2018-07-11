@@ -1353,6 +1353,8 @@ character_event = {
 		}
 		new_character = {
 			remove_trait = weak
+			remove_trait = fragile
+			remove_trait = feeble
 			remove_trait = slow
 			remove_trait = imbecile
 			remove_trait = dull
@@ -1382,27 +1384,62 @@ character_event = {
 			remove_trait = seductress
 			remove_trait = theologian
 			remove_trait = scholar
+			remove_trait = trained_warrior
+			remove_trait = poor_warrior
+			remove_trait = skilled_warrior
+			remove_trait = master_warrior
 			
 			random_list = { # Flavor Randomization
-				15 = {
+				25 = {
 					change_martial = 2
-				}
-				10 = {
-					add_trait = robust
-				}
-				10 = {
-					add_trait = duelist
-				}
-				10 = {
-					add_trait = hunter
-				}
-				5 = {
-					add_trait = strategist
 				}
 				5 = {
 					change_martial = 4
 				}
+				30 = {}
+			}
+			if = {
+				limit = {
+					NOT = {
+						trait = robust
+						trait = tough
+						trait = strong
+					}
+				}	
+				random_list = {
+					15 = {
+						add_trait = robust
+					}
+					5 = { 
+						add_trait = tough 
+					}
+					1 = { 
+						add_trait = strong 
+					}
+					25 = {}
+				}
+			}
+			random_list = {
+				50 = {
+					add_trait = trained_warrior
+					change_martial = 1
+				}
+				20 = {
+					add_trait = hunter
+					add_trait = trained_warrior
+				}
+				10 = {
+					add_trait = strategist
+					add_trait = trained_warrior
+				}
 				5 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = veteran
+							trait = war_hero
+						}
+					}	
 					if = {
 						limit = {
 							has_dlc = "Reapers"
@@ -1410,9 +1447,45 @@ character_event = {
 						add_trait = one_eyed
 						change_martial = 1
 					}
+					add_trait = trained_warrior
+					add_trait = veteran
 				}
-				5 = { 
+				5 = {
+					add_trait = poor_warrior
+					add_trait = gamer
+				}
+				4 = {
+					add_trait = duelist
+					add_trait = skilled_warrior
+				}
+				4 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = shrewd
+							trait = quick
+							trait = genius 
+						}
+					}	
 					add_trait = shrewd
+					add_trait = trained_warrior
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = shrewd
+							trait = quick
+							trait = genius 
+						}
+					}	
+					add_trait = shrewd
+					add_trait = skilled_warrior
+				}
+				1 = {
+					add_trait = duelist
+					add_trait = master_warrior
+					add_trait = fast
 				}
 			}
 			# hidden_tooltip = {
