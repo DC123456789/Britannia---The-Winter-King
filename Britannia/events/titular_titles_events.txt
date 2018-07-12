@@ -20074,11 +20074,6 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	}
 	
 	immediate = {
-		any_vassal = {
-			any_demesne_title = {
-				set_title_flag = vassal_before_gained_high_kingdom_aengland
-			}
-		}
 		primary_title = {
 			e_britannia = {
 				copy_title_laws = PREV
@@ -20151,7 +20146,12 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 					has_character_flag = HK_challenge_loser
 				}
 			}
-			set_defacto_liege = ROOT
+			ROOT = {
+				make_tributary = {
+					who = PREV
+					tributary_type = britannia_subject
+				}
+			}
 		}
 		any_playable_ruler = { clr_character_flag = HK_oppositor }
 		any_playable_ruler = { clr_character_flag = HK_challenged_oppositor }
@@ -20300,17 +20300,18 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 	immediate = {
 		clr_character_flag = is_unfit_to_rule_britannia
 		hidden_tooltip = {
-			any_vassal = {
+			any_independent_ruler = {
 				limit = { 
-					defacto_liege_title = { title = e_britannia } 
-					NOT = { primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia } }
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
 				}
 				set_character_flag = former_britannia_vassal
 			}
 			any_vassal = {
 				limit = { 
-					defacto_liege_title = { title = e_britannia } 
-					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
+					defacto_liege_title = { title = e_britannia }
 				}
 				set_character_flag = restore_vassalage_@ROOT
 			}
@@ -20325,6 +20326,20 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 		prestige = -100
 		e_britannia = { destroy_landed_title = THIS }
 		e_britannia = { remove_claim = ROOT }
+		custom_tooltip = {
+			text = remove_all_subject_kingdoms_tooltip
+		}
+		hidden_tooltip = {
+			any_tributary = {
+				limit = { 
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+				ROOT = { remove_tributary = PREV }
+			}
+		}
 	}
 	
 	option = {
@@ -20334,7 +20349,9 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 			has_character_flag = former_britannia_vassal
 		}
 		tooltip = {
-			set_defacto_liege = THIS
+			ROOT = {
+				remove_tributary = PREV
+			}
 		}
 		clr_character_flag = former_britannia_vassal
 	}
