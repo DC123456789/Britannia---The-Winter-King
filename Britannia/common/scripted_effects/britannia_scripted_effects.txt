@@ -966,6 +966,25 @@ set_proper_rebel_government_effect = {
 	}
 }
 
+make_britannia_subject_of_ROOT_effect = {
+	ROOT = {
+		if = {
+			limit = { NOT = { has_global_flag = founded_britannia_treasury } }
+			make_tributary = {
+				who = PREV 
+				tributary_type = britannia_subject 
+			}
+		}
+		else = {
+			make_tributary = {
+				who = PREV 
+				tributary_type = britannia_subject
+				percentage = 0.2
+			}
+		}
+	}
+}
+
 destroy_random_nonspecial_building_effect = {
 	custom_tooltip = {
 		text = destroy_random_nonspecial_building_tooltip

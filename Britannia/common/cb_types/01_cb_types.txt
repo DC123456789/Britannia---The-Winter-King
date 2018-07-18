@@ -90,6 +90,10 @@ dejure_duchy_claim = { # New1
 				holder = ROOT
 			}
 			empire = {
+				OR = {
+					NOT = { title = e_britannia }
+					has_global_flag = britannia_empowered_high_council
+				}
 				holder = ROOT
 			}
 		}
@@ -2352,6 +2356,14 @@ tributary_permanent_cb = { # New8
 				holy_order = yes
 				religion = FROM
 			}
+			# Not if can establish a Subject Kingdom instead
+			NOT = {		
+				can_use_cb = {
+					target = FROM
+					casus_belli = tributary_britannia_subject_cb
+					only_check_triggers = yes
+				}
+			}
 		}
 		FROM = {
 			is_nomadic = no
@@ -2693,20 +2705,7 @@ tributary_nomad_cb = { # New9
 		
 		# The defender is not in any tributary war
 		FROM = {
-			NOR = {
-				any_war = {
-					using_cb = tributary_cb
-				}
-				any_war = {
-					using_cb = tributary_permanent_cb
-				}
-				any_war = {
-					using_cb = tributary_nomad_cb
-				}
-				any_war = {
-					using_cb = tributary_client_state_cb
-				}
-			}
+			is_defending_against_tributary_war = no
 		}
 	}
 

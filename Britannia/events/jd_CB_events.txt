@@ -942,6 +942,23 @@ letter_event = {
 							}
 						}
 					}
+					surrender_tributary_britannia_subject_cb = {
+						event_target:tribute_war_suzerain = {
+							show_scope_change = no
+							event_target:tribute_war_target = {
+								make_britannia_subject_of_ROOT_effect = yes
+							}
+							hidden_effect = {
+								any_war = {
+									limit = {
+										using_cb = tributary_britannia_subject_cb
+										defender = { character = event_target:tribute_war_target }
+									}
+									end_war = invalid
+								}
+							}
+						}
+					}
 				}
 			}
 		}
