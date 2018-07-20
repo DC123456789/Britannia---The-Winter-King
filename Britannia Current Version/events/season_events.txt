@@ -1748,6 +1748,13 @@ province_event = {
 			}
 			NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
 			NOT = { num_of_buildings = 10 }
+			# Cannot only leave temple holding behind
+			ROOT = {
+				any_province_holding = {
+					NOT = { title = PREV }
+					NOT = { holding_type = TEMPLE }
+				}
+			}
 		}
 		OR = {
 			has_province_modifier = depopulated_1
@@ -1877,6 +1884,12 @@ province_event = {
 					}
 					NOT = { ROOT = { capital_holding = { title = PREVPREV } } }
 					NOT = { num_of_buildings = 10 }
+					ROOT = {
+						any_province_holding = {
+							NOT = { title = PREV }
+							NOT = { holding_type = TEMPLE }
+						}
+					}
 				}
 				save_event_target_as = abandoned_holding
 			}
