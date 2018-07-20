@@ -969,7 +969,7 @@ set_proper_rebel_government_effect = {
 make_britannia_subject_of_ROOT_effect = {
 	ROOT = {
 		if = {
-			limit = { NOT = { has_global_flag = founded_britannia_treasury } }
+			limit = { NOT = { has_global_flag = britannia_founded_central_treasury } }
 			make_tributary = {
 				who = PREV 
 				tributary_type = britannia_subject 
@@ -982,6 +982,41 @@ make_britannia_subject_of_ROOT_effect = {
 				percentage = 0.2
 			}
 		}
+	}
+}
+
+britannia_revoke_last_reform_effect = {
+	if = {
+		limit = { has_global_flag = britannia_revoked_royal_privileges }
+		clr_global_flag = britannia_revoked_royal_privileges
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_restored_roman_senate }
+		clr_global_flag = britannia_restored_roman_senate
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_formalized_heir }
+		clr_global_flag = britannia_formalized_heir
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_unified_legal_code }
+		clr_global_flag = britannia_unified_legal_code
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_centralized_church }
+		clr_global_flag = britannia_centralized_church
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_empowered_high_council }
+		clr_global_flag = britannia_empowered_high_council
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_founded_central_treasury }
+		clr_global_flag = britannia_founded_central_treasury
+	}
+	else_if = {
+		limit = { has_global_flag = britannia_formalized_high_kingship }
+		clr_global_flag = britannia_formalized_high_kingship
 	}
 }
 
