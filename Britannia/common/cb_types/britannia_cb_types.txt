@@ -4687,6 +4687,263 @@ depose_high_king_britannia_cb = {
 		}
 	}
 }
+claim_high_king_britannia_cb = {
+	name = CB_NAME_CLAIM_HIGH_KING_BRITANNIA
+	war_name = WAR_NAME_DISPUTEBRITANNIA
+	sprite = 1
+	truce_days = 1095
+	is_permanent = yes
+	hostile_against_others = yes
+	can_ask_to_join_war = no
+	#is_independence = yes
+	
+	can_use_gui = {
+		ROOT = {
+			prestige = 2000
+			num_of_count_titles_in_realm = 6
+			diplomacy = 10
+			stewardship = 7
+			martial = 12
+			ruled_years = 5
+			age = 25
+			OR = {
+				ruled_years = 15
+				trait = war_hero
+				trait = master_warrior
+				trait = inspiring_leader
+				#trait = authoritative
+				trait = brilliant_strategist
+				trait = grey_eminence
+				trait = elusive_shadow
+				trait = midas_touched
+				trait = genius
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded
+				trait = imbecile
+				trait = eunuch 
+			}
+		}
+	}
+
+	can_use = {
+		FROM = { has_landed_title = e_britannia }
+		has_global_flag = britannia_formalized_high_kingship
+		NOT = { has_global_flag = britannia_formalized_heir }	# After this, you use the normal claim cb
+		ROOT = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOT = {
+				top_liege = { 
+					primary_title = {
+						tier = EMPEROR 
+						NOT = { title = e_britannia }
+					} 
+				}
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+			higher_tier_than = COUNT
+			OR = {
+				independent = yes
+				liege = { character = FROM }
+			}
+		}
+	}
+
+	is_valid = {
+		FROM = { 
+			has_landed_title = e_britannia
+		}
+	}
+
+	on_success = {
+		FROM = {
+			prestige = -500
+		}
+
+		ROOT = {
+			prestige = 100
+			participation_scaled_prestige = 100
+		}
+		any_attacker = {
+			limit = { NOT = { character = ROOT } }
+			hidden_tooltip = { participation_scaled_prestige = 150 }
+		}
+		if = {
+			limit = {
+				OR = {
+					ROOT = { liege = { character = FROM } }
+					has_global_flag = britannia_empowered_high_council
+				}
+			}
+			# Fully usurp title and realm
+			e_britannia = {
+				usurp_title_plus_barony_if_unlanded = { target = ROOT type = claim }
+			}
+			if = {
+				limit = {
+					FROM = {
+						any_tributary = {
+							is_tributary = {
+								type = britannia_subject
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = claim_high_king_britannia_cb_succ_tip
+				}
+				hidden_tooltip = {
+					FROM = {
+						any_tributary = {
+							limit = { 
+								is_tributary = {
+									type = britannia_subject
+								}
+							}
+							FROM = { remove_tributary = PREV }
+							make_britannia_subject_of_ROOT_effect = yes
+						}
+					}
+				}
+			}
+		}
+		else = {
+			# Usurp title only and take all Britannia Subject tributaries
+			hidden_tooltip = {		# Make all vassals of FROM that would become independent into Subject Kingdoms (unless they're unlanded, in which case make them vassals)
+				FROM = {
+					any_vassal = {
+						limit = {
+							NOT = { 
+								ROOT_FROM = { 
+									any_demesne_title = {
+										higher_tier_than = PREVPREV
+										NOT = { title = e_britannia }
+									}
+								}
+							}
+						}
+						set_defacto_liege = THIS
+						if = {
+							limit = { is_landed = yes }
+							if = {
+								limit = { is_tributary = yes }
+								suzerain = {
+									remove_tributary = PREV
+								}
+							}
+							make_britannia_subject_of_ROOT_effect = yes
+						}
+						else = {
+							set_character_flag = make_vassal_@ROOT
+						}
+					}
+				}
+			}
+			e_britannia = { usurp_title_only = ROOT }
+			any_character = {
+				limit = { has_character_flag = make_vassal_@ROOT }
+				set_defacto_liege = ROOT
+			}
+			if = {
+				limit = {
+					FROM = {
+						any_tributary = {
+							is_tributary = {
+								type = britannia_subject
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = claim_high_king_britannia_cb_succ_tip
+				}
+			}
+			hidden_tooltip = {
+				FROM = {
+					any_tributary = {
+						limit = { 
+							is_tributary = {
+								type = britannia_subject
+							}
+						}
+						suzerain = { remove_tributary = PREV }
+						make_britannia_subject_of_ROOT_effect = yes
+					}
+					set_defacto_liege = THIS
+					if = {
+						limit = { is_tributary = yes }
+						suzerain = {
+							remove_tributary = PREV
+						}
+					}
+					make_britannia_subject_of_ROOT_effect = yes
+				}
+			}
+		}
+		
+		# Transfer foederati
+		hidden_tooltip = {
+			e_britannia = {
+				ROOT = { 
+					character_event = { id = foederati.21 } 
+				}
+			}
+		}
+	}
+
+	on_fail = {
+		ROOT = {
+			prestige = -100
+		}
+		FROM = {
+			prestige = 100
+		}
+	}
+
+	on_reverse_demand = {
+		ROOT = {
+			prestige = -100
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 4.0
+			}
+		}
+
+		FROM = {
+			prestige = 100
+		}
+	}
+	
+	on_attacker_leader_death = {
+		end_war = invalid
+	}
+
+	attacker_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	attacker_ai_defeat_worth = {
+		factor = 100
+	}
+
+	defender_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	defender_ai_defeat_worth = {
+		factor = 100
+	}
+}
 disputeAenglandHighKingship = {
 	name = CB_NAME_DISPUTEAENGLAND
 	war_name = WAR_NAME_DISPUTEAENGLAND
