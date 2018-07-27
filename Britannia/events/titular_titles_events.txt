@@ -5516,11 +5516,6 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	}
 	
 	immediate = {
-		any_vassal = {
-			any_demesne_title = {
-				set_title_flag = vassal_before_gained_high_kingdom_britannia
-			}
-		}
 		set_character_flag = gained_aengland
 		primary_title = {
 			e_aengland = { 
@@ -20397,9 +20392,177 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 					set_defacto_liege = THIS
 					set_defacto_liege = ROOT
 				}
-				any_title = {
-					limit = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
-					clr_title_flag = vassal_before_gained_high_kingdom_britannia
+			}
+		}
+	}
+}
+
+# High Kingship is lost on death before first reform is taken
+narrative_event = {
+	id = 314480
+	title = EVTNAME314480	
+	desc = EVTDESC314480
+	picture = GFX_evt_council
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_independent_ruler = {
+			limit = { 
+				is_tributary = {
+					type = britannia_subject
+					suzerain = ROOT
+				}
+			}
+			set_character_flag = former_britannia_subject
+		}
+		any_vassal = {
+			limit = { 
+				defacto_liege_title = { title = e_britannia }
+			}
+			set_character_flag = restore_vassalage_@ROOT
+		}
+		e_britannia = { destroy_landed_title = THIS }
+		e_britannia = { remove_claim = ROOT }
+		any_tributary = {
+			limit = { 
+				is_tributary = {
+					type = britannia_subject
+					suzerain = ROOT
+				}
+			}
+			ROOT = { remove_tributary = PREV }
+		}
+		# This ensures that all actual vassals of ROOT are kept when Britannia is destroyed
+		any_character = {
+			limit = { has_character_flag = restore_vassalage_@ROOT }
+			clr_character_flag = restore_vassalage_@ROOT
+			set_defacto_liege = THIS
+			if = {
+				limit = { 
+					ROOT = { higher_tier_than = PREV }
+				}
+				set_defacto_liege = ROOT
+			}
+			else = {
+				ROOT = {
+					current_heir = {
+						set_defacto_vassal = PREVPREV
+					}
+				}
+			}
+		}
+	}
+	
+	option = {			# High King (or heir)
+		name = "EVTOPTA314480"
+		trigger = {
+			character = ROOT
+		}
+		tooltip = {
+			e_britannia = { destroy_landed_title = THIS }
+		}
+		custom_tooltip = {
+			text = remove_all_subject_kingdoms_tooltip
+		}
+	}
+	
+	option = {			# Other Britons
+		name = "EVTOPTB314480"
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOT = {
+				top_liege = { 
+					primary_title = {
+						tier = EMPEROR 
+						NOT = { title = e_britannia }
+					} 
+				}
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}			
+		}
+		if = {
+			limit = {  has_character_flag = former_britannia_subject }
+			clr_character_flag = former_britannia_subject
+			tooltip = {
+				ROOT = {
+					remove_tributary = PREV
+				}
+			}
+		}
+	}
+	
+	option = {			# Anglo-Saxons
+		name = "EVTOPTC314480"
+		trigger = {
+			NOT = { character = ROOT }	
+			culture_group = germanic
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+		if = {
+			limit = {  has_character_flag = former_britannia_subject }
+			clr_character_flag = former_britannia_subject
+			tooltip = {
+				ROOT = {
+					remove_tributary = PREV
+				}
+			}
+		}
+	}
+	
+	option = {			# Others
+		name = "EVTOPTD314480"
+		trigger = {
+			NOR = {
+				character = ROOT
+				AND = {
+					OR = {
+						is_brythonic_culture_trigger = yes
+						culture_group = imperiale
+					}
+					NOT = {
+						top_liege = { 
+							primary_title = {
+								tier = EMPEROR 
+								NOT = { title = e_britannia }
+							} 
+						}
+					}
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+				AND = {				
+					culture_group = germanic
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {  has_character_flag = former_britannia_subject }
+			clr_character_flag = former_britannia_subject
+			tooltip = {
+				ROOT = {
+					remove_tributary = PREV
 				}
 			}
 		}
