@@ -5872,6 +5872,7 @@ character_event = {			# Release Previous Prisoners
 				any_courtier = { 
 					prisoner = yes 
 					at_location = ROOT
+					host = { character = PREVPREV }
 				} 
 			} 
 		} 
@@ -5886,6 +5887,7 @@ character_event = {			# Release Previous Prisoners
 					any_courtier = { 
 						prisoner = yes 
 						at_location = ROOT
+						host = { character = PREVPREV }
 					} 
 				} 
 			}
@@ -5961,6 +5963,7 @@ character_event = {			# Release Previous Prisoners
 					limit = { 
 						at_location = ROOT
 						prisoner = yes 
+						host = { character = PREVPREV }
 					}
 					prisoner = no
 				}
@@ -5974,7 +5977,10 @@ character_event = {			# Release Previous Prisoners
 			FROM = { 
 				holder_scope = { 
 					war_with = ROOT 
-					any_courtier = { war_with = PREV }
+					any_courtier = { 
+						war_with = PREV 
+						host = { character = PREVPREV }
+					}
 				} 
 			}
 		}
@@ -6045,6 +6051,7 @@ character_event = {			# Release Previous Prisoners
 					limit = { 
 						prisoner = yes 
 						war_with = PREV
+						host = { character = PREVPREV }
 					}
 					prisoner = no
 				}
@@ -6056,24 +6063,27 @@ character_event = {			# Release Previous Prisoners
 		name = "EVTOPTC319952"
 		trigger = { 
 			FROM = { 
-				holder_scope = { 
+				holder_scope = {
 					war_with = ROOT 
 					any_courtier = {
 						prisoner = yes
+						host = { character = PREVPREV }
 					}
-				}
-			}
-			OR = {
-				ROOT = { 
-					any_dynasty_member = {
-						at_location = ROOT
-						prisoner = yes 
-					}
-				}
-				ROOT = { 
-					any_spouse = {
-						at_location = ROOT
-						prisoner = yes 
+					OR = {
+						ROOT = { 
+							any_dynasty_member = {
+								at_location = ROOT
+								prisoner = yes 
+								host = { character = PREVPREVPREV }
+							}
+						}
+						ROOT = { 
+							any_spouse = {
+								at_location = ROOT
+								prisoner = yes 
+								host = { character = PREVPREVPREV }
+							}
+						}
 					}
 				}
 			}
@@ -6147,20 +6157,26 @@ character_event = {			# Release Previous Prisoners
 			}
 		}
 	
-		ROOT = { 
-			any_dynasty_member = {
-				limit = { 
-					prisoner = yes 
-					at_location = ROOT
+		FROM = { 
+			holder_scope = {
+				ROOT = { 
+					any_dynasty_member = {
+						limit = { 
+							prisoner = yes 
+							at_location = ROOT
+							host = { character = PREVPREVPREV }
+						}
+						prisoner = no
+					}
+					any_spouse = {
+						limit = { 
+							prisoner = yes 
+							at_location = ROOT
+							host = { character = PREVPREVPREV }
+						}
+						prisoner = no
+					}
 				}
-				prisoner = no
-			}
-			any_spouse = {
-				limit = { 
-					prisoner = yes 
-					at_location = ROOT
-				}
-				prisoner = no
 			}
 		}
 	}
@@ -6171,7 +6187,10 @@ character_event = {			# Release Previous Prisoners
 			FROM = { 
 				holder_scope = { 
 					war_with = ROOT 
-					any_courtier = { prisoner = yes }
+					any_courtier = { 
+						prisoner = yes 
+						host = { character = PREVPREV }
+					}
 				}
 			}
 		}
@@ -6254,6 +6273,7 @@ character_event = {			# Release Previous Prisoners
 					limit = { 
 						at_location = ROOT
 						prisoner = yes 
+						host = { character = PREVPREV }
 					}
 					opinion = {
 						who = ROOT
