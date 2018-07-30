@@ -19331,35 +19331,6 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 	min_age = 15
 	is_triggered_only = yes
 
-	trigger = {
-		e_britannia = { has_holder = no }
-		has_global_flag = HK_britannia_claim
-		NOT = { has_character_flag = HK_britannia_claimant }
-		OR = {
-			has_landed_title = k_dumnonia
-			has_landed_title = k_gwent
-			has_landed_title = k_powys
-			has_landed_title = k_siluria
-			has_landed_title = k_gwynedd
-			has_landed_title = k_icenia
-			has_landed_title = k_cantuaria
-			has_landed_title = k_belgae
-			has_landed_title = k_kernow
-			has_landed_title = k_glevum
-			has_landed_title = k_henis_wyren
-			has_landed_title = k_demetia
-			has_landed_title = k_lindum
-			has_landed_title = k_londinium
-		}
-		independent = yes
-		primary_title = { tier = KING }
-		age = 16
-		NOT = { trait = incapable }
-		NOT = {
-			any_playable_ruler = { has_character_flag = HK_oppositor }
-		}
-	}
-
 	immediate = {
 		hidden_tooltip = {
 			ROOT = {
@@ -19373,7 +19344,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 		trigger = {
 			has_character_flag = HK_voter
 		}
-		add_trait = honorable
+		#add_trait = honorable
 		clr_character_flag = HK_voter
 		set_character_flag = HK_supporter
 		FROM = {
@@ -19522,7 +19493,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				FROM = { has_character_flag = HK_challenge_winner }
 			}
 			modifier = {
-				factor = 10.0
+				factor = 5.0
 				pays_tribute_to = FROM
 			}
 		}
@@ -19795,10 +19766,6 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				factor = 0.5
 				FROM = { has_character_flag = HK_challenge_winner }
 			}
-			modifier = {
-				factor = 0
-				pays_tribute_to = FROM
-			}
 		}
 	}
 }
@@ -19810,11 +19777,6 @@ letter_event = {			# Positive Response
 	
 	only_playable = yes
 	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_supporter }
-	}
 	
 	option = {
 		name = "EVTOPTA312162"		# Excellent
@@ -19838,11 +19800,6 @@ letter_event = {			# Negative Response
 	
 	only_playable = yes
 	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_oppositor }
-	}
 	
 	option = {					# Accept dispute and stand down
 		name = "EVTOPTA312163"
@@ -20029,11 +19986,6 @@ letter_event = {			# Positive Response, but remains Independent
 	
 	only_playable = yes
 	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_indep_supporter }
-	}
 	
 	option = {
 		name = "EVTOPTA312164"		# Excellent
