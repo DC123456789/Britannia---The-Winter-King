@@ -412,19 +412,29 @@ decisions = {
 			NOT = { trait = content }
 			NOT = { trait = tolerant }
 			NOT = { trait = imbecile }
-			OR = {
+			conditional_tooltip = {
+				trigger = {
+					NOT = { has_character_flag = merlin_of_avalon }
+				}
 				NOT = { trait = cynical }
-				custom_tooltip = {
-					text = is_merlin_tooltip
+			}
+			conditional_tooltip = {
+				trigger = {
 					has_character_flag = merlin_of_avalon
 				}
-			}
-			OR = {
-				has_focus = focus_theology
-				custom_tooltip = {
-					text = restore_old_gods_foci_tooltip
-					NOT = { has_dlc = "Way of Life" }
+				OR = {
+					NOT = { trait = cynical }
+					custom_tooltip = {
+						text = is_merlin_tooltip
+						has_character_flag = merlin_of_avalon
+					}
 				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_dlc = "Way of Life"
+				}
+				has_focus = focus_theology
 			}
 		}
 		

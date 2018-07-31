@@ -5910,14 +5910,14 @@ character_event = {			# Notify support/nominal support/backing down/war
 		text = EVTDESC3121688_2
 		picture = GFX_evt_emissary
 		trigger = {
-			FROMFROM = { has_character_flag = HK_oppositor }
+			FROMFROM = { has_character_flag = HK_opponent }
 		}
 	}
 	desc = {
 		text = EVTDESC3121688_3
 		picture = GFX_evt_saxon_army
 		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_oppositor }
+			FROMFROM = { has_character_flag = HK_challenged_opponent }
 		}
 	}
 	
@@ -19348,7 +19348,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 		clr_character_flag = HK_voter
 		set_character_flag = HK_supporter
 		FROM = {
-			character_event = { id = 312162 days = 3 random = 7 tooltip = "The claimant is informed of your support." }
+			character_event = { id = 312162 tooltip = "The claimant is informed of your support." }
 		}
 		ai_chance = {
 			factor = 20
@@ -19507,7 +19507,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 		clr_character_flag = HK_voter
 		set_character_flag = HK_indep_supporter
 		FROM = {
-			character_event = { id = 312164 days = 4 random = 6 tooltip = "The claimant is informed of your decision." }
+			character_event = { id = 312162 tooltip = "The claimant is informed of your decision." }
 		}
 		ai_chance = {
 			factor = 20
@@ -19645,9 +19645,9 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 		}
 		prestige = 25
 		clr_character_flag = HK_voter
-		set_character_flag = HK_oppositor
+		set_character_flag = HK_opponent
 		FROM = {
-			character_event = { id = 312163 days = 5 random = 5 tooltip = "the claimant is informed of your refusal to support him." }
+			character_event = { id = 312162 tooltip = "the claimant is informed of your refusal to support him." }
 		}
 		ai_chance = {
 			factor = 20
@@ -19770,16 +19770,36 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 	}
 }
 
-letter_event = {			# Positive Response
+# Claimant receives response
+letter_event = {			
 	id = 312162
-	desc = "EVTDESC312162"
 	picture = GFX_evt_letter
+	desc = {					# Positive Response
+		text = EVTDESC312162_supporter
+		trigger = {
+			FROM = { has_character_flag = HK_supporter }
+		}
+	}
+	desc = {					# Negative Response
+		text = EVTDESC312162_opponent
+		trigger = {
+			FROM = { has_character_flag = HK_opponent }
+		}
+	}
+	desc = {					# Positive Response, but remains Independent
+		text = EVTDESC312162_indep_supporter
+		trigger = {
+			FROM = { has_character_flag = HK_indep_supporter }
+		}
+	}
 	
-	only_playable = yes
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA312162"		# Excellent
+		name = "EVTOPTA312162_supporter"		# Excellent
+		trigger = {
+			FROM = { has_character_flag = HK_supporter }
+		}
 		prestige = 20
 		hidden_tooltip = {
 			any_playable_ruler = {
@@ -19792,17 +19812,12 @@ letter_event = {			# Positive Response
 			}
 		}
 	}
-}
-letter_event = {			# Negative Response
-	id = 312163
-	desc = "EVTDESC312163"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
 	
 	option = {					# Accept dispute and stand down
-		name = "EVTOPTA312163"
+		name = "EVTOPTA312162_opponent"
+		trigger = {
+			FROM = { has_character_flag = HK_opponent }
+		}
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = {
@@ -19817,7 +19832,7 @@ letter_event = {			# Negative Response
 		clr_character_flag = HK_britannia_claimant
 		clr_global_flag = HK_britannia_claim
 		e_britannia = { remove_claim = ROOT }
-		FROM = { clr_character_flag = HK_oppositor }
+		FROM = { clr_character_flag = HK_opponent }
 		any_playable_ruler = { clr_character_flag = HK_supporter }
 		ai_chance = {
 			factor = 90
@@ -19825,8 +19840,9 @@ letter_event = {			# Negative Response
 	}
 	
 	option = {					# Bribe him
-		name = "EVTOPTB312163"		
+		name = "EVTOPTB312162_opponent"		
 		trigger = {
+			FROM = { has_character_flag = HK_opponent }
 			diplomacy = 15
 			scaled_wealth = 8.0
 			NOT = { trait = honorable }
@@ -19851,7 +19867,7 @@ letter_event = {			# Negative Response
 		FROM = {
 			letter_event = { id = 63064 days = 1 tooltip = "EVTTOOLTIP63064" }
 		}
-		FROM = { clr_character_flag = HK_oppositor }
+		FROM = { clr_character_flag = HK_opponent }
 		FROM = { set_character_flag = HK_supporter }
 		tooltip_info = diplomacy
 		hidden_tooltip = {
@@ -19877,14 +19893,15 @@ letter_event = {			# Negative Response
 		}
 	}
 	
-	option = {					# Declare war on oppositor
-		name = "EVTOPTC312163"
+	option = {					# Declare war on opponent
+		name = "EVTOPTC312162_opponent"
 		trigger = {
-			war = no
+			FROM = { has_character_flag = HK_opponent }
+			#war = no
 		}
 		prestige = 50
 		custom_tooltip = { text = HK_declare_war }
-		FROM = { set_character_flag = HK_challenged_oppositor }
+		FROM = { set_character_flag = HK_challenged_opponent }
 		ROOT = { set_character_flag = HK_challenger }
 		hidden_tooltip = {
 			FROM = {
@@ -19898,7 +19915,7 @@ letter_event = {			# Negative Response
 		}
 		#clr_global_flag = HK_britannia_claim
 		ROOT = { clr_character_flag = HK_britannia_claimant }
-		FROM = { clr_character_flag = HK_oppositor }
+		FROM = { clr_character_flag = HK_opponent }
 		any_playable_ruler = { clr_character_flag = HK_supporter }
 		hidden_tooltip = {
 			any_playable_ruler = {
@@ -19978,17 +19995,12 @@ letter_event = {			# Negative Response
 			}
 		}
 	}
-}
-letter_event = {			# Positive Response, but remains Independent
-	id = 312164
-	desc = "EVTDESC312164"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA312164"		# Excellent
+		name = "EVTOPTA312162_indep_supporter"		# Excellent
+		trigger = {
+			FROM = { has_character_flag = HK_indep_supporter }
+		}
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = {
@@ -20015,9 +20027,9 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	trigger = {
 		has_character_flag = HK_britannia_claimant
 		has_global_flag = HK_britannia_claim
-		NOT = { any_playable_ruler = { has_character_flag = HK_challenged_oppositor } }
+		NOT = { any_playable_ruler = { has_character_flag = HK_challenged_opponent } }
 		NOT = { any_playable_ruler = { has_character_flag = HK_voter } }
-		NOT = { any_playable_ruler = { has_character_flag = HK_oppositor } }
+		NOT = { any_playable_ruler = { has_character_flag = HK_opponent } }
 	}
 	
 	immediate = {
@@ -20097,8 +20109,8 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 			}
 			make_britannia_subject_of_ROOT_effect = yes
 		}
-		any_playable_ruler = { clr_character_flag = HK_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_challenged_oppositor }
+		any_playable_ruler = { clr_character_flag = HK_opponent }
+		any_playable_ruler = { clr_character_flag = HK_challenged_opponent }
 		any_playable_ruler = { clr_character_flag = HK_challenger }
 		any_playable_ruler = { clr_character_flag = HK_voter }
 		any_playable_ruler = { clr_character_flag = HK_challenge_loser }
@@ -20807,14 +20819,14 @@ character_event = {			# Notify support/nominal support/backing down/war
 		text = EVTDESC312168_2
 		picture = GFX_evt_emissary
 		trigger = {
-			FROMFROM = { has_character_flag = HK_oppositor }
+			FROMFROM = { has_character_flag = HK_opponent }
 		}
 	}
 	desc = {
 		text = EVTDESC312168_3
 		picture = GFX_evt_battle_cavalry
 		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_oppositor }
+			FROMFROM = { has_character_flag = HK_challenged_opponent }
 		}
 	}
 	
