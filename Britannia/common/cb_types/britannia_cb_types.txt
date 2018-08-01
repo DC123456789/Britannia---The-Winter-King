@@ -4150,30 +4150,17 @@ disputeBritanniaHighKingship = {
 	press_claim = no
 	can_call_allies = yes
 	can_call_vassals = yes
+	is_permanent = no
+	capturing_defender_is_complete_victory = no
 	
 	allow_distant = yes
 	
-	can_use = {
-		ROOT = { has_character_flag = HK_challenger }
-		ROOT = { prisoner = no }
-		FROM = { has_character_flag = HK_challenged_oppositor }
-	}
-	
-	can_use_title = {
-		tier = KING
-		FROM = {
-			has_landed_title = PREV
-		}
-	}
-	
 	is_valid = {
 		ROOT = { has_character_flag = HK_challenger }
-		FROM = { has_character_flag = HK_challenged_oppositor }
+		#FROM = { has_character_flag = HK_challenged_opponent }
 	}
 	
-	on_success_title = {
-		clr_global_flag = HK_britannia_claim
-		
+	on_success_title = {		
 		ROOT = {
 			participation_scaled_prestige = 100
 			hidden_tooltip = {
@@ -4183,7 +4170,7 @@ disputeBritanniaHighKingship = {
 					remove_character_modifier = HK_britannia_claim_timer
 				}
 				FROM = {
-					clr_character_flag = HK_challenged_oppositor
+					clr_character_flag = HK_challenged_opponent
 					set_character_flag = HK_challenge_loser
 				}
 			}
@@ -4201,6 +4188,27 @@ disputeBritanniaHighKingship = {
 		
 		FROM = {
 			prestige = -100
+			custom_tooltip = {
+				text = disputeBritanniaHighKingship_tooltip
+			}
+		}
+		any_defender = {
+			limit = {
+				has_character_flag = HK_challenged_opponent
+				NOT = { character = FROM }
+			}
+			prestige = -100
+			clr_character_flag = HK_challenged_opponent
+			set_character_flag = HK_challenge_loser
+			custom_tooltip = {
+				text = disputeBritanniaHighKingship_tooltip
+			}
+		}
+		hidden_tooltip = {
+			ROOT = { 
+				clr_character_flag = HK_claimant_has_opponent
+				character_event = { id = 312165 } 
+			}
 		}
 	}
 
@@ -4222,7 +4230,7 @@ disputeBritanniaHighKingship = {
 			remove_claim = e_britannia
 		}
 		FROM = {
-			clr_character_flag = HK_challenged_oppositor
+			clr_character_flag = HK_challenged_opponent
 			set_character_flag = HK_challenge_winner
 		}
 	}
@@ -4259,9 +4267,13 @@ disputeBritanniaHighKingship = {
 			}
 		}
 		FROM = {
-			clr_character_flag = HK_challenged_oppositor
+			clr_character_flag = HK_challenged_opponent
 			set_character_flag = HK_challenge_winner
 		}
+	}
+	
+	on_attacker_leader_death = {
+		end_war = invalid
 	}
 	
 	on_invalidation = {
@@ -4273,7 +4285,7 @@ disputeBritanniaHighKingship = {
 	}
 	
 	attacker_ai_defeat_worth = {
-		factor = 75
+		factor = 90
 	}
 
 	defender_ai_victory_worth = {

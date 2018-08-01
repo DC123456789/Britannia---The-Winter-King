@@ -19813,32 +19813,6 @@ letter_event = {
 		}
 	}
 	
-	option = {					# Accept dispute and stand down
-		name = "EVTOPTA312162_opponent"
-		trigger = {
-			FROM = { has_character_flag = HK_opponent }
-		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-		prestige = -25
-		clr_character_flag = HK_britannia_claimant
-		clr_global_flag = HK_britannia_claim
-		e_britannia = { remove_claim = ROOT }
-		FROM = { clr_character_flag = HK_opponent }
-		any_playable_ruler = { clr_character_flag = HK_supporter }
-		ai_chance = {
-			factor = 90
-		}
-	}
-	
 	option = {					# Bribe him
 		name = "EVTOPTB312162_opponent"		
 		trigger = {
@@ -19893,28 +19867,76 @@ letter_event = {
 		}
 	}
 	
-	option = {					# Declare war on opponent
+	option = {					# Prepare for war...
 		name = "EVTOPTC312162_opponent"
 		trigger = {
 			FROM = { has_character_flag = HK_opponent }
-			#war = no
 		}
-		prestige = 50
-		custom_tooltip = { text = HK_declare_war }
-		FROM = { set_character_flag = HK_challenged_opponent }
-		ROOT = { set_character_flag = HK_challenger }
+		set_character_flag = HK_claimant_has_opponent
 		hidden_tooltip = {
-			FROM = {
-				primary_title = {
-					reverse_war = {
-						target = ROOT
-						casus_belli = disputeBritanniaHighKingship
+			any_playable_ruler = {
+				limit = {
+					is_HK_britannia_relevant_trigger = yes
+					NOT = { character = ROOT }
+					NOT = { character = FROM }
+				}
+				character_event = { id = 312168 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA312162_indep_supporter"		# Excellent
+		trigger = {
+			FROM = { has_character_flag = HK_indep_supporter }
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					is_HK_britannia_relevant_trigger = yes
+					NOT = { character = ROOT }
+					NOT = { character = FROM }
+				}
+				character_event = { id = 312168 }
+			}
+		}
+	}
+}
+
+character_event = {		# Claimant gets choice to declare war against opponents or back down
+	id = 312163
+	desc = "EVTDESC312163"
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_character_flag = HK_claimant_has_opponent
+	}
+
+	immediate = {
+		# The strongest opponent leads the alliance
+		random_independent_ruler = {
+			limit = {
+				has_character_flag = HK_opponent
+				NOT = {
+					any_independent_ruler = {
+						has_character_flag = HK_opponent
+						NOT = { character = PREV }
+						relative_power = { who = PREV power = 0.99 }
 					}
 				}
 			}
+			save_event_target_as = HK_opponent_leader
 		}
-		#clr_global_flag = HK_britannia_claim
-		ROOT = { clr_character_flag = HK_britannia_claimant }
+	}
+	
+	option = {					# Accept dispute and stand down
+		name = "EVTOPTA312163"
+		prestige = -50
+		clr_character_flag = HK_britannia_claimant
+		clr_global_flag = HK_britannia_claim
+		e_britannia = { remove_claim = ROOT }
 		FROM = { clr_character_flag = HK_opponent }
 		any_playable_ruler = { clr_character_flag = HK_supporter }
 		hidden_tooltip = {
@@ -19924,7 +19946,51 @@ letter_event = {
 					NOT = { character = ROOT }
 					NOT = { character = FROM }
 				}
-				character_event = { id = 312168 }
+				character_event = { id = 312169 }
+			}
+		}
+		ai_chance = {
+			factor = 90
+		}
+	}
+	
+	option = {					# Declare war on opponent
+		name = "EVTOPTB312163"
+		prestige = 50
+		ROOT = { set_character_flag = HK_challenger }
+		event_target:HK_opponent_leader = {
+			clr_character_flag = HK_opponent
+			set_character_flag = HK_challenged_opponent
+			primary_title = {
+				show_scope_change = no
+				reverse_war = {
+					target = ROOT
+					casus_belli = disputeBritanniaHighKingship
+				}
+			}
+		}
+		any_independent_ruler = {
+			limit = {
+				has_character_flag = HK_opponent
+				NOT = {
+					event_target:HK_opponent_leader = { character = PREV }
+				}
+			}
+			clr_character_flag = HK_opponent
+			set_character_flag = HK_challenged_opponent
+			join_defender_wars = event_target:HK_opponent_leader
+		}
+		custom_tooltip = { text = HK_declare_war }
+		#clr_global_flag = HK_britannia_claim
+		#ROOT = { clr_character_flag = HK_britannia_claimant }
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					is_HK_britannia_relevant_trigger = yes
+					NOT = { character = ROOT }
+					NOT = { character = FROM }
+				}
+				character_event = { id = 312169 }
 			}
 		}
 		ai_chance = {
@@ -19995,23 +20061,6 @@ letter_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = "EVTOPTA312162_indep_supporter"		# Excellent
-		trigger = {
-			FROM = { has_character_flag = HK_indep_supporter }
-		}
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-	}
 }
 
 narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
@@ -20019,7 +20068,6 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	title = "EVTNAME312165"
 	desc = "EVTDESC312165"
 	picture = GFX_evt_royal_court
-	only_playable = yes
 	major = yes
 	
 	is_triggered_only = yes
@@ -20027,6 +20075,8 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	trigger = {
 		has_character_flag = HK_britannia_claimant
 		has_global_flag = HK_britannia_claim
+		NOT = { has_landed_title = e_britannia }
+		NOT = { has_character_flag = HK_claimant_has_opponent }
 		NOT = { any_playable_ruler = { has_character_flag = HK_challenged_opponent } }
 		NOT = { any_playable_ruler = { has_character_flag = HK_voter } }
 		NOT = { any_playable_ruler = { has_character_flag = HK_opponent } }
@@ -20799,7 +20849,7 @@ character_event = {			# Notify other lords that High Kingdom has been claimed
 	}
 }
 
-character_event = {			# Notify support/nominal support/backing down/war
+character_event = {			# Notify support/nominal support/opposing
 	id = 312168
 	desc = {
 		text = EVTDESC312168
@@ -20817,16 +20867,9 @@ character_event = {			# Notify support/nominal support/backing down/war
 	}
 	desc = {
 		text = EVTDESC312168_2
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_opponent }
-		}
-	}
-	desc = {
-		text = EVTDESC312168_3
 		picture = GFX_evt_battle_cavalry
 		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_opponent }
+			FROMFROM = { has_character_flag = HK_opponent }
 		}
 	}
 	
@@ -20837,18 +20880,18 @@ character_event = {			# Notify support/nominal support/backing down/war
 	}
 }
 
-character_event = {			# Notify HK Claimant war victory/defeat
+character_event = {			# Notify HK Claimant backing down or war
 	id = 312169
 	desc = {
 		text = EVTDESC312169
 		trigger = {
-			NOT = { FROM = { has_character_flag = HK_challenge_loser } }
+			NOT = { FROM = { has_character_flag = HK_challenger } }
 		}
 	}
 	desc = {
 		text = EVTDESC312169_1
 		trigger = {
-			FROM = { has_character_flag = HK_challenge_loser }
+			FROM = { has_character_flag = HK_challenger }
 		}
 	}
 	picture = GFX_evt_battle_cavalry
@@ -20857,6 +20900,15 @@ character_event = {			# Notify HK Claimant war victory/defeat
 	
 	option = {
 		name = "EVTOPTA312169"
+		trigger = {
+			NOT = { war_with = FROM }
+		}
+	}	
+	option = {
+		name = "EVTOPTA312169"
+		trigger = {
+			war_with = FROM
+		}
 	}
 }
 
