@@ -4238,7 +4238,7 @@ disputeBritanniaHighKingship = {
 	on_reverse_demand = {
 		clr_global_flag = HK_britannia_claim
 		ROOT = {
-			prestige = -150
+			prestige = -300
 			transfer_scaled_wealth = {
 				to = FROM
 				value = 4.0
@@ -4246,23 +4246,26 @@ disputeBritanniaHighKingship = {
 		}
 		FROM = {
 			participation_scaled_prestige = 150
+			set_character_flag = HK_challenge_defender
 		}
 		any_defender = {
 			limit = { NOT = { character = FROM } }
 			hidden_tooltip = { participation_scaled_prestige = 150 }
+			set_character_flag = HK_challenge_defender
 		}
 		ROOT = {
 			clr_character_flag = HK_challenger
 			set_character_flag = HK_challenge_loser
+			set_character_flag = lost_HK_challenge
 			remove_claim = e_britannia
 			hidden_tooltip = {
+				character_event = { id = 312164 }
 				any_playable_ruler = {
 					limit = {
 						is_HK_britannia_relevant_trigger = yes
 						NOT = { character = ROOT }
-						NOT = { character = FROM }
 					}
-					character_event = { id = 312169 }
+					character_event = { id = 312164 }
 				}
 			}
 		}

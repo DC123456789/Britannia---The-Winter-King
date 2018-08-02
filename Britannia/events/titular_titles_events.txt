@@ -19635,6 +19635,13 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				factor = 0
 				pays_tribute_to = FROM
 			}
+			modifier = {
+				factor = 3		# Irish kings don't really care
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					culture_group = imperiale
+				}
+			}
 		}
 	}
 	
@@ -20058,6 +20065,78 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 					trait = craven
 					trait = patient
 				}
+			}
+		}
+	}
+}
+
+character_event = {			# Notify High Kingship claimant defeated
+	id = 312164
+	desc = {
+		text = EVTDESC312164
+		picture = GFX_evt_battle_cavalry
+		trigger = {
+			has_character_flag = lost_HK_challenge
+		}
+	}
+	desc = {
+		text = EVTDESC312164_1
+		picture = GFX_evt_battle_cavalry
+		trigger = {
+			has_character_flag = HK_challenge_defender
+		}
+	}
+	desc = {
+		text = EVTDESC312164_2
+		picture = GFX_evt_battle_cavalry
+		trigger = {
+			NOR = {
+				has_character_flag = lost_HK_challenge
+				has_character_flag = HK_challenge_defender
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA312164"
+		trigger = {
+			has_character_flag = lost_HK_challenge
+		}
+		clr_character_flag = lost_HK_challenge
+	}
+	
+	option = {
+		name = "EVTOPTB312164"
+		trigger = {
+			has_character_flag = HK_challenge_defender
+			OR = {
+				religion_group = pagan_group
+				religion_group = zoroastrian_group
+			}
+		}
+		clr_character_flag = HK_challenge_defender
+	}
+	
+	option = {
+		name = "EVTOPTC312164"
+		trigger = {
+			has_character_flag = HK_challenge_defender
+			NOR = {
+				religion_group = pagan_group
+				religion_group = zoroastrian_group
+			}
+		}
+		clr_character_flag = HK_challenge_defender
+	}
+	
+	option = {
+		name = "EVTOPTD312164"
+		trigger = {
+			NOR = {
+				has_character_flag = HK_challenge_loser
+				has_character_flag = HK_challenge_defender
 			}
 		}
 	}
