@@ -19354,23 +19354,23 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 			factor = 20
 			modifier = {
 				factor = 0
-				NOT = { opinion = { who = FROM value =  25 } }
+				NOT = { opinion = { who = FROM value = 25 } }
 			}
 			modifier = {
 				factor = 0.5
-				NOT = { opinion = { who = FROM value =  50 } }
+				NOT = { opinion = { who = FROM value = 50 } }
 			}
 			modifier = {
 				factor = 0.75
-				NOT = { opinion = { who = FROM value =  65 } }
+				NOT = { opinion = { who = FROM value = 65 } }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value =  80 }
+				opinion = { who = FROM value = 80 }
 			}
 			modifier = {
 				factor = 2.0
-				opinion = { who = FROM value =  90 }
+				opinion = { who = FROM value = 90 }
 			}
 			modifier = {
 				factor = 0.5
@@ -19381,15 +19381,15 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				FROM = { num_of_vassals = 15 }
 			}
 			modifier = {
-				factor = 3
+				factor = 1.5
 				FROM = { num_of_king_titles = 2 }
 			}
 			modifier = {
-				factor = 3
+				factor = 1.5
 				FROM = { num_of_king_titles = 3 }
 			}
 			modifier = {
-				factor = 3
+				factor = 1.5
 				FROM = { num_of_king_titles = 4 }
 			}
 			modifier = {
@@ -19489,12 +19489,43 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				NOT = { FROM = { religion_group = ROOT } }
 			}
 			modifier = {
+				factor = 0.5
+				NOR = { 
+					FROM = { culture_group = ROOT } 
+					AND = {
+						FROM = { is_roman_culture_trigger = yes }
+						ROOT = { is_roman_culture_trigger = yes }
+					}
+				}
+			}
+			modifier = {
 				factor = 4.0
 				FROM = { has_character_flag = HK_challenge_winner }
 			}
 			modifier = {
 				factor = 5.0
 				pays_tribute_to = FROM
+			}
+			modifier = {
+				factor = 0
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 0.25
+				relative_power = {
+					who = FROM
+					power = 1
+				}
+			}
+			modifier = {
+				factor = 0.5
+				relative_power = {
+					who = FROM
+					power = 0.75
+				}
 			}
 		}
 	}
@@ -19513,23 +19544,23 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 			factor = 20
 			modifier = {
 				factor = 0.1
-				NOT = { opinion = { who = FROM value =  0 } }
+				NOT = { opinion = { who = FROM value = 0 } }
 			}
 			modifier = {
 				factor = 0.5
-				NOT = { opinion = { who = FROM value =  25 } }
+				NOT = { opinion = { who = FROM value = 25 } }
 			}
 			modifier = {
 				factor = 0.5
-				NOT = { opinion = { who = FROM value =  50 } }
+				NOT = { opinion = { who = FROM value = 50 } }
 			}
 			modifier = {
 				factor = 1.5
-				opinion = { who = FROM value =  70 }
+				opinion = { who = FROM value = 70 }
 			}
 			modifier = {
 				factor = 2.0
-				opinion = { who = FROM value =  90 }
+				opinion = { who = FROM value = 90 }
 			}
 			modifier = {
 				factor = 0.5
@@ -19636,7 +19667,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				pays_tribute_to = FROM
 			}
 			modifier = {
-				factor = 3		# Irish kings don't really care
+				factor = 5		# Irish kings don't really care
 				NOR = {
 					is_brythonic_culture_trigger = yes
 					culture_group = imperiale
@@ -19699,14 +19730,6 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				dynasty = FROM
 			}
 			modifier = {
-				factor = 0.25
-				has_non_aggression_pact_with = FROM
-			}
-			modifier = {
-				factor = 0.1
-				is_allied_with = FROM
-			}
-			modifier = {
 				factor = 0.75
 				culture = FROM
 			}
@@ -19755,6 +19778,16 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				NOT = { culture = FROM }
 			}
 			modifier = {
+				factor = 1.5
+				NOR = { 
+					FROM = { culture_group = ROOT } 
+					AND = {
+						FROM = { is_roman_culture_trigger = yes }
+						ROOT = { is_roman_culture_trigger = yes }
+					}
+				}
+			}
+			modifier = {
 				factor = 0.75
 				FROM = { religion = ROOT }
 			}
@@ -19772,6 +19805,52 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 			modifier = {
 				factor = 0.5
 				FROM = { has_character_flag = HK_challenge_winner }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_non_aggression_pact_with = FROM
+					is_allied_with = FROM
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = {
+					who = FROM
+					power = 1.75
+				}
+			}
+			modifier = {
+				factor = 1.5
+				relative_power = {
+					who = FROM
+					power = 1.5
+				}
+			}
+			modifier = {
+				factor = 1.25
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					relative_power = {
+						who = FROM
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					relative_power = {
+						who = FROM
+						power = 0.75
+					}
+				}
 			}
 		}
 	}
@@ -19936,6 +20015,35 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 			}
 			save_event_target_as = HK_opponent_leader
 		}
+		# AI Calculations
+		export_to_variable = {
+			which = war_power_ratio
+			value = realm_levies_plus_allies
+		}
+		set_variable = {
+			which = opponent_realm_levies
+			value = 0
+		}
+		any_independent_ruler = {
+			limit = {
+				has_character_flag = HK_opponent
+			}
+			ROOT = {
+				export_to_variable = {
+					which = char_realm_levies
+					value = realm_levies
+					who = PREV
+				}
+				change_variable = {
+					which = opponent_realm_levies
+					which = char_realm_levies
+				}
+			}
+		}
+		divide_variable = {
+			which = war_power_ratio
+			which = opponent_realm_levies
+		}
 	}
 	
 	option = {					# Accept dispute and stand down
@@ -19957,7 +20065,7 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 			}
 		}
 		ai_chance = {
-			factor = 90
+			factor = 75
 		}
 	}
 	
@@ -20004,14 +20112,29 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 			factor = 100
 			modifier = {
 				factor = 0
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 10 }
+				NOT = {
+					check_variable = {
+						which = war_power_ratio
+						value = 0.5
 					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 25 }
+				}
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					check_variable = {
+						which = war_power_ratio
+						value = 0.75
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					check_variable = {
+						which = war_power_ratio
+						value = 1.0
 					}
 				}
 			}
@@ -20020,31 +20143,20 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 				prisoner = yes
 			}
 			modifier = {
-				factor = 0.75
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 20 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 40 }
-					}
-				}
-			}
-			modifier = {
 				factor = 0
 				war = yes
 			}
 			modifier = {
 				factor = 0
-				NOT = {
-					OR = {
-						trait = ambitious
-						trait = brilliant_strategist
-						trait = war_hero
-						trait = proud
-						martial = 18
+				NOR = {
+					trait = ambitious
+					trait = brilliant_strategist
+					trait = war_hero
+					trait = proud
+					martial = 18
+					check_variable = {
+						which = war_power_ratio
+						value = 1.25
 					}
 				}
 			}
