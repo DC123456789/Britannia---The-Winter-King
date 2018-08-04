@@ -100,12 +100,30 @@ county_conquest_can_use_trigger = {
 						culture_group = ROOT
 					}
 				}
+				AND = {
+					ROOT = {
+						OR = {
+							government = sub_roman_brythonic_government
+							is_brythonic_culture_trigger = yes
+						}
+					}
+					FROM = { government = sub_roman_brythonic_government }
+				}
 			}
 		}
 		NAND = {					
-			culture_group = imperiale		# Block Romans under Celts
-			top_liege = { culture_group = celtic }
-			FROM = { culture_group = celtic }
+			culture_group = imperiale		# Block Sub-Roman Brythonic Imperial rulers
+			OR = {
+				top_liege = { culture_group = celtic }
+				government = sub_roman_brythonic_government
+				top_liege = { government = sub_roman_brythonic_government }
+			}
+			FROM = { 
+				OR = {
+					culture_group = celtic
+					government = sub_roman_brythonic_government
+				}
+			}
 		}
 		NAND = {					# Prevents zealous rulers from declaring war on others of the same religion
 			ROOT = {

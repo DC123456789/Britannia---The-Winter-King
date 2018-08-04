@@ -273,6 +273,7 @@ character_event = {
 		liege = {
 			has_landed_title = k_maxima_cesariensis
 			independent = yes
+			has_character_modifier = maxima_caesariensis_decaying_realm
 		}
 		NOT = {
 			top_liege = {
@@ -682,6 +683,29 @@ narrative_event = {
 	}
 }
 
+character_event = {
+	id = history.1014
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROMFROM = { title = k_maxima_cesariensis }
+		NOT = { has_global_flag = maxima_caesariensis_collapsed }
+	}
+	
+	immediate = {
+		add_character_modifier = {
+			name = maxima_caesariensis_decaying_realm
+			duration = -1
+		}
+		FROMFROMFROM = {
+			remove_character_modifier = maxima_caesariensis_decaying_realm
+		}
+	}	
+}
+
 # Ambrosius catches the plague
 character_event = {
    	id = history.1015
@@ -821,6 +845,7 @@ narrative_event = {
 	
 	trigger = {
 		has_landed_title = k_maxima_cesariensis
+		has_character_modifier = maxima_caesariensis_decaying_realm
 		NOT = { year = 460 }
 		NOT = { has_global_flag = maxima_caesariensis_collapsed }
 		OR = {
