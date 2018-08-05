@@ -153,6 +153,91 @@ decisions = {
 		}
 	}
 	
+	claim_imperium_britannicum_410 = {		# Claim the Imperium Britannicum
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_ruler = yes
+			OR = {
+				has_landed_title = k_maxima_cesariensis
+				has_landed_title = k_flavia_cesariensis
+				has_landed_title = k_britannia_prima
+				has_landed_title = k_britannia_secunda
+				has_landed_title = k_valentia
+				has_landed_title = k_romancaledonia
+			}
+			is_roman_culture_trigger = yes
+			e_roman_britannia = { has_holder = no }
+			independent = yes
+			e_western_roman_empire = { has_holder = yes }
+			NOT = { has_global_flag = claiming_imperium_britanniarum_410 }
+		}
+		allow = {
+			has_landed_title = e_britannia
+			prestige = 3000
+			#ruled_years = 5
+			realm_levies = 3500
+			diplomacy = 12
+			martial = 10
+			is_roman_culture_trigger = yes
+			e_roman_britannia = { has_holder = no }
+			e_western_roman_empire = { has_holder = yes }
+			realm_size = 40
+			age = 20
+			is_female = no
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			is_incapable = no
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.7
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			set_global_flag = claiming_imperium_britanniarum_410
+			any_independent_ruler = {
+				limit = {
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+				custom_tooltip = {
+					text = centralize_realm_soissons_tooltip
+				}
+			}
+			custom_tooltip = {
+				text = claim_imperium_britannicum_410_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 302903 days = 3 }
+				character_event = { id = 302906 days = 5 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
 	claim_empire_romanized_germanic = {
 		only_independent = yes
 		is_high_prio = yes
