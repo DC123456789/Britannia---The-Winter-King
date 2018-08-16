@@ -440,9 +440,9 @@ character_event = {
 			limit = { any_demesne_title = { is_landless_normal_title_trigger = yes } }
 			while = {
 				limit = {
-					primary_heir = { is_ruler = yes }
+					current_heir = { is_ruler = yes }
 				}
-				primary_heir = {
+				current_heir = {
 					add_trait = forbid_inheritance
 				}
 				recalc_succession = yes
@@ -797,12 +797,37 @@ character_event = {
 				}
 			}
 			ROOT = { 
-				add_trait = forbid_inheritance 
+				add_trait = forbid_inheritance
+				# Stops the emperor from trying to usurp everyone's county title as they abdicate their county titles
+				any_vassal = {
+					limit = { higher_tier_than = BARON }
+					set_character_flag = former_vassal_@ROOT
+					set_defacto_liege = THIS
+				}
 				any_demesne_title = {
 					limit = { is_landless_normal_title_trigger = no }
-					primary_heir = {
+					current_heir = {
 						grant_title = PREV
+						if = {
+							limit = { 
+								liege = { 
+									any_demesne_title = {
+										is_landless_normal_title_trigger = yes
+									}
+								}
+							}
+							set_defacto_liege = THIS
+						}
 					}
+				}
+				current_heir = {
+					any_character = {
+						limit = {
+							has_character_flag = former_vassal_@ROOT
+						}
+						clr_character_flag = former_vassal_@ROOT
+						set_defacto_liege = PREV
+					}					
 				}
 			}
 			any_character = {
