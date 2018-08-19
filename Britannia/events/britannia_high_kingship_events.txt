@@ -2065,9 +2065,12 @@ character_event = {
 # Victory - gain Imperium Britanniarum
 narrative_event = {
 	id = 302906
+	title = "EVTNAME302906"
 	desc = "EVTDESC302906"
 	picture = "GFX_evt_roman_aquila_pillar"
 	major = yes
+	
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -2122,8 +2125,8 @@ narrative_event = {
 		}
 	}
 	
-	option = {
-		name = "EVTOPTA302902"
+	option = {				# New Imperator
+		name = "EVTOPTA302906"
 		trigger = {
 			character = ROOT
 		}
@@ -2137,8 +2140,8 @@ narrative_event = {
 		}
 	}
 	
-	option = {
-		name = "EVTOPTB302902"
+	option = {				# Defeated Kings
+		name = "EVTOPTB302906"
 		trigger = {
 			has_character_flag = defeated_britannia_rebel
 		}
@@ -2152,8 +2155,8 @@ narrative_event = {
 		}
 	}
 	
-	option = {
-		name = "EVTOPTC302902"
+	option = {				# Vassalized Kings
+		name = "EVTOPTC302906"
 		trigger = {
 			NOT = { has_character_flag = defeated_britannia_rebel }
 			has_character_flag = was_britannia_tributary
@@ -2164,8 +2167,8 @@ narrative_event = {
 		}
 	}
 	
-	option = {
-		name = "EVTOPTD302902"
+	option = {				# Other Roman culture vassals
+		name = "EVTOPTD302906"
 		trigger = {
 			NOR = { 
 				character = ROOT
@@ -2173,11 +2176,25 @@ narrative_event = {
 				has_character_flag = was_britannia_tributary
 			}
 			top_liege = { character = ROOT }
+			is_roman_culture_trigger = yes
 		}
 	}
 	
-	option = {
-		name = "EVTOPTE302902"
+	option = {				# Other non-Roman culture vassals
+		name = "EVTOPTE302906"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+				has_character_flag = was_britannia_tributary
+			}
+			top_liege = { character = ROOT }
+			is_roman_culture_trigger = no
+		}
+	}
+	
+	option = {				# Other Roman emperors
+		name = "EVTOPTF302906"
 		trigger = {
 			NOR = { 
 				character = ROOT
@@ -2189,8 +2206,8 @@ narrative_event = {
 		}
 	}
 	
-	option = {
-		name = "EVTOPTF302902"
+	option = {				# Others
+		name = "EVTOPTG302906"
 		trigger = {
 			NOR = { 
 				character = ROOT
