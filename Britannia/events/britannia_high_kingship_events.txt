@@ -1810,6 +1810,9 @@ letter_event = {
 			years = 10
 		}
 		FROM = { character_event = { id = 302901 } }
+		custom_tooltip = {
+			text = EVTOPTA302900TT
+		}
 		tooltip = {
 			FROM = { remove_tributary = ROOT }
 			any_demesne_title = {
@@ -2216,6 +2219,42 @@ narrative_event = {
 				top_liege = { character = ROOT }
 				is_roman_emperor_trigger = yes
 			}
+		}
+	}
+}
+
+### BRITANNIA REFORMS ###
+
+narrative_event = {		# Formalizing the High Kingship
+	id = 302910
+	title = "EVTNAME302910"
+	desc = "EVTDESC302910"
+	picture = GFX_evt_royal_court
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTB302910"		# High King
+		trigger = {
+			has_landed_title = e_britannia
+		}
+		clr_character_flag = HK_britannia_claimant
+		clr_global_flag = HK_britannia_claim
+	}
+		
+	option = {
+		name = "EVTOPTA302910"		# Vassals of the High King
+		trigger = {
+			NOT = { has_landed_title = e_britannia }
+			top_liege = { has_landed_title = e_britannia }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC302910"		# Other Rulers
+		trigger = {
+			NOT = { top_liege = { has_landed_title = e_britannia } }
 		}
 	}
 }

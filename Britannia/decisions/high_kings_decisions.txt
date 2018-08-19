@@ -175,7 +175,7 @@ decisions = {
 		allow = {
 			has_landed_title = e_britannia
 			prestige = 3000
-			#ruled_years = 5
+			ruled_years = 10
 			realm_levies = 3500
 			diplomacy = 12
 			martial = 10
@@ -469,7 +469,7 @@ decisions = {
 									title = e_aengland
 									title = e_danes
 								}
-							}							
+							}
 						}
 					}
 					is_landed = yes
@@ -600,7 +600,74 @@ decisions = {
 				trait = proud
 			}
 		}
-	}	
+	}
+	
+	HK_britannia_formalize_high_kingship = {			# Britannia reform 1
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			NOT = { has_global_flag = britannia_formalized_high_kingship }
+		}
+		allow = {
+			prestige = 5000
+			diplomacy = 12
+			martial = 10
+			ruled_years = 10
+			custom_tooltip = {
+				text = high_king_britannia_score_tooltip
+				check_variable = { 
+					which = high_king_britannia_score
+					value = 50
+				}
+			}
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.6
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			set_global_flag = britannia_formalized_high_kingship
+			custom_tooltip = {
+				text = HK_britannia_formalize_high_kingship_tooltip
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302910 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
 		only_independent = yes
 		is_high_prio = yes

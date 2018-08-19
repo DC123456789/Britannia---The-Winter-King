@@ -4710,6 +4710,7 @@ depose_high_king_britannia_revolt_cb = {
 	is_permanent = no
 	hostile_against_others = yes
 	can_ask_to_join_war = no
+	attacker_can_call_allies = no
 	#is_independence = yes
 	capturing_attacker_is_complete_victory = no
 
@@ -8103,12 +8104,25 @@ tributary_britannia_subject_cb = {
 				}
 			}
 			OR = {
-				is_brythonic_culture_trigger = yes
+				culture_group = celtic
 				culture_group = imperiale
 			}
 			primary_title = {
 				capital_scope = {
 					region = world_britannia
+				}
+				OR = {
+					lower_tier_than = DUKE
+					NOR = {
+						title = e_aengland
+						title = e_danes
+						empire = {
+							OR = {
+								title = e_aengland
+								title = e_danes
+							}
+						}
+					}
 				}
 			}
 		}
