@@ -2235,7 +2235,7 @@ narrative_event = {		# Formalizing the High Kingship
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTB302910"		# High King
+		name = "EVTOPTA302910"		# High King
 		trigger = {
 			has_landed_title = e_britannia
 		}
@@ -2244,7 +2244,7 @@ narrative_event = {		# Formalizing the High Kingship
 	}
 		
 	option = {
-		name = "EVTOPTA302910"		# Vassals of the High King
+		name = "EVTOPTB302910"		# Vassals of the High King
 		trigger = {
 			NOT = { has_landed_title = e_britannia }
 			top_liege = { has_landed_title = e_britannia }
@@ -2256,5 +2256,115 @@ narrative_event = {		# Formalizing the High Kingship
 		trigger = {
 			NOT = { top_liege = { has_landed_title = e_britannia } }
 		}
+	}
+}
+
+# on_yearly_pulse high_king_britannia_score counter
+character_event = {
+	id = 302911
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_britannia
+			check_variable = { 
+				which = high_king_britannia_score
+				value = 0.5
+			}			
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_britannia }
+			change_variable = {
+				which = high_king_britannia_score
+				value = 1
+			}
+		}
+		else = {
+			subtract_variable = {
+				which = high_king_britannia_score
+				value = 0.5
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# on_death high_king_britannia_score inheritance
+character_event = {
+	id = 302912
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		check_variable = { 
+			which = high_king_britannia_score
+			value = 0.5
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			which = global_high_king_britannia_score
+			which = high_king_britannia_score
+		}
+		# Any child inherits their parent's score
+		any_child_even_if_dead = {
+			if = {
+				limit = { is_alive = no }
+				# Go to grandchildren if child is dead
+				any_child = {
+					if = {
+						limit = { NOT = { has_character_flag = inherited_high_king_britannia_score_@ROOT } }
+						set_character_flag = inherited_high_king_britannia_score_@ROOT
+						change_variable = {
+							which = high_king_britannia_score
+							which = global_high_king_britannia_score
+						}
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = { NOT = { has_character_flag = inherited_high_king_britannia_score_@ROOT } }
+					set_character_flag = inherited_high_king_britannia_score_@ROOT
+					change_variable = {
+						which = high_king_britannia_score
+						which = global_high_king_britannia_score
+					}
+				}
+			}
+		}
+		# An heir to any of your titles also inherits your score, even if not your child
+		any_demesne_title = {
+			current_heir = {
+				if = {
+					limit = { NOT = { has_character_flag = inherited_high_king_britannia_score_@ROOT } }
+					set_character_flag = inherited_high_king_britannia_score_@ROOT
+					change_variable = {
+						which = high_king_britannia_score
+						which = global_high_king_britannia_score
+					}
+				}				
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
 	}
 }
