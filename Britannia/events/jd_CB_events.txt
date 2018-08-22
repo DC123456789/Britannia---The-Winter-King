@@ -945,8 +945,19 @@ letter_event = {
 					surrender_tributary_britannia_subject_cb = {
 						event_target:tribute_war_suzerain = {
 							show_scope_change = no
-							event_target:tribute_war_target = {
-								make_britannia_subject_of_ROOT_effect = yes
+							if = {
+								limit = { NOT = { has_global_flag = britannia_founded_central_treasury } }
+								make_tributary = {
+									who = event_target:tribute_war_target 
+									tributary_type = britannia_subject 
+								}
+							}
+							else = {
+								make_tributary = {
+									who = event_target:tribute_war_target 
+									tributary_type = britannia_subject
+									percentage = 0.2
+								}
 							}
 							hidden_effect = {
 								any_war = {
