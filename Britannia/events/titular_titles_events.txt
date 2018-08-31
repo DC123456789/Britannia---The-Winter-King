@@ -4771,6 +4771,28 @@ narrative_event = {		# Burgundy
 			prestige = 200
 			break = yes
 		}
+		if = {			# Besancon
+			limit = {
+				d_besancon = { has_holder = no }
+				is_landed_title_allowed = d_besancon
+				NOT = { has_global_flag = besancon_created }
+			}
+			d_besancon = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Vaud
+			limit = {
+				d_vaud = { has_holder = no }
+				is_landed_title_allowed = d_vaud
+				NOT = { has_global_flag = vaud_created }
+			}
+			d_vaud = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
 	}
 	
 	option = {
@@ -12756,6 +12778,15 @@ narrative_event = {
 			c_albanensis = { de_jure_liege = d_geneva }
 			c_bellicensis = { de_jure_liege = d_geneva }
 			c_caputlacensis = { de_jure_liege = d_geneva }
+			c_julia_equestris = { de_jure_liege = d_geneva }
+			c_vesontio = { de_jure_liege = d_besancon }
+			c_portus_albucinus = { de_jure_liege = d_besancon }
+			c_dola = { de_jure_liege = d_besancon }
+			c_salinum = { de_jure_liege = d_besancon }
+			c_epomanduodurum = { de_jure_liege = d_besancon }
+			c_aventicum = { de_jure_liege = d_vaud }
+			c_lausanna = { de_jure_liege = d_vaud }
+			c_ausicensis = { de_jure_liege = d_vaud }
 			
 			hidden_tooltip = {
 				k_burgundy = {
@@ -12807,6 +12838,8 @@ narrative_event = {
 			d_valence = { de_jure_liege = k_burgundy }
 			d_viviers = { de_jure_liege = k_burgundy }
 			d_geneva = { de_jure_liege = k_burgundy }
+			d_besancon = { de_jure_liege = k_burgundy }
+			d_vaud = { de_jure_liege = k_burgundy }
 			set_global_flag = langres_created
 			set_global_flag = tonnerre_created
 			set_global_flag = bassigny_created
@@ -12822,6 +12855,8 @@ narrative_event = {
 			set_global_flag = valence_created
 			set_global_flag = viviers_created
 			set_global_flag = geneva_created
+			set_global_flag = besancon_created
+			set_global_flag = vaud_created
 		}
 		if = {
 			limit = { has_global_flag = western_roman_empire_fallen }
@@ -16225,6 +16260,7 @@ narrative_event = {
 		c_albanensis = { de_jure_liege = d_geneva }
 		c_bellicensis = { de_jure_liege = d_geneva }
 		c_caputlacensis = { de_jure_liege = d_geneva }
+		c_julia_equestris = { de_jure_liege = d_geneva }
 		d_geneva = { de_jure_liege = k_burgundy }
 		
 		set_global_flag = geneva_created
@@ -16485,7 +16521,79 @@ narrative_event = {
 		name = "EVTOPTA318028"
 	}
 }
-			
+
+# Creation of the County of Besancon
+narrative_event = {
+	id = 318045
+	title = "EVTNAME318045"
+	desc = "EVTDESC318045"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_besancon
+		NOT = { has_global_flag = besancon_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_vesontio = { de_jure_liege = d_besancon }
+		c_portus_albucinus = { de_jure_liege = d_besancon }
+		c_dola = { de_jure_liege = d_besancon }
+		c_salinum = { de_jure_liege = d_besancon }
+		c_epomanduodurum = { de_jure_liege = d_besancon }
+		d_besancon = { de_jure_liege = k_burgundy }
+		
+		set_global_flag = besancon_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Vaud
+narrative_event = {
+	id = 318046
+	title = "EVTNAME318046"
+	desc = "EVTDESC318046"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_vaud
+		NOT = { has_global_flag = vaud_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_aventicum = { de_jure_liege = d_vaud }
+		c_lausanna = { de_jure_liege = d_vaud }
+		c_ausicensis = { de_jure_liege = d_vaud }
+		d_vaud = { de_jure_liege = k_burgundy }
+		
+		set_global_flag = vaud_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+		
 # Creation of the County of Picard/Eorldom of Ambeanas
 narrative_event = {
 	id = 314221
@@ -23002,7 +23110,7 @@ narrative_event = {	# Nevers, Autun, Avallon, Auxois
 	}
 }
 
-narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva
+narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva, Besancon, Vaud
 	id = 314295
 	desc = "You're not supposed to see this..."
 	major = no
@@ -23027,6 +23135,8 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			has_global_flag = valence_created
 			has_global_flag = viviers_created
 			has_global_flag = geneva_created
+			has_global_flag = besancon_created
+			has_global_flag = vaud_created
 		}
 	}
 	
@@ -23078,6 +23188,21 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			c_albanensis = { de_jure_liege = d_geneva }
 			c_bellicensis = { de_jure_liege = d_geneva }
 			c_caputlacensis = { de_jure_liege = d_geneva }
+			c_julia_equestris = { de_jure_liege = d_geneva }
+		}
+		if = {
+			limit = { has_global_flag = besancon_created }
+			c_vesontio = { de_jure_liege = d_besancon }
+			c_portus_albucinus = { de_jure_liege = d_besancon }
+			c_dola = { de_jure_liege = d_besancon }
+			c_salinum = { de_jure_liege = d_besancon }
+			c_epomanduodurum = { de_jure_liege = d_besancon }
+		}
+		if = {
+			limit = { has_global_flag = vaud_created }
+			c_aventicum = { de_jure_liege = d_vaud }
+			c_lausanna = { de_jure_liege = d_vaud }
+			c_ausicensis = { de_jure_liege = d_vaud }
 		}
 	}
 	
