@@ -539,6 +539,48 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 					}
 				}
 			}
+			# Currently losing a war
+			modifier = {
+				factor = 0.75
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = {
+								character = PREVPREV
+							}
+							NOT = { war_score = -25 }
+						}
+						AND = {
+							defender = {
+								character = PREVPREV
+							}
+							war_score = 25
+						}
+					}
+				}
+			}
+			# Currently losing a war badly
+			modifier = {
+				factor = 0.75
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = {
+								character = PREVPREV
+							}
+							NOT = { war_score = -50 }
+						}
+						AND = {
+							defender = {
+								character = PREVPREV
+							}
+							war_score = 50
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -688,20 +730,61 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 	}
 
 	immediate = {
-		# The strongest opponent leads the alliance
+		# The strongest opponent not at war leads the alliance
 		random_independent_ruler = {
 			limit = {
 				has_character_flag = HK_opponent
+				OR = {
+					war = no
+					NOT = {
+						any_war = {
+							OR = {
+								attacker = { character = PREVPREV }
+								defender = { character = PREVPREV }
+							}
+						}
+					}
+				}
 				NOT = {
 					any_independent_ruler = {
 						has_character_flag = HK_opponent
+						OR = {
+							war = no
+							NOT = {
+								any_war = {
+									OR = {
+										attacker = { character = PREVPREV }
+										defender = { character = PREVPREV }
+									}
+								}
+							}
+						}
 						NOT = { character = PREV }
 						relative_power = { who = PREV power = 0.99 }
 					}
 				}
 			}
 			save_event_target_as = HK_opponent_leader
+			set_character_flag = HK_opposing_alliance_leader
+			ROOT = { set_character_flag = HK_opponent_leader_set }
 		}
+		if = {
+			limit = { NOT = { ROOT = { has_character_flag = HK_opponent_leader_set } } }
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = HK_opponent
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = HK_opponent
+							NOT = { character = PREV }
+							relative_power = { who = PREV power = 0.99 }
+						}
+					}
+				}
+				save_event_target_as = HK_opponent_leader
+			}
+		}
+		ROOT = { clr_character_flag = HK_opponent_leader_set }
 		# AI Calculations
 		export_to_variable = {
 			which = war_power_ratio
@@ -781,6 +864,11 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 			clr_character_flag = HK_opponent
 			set_character_flag = HK_challenged_opponent
 			join_defender_wars = event_target:HK_opponent_leader
+			while = {
+				limit = { NOT = { any_war = { using_cb = disputeBritanniaHighKingship } } }
+				#set_character_flag = need_to_join_another_war
+				join_defender_wars = event_target:HK_opponent_leader
+			}
 		}
 		custom_tooltip = { text = HK_declare_war }
 		#clr_global_flag = HK_britannia_claim
