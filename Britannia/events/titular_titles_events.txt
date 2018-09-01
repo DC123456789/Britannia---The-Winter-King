@@ -4589,7 +4589,7 @@ narrative_event = {		# Aquitaine
 		name = "OK"
 	}
 }
-narrative_event = {		# Burgundy
+narrative_event = {		# Burgundy and Alemannia
 	id = 315010
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_council"
@@ -4898,6 +4898,70 @@ narrative_event = {		# Provence
 	}
 }
 
+narrative_event = {		# Alemannia
+	id = 315012
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = yes
+	only_playable = yes
+	only_independent = yes
+	culture_group = germanic
+	
+	trigger = {
+		is_romanized_germanic_trigger = no
+	}
+	
+	immediate = {
+		if = {			# Aargau
+			limit = {
+				d_aargau = { has_holder = no }
+				is_landed_title_allowed = d_aargau
+				NOT = { has_global_flag = aargau_created }
+			}
+			d_aargau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Alsace
+			limit = {
+				d_alsace = { has_holder = no }
+				is_landed_title_allowed = d_alsace
+				NOT = { has_global_flag = alsace_created }
+			}
+			d_alsace = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Speyergau
+			limit = {
+				d_speyergau = { has_holder = no }
+				is_landed_title_allowed = d_speyergau
+				NOT = { has_global_flag = speyergau_created }
+			}
+			d_speyergau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Wormsgau
+			limit = {
+				d_wormsgau = { has_holder = no }
+				is_landed_title_allowed = d_wormsgau
+				NOT = { has_global_flag = wormsgau_created }
+			}
+			d_wormsgau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+	}
+}
 ### CYNERICE OF AENGLALAND ###
 
 character_event = {		# Triggered from Decision / Claim is sent to other Kings
@@ -16593,7 +16657,148 @@ narrative_event = {
 		name = "EVTOPTA318028"
 	}
 }
+	
+# Creation of the County of Aargau
+narrative_event = {
+	id = 318047
+	title = "EVTNAME318047"
+	desc = "EVTDESC318047"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_aargau
+		NOT = { has_global_flag = aargau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_vindonissa = { de_jure_liege = d_aargau }
+		c_brenodunum = { de_jure_liege = d_aargau }
+		c_turicum = { de_jure_liege = d_aargau }
+		c_augusta_raurica = { de_jure_liege = d_aargau }
+		d_aargau = { de_jure_liege = k_alemannia }
 		
+		set_global_flag = aargau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the Duchy of Alsace
+narrative_event = {
+	id = 318048
+	title = "EVTNAME318048"
+	desc = "EVTDESC318048"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_alsace
+		NOT = { has_global_flag = alsace_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_argentoratum = { de_jure_liege = d_alsace }
+		c_rubiacum = { de_jure_liege = d_alsace }
+		c_brocomagus = { de_jure_liege = d_alsace }
+		d_alsace = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = alsace_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Speyergau
+narrative_event = {
+	id = 318049
+	title = "EVTNAME318049"
+	desc = "EVTDESC318049"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_speyergau
+		NOT = { has_global_flag = speyergau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_nemetum = { de_jure_liege = d_speyergau }
+		c_tabernae = { de_jure_liege = d_speyergau }
+		d_speyergau = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = speyergau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Wormsgau
+narrative_event = {
+	id = 318050
+	title = "EVTNAME318050"
+	desc = "EVTDESC318050"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_wormsgau
+		NOT = { has_global_flag = wormsgau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_borbetomagus = { de_jure_liege = d_wormsgau }
+		c_rufiniana = { de_jure_liege = d_wormsgau }
+		c_mogontiacum = { de_jure_liege = d_wormsgau }
+		c_bingium = { de_jure_liege = d_wormsgau }
+		d_wormsgau = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = wormsgau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+	
 # Creation of the County of Picard/Eorldom of Ambeanas
 narrative_event = {
 	id = 314221
@@ -17029,6 +17234,7 @@ narrative_event = {
 		c_tricensimae = { de_jure_liege = d_cologne }
 		c_bonna = { de_jure_liege = d_cologne }
 		c_icorigium = { de_jure_liege = d_cologne }
+		c_confluentes = { de_jure_liege = d_cologne }
 		d_cologne = { de_jure_liege = k_ripuarian_franks }
 		
 		d_ubia = { 
@@ -22592,6 +22798,7 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 			c_tricensimae = { de_jure_liege = d_cologne }
 			c_bonna = { de_jure_liege = d_cologne }
 			c_icorigium = { de_jure_liege = d_cologne }
+			c_confluentes = { de_jure_liege = d_cologne }
 		}
 	}
 	
@@ -23110,7 +23317,7 @@ narrative_event = {	# Nevers, Autun, Avallon, Auxois
 	}
 }
 
-narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva, Besancon, Vaud
+narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva, Besancon, Vaud, Aargau, Alsace, Speyergau, Wormsgau
 	id = 314295
 	desc = "You're not supposed to see this..."
 	major = no
@@ -23137,6 +23344,10 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			has_global_flag = geneva_created
 			has_global_flag = besancon_created
 			has_global_flag = vaud_created
+			has_global_flag = aargau_created
+			has_global_flag = alsace_created
+			has_global_flag = speyergau_created
+			has_global_flag = wormsgau_created
 		}
 	}
 	
@@ -23203,6 +23414,31 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			c_aventicum = { de_jure_liege = d_vaud }
 			c_lausanna = { de_jure_liege = d_vaud }
 			c_ausicensis = { de_jure_liege = d_vaud }
+		}
+		if = {
+			limit = { has_global_flag = aargau_created }
+			c_vindonissa = { de_jure_liege = d_aargau }
+			c_brenodunum = { de_jure_liege = d_aargau }
+			c_turicum = { de_jure_liege = d_aargau }
+			c_augusta_raurica = { de_jure_liege = d_aargau }
+		}
+		if = {
+			limit = { has_global_flag = alsace_created }
+			c_argentoratum = { de_jure_liege = d_alsace }
+			c_rubiacum = { de_jure_liege = d_alsace }
+			c_brocomagus = { de_jure_liege = d_alsace }
+		}
+		if = {
+			limit = { has_global_flag = speyergau_created }
+			c_nemetum = { de_jure_liege = d_speyergau }
+			c_tabernae = { de_jure_liege = d_speyergau }
+		}
+		if = {
+			limit = { has_global_flag = wormsgau_created }
+			c_borbetomagus = { de_jure_liege = d_wormsgau }
+			c_rufiniana = { de_jure_liege = d_wormsgau }
+			c_mogontiacum = { de_jure_liege = d_wormsgau }
+			c_bingium = { de_jure_liege = d_wormsgau }
 		}
 	}
 	
