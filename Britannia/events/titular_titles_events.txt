@@ -7766,6 +7766,92 @@ narrative_event = {
 	}
 }
 
+narrative_event = {	# Maxima Sequanorum reconquered
+	id = 318105
+	title = "EVTNAME318105"
+	major = yes
+	hide_new = yes
+	
+	desc = {
+		text = EVTDESC318105
+		trigger = { 
+			NOT = { has_global_flag = roman_provinces_gaul_restored } 
+		}
+	}
+	
+	desc = {
+		text = EVTDESC318105_1
+		trigger = { 
+			has_global_flag = roman_provinces_gaul_restored 
+		}
+	}
+	
+	picture = "GFX_evt_roman_aquila_pillar"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+			has_landed_title = k_gaul
+			has_landed_title = e_visigoths
+		}
+		has_global_flag = maxima_sequanorum_conquered_burgundy
+		NOT = { 
+			primary_title = {
+				title = k_burgundy
+			}
+		}
+		completely_controls_region = world_gaul_maxima_sequanorum
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_sequania = { de_jure_liege = k_gaul }
+			d_equestria = { de_jure_liege = k_gaul }
+			d_helvitioria = { de_jure_liege = k_gaul }
+			d_rauricia = { de_jure_liege = k_gaul }
+		}
+		if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			d_sequania = { de_jure_liege = k_maxima_sequanorum }
+			d_equestria = { de_jure_liege = k_maxima_sequanorum }
+			d_helvitioria = { de_jure_liege = k_maxima_sequanorum }
+			d_rauricia = { de_jure_liege = k_maxima_sequanorum }
+		}
+		clr_global_flag = maxima_sequanorum_conquered_burgundy
+	}
+	
+	option = {
+		name = "EVTOPTA318100"
+		trigger = {
+			culture_group = imperiale
+		}	
+	}
+	option = {
+		name = "EVTOPTB318100"
+		trigger = {
+			NOT = { 
+				culture_group = imperiale
+				culture = burgundian
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318100"
+		trigger = {
+			culture = burgundian
+		}	
+	}
+}
+
 # ROMAN CONQUESTS IN GERMANIA
 
 narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
@@ -17744,6 +17830,7 @@ narrative_event = {	# Romanized Germanic claims the Empire
 		if = {
 			limit = { has_landed_title = k_burgundy }
 			clr_global_flag = lugdunensisprima_conquered_burgundy
+			clr_global_flag = maxima_sequanorum_conquered_burgundy
 			clr_global_flag = viennensisprima_conquered_burgundy
 			clr_global_flag = northern_provence_conquered_burgundy
 			clr_global_flag = southern_provence_conquered_burgundy
@@ -18237,6 +18324,65 @@ narrative_event = {	# Conquest of Southern Provence
 		trigger = {
 			culture_group = imperiale
 			NOT = { any_liege = { character = ROOT } }
+		}	
+	}
+}
+
+narrative_event = {	# Conquest of Maxima Sequanorum
+	id = 318304
+	title = "EVTNAME318304"
+	desc = EVTDESC318304
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_river_town"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = k_burgundy
+		NOT = { has_global_flag = burgundy_subjugated }
+		top_liege = {
+			NOR = {
+				is_roman_ruler_trigger = yes
+				has_landed_title = e_visigoths
+			}
+		}
+		NOT = { has_global_flag = maxima_sequanorum_conquered_burgundy }
+		completely_controls_region = world_gaul_maxima_sequanorum
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = maxima_sequanorum_conquered_burgundy
+		d_sequania = { de_jure_liege = k_burgundy }
+		d_equestria = { de_jure_liege = k_burgundy }
+		d_helvitioria = { de_jure_liege = k_burgundy }
+		d_rauricia = { de_jure_liege = k_burgundy }
+	}
+	
+	option = {
+		name = "EVTOPTA318300"
+		trigger = {
+			culture = burgundian
+		}	
+	}
+	option = {
+		name = "EVTOPTB318300"
+		trigger = {
+			NOT = { 
+				culture_group = imperiale
+				culture = burgundian
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318300"
+		trigger = {
+			culture_group = imperiale
 		}	
 	}
 }
