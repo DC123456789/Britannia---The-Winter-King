@@ -2007,6 +2007,87 @@ character_event = {
 	}
 }
 
+# Flag Elective Gavelkind Heirs
+character_event = {
+	id = 319007
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		ROOT = {
+			higher_tier_than = DUKE
+			is_tribal = yes
+			has_law = succ_elective_gavelkind
+		}
+	}
+	
+	immediate = {
+		ROOT = {
+			any_child = {
+				limit = {
+					is_ruler = no 
+					#is_heir = yes
+				}
+				set_character_flag = elective_gavelkind_heir
+				if = {
+					limit = { ROOT = { government = tribal_government } }
+					set_character_flag = convert_to_tribal
+				}
+				else_if = {
+					limit = { ROOT = { government = high_tribal_government } }
+					set_character_flag = convert_to_high_tribal
+				}
+				character_event = { id = 319008 days = 1 }	# Clear flags after a day in case something screws up
+			}
+		}
+	}
+}
+character_event = {
+	id = 319008
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		clr_character_flag = elective_gavelkind_heir
+		clr_character_flag = convert_to_tribal
+		clr_character_flag = convert_to_high_tribal
+	}
+}
+# Assign correct government to new kingdoms created during elective gavelkind succession
+character_event = {
+	id = 319009
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		has_character_flag = elective_gavelkind_heir
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_character_flag = convert_to_tribal }
+			set_government_type = tribal_government
+		}
+		else_if = {
+			limit = { has_character_flag = convert_to_high_tribal }
+			set_government_type = high_tribal_government
+		}
+	
+		#clr_character_flag = elective_gavelkind_heir
+		#clr_character_flag = convert_to_tribal
+		#clr_character_flag = convert_to_high_tribal
+	}
+}
+
 # Testing notifications
 character_event = {
 	id = 3129960
