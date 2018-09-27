@@ -5099,10 +5099,7 @@ character_event = {			# Owner in Settlement
 						NOT = { father = { is_child_of = ROOT } }
 						NOT = { mother = { is_child_of = ROOT } } 
 					}
-					random = {
-						chance = 50
-						set_character_flag = captured_by_@ROOT 
-					}
+					character_event = { id = 319953 }
 				}
 				any_spouse = {  
 					limit = {
@@ -5113,10 +5110,7 @@ character_event = {			# Owner in Settlement
 						NOT = { father = { is_child_of = ROOT } }
 						NOT = { mother = { is_child_of = ROOT } } 
 					}
-					random = {
-						chance = 50
-						set_character_flag = captured_by_@ROOT 
-					}
+					character_event = { id = 319953 }
 				}
 			}			
 		}
@@ -5531,97 +5525,6 @@ character_event = {			# Owner NOT in Settlement
 	picture = "GFX_evt_people_captured"
 
 	is_triggered_only = yes
-	
-	trigger = {
-		NOT = { any_liege = { has_landed_title = e_rebels } }
-		FROM = { 
-			holder_scope = {
-				capital_holding = { 
-					OR = {
-						title = PREVPREV
-						#controller = {
-							#NOT = { character = PREVPREV }
-						#}						
-					}	
-				}
-				war_with = ROOT
-				OR = {
-					NOT = { at_location = ROOT }	
-					has_character_modifier = modifier_hidden
-				}
-				OR = {
-					is_primary_war_attacker = yes
-					is_primary_war_defender = yes
-				}
-				OR = {
-					FROM = { 
-						holder_scope = {
-							any_dynasty_member = {
-								AND = {
-									NOT = { character = ROOT }
-									NOT = { character = ROOT }
-									NOT = { character = PREV }
-									at_location = ROOT
-									NOT = { has_character_modifier = modifier_hidden }
-									NOT = { in_command = yes }
-									NOT = { is_child_of = ROOT }	
-									NOT = { father = { is_child_of = ROOT } }
-									NOT = { mother = { is_child_of = ROOT } } 
-								}
-							} 
-						}
-					}
-					FROM = { 
-						holder_scope = {
-							any_spouse = {
-								AND = {
-									NOT = { character = ROOT }
-									at_location = ROOT
-									NOT = { has_character_modifier = modifier_hidden }
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	immediate = {
-		FROM = { 
-			holder_scope = {
-				any_dynasty_member = {  
-					limit = {
-						NOT = { character = ROOT }
-						at_location = ROOT 
-						NOT = { has_character_modifier = modifier_hidden }
-						NOT = { in_command = yes } 
-						NOT = { is_child_of = ROOT }	
-						NOT = { father = { is_child_of = ROOT } }
-						NOT = { mother = { is_child_of = ROOT } } 
-					}
-					random = {
-						chance = 50
-						set_character_flag = captured_by_@ROOT 
-					}
-				}
-				any_spouse = {  
-					limit = {
-						NOT = { character = ROOT }
-						at_location = ROOT 
-						NOT = { has_character_modifier = modifier_hidden } 
-						NOT = { is_child_of = ROOT }	
-						NOT = { father = { is_child_of = ROOT } }
-						NOT = { mother = { is_child_of = ROOT } } 
-					}
-					random = {
-						chance = 50
-						set_character_flag = captured_by_@ROOT 
-					}
-				}
-			}			
-		}
-	}
 	
 	option = { 
 		name = "EVTOPTA319951"
@@ -6282,6 +6185,128 @@ character_event = {			# Release Previous Prisoners
 					}
 				}
 			}
+		}
+	}
+}
+
+# 50% chance that someone in a besieged holding is captured
+character_event = {
+	id = 319953
+	picture = "GFX_evt_people_captured"
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		random = {
+			chance = 50
+			set_character_flag = captured_by_@FROM 
+		}
+	}
+}
+character_event = {			# Owner NOT in Settlement
+	id = 319954
+	picture = "GFX_evt_people_captured"
+
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		NOT = { any_liege = { has_landed_title = e_rebels } }
+		FROM = { 
+			holder_scope = {
+				capital_holding = { 
+					OR = {
+						title = PREVPREV
+						#controller = {
+							#NOT = { character = PREVPREV }
+						#}						
+					}	
+				}
+				war_with = ROOT
+				OR = {
+					NOT = { at_location = ROOT }	
+					has_character_modifier = modifier_hidden
+				}
+				OR = {
+					is_primary_war_attacker = yes
+					is_primary_war_defender = yes
+				}
+				OR = {
+					FROM = { 
+						holder_scope = {
+							any_dynasty_member = {
+								AND = {
+									NOT = { character = ROOT }
+									NOT = { character = ROOT }
+									NOT = { character = PREV }
+									at_location = ROOT
+									NOT = { has_character_modifier = modifier_hidden }
+									NOT = { in_command = yes }
+									NOT = { is_child_of = ROOT }	
+									NOT = { father = { is_child_of = ROOT } }
+									NOT = { mother = { is_child_of = ROOT } } 
+								}
+							} 
+						}
+					}
+					FROM = { 
+						holder_scope = {
+							any_spouse = {
+								AND = {
+									NOT = { character = ROOT }
+									at_location = ROOT
+									NOT = { has_character_modifier = modifier_hidden }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		FROM = { 
+			holder_scope = {
+				any_dynasty_member = {  
+					limit = {
+						NOT = { character = ROOT }
+						at_location = ROOT 
+						NOT = { has_character_modifier = modifier_hidden }
+						NOT = { in_command = yes } 
+						NOT = { is_child_of = ROOT }	
+						NOT = { father = { is_child_of = ROOT } }
+						NOT = { mother = { is_child_of = ROOT } } 
+					}
+					character_event = { id = 319953 }
+				}
+				any_spouse = {  
+					limit = {
+						NOT = { character = ROOT }
+						at_location = ROOT 
+						NOT = { has_character_modifier = modifier_hidden } 
+						NOT = { is_child_of = ROOT }	
+						NOT = { father = { is_child_of = ROOT } }
+						NOT = { mother = { is_child_of = ROOT } } 
+					}
+					character_event = { id = 319953 }
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				FROM = { 
+					holder_scope = {
+						OR = {
+							any_dynasty_member = { has_character_flag = captured_by_@ROOT }
+							any_spouse = { has_character_flag = captured_by_@ROOT }
+						}
+					}
+				}
+			}		
+			repeat_event = { id = 319951 }
 		}
 	}
 }
