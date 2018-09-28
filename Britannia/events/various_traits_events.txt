@@ -2832,7 +2832,7 @@ character_event = {
 		}
 		has_ambition = no
 		NOT = {
-			trait = ugly
+			is_ugly_trigger = yes
 		}
 		fertility = 0.6
 	}
@@ -4392,7 +4392,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		trait = ugly
+		is_ugly_trigger = yes
 		in_command = no
 	}
 	
@@ -4455,7 +4455,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		trait = ugly
+		is_ugly_trigger = yes
 		in_command = no
 	}
 	
@@ -4510,7 +4510,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		trait = ugly
+		is_ugly_trigger = yes
 		in_command = no
 	}
 	
@@ -4565,7 +4565,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		trait = ugly
+		is_ugly_trigger = yes
 		in_command = no
 	}
 	
@@ -4577,11 +4577,25 @@ character_event = {
 		name = EVTOPTA65145 #No longer ugly.
 		random_list = {
 			80 = {
-				remove_trait = ugly
+				if = {
+					limit = { trait = ugly }
+					remove_trait = ugly
+				}
+				if = {
+					limit = { trait = unsightly }
+					remove_trait = unsightly
+				}
 			}
 			20 = {
 				add_trait = fair
-				remove_trait = ugly
+				if = {
+					limit = { trait = ugly }
+					remove_trait = ugly
+				}
+				if = {
+					limit = { trait = unsightly }
+					remove_trait = unsightly
+				}
 				hidden_tooltip = {
 					character_event = {
 						id = 38301 #Notify Fair
