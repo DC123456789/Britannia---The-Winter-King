@@ -13188,7 +13188,10 @@ narrative_event = {
 			c_wasia = { de_jure_liege = d_toxandria }
 			c_aardenburg = { de_jure_liege = d_menapia }
 		}
-		k_frisia = { de_jure_liege = e_franks }
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_frisia = { de_jure_liege = e_franks }
+		}
 	}
 	
 	option = {
@@ -13232,7 +13235,10 @@ narrative_event = {
 			d_hamaland = { de_jure_liege = k_frisia }
 			d_salland = { de_jure_liege = k_frisia }
 		}
-		k_saxony = { de_jure_liege = e_franks }
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_saxony = { de_jure_liege = e_franks }
+		}
 	}
 	
 	option = {
@@ -13240,6 +13246,52 @@ narrative_event = {
 	}
 }
 
+# Conquest of Alemannia
+narrative_event = {
+	id = 314210
+	title = "EVTNAME314210"
+	desc = "EVTDESC314210"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_frankish_culture_trigger = yes
+		NOT = { has_global_flag = alemannia_subjugated }
+		OR = {
+			has_character_flag = conquered_alemannia
+			completely_controls_region = custom_alemannia
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		set_global_flag = alemannia_subjugated
+		d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+		d_speyergau = { de_jure_liege = k_ripuarian_franks }
+		d_rheingau = { de_jure_liege = k_ripuarian_franks }
+		d_ufgau = { de_jure_liege = k_ripuarian_franks }
+		d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+		d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+		d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+		d_kochergau = { de_jure_liege = k_ripuarian_franks }
+		
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_alemannia = { de_jure_liege = e_franks }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314210"
+	}
+}
 
 # Creation of the Empire of Francia
 narrative_event = {
@@ -16839,7 +16891,7 @@ narrative_event = {
 	immediate = {
 		c_nemetum = { de_jure_liege = d_speyergau }
 		c_tabernae = { de_jure_liege = d_speyergau }
-		d_speyergau = { de_jure_liege = k_alemannia }
+		#d_speyergau = { de_jure_liege = k_alemannia }
 		
 		set_global_flag = speyergau_created
 	}
@@ -16875,7 +16927,7 @@ narrative_event = {
 		c_rufiniana = { de_jure_liege = d_wormsgau }
 		c_mogontiacum = { de_jure_liege = d_wormsgau }
 		c_bingium = { de_jure_liege = d_wormsgau }
-		d_wormsgau = { de_jure_liege = k_alemannia }
+		#d_wormsgau = { de_jure_liege = k_alemannia }
 		
 		set_global_flag = wormsgau_created
 	}
