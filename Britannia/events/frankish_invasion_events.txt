@@ -1057,6 +1057,147 @@ narrative_event = {
 		clr_character_flag = triggered_313205_event
 	}
 }
+	
+#### Frankish Invasion of Alemannia - 496 AD ####
+narrative_event = {
+	id = 313206
+	title = "EVTNAME313206"
+	desc = EVTDESC313206
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_gaul"
+	
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			has_character_flag = triggered_313206_event
+			AND = {
+				ai = yes
+				year = 495
+				NOT = { had_global_flag = { flag = first_frankish_invasion_alemannia days = 9125 } }	# 25 years from first invasion
+				NOT = { year = 550 }
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				war = no
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_alemannia
+				}
+				k_alemannia = {
+					holder_scope = {
+						is_frankish_culture_trigger = no
+						NOT = {
+							reverse_has_truce = ROOT
+						}
+					}
+				}
+				NOT = { has_global_flag = alemannia_subjugated }
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_alemannia }
+					had_global_flag = { flag = frankish_invasion_alemannia days = 1825 }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.5
+			OR = {
+				year = 505
+				has_global_flag = frankish_invasion_alemannia
+			}
+		}
+		modifier = {
+			factor = 0.75
+			year = 510
+			NOT = { has_global_flag = frankish_invasion_alemannia }
+		}
+		modifier = {
+			factor = 0.5
+			year = 515
+			NOT = { has_global_flag = frankish_invasion_alemannia }
+		}
+		modifier = {
+			factor = 0.25
+			year = 520
+			NOT = { has_global_flag = frankish_invasion_alemannia }
+		}
+		modifier = {
+			factor = 0.1
+			year = 525
+			NOT = { has_global_flag = frankish_invasion_alemannia }
+		}
+		modifier = {
+			factor = 0.5
+			had_global_flag = { flag = first_frankish_invasion_alemannia days = 1825 }
+		}
+		modifier = {
+			factor = 0.5
+			had_global_flag = { flag = first_frankish_invasion_alemannia days = 3650 }
+		}
+		modifier = {
+			factor = 0.25
+			had_global_flag = { flag = first_frankish_invasion_alemannia days = 5475 }
+		}
+		modifier = {
+			factor = 0.1
+			had_global_flag = { flag = first_frankish_invasion_alemannia days = 7300 }
+		}
+	}
+	
+	immediate = {
+		set_global_flag = frankish_invasion_alemannia
+		if = {
+			limit = { NOT = { has_global_flag = first_frankish_invasion_alemannia } }
+			set_global_flag = first_frankish_invasion_alemannia
+		}
+	}	
+	
+	option = {
+		name = "EVTOPTA313206"	# Go to war
+		trigger = {
+			character = ROOT
+		}
+		k_alemannia = {
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = tribal_invasion
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313206"	# Other Franks
+		trigger = {
+			is_frankish_culture_trigger = yes
+			NOT = { character = ROOT }
+		}
+	}
+	option = {
+		name = "EVTOPTD313206"	# Alemannia
+		trigger = {
+			is_alemannic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTE313206"	# Others
+		trigger = {
+			NOR = { 
+				is_frankish_culture_trigger = yes
+				is_alemannic_culture_trigger = yes
+			}
+		}
+	}
+	
+	after = {
+		clr_character_flag = triggered_313206_event
+	}
+}
 
 ###### Frankish Conversion ######
 # Conversion of Clovis I (after 493 AD)

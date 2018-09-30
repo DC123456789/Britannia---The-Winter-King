@@ -431,6 +431,74 @@ decisions = {
 		}
 	}
 	
+	franks_invade_alemannia = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 480
+			NOT = { year = 550 }
+			NOT = { had_global_flag = { flag = first_frankish_invasion_alemannia days = 9125 } }
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_alemannia
+			}
+			k_alemannia = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+				}
+			}
+			NOT = { has_global_flag = alemannia_subjugated }
+			NOT = { has_character_flag = triggered_313206_event }
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_alemannia }
+					using_cb = tribal_invasion
+				}
+			}
+		}
+		allow = {
+			year = 495
+			NOT = { year = 550 }
+			custom_tooltip = {
+				text = last_alemannic_invasion_within_25_years_tooltip
+				NOT = { had_global_flag = { flag = first_frankish_invasion_alemannia days = 9125 } }
+			}
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			k_alemannia = {
+				holder_scope = {
+					NOR = {
+						reverse_has_truce = ROOT
+					}
+				}
+			}
+			custom_tooltip = {
+				text = not_invaded_alemannia_in_last_5_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_alemannia }
+					had_global_flag = { flag = frankish_invasion_alemannia days = 1825 }
+				}
+			}
+		}
+		effect = {
+			set_character_flag = triggered_313206_event
+			character_event = { id = 313206 }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
 	form_danish_march = {
 		only_independent = yes
 		is_high_prio = yes
