@@ -8347,6 +8347,61 @@ narrative_event = {
 	}
 }
 
+# Civitas of Chattia
+narrative_event = {	
+	id = 314609
+	title = "EVTNAME314609"
+	desc = "EVTDESC314609"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_fritzlar
+		completely_controls = c_perfgau
+		completely_controls = c_niderlahngau
+		independent = yes
+		NOT = { has_global_flag = hesse_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_hesse = { de_jure_liege = k_germania_tertia }
+		c_niderlahngau = { de_jure_liege = d_hesse }
+		c_oberlahngau = { de_jure_liege = d_hesse }
+		c_perfgau = { de_jure_liege = d_hesse }
+		c_wettergau = { de_jure_liege = d_hesse }
+
+		d_hesse = {
+			set_name = "Chattia"
+			adjective = "Chattian"
+		}
+		
+		set_global_flag = hesse_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314608"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314608"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
 narrative_event = {	# Creation of Germania Tertia
 	id = 314610
 	title = "EVTNAME314610"
@@ -8448,7 +8503,13 @@ narrative_event = {
 		d_wetterau = { de_jure_liege = k_germania_prima }
 		c_unterrheingau = { de_jure_liege = d_wetterau }
 		c_engersgau = { de_jure_liege = d_wetterau }
-		c_wettergau = { de_jure_liege = d_lahngau }
+		if = {
+			limit = { has_global_flag = hesse_renamed }
+			c_wettergau = { de_jure_liege = d_hesse }
+		}
+		else = {
+			c_wettergau = { de_jure_liege = d_lahngau }
+		}
 
 		d_wetterau = {
 			set_name = "Mattiacia"
@@ -8630,57 +8691,6 @@ narrative_event = {
 	}
 }
 
-# Civitas of Aquensia
-narrative_event = {	
-	id = 314614
-	title = "EVTNAME314614"
-	desc = "EVTDESC314614"
-	major = yes
-	hide_new = yes
-	
-	picture = "GFX_evt_lake_landscape"
-	
-	only_playable = yes
-	
-	trigger = {
-		is_roman_ruler_trigger = yes
-		has_global_flag = roman_conquest_agri_decumates
-		completely_controls = c_west_ufgau
-		completely_controls = c_east_ufgau
-		independent = yes
-		NOT = { has_global_flag = ufgau_renamed }
-	}
-	
-	mean_time_to_happen = {
-		days = 2
-	}
-	
-	immediate = {
-		d_ufgau = { de_jure_liege = k_germania_prima }
-
-		d_ufgau = {
-			set_name = "Aquensia"
-			adjective = "Aquensian"
-			set_preferred_capital = 1077	# Westufgau
-		}
-		
-		set_global_flag = ufgau_renamed
-	}
-	
-	option = {
-		name = "EVTOPTA314600"
-		trigger = {
-			is_roman_ruler_trigger = yes
-		}	
-	}
-	option = {
-		name = "EVTOPTB314600"
-		trigger = {
-			is_roman_ruler_trigger = no
-		}	
-	}
-}
-
 # Civitas of Sumelocennensia
 narrative_event = {	
 	id = 314615
@@ -8777,6 +8787,111 @@ narrative_event = {
 	}
 	option = {
 		name = "EVTOPTB314600"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Curionia
+narrative_event = {	
+	id = 314617
+	title = "EVTNAME314617"
+	desc = "EVTDESC314617"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_east_maingau
+		completely_controls = c_waldsassengau
+		completely_controls = c_taubergau
+		independent = yes
+		NOT = { has_global_flag = waldsassengau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_waldsassengau = { de_jure_liege = k_germania_prima }
+		c_east_maingau = { de_jure_liege = d_waldsassengau }
+		c_east_wingarteiba = { de_jure_liege = d_waldsassengau }
+		c_taubergau = { de_jure_liege = d_waldsassengau }
+
+		d_waldsassengau = {
+			set_name = "Curionia"
+			adjective = "Curionian"
+		}
+		
+		set_global_flag = waldsassengau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314608"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314608"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Vargionia
+narrative_event = {	
+	id = 314618
+	title = "EVTNAME314618"
+	desc = "EVTDESC314618"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_east_jagstgau
+		completely_controls = c_kochergau
+		independent = yes
+		NOT = { has_global_flag = kochergau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_kochergau = { de_jure_liege = k_germania_prima }
+		c_east_jagstgau = { de_jure_liege = d_kochergau }
+
+		d_kochergau = {
+			set_name = "Vargionia"
+			adjective = "Vargionian"
+		}
+		
+		set_global_flag = kochergau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314608"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314608"
 		trigger = {
 			is_roman_ruler_trigger = no
 		}	
