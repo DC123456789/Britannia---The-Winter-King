@@ -2589,10 +2589,7 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = gaul_reconquered_roman }
 		completely_controls_region = world_gaul
 	}
@@ -2689,10 +2686,7 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = britannia_reconquered_roman }
 		completely_controls_region = custom_roman_britannia
 	}
@@ -2772,10 +2766,7 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = caledonia_conquered_roman }
 		completely_controls_region = world_caledonia
 		completely_controls_region = custom_valentia
@@ -2833,10 +2824,7 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = hibernia_conquered_roman }
 		completely_controls_region = world_ireland
 	}
@@ -2879,7 +2867,193 @@ narrative_event = {
 	}
 }
 
+# Roman Campaign into the Agri Decumates
+narrative_event = {			
+	id = 315210
+	title = "EVTNAME315210"
+	desc = "EVTDESC315210"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315210"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB315210"
+		trigger = {
+			NOR = { 
+				is_roman_ruler_trigger = yes
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC315210"
+		trigger = {
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+		}	
+	}
+}
 
+# Roman Campaign into Magna Germania
+narrative_event = {			
+	id = 315211
+	title = "EVTNAME315211"
+	desc = "EVTDESC315211"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315211"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB315211"
+		trigger = {
+			NOR = { 
+				is_roman_ruler_trigger = yes
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC315211"
+		trigger = {
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+		}	
+	}
+}
+
+### Agri Decumates Conquered ###
+narrative_event = {
+	id = 315212
+	title = "EVTNAME315212"
+	desc = "EVTDESC315212"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		is_roman_emperor_trigger = yes
+		NOT = { has_global_flag = agri_decumates_reconquered_roman }
+		completely_controls_region = custom_agri_decumates
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = agri_decumates_reconquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315212"
+		trigger = {
+			completely_controls_region = custom_agri_decumates
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315212"
+		trigger = {
+			top_liege = {
+				completely_controls_region = custom_agri_decumates
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315212"
+		trigger = {
+			NOT = {
+				top_liege = {
+					completely_controls_region = custom_agri_decumates
+				}
+			}
+		}
+	}
+}
+
+### Germania Conquered ###
+narrative_event = {
+	id = 315213
+	title = "EVTNAME315213"
+	desc = "EVTDESC315213"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		is_roman_emperor_trigger = yes
+		NOT = { has_global_flag = germania_reconquered_roman }
+		completely_controls_region = custom_greater_germania_prima
+		completely_controls_region = custom_germania_secunda
+		completely_controls_region = custom_germania_tertia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = germania_reconquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315213"
+		trigger = {
+			character = ROOT
+		}
+		prestige = 300
+	}
+	
+	option = {
+		name = "EVTOPTA315213"
+		trigger = {
+			top_liege = {
+				character = ROOT
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315213"
+		trigger = {
+			NOT = {
+				top_liege = {
+					character = ROOT
+				}
+			}
+		}
+	}
+}
 
 ### ROMAN DEFEAT ###
 narrative_event = {

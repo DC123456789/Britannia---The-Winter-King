@@ -213,17 +213,52 @@ decisions = {
 		}
 	}
 	
+	conquer_agri_decumates = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			is_roman_emperor_trigger = yes
+			NOT = { has_global_flag = roman_conquest_agri_decumates }
+			has_global_flag = gaul_reconquered_roman
+		}
+		allow = {
+			custom_tooltip = {
+				text = has_reconquered_gaul
+				has_global_flag = gaul_reconquered_roman
+			}
+			custom_tooltip = {
+				text = has_reconquered_britannia
+				has_global_flag = britannia_reconquered_roman
+			}
+			wealth = 400
+			prestige = 3000
+			is_adult = yes
+		}
+		effect = {
+			wealth = -400
+			character_event = { id = 315210 }
+			set_global_flag = roman_conquest_agri_decumates
+			custom_tooltip = {
+				text = conquer_agri_decumates_tooltip
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	expanded_germania_secunda = {
 		only_independent = yes
 		is_high_prio = yes
 		potential = {
 			is_roman_emperor_trigger = yes
 			NOT = { has_global_flag = expanded_secunda }
+			has_global_flag = conquer_agri_decumates_tooltip
 		}
 		allow = {
 			custom_tooltip = {
-				text = has_reconquered_gaul
-				has_global_flag = gaul_reconquered_roman
+				text = agri_decumates_reconquered_roman
+				has_global_flag = agri_decumates_reconquered
 			}
 			wealth = 1000
 			prestige = 5000
@@ -231,7 +266,8 @@ decisions = {
 		}
 		effect = {
 			wealth = -1000
-			character_event = { id = 314600 }
+			character_event = { id = 315211 }
+			set_global_flag = expanded_secunda
 			custom_tooltip = {
 				text = expanded_germania_secunda_tooltip
 			}
