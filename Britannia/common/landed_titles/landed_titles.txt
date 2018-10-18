@@ -36822,7 +36822,7 @@ e_germania = {				# High Kingdom of Germania
 		NOT = { trait = incapable }
 		conditional_tooltip = {
 			trigger = {
-				NOT = { has_global_flag = alemannia_subjugated }
+				NOT = { has_global_flag = franconia_expanded }
 			}
 			custom_tooltip = {
 				text = controls_30_provinces_in_alemannia_tooltip
@@ -36836,7 +36836,7 @@ e_germania = {				# High Kingdom of Germania
 		}
 		conditional_tooltip = {
 			trigger = {
-				has_global_flag = alemannia_subjugated
+				has_global_flag = franconia_expanded
 			}
 			custom_tooltip = {
 				text = controls_10_provinces_in_swabia_tooltip
@@ -36850,7 +36850,7 @@ e_germania = {				# High Kingdom of Germania
 		}
 		conditional_tooltip = {
 			trigger = {
-				NOT = { has_global_flag = alemannia_subjugated }
+				NOT = { has_global_flag = franconia_expanded }
 			}
 			custom_tooltip = {
 				text = controls_6_provinces_in_hesse_tooltip
@@ -36864,7 +36864,7 @@ e_germania = {				# High Kingdom of Germania
 		}
 		conditional_tooltip = {
 			trigger = {
-				has_global_flag = alemannia_subjugated
+				has_global_flag = franconia_expanded
 			}
 			custom_tooltip = {
 				text = controls_27_provinces_in_franconia_tooltip
@@ -36886,11 +36886,14 @@ e_germania = {				# High Kingdom of Germania
 			}
 		}
 		custom_tooltip = {
-			text = controls_30_provinces_in_saxony_tooltip
+			text = controls_34_provinces_in_saxony_and_hamaland_salland_tooltip
 			hidden_tooltip = {
 				any_realm_province = {
-					count = 30
-					region = world_germania_saxony
+					count = 34
+					OR = {
+						region = world_germania_saxony
+						region = world_hamaland_salland
+					}
 				}
 			}
 		}
@@ -46351,6 +46354,28 @@ e_germania = {				# High Kingdom of Germania
 					romanoscandian = "Grinario"
 				}
 				b_neckargautemple = {			# Esslingen am Neckar
+				}
+			}
+		}
+	}
+	k_franconia = {
+		color = { 150 140 90 }
+		color2={ 255 255 255 }
+		
+		capital = 1072		# Untarrheingau
+		
+		culture = oldfrankish
+		
+		assimilate = no
+	
+		allow = {
+			has_global_flag = franconia_created
+			OR = {
+				is_frankish_culture_trigger = yes
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+					top_liege = { has_landed_title = e_germania }
 				}
 			}
 		}

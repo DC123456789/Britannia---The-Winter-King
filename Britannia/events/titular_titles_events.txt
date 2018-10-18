@@ -12634,7 +12634,10 @@ narrative_event = {
 		d_soissons = { de_jure_liege = k_franks }
 		d_tongres = { de_jure_liege = k_franks }
 		d_aachen = { de_jure_liege = k_franks }
-		d_bracbant = { de_jure_liege = k_franks }
+		if = {
+			limit = { NOT = { has_global_flag = franconia_created } }
+			d_bracbant = { de_jure_liege = k_franks }
+		}
 		d_porcien = { de_jure_liege = k_ripuarian_franks }
 		d_lotharingen = { de_jure_liege = k_ripuarian_franks }
 		d_toul = { de_jure_liege = k_ripuarian_franks }
@@ -13607,13 +13610,18 @@ narrative_event = {
 	immediate = { 
 		set_global_flag = frisia_subjugated 
 		if = {
-			limit = { 
+			limit = {
+				NOT = { has_global_flag = saxony_expanded }
 				OR = {
 					NOT = { has_global_flag = hamaland_conquered_saxon }
 					has_global_flag = saxony_subjugated
 				}
 			}
-			d_hamaland = { de_jure_liege = k_frisia }
+			set_global_flag = saxony_expanded
+			if = {
+				limit = { NOT = { has_global_flag = roman_chamavia } }
+				d_hamaland = { de_jure_liege = k_frisia }
+			}
 			d_salland = { de_jure_liege = k_frisia }
 		}
 		if = {
@@ -13667,10 +13675,15 @@ narrative_event = {
 		set_global_flag = saxony_subjugated
 		if = {
 			limit = { 
+				NOT = { has_global_flag = saxony_expanded }
 				has_global_flag = hamaland_conquered_saxon
 				has_global_flag = frisia_subjugated
 			}
-			d_hamaland = { de_jure_liege = k_frisia }
+			set_global_flag = saxony_expanded
+			if = {
+				limit = { NOT = { has_global_flag = roman_chamavia } }
+				d_hamaland = { de_jure_liege = k_frisia }
+			}
 			d_salland = { de_jure_liege = k_frisia }
 		}
 		if = {
@@ -13711,14 +13724,61 @@ narrative_event = {
 	
 	immediate = { 
 		set_global_flag = alemannia_subjugated
-		d_wormsgau = { de_jure_liege = k_ripuarian_franks }
-		d_speyergau = { de_jure_liege = k_ripuarian_franks }
-		d_rheingau = { de_jure_liege = k_ripuarian_franks }
-		d_ufgau = { de_jure_liege = k_ripuarian_franks }
-		d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
-		d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
-		d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
-		d_kochergau = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { NOT = { has_global_flag = franconia_expanded } }
+			set_global_flag = franconia_expanded
+			if = {
+				limit = { NOT = { has_global_flag = franconia_created } }
+				d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+				d_speyergau = { de_jure_liege = k_ripuarian_franks }
+				if = {
+					limit = { NOT = { has_global_flag = rheingau_renamed } }
+					d_rheingau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = ufgau_renamed } }
+					d_ufgau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+					d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+				}
+				d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+				if = {
+					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+					d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = kochergau_renamed } }
+					d_kochergau = { de_jure_liege = k_ripuarian_franks }
+				}
+			}
+			else = {
+				d_wormsgau = { de_jure_liege = k_franconia }
+				d_speyergau = { de_jure_liege = k_franconia }
+				if = {
+					limit = { NOT = { has_global_flag = rheingau_renamed } }
+					d_rheingau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = ufgau_renamed } }
+					d_ufgau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+					d_elsenzgau = { de_jure_liege = k_franconia }
+				}
+				d_wingarteiba = { de_jure_liege = k_franconia }
+				if = {
+					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+					d_waldsassengau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = kochergau_renamed } }
+					d_kochergau = { de_jure_liege = k_franconia }
+				}
+			}
+		}
 		
 		if = {
 			limit = { has_global_flag = western_roman_empire_fallen }
@@ -17765,11 +17825,11 @@ narrative_event = {
 		c_tilburg = { de_jure_liege = d_bracbant }
 		c_antwerp = { de_jure_liege = d_bracbant }
 		c_nijmegen = { de_jure_liege = d_bracbant }
-		d_bracbant = { de_jure_liege = k_ripuarian_franks }
-		if = {
-			limit = { has_global_flag = soissons_conquered }
-			d_bracbant = { de_jure_liege = k_franks }
-		}
+		#d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		#if = {
+			#limit = { has_global_flag = soissons_conquered }
+			#d_bracbant = { de_jure_liege = k_franks }
+		#}
 		
 		d_toxandria = { 
 			destroy_landed_title = THIS			
@@ -17811,7 +17871,7 @@ narrative_event = {
 		c_bonna = { de_jure_liege = d_cologne }
 		c_icorigium = { de_jure_liege = d_cologne }
 		c_confluentes = { de_jure_liege = d_cologne }
-		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		#d_cologne = { de_jure_liege = k_ripuarian_franks }
 		
 		d_ubia = { 
 			destroy_landed_title = THIS			
@@ -19012,6 +19072,56 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = germania_created
+		
+		k_frisia = { de_jure_liege = e_germania }
+		clr_global_flag = frisia_subjugated
+		
+		k_saxony = { de_jure_liege = e_germania }
+		clr_global_flag = saxony_subjugated
+		
+		activate_title = { title = k_franconia status = yes }
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_franconia }
+		}
+		d_lahngau = { de_jure_liege = k_franconia }
+		d_wetterau = { de_jure_liege = k_franconia }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_franconia }
+			d_speyergau = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_franconia }
+			}
+			d_wingarteiba = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_franconia }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_franconia }
+		}
+		d_cologne = { de_jure_liege = k_franconia }
+		d_bracbant = { de_jure_liege = k_franconia }
+		set_global_flag = franconia_created
+		
+		k_alemannia = { de_jure_liege = e_germania }
+		clr_global_flag = alemannia_subjugated
 	}
 	
 	option = {
