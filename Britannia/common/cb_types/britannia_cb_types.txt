@@ -785,27 +785,7 @@ imperial_invasion_hibernia = {				# Imperial Conquest
 						}
 					}
 				} 
-				OR = {
-					region = world_ireland 
-					region = world_caledonia
-					AND = {
-						region = world_britannia_cymry_henogledd
-						NOT = { region = custom_roman_britannia }
-					}
-					AND = {
-						OR = {
-							region = custom_greater_germania_prima
-							region = custom_germania_secunda
-							region = custom_germania_tertia
-						}
-						NOT = { region = custom_wre }
-						has_global_flag = expanded_secunda
-					}
-					AND = {
-						region = custom_agri_decumates
-						has_global_flag = roman_conquest_agri_decumates
-					}
-				}
+				can_use_imperial_invasion_cb_against_province_trigger = yes
 			}
 			holder_scope = {
 				OR = {
@@ -818,27 +798,7 @@ imperial_invasion_hibernia = {				# Imperial Conquest
 		
 	is_valid_title = {
 		any_direct_de_jure_vassal_title = {
-			OR = {
-				region = world_ireland 
-				region = world_caledonia
-				AND = {
-					region = world_britannia_cymry_henogledd
-					NOT = { region = custom_roman_britannia }
-				}
-				AND = {
-					OR = {
-						region = custom_greater_germania_prima
-						region = custom_germania_secunda
-						region = custom_germania_tertia
-					}
-					NOT = { region = custom_wre }
-					has_global_flag = expanded_secunda
-				}
-				AND = {
-					region = custom_agri_decumates
-					has_global_flag = roman_conquest_agri_decumates
-				}
-			}
+			can_use_imperial_invasion_cb_against_province_trigger = yes
 			holder_scope = {
 				OR = {
 					character = FROM
@@ -870,18 +830,76 @@ imperial_invasion_hibernia = {				# Imperial Conquest
 			text = imperial_conquest_tip
 		}
 		hidden_tooltip = {
-			ROOT = {
-				gain_settlements_under_title = {
-					title = PREV
-					enemy = FROM
+			if = {
+				limit = { 
+					NOT = { 
+						any_direct_de_jure_vassal_title = {
+							can_use_imperial_invasion_cb_against_province_trigger = no
+						} 
+					} 
+				}
+				ROOT = {
+					gain_settlements_under_title = {
+						title = PREV
+						enemy = FROM
+					}
+				}
+				any_direct_de_jure_vassal_title = {
+					if = {
+						limit = {
+							NOT = { culture = ROOT }
+						}
+						conquest_culture = ROOT
+					}
 				}
 			}
-			any_direct_de_jure_vassal_title = {
-				if = {
+			else = {
+				# Directly take any remaining titles
+				any_direct_de_jure_vassal_title = {
 					limit = {
-						NOT = { culture = ROOT }
+						location = { 
+							can_use_imperial_invasion_cb_against_province_trigger = yes
+						}
 					}
-					conquest_culture = ROOT
+					if = {
+						limit = {
+							holder_scope = {
+								OR = {
+									character = FROM
+									is_liege_or_above = FROM
+								}
+								NOR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+						}
+						location = {
+							any_province_holding = {
+								limit = {
+									holder_scope = {
+										OR = {
+											character = FROM
+											is_liege_or_above = FROM
+										}
+										NOR = {
+											character = ROOT
+											is_liege_or_above = ROOT
+										}
+									}
+									is_capital = no		# Dealt with afterwards so that county is properly usurped
+								}
+								usurp_title = ROOT
+							}
+						}
+						usurp_title = ROOT
+					}
+					if = {
+						limit = {
+							NOT = { culture = ROOT }
+						}
+						conquest_culture = ROOT
+					}
 				}
 			}
 		}
@@ -1029,14 +1047,7 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 						}
 					} 
 				}
-				OR = {
-					region = world_ireland 
-					region = world_caledonia
-					AND = {
-						region = world_britannia_cymry_henogledd
-						NOT = { region = custom_roman_britannia }
-					}
-				}
+				can_use_imperial_invasion_cb_against_province_trigger = yes
 			}
 			holder_scope = {
 				OR = {
@@ -1075,14 +1086,7 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 							}
 						}
 					}
-					OR = {
-						region = world_ireland 
-						region = world_caledonia
-						AND = {
-							region = world_britannia_cymry_henogledd
-							NOT = { region = custom_roman_britannia }
-						}
-					}
+					can_use_imperial_invasion_cb_against_province_trigger = yes
 				}
 				holder_scope = {
 					OR = {
@@ -1096,14 +1100,7 @@ imperial_invasion_hibernia_condition_placeholder = {				# Imperial Conquest
 		
 	is_valid_title = {
 		any_direct_de_jure_vassal_title = {
-			OR = {
-				region = world_ireland 
-				region = world_caledonia
-				AND = {
-					region = world_britannia_cymry_henogledd
-					NOT = { region = custom_roman_britannia }
-				}
-			}
+			can_use_imperial_invasion_cb_against_province_trigger = yes
 			holder_scope = {
 				OR = {
 					character = FROM

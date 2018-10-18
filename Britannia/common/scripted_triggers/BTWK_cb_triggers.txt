@@ -764,3 +764,27 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 		}
 	}
 }
+
+can_use_imperial_invasion_cb_against_province_trigger = {
+	OR = {
+		region = world_ireland 
+		region = world_caledonia
+		AND = {
+			region = world_britannia_cymry_henogledd
+			NOT = { region = custom_roman_britannia }
+		}
+		AND = {
+			OR = {
+				region = custom_greater_germania_prima
+				region = custom_germania_secunda
+				region = custom_germania_tertia
+			}
+			NOT = { region = custom_wre }
+			has_global_flag = expanded_secunda
+		}
+		AND = {
+			region = custom_agri_decumates
+			has_global_flag = roman_conquest_agri_decumates
+		}
+	}
+}
