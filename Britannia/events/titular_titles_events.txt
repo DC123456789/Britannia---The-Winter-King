@@ -28,6 +28,7 @@
 # 314750 - 314774	Saxons
 # 314775 - 314799	Vasconians
 # 314800 - 314824	Danes (Scandinavia)
+# 314825 - 314849	Germania
 # 315000 - 315099 	AI Creation
 # 318000 - 318099	Franks
 # 318100 - 318199	Romans (Gaul)
@@ -13599,6 +13600,7 @@ narrative_event = {
 	
 	trigger = {
 		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = frisia_subjugated }
 		completely_controls_region = custom_frisia
 	}
@@ -13663,6 +13665,7 @@ narrative_event = {
 			NOT = { has_global_flag = hamaland_conquered_saxon }
 		}
 		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = saxony_subjugated }
 		completely_controls_region = world_germania_saxony
 	}
@@ -13711,6 +13714,7 @@ narrative_event = {
 	
 	trigger = {
 		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = alemannia_subjugated }
 		OR = {
 			has_character_flag = conquered_alemannia
@@ -13788,6 +13792,91 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314210"
+	}
+}
+
+# Conquest of Franconia
+narrative_event = {
+	id = 314211
+	title = "EVTNAME314211"
+	desc = "EVTDESC314211"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
+		has_global_flag = franconia_created
+		completely_controls_region = custom_ripuaria
+		completely_controls_region = world_hesse
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_ripuarian_franks }
+		}
+		d_lahngau = { de_jure_liege = k_ripuarian_franks }
+		d_wetterau = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+			d_speyergau = { de_jure_liege = k_ripuarian_franks }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+			}
+			d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_ripuarian_franks }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_ripuarian_franks }
+		}
+		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { NOT = { has_global_flag = soissons_conquered } }
+			d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		}
+		else = {
+			d_bracbant = { de_jure_liege = k_franks }
+		}
+		clr_global_flag = franconia_created
+	}
+	
+	option = {
+		name = "EVTOPTA314211"
 	}
 }
 
@@ -19049,11 +19138,15 @@ narrative_event = {	# Conquest of Hamaland and Salland
 	}
 }
 
+### END SAXONS ###
+
+### GERMANIA ###
+
 # Creation of the Empire of Germania
 narrative_event = {
-	id = 314774
-	title = "EVTNAME314774"
-	desc = "EVTDESC314774"
+	id = 314825
+	title = "EVTNAME314825"
+	desc = "EVTDESC314825"
 	picture = "GFX_evt_germansite"
 	
 	major = yes
@@ -19125,26 +19218,26 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314774"
+		name = "EVTOPTA314825"
 		trigger = { has_landed_title = e_germania }
 		prestige = 200
 	}	
 	option = {
-		name = "EVTOPTB314774"
+		name = "EVTOPTB314825"
 		trigger = { 
 			NOT = { has_landed_title = e_germania }
 			top_liege = { has_landed_title = e_germania }
 		}
 	}
 	option = {
-		name = "EVTOPTC314774"
+		name = "EVTOPTC314825"
 		trigger = {
 			culture_group = germanic
 			NOT = { top_liege = { has_landed_title = e_germania } }
 		}
 	}
 	option = {
-		name = "EVTOPTD314774"
+		name = "EVTOPTD314825"
 		trigger = {
 			OR = {
 				is_brythonic_culture_trigger = yes
@@ -19154,7 +19247,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTE314774"
+		name = "EVTOPTE314825"
 		trigger = {
 			NOR = {
 				culture_group = germanic
@@ -19163,6 +19256,205 @@ narrative_event = {
 				top_liege = { has_landed_title = e_germania }
 			}
 		}
+	}
+}
+
+# Reconquest of Frisia
+narrative_event = {
+	id = 314826
+	title = "EVTNAME314826"
+	desc = "EVTDESC314826"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = custom_frisia
+		OR = {
+			AND = {
+				has_global_flag = hamaland_conquered_saxon
+				NOT = { has_global_flag = saxony_subjugated }
+			}
+			completely_controls_region = world_hamaland_salland
+		}
+		has_global_flag = frisia_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = frisia_subjugated 
+		k_frisia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314826"
+	}
+}
+
+# Reconquest of Saxony
+narrative_event = {
+	id = 314827
+	title = "EVTNAME314827"
+	desc = "EVTDESC314827"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = world_germania_saxony
+		OR = {
+			completely_controls_region = world_hamaland_salland
+			NOT = { has_global_flag = hamaland_conquered_saxon }
+		}
+		has_global_flag = saxony_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_global_flag = saxony_subjugated
+		k_saxony = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314827"
+	}
+}
+
+# Reconquest of Alemannia
+narrative_event = {
+	id = 314828
+	title = "EVTNAME314828"
+	desc = "EVTDESC314828"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = custom_swabia
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+		has_global_flag = alemannia_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = alemannia_subjugated	
+		k_alemannia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314828"
+	}
+}
+
+# Reconquest of Franconia
+narrative_event = {
+	id = 314829
+	title = "EVTNAME314829"
+	desc = "EVTDESC314829"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = world_hesse
+		completely_controls_region = custom_ripuaria
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+		NOT = { has_global_flag = franconia_subjugated }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = franconia_created
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_franconia }
+		}
+		d_lahngau = { de_jure_liege = k_franconia }
+		d_wetterau = { de_jure_liege = k_franconia }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_franconia }
+			d_speyergau = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_franconia }
+			}
+			d_wingarteiba = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_franconia }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_franconia }
+		}
+		d_cologne = { de_jure_liege = k_franconia }
+		d_bracbant = { de_jure_liege = k_franconia }
+	}
+	
+	option = {
+		name = "EVTOPTA314829"
 	}
 }
 
