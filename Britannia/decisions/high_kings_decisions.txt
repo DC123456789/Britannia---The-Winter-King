@@ -656,10 +656,10 @@ decisions = {
 					}
 				}
 			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
 		}
 		
 		effect = {
-			set_global_flag = britannia_formalized_high_kingship
 			custom_tooltip = {
 				text = HK_britannia_formalize_high_kingship_tooltip
 			}
@@ -672,6 +672,88 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	HK_britannia_establish_central_mint = {			# Britannia reform 2
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_formalized_high_kingship
+			NOT = { has_global_flag = britannia_established_central_mint }
+		}
+		allow = {
+			is_feudal = yes
+			capital_holding = {
+				OR = {
+					holding_type = castle
+					holding_type = city
+				}
+			}
+			prestige = 5000
+			diplomacy = 10
+			stewardship = 12
+			wealth = 350
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.6
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			wealth = -350
+			custom_tooltip = {
+				text = HK_britannia_establish_central_mint_tooltip
+			}
+			tooltip = {
+				capital_holding = {
+					if = {
+						limit = { holding_type = castle }
+						add_building = ca_britannia_mint
+					}
+					else = {
+						add_building = ct_britannia_mint
+					}
+				}
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302915 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
 		only_independent = yes
 		is_high_prio = yes
