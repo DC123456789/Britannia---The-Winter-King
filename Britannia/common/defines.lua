@@ -1067,7 +1067,7 @@ NReligion = {
 	ELECTOR_TITLE_AT_CAPITAL_FACTOR = 100,
 	ELECTOR_FAMOUS_DYNASTY_FACTOR = 1,
 	ELECTOR_TRAITS_FACTOR = 1.0,					-- Effect of personality traits that the church likes
-	HERESY_TAKEOVER_PROVINCES = 5,					-- The number of provinces a heresy needs MORE than the current norm for it to become the new Orthodoxy
+	HERESY_TAKEOVER_PROVINCES = 10,					-- The number of provinces a heresy needs MORE than the current norm for it to become the new Orthodoxy
 	PAPAL_SUCCESSION_PASS_ON_HOLDINGS = 1,			-- Set to zero if holdings shouldn't be passed on
 	PAPAL_SUCCESSION_LOSE_MINOR_TITLES = 1,			-- Set to zero if minor religious titles should be lost
 	AUTHORITY_FROM_PIETY_CAP = 0.25,				-- Maxmimum boost to religious authority due to head's piety
@@ -1295,14 +1295,14 @@ NMilitary = {
 	LOOT_HOLDING_BUILDING_DEST_ODDS = 10,			-- there is a 1 in this chance a random building is destroyed when looted
 	SETTLED_ADVENTURER_MODIFIER_YEARS = 20,			-- How long provinces are spared from raiding after settling a raider adventurer.
 	
-	RETINUE_FROM_REALMSIZE = 6.0,
+	RETINUE_FROM_REALMSIZE = 9.0,
 	RETINUE_TITLE_MODIFIER = 0.35,
-	RETINUE_INCREASE_PER_TECH = 0.25,
+	RETINUE_INCREASE_PER_TECH = 0,
 	RETINUE_HIRE_COST_MULTIPLIER = 0.075,			-- Retinues are free to hire atm, but they cost a lot to reinforce
 	RETINUE_REINFORCE_RATE = 0.08,
 	RETINUE_REINFORCE_COST = 4.0,					-- Retinues cost while reinforcing.
 	RETINUE_CONSTANT_COST = 0.5, 					-- Retinues cost at all times.
-	MIN_RETINUE = 0,								-- Minimum retinue ( Disabled for now, can be enabled by mods )
+	MIN_RETINUE = 1200,								-- Minimum retinue ( Disabled for now, can be enabled by mods )
 	
 	TERRAIN_SPEC_BONUS = 0.25,						-- Bonus to fighting in this terrain if you have that terrain as your
 													-- terrain specialization ( gained through combat events in that terrrain )
@@ -1333,7 +1333,7 @@ NMilitary = {
 	LIGHT_INFANTRY_GRAPHICAL_FACTOR = 1,
 
 	HEAVY_INFANTRY_MORALE = 6,
-	HEAVY_INFANTRY_MAINTENANCE = 2,
+	HEAVY_INFANTRY_MAINTENANCE = 3,
 	HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 0.5,
 	HEAVY_INFANTRY_PHASE_MELEE_ATTACK = 6,
 	HEAVY_INFANTRY_PHASE_PURSUE_ATTACK = 3,
@@ -1363,7 +1363,7 @@ NMilitary = {
 	LIGHT_CAVALRY_GRAPHICAL_FACTOR = 1,
 	
 	KNIGHTS_MORALE = 8,
-	KNIGHTS_MAINTENANCE = 4,
+	KNIGHTS_MAINTENANCE = 5,
 	KNIGHTS_PHASE_SKIRMISH_ATTACK = 1.5,
 	KNIGHTS_PHASE_MELEE_ATTACK = 7,
 	KNIGHTS_PHASE_PURSUE_ATTACK = 10,
