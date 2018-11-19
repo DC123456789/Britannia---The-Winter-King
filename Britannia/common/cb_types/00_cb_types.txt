@@ -1,32 +1,5 @@
-## normal scopes(including posttitle scopes) ##
-# ROOT = receiver
-# FROM = giver
-# <no scope change> = attacker or receiver
-## title scopes ##
-# ROOT = receiver
-# FROM = giver
-# <no scope change> = thirdparty landed title	
-#
-# the following effects/triggers exists (example execution order: on_success->on_success_title->on_success_posttitle):
-# is_valid, is_valid_title, on_add, on_add_title, on_add_posttitle, on_success, on_success_title, on_success_posttitle, on_fail, on_fail_title, on_fail_posttitle, on_reverse_demand, on_reverse_demand_title, on_reverse_demand_posttitle
-#
-# Added on_attacker_leader_death, on_defender_leader_death and on_thirdparty_death, which all trigger when corresponding character dies
-# These three all have war scopes, which currently has the following scope changes: 
-# attacker, defender, thirdparty(only valid if thirdparty character is involved), thirdparty_title(only valid if thirdparty title is involved)
-#
-# ai_will_do: modifies value AI places on the CB compared to other CBs (default: 1) Note: is in title scope
-# can_use_gui: If otherwise valid, the CB is listed in the Diplo View, but you can't declare war unless 'can_use_gui' is also valid (also shows a trigger tooltip.)
-#
-
-# max_defender_occupation_score/max_attacker_occupation_score - Defines how much war score it is possible for the defender/attacker to gain by occupying provinces. Defaults to 100. Make sure the CB has ticking warscore if using this or you could end up with never-ending wars
-# max_defender_battle_score/max_attacker_battle_score - Defines how much score it is possible for the defender/attacker to gain by fighting battles. Defaults to the defines MAX_WARSCORE_FROM_BATTLE_DEFENDERS/MAX_WARSCORE_FROM_BATTLE_ATTACKERS
-# hostages_block_cb	- Defaults to "yes". If set to "no", the defender having close relatives of yours imprisoned does not prevent you from declaring war
-# attacker_unoccupied_warscore = yes - If attacker completely unoccupied, attacker will get ticking warscore. Only works if no title is targetted
-# defender_unoccupied_warscore = yes - If defender completely unoccupied, defender will get ticking warscore. Only works if no title is targetted
-# capturing_attacker_is_complete_victory - Whether capturing the attacker as a prisoner is considered automatic victory for the defender. Defaults to yes. If set to no, capture instead gives CAPTURED_HEIR_WAR_SCORE warscore
-# capturing_defender_is_complete_victory - Whether capturing the defender as a prisoner is considered automatic victory for the attacker. Defaults to yes. If set to no, capture instead gives CAPTURED_HEIR_WAR_SCORE warscore
-
 ### CLAIMS CBs ###
+# 0
 claim = {
 	name = CB_NAME_CLAIM
 	war_name = WAR_NAME_CLAIM
@@ -44,6 +17,8 @@ claim = {
 
 	infamy_modifier = 0.85
 	
+	sort_priority = 1000
+	
 	can_use_gui = {
 		ROOT = {
 			OR = {
@@ -58,6 +33,18 @@ claim = {
 	}
 	
 	can_use_title = {
+		OR = {
+			ROOT = { is_female = no }
+			AND = { 
+				NOT = { ROOT = { religion_group = muslim } }
+				NOT = { ROOT = { has_religion_feature = religion_patriarchal } } 
+			}
+		}
+		OR = {
+			ROOT = { is_female = yes }
+			NOT = { ROOT = { has_religion_feature = religion_matriarchal } } 
+		}
+		
 		OR = {
 			FROM = {
 				has_landed_title = PREV
@@ -89,8 +76,27 @@ claim = {
 					is_pretender = yes # Checks vs ROOT character
 					holder_scope = { has_regent = yes }
 					AND = {
-						ROOT = { OR = { is_female = no has_law = status_of_women_4 } }
-						holder_scope ={ AND = { is_female = yes NOR = { has_law = status_of_women_4 has_game_rule = { name = gender value = all } } } }
+						ROOT = { 
+							OR = { 
+								is_female = no 
+								has_law = status_of_women_4
+								has_religion_feature = religion_matriarchal
+								has_religion_feature = religion_equal
+								has_religion_feature = religion_feature_bon
+							} 
+						}
+						holder_scope = { 
+							AND = { 
+								is_female = yes 
+								NOR = { 
+									has_religion_feature = religion_matriarchal
+									has_religion_feature = religion_equal
+									has_religion_feature = religion_feature_bon
+									has_law = status_of_women_4 
+									has_game_rule = { name = gender value = all } 
+								} 
+							} 
+						}
 					}
 					is_contested = yes # Is already being contested in some form of Claim or Succession War
 				}
@@ -118,6 +124,7 @@ claim = {
 	}
 	
 	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 		ROOT = {
 			if = {
 				limit = { government = tribal_government }
@@ -126,8 +133,7 @@ claim = {
 		}
 	}
 	
-	on_success_title = {
-	
+	on_success_title = {	
 		hidden_tooltip = {
 			ROOT = {
 				clr_character_flag = claimant_adventurer
@@ -171,6 +177,7 @@ claim = {
 		}
 		
 		ROOT = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 		}
 		any_attacker = {
@@ -179,6 +186,7 @@ claim = {
 		}
 		
 		FROM = {
+			show_scope_change = no
 			prestige = -100
 		}
 		
@@ -192,9 +200,11 @@ claim = {
 
 	on_fail_title = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -100
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 		}
 		any_defender = {
@@ -222,6 +232,7 @@ claim = {
 
 	on_reverse_demand = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -150
 			transfer_scaled_wealth = {
 				to = FROM
@@ -229,6 +240,7 @@ claim = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 150
 		}
 		any_defender = {
@@ -254,9 +266,10 @@ claim = {
 	}
 
 	on_reverse_demand_title = {
-		#any_claim = {
-			remove_claim = ROOT
+		#any_claim = { #Does not work.
+			#remove_claim = ROOT
 		#}
+		ROOT = { show_scope_change = no remove_claim = PREV }
 		#ROOT = {
 		#	hidden_tooltip = {
 		#		disband_event_forces = yes
@@ -354,6 +367,7 @@ claim = {
 		}
 	}
 }
+# 1
 other_claim = {
 	name = CB_NAME_CLAIM
 	war_name = WAR_NAME_OTHER_CLAIM
@@ -367,6 +381,8 @@ other_claim = {
 	allowed_to_target_tributaries = no
 
 	infamy_modifier = 0.5
+	
+	sort_priority = 900
 	
 	can_use_gui = {
 		ROOT = {
@@ -384,7 +400,18 @@ other_claim = {
 	can_use_title = {
 		OR = {
 			ROOT = { is_female = no }
-			NOT = { succ_law_title = { has_law = agnatic_succession } }
+			AND = {
+				NOT = { ROOT = { religion_group = muslim } }
+				NOT = { ROOT = { has_religion_feature = religion_patriarchal } }
+				NOT = { succ_law_title = { has_law = agnatic_succession } }
+			}
+		}
+		OR = {
+			ROOT = { is_female = yes }
+			AND = {
+				NOT = { ROOT = { has_religion_feature = religion_matriarchal } }
+				NOT = { succ_law_title = { has_law = enatic_succession } }
+			}
 		}
 		OR = {
 			FROM = {
@@ -466,6 +493,7 @@ other_claim = {
 	}
 
 	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 		ROOT = {
 			if = {
 				limit = { government = tribal_government }
@@ -484,6 +512,7 @@ other_claim = {
 			}
 		}
 		ROOT = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 		}
 		any_attacker = {
@@ -491,6 +520,7 @@ other_claim = {
 			hidden_tooltip = { participation_scaled_prestige = 100 }
 		}
 		FROM = {
+			show_scope_change = no
 			prestige = -100
 		}
 	}
@@ -673,15 +703,19 @@ other_claim = {
 
 	on_fail_title = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -100
 		}
 		FROM = {
+			show_scope_change = no
 			FROM = {
+				show_scope_change = no
 				prestige = -100
 			}
 		}
 		
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 		}
 		any_defender = {
@@ -697,10 +731,12 @@ other_claim = {
 			value = 4.0
 		}
 		ROOT = {
+			show_scope_change = no
 			prestige = -150
 			imprison = FROM
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 150
 		}
 		any_defender = {
@@ -710,9 +746,7 @@ other_claim = {
 	}
 
 	on_reverse_demand_title = {
-		#any_claim = {
-			remove_claim = PREV
-		#}
+		ROOT = { show_scope_change = no remove_claim = PREV }
 	}
 
 	attacker_ai_victory_worth = {
@@ -748,6 +782,7 @@ other_claim = {
 		}
 	}
 }
+# 2
 claim_on_liege = {
 	name = CB_NAME_CLAIM
 	war_name = WAR_NAME_CLAIM_LIEGE
@@ -762,6 +797,8 @@ claim_on_liege = {
 	can_call_vassals = yes
 
 	infamy_modifier = 0.85
+	
+	sort_priority = 910
 	
 	can_use = {
 		FROM = {
@@ -816,6 +853,10 @@ claim_on_liege = {
 			ROOT = { has_character_flag = faction_claimant_ultimatum_taken }
 			ROOT = { has_character_flag = faction_claimant_war_allowed }
 		}
+	}
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
 	on_success = {
@@ -1041,6 +1082,7 @@ claim_on_liege = {
 		factor = 95
 	}
 }
+# 3
 claim_on_liege_plot = {
 	name = CB_NAME_CLAIM
 	war_name = WAR_NAME_CLAIM_LIEGE
@@ -1079,6 +1121,10 @@ claim_on_liege_plot = {
 				is_liege_or_above = FROM
 			}
 		}
+	}
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 
 	on_success = {
@@ -1277,6 +1323,8 @@ claim_on_liege_plot = {
 		factor = 95
 	}
 }
+
+# 4
 claim_on_vassal_plot = {
 	name = CB_NAME_CLAIM_VASSAL
 	war_name = WAR_NAME_CLAIM_VASSAL
@@ -1311,6 +1359,10 @@ claim_on_vassal_plot = {
 		ROOT = {
 			has_plot = plot_gain_vassal_title
 		}
+	}
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 
 	on_success = {
@@ -1393,6 +1445,8 @@ claim_on_vassal_plot = {
 		factor = 95
 	}
 }
+
+# 5
 other_claim_on_liege = {
 	name = CB_NAME_CLAIM
 	war_name = WAR_NAME_OTHER_CLAIM
@@ -1407,6 +1461,8 @@ other_claim_on_liege = {
 	allowed_to_target_tributaries = no
 
 	infamy_modifier = 0.5
+	
+	sort_priority = 850
 	
 	can_use = {
 		FROM = {
@@ -1462,6 +1518,10 @@ other_claim_on_liege = {
 				is_liege_or_above = FROM
 			}
 		}
+	}
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
 	on_invalidation = {
@@ -1810,6 +1870,8 @@ other_claim_on_liege = {
 		factor = 95
 	}
 }
+
+# 6
 claim_all = {
 	name = CB_NAME_CLAIM_ALL
 	war_name = WAR_NAME_CLAIM_ALL
@@ -1820,6 +1882,8 @@ claim_all = {
 	is_claim_all = yes
 	
 	allowed_to_target_tributaries = no
+	
+	sort_priority = 1100
 	
 	can_use_gui = {
 		ROOT = {
@@ -1853,6 +1917,23 @@ claim_all = {
 
 	on_add = {
 		ROOT = {
+			show_scope_change = no
+			any_claim = {
+				show_scope_change = no
+				limit = {
+					holder_scope = {
+						OR = {
+							character = FROM
+							is_liege_or_above = FROM
+						}
+					}
+					ROOT = { has_strong_claim = PREV }
+				}
+				press_claim = ROOT
+			}
+		}
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+		ROOT = {
 			if = {
 				limit = { government = tribal_government }
 				prestige = -300
@@ -1874,7 +1955,9 @@ claim_all = {
 
 	on_success = {
 		ROOT = {
+			show_scope_change = no
 			any_claim = {
+				show_scope_change = no
 				limit = {
 					holder_scope = {
 						OR = {
@@ -1939,6 +2022,7 @@ claim_all = {
 		}
 		
 		ROOT = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 		}
 		any_attacker = {
@@ -1956,9 +2040,11 @@ claim_all = {
 
 	on_fail = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -150
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 75
 		}
 		any_defender = {
@@ -1969,6 +2055,7 @@ claim_all = {
 
 	on_reverse_demand = {
 		ROOT = {
+			show_scope_change = no
 			prestige = -200
 			transfer_scaled_wealth = {
 				to = FROM
@@ -1984,10 +2071,11 @@ claim_all = {
 					}
 					ROOT = { has_strong_claim = PREV }
 				}
-				remove_claim = ROOT
+				ROOT = { show_scope_change = no remove_claim = PREV }
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 200
 		}
 		any_defender = {
@@ -2055,6 +2143,10 @@ change_seniority_succession_law = {
 			tier = king
 			is_primary_holder_title = yes
 		}
+	}	
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
 	on_invalidation = {
@@ -2121,12 +2213,14 @@ change_seniority_succession_law = {
 
 	on_fail = {
 		ROOT = {
+			show_scope_change = no
 			hidden_tooltip = { 
 				character_event = { id = 315911 } 
 			}
 			prestige = -100
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 50
 		}
 		any_defender = {
@@ -2149,6 +2243,7 @@ change_seniority_succession_law = {
 
 	on_reverse_demand = {
 		ROOT = {
+			show_scope_change = no
 			hidden_tooltip = { 
 				set_character_flag = faction_defeated
 				character_event = { id = 315911 } 
@@ -2157,6 +2252,7 @@ change_seniority_succession_law = {
 			prisoner = FROM
 		}
 		FROM = {
+			show_scope_change = no
 			participation_scaled_prestige = 100
 			hidden_tooltip = { 
 				if = { 
@@ -2229,6 +2325,10 @@ change_primogeniture_succession_law = {
 			tier = king
 			is_primary_holder_title = yes
 		}
+	}
+
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
 	on_invalidation = {
