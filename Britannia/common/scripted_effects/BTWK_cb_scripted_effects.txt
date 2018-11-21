@@ -15,6 +15,7 @@ county_conquest_on_success_title_effect = {
 	usurp_title_plus_barony_if_unlanded = ROOT
 	any_attacker = {
 		limit = { character = ROOT }
+		show_scope_change = no
 		participation_scaled_prestige = 100
 	}
 	any_attacker = {
@@ -41,10 +42,28 @@ county_conquest_on_success_title_effect = {
 		limit = { ROOT = { has_character_flag = foederate_revolt } }
 		hidden_tooltip = { ROOT = { character_event = {	id = 313038 } } }
 	}
+	
+	#To handle Warrior Lodge mission "Wage War" completion...
+	attacker = { save_event_target_as = attacker_target }
+	defender = { save_event_target_as = defender_target }
+
+	if = { 
+		limit = {
+			event_target:attacker_target = { has_quest = quest_warrior_lodge_war }
+			is_quest_target_of = event_target:attacker_target
+		}
+		event_target:attacker_target = {
+			show_scope_change = no
+			tooltip = { clr_quest = quest_warrior_lodge_war }
+			set_character_flag = won_war@event_target:defender_target
+			#character_event = { id = HF.10514 days = 3 } #Sent from on_action instead
+		}
+	}
 }
 
 county_conquest_on_fail_title_effect = {
 	ROOT = {
+		show_scope_change = no
 		prestige = -100
 	}
 	if = {
@@ -53,16 +72,35 @@ county_conquest_on_fail_title_effect = {
 	}
 	any_defender = {
 		limit = { character = FROM }
+		show_scope_change = no
 		participation_scaled_prestige = 50
 	}
 	any_defender = {
 		limit = { NOT = { character = FROM } }
 		hidden_tooltip = { participation_scaled_prestige = 50 }
 	}
+	
+	#To handle Warrior Lodge mission "Wage War" completion...
+	attacker = { save_event_target_as = attacker_target }
+	defender = { save_event_target_as = defender_target }
+
+	if = { 
+		limit = {
+			event_target:attacker_target = { has_quest = quest_warrior_lodge_war }
+			is_quest_target_of = event_target:attacker_target
+		}
+		event_target:attacker_target = {
+			show_scope_change = no
+			tooltip = { clr_quest = quest_warrior_lodge_war }
+			set_character_flag = white_peace@event_target:defender_target
+			#character_event = { id = HF.10514 days = 3 } #Sent from on_action instead
+		}
+	}
 }
 
 county_conquest_on_reverse_demand_effect = {
 	ROOT = {
+		show_scope_change = no
 		prestige = -200
 		transfer_scaled_wealth = {
 			to = FROM
@@ -75,11 +113,31 @@ county_conquest_on_reverse_demand_effect = {
 	}
 	any_defender = {
 		limit = { character = FROM }
+		show_scope_change = no
 		participation_scaled_prestige = 100
 	}
 	any_defender = {
 		limit = { NOT = { character = FROM } }
 		hidden_tooltip = { participation_scaled_prestige = 100 }
+	}
+}
+
+county_conquest_on_reverse_demand_title_effect = {
+	#To handle Warrior Lodge mission "Wage War" completion...
+	attacker = { save_event_target_as = attacker_target }
+	defender = { save_event_target_as = defender_target }
+
+	if = { 
+		limit = {
+			event_target:attacker_target = { has_quest = quest_warrior_lodge_war }
+			is_quest_target_of = event_target:attacker_target
+		}
+		event_target:attacker_target = {
+			show_scope_change = no
+			tooltip = { clr_quest = quest_warrior_lodge_war }
+			set_character_flag = lost_war@event_target:defender_target
+			#character_event = { id = HF.10514 days = 3 } #Sent from on_action instead
+		}
 	}
 }
 
