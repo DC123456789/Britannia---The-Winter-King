@@ -1,6 +1,81 @@
 # DO NOT ALTER THE NAME OR NUMBER OF THESE!
 
 succession_laws = {
+#	succ_my_test_law = {
+#		child_opinion = 15
+#		dynasty_opinion = 5
+#	
+#		potential = {
+#			holder_scope = {
+#				is_nomadic = no
+#				OR = {
+#					independent = yes
+#					NOT = {
+#						any_liege = {
+#							holy_order = yes
+#						}
+#					}
+#				}
+#				NOT = { religion_group = muslim }
+#				is_merchant_republic = no
+#				is_patrician = no
+#				OR = {
+#					independent = yes
+#					NOT = {
+#						any_demesne_title = {
+#							is_vice_royalty = yes
+#						}
+#					}
+#				}
+#			}
+#			OR = {
+#				is_landless_type_title = no
+#				is_tribal_type_title = yes
+#				temporary = yes
+#			}
+#			
+#			rebel = no
+#			
+#			OR = {
+#				holder_scope = { is_feudal = yes }
+#				holder_scope = { is_tribal = yes }
+#			}
+#			is_primary_type_title = no
+#			NOT = { holder_scope = { government = confucian_bureaucracy } }
+#			NOT = { holder_scope = { government = chinese_imperial_government } }
+#		}
+#		allow = {
+#			conditional_tooltip = {
+#				trigger = {
+#					has_dlc = "Conclave"
+#				}
+#				custom_tooltip = {
+#					text = forced_elective_tt
+#					hidden_tooltip = {
+#						NAND = { 
+#							has_law = succession_voting_power_1
+#							has_law = succ_feudal_elective
+#						}
+#					}
+#				}
+#			}
+#			holder_scope = {
+#				show_scope_change = no
+#				in_revolt = no
+#			}
+#		}
+#		effect = {
+#			succession = {
+#				base_type = feudal_elective 
+#				voting_rules = my_test_law #Definded in common/00_succession_voting
+#			}
+#			elective_voting_rules = my_test_law
+#		}
+#		revoke_allowed = {
+#			always = no
+#		}			
+#	}
+
 	succ_gavelkind = {
 		oldest_child_opinion = -10
 		child_opinion = 30
@@ -121,7 +196,10 @@ succession_laws = {
 			}
 		}
 		effect = {
-			succession = elective_gavelkind
+			succession = {
+				base_type = elective_gavelkind
+				voting_rules = elective_gavelkind
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -324,8 +402,10 @@ succession_laws = {
 					}
 				}
 			}
-			OR = {
-				NOT = { title = k_broceliande }
+			conditional_tooltip = {
+				trigger = {
+					title = k_broceliande
+				}
 				year = 650
 			}
 			custom_tooltip = {
@@ -471,14 +551,196 @@ succession_laws = {
 					}
 				}
 			}
-			OR = {
-				NOT = { has_global_flag = startup }
+			conditional_tooltip = {
+				trigger = { has_global_flag = startup }
 				holder_scope = { prestige = 1000 }
 			}
 			holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
 		}
 		effect = {
-			succession = feudal_elective
+			succession = {
+				base_type = feudal_elective
+				voting_rules = feudal_elective
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}			
+	}
+	
+	succ_byzantine_elective = {
+		oldest_child_opinion = -5
+		child_opinion = -5
+		dynasty_opinion = -5
+		feudal_opinion = -5
+		potential = {
+			holder_scope = {
+				is_roman_emperor_trigger = yes
+				NOT = { religion_group = muslim }
+				is_merchant_republic = no
+				is_patrician = no
+				is_roman_culture_trigger = yes
+				OR = {
+					independent = yes
+					NOT = {
+						any_demesne_title = {
+							is_vice_royalty = yes
+						}
+					}
+				}
+			}
+			OR = {
+				is_landless_type_title = no
+				is_tribal_type_title = yes
+				temporary = yes
+			}
+			is_primary_type_title = no
+
+		}
+		allow = {
+			custom_tooltip = {
+				text = not_forced_tt
+				hidden_tooltip = {
+					holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
+				}
+			}
+		}
+		effect = {
+			succession = {
+				base_type = feudal_elective
+				voting_rules = byzantine_elective
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}			
+	}
+	
+	succ_feudal_elective = {
+		oldest_child_opinion = -25
+		child_opinion = -10
+		dynasty_opinion = -5
+		vassal_opinion = 10
+		
+		potential = {
+			NOT = { title = d_roman_pagan }
+			OR = {
+				is_landless_type_title = no
+				is_tribal_type_title = yes
+			}
+			is_primary_type_title = no
+			NOT = { tier = baron }
+			OR = {
+				NOT = { tier = count }
+				is_tribal_type_title = yes
+			}
+			OR = {
+				title = e_britannia
+				holder_scope = {
+					is_feudal = yes
+					OR = {
+						independent = yes
+						NOT = {
+							any_demesne_title = {
+								is_vice_royalty = yes
+							}
+						}
+					}
+				}
+				AND = {
+					OR = {
+						higher_tier_than = DUKE
+						title = d_airgialla
+					}
+					holder_scope = {
+						is_tribal = yes
+						OR = {
+							culture = oldirish
+							culture = gaelic
+							culture = pictish
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			OR = {
+				title = e_britannia
+				holder_scope = {
+					OR = {
+						government = sub_roman_government
+						government = sub_roman_brythonic_government
+						government = imperial_government
+					}
+				}
+				AND = {
+					OR = {
+						higher_tier_than = DUKE
+						title = d_airgialla
+					}
+					holder_scope = {
+						is_tribal = yes
+						OR = {
+							culture = oldirish
+							culture = gaelic
+							culture = pictish
+						}
+					}
+				}
+				AND = {
+					OR = {
+						has_law = centralization_3
+						has_law = centralization_4
+					}
+					conditional_tooltip = {
+						trigger = {
+							NOT = { has_dlc = "Conclave" }
+						}
+						OR = {
+							hidden_tooltip = {
+								has_crown_law_title = no
+							}
+							crownlaw_title = {
+								OR = {
+									has_law = crown_authority_3
+									has_law = crown_authority_4
+								}
+							}
+						}
+					}
+					conditional_tooltip = {
+						trigger = {
+							has_dlc = "Conclave"
+						}
+						has_law = law_voting_power_0
+						has_law = out_of_realm_inheritance_law_1
+						OR = {
+							has_law = vassal_wars_law_1
+							has_law = vassal_wars_law_2
+						}
+						OR = {
+							has_law = revoke_title_law_1
+							has_law = revoke_title_law_2
+						}
+					}
+					holder_scope = {
+						capital_scope = { TECH_LEGALISM = 6 }
+						prestige = 3000
+						diplomacy = 12
+					}
+				}
+			}
+			conditional_tooltip = {
+				trigger = { has_global_flag = startup }
+				holder_scope = { prestige = 1000 }
+			}
+			holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
+		}
+		effect = {
+			succession = {
+				base_type = feudal_elective
+				voting_rules = feudal_elective
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -567,7 +829,7 @@ succession_laws = {
 		dynasty_opinion = 10
 		
 		potential = {
-			always = no
+			#always = no
 			holder_scope = {
 				is_tribal = no
 				is_merchant_republic = no
@@ -589,18 +851,18 @@ succession_laws = {
 			NOT = { tier = baron }
 			holder_scope = {
 				OR = {
-					is_north_germanic_trigger = yes
-					is_ingvaeonic_culture_trigger = yes
-					culture = pictish
-					culture = gaelic
-					culture = oldirish
-					culture = cumbrian
+					religion_group = muslim
+					AND = {
+						has_religion_feature = religion_patriarchal
+						is_theocracy = no
+					}
+					AND = {
+						has_religion_feature = religion_matriarchal
+						is_theocracy = no
+					}
 				}
+				NOT = { is_roman_emperor_trigger = yes }
 			}
-			NOT = { title = e_gaul }
-			NOT = { title = e_roman_britannia }
-			NOT = { title = e_britannia }
-			NOT = { title = e_aengland }
 			NOT = { title = e_ireland }
 			NOT = { title = d_roman_pagan }
 			OR = {

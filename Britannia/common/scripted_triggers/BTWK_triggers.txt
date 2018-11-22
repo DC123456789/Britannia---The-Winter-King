@@ -575,13 +575,17 @@ is_roman_pagan_or_reformed_trigger = {
 
 has_theocratic_religion_head_trigger = {
 	OR = {
+		AND = {
+			religion = alan_pagan_reformed
+			religion = tengri_pagan_reformed
+			religion = vasconic_pagan_reformed
+			has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+		}
 		religion_group = christian
 		religion_group = gnostic_group
 		religion = sol_invictus
-		religion = alan_pagan_reformed
-		religion = tengri_pagan_reformed
-		religion = vasconic_pagan_reformed
 	}
+	NOT = { has_religion_feature = religion_temporal_head }
 }
 
 is_jewish_settlement_region_trigger = {
@@ -1186,5 +1190,11 @@ is_defending_against_tributary_war = {
 		any_war = {
 			using_cb = tributary_britannia_subject_cb
 		}
+	}
+}
+
+has_feudal_elective_succession_law = {
+	OR = {
+		has_law = succ_feudal_elective
 	}
 }

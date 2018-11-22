@@ -20,9 +20,9 @@ feudal_governments = {
 		}
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -43,6 +43,7 @@ feudal_governments = {
 				}
 			}
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 0.45 0.35 0.62 }
@@ -77,6 +78,7 @@ feudal_governments = {
 		free_levies_in_offensive_war = yes
 		
 		can_grant_kingdoms_and_empires_to_other_government = yes
+		can_create_empires = no
 		
 		vassal_limit = 35
 		
@@ -111,9 +113,9 @@ feudal_governments = {
 		#}
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -133,6 +135,7 @@ feudal_governments = {
 			}
 			NOT = { is_government_potential = legion_government }
 			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 124 184 70 }
@@ -184,9 +187,9 @@ feudal_governments = {
 		# }
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -200,6 +203,7 @@ feudal_governments = {
 			}
 			NOT = { is_government_potential = legion_government }
 			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 0.6 0.7 0.3 }
@@ -255,9 +259,9 @@ feudal_governments = {
 		# }
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -275,6 +279,7 @@ feudal_governments = {
 				}
 			}
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 			OR = {
 				NOT = { is_government_potential = imperial_government }
 				trait = foederate
@@ -324,9 +329,9 @@ feudal_governments = {
 			imperial_government
 		}
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			primary_title = {
 				is_roman_legion_title_trigger = yes
@@ -365,9 +370,9 @@ feudal_governments = {
 			imperial_government
 		}
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -382,6 +387,7 @@ feudal_governments = {
 			}
 			NOT = { is_government_potential = imperial_government }
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 91 133 207 }
@@ -397,6 +403,89 @@ feudal_governments = {
 			tribal_government
 		}
 		capital_move_delay = 600
+	}
+	
+	order_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			TRIBAL
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			feudal_government
+			sub_roman_government
+			sub_roman_brythonic_government
+			germanic_government
+			imperial_government
+			muslim_government
+			theocracy_government
+		}
+		free_revoke_on_governments = {
+			order_government
+		}
+		free_revoke_on_tiers = {
+			BARON
+		}
+
+		forced_contract = {
+			order_government
+		}
+
+		frame_suffix = "_order"
+		title_prefix = "order_"
+
+		potential = {
+			OR = {
+				holy_order = yes
+				AND = {
+					any_liege = {
+						holy_order = yes
+						religion = ROOT
+					}
+					ai = yes
+					NAND = { 
+						is_government_potential = merchant_republic_government 
+						OR = {
+							tier = DUKE
+							is_patrician = yes
+						}
+						any_demesne_province = {
+							any_province_holding = {
+								OR = {
+									AND = {
+										tier = BARON
+										holding_type = family_palace
+									}
+									AND = {
+										NOT = {
+											tier = BARON
+										}
+										holding_type = city
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		color = { 169 169 169 }
+
+		have_gender_laws = no
+		can_create_kingdoms = no
+		can_create_empires = no
+		can_imprison_without_reason = no
+		can_revoke_without_reason = no
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+		can_usurp_kingdoms_and_empires = no
+		can_grant_kingdoms_and_empires_to_other_government = no
+		can_be_granted_kingdoms_and_empires_by_other_government = no
+		can_inherit = no
+		free_retract_vassalage = yes
 	}
 	
 	muslim_government = {
@@ -419,13 +508,14 @@ feudal_governments = {
 		}
 		frame_suffix = "_iqta"
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			religion_group = muslim
 			is_patrician = no
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 10 138 57 }

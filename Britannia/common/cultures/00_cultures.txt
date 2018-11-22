@@ -6,6 +6,8 @@
 # Culture modifiers: modifier (applies to provinces), character_modifier, and settlement modifiers.
 # The ID of the modifier can be defined here (E.G., modifier = modifier_name or character_modifier = modifier_name), while the effect of it must be defined in static_modifiers.txt, and the localisation in localisation. For the settlement modifiers you don't need to (and can't) define the ID; it defaults to culture name + settlement type. E.G., norse_temple
 
+# nomadic_in_alt_start = yes - Will be Nomadic if the "Tribal & Nomadic" option is taken in the alt-start generation
+
 celtic = {
 	graphical_cultures = { westerngfx }
 	
@@ -125,6 +127,12 @@ celtic = {
 
 	armorican = {
 		graphical_cultures = { celticgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 580 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.75 0.75 0.75 }
 		
@@ -167,6 +175,12 @@ celtic = {
 	
 	breton = {
 		graphical_cultures = { celticgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 580 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.3 0.5 0.4 }
 		
@@ -435,6 +449,12 @@ germanic = {
 
 	anglosaxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.65 0.15 0.1 }
 		
@@ -495,7 +515,16 @@ germanic = {
 	}
 	
 	oldfrisian = {
-		graphical_cultures = { saxongfx frankishgfx }
+		graphical_cultures = { saxongfx germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				AND = {
+					year >= 520 
+					year < 700
+				}
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.82 0.73 0.37 }
 		
@@ -539,7 +568,13 @@ germanic = {
 	}
 	
 	frisian = {
-		graphical_cultures = { saxongfx frankishgfx }
+		graphical_cultures = { saxongfx germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.75 0.69 0.33 }
 		
@@ -589,6 +624,12 @@ germanic = {
 	
 	oldfrankish = {
 		graphical_cultures = { frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 650
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.8 0.6 0.2 }
 		male_names = {
@@ -650,6 +691,15 @@ germanic = {
 	
 	frankish = {
 		graphical_cultures = { frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				AND = {
+					year >= 650
+					year < 800
+				}
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.78 0.67 0.22 }
 		male_names = {
@@ -704,6 +754,12 @@ germanic = {
 	
 	dutch = {
 		graphical_cultures = { frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.96 0.39 0.08 }
 		
@@ -750,6 +806,12 @@ germanic = {
 	
 	franconian = {
 		graphical_cultures = { frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.64 0.56 0.28 }
 		male_names = {
@@ -832,6 +894,12 @@ germanic = {
 	
 	oldthuringian = {
 		graphical_cultures = { germangfx saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.60 0.41 0.42 }
 		
@@ -876,6 +944,12 @@ germanic = {
 	
 	thuringian = {
 		graphical_cultures = { germangfx saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.62 0.39 0.4 }
 		
@@ -920,6 +994,12 @@ germanic = {
 	
 	oldsaxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 72 11 32 }
 		
@@ -977,6 +1057,12 @@ germanic = {
 	
 	saxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 65 13 30 }
 		
@@ -1040,6 +1126,12 @@ germanic = {
 	
 	jute = {				#æ->e
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 147 115 4 }
 		
@@ -1087,6 +1179,12 @@ germanic = {
 	
 	angle = {				#æ->e
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 156 49 3 }
 		
@@ -1289,6 +1387,12 @@ germanic = {
 	
 	dane = {
 		graphical_cultures = { norsegfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 770
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.3 0.6 0.8 }
 
@@ -1362,6 +1466,12 @@ germanic = {
 	
 	proto_norse = {
 		graphical_cultures = { norsegfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 770
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.4 0.4 0.4 }
 
@@ -1420,6 +1530,9 @@ germanic = {
 
 	norse_gael = {
 		graphical_cultures = { norsegfx celticgfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
@@ -1499,6 +1612,9 @@ germanic = {
 	
 	vandal = {
 		graphical_cultures = { occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1544,6 +1660,9 @@ germanic = {
 	
 	suebic = {
 		graphical_cultures = { alangfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1684,6 +1803,12 @@ germanic = {
 	
 	oldalemannic = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.42 0.53 0.37 }
 		male_names = {
@@ -1730,6 +1855,12 @@ germanic = {
 	
 	alemannic = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		used_for_random = no
 		
@@ -1778,6 +1909,13 @@ germanic = {
 	
 	oldbavarian = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			#OR = {
+				#year < 750
+				#has_alternate_start_parameter = { key = culture value = full_random }
+			#}
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1824,6 +1962,13 @@ germanic = {
 	
 	bavarian = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			#OR = {
+				#year >= 750
+				#has_alternate_start_parameter = { key = culture value = full_random }
+			#}
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1910,6 +2055,10 @@ altaic = {
 
 	hunnic = {
 		graphical_cultures = { mongolgfx }
+		alternate_start = {
+			always = no
+		}
+		
 		horde = yes
 		
 		used_for_random = no
@@ -1941,6 +2090,7 @@ altaic = {
 		allow_in_ruler_designer = no
 		
 		modifier = default_culture_modifier
+		nomadic_in_alt_start = yes
 	}
 	
 }
@@ -1950,6 +2100,9 @@ imperiale = {
 
 	roman = {
 		graphical_cultures = { romangfx italiangfx southerngfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.45 0.35 0.62 }
 		
@@ -2377,6 +2530,9 @@ imperiale = {
 		
 	romanoscandian = {
 		graphical_cultures = { occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2431,6 +2587,9 @@ imperiale = {
 		
 	romanonumidian = {
 		graphical_cultures = { berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2474,6 +2633,9 @@ imperiale = {
 	
 	romanoafrican = {
 		graphical_cultures = { berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2517,6 +2679,9 @@ imperiale = {
 	
 	romanohispanic = {
 		graphical_cultures = { southerngfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2579,6 +2744,9 @@ imperiale = {
 	
 	romanoillyrian = {
 		graphical_cultures = { croatsouthslavicgfx westernslavicgfx easterngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2641,6 +2809,9 @@ imperiale = {
 	
 	armenian = {
 		graphical_cultures = { byzantinegfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.51 0.37 0.51 }
 		
@@ -2675,6 +2846,9 @@ imperiale = {
 	
 	greek = {
 		graphical_cultures = { byzantinegfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.65 0.43 0.65 }
 
@@ -2727,6 +2901,9 @@ imperiale = {
 	
 	romanosyrian = {
 		graphical_cultures = { levantinegfx arabicgfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2770,6 +2947,9 @@ imperiale = {
 	
 	romanothracian = {
 		graphical_cultures = { serbsouthslavicgfx westernslavicgfx easterngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2836,6 +3016,12 @@ romance = {
 	
 	french = {
 		graphical_cultures = { frankishgfx } 
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.8 0.8 0.2 }
 		male_names = {
@@ -2876,6 +3062,12 @@ romance = {
 	}
 	occitan = {
 		graphical_cultures = { occitangfx }
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.9 0.9 0.4 }
 
@@ -2915,6 +3107,12 @@ romance = {
 	}
 	arpitan = {
 		graphical_cultures = { occitangfx }
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.87 0.76 0.43 }
 
@@ -2955,6 +3153,9 @@ romance = {
 	
 	gallo_burgundian = {
 		graphical_cultures = { occitangfx westerngfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
@@ -3009,6 +3210,9 @@ romance = {
 	}
 	norman = {
 		graphical_cultures = { normangfx }
+		alternate_start = {
+			always = no
+		}
 
 		color = { 0.8 0.7 0.1 }
 		
@@ -3057,6 +3261,9 @@ african = {
 
 	numidian = {
 		graphical_cultures = { berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -3086,6 +3293,9 @@ israelite = {
 
 	hebrew = {
 		graphical_cultures = { byzantinegfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.6 0.3 0.6 }
 
@@ -3120,6 +3330,9 @@ arabic = {
 	
 	bedouin_arabic = { 
 		graphical_cultures = { arabicgfx muslimgfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
