@@ -1597,6 +1597,134 @@ gender_equality_trigger = {
 	}
 }
 
+male_can_hold_minor_title_trigger = {
+	trigger_if = {
+		limit = {
+			NOT = {
+				has_game_rule = {
+					name = gender
+					value = all
+				}
+			}
+		}
+		is_female = no
+		custom_tooltip = {
+			text = tooltip_not_matriarchal_liege_religion_feature
+			NOR = {
+				has_religion_feature = religion_matriarchal
+				liege = {
+					has_religion_feature = religion_matriarchal
+				}
+			}
+		}
+	}
+}
+
+female_can_hold_minor_title_trigger = {
+	trigger_if = {
+		limit = {
+			NOT = {
+				has_game_rule = {
+					name = gender
+					value = all
+				}
+			}
+		}
+		is_female = yes
+		OR = {
+			custom_tooltip = {
+				text = tooltip_feminist_liege_vanilla_religion
+				AND = {
+					is_feminist_religion_trigger = yes
+					liege = { religion = ROOT }
+				}
+			}
+			custom_tooltip = {
+				text = tooltip_feminist_liege_religion_feature
+				AND = {
+					OR = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_matriarchal
+					}
+					liege = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_matriarchal
+					}
+				}
+			}
+			primary_title = {
+				OR = {
+					has_law = status_of_women_4 
+					has_law = status_of_women_3 
+				}
+			}
+			liege = {
+				primary_title = {
+					OR = {
+						has_law = status_of_women_4
+						has_law = status_of_women_3
+					}
+				}
+			}
+		}
+	}
+}
+
+female_can_hold_minor_commander_title_trigger = {
+	trigger_if = {
+		limit = {
+			NOT = {
+				has_game_rule = {
+					name = gender
+					value = all
+				}
+			}
+		}
+		is_female = yes
+		OR = {
+			has_character_flag = special_marshal
+			AND = {
+				trait = shieldmaiden
+				liege = { religion = ROOT }
+			}
+			AND = {
+				is_member_of_any_warrior_lodge_trigger = yes
+				liege = { religion = ROOT }
+			}
+			trigger_if = {
+				limit = {
+					liege = { religion = ROOT }
+				}
+				AND = {
+					religion = promethean_pagan
+					liege = { religion = ROOT }
+				}
+			}
+			custom_tooltip = {
+				text = tooltip_feminist_liege_religion_feature
+				AND = {
+					OR = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_matriarchal
+					}
+					liege = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_matriarchal
+					}
+				}
+			}
+			primary_title = {
+				has_law = status_of_women_4 
+			}
+			liege = {
+				primary_title = {
+					has_law = status_of_women_4
+				}
+			}
+		}
+	}
+}
+
 has_minor_deity_trigger = {
 	OR = {
 		has_character_modifier = follower_of_perun

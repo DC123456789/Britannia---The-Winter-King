@@ -773,10 +773,17 @@ succession_laws = {
 			holder_scope = {
 				is_tribal = no
 				is_theocracy = no
-				culture_group = celtic
-				NOT = { culture = romanobritish }
-				NOT = { culture = armorican }
-				NOT = { culture = breton }
+				OR = {
+					AND = {
+						culture_group = celtic
+						NOT = { culture = romanobritish }
+						NOT = { culture = armorican }
+						NOT = { culture = breton }
+					}
+					any_owned_bloodline = {
+						has_bloodline_flag = bloodline_tanistry
+					}
+				}
 				OR = {
 					independent = yes
 					NOT = {
@@ -797,7 +804,10 @@ succession_laws = {
 			holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
 		}
 		effect = {
-			succession = tanistry
+			succession = {
+				base_type = tanistry
+				voting_rules = tanistry
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -1056,6 +1066,10 @@ succession_laws = {
 gender_laws = {
 	cognatic_succession = {
 		potential = {
+			holder_scope = {
+				NOT = { has_religion_feature = religion_matriarchal }
+				NOT = { has_religion_feature = religion_equal }
+			}
 			is_landless_type_title = no
 			is_primary_type_title = no
 			OR = {
@@ -1182,7 +1196,10 @@ gender_laws = {
 		female_dynasty_opinion = -10
 	
 		potential = {
-			always = yes
+			holder_scope = { 
+				NOT = { has_religion_feature = religion_matriarchal } 
+				NOT = { has_religion_feature = religion_equal }
+			}
 		}
 		effect = {
 			gender_succ = agnatic
@@ -1199,9 +1216,12 @@ gender_laws = {
 		male_dynasty_opinion = -10
 		
 		potential = {
+			holder_scope = { NOT = { has_religion_feature = religion_matriarchal } }
+			holder_scope = { NOT = { has_religion_feature = religion_patriarchal } }
 			OR = {
 				holder_scope = { religion = promethean_pagan }
 				holder_scope = { culture = vasconian }
+				holder_scope = { has_religion_feature = religion_equal }
 				AND = {
 					has_dlc = "Zeus"
 					has_game_rule = {
@@ -1261,13 +1281,19 @@ gender_laws = {
 		allow = {
 			OR = {
 				holder_scope = {
-					is_merchant_republic = no
-					is_patrician = no
+					is_theocracy = no
+					OR = {
+						is_republic = no
+						is_patrician = yes
+					}
 				}
 				ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
 				has_game_rule = {
 					name = gender
 					value = all
+				}
+				holder_scope = {
+					has_religion_feature = religion_equal
 				}
 			}
 		}
@@ -1277,14 +1303,33 @@ gender_laws = {
 		}
 		revoke_allowed = {
 			always = no
-		}			
+		}
+		default_selection = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.1
+				NOT = {
+					holder_scope = {
+						has_religion_feature = religion_equal
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 100
+				holder_scope = {
+					has_religion_feature = religion_equal
+				}
+			}
+		}		
 	}
 	enatic_succession = {
 		male_dynasty_opinion = -20
 		female_dynasty_opinion = 20
 		
 		potential = {
-			always = no
+			holder_scope = { has_religion_feature = religion_matriarchal }
 		}
 		allow = {
 			always = yes
@@ -1294,7 +1339,10 @@ gender_laws = {
 		}
 		revoke_allowed = {
 			always = no
-		}			
+		}	
+		default_selection = {
+			factor = 1			
+		}		
 	}
 	
 	enatic_cognatic_succession = {
@@ -1302,7 +1350,14 @@ gender_laws = {
 		female_dynasty_opinion = 10
 		
 		potential = {
-			always = no
+			holder_scope = {
+				OR = {
+					has_religion_feature = religion_matriarchal
+					any_owned_bloodline = {
+						has_bloodline_flag = bloodline_enatic_cognatic 
+					}
+				}
+			}
 		}
 		allow = {
 			always = yes
@@ -1312,6 +1367,35 @@ gender_laws = {
 		}
 		revoke_allowed = {
 			always = no
-		}			
+		}
+		default_selection = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					holder_scope = {
+						OR = {
+							has_religion_feature = religion_matriarchal
+							any_owned_bloodline = {
+								has_bloodline_flag = bloodline_enatic_cognatic 
+							}
+						}
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 100
+				holder_scope = {
+					OR = {
+						has_religion_feature = religion_matriarchal
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_enatic_cognatic 
+						}
+					}
+				}
+			}
+		}		
 	}
 }
