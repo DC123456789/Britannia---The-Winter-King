@@ -8,6 +8,10 @@ secret_religion_visibility_trigger = {
 	secret_religion = FROM
 }
 
+# women_can_take_consorts = yes # If set, women can take consorts as well, not just men. Defaults to "no". Has no effect if max_consorts is 0
+# men_can_take_consorts = no # If set, men cannot take consorts any more. Defaults to "yes". Has no effect if max_consorts is 0
+# male_temple_holders = no # If set to no, men cannot hold temples. Defaults to "yes". You might need to update your law scripts for this to fully work (see trigger "religion_allows_male_temple_holders")
+
 christian = {
 	has_coa_on_barony_only = yes
 	graphical_culture = westerngfx
@@ -83,6 +87,8 @@ christian = {
 		}
 		nestorian = {
 			graphical_culture = westerngfx
+			alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
+			
 			icon = 46
 			heresy_icon = 47
 			color = { 0.69 0.60 0.81 }
@@ -160,6 +166,8 @@ christian = {
 		
 		gnostic = {
 			graphical_culture = westerngfx
+			alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
+			
 			icon = 41
 			heresy_icon = 40
 			color = { 0.75 0.85 0.91 }
@@ -191,12 +199,20 @@ muslim = {
 	
 	color = { 0 0.6 0 }
 	
+	interface_skin = { muslim_interface }
+	
 	male_names = {
 		Khalid Muhammed Ahmad Uthman Ali Abu-Bakr Abdallah Hasan Hussayn
+	}
+	
+	# Names given only to Muslim characters (base names)
+	female_names = {
+		Ayesha Abrar Afifah Anabia Hijrah Hind Hareem Iqra Judi Karida Khadijah Khalidah Khawlah Madeeha Maryam Mariyah Maymunah Mariam Mina Nuwwarrah Qismah Ruqayyah Saba Safaa Safiyyah Salma Shahrazad Sirin Sumaiyah Thuwaibah Umamah Zainab Zubaidah Zainab 
 	}
 
 	sunni = {
 		graphical_culture = muslimgfx
+		alternate_start = { always = no }
 
 		icon = 3
 		heresy_icon = 8
@@ -235,6 +251,8 @@ muslim = {
 	}	
 	ibadi = {
 		graphical_culture = muslimgfx
+		alternate_start = { always = no }
+		
 		icon = 3
 		heresy_icon = 8
 		
@@ -273,6 +291,7 @@ muslim = {
 	}
 	shiite = {
 		graphical_culture = muslimgfx
+		alternate_start = { always = no }
 
 		icon = 4
 		heresy_icon = 8
@@ -313,7 +332,8 @@ muslim = {
 
 pagan_group = {
 	has_coa_on_barony_only = yes
-	graphical_culture = westerngfx
+	graphical_culture = norsegfx
+	
 	playable = yes
 	ai_peaceful = no
 	ai_convert_same_group = 1 # try to convert if ai_zeal is high
@@ -328,8 +348,11 @@ pagan_group = {
 	
 	color = { 0.3 0.6 0.3 }
 	
+	interface_skin = { pagan_interface }
+	
 	briton_pagan_reformed = { 	# Old Gods / Druidic Religion
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 17
 		heresy_icon = 15
@@ -348,7 +371,7 @@ pagan_group = {
 		
 		god_names = {
 			GOD_BEL GOD_NODENS GOD_TARANIS
-			GOD_LUGUS
+			GOD_LUGUS GOD_MODRON GOD_DON
 		}
 		evil_god_names = {
 			EVIL_ADDANC EVIL_CYTHRAWL
@@ -395,7 +418,7 @@ pagan_group = {
 		high_god_name = HIGH_GOD_BEL
 		god_names = {
 			GOD_BEL GOD_NODENS GOD_TARANIS
-			GOD_LUGUS
+			GOD_LUGUS GOD_MODRON GOD_DON
 		}
 		evil_god_names = {
 			EVIL_ADDANC EVIL_CYTHRAWL
@@ -428,6 +451,7 @@ pagan_group = {
 	}
 	pict_pagan_reformed = {
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 		
 		icon = 45
 		heresy_icon = 18
@@ -457,7 +481,6 @@ pagan_group = {
 		}
 		max_consorts = 2
 		allow_looting = yes
-		allow_rivermovement = yes
 		investiture = no		
 		can_excommunicate = no
 		can_grant_divorce = yes
@@ -467,7 +490,7 @@ pagan_group = {
 		priests_can_marry = yes
 		#can_hold_temples = yes
 		female_temple_holders = yes
-		feminist = yes
+		#feminist = yes
 		aggression = 2.0 # AI aggression factor		
 		
 		#religious_clothing_head = 3
@@ -546,6 +569,7 @@ pagan_group = {
 	}
 	gael_pagan_reformed = {
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 44
 		heresy_icon = 16
@@ -569,14 +593,14 @@ pagan_group = {
 		high_god_name = HIGH_GOD_DAGHDA
 		god_names = {
 			GOD_BEL GOD_DAGHDA GOD_LUGUS GOD_NODENS
-			GOD_TARANIS
+			GOD_TARANIS GOD_BRIGIT GOD_MORRIGAN
 		}
 		evil_god_names = {
 			THE_FOMORIANS EVIL_BALOR EVIL_BRES
 		}
 		max_consorts = 2
 		allow_looting = yes
-		allow_rivermovement = yes
+		#allow_rivermovement = yes
 		investiture = no
 		can_excommunicate = no
 		can_grant_divorce = yes
@@ -624,7 +648,7 @@ pagan_group = {
 		high_god_name = HIGH_GOD_DAGHDA
 		god_names = {
 			GOD_BEL GOD_DAGHDA GOD_LUGUS GOD_NODENS
-			GOD_TARANIS
+			GOD_TARANIS GOD_BRIGIT GOD_MORRIGAN
 		}
 		evil_god_names = {
 			THE_FOMORIANS EVIL_BALOR EVIL_BRES
@@ -661,6 +685,7 @@ pagan_group = {
 	}
 	germanic_pagan_reformed = { 
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 26
 		heresy_icon = 27
@@ -684,7 +709,7 @@ pagan_group = {
 		}
 		
 		allow_looting = yes
-		allow_rivermovement = yes
+		#allow_rivermovement = yes
 		female_temple_holders = yes
 		max_consorts = 2
 		
@@ -709,7 +734,7 @@ pagan_group = {
 		scripture_name = THE_SCOPS
 		priests_can_marry = yes
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		allow_in_ruler_designer = no
@@ -792,6 +817,7 @@ pagan_group = {
 	}
 	frankish_pagan_reformed = { 
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 51
 		heresy_icon = 50
@@ -839,7 +865,7 @@ pagan_group = {
 		scripture_name = THE_GODSBOOK
 		priests_can_marry = yes
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		allow_in_ruler_designer = no
@@ -921,6 +947,7 @@ pagan_group = {
 	}
 	suebic_pagan_reformed = { 
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 53
 		heresy_icon = 52
@@ -953,7 +980,7 @@ pagan_group = {
 		priest_title = PRIEST
 		high_god_name = GOD_WOTAN
 		god_names = {
-			GOD_DONAR GOD_ZIU GOD_NERTHUSSUEBIC GOD_FROUWA GOD_FROUWO
+			GOD_WOTAN GOD_DONAR GOD_ZIU GOD_NERTHUSSUEBIC GOD_FROUWA GOD_FROUWO
 			GOD_INGWIN
 		}
 		evil_god_names = {
@@ -968,7 +995,7 @@ pagan_group = {
 		scripture_name = THE_TALKING_LEAVES
 		priests_can_marry = yes
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		allow_in_ruler_designer = no
@@ -1020,7 +1047,7 @@ pagan_group = {
 		priest_title = PRIEST
 		high_god_name = GOD_WOTAN
 		god_names = {
-			GOD_DONAR GOD_ZIU GOD_NERTHUSSUEBIC GOD_FROUWA GOD_FROUWO
+			GOD_WOTAN GOD_DONAR GOD_ZIU GOD_NERTHUSSUEBIC GOD_FROUWA GOD_FROUWO
 			GOD_INGWIN
 		}
 		evil_god_names = {
@@ -1050,6 +1077,7 @@ pagan_group = {
 	}
 	gothic_pagan_reformed = { 
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 55
 		heresy_icon = 54
@@ -1082,7 +1110,7 @@ pagan_group = {
 		priest_title = PRIEST
 		high_god_name = GOD_GAPT
 		god_names = {
-			GOD_TEIWS GOD_FAIRGUNEIS GOD_FRAUJO GOD_FRAUJA
+			GOD_GAPT GOD_TEIWS GOD_FAIRGUNEIS GOD_FRAUJO GOD_FRAUJA
 			GOD_ENGUZ GOD_DONAWS
 		}
 		evil_god_names = {
@@ -1097,7 +1125,7 @@ pagan_group = {
 		scripture_name = THE_GODSBOOK
 		priests_can_marry = yes
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		allow_in_ruler_designer = no
@@ -1181,6 +1209,7 @@ pagan_group = {
 	norse_pagan_reformed = {
 		graphical_culture = norsegfx
 		secondary_event_pictures = norse_pagan
+		alternate_start = { always = no }
 
 		icon = 20
 		heresy_icon = 21
@@ -1220,7 +1249,7 @@ pagan_group = {
 		priests_can_marry = yes
 		
 		allow_looting = yes
-		allow_rivermovement = yes
+		#allow_rivermovement = yes
 		female_temple_holders = yes
 		#seafarer = yes					# Culture based
 		
@@ -1228,7 +1257,7 @@ pagan_group = {
 		
 		max_consorts = 3
 		
-		religious_clothing_head = 3
+		religious_clothing_head = 15
 		religious_clothing_priest = 3
 		
 		intermarry = christian
@@ -1308,6 +1337,7 @@ pagan_group = {
 	
 	alan_pagan_reformed = { 	
 		graphical_culture = mongolgfx
+		alternate_start = { always = no }
 
 		icon = 48
 		heresy_icon = 49
@@ -1345,7 +1375,7 @@ pagan_group = {
 		scripture_name = THE_NART_SAGAS
 		priests_can_marry = yes
 		
-		religious_clothing_head = 6
+		religious_clothing_head = 5
 		religious_clothing_priest = 4
 		
 		allow_in_ruler_designer = no
@@ -1405,7 +1435,7 @@ pagan_group = {
 		dislike_tribal_organization = yes
 		can_demand_religious_conversion = no
 		
-		religious_clothing_head = 6
+		religious_clothing_head = 5
 		religious_clothing_priest = 4
 		
 		intermarry = christian
@@ -1418,6 +1448,7 @@ pagan_group = {
 	
 	tengri_pagan_reformed = { # Mongols
 		graphical_culture = mongolgfx
+		alternate_start = { always = no }
 		
 		secondary_event_pictures = tengri_pagan
 
@@ -1456,7 +1487,7 @@ pagan_group = {
 		
 		aggression = 2.0 # AI aggression factor
 		
-		religious_clothing_head = 6
+		religious_clothing_head = 13
 		religious_clothing_priest = 4
 		
 		allow_in_ruler_designer = no
@@ -1464,6 +1495,7 @@ pagan_group = {
 	
 	tengri_pagan = {
 		graphical_culture = mongolgfx
+		alternate_start = { always = no }
 
 		icon = 42
 		heresy_icon = 44
@@ -1504,7 +1536,7 @@ pagan_group = {
 		
 		aggression = 2.0 # AI aggression factor
 		
-		religious_clothing_head = 6
+		religious_clothing_head = 13
 		religious_clothing_priest = 4
 		
 		allow_in_ruler_designer = no
@@ -1519,6 +1551,7 @@ pagan_group = {
 	
 	vasconic_pagan_reformed = { # Basques
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 63
 		heresy_icon = 64
@@ -1528,7 +1561,7 @@ pagan_group = {
 		high_god_name = GOD_MARI
 
 		god_names = {
-			GOD_SUGAR GOD_LURBIRA GOD_EKI GOD_ILARGIA GOD_URTZI
+			GOD_SUGAR GOD_LURBIRA GOD_EKI GOD_ILARGIA GOD_URTZI GOD_ORKO GOD_EATE
 		}
     
 		evil_god_names = {
@@ -1540,7 +1573,7 @@ pagan_group = {
 		
 		priests_can_marry = yes
 		female_temple_holders = yes
-		feminist = yes
+		#feminist = yes
 		max_consorts = 3
 		
 		peace_prestige_loss = no 
@@ -1575,7 +1608,7 @@ pagan_group = {
 		high_god_name = GOD_MARI
 
 		god_names = {
-			GOD_SUGAR GOD_LURBIRA GOD_EKI GOD_ILARGIA GOD_URTZI
+			GOD_SUGAR GOD_LURBIRA GOD_EKI GOD_ILARGIA GOD_URTZI GOD_ORKO GOD_EATE
 		}
     
 		evil_god_names = {
@@ -1628,6 +1661,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 	
 	color = { 0.5 0.4 0.6 }
 
+	interface_skin = { hellenic_interface }
+	
 	roman_pagan = {
 		graphical_culture = westerngfx
 
@@ -1675,8 +1710,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 		female_temple_holders = yes
 		psc_marriage = yes
 		
-		religious_clothing_head = 5
-		religious_clothing_priest = 5
+		religious_clothing_head = 12
+		religious_clothing_priest = 11
 		
 		intermarry = christian
 		intermarry = pagan_group
@@ -1687,6 +1722,7 @@ zoroastrian_group = {			# Imperial (Roman) Group
 	
 	roman_pagan_reformed = {
 		graphical_culture = westerngfx
+		alternate_start = { always = no }
 
 		icon = 58
 		heresy_icon = 59
@@ -1711,8 +1747,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 		psc_marriage = yes
 		#max_consorts = 3
 		
-		religious_clothing_head = 5
-		religious_clothing_priest = 5
+		religious_clothing_head = 12
+		religious_clothing_priest = 11
 
 		allow_in_ruler_designer = no
 		
@@ -1725,6 +1761,7 @@ zoroastrian_group = {			# Imperial (Roman) Group
 	
 	sol_invictus = {
 		graphical_culture = westerngfx
+		alternate_start = { always = no }
 
 		icon = 60
 		heresy_icon = 61
@@ -1749,8 +1786,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 		female_temple_holders = yes
 		psc_marriage = yes
 		
-		religious_clothing_head = 5
-		religious_clothing_priest = 5
+		religious_clothing_head = 12
+		religious_clothing_priest = 11
 
 		allow_in_ruler_designer = no
 		
@@ -1763,6 +1800,7 @@ zoroastrian_group = {			# Imperial (Roman) Group
 
 	titan_pagan = {
 		graphical_culture = norsegfx
+		alternate_start = { always = no }
 
 		icon = 43
 		heresy_icon = 37
@@ -1793,7 +1831,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 		aggression = 2 # AI aggression factor
 		short_reign_opinion_year_mult = 0.66 # The default is 2
 
-		religious_clothing_priest = 5
+		religious_clothing_head = 12
+		religious_clothing_priest = 11
 
 		allow_in_ruler_designer = no
 
@@ -1810,6 +1849,7 @@ zoroastrian_group = {			# Imperial (Roman) Group
 	
 	promethean_pagan = {
 		graphical_culture = westerngfx
+		alternate_start = { always = no }
 
 		icon = 43
 		heresy_icon = 37
@@ -1836,8 +1876,8 @@ zoroastrian_group = {			# Imperial (Roman) Group
 		has_heir_designation = yes
 		feminist = yes
 
-		religious_clothing_head = 5
-		religious_clothing_priest = 5
+		religious_clothing_head = 12
+		religious_clothing_priest = 11
 
 		allow_in_ruler_designer = no
 
@@ -1864,13 +1904,19 @@ jewish_group = {
 	
 	color = { 0.1 0.7 1.0 }
 	
+	interface_skin = { jews_interface }
+	
 	# Names given only to Jewish characters (base names)
 	male_names = {
 		Moses Samson David Saul Solomon Zadok Zion Jacob Ezekiel Israel Isaac Joseph
 	}
+	female_names = {
+		Adah Adinah Alte Asnat Batya Bilha Chana Chava Devorah Esther Gisse Hadassah Leah Machla Miriam Puah Peninah Rachel Rivkah Ruth Sarah Tamar Tirtzah Tzipporah Tziviah Yael Yehudit Yiska Yocheved Yonah  
+	}
 
 	jewish = {
 		graphical_culture = jewishgfx
+		alternate_start = { has_alternate_start_parameter = { key = religion value = full_random } }
 		
 		icon = 38
 		heresy_icon = 39
@@ -1922,6 +1968,8 @@ gnostic_group = {			# Gnostic Group
 	
 	color = { 0.73 0.82 0.07 }
 	
+	interface_skin = { zoroastrian_interface muslim_interface }
+	
 	manichean = {
 		crusade_name = CRUSADE
 		graphical_culture = westerngfx
@@ -1932,7 +1980,7 @@ gnostic_group = {			# Gnostic Group
 		priest_title = PRIEST
 		scripture_name = THE_MANI
 		
-		high_god_name = GOD_MANI
+		high_god_name = GOD_FATHER_OF_GREATNESS
 		god_names = {
 			GOD_FATHER_OF_GREATNESS GOD_GOD GOD_THE_FATHER PROPHET_MANI
 		}
