@@ -4,6 +4,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			OR = {
@@ -11,6 +12,9 @@ targetted_decisions = {
 				has_landed_title = e_roman_britannia
 			}
 			NOT = { culture = roman }
+			NOT = {
+				has_alternate_start_parameter = { key = culture_names value = random }
+			}
 		}
 		allow = {
 			age = 15
@@ -63,6 +67,7 @@ targetted_decisions = {
 		
 		filter = liege
 		ai_target_filter = liege
+		ai_check_interval = 60
 		
 		from_potential = {
 			ai = no
@@ -95,6 +100,22 @@ targetted_decisions = {
 					}
 				}
 				religion = ROOT
+				if = {
+					limit = { ROOT = { trait = pagan_branch_1 } }
+					add_trait = pagan_branch_1
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_2 } }
+					add_trait = pagan_branch_2
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_3 } }
+					add_trait = pagan_branch_3
+				}
+				if = {
+					limit = { ROOT = { trait = pagan_branch_4 } }
+					add_trait = pagan_branch_4
+				}
 			}
 		}
 		revoke_allowed = {
@@ -110,6 +131,7 @@ targetted_decisions = {
 		
 		filter = liege
 		ai_target_filter = liege
+		ai_check_interval = 60
 		
 		from_potential = {
 			is_playable = yes
@@ -146,6 +168,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		potential = {
 			is_playable = yes
@@ -210,6 +233,22 @@ targetted_decisions = {
 			liege = {
 				reverse_religion = ROOT
 			}
+			if = {
+				limit = { liege = { trait = pagan_branch_1 } }
+				add_trait = pagan_branch_1
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_2 } }
+				add_trait = pagan_branch_2
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_3 } }
+				add_trait = pagan_branch_3
+			}
+			if = {
+				limit = { liege = { trait = pagan_branch_4 } }
+				add_trait = pagan_branch_4
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -253,6 +292,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		is_high_prio = no
 		icon_religion = catholic
@@ -279,6 +319,9 @@ targetted_decisions = {
 				any_demesne_province = { religion = catholic }
 				any_courtier = { religion = catholic }
 				any_vassal = { religion = catholic }
+			}
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 		allow = {
@@ -517,9 +560,11 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		is_high_prio = no
 		icon_religion = roman_pagan
+		
 		potential = {
 			is_ruler = yes
 			age = 15
@@ -534,6 +579,9 @@ targetted_decisions = {
 				any_demesne_province = { religion_group = zoroastrian_group }
 				any_courtier = { religion_group = zoroastrian_group }
 				any_vassal = { religion_group = zoroastrian_group }
+			}
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 		allow = {
@@ -570,6 +618,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 60
 		
 		is_high_prio = no
 		icon_religion = briton_pagan
@@ -612,6 +661,9 @@ targetted_decisions = {
 				culture = briton
 				culture = romanobritish
 				culture = cumbrian
+			}
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 		allow = {
@@ -659,7 +711,6 @@ targetted_decisions = {
 			is_playable = yes
 			is_heretic = yes
 			OR = {
-				religion = norse_pagan
 				religion = briton_pagan
 				religion = gael_pagan
 				religion = pict_pagan
@@ -667,7 +718,10 @@ targetted_decisions = {
 				religion = frankish_pagan
 				religion = suebic_pagan
 				religion = gothic_pagan
+				religion = norse_pagan
+				religion = alan_pagan
 				religion = vasconic_pagan
+				religion = tengri_pagan
 			}
 		}
 		allow = {
@@ -676,10 +730,6 @@ targetted_decisions = {
 		}
 		effect = {
 			piety = -50
-			if = {
-				limit = { religion = norse_pagan }
-				religion = norse_pagan_reformed
-			}
 			if = {
 				limit = { religion = briton_pagan }
 				religion = briton_pagan_reformed
@@ -707,6 +757,18 @@ targetted_decisions = {
 			if = {
 				limit = { religion = gothic_pagan }
 				religion = gothic_pagan_reformed
+			}
+			if = {
+				limit = { religion = norse_pagan }
+				religion = norse_pagan_reformed
+			}
+			if = {
+				limit = { religion = alan_pagan }
+				religion = alan_pagan_reformed
+			}
+			if = {
+				limit = { religion = tengri_pagan }
+				religion = tengri_pagan_reformed
 			}
 			if = {
 				limit = { religion = vasconic_pagan }
@@ -785,6 +847,59 @@ targetted_decisions = {
 					religion = ROOT
 				}
 			}
+			modifier = { #Easier for Proselytizers
+				factor = 2.0
+				OR = {
+					AND = {
+						religion = norse_pagan
+						norse_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = tengri_pagan
+						tengri_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = briton_pagan
+						briton_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = gael_pagan
+						gael_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = pict_pagan
+						pict_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = germanic_pagan
+						germanic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = frankish_pagan
+						frankish_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = suebic_pagan
+						suebic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = gothic_pagan
+						gothic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = alan_pagan
+						alan_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = vasconic_pagan
+						vasconic_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+					AND = {
+						religion = roman_pagan
+						roman_pagan_reformed = { has_religion_feature = religion_proselytizing }
+					}
+				}
+			}
 		}
 	}
 	convert_to_local_culture = {
@@ -792,6 +907,7 @@ targetted_decisions = {
 		
 		filter = self
 		ai_target_filter = self
+		ai_check_interval = 24
 		
 		potential = {
 			is_playable = yes
@@ -1132,6 +1248,7 @@ targetted_decisions = {
 		only_playable = yes
 		filter = home_court
 		ai_target_filter = home_court
+		ai_check_interval = 60
 	
 		from_potential = {
 			ai = no
@@ -1207,6 +1324,39 @@ targetted_decisions = {
 					}
 				}
 				piety = 200
+				
+				if = {
+					limit = {
+						ROOT = {
+							trait = pagan_branch_1
+						}
+					}
+					add_trait = pagan_branch_1
+				}
+				if = {
+					limit = {
+						ROOT = {
+							trait = pagan_branch_2
+						}
+					}
+					add_trait = pagan_branch_2
+				}
+				if = {
+					limit = {
+						ROOT = {
+							trait = pagan_branch_3
+						}
+					}
+					add_trait = pagan_branch_3
+				}
+				if = {
+					limit = {
+						ROOT = {
+							trait = pagan_branch_4
+						}
+					}
+					add_trait = pagan_branch_4
+				}
 			}
 		}
 		
@@ -1227,6 +1377,8 @@ decisions = {
 		only_playable = yes
 		is_high_prio = yes
 		icon_religion = catholic
+		ai_check_interval = 12
+		
 		potential = {
 			is_ruler = yes
 			age = 15
@@ -1247,6 +1399,9 @@ decisions = {
 				culture_group = imperiale
 			}
 			has_landed_title = k_neustria
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			age = 15

@@ -1,13 +1,11 @@
 decisions = {
 	employ_priest = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			NOR = {
 				religion_group = christian
-				AND = {			
-					religion_group = pagan_group
-					culture_group = celtic
-				}
+				is_celtic_pagan_trigger = yes
 			}
 			is_ruler = yes
 		}
@@ -54,6 +52,30 @@ decisions = {
 					limit = { religion = manichean }
 					add_trait = manichaean_elect
 				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
+				}
+				if = {
+					limit = { has_religion_feature = religion_matriarchal }
+					set_gender = female
+				}
 			}
 			add_character_modifier = {
 				name = employment_timer
@@ -77,7 +99,8 @@ decisions = {
 	}
 
 	employ_priest_catholic = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			religion_group = christian
 			is_ruler = yes
@@ -144,10 +167,10 @@ decisions = {
 	}
 
 	employ_druid = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
-			religion_group = pagan_group
-			culture_group = celtic
+			is_celtic_pagan_trigger = yes
 			is_ruler = yes
 		}
 		allow = {	
@@ -282,7 +305,8 @@ decisions = {
 	}
 	
 	employ_steward = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			is_ruler = yes
 		}
@@ -323,6 +347,42 @@ decisions = {
 					limit = { religion = manichean }
 					character_event = { id = 301702 }
 				}
+				if = {
+					limit = {
+						OR = {
+							religion_group = zoroastrian_group
+							has_religion_feature = religion_astrology
+						}
+					}
+					hidden_tooltip = { add_western_zodiac_trait_effect = yes }
+				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_religion_feature = religion_matriarchal 
+						is_female = no
+					}
+					set_gender = female
+				}
 			}			
 			add_character_modifier = {
 				name = employment_timer
@@ -346,7 +406,8 @@ decisions = {
 	}
 	
 	employ_chancellor = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			is_ruler = yes
 		}
@@ -391,6 +452,42 @@ decisions = {
 					limit = { religion = manichean }
 					character_event = { id = 301702 }
 				}
+				if = {
+					limit = {
+						OR = {
+							religion_group = zoroastrian_group
+							has_religion_feature = religion_astrology
+						}
+					}
+					hidden_tooltip = { add_western_zodiac_trait_effect = yes }
+				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_religion_feature = religion_matriarchal 
+						is_female = no
+					}
+					set_gender = female
+				}
 				save_event_target_as = invited_character
 			}
 			character_event = { id = NE.1 }
@@ -416,7 +513,8 @@ decisions = {
 	}
 	
 	employ_marshal = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			is_ruler = yes
 		}
@@ -429,41 +527,29 @@ decisions = {
 		}
 		effect = {
 			treasury = -20
-			create_random_soldier = {
-				random_traits = yes
-				dynasty = random
-				female = no
-			}			
-			new_character = {
-				change_martial = 4
-				change_diplomacy = 2
-				change_intrigue = 1
-				change_stewardship = 2
+			hidden_tooltip = {
 				if = {
-					limit = {
-						NOT = { diplomacy = 4 }
+					limit = { any_owned_bloodline = { has_bloodline_flag = bloodline_inspire_commanders } }
+					random_list = {
+						95 = {
+							spawn_great_commander_effect = yes
+						}
+						5 = {
+							spawn_fantastic_commander_effect = yes
+							new_character = {
+								opinion = {
+			 						modifier = opinion_legendary_commander
+			 						years = 50
+			 		  				who = ROOT
+			 					}
+							}
+						}
 					}
-					change_diplomacy = 2
 				}
-				if = {
-					limit = {
-						NOT = { martial = 8 }
-					}
-					change_martial = 4
+				else = {
+					spawn_good_commander_effect = yes
 				}
-				random_list = {
-					10 = { add_trait = poor_warrior }
-					30 = { add_trait = trained_warrior }
-					40 = { add_trait = skilled_warrior }
-					20 = { add_trait = master_warrior }
-				}
-				if = {
-					limit = { religion = manichean }
-					character_event = { id = 301702 }
-				}
-				set_character_flag = invited_soldier
-				save_event_target_as = invited_character
-			}	
+			}
 			add_character_modifier = {
 				name = employment_timer
 				duration = 120
@@ -487,7 +573,8 @@ decisions = {
 	}
 	
 	employ_spymaster = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			is_ruler = yes
 		}
@@ -526,7 +613,43 @@ decisions = {
 					limit = { religion = manichean }
 					character_event = { id = 301702 }
 				}
+				if = {
+					limit = {
+						OR = {
+							religion_group = zoroastrian_group
+							has_religion_feature = religion_astrology
+						}
+					}
+					hidden_tooltip = { add_western_zodiac_trait_effect = yes }
+				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
+				}
 				save_event_target_as = invited_character
+				if = {
+					limit = { 
+						has_religion_feature = religion_matriarchal 
+						is_female = no
+					}
+					set_gender = female
+				}
 			}
 			character_event = { id = NE.1 }
 			add_character_modifier = {
@@ -552,7 +675,8 @@ decisions = {
 
 
 	employ_bard = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
 			culture_group = celtic
 			is_ruler = yes
@@ -639,6 +763,42 @@ decisions = {
 					20 = { add_trait = calmish_voice }
 					20 = { add_trait = calm_voice }
 				}
+				if = {
+					limit = {
+						OR = {
+							religion_group = zoroastrian_group
+							has_religion_feature = religion_astrology
+						}
+					}
+					hidden_tooltip = { add_western_zodiac_trait_effect = yes }
+				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_religion_feature = religion_matriarchal 
+						is_female = no
+					}
+					set_gender = female
+				}
 				character_event = { id = 312680 }
 			}
 			add_character_modifier = {
@@ -712,8 +872,12 @@ decisions = {
 	}
 	
 	present_debutante = {
-		only_rulers = yes
+		only_playable = yes
+		
 		potential = {
+			NOT = {
+				has_religion_feature = religion_matriarchal
+			}
 			is_female = no
 			is_ruler = yes
 			age = 15
@@ -729,7 +893,7 @@ decisions = {
 			treasury = -5
 			create_character = {
 				random_traits = yes
-				dynasty = random
+				dynasty = actually_culture
 				female = yes
 				age = 16
 			}
@@ -744,6 +908,35 @@ decisions = {
 				if = {
 					limit = { religion = manichean }
 					character_event = { id = 301702 }
+				}
+				if = {
+					limit = {
+						OR = {
+							religion_group = zoroastrian_group
+							has_religion_feature = religion_astrology
+						}
+					}
+					hidden_tooltip = { add_western_zodiac_trait_effect = yes }
+				}
+				if = {
+					limit = {
+						has_religion_feature = religion_no_leader
+						religion_group = pagan_group
+					}
+					random_list = {  
+						5 = {
+							add_trait = pagan_branch_1
+						}
+						25 = {
+							add_trait = pagan_branch_2
+						}
+						25 = {
+							add_trait = pagan_branch_3
+						}
+						25 = {
+							add_trait = pagan_branch_4
+						}
+					}
 				}
 				save_event_target_as = invited_character
 			}

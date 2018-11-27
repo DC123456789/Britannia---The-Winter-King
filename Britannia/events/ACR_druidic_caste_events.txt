@@ -201,6 +201,40 @@ character_event = {
 				}
 				change_intrigue = 2
 			}
+			if = {
+				limit = {
+					has_religion_feature = religion_no_leader
+					religion_group = pagan_group
+				}
+				random_list = {  
+					5 = {
+						add_trait = pagan_branch_1
+					}
+					25 = {
+						add_trait = pagan_branch_2
+					}
+					25 = {
+						add_trait = pagan_branch_3
+					}
+					25 = {
+						add_trait = pagan_branch_4
+					}
+				}
+			}
+			if = {
+				limit = { 
+					has_religion_feature = religion_patriarchal 
+					is_female = no
+				}
+				set_gender = male
+			}
+			if = {
+				limit = { 
+					has_religion_feature = religion_matriarchal 
+					is_female = no
+				}
+				set_gender = female
+			}
 			piety = 100
 		}
 	}
@@ -218,14 +252,7 @@ character_event = {
 	
 	trigger = {
 		ai = no
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-		}
+		is_celtic_pagan_trigger = yes
 		NOT = {
 			OR = {
 				any_courtier = {
@@ -248,14 +275,7 @@ character_event = {
 						trait = archdruid
 					}
 					is_adult = yes
-					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-					}
+					is_celtic_pagan_trigger = yes
 				}
 				any_vassal = {
 					OR = {
@@ -263,14 +283,7 @@ character_event = {
 						trait = archdruid
 					}
 					is_adult = yes
-					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-					}
+					is_celtic_pagan_trigger = yes
 				}
 			}
 		}
@@ -282,14 +295,7 @@ character_event = {
 						trait = archdruid
 					}
 					is_adult = yes
-					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-					}
+					is_celtic_pagan_trigger = yes
 				}
 			}
 			random_vassal = {
@@ -300,14 +306,7 @@ character_event = {
 					}
 					is_adult = yes
 					#is_ruler = no # Councillor landed vassals are courtier
-					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-					}
+					is_celtic_pagan_trigger = yes
 				}
 				give_minor_title = title_court_druid
 			}
@@ -320,14 +319,7 @@ character_event = {
 						trait = archdruid
 					}
 					is_adult = yes
-					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-					}
+					is_celtic_pagan_trigger = yes
 				}
 				give_minor_title = title_court_druid
 			}
@@ -523,6 +515,40 @@ character_event = {
 				}
 				change_intrigue = 2
 			}
+			if = {
+				limit = {
+					has_religion_feature = religion_no_leader
+					religion_group = pagan_group
+				}
+				random_list = {  
+					5 = {
+						add_trait = pagan_branch_1
+					}
+					25 = {
+						add_trait = pagan_branch_2
+					}
+					25 = {
+						add_trait = pagan_branch_3
+					}
+					25 = {
+						add_trait = pagan_branch_4
+					}
+				}
+			}
+			if = {
+				limit = { 
+					has_religion_feature = religion_patriarchal 
+					is_female = no
+				}
+				set_gender = male
+			}
+			if = {
+				limit = { 
+					has_religion_feature = religion_matriarchal 
+					is_female = no
+				}
+				set_gender = female
+			}
 			piety = 100
 		}
 	}
@@ -630,21 +656,13 @@ character_event = {
 	picture = GFX_evt_druid
 	
 	only_capable = yes
-	culture_group = celtic
 	religion_group = pagan_group
 	
 	is_triggered_only = yes
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-		}
+		is_celtic_pagan_trigger = yes
 		trait = druid
 		NOT = { trait = bad_druid }
 		NOT = { trait = incapable }
@@ -781,14 +799,7 @@ character_event = {
 	hide_window = yes
 	
 	trigger = {
-		NOR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-		}
+		is_celtic_pagan_trigger = no
 		OR = {
 			trait = head1
 			trait = head2
@@ -832,14 +843,7 @@ character_event = {
 	trigger = {
 		is_adult = yes
 		in_command = no
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-		}
+		is_celtic_pagan_trigger = yes
 		NOT = { trait = in_hiding }
 	}
 	
@@ -1060,14 +1064,7 @@ character_event = {
 		has_dlc = "The Old Gods"
 		is_landed = no
 		in_command = no
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-		}
+		is_celtic_pagan_trigger = yes
 		NOT = {
 			OR = {
 				trait = cynical
@@ -1081,14 +1078,7 @@ character_event = {
 		}
 		father = {
 			is_alive = yes
-			OR = {
-				religion = briton_pagan
-				religion = briton_pagan_reformed
-				religion = pict_pagan
-				religion = pict_pagan_reformed
-				religion = gael_pagan
-				religion = gael_pagan_reformed
-			}
+			is_celtic_pagan_trigger = yes
 			is_ruler = yes
 			is_liege_of = ROOT
 			prisoner = no
