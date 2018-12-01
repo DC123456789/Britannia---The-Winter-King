@@ -2,11 +2,15 @@ adjacencies = {
 	385 = 823 # Rigsbri (Shetland) - Tribri (Orkney)
 	253 = 260 # Skiannach - Uist
 	267 = 63 # Dál Riata - Cinn Tìre
+	985 = 161 # Aird Ua nEchach - Druim Môr
 	161 = 141 # Druim Môr - Manann
+	60 = 61 # Ynys Môn - Malew
+	931 = 156 # Fothar Tíre - Caer Mynyw
 	46 = 125 # Portus Dubris - Caletum
 	19 = 77 # Penn an Wlas - Bro-Leon
 	19 = 413 # Penn an Wlas - Syllan
 	569 = 897 # Kaupongarwíkó (Oland) - Sunþraþríjoþinga (Gotland)
+	824 = 544 # Yell - Hórda
 }
 
 culture_group_spread = {
@@ -147,6 +151,36 @@ culture_group_spread = {
 		}
 		has_alternate_start_parameter = { key = special_culture value = animal_kingdoms }
 	}
+	modifier = {
+		factor = 0.5 # Don't cross the channel too often
+		OR = {
+			province = 46
+			province = 125
+			province = 19
+			province = 77
+		}
+		FROM = {
+			OR = {
+				province = 46
+				province = 125
+				province = 19
+				province = 77
+			}
+		}
+	}
+	modifier = {
+		factor = 0.05 # Try avoiding crossing the North Sea
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
+			}
+		}
+	}
 }
 
 culture_spread = {
@@ -183,14 +217,66 @@ culture_spread = {
 	modifier = {
 		factor = 0.25
 		OR = {
-			culture = taifal
-			culture = visigoth
-			culture = burgundian
+			is_romanized_germanic_trigger = yes
+			culture = alan
 		}
 		NOT = {
 			has_alternate_start_setting = {
 				setting = culture
 				option = full_random
+			}
+		}
+	}
+	modifier = {
+		factor = 2
+		culture = romanogallic
+		NOT = {
+			has_alternate_start_setting = {
+				setting = culture
+				option = full_random
+			}
+		}
+	}
+	modifier = {
+		factor = 3
+		OR = {
+			culture = proto_norse
+			culture = dane
+		}
+		NOT = {
+			has_alternate_start_setting = {
+				setting = culture
+				option = full_random
+			}
+		}
+	}
+	modifier = {
+		factor = 0.05 # Don't cross the channel too often
+		OR = {
+			province = 46
+			province = 125
+			province = 19
+			province = 77
+		}
+		FROM = {
+			OR = {
+				province = 46
+				province = 125
+				province = 19
+				province = 77
+			}
+		}
+	}
+	modifier = {
+		factor = 0 # Never cross the North Sea if possible
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
 			}
 		}
 	}
@@ -214,6 +300,11 @@ religion_group_spawn = {
 			region = world_caledonia
 			region = world_ireland
 		}
+	}
+	modifier = { # Imperial cultures can't be pagan
+		factor = 0
+		religion_group = pagan_group
+		culture_group = imperiale
 	}
 }
 
@@ -334,6 +425,19 @@ religion_group_spread = {
 			option = checked
 		}
 	}
+	modifier = {
+		factor = 0.05 # Try avoiding crossing the North Sea
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
+			}
+		}
+	}
 }
 
 religion_spread = {
@@ -388,8 +492,21 @@ religion_spread = {
 		}
 	}
 	modifier = {
+		factor = 0.25
+		OR = {
+			religion = arian
+			religion = pelagian
+		}
+		NOT = {
+			has_alternate_start_setting = {
+				setting = religion
+				option = full_random
+			}
+		}
+	}
+	modifier = {
 		factor = 0.15
-		religion = nestorian
+		religion = priscillian
 		NOT = {
 			has_alternate_start_setting = {
 				setting = religion
@@ -409,6 +526,23 @@ religion_spread = {
 			has_alternate_start_setting = {
 				setting = religion
 				option = full_random
+			}
+		}
+	}
+	modifier = {
+		factor = 0
+		is_wrong_pagan_religion_trigger = yes
+	}
+	modifier = {
+		factor = 0.05 # Try avoiding crossing the North Sea
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
 			}
 		}
 	}
@@ -456,6 +590,36 @@ dejure_kingdom_spread = {
 		factor = 0.6
 		distance = { where = FROM value > 1000 }
 	}
+	modifier = {
+		factor = 0 # Never cross the North Sea if possible
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
+			}
+		}
+	}
+	modifier = {
+		factor = 0 # Never cross the Channel if possible
+		OR = {
+			province = 46
+			province = 125
+			province = 19
+			province = 77
+		}
+		FROM = {
+			OR = {
+				province = 46
+				province = 125
+				province = 19
+				province = 77
+			}
+		}
+	}
 }
 
 dejure_empire_spread = {
@@ -499,6 +663,19 @@ dejure_empire_spread = {
 	modifier = {
 		factor = 0.6
 		distance = { where = FROM value > 1000 }
+	}
+	modifier = {
+		factor = 0 # Never cross the North Sea if possible
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
+			}
+		}
 	}
 }
 
@@ -586,4 +763,17 @@ holy_site_spread = {
 
 holding_spread = {
 	factor = 100
+	modifier = {
+		factor = 0 # Never cross the North Sea if possible
+		OR = {
+			province = 824
+			province = 544
+		}
+		FROM = {
+			OR = {
+				province = 824
+				province = 544
+			}
+		}
+	}
 }
