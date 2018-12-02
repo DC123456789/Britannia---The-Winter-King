@@ -14,13 +14,13 @@
 #Fosterling gains trait Gluttonous
 character_event = {
 	id = 2000
-	desc = "EVTDESC2000"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2000
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2000" # Encourage Gluttony
+		name = EVTOPTA2000 # Encourage Gluttony
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -66,7 +66,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2000" # Birch Him!
+		name = EVTOPTB2000 # Birch Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -86,6 +86,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		reverse_opinion = {
 			who = FROM
 			modifier = opinion_sad
@@ -95,6 +96,8 @@ character_event = {
 			chance = 40
 			FROM = { 
 				remove_trait = gluttonous
+			lose_weight_medium_effect = yes
+			weight_trait_check_effect = yes
 				hidden_tooltip = { 
 					character_event = { 
 						id = 1501 
@@ -105,7 +108,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTC2000" # Talk to Him about moderation.
+		name = EVTOPTC2000 # Talk to Him about moderation.
 		trigger = {
 			NOT = { trait = gluttonous }
 		}
@@ -129,6 +132,8 @@ character_event = {
 			50 = { 
 				FROM = { 
 					add_trait = temperate
+					lose_weight_medium_effect = yes
+					weight_trait_check_effect = yes
 					hidden_tooltip = { 
 						ROOT = { 
 							character_event = { 
@@ -144,6 +149,8 @@ character_event = {
 			50 = { 
 				FROM = { 
 					remove_trait = gluttonous
+			lose_weight_medium_effect = yes
+			weight_trait_check_effect = yes
 					hidden_tooltip = {
 						character_event = {	
 							id = 1501
@@ -154,8 +161,12 @@ character_event = {
 		}
 	}	
 	option = {
-		name = "EVTOPTD2000" # Pray God will save her..
+		name = EVTOPTD2000 # Pray God will save her..
 		trigger = {
+			# OR = {
+				# religion_group = christian
+				# religion_group = muslim
+			# }
 			NOT = { trait = cynical }
 		}
 		ai_chance = {
@@ -171,6 +182,8 @@ character_event = {
 			chance = 20 
 			FROM = { 
 				remove_trait = gluttonous
+				lose_weight_medium_effect = yes
+				weight_trait_check_effect = yes
 				hidden_tooltip = { 
 					character_event = {	
 						id = 1501
@@ -187,13 +200,13 @@ character_event = {
 #Fosterling is Temperate
 character_event = {
 	id = 2010
-	desc = "EVTDESC2010"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2010
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2010" # Encourage
+		name = EVTOPTA2010 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -240,7 +253,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2010" # Hold up X as an example for the court!
+		name = EVTOPTB2010 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = gluttonous
@@ -280,9 +293,11 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC2010" # Thank God for X's virtues!
+		name = EVTOPTC2010 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -296,6 +311,8 @@ character_event = {
 			chance = 10
 			FROM = { 
 				add_trait = gluttonous
+				gain_weight_small_effect = yes
+				weight_trait_check_effect = yes
 				hidden_tooltip = { 
 					ROOT = { 
 						character_event = { 
@@ -311,7 +328,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2010" # He/She must learn to enjoy life!
+		name = EVTOPTD2010 # He/She must learn to enjoy life!
 		trigger = {
 			NOT = { trait =  temperate }
 		}
@@ -335,6 +352,8 @@ character_event = {
 			random_list = {
 				50 = {
 					add_trait = gluttonous
+					gain_weight_small_effect = yes
+					weight_trait_check_effect = yes
 					hidden_tooltip = {
 						ROOT = {
 							character_event = {
@@ -366,13 +385,13 @@ character_event = {
 #Fosterling is Greedy
 character_event = {
 	id = 2020
-	desc = "EVTDESC2020"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2020
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2020" # Encourage Greed
+		name = EVTOPTA2020 # Encourage Greed
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -409,7 +428,7 @@ character_event = {
 	
 	
 	option = {
-		name = "EVTOPTB2020" # Birch Him!
+		name = EVTOPTB2020 # Birch Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -429,6 +448,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		random = {
 			chance = 40
 			FROM = { 
@@ -442,7 +462,7 @@ character_event = {
 		}
 	}	
 	option = {
-		name = "EVTOPTC2020" # needs a lecture on charity!
+		name = EVTOPTC2020 # needs a lecture on charity!
 		trigger = {
 			NOT = { trait =  greedy }
 		}		
@@ -489,9 +509,10 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTD2020" # God will save him from Hell
+		name = EVTOPTD2020 # God will save him from Hell
 		trigger = {
 			NOT = { trait = cynical }
+			religion_group = christian
 		}
 		ai_chance = {
 			factor = 2
@@ -521,13 +542,13 @@ character_event = {
 #Fosterling is Charitable
 character_event = {
 	id = 2030
-	desc = "EVTDESC2030"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2030
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2030" # Encourage
+		name = EVTOPTA2030 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -574,7 +595,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2030" # Hold up X as an example for the court!
+		name = EVTOPTB2030 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = greedy
@@ -615,9 +636,11 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC2030" # Thank God for X's virtues!
+		name = EVTOPTC2030 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -646,7 +669,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2030" # Charity is for naive weaklings!
+		name = EVTOPTD2030 # Charity is for naive weaklings!
 		trigger = {
 			NOT = { trait =  charitable}
 		}
@@ -704,13 +727,13 @@ character_event = {
 #Fosterling is slothful
 character_event = {
 	id = 2040
-	desc = "EVTDESC2040"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2040
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2040" # Encourage
+		name = EVTOPTA2040 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -745,7 +768,7 @@ character_event = {
 	}		
 	
 	option = {
-		name = "EVTOPTB2040" # Birch Him!
+		name = EVTOPTB2040 # Birch Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -765,6 +788,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		random = {
 			chance = 40
 			FROM = { 
@@ -779,7 +803,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC2040" # needs a lecture on diligence!
+		name = EVTOPTC2040 # needs a lecture on diligence!
 		trigger = {
 			NOT = { trait =  slothful }
 		}		
@@ -826,7 +850,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2040" # Pray for his soul.
+		name = EVTOPTD2040 # Pray for his soul.
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -860,13 +884,13 @@ character_event = {
 #Fosterling is Diligent
 character_event = {
 	id = 2050
-	desc = "EVTDESC2050"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2050
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2050" # Encourage
+		name = EVTOPTA2050 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -921,7 +945,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2050" # Hold up X as an example for the court!
+		name = EVTOPTB2050 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = slothful
@@ -973,9 +997,11 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC2050" # Thank God for X's virtues!
+		name = EVTOPTC2050 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -1004,9 +1030,9 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2050" # The child needs to lighten up!
+		name = EVTOPTD2050 # The child needs to lighten up!
 		trigger = {
-			NOT = { trait =  diligent}
+			NOT = { trait = diligent}
 		}
 		ai_chance = {
 			factor = 10
@@ -1061,13 +1087,13 @@ character_event = {
 #Fosterling is Envious
 character_event = {
 	id = 2060
-	desc = "EVTDESC2060"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2060
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2060" # Encourage
+		name = EVTOPTA2060 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1107,7 +1133,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2060" # Beat some respect into Him!
+		name = EVTOPTB2060 # Beat some respect into Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -1127,6 +1153,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		random = {
 			chance = 40
 			FROM = { 
@@ -1141,7 +1168,7 @@ character_event = {
 	}	
 	
 	option = {
-		name = "EVTOPTC2060" # Discourage
+		name = EVTOPTC2060 # Discourage
 		trigger = {
 			NOT = { trait =  envious }
 		}		
@@ -1185,7 +1212,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2060" # Envy is the deadliest of sins!
+		name = EVTOPTD2060 # Envy is the deadliest of sins!
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -1220,13 +1247,13 @@ character_event = {
 #Fosterling is Kind
 character_event = {
 	id = 2070
-	desc = "EVTDESC2070"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2070
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2070" # Encourage
+		name = EVTOPTA2070 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1273,7 +1300,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2070" # Hold up X as an example for the court!
+		name = EVTOPTB2070 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = envious
@@ -1313,9 +1340,11 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTC2070" # Thank God for X's virtues!
+		name = EVTOPTC2070 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -1345,7 +1374,7 @@ character_event = {
 		}		
 	}	
 	option = {
-		name = "EVTOPTD2070" # Discourage
+		name = EVTOPTD2070 # Discourage
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -1400,13 +1429,13 @@ character_event = {
 #Fosterling is Wroth
 character_event = {
 	id = 2080
-	desc = "EVTDESC2080"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2080
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2080" # Encourage
+		name = EVTOPTA2080 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1443,7 +1472,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2080" # Beat some respect into Him!
+		name = EVTOPTB2080 # Beat some respect into Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -1458,6 +1487,7 @@ character_event = {
 				trait = arbitrary
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		FROM = {
 			random_list = {
 				70 = { }
@@ -1479,7 +1509,7 @@ character_event = {
 	}	
 	
 	option = {
-		name = "EVTOPTC2080" # Discourage
+		name = EVTOPTC2080 # Discourage
 		trigger = {
 			NOT = { trait = wroth }
 		}		
@@ -1523,7 +1553,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2080" # Pray for his sins
+		name = EVTOPTD2080 # Pray for his sins
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -1557,13 +1587,13 @@ character_event = {
 #Fosterling is Patient
 character_event = {
 	id = 2090
-	desc = "EVTDESC2090"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2090
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2090" # Encourage
+		name = EVTOPTA2090 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1611,7 +1641,7 @@ character_event = {
 	
 	
 	option = {
-		name = "EVTOPTB2090" # Hold up X as an example for the court!
+		name = EVTOPTB2090 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = wroth
@@ -1652,9 +1682,11 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTC2090" # Thank God for X's virtues!
+		name = EVTOPTC2090 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -1684,7 +1716,7 @@ character_event = {
 		}		
 	}	
 	option = {
-		name = "EVTOPTD2090" # Discourage
+		name = EVTOPTD2090 # Discourage
 		trigger = {
 			NOT = { trait = patient }
 		}
@@ -1738,13 +1770,13 @@ character_event = {
 #Fosterling is Proud
 character_event = {
 	id = 2100
-	desc = "EVTDESC2100"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2100
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2100" # Encourage
+		name = EVTOPTA2100 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1780,7 +1812,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2100" # Beat some respect into him/her!
+		name = EVTOPTB2100 # Beat some respect into him/her!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -1795,6 +1827,7 @@ character_event = {
 				trait = arbitrary
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			60 = { }
 			40 = { 
@@ -1812,7 +1845,7 @@ character_event = {
 	
 	
 	option = {
-		name = "EVTOPTC2100" # Discourage
+		name = EVTOPTC2100 # Discourage
 		trigger = {
 			NOT = { trait = proud }
 		}		
@@ -1856,7 +1889,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2100" # Pray for his sinsS
+		name = EVTOPTD2100 # Pray for his sinsS
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -1890,13 +1923,13 @@ character_event = {
 #Fosterling is Humble
 character_event = {
 	id = 2110
-	desc = "EVTDESC2110"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2110
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2110" # Encourage
+		name = EVTOPTA2110 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -1931,9 +1964,11 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2110" # Thank God for X's virtues!
+		name = EVTOPTB2110 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -1978,7 +2013,7 @@ character_event = {
 		}		
 	}	
 	option = {
-		name = "EVTOPTC2110" # Discourage
+		name = EVTOPTC2110 # Discourage
 		trigger = {
 			NOT = { trait = proud }
 		}
@@ -2033,13 +2068,13 @@ character_event = {
 #Fosterling is Deceitful
 character_event = {
 	id = 2120
-	desc = "EVTDESC2120"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2120
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2120" # Encourage
+		name = EVTOPTA2120 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2073,7 +2108,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2120" # Beat some respect into Him!
+		name = EVTOPTB2120 # Beat some respect into Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -2089,6 +2124,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			50 = { }
 			40 = {
@@ -2121,7 +2157,7 @@ character_event = {
 	
 	
 	option = {
-		name = "EVTOPTC2120" # Discourage
+		name = EVTOPTC2120 # Discourage
 		trigger = {
 			NOT = { trait = deceitful }
 		}		
@@ -2163,7 +2199,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2120" # Pray for his sins
+		name = EVTOPTD2120 # Pray for his sins
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -2197,13 +2233,13 @@ character_event = {
 #Fosterling is Zealous
 character_event = {
 	id = 2130
-	desc = "EVTDESC2130"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2130
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2130" # Encourage
+		name = EVTOPTA2130 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2247,7 +2283,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2130" # Discourage
+		name = EVTOPTB2130 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2281,13 +2317,13 @@ character_event = {
 #Fosterling is Zealous - Muslim
 character_event = {
 	id = 2132
-	desc = "EVTDESC2132"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2132
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2130" # Encourage
+		name = EVTOPTA2130 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2331,7 +2367,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2130" # Discourage
+		name = EVTOPTB2130 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2367,13 +2403,13 @@ character_event = {
 #Fosterling is Honest
 character_event = {
 	id = 2140
-	desc = "EVTDESC2140"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2140
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2140" # Encourage
+		name = EVTOPTA2140 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2417,7 +2453,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2140" # Hold up X as an example for the court!
+		name = EVTOPTB2140 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = deceitful
@@ -2457,7 +2493,7 @@ character_event = {
 	}	
 	
 	option = {
-		name = "EVTOPTC2140" # Discourage Mildly
+		name = EVTOPTC2140 # Discourage Mildly
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2476,7 +2512,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2140" # Discourage strongly
+		name = EVTOPTD2140 # Discourage strongly
 		trigger = {
 			NOT = { trait = honest }
 		}
@@ -2529,13 +2565,13 @@ character_event = {
 #Fosterling is Craven
 character_event = {
 	id = 2150
-	desc = "EVTDESC2150"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2150
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2150" # Encourage
+		name = EVTOPTA2150 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2566,7 +2602,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2150" # Encourage
+		name = EVTOPTB2150 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2609,7 +2645,7 @@ character_event = {
 	}	
 	
 	option = {
-		name = "EVTOPTC2150" # Discourage
+		name = EVTOPTC2150 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2654,13 +2690,13 @@ character_event = {
 #Fosterling is Brave
 character_event = {
 	id = 2160
-	desc = "EVTDESC2160"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2160
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2160" # Encourage
+		name = EVTOPTA2160 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -2701,7 +2737,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2160" # Hold up X as an example for the court!
+		name = EVTOPTB2160 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = craven
@@ -2742,7 +2778,7 @@ character_event = {
 	}		
 	
 	option = {
-		name = "EVTOPTC2160" # Discourage
+		name = EVTOPTC2160 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2791,13 +2827,13 @@ character_event = {
 #Fosterling is Shy
 character_event = {
 	id = 2170
-	desc = "EVTDESC2170"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2170
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2170" # Encourage
+		name = EVTOPTA2170 # Encourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -2847,7 +2883,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2170" # Birch Him!
+		name = EVTOPTB2170 # Birch Him!
 		trigger = {
 			NOT = { trait = kind }
 			NOT = { trait = shy }
@@ -2868,6 +2904,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			60 = { }
 			40 = { 
@@ -2884,7 +2921,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTC2170" # Talk to him 
+		name = EVTOPTC2170 # Talk to him 
 		trigger = {
 			NOT = { trait = shy }
 		}
@@ -2934,9 +2971,11 @@ character_event = {
 		}
 	}	
 	option = {
-		name = "EVTOPTD2170" # Pray God will give her strength.
+		name = EVTOPTD2170 # Pray God will give her strength.
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -2968,13 +3007,13 @@ character_event = {
 #Fosterling is Gregarious
 character_event = {
 	id = 2180
-	desc = "EVTDESC2180"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2180
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2180" # Encourage
+		name = EVTOPTA2180 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -3025,7 +3064,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2180" # Hold up X as an example for the court!
+		name = EVTOPTB2180 # Hold up X as an example for the court!
 		trigger = {
 			any_courtier = {
 				trait = shy
@@ -3065,9 +3104,11 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC2180" # Thank God for X's virtues!
+		name = EVTOPTC2180 # Thank God for X's virtues!
 		trigger = {
 			NOT = { trait = cynical }
+			# NOT = { religion = buddhist }
+			# NOT = { religion = jain }
 		}
 		ai_chance = {
 			factor = 2
@@ -3098,7 +3139,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2180" # discourage
+		name = EVTOPTD2180 # discourage
 		trigger = {
 			NOT = { trait = temperate }
 		}
@@ -3155,13 +3196,13 @@ character_event = {
 #Fosterling is Ambitious
 character_event = {
 	id = 2190
-	desc = "EVTDESC2190"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2190
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2190" # Encourage
+		name = EVTOPTA2190 # Encourage
 		ai_chance = { 
 			factor = 50
 			modifier = {
@@ -3189,7 +3230,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2190" # Discourage
+		name = EVTOPTB2190 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3218,13 +3259,13 @@ character_event = {
 #Fosterling is Content
 character_event = {
 	id = 2200
-	desc = "EVTDESC2200"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2200
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2200" # Encourage
+		name = EVTOPTA2200 # Encourage
 		ai_chance = { 
 			factor = 50
 			modifier = {
@@ -3249,7 +3290,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2200" # Discourage
+		name = EVTOPTB2200 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3278,13 +3319,13 @@ character_event = {
 #Fosterling is Arbitrary
 character_event = {
 	id = 2210
-	desc = "EVTDESC2210"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2210
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2210" # Encourage
+		name = EVTOPTA2210 # Encourage
 		ai_chance = { 
 			factor = 50
 			modifier = {
@@ -3313,7 +3354,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2210" # Discourage
+		name = EVTOPTB2210 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3346,13 +3387,13 @@ character_event = {
 #Fosterling is Just
 character_event = {
 	id = 2220
-	desc = "EVTDESC2220"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2220
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2220" # Encourage
+		name = EVTOPTA2220 # Encourage
 		ai_chance = { 
 			factor = 50
 			modifier = {
@@ -3381,7 +3422,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2220" # Discourage
+		name = EVTOPTB2220 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3414,13 +3455,13 @@ character_event = {
 #Fosterling is Cynical
 character_event = {
 	id = 2230
-	desc = "EVTDESC2230"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC2230
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2230" # Encourage
+		name = EVTOPTA2230 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -3457,7 +3498,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2230" # Discourage
+		name = EVTOPTB2230 # Discourage
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3502,13 +3543,13 @@ character_event = {
 #Fosterling gains trait Cruel
 character_event = {
 	id = 2465
-	desc = "EVTDESC2465"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2465
+	picture = GFX_evt_child_bully
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2465" # Encourage
+		name = EVTOPTA2465 # Encourage
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -3525,6 +3566,7 @@ character_event = {
 			}
 		}
 		
+		pacifists_lose_piety_effect = yes
 		if = {
 			limit = { trait = kind }
 			prestige = -5
@@ -3548,7 +3590,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2465" # Beat some respect into Him!
+		name = EVTOPTB2465 # Beat some respect into Him!
 		trigger = {
 			NOT = { trait = kind }
 		}
@@ -3563,6 +3605,7 @@ character_event = {
 				trait = cruel
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			60 = { }
 			40 = { 
@@ -3579,7 +3622,7 @@ character_event = {
 	}	
 	
 	option = {
-		name = "EVTOPTC2465" # Discourage
+		name = EVTOPTC2465 # Discourage
 		trigger = {
 			NOT = { trait = cruel }
 		}		
@@ -3626,7 +3669,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD2465" # Pray for his soul!
+		name = EVTOPTD2465 # Pray for his soul!
 		trigger = {
 			NOT = { trait = cynical }
 		}
@@ -3660,20 +3703,20 @@ character_event = {
 # Vassal wants to be guardian for liege's child
 character_event = {
 	id = 2480
-	desc = "EVTDESC2480"
-	picture = "GFX_evt_council"
+	desc = EVTDESC2480
+	picture = GFX_evt_council
 	
 	min_age = 20
 	max_age = 70
-	only_rulers = yes
+	only_playable = yes
 	prisoner = no
 	capable_only = yes
 	
 	trigger = {
 		independent = no
-		NOT = { trait = stressed}
-		NOT = { trait = depressed}
-		NOT = { trait = leper}
+		NOT = { trait = stressed }
+		NOT = { trait = depressed }
+		NOT = { trait = leper }
 		health = 4
 		
 		# Not if already having a ward
@@ -3690,7 +3733,8 @@ character_event = {
 				age = 6
 				is_ruler = no
 				is_alive = yes
-				NOT = { age = 16 }
+				NOT = { age = 15 }
+				prisoner = no
 				NOT = {
 					AND = {
 						is_female = yes
@@ -3703,7 +3747,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 120
+		months = 240
 		modifier = {
 			factor = 5.0
 			trait = slothful
@@ -3735,17 +3779,17 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA2480"
+		name = EVTOPTA2480
 		ai_chance = { factor = 100}
 		liege = {
 			letter_event = {
 				id = 2481
-				tooltip = "EVTTOOLTIP2481"
+				tooltip = EVTTOOLTIP2481
 			}
 		}
 	}
 	option = {
-		name = "EVTOPTB2480"
+		name = EVTOPTB2480
 		ai_chance = { factor = 0}
 	}
 }
@@ -3753,35 +3797,36 @@ character_event = {
 # The liege is asked by a vassal to let him/her raise the child
 letter_event = {
 	id = 2481
-	desc = "EVTDESC2481"
+	desc = EVTDESC2481
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2481"
+		name = EVTOPTA2481
 		random_child = {
 			limit = {
 				age = 6
-				NOT = { age = 16}
+				NOT = { age = 15}
 				has_guardian = no
 				is_alive = yes
+				prisoner = no
 			}
 			set_character_flag = guardian_child
-			character_event = { id = 2484 tooltip = "EVTTOOLTIP2484" }
+			character_event = { id = 2484 tooltip = EVTTOOLTIP2484 }
 		}
 		FROM = {
 			letter_event = {
 				id = 2482
-				tooltip = "EVTTOOLTIP2482"
+				tooltip = EVTTOOLTIP2482
 			}
 		}
 	}
 	option = {
-		name = "EVTOPTB2481"
+		name = EVTOPTB2481
 		FROM = {
 			letter_event = {
 				id = 2483
-				tooltip = "EVTTOOLTIP2483"
+				tooltip = EVTTOOLTIP2483
 			}
 		}
 	}
@@ -3790,19 +3835,20 @@ letter_event = {
 # The vassal becomes the guardian of the child
 letter_event = {
 	id = 2482
-	desc = "EVTDESC2482"
+	desc = EVTDESC2482
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2482"
+		name = EVTOPTA2482
 		if = {
 			limit = {
 				liege = {
 					any_child = {
 						age = 6
-						NOT = { age = 16}
+						NOT = { age = 15}
 						has_guardian = no
+						prisoner = no
 						has_character_flag = guardian_child
 					}
 				}
@@ -3811,7 +3857,7 @@ letter_event = {
 				random_child = {
 					limit = {
 						age = 6
-						NOT = { age = 16}
+						NOT = { age = 15}
 						has_guardian = no
 						has_character_flag = guardian_child
 					}
@@ -3831,12 +3877,12 @@ letter_event = {
 # The vassal's request is denied
 letter_event = {
 	id = 2483
-	desc = "EVTDESC2483"
+	desc = EVTDESC2483
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2483"
+		name = EVTOPTA2483
 		opinion = {
 			modifier = opinion_denied_guardianship
 			who = FROM
@@ -3848,13 +3894,13 @@ letter_event = {
 # The child is informed of the guardianship
 character_event = {
 	id = 2484
-	desc = "EVTDESC2484"
-	picture = "GFX_evt_council"
+	desc = EVTDESC2484
+	picture = GFX_evt_council
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA2484"
+		name = EVTOPTA2484
 	}
 }
 
@@ -3863,8 +3909,8 @@ character_event = {
 # Child asks guardian about religion
 character_event = {
 	id = 38100
-	desc = "EVTDESC38100"
-	picture = "GFX_evt_guardian"
+	desc = EVTDESC38100
+	picture = GFX_evt_guardian
 	
 	min_age = 6
 	max_age = 15
@@ -3874,7 +3920,10 @@ character_event = {
 	trigger = {
 		has_guardian = yes
 		guardian = { 
-			NOT = { religion = ROOT}
+			NOT = { religion = ROOT }
+			employer = {
+				religion = PREV
+			}
 		}
 	}
 	
@@ -3940,7 +3989,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA38100" # Ask the guardian about God
+		name = EVTOPTA38100 # Ask the guardian about God
 		trigger = {
 			NOT = {
 				religion_group = muslim
@@ -3951,18 +4000,18 @@ character_event = {
 			character_event = {
 				id = 38101
 				days = 2
-				tooltip = "EVTTOOLTIP38101"
+				tooltip = EVTTOOLTIP38101
 			}
 		}
 		piety = 5
 	}
 	option = {
-		name = "EVTOPTB38100" # Go play with my friends
+		name = EVTOPTB38100 # Go play with my friends
 		ai_chance = { factor = 0}
 		piety = -5
 	}
 	option = {
-		name = "EVTOPTC38100" # Ask the guardian about Allah
+		name = EVTOPTC38100 # Ask the guardian about Allah
 		trigger = {
 			religion_group = muslim
 		}
@@ -3971,7 +4020,7 @@ character_event = {
 			character_event = {
 				id = 38101
 				days = 2
-				tooltip = "EVTTOOLTIPA38101"
+				tooltip = EVTTOOLTIPA38101
 			}
 		}
 		piety = 5
@@ -3981,24 +4030,24 @@ character_event = {
 # Guardian chooses whether to convert the child
 character_event = {
 	id = 38101
-	desc = "EVTDESC38101"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38101
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38101" # Teach the child the true faith
+		name = EVTOPTA38101 # Teach the child the true faith
 		ai_chance = { factor = 100}
 		FROM = {
 			character_event = {
 				id = 38102
-				tooltip = "EVTTOOLTIP38102"
+				tooltip = EVTTOOLTIP38102
 			}
 		}
 	}
 	
 	option = {
-		name = "EVTOPTB38101" # He/she will sort it out...
+		name = EVTOPTB38101 # He/she will sort it out...
 		tooltip_info = cynical
 		trigger = {
 			trait = cynical
@@ -4011,13 +4060,13 @@ character_event = {
 # Guardian chooses whether to convert the child
 character_event = {
 	id = 38102
-	desc = "EVTDESC38102"
-	picture = "GFX_evt_guardian"
+	desc = EVTDESC38102
+	picture = GFX_evt_guardian
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38102" # Conversion
+		name = EVTOPTA38102 # Conversion
 		religion = FROM
 	}
 }
@@ -4027,8 +4076,8 @@ character_event = {
 # Child is influenced by the culture of his or her guardian
 character_event = {
 	id = 38110
-	desc = "EVTDESC38110"
-	picture = "GFX_evt_guardian"
+	desc = EVTDESC38110
+	picture = GFX_evt_guardian
 	
 	min_age = 6
 	max_age = 15
@@ -4036,21 +4085,24 @@ character_event = {
 	lacks_dlc = "Zeus"
 	
 	trigger = {
-		NOT = { has_dlc = "Zeus" }
 		has_guardian = yes
 		father = {
 			NOT = { is_nomadic = yes }
 		}
-		guardian = { 
+		guardian = {
+			NOT = { culture = ROOT }
 			OR = {
 				AND = {
 					culture_group = ROOT
 					NOT = { culture = ROOT }
 				}
 				AND = {
-					culture = roman
+					culture_group = imperiale
 					ROOT = { culture = romanobritish }
 				}
+			}
+			employer = {
+				culture = PREV
 			}
 		}
 	}
@@ -4070,33 +4122,9 @@ character_event = {
 			}
 		}
 		modifier = {
-			factor = 0.5
-			guardian = {
-				trait = proud
-			}
-		}
-		modifier = {
-			factor = 0.75
-			guardian = {
-				learning = 16
-			}
-		}
-		modifier = {
-			factor = 1.5
-			guardian = {
-				NOT = { learning = 12 }
-			}
-		}
-		modifier = {
-			factor = 0.75
-			guardian = {
-				higher_tier_than = duke
-			}
-		}
-		modifier = {
 			factor = 2.0
 			guardian = {
-				lower_tier_than = duke
+				trait = shy
 			}
 		}
 		modifier = {
@@ -4142,12 +4170,12 @@ character_event = {
 						liege = { ai = yes }
 					}
 				}
-			}		
+			}
 		}
 	}
 	
 	option = {
-		name = "EVTOPTA38110"
+		name = EVTOPTA38110
 		ai_chance = { factor = 100}
 		guardian = {
 			reverse_culture = ROOT
@@ -4159,20 +4187,21 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38100" # Go play with my friends
+		name = EVTOPTB38100 # Go play with my friends
 		ai_chance = { factor = 0 }
 	}
 }
+
 character_event = {
 	id = 38111
-	desc = "EVTDESC38111"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38111
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38111" # What a bright child
-		prestige = 10
+		name = EVTOPTA38111 # What a bright child
+		prestige = 1
 	}
 }
 
@@ -4187,13 +4216,13 @@ character_event = {
 # Child is slow to learn to talk.
 character_event = {
 	id = 38200
-	desc = "EVTDESC38200"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38200
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38200" # Encourage the child by example
+		name = EVTOPTA38200 # Encourage the child by example
 		
 		ai_chance = { 
 			factor = 10
@@ -4220,7 +4249,7 @@ character_event = {
 
 	}
 	option = {
-		name = "EVTOPTB38200" # Birch the words from the child
+		name = EVTOPTB38200 # Birch the words from the child
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4236,6 +4265,7 @@ character_event = {
 				father = { trait = kind}
 			}			
 		}			
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			80 = {	FROM = { add_trait = wroth	hidden_tooltip = { ROOT = { character_event = { id = 38154}} character_event = { id = 38254}}}}
 			15 = {	FROM = { add_trait = deceitful	hidden_tooltip = { ROOT = { character_event = { id = 38155}} character_event = { id = 38255}}}}
@@ -4243,7 +4273,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38200" # Let the child take its time
+		name = EVTOPTC38200 # Let the child take its time
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4258,7 +4288,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTD38200" # Send this child to the nannies instead
+		name = EVTOPTD38200 # Send this child to the nannies instead
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4276,16 +4306,18 @@ character_event = {
 
 }
 
+
+
 # Daddy, where do children come from?
 character_event = {
 	id = 38201
-	desc = "EVTDESC38201"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38201
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38201" # Daddy will tell you when you get older
+		name = EVTOPTA38201 # Daddy will tell you when you get older
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4306,7 +4338,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB38201" # You know there are bees and flowers...
+		name = EVTOPTB38201 # You know there are bees and flowers...
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4327,7 +4359,7 @@ character_event = {
 	}	
 
 	option = {
-		name = "EVTOPTC38201" # Be silent or I'll slap you!
+		name = EVTOPTC38201 # Be silent or I'll slap you!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4339,6 +4371,7 @@ character_event = {
 				father = { trait = wroth}
 			}
 		}			
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			40 = {	FROM = { add_trait = craven	hidden_tooltip = { ROOT = { character_event = { id = 38157}} character_event = { id = 38257} }}}
 			40 = {	FROM = { add_trait = wroth	hidden_tooltip = { ROOT = { character_event = { id = 38154}} character_event = { id = 38254} }}}
@@ -4347,16 +4380,17 @@ character_event = {
 	}
 }
 
+
 # Your child is afraid of the dark
 character_event = {
 	id = 38202
-	desc = "EVTDESC38202"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38202
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38202" # Ridicule the child, that should do it
+		name = EVTOPTA38202 # Ridicule the child, that should do it
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4376,7 +4410,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB38202" # Try to adress the causes of the fear
+		name = EVTOPTB38202 # Try to adress the causes of the fear
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4395,7 +4429,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38202" # Let the child handle this alone
+		name = EVTOPTC38202 # Let the child handle this alone
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4418,13 +4452,13 @@ character_event = {
 # Your child is often involved in fights with other toddlers
 character_event = {
 	id = 38203
-	desc = "EVTDESC38203"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38203
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38203" # That's good news
+		name = EVTOPTA38203 # That's good news
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4432,6 +4466,7 @@ character_event = {
 				father = { trait = proud}
 			}
 		}			
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			40 = {	FROM = { add_trait = proud	hidden_tooltip = { ROOT = { character_event = { id = 38161}} character_event = { id = 38261} }}}
 			30 = {	FROM = { add_trait = wroth	hidden_tooltip = { ROOT = { character_event = { id = 38154}} character_event = { id = 38254} }}}
@@ -4441,7 +4476,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38203" # Try to steer the child's energy elsewhere
+		name = EVTOPTB38203 # Try to steer the child's energy elsewhere
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4457,7 +4492,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTC38203" # Discipline the child
+		name = EVTOPTC38203 # Discipline the child
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4473,17 +4508,18 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD38203" # Let the monks purge sin from the child
+		name = EVTOPTD38203 # Let the monks purge sin from the child
 		trigger = {
-			NOT = {
-				religion_group = muslim
+			OR = {
+				religion_group = christian
+				religion_group = gnostic_group
 			}
 		}
 		ai_chance = { 
 			factor = 10
 			modifier = {
 				factor = 4
-				father = { trait = humble}
+				father = { trait = humble }
 			}
 		}			
 		random_list = {
@@ -4497,13 +4533,13 @@ character_event = {
 # Your child always wants more toys
 character_event = {
 	id = 38204
-	desc = "EVTDESC38204"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38204
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38204" # Let the child have them
+		name = EVTOPTA38204 # Let the child have them
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4518,7 +4554,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38204" # Encourage the child to play outside instead
+		name = EVTOPTB38204 # Encourage the child to play outside instead
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4532,7 +4568,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38204" # Teach the child some humility
+		name = EVTOPTC38204 # Teach the child some humility
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4550,7 +4586,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTD38204" # Off to the nannies with you, leech!
+		name = EVTOPTD38204 # Off to the nannies with you, leech!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4568,13 +4604,21 @@ character_event = {
 # Dad, Where is mom?
 character_event = {
 	id = 38205
-	desc = "EVTDESC38205"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38205
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38205" # Mom is an angel now
+		name = EVTOPTA38205 # Mom is an angel now
+		trigger = {
+			OR = {
+				religion_group = christian
+				religion_group = muslim
+				religion_group = jewish_group
+				religion_group = gnostic_group
+			}
+		}
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4593,7 +4637,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38205" # Mom has gone to a long journey
+		name = EVTOPTB38205 # Mom has gone to a long journey
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4613,7 +4657,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38205" # Don't me ask me things like that!
+		name = EVTOPTC38205 # Don't me ask me things like that!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4636,13 +4680,13 @@ character_event = {
 # Your child has trouble making friends
 character_event = {
 	id = 38206
-	desc = "EVTDESC38206"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38206
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38206" # Friends are overvalued commodity anyway 
+		name = EVTOPTA38206 # Friends are overvalued commodity anyway 
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4661,7 +4705,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38206" # Help the child along
+		name = EVTOPTB38206 # Help the child along
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4679,7 +4723,7 @@ character_event = {
 		}
 	}	
 	option = {
-		name = "EVTOPTC38206" # Give the child toys to attract friends with
+		name = EVTOPTC38206 # Give the child toys to attract friends with
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4701,13 +4745,13 @@ character_event = {
 # Your child wants to play with friends instead of studying
 character_event = {
 	id = 38207
-	desc = "EVTDESC38207"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38207
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38207" # He can play only after school 
+		name = EVTOPTA38207 # He can play only after school 
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4726,7 +4770,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38207" # Play all you like then
+		name = EVTOPTB38207 # Play all you like then
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4745,7 +4789,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38207" # You can play with a birch if you like, go to school!
+		name = EVTOPTC38207 # You can play with a birch if you like, go to school!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4757,6 +4801,7 @@ character_event = {
 				trait = cruel
 			}
 		}		
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			70 = {	FROM = { add_trait = wroth	hidden_tooltip = { ROOT = { character_event = { id = 38154}} character_event = { id = 38254} }}}
 			30 = {	FROM = { add_trait = deceitful	hidden_tooltip = { ROOT = { character_event = { id = 38155}} character_event = { id = 38255}}}}
@@ -4767,13 +4812,13 @@ character_event = {
 # Where do heathens come from?
 character_event = {
 	id = 38208
-	desc = "EVTDESC38208"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38208
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38208" # Heathens are people just like us 
+		name = EVTOPTA38208 # Heathens are people just like us 
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4797,7 +4842,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38208" # They are demons from Hell!
+		name = EVTOPTB38208 # They are demons from Hell!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4817,7 +4862,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38208" # They are men like us, but unbeliever enemies
+		name = EVTOPTC38208 # They are men like us, but unbeliever enemies
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4836,13 +4881,13 @@ character_event = {
 #Your child is often playing very daring games with other children
 character_event = {
 	id = 38209
-	desc = "EVTDESC38209"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38209
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38209" # Let the child play, what harm could there be? 
+		name = EVTOPTA38209 # Let the child play, what harm could there be? 
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4867,7 +4912,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38209" # Try to limit the child's games a bit
+		name = EVTOPTB38209 # Try to limit the child's games a bit
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4885,7 +4930,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38209" # Curfew the child!
+		name = EVTOPTC38209 # Curfew the child!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4907,13 +4952,13 @@ character_event = {
 # Daddy, does God exist?
 character_event = {
 	id = 38210
-	desc = "EVTDESC38210"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38210
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38210" # Of course my child, go to play now
+		name = EVTOPTA38210 # Of course my child, go to play now
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4932,7 +4977,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38210" # Certainly child, let me tell you all about Him
+		name = EVTOPTB38210 # Certainly child, let me tell you all about Him
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4950,7 +4995,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38210" # My child, let me explain how things really are...
+		name = EVTOPTC38210 # My child, let me explain how things really are...
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4972,13 +5017,13 @@ character_event = {
 # Why do people die?
 character_event = {
 	id = 38211
-	desc = "EVTDESC38211"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38211
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38211" # Because they are too carefree
+		name = EVTOPTA38211 # Because they are too carefree
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -4998,7 +5043,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38211" # Everyone dies, sooner or later
+		name = EVTOPTB38211 # Everyone dies, sooner or later
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5016,10 +5061,11 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38211" # It's all part of God's plan
+		name = EVTOPTC38211 # It's all part of God's plan
 		trigger = {
-			NOT = {
-				religion_group = muslim
+			OR = {
+				religion_group = christian
+				religion_group = gnostic_group
 			}
 		}
 		ai_chance = { 
@@ -5039,7 +5085,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTD38211" # It's all part of Allah's plan
+		name = EVTOPTD38211 # It's all part of Allah's plan
 		trigger = {
 			religion_group = muslim
 		}
@@ -5064,13 +5110,13 @@ character_event = {
 # Will I rule one day?
 character_event = {
 	id = 38212
-	desc = "EVTDESC38212"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38212
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38212" # Of course you will...
+		name = EVTOPTA38212 # Of course you will...
 		trigger = {
 			FROM = {
 				OR = {
@@ -5098,7 +5144,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38212" # If you deserve it, you shall
+		name = EVTOPTB38212 # If you deserve it, you shall
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5121,7 +5167,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38212" # No you won't, silly child!
+		name = EVTOPTC38212 # No you won't, silly child!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5146,13 +5192,13 @@ character_event = {
 # Your child has developed a habit for wild parties.
 character_event = {
 	id = 38213
-	desc = "EVTDESC38213"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38213
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38213" # There is nothing I can do
+		name = EVTOPTA38213 # There is nothing I can do
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5206,7 +5252,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38213" # Curfews!
+		name = EVTOPTB38213 # Curfews!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5264,13 +5310,13 @@ character_event = {
 # If we're Catholic and our enemies are Catholic, why are we fighting?
 character_event = {
 	id = 38214
-	desc = "EVTDESC38214"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38214
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38214" # Fighting heathens is just silly church thing
+		name = EVTOPTA38214 # Fighting heathens is just silly church thing
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5289,7 +5335,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38214" # I fight who I like!
+		name = EVTOPTB38214 # I fight who I like!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5309,7 +5355,7 @@ character_event = {
 		}
 	}	
 	option = {
-		name = "EVTOPTC38214" # Sometimes, even your brother can be an enemy
+		name = EVTOPTC38214 # Sometimes, even your brother can be an enemy
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5329,13 +5375,13 @@ character_event = {
 # Why is the church so rich when the peasants are starving and poor?
 character_event = {
 	id = 38215
-	desc = "EVTDESC38215"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38215
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38215" # Because for the poor is the kingdom of heaven
+		name = EVTOPTA38215 # Because for the poor is the kingdom of heaven
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5354,7 +5400,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38215" # How about sharing of your own then?
+		name = EVTOPTB38215 # How about sharing of your own then?
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5377,13 +5423,13 @@ character_event = {
 # Why did you let off that peasant accused from poaching?
 character_event = {
 	id = 38216
-	desc = "EVTDESC38216"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38216
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38216" # Because he needed the deer more than me
+		name = EVTOPTA38216 # Because he needed the deer more than me
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5403,7 +5449,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38216" # A good deed in a day keeps man happy
+		name = EVTOPTB38216 # A good deed in a day keeps man happy
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5426,13 +5472,13 @@ character_event = {
 # These peasants we have are all mine to command like little slaves, right?
 character_event = {
 	id = 38217
-	desc = "EVTDESC38217"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38217
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38217" # That's right child
+		name = EVTOPTA38217 # That's right child
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5453,7 +5499,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38217" # That's it, you're under curfew!
+		name = EVTOPTB38217 # That's it, you're under curfew!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5476,13 +5522,13 @@ character_event = {
 # If a tree falls in the woods and there's nobody there to hear it, does it make a noise?
 character_event = {
 	id = 38218
-	desc = "EVTDESC38218"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38218
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38218" # Good question, you should ponder it on your own
+		name = EVTOPTA38218 # Good question, you should ponder it on your own
 		random_list = {
 			70 = {	change_learning = 1}
 			30 = {	FROM = { add_trait = shy	hidden_tooltip = { ROOT = { character_event = { id = 38163}} character_event = { id = 38263 } }}}
@@ -5490,25 +5536,25 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38218" # You should concentrate on something useful instead
+		name = EVTOPTB38218 # You should concentrate on something useful instead
 		random_list = {
 			70 = {	FROM = { add_trait = diligent	hidden_tooltip = { ROOT = { character_event = { id = 38156}} character_event = { id = 38256} }}}
 			20 = {	FROM = { add_trait = arbitrary	hidden_tooltip = { ROOT = { character_event = { id = 38166}} character_event = { id = 38266} }}}
 			10 = {	change_learning = -1}
 		}
 	}
-}
+}	
 
 # Since we all die anyway, why to be so hassled about life?
 character_event = {
 	id = 38219
-	desc = "EVTDESC38219"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38219
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38219" # I suppose you are right
+		name = EVTOPTA38219 # I suppose you are right
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5544,12 +5590,15 @@ character_event = {
 					}
 				}
 			}
-			50 = {	FROM = { add_trait = temperate	hidden_tooltip = { ROOT = { character_event = { id = 38176}} character_event = { id = 38276 } }}}
+			50 = {	FROM = { add_trait = temperate	
+					lose_weight_medium_effect = yes
+					weight_trait_check_effect = yes
+					hidden_tooltip = { ROOT = { character_event = { id = 38176}} character_event = { id = 38276 } }}}
 		}
 	}
 
 	option = {
-		name = "EVTOPTB38219" # But what about the enjoyment?
+		name = EVTOPTB38219 # But what about the enjoyment?
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5564,7 +5613,11 @@ character_event = {
 		
 		random_list = {
 			50 = {	FROM = { add_trait = lustful	hidden_tooltip = { ROOT = { character_event = { id = 38172}} character_event = { id = 38272} }}}
-			50 = {	FROM = { add_trait = gluttonous	hidden_tooltip = { ROOT = { character_event = { id = 38177}} character_event = { id = 38277 } }}}
+			50 = {	FROM = { add_trait = gluttonous	
+
+				gain_weight_small_effect = yes
+				weight_trait_check_effect = yes
+				hidden_tooltip = { ROOT = { character_event = { id = 38177}} character_event = { id = 38277 } }}}
 		}
 	}
 }
@@ -5572,13 +5625,13 @@ character_event = {
 #How can I best serve God?
 character_event = {
 	id = 38220
-	desc = "EVTDESC38220"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38220
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38220" # Be brave against His enemies!
+		name = EVTOPTA38220 # Be brave against His enemies!
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5593,7 +5646,7 @@ character_event = {
 	}
 
 	option = {
-		name = "EVTOPTB38220" # Be just to all His children
+		name = EVTOPTB38220 # Be just to all His children
 		ai_chance = { 
 			factor = 10
 			modifier = {
@@ -5611,13 +5664,13 @@ character_event = {
 # Female Ward is playing with swords instead of sewing
 character_event = {
 	id = 38221
-	desc = "EVTDESC38221"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38221
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38221" #Let her do it
+		name = EVTOPTA38221 #Let her do it
 		ai_chance = {
 			factor = 10
 			
@@ -5662,7 +5715,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38221"
+		name = EVTOPTB38221
 		ai_chance = {
 			factor = 10
 			
@@ -5707,13 +5760,13 @@ character_event = {
 # Ward is ridiculed for cowardness
 character_event = {
 	id = 38222
-	desc = "EVTDESC38222"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38222
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38222" #Show him how to fight yourself
+		name = EVTOPTA38222 #Show him how to fight yourself
 		tooltip_info = martial
 		trigger = {
 			martial = 10
@@ -5724,18 +5777,18 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38222" #Speak up for the child
+		name = EVTOPTB38222 #Speak up for the child
 		trigger = {
 			any_courtier = {
 				age = 8
-				NOT = { age = 16}
+				NOT = { age = 15}
 				NOT = { character = FROM }
 			}
 		}
 		any_courtier = {
 			limit = {
 				age = 8
-				NOT = { age = 16}
+				NOT = { age = 15}
 				NOT = { character = FROM }
 			}
 			opinion = {
@@ -5762,7 +5815,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38222" #Tell him/her not to worry
+		name = EVTOPTC38222 #Tell him/her not to worry
 		FROM = {
 			change_learning = 1
 			random_list = {
@@ -5800,13 +5853,13 @@ character_event = {
 # Ward is sneaking through the dungeons, and comes up with a bloody knife it found
 character_event = {
 	id = 38223
-	desc = "EVTDESC38223"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38223
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38223" #I'll teach him/her some useful skills
+		name = EVTOPTA38223 #I'll teach him/her some useful skills
 		#tooltip_info = 
 		trigger = {
 			OR = {
@@ -5815,6 +5868,7 @@ character_event = {
 				trait = wroth
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		FROM = {
 			random_list = {
 				50 = { 
@@ -5865,7 +5919,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38223" #
+		name = EVTOPTB38223 #
 		tooltip_info = arbitrary
 		trigger = {
 			trait = arbitrary
@@ -5885,7 +5939,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38223"
+		name = EVTOPTC38223
 		trigger = {
 			NOT = {
 				trait = cruel
@@ -5949,13 +6003,13 @@ character_event = {
 # Ward hides away to read books
 character_event = {
 	id = 38224
-	desc = "EVTDESC38224"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38224
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38224" #Take pride in your learning
+		name = EVTOPTA38224 #Take pride in your learning
 		FROM = {
 			if = {
 				limit = {
@@ -5996,7 +6050,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38224" #Joke about bookworm
+		name = EVTOPTB38224 #Joke about bookworm
 		ai_chance = {
 			factor = 1
 			
@@ -6043,7 +6097,7 @@ character_event = {
 	}
 	
 	option = {
-		name =  "EVTOPTC38224" #Encourage more activities with others.
+		name =  EVTOPTC38224 #Encourage more activities with others.
 		FROM = {
 			random_list = {
 				50 = {
@@ -6085,13 +6139,13 @@ character_event = {
 # Ugly Ward
 character_event = {
 	id = 38225
-	desc = "EVTDESC38225"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38225
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38225" #You can never be as good looking
+		name = EVTOPTA38225 #You can never be as good looking
 		FROM = {
 			random_list = {
 				80 = {
@@ -6124,7 +6178,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38225" #You look fine to me
+		name = EVTOPTB38225 #You look fine to me
 		FROM = {
 			random_list = {
 				75 = {
@@ -6161,8 +6215,8 @@ character_event = {
 # Fair ward
 character_event = {
 	id = 38226
-	desc = "EVTDESC38226"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38226
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
@@ -6171,7 +6225,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA38226" #Encourage flaunting beauty
+		name = EVTOPTA38226 #Encourage flaunting beauty
 		FROM = {
 			random_list = {
 				80 = {
@@ -6204,7 +6258,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38226"
+		name = EVTOPTB38226
 		FROM = {
 			random_list = {
 				75 = {
@@ -6241,13 +6295,13 @@ character_event = {
 # Ward shows a tendency to count money whenever possible...
 character_event = {
 	id = 38227
-	desc = "EVTDESC38227"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38227
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38227" #Teach X about joys of money
+		name = EVTOPTA38227 #Teach X about joys of money
 		if = {
 			limit = {
 				stewardship = 10
@@ -6298,7 +6352,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38227" #Tell about the joys of giving money
+		name = EVTOPTB38227 #Tell about the joys of giving money
 		if = {
 			limit = {
 				trait = greedy
@@ -6327,10 +6381,11 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38227" #Money is for god
+		name = EVTOPTC38227 #Money is for god
 		trigger = {
-			NOT = {
-				religion_group = muslim
+			OR = {
+				religion_group = christian
+				religion_group = gnostic_group
 			}
 		}
 		FROM = {
@@ -6365,7 +6420,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTD38227" #Money is for god
+		name = EVTOPTD38227 #Money is for god
 		trigger = {
 			religion_group = muslim
 		}
@@ -6405,13 +6460,13 @@ character_event = {
 # Ward shows interest in visitors to the court
 character_event = {
 	id = 38228
-	desc = "EVTDESC38228"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38228
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38228" #Introduce him to visitors
+		name = EVTOPTA38228 #Introduce him to visitors
 		ai_chance = {
 			factor = 99
 			
@@ -6448,7 +6503,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38228" #Tell him to stop it!
+		name = EVTOPTB38228 #Tell him to stop it!
 		ai_chance = {
 			factor = 1
 			
@@ -6499,13 +6554,13 @@ character_event = {
 # Ward constantly plays with swords and practices fighting with older men
 character_event = {
 	id = 38229
-	desc = "EVTDESC38229"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38229
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38229" #This will turn him into a great knight!
+		name = EVTOPTA38229 #This will turn him into a great knight!
 		trigger = {
 			NOT = {
 				religion_group = muslim
@@ -6620,7 +6675,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38229" #Make sure he does not hurt himself
+		name = EVTOPTB38229 #Make sure he does not hurt himself
 		ai_chance = {
 			factor = 1
 			
@@ -6675,7 +6730,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38229" #This will turn him into a great swordsmaster!
+		name = EVTOPTC38229 #This will turn him into a great swordsmaster!
 		trigger = {
 			religion_group = muslim
 		}
@@ -6792,13 +6847,13 @@ character_event = {
 ### Ward's first kiss ###
 character_event = {
 	id = 38230
-	desc = "EVTDESC38230"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38230
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38230" #Teach about courtly love
+		name = EVTOPTA38230 #Teach about courtly love
 		ai_chance = {
 			factor = 1
 			
@@ -6850,7 +6905,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38230" #Lecture about virtues and sins
+		name = EVTOPTB38230 #Lecture about virtues and sins
 		ai_chance = {
 			factor = 1
 			
@@ -6928,13 +6983,13 @@ character_event = {
 #Boy is spending all his time in the kitchen, risk becoming gluttonous and craven
 character_event = {
 	id = 38231
-	desc = "EVTDESC38231"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38231
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38231" #Force him to learn how to fight
+		name = EVTOPTA38231 #Force him to learn how to fight
 		FROM = {
 			random_list = {
 				80 = {
@@ -6952,6 +7007,8 @@ character_event = {
 				}
 				10 = {
 					add_trait = gluttonous
+					gain_weight_small_effect = yes
+					weight_trait_check_effect = yes
 					hidden_tooltip = {
 						ROOT = {
 							character_event = {
@@ -6980,11 +7037,13 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38231" #This is not my concern (Let him eat until he bursts!)
+		name = EVTOPTB38231 #This is not my concern (Let him eat until he bursts!)
 		FROM = {
 			random_list = {
 				80 = {
 					add_trait = gluttonous
+					gain_weight_small_effect = yes
+					weight_trait_check_effect = yes
 					hidden_tooltip = {
 						ROOT = {
 							character_event = {
@@ -7007,13 +7066,13 @@ character_event = {
 # Too curious a child: Find ward in the highest tower
 character_event = {
 	id = 38232
-	desc = "EVTDESC38232"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38232
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38232" #Curiousity has never killed anyone!
+		name = EVTOPTA38232 #Curiousity has never killed anyone!
 		FROM = {
 			random_list = {
 				50 = {
@@ -7063,16 +7122,13 @@ character_event = {
 								id = 38181 #Notify Child is maimed
 							}
 						}
-						character_event = {
-							id = 38281 #Notify Maimed
-						}
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = "EVTOPTB38232" #Teach her/him a lesson!
+		name = EVTOPTB38232 #Teach her/him a lesson!
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -7081,6 +7137,7 @@ character_event = {
 				NOT = { trait = wroth }
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		FROM = {
 			random_list = {
 				80 = {
@@ -7110,7 +7167,7 @@ character_event = {
 		set_character_flag = murdered_fosterling
 	}
 	option = {
-		name = "EVTOPTC38232" #Strictly forbid
+		name = EVTOPTC38232 #Strictly forbid
 		if = {
 			limit = { 
 				FROM = { 
@@ -7199,16 +7256,17 @@ character_event = {
 # Ward is Ill
 character_event = {
 	id = 38233
-	desc = "EVTDESC38233"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38233
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38233" #Make the child fast to atone for its sins
+		name = EVTOPTA38233 #Make the child fast to atone for its sins
 		trigger = {
-			NOT = {
-				religion_group = muslim
+			OR = {
+				religion_group = christian
+				religion_group = gnostic_group
 			}
 		}
 		ai_chance = {
@@ -7239,7 +7297,7 @@ character_event = {
 				}
 				5 = {
 					death = {
-						death_reason = death_murder
+						death_reason = death_murder_unknown
 						killer = ROOT
 					}
 					set_character_flag = murdered_by_guardian
@@ -7261,7 +7319,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38233" #Pay a doctor to cure ward
+		name = EVTOPTB38233 #Pay a doctor to cure ward
 		ai_chance = {
 			factor = 1
 		
@@ -7300,11 +7358,9 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38233" #Only God decides over life and death
+		name = EVTOPTC38233 #Only God decides over life and death
 		trigger = {
-			NOT = {
-				religion_group = muslim
-			}
+			religion_group = christian
 		}
 		FROM = {
 			random = {
@@ -7348,7 +7404,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTD38233" #Only Allah decides over life and death
+		name = EVTOPTD38233 #Only Allah decides over life and death
 		trigger = {
 			religion_group = muslim
 		}
@@ -7394,7 +7450,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTE38233" #Do nothing
+		name = EVTOPTE38233 #Do nothing
 		trigger = {
 			religion_group = muslim
 		}
@@ -7426,7 +7482,7 @@ character_event = {
 				}
 				5 = {
 					death = {
-						death_reason = death_murder
+						death_reason = death_murder_unknown
 						killer = ROOT
 					}
 					set_character_flag = murdered_by_guardian
@@ -7452,13 +7508,16 @@ character_event = {
 # Homosexual Ward
 character_event = {
 	id = 38234
-	desc = "EVTDESC38234"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38234
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38234" #Make the child fast to atone for its sins
+		name = EVTOPTA38234 #Make the child fast to atone for its sins
+		trigger = {
+			religion_group = christian
+		}
 		ai_chance = {
 			factor = 10
 			
@@ -7481,7 +7540,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38234" #Try to beat it out of him/her
+		name = EVTOPTB38234 #Try to beat it out of him/her
 		ai_chance = {
 			factor = 10
 			
@@ -7490,6 +7549,7 @@ character_event = {
 				trait = cruel
 			}
 		}
+		pacifists_lose_piety_effect = yes
 		FROM = {
 			random = {
 				chance = 10
@@ -7504,7 +7564,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC38234" #S/he will grow out of it
+		name = EVTOPTC38234 #S/he will grow out of it
 		FROM = {
 			random = {
 				chance = 25
@@ -7528,13 +7588,13 @@ character_event = {
 # Ward is good at talking to people, and have no problem getting friends
 character_event = {
 	id = 38235
-	desc = "EVTDESC38235"
-	picture = "GFX_evt_child_play"
+	desc = EVTDESC38235
+	picture = GFX_evt_child_play
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA38235" #the goal justifies the means. 
+		name = EVTOPTA38235 #the goal justifies the means. 
 		ai_chance= {
 			factor = 1
 			
@@ -7567,7 +7627,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB38235" #your tongue will cause you problems!
+		name = EVTOPTB38235 #your tongue will cause you problems!
 		ai_chance= {
 			factor = 1
 			
@@ -7615,18 +7675,19 @@ character_event = {
 	}
 }
 
+
 #A child is missing a guardian
 character_event = {
 	id = 2490
-	desc = "EVTDESC2490"
-	picture = "GFX_evt_child_bully"
+	desc = EVTDESC2490
+	picture = GFX_evt_child_bully
 
 	is_triggered_only = yes
 
 	option = {
-		name = "EVTOPTA2490" 
+		name = EVTOPTA2490 
 		trigger = {
-			age = 16
+			age = 15
 		}
 		FROM = {
 			set_guardian = ROOT
@@ -7635,7 +7696,7 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTB2490" 
+		name = EVTOPTB2490 
 		random_list = {
 			10 = {	
 				FROM = { 
@@ -7670,6 +7731,8 @@ character_event = {
 			10 = {	
 				FROM = { 
 					add_trait = gluttonous
+					gain_weight_small_effect = yes
+					weight_trait_check_effect = yes
 					hidden_tooltip = { 
 						ROOT = {
 							character_event = { 
