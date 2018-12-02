@@ -369,6 +369,16 @@ character_event = {
 		}
 	}
 
+	immediate = {
+		random_vassal = {
+			limit = {
+				tier = baron
+				is_theocracy = yes
+			}
+			save_event_target_as = grumpy_priest				
+		}
+	}
+
 	weight_multiplier = {
 		days = 1
 		modifier = {
@@ -384,11 +394,8 @@ character_event = {
 	}	
 	option = {
 		name = "EVTOPTB73002" # If the Church wants it, the Church pays for it
-		random_vassal = {
-			limit = {
-				tier = baron
-				is_theocracy = yes
-			}
+		event_target:grumpy_priest = {
+			show_scope_change = no
 			opinion = {
 				who = ROOT
 				modifier = ignores_local_saints
@@ -526,7 +533,8 @@ character_event = {
 			is_fair_trigger = yes
 			is_ugly_trigger = yes
 		}
-		NOT = {	trait = humble	}
+		NOT = {	trait = humble }
+		NOT = {	trait = uncouth }
 	}
 
 	weight_multiplier = {
@@ -535,6 +543,10 @@ character_event = {
 			factor = 2.0
 			trait = proud
 			is_fair_trigger = yes
+		}
+		modifier = {
+			factor = 2.0
+			trait = groomed
 		}
 		modifier = {
 			factor = 0.8
@@ -625,11 +637,11 @@ character_event = {
 	option = {
 		name = "EVTOPTA73005" #Introduce fashion at the court
 		if = {
-			limit = { is_fair_trigger = yes }
+			limit = { has_fair_trait_trigger = yes }
 			random = {
 				chance = 10
 				add_trait = proud 
-				hidden_tooltip = { character_event = { id = 38261 }  }
+				hidden_tooltip = { character_event = { id = 38261 } }
 			}
 		}
 		scaled_wealth = -0.2
@@ -737,6 +749,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTC73006" #Give him a beating for messing with inferiors
+		pacifists_lose_piety_effect = yes
 		event_target:knocked_up_maid = {
 			opinion = {
 				modifier = resentful_of_my_behaviour
@@ -780,6 +793,7 @@ character_event = {
 			is_alive = yes
 			NOT = { trait = shy } 
 			NOT = { trait = zealous }
+			NOT = { trait = uncouth }
 			NOT = { trait = humble }
 			is_ill = no
 			NOT = { trait = incapable }
@@ -810,7 +824,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 1.5
-			spouse = { is_fair_trigger = yes }
+			spouse = { has_fair_trait_trigger = yes }
 		}
 		modifier = {
 			factor = 2.5
@@ -1227,6 +1241,8 @@ character_event = {
 				trait = gluttonous
 			}
 			remove_trait = gluttonous
+			lose_weight_small_effect = yes
+			weight_trait_check_effect = yes
 			piety = -20
 		}
 		if = {
