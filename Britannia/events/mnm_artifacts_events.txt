@@ -50,6 +50,17 @@ character_event = {
 			has_character_modifier = relic_rumor_medium
 			has_character_modifier = relic_rumor_minor
 		}
+		NOT = {
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+		factor = 2.0
+		has_ambition = obj_create_treasury
+		}
 	}
 
 	immediate = {
@@ -707,7 +718,7 @@ character_event = {
 							modifier = { factor = 1.4 martial = 15 }	
 							modifier = { factor = 1.4 martial = 18 }	
 							modifier = { factor = 1.4 trait = brave }
-							modifier = { factor = 1.4 combat_rating = 2 }
+							modifier = { factor = 1.4 combat_rating = 20 }
 							event_target:relic_ruler = { 
 								change_variable = { which = relic_score value = 1 } 
 								if = {
@@ -8079,14 +8090,26 @@ character_event = {
         		random_list = { #Stewardship
         			15 = { change_stewardship = 1 }
         			25 = { change_stewardship = 3 }
-        			20 = { change_stewardship = 5 }
-        			10 = { change_stewardship = 7 }
+        			20 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				change_stewardship = 5
+        			}
+        			10 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				change_stewardship = 7
+        			}
         		}
         		random_list = { #Personality
         			1 = { add_trait = greedy }
         			1 = { add_trait = envious }
-        			1 = { add_trait = charitable }
-        			1 = { add_trait = diligent }
+        			1 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				add_trait = charitable
+        			}
+        			1 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				add_trait = diligent
+        			}
         			1 = { add_trait = deceitful }
         		}
         		random = {
@@ -8095,6 +8118,7 @@ character_event = {
         				factor = 2
         				trait = indulgent_wastrel
         			}
+        			artisan_craftsmen_bloodline_increase_score = yes
         			upgrade_education_effect = yes
         		}
 			}
@@ -8201,6 +8225,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 	    	}
@@ -8294,6 +8325,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 			}
@@ -8382,6 +8420,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 			}
@@ -9034,13 +9079,28 @@ character_event = {
 ###WEAPON EVENTS###
 character_event = {
     id = MNM.9115
-    desc = EVTDESC_MNM_9115
     picture = GFX_evt_weaponsmith
     border = GFX_event_normal_frame_economy
-
     hide_from = yes
     is_triggered_only = yes
 
+	desc = {
+		text = EVTDESC_MNM_9115
+		trigger = {
+			any_courtier_or_vassal = {
+				has_job_title = job_marshal
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC_MNM_9115_b
+		trigger = {
+			NOT = { any_courtier_or_vassal = {
+				has_job_title = job_marshal 
+			} }
+		}
+	}
+	
     trigger = {
     	OR = {
     		has_dlc = "Mystics"
@@ -9110,14 +9170,26 @@ character_event = {
         		random_list = { #Stewardship
         			15 = { change_stewardship = 1 }
         			25 = { change_stewardship = 3 }
-        			20 = { change_stewardship = 5 }
-        			10 = { change_stewardship = 7 }
+        			20 = {
+        				change_stewardship = 5
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
+        			10 = {
+        				change_stewardship = 7
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
         		}
         		random_list = { #Personality
         			1 = { add_trait = greedy }
         			1 = { add_trait = envious }
-        			1 = { add_trait = charitable }
-        			1 = { add_trait = diligent }
+        			1 = {
+        				add_trait = charitable
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
+        			1 = {
+        				add_trait = diligent
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
         			1 = { add_trait = deceitful }
         		}
         		random = {
@@ -9126,6 +9198,7 @@ character_event = {
         				factor = 2
         				trait = indulgent_wastrel
         			}
+        			artisan_craftsmen_bloodline_increase_score = yes
         			upgrade_education_effect = yes
         		}
 			}
@@ -9149,8 +9222,31 @@ character_event = {
         		character_event = { id = MNM.9116 days = 7 } 
         	}
         }
+		trigger = {
+			any_courtier_or_vassal = {
+				has_job_title = job_marshal
+			}
+		}
     }
 
+	option = {
+		name = EVTOPTA_MNM_9115_b
+		 custom_tooltip = { text = EVTOPTA_MNM_9115_TT }
+		  hidden_effect = {
+        	save_event_target_as = smith_employer
+        	event_target:smith = { 
+        		character_event = { id = MNM.9116 days = 7 } 
+        	}
+        }
+		trigger = {
+			NOT = { 
+				any_courtier_or_vassal = {
+					has_job_title = job_marshal 
+				} 
+			}
+		}
+	}
+	
     #Don't invite them
     option = {
         name = EVTOPTB_MNM_9115
@@ -9162,7 +9258,52 @@ character_event = {
         }
         clr_character_flag = weaponsmith
         clr_character_flag = armorsmith
+		
+		if = {
+			limit = {
+				NOR = {
+					has_artifact = terrible_sword
+					has_character_flag = got_terrible_sword
+				}
+			}
+			character_event = { id = MNM.9999 days = 7 }
+			set_character_flag = got_terrible_sword
+		}
+		
+		ai_chance = {
+            factor = 0
+        }
     }
+}
+
+character_event = { #Your own smiths have a go
+    id = MNM.9999
+	desc = MNM_9999_DESC
+    picture = GFX_evt_weaponsmith
+    border = GFX_event_normal_frame_economy
+    hide_from = yes
+	hide_new = yes
+    is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+    		has_dlc = "Mystics"
+    		has_dlc = "Jade Dragon"
+    	}
+	}
+	
+	immediate = {
+		add_artifact = terrible_sword
+	}
+	
+	option = {
+		name = EVTOPTA_MNM_9999
+		tooltip ={
+			add_artifact = terrible_sword
+		}
+	
+	}
+	
 }
 
 #Ping event for weaponsmith
@@ -9379,6 +9520,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -9565,6 +9713,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -9727,6 +9882,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -10360,7 +10522,7 @@ character_event = {
     }
     desc = {
     	trigger = {
-    		tier = GENERIC
+    		NOT = { tier = KING }
     	}
     	text = EVTDESC_MNM_9124_GENERIC
     }
@@ -10700,7 +10862,6 @@ character_event = {
 	option = { #Weapon
 		name = EVT_OPTA_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = combat_weapon } }
 	    	job_marshal = { always = yes }
 	    }
 	    custom_tooltip = {
@@ -10710,11 +10871,17 @@ character_event = {
 	    		character_event = { id = MNM.9115 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = combat_weapon }
+            }
+        }
 	}
 	option = { #Armor
 		name = EVT_OPTB_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = armor_set } }
 	    	job_marshal = { always = yes }
 	    }
 	    custom_tooltip = {
@@ -10724,11 +10891,17 @@ character_event = {
 	    		character_event = { id = MNM.9115 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = armor_set }
+            }
+        }
 	}
 	option = { #Gold
 		name = EVT_OPTC_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = crown_jewel } }
 			is_feudal = yes
 	    }
 	    custom_tooltip = {
@@ -10737,6 +10910,13 @@ character_event = {
 	    		character_event = { id = MNM.9100 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = crown_jewel }
+            }
+        }
 	}
 	option = {
 		name = EVT_OPTD_MNM_9310
@@ -10746,6 +10926,9 @@ character_event = {
 				remove_character_modifier = employ_a_smith_cd
 			}
 		}
+		ai_chance = {
+            factor = 0
+        }
 	}
 }
 
@@ -11151,7 +11334,7 @@ character_event = {
 			    }
 			}
 		}
-		#Give to landed rivals first, then rivals, then nearby rulers who dislike the employer, else keep for self and run away
+		#Give to landed rivals first, then nearby rulers who dislike the employer, else keep for self and run away.
 		if = {
 			limit = { 
 				event_target:smith_employer = { 
@@ -11174,24 +11357,8 @@ character_event = {
 		else_if = {
 			limit = { 
 				event_target:smith_employer = { 
-					any_rival = {
-						is_within_diplo_range = ROOT
-					}
-				}
-			}
-			event_target:smith_employer = { 
-				random_rival = {
-					limit = { 
-						is_within_diplo_range = ROOT
-					}
-					save_event_target_as = smith_steal_target
-				}
-			}
-		}
-		else_if = {
-			limit = { 
-				event_target:smith_employer = { 
 					any_neighbor_independent_ruler = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11204,6 +11371,7 @@ character_event = {
 			event_target:smith_employer = { 
 				any_neighbor_independent_ruler = {
 					limit = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11219,6 +11387,7 @@ character_event = {
 			limit = { 
 				event_target:smith_employer = { 
 					any_neighbor_independent_ruler = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11231,6 +11400,7 @@ character_event = {
 			event_target:smith_employer = { 
 				any_neighbor_independent_ruler = {
 					limit = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11305,12 +11475,6 @@ character_event = {
     		any_artifact = {
     			limit = { has_artifact_flag = stolen_by_smith }
     			clr_artifact_flag = stolen_by_smith
-    			tooltip = { 
-    				transfer_artifact = {
-    					to = event_target:smith_steal_target
-    					from = ROOT
-    				}
-    			}
     		}
 			reverse_opinion = {
 				who = ROOT
@@ -11328,6 +11492,37 @@ character_event = {
 			hidden_effect = { remove_nickname = yes }
 		}
     }
+	
+	option = {
+		name = EVT_OPTB_MNM_9132
+		tooltip_info = intrigue
+		custom_tooltip = { text = EVT_OPTB_MNM_9132_TT}
+		trigger = {
+			intrigue = 15
+		}
+		hidden_effect = {
+			event_target:smith_steal_target = {
+				any_artifact = {
+					show_scope_change = no
+					limit = { has_artifact_flag = stolen_by_smith }
+					transfer_artifact = {
+						from = event_target:smith_steal_target
+						to = ROOT
+					}
+					clr_artifact_flag = stolen_by_smith
+				}
+			}
+		}
+		
+		FROM = {
+			show_scope_change = no
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+		}
+		
+	}
 }
 
 #Tombola for events mid-smithing
@@ -11411,12 +11606,14 @@ character_event = {
 									is_inaccessible_or_incapable_trigger = no
 									liege = { character = ROOT }
 									age <= 16
+									age = 9
 									is_strong_trigger = no
 									NOT = { trait = weak }
 								}
 								any_pupil = {
 									is_inaccessible_or_incapable_trigger = no
 									age <= 16
+									age = 9
 									is_strong_trigger = no
 									NOT = { trait = weak }
 								}
@@ -11450,6 +11647,11 @@ character_event = {
 										event_target:smith = { is_female = no }
 										prefers_men_trigger = yes
 									}
+								}
+							}
+							NOT = {
+								any_owned_bloodline = {
+									has_bloodline_flag = bloodline_artisan_craftsmen #A Legendary Bloodline
 								}
 							}
 						}
@@ -11682,6 +11884,7 @@ character_event = {
 			limit = { 
 				liege = { character = ROOT }
 				age <= 16
+				age = 9
 				is_strong_trigger = no
 				NOT = { trait = weak }
 				is_inaccessible_or_incapable_trigger = no
@@ -11691,6 +11894,7 @@ character_event = {
 		random_pupil = {
 			limit = {
 				age <= 16
+				age = 9
 				is_strong_trigger = no
 				NOT = { trait = weak }
 				is_inaccessible_or_incapable_trigger = no
@@ -12039,7 +12243,7 @@ character_event = {
 		    	clr_character_flag = expensive_weapons
 				clr_character_flag = good_weapons
 				clr_character_flag = cheap_weapons
-				clr_character_flag = amazing_jewel
+				clr_character_flag = amazing_jewels
 		    	clr_character_flag = expensive_jewels
 				clr_character_flag = good_jewels
 				clr_character_flag = cheap_jewels
@@ -12068,7 +12272,7 @@ character_event = {
 	has_dlc = "Mystics"
 	
 	trigger = {
-		FROM = { 
+		FROM = {
 			always = yes
 			is_capital = yes
 			location = { is_capital = yes }
@@ -12086,9 +12290,12 @@ character_event = {
     hide_window = yes
 	
 	is_triggered_only = yes
-	has_dlc = "Mystics"
 
 	trigger = {
+		OR = {
+			has_dlc = "Mystics"
+			has_dlc = "Holy Fury"	
+		}
 		FROM = {
 			is_capital = yes #capital holding
 			location = { is_capital = yes } #of capital province
@@ -12119,6 +12326,7 @@ character_event = {
 				if = {
 					limit = {
 						num_of_artifacts = 1
+						at_location = event_target:target_location
 					}
 					character_event = { id = MNM.9901 } # Chance to lose an artifact.
 				}
@@ -12294,6 +12502,21 @@ character_event = {
 						}
 					}
 				}
+				modifier = {
+					factor = 0.5 # if the sieger was a warrior lodge member
+					FROM = {
+						is_member_of_any_warrior_lodge_trigger = yes
+						society_rank > 1 #Must be rank 2 or higher
+					}
+				}
+				modifier = {
+					factor = 0.5 # if the sieger has a reaver bloodline
+					FROM = {
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_reaver
+						}
+					}
+				}
 			}
 		}
 		FROM = {
@@ -12357,6 +12580,7 @@ character_event = {
 		}
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12391,6 +12615,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -12469,6 +12694,7 @@ character_event = {
 		}
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12502,13 +12728,14 @@ character_event = {
 		name = EVTOPTA_MNM_9903
 		tooltip = {
 			FROM = {
+				show_scope_change = no
 				random_artifact = {
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
 					transfer_artifact = {
 						from = ROOT
-						to = THIS
+						to = PREV
 					}
 				}
 			}
@@ -12631,6 +12858,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12669,6 +12897,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -12719,6 +12948,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -12748,6 +12978,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}
@@ -12865,6 +13096,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12903,6 +13135,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -12982,6 +13215,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}
@@ -13099,6 +13333,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -13137,6 +13372,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -13187,6 +13423,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -13216,6 +13453,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}

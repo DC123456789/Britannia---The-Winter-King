@@ -71,13 +71,16 @@ character_event = {
 	only_rulers = yes
 	
 	is_triggered_only = yes
+
+	portrait = event_target:my_shieldmaiden
 	
 	trigger = {
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			is_member_of_any_warrior_lodge_trigger = yes
 		}
-		age = 16
+		age = 15
 		NOT = { trait = incapable }
 
 		any_courtier_or_vassal = {
@@ -104,6 +107,8 @@ character_event = {
 		name = EVTOPTA_79001
 		custom_tooltip = { text = EVTOPTA_79001_TOOLTIP }
 
+		show_portrait = event_target:my_shieldmaiden
+
 		hidden_tooltip = {
 			ROOT = { save_event_target_as = shieldmaiden_liege }
 			event_target:my_shieldmaiden = {
@@ -125,6 +130,7 @@ character_event = {
 	option = {
 		name = EVTOPTA_79002
 		custom_tooltip = { text = EVTOPTA_79002_TOOLTIP }
+		add_blood_splatter_effect = yes
 		add_maimed_trait_effect = yes
 		hidden_tooltip = {
 			FROM = {
@@ -199,6 +205,7 @@ character_event = {
 		
 		tooltip = {
 			FROM = {
+				show_scope_change = no
 				add_character_modifier = {
 					name = lucky_to_be_alive
 					duration = -1
@@ -224,6 +231,7 @@ character_event = {
 				modifier = opinion_budding_friendship
 			}
 			FROM = {
+				show_scope_change = no
 				opinion = {
 					who = ROOT
 					modifier = opinion_budding_friendship
@@ -249,6 +257,7 @@ character_event = {
 				modifier = opinion_loyal_shieldmaiden
 			}
 			FROM = {
+				show_scope_change = no
 				opinion = {
 					who = ROOT
 					modifier = opinion_was_praised
@@ -293,7 +302,7 @@ character_event = {
 
 			add_character_modifier = {
 				name = lucky_to_be_alive
-				duration = -1
+				duration = 3650
 			}
 		}
 		if = {
@@ -391,6 +400,7 @@ character_event = {
 
 		tooltip = {		
 			FROM = {
+				show_scope_change = no
 				add_character_modifier = {
 					name = pet_cat
 					duration = -1
@@ -415,6 +425,7 @@ character_event = {
 		custom_tooltip = { text = EVTOPTC_79005_TOOLTIP }
 
 		random_child = {
+			show_scope_change = no
 			limit = {
 				at_location = ROOT
 				is_adult = no
@@ -452,7 +463,7 @@ character_event = {
 		custom_tooltip = { text = EVTOPTD_79005_TOOLTIP }
 		
 		tooltip = { add_friend = FROM }
-
+		tiered_prestige_reward_effect = yes
 		hidden_tooltip = {
 			FROM = {
 				set_character_flag = no_cat
@@ -681,12 +692,13 @@ character_event = {
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			liege = { is_member_of_any_warrior_lodge_trigger = yes }
 		}
 		trait = shieldmaiden
 
 		liege = {
 			at_location = ROOT
-			age = 16
+			age = 15
 			prisoner = no
 			NOT = { has_character_modifier = lucky_to_be_alive }
 		}
@@ -711,60 +723,14 @@ character_event = {
 		custom_tooltip = { text = EVTOPTA_79009_TOOLTIP }
 		random_list = {
 			30 = {
-				modifier = {
-					factor = 1.1
-					combat_rating = 1
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 2
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 3
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 4
-				}
-				modifier = {
-					factor = 1.1
-					martial = 11
-				}
-				modifier = {
-					factor = 1.1
-					martial = 12
-				}
-				modifier = {
-					factor = 1.1
-					martial = 14
-				}
-				modifier = {
-					factor = 1.1
-					martial = 16
-				}
-				modifier = {
-					factor = 1.1
-					martial = 18
-				}
-				modifier = {
-					factor = 1.1
-					martial = 20
-				}
+				good_soldier_outcome_score = yes
 				#success
 				hidden_tooltip = { change_martial = 1 }
 				set_character_flag = protected_liege
 				character_event = { id = 79010 tooltip = EVTOPTA_79009_TOOLTIP_1 } # decent outcome
 			}
 			10 = {
-				modifier = {
-					factor = 2
-					trait = severely_injured
-				}
-				modifier = {
-					factor = 2
-					NOT = { combat_rating = 1 }
-				}
+				bad_soldier_outcome_score = yes
 				#fail
 				set_character_flag = failed_to_protect_liege
 				character_event = { id = 79010 tooltip = EVTOPTA_79009_TOOLTIP_2 } # bad outcome
@@ -808,52 +774,14 @@ character_event = {
 		custom_tooltip = { text = EVTOPTB_79009_TOOLTIP }
 		random_list = {
 			20 = {
-				modifier = {
-					factor = 1.1
-					combat_rating = 1
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 2
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 3
-				}
-				modifier = {
-					factor = 1.1
-					combat_rating = 4
-				}
-				modifier = {
-					factor = 1.1
-					martial = 11
-				}
-				modifier = {
-					factor = 1.1
-					martial = 12
-				}
-				modifier = {
-					factor = 1.1
-					martial = 14
-				}
-				modifier = {
-					factor = 1.1
-					martial = 16
-				}
-				modifier = {
-					factor = 1.1
-					martial = 18
-				}
-				modifier = {
-					factor = 1.1
-					martial = 20
-				}
+				good_soldier_outcome_score = yes
 				#success
 				hidden_tooltip = { change_martial = 2 }
 				set_character_flag = protected_liege_well
 				character_event = { id = 79010 tooltip = EVTOPTB_79009_TOOLTIP_1 } # great outcome
 			}
 			20 = {
+				bad_soldier_outcome_score = yes
 				#fail
 				set_character_flag = failed_terribly_to_protect_liege
 				character_event = { id = 79010 tooltip = EVTOPTB_79009_TOOLTIP_2 } # terrible outcome
@@ -937,19 +865,19 @@ character_event = {
 				}				
 				modifier = {
 					factor = 1.1
-					event_target:my_liege = { combat_rating = 1 }
+					event_target:my_liege = { combat_rating = 10 }
 				}
 				modifier = {
 					factor = 1.1
-					event_target:my_liege = { combat_rating = 2 }
+					event_target:my_liege = { combat_rating = 20 }
 				}
 				modifier = {
 					factor = 1.1
-					event_target:my_liege = { combat_rating = 3 }
+					event_target:my_liege = { combat_rating = 30 }
 				}
 				modifier = {
 					factor = 1.1
-					event_target:my_liege = { combat_rating = 4 }
+					event_target:my_liege = { combat_rating = 40 }
 				}
 				modifier = {
 					factor = 1.1
@@ -1074,6 +1002,7 @@ character_event = {
 
 		tooltip = {
 			event_target:my_liege = {
+				show_scope_change = no
 				add_character_modifier = {
 					name = lucky_to_be_alive
 					duration = 365
@@ -1110,6 +1039,7 @@ character_event = {
 
 		tooltip = {
 			event_target:my_liege = {
+				show_scope_change = no
 				opinion = {
 					who = ROOT
 					modifier = opinion_loyal_shieldmaiden
@@ -1168,6 +1098,7 @@ character_event = {
 
 		tooltip = {
 			event_target:my_liege = {
+				show_scope_change = no
 				death = {
 					death_reason = death_battle
 				}
@@ -1230,6 +1161,7 @@ character_event = {
 		name = EVTOPTB_79012
 
 		FROM = {
+			show_scope_change = no
 			add_character_modifier = {
 				name = bad_shieldmaiden
 				duration = 1095
@@ -1268,6 +1200,7 @@ character_event = {
 
 		add_maimed_trait_effect = yes
 		FROM = {
+			show_scope_change = no
 			add_character_modifier = {
 				name = inattentive_soldier
 				duration = 1095
@@ -1287,6 +1220,7 @@ character_event = {
 		custom_tooltip = { text = EVTOPTB_79013_TOOLTIP }
 
 		FROM = {
+			show_scope_change = no
 			add_maimed_trait_effect = yes
 			add_character_modifier = {
 				name = clumsy_shieldmaiden
@@ -1334,6 +1268,15 @@ character_event = {
 	option = { #well, I don't wanna
 		name = EVTOPTB_79020
 		custom_tooltip = { text = EVTOPTB_79020_TOOLTIP }
+		hidden_tooltip = {
+			#FROM = {
+				add_character_modifier = {
+ 					modifier = recently_relieved_shieldmaiden_timer
+ 					days = 365
+ 					hidden = yes
+				}
+			#}
+		}
 
 		hidden_tooltip = {
 			FROMFROM = {
@@ -1398,15 +1341,6 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_79022
-		hidden_tooltip = {
-			FROM = {
-				add_character_modifier = {
- 					modifier = recently_relieved_shieldmaiden_timer
- 					days = 365
- 					hidden = yes
-				}
-			}
-		}
 	}
 }
 

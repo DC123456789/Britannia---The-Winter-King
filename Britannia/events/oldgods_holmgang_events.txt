@@ -19,6 +19,7 @@ character_event = {
 	only_men = yes
 	capable_only = yes
 	prisoner = no
+	religion_group = pagan_group
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -35,7 +36,7 @@ character_event = {
 			is_ill = yes
 		}
 		liege = {
-			age = 16
+			age = 15
 			NOT = { age = 50 }
 			is_alive = yes
 			is_female = no
@@ -56,7 +57,7 @@ character_event = {
 				religion = norse_pagan
 				religion = norse_pagan_reformed
 			}
-			NOT = { trait = in_hiding }
+			NOT = { is_inaccessible_trigger = yes }
 			NOT = {
 				reverse_has_opinion_modifier = {  #checks if target is actually already loyal (thus not suitable for challening)
 					who = ROOT
@@ -83,7 +84,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.6
-			combat_rating = 5
+			combat_rating = 50
 		}
 		modifier = {
 			factor = 0.6
@@ -103,7 +104,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 2.0
-			NOT = { combat_rating = 1 }
+			NOT = { combat_rating = 10 }
 		}
 		modifier = {
 			factor = 2.0
@@ -134,10 +135,6 @@ character_event = {
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.5999 days = 50 } } # Safety catch flag clearing
 	}			
-	
-	option = {
-		name = OK
-	}
 }
 
 # Fellow Vassal Hates You (Invisible)
@@ -150,6 +147,7 @@ character_event = {
 	only_men = yes
 	capable_only = yes
 	prisoner = no
+	religion_group = pagan_group
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -168,7 +166,7 @@ character_event = {
 		liege = {
 			any_vassal = {
 				is_ruler = yes
-				age = 16
+				age = 15
 				is_alive = yes
 				is_female = no
 				prisoner = no
@@ -219,7 +217,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.6
-			combat_rating = 5
+			combat_rating = 50
 		}
 		modifier = {
 			factor = 0.6
@@ -239,7 +237,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 2.0
-			NOT = { combat_rating = 1 }
+			NOT = { combat_rating = 10 }
 		}
 		modifier = {
 			factor = 2.0
@@ -264,7 +262,7 @@ character_event = {
 			random_vassal = {
 				limit = {
 					is_ruler = yes
-					age = 16
+					age = 15
 					is_alive = yes
 					is_female = no
 					prisoner = no
@@ -305,10 +303,6 @@ character_event = {
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.5999 days = 50 } } # Safety catch flag clearing
 	}				
-	
-	option = {
-		name = OK
-	}
 }
 
 # Your Vassal Hates You (Invisible)
@@ -321,6 +315,7 @@ character_event = {
 	only_men = yes
 	capable_only = yes
 	prisoner = no
+	religion_group = pagan_group
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -338,7 +333,7 @@ character_event = {
 		}
 		any_vassal = {
 			is_ruler = yes
-			age = 16
+			age = 15
 			is_alive = yes
 			is_female = no
 			prisoner = no
@@ -358,7 +353,7 @@ character_event = {
 				religion = norse_pagan
 				religion = norse_pagan_reformed
 			}
-			NOT = { trait = in_hiding }
+			NOT = { is_inaccessible_trigger = yes }
 			NOT = {
 				reverse_has_opinion_modifier = {  #checks if target is actually already loyal (thus not suitable for challening)
 					who = ROOT
@@ -385,7 +380,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.6
-			combat_rating = 5
+			combat_rating = 50
 		}
 		modifier = {
 			factor = 0.6
@@ -405,7 +400,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 2.0
-			NOT = { combat_rating = 1 }
+			NOT = { combat_rating = 10 }
 		}
 		modifier = {
 			factor = 2.0
@@ -429,7 +424,7 @@ character_event = {
 		random_vassal = {
 			limit = {
 				is_ruler = yes
-				age = 16
+				age = 15
 				is_alive = yes
 				is_female = no
 				prisoner = no
@@ -449,7 +444,7 @@ character_event = {
 					religion = norse_pagan
 					religion = norse_pagan_reformed
 				}
-				NOT = { trait = in_hiding }
+				NOT = { is_inaccessible_trigger = yes }
 				NOT = {
 					reverse_has_opinion_modifier = {  #checks if target is actually already loyal (thus not suitable for challening)
 						who = ROOT
@@ -466,10 +461,6 @@ character_event = {
 		set_character_flag = do_not_disturb
 		hidden_tooltip = { character_event = { id = TOG.5999 days = 50 } } # Safety catch flag clearing
 	}	
-	
-	option = {
-		name = OK
-	}
 }
 
 # The challenge is issued
@@ -615,6 +606,7 @@ character_event = {
 			limit = { 
 				NOT = { trait = brave }
 				NOT = { trait = craven }
+				NOT = { trait = berserker }
 			}
 			random = {
 				chance = 33
@@ -646,7 +638,7 @@ character_event = {
 			FROM = { character_event = { id = TOG.5004 days = 7} }
 			if = {
 				limit = {
-					combat_rating_diff = { who = FROM value = 5 }
+					combat_rating_diff = { who = FROM value = 50 }
 				}
 				random_list = {
 					60 = { character_event = { id = TOG.5007 days = 10} }
@@ -675,9 +667,9 @@ character_event = {
 			}
 			if = {
 				limit = {
-					combat_rating_diff = { who = FROM value = 3 }
+					combat_rating_diff = { who = FROM value = 30 }
 					NOT = {
-						combat_rating_diff = { who = FROM value = 5 }
+						combat_rating_diff = { who = FROM value = 50 }
 					}
 				}
 				random_list = {
@@ -707,9 +699,9 @@ character_event = {
 			}
 			if = {
 				limit = {
-					combat_rating_diff = { who = FROM value = 1 }
+					combat_rating_diff = { who = FROM value = 10 }
 					NOT = {
-						combat_rating_diff = { who = FROM value = 3 }
+						combat_rating_diff = { who = FROM value = 30 }
 					}
 				}
 				random_list = {
@@ -740,9 +732,9 @@ character_event = {
 			if = {
 				limit = {
 					NOT = {
-						combat_rating_diff = { who = FROM value = 1 }
+						combat_rating_diff = { who = FROM value = 10 }
 						FROM = {
-							combat_rating_diff = { who = ROOT value = 1 }
+							combat_rating_diff = { who = ROOT value = 10 }
 						}
 					}
 				}
@@ -774,11 +766,11 @@ character_event = {
 			if = {
 				limit = {
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 1 }
+						combat_rating_diff = { who = ROOT value = 10 }
 					}
 					NOT = {
 						FROM = {
-							combat_rating_diff = { who = ROOT value = 3 }
+							combat_rating_diff = { who = ROOT value = 30 }
 						}
 					}
 				}
@@ -810,11 +802,11 @@ character_event = {
 			if = {
 				limit = {
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 3 }
+						combat_rating_diff = { who = ROOT value = 30 }
 					}
 					NOT = {
 						FROM = {
-							combat_rating_diff = { who = ROOT value = 5 }
+							combat_rating_diff = { who = ROOT value = 50 }
 						}
 					}
 				}
@@ -846,7 +838,7 @@ character_event = {
 			if = {
 				limit = {
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 5 }
+						combat_rating_diff = { who = ROOT value = 50 }
 					}
 				}
 				random_list = {
@@ -917,24 +909,24 @@ character_event = {
 		name = EVTOPTA_TOG_5004
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROM value = 5 }
+				combat_rating_diff = { who = FROM value = 50 }
 			}
 			custom_tooltip = { text = holmgang_chances_great }
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROM value = 3 }
+				combat_rating_diff = { who = FROM value = 30 }
 				NOT = {
-					combat_rating_diff = { who = FROM value = 5 }
+					combat_rating_diff = { who = FROM value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_very_good }
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROM value = 1 }
+				combat_rating_diff = { who = FROM value = 10 }
 				NOT = {
-					combat_rating_diff = { who = FROM value = 3 }
+					combat_rating_diff = { who = FROM value = 30 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_good }
@@ -942,9 +934,9 @@ character_event = {
 		if = {
 			limit = {
 				NOT = {
-					combat_rating_diff = { who = FROM value = 1 }
+					combat_rating_diff = { who = FROM value = 10 }
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 1 }
+						combat_rating_diff = { who = ROOT value = 10 }
 					}
 				}
 			}
@@ -953,11 +945,11 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					combat_rating_diff = { who = ROOT value = 1 }
+					combat_rating_diff = { who = ROOT value = 10 }
 				}
 				NOT = {
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 3 }
+						combat_rating_diff = { who = ROOT value = 30 }
 					}
 				}
 			}
@@ -966,11 +958,11 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					combat_rating_diff = { who = ROOT value = 3 }
+					combat_rating_diff = { who = ROOT value = 30 }
 				}
 				NOT = {
 					FROM = {
-						combat_rating_diff = { who = ROOT value = 5 }
+						combat_rating_diff = { who = ROOT value = 50 }
 					}
 				}
 			}
@@ -979,7 +971,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					combat_rating_diff = { who = ROOT value = 5 }
+					combat_rating_diff = { who = ROOT value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_terrible }
@@ -1002,24 +994,24 @@ character_event = {
 		name = EVTOPTA_TOG_5004
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROMFROM value = 5 }
+				combat_rating_diff = { who = FROMFROM value = 50 }
 			}
 			custom_tooltip = { text = holmgang_chances_great }
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROMFROM value = 3 }
+				combat_rating_diff = { who = FROMFROM value = 30 }
 				NOT = {
-					combat_rating_diff = { who = FROMFROM value = 5 }
+					combat_rating_diff = { who = FROMFROM value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_very_good }
 		}
 		if = {
 			limit = {
-				combat_rating_diff = { who = FROMFROM value = 1 }
+				combat_rating_diff = { who = FROMFROM value = 10 }
 				NOT = {
-					combat_rating_diff = { who = FROMFROM value = 3 }
+					combat_rating_diff = { who = FROMFROM value = 30 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_good }
@@ -1027,9 +1019,9 @@ character_event = {
 		if = {
 			limit = {
 				NOT = {
-					combat_rating_diff = { who = FROMFROM value = 1 }
+					combat_rating_diff = { who = FROMFROM value = 10 }
 					FROMFROM = {
-						combat_rating_diff = { who = ROOT value = 1 }
+						combat_rating_diff = { who = ROOT value = 10 }
 					}
 				}
 			}
@@ -1038,11 +1030,11 @@ character_event = {
 		if = {
 			limit = {
 				FROMFROM = {
-					combat_rating_diff = { who = ROOT value = 1 }
+					combat_rating_diff = { who = ROOT value = 10 }
 				}
 				NOT = {
 					FROMFROM = {
-						combat_rating_diff = { who = ROOT value = 3 }
+						combat_rating_diff = { who = ROOT value = 30 }
 					}
 				}
 			}
@@ -1051,11 +1043,11 @@ character_event = {
 		if = {
 			limit = {
 				FROMFROM = {
-					combat_rating_diff = { who = ROOT value = 3 }
+					combat_rating_diff = { who = ROOT value = 30 }
 				}
 				NOT = {
 					FROMFROM = {
-						combat_rating_diff = { who = ROOT value = 5 }
+						combat_rating_diff = { who = ROOT value = 50 }
 					}
 				}
 			}
@@ -1064,7 +1056,7 @@ character_event = {
 		if = {
 			limit = {
 				FROMFROM = {
-					combat_rating_diff = { who = ROOT value = 5 }
+					combat_rating_diff = { who = ROOT value = 50 }
 				}
 			}
 			custom_tooltip = { text = holmgang_chances_terrible }
@@ -1099,12 +1091,7 @@ character_event = {
 			clr_character_flag = holmgang_target
 			clr_character_flag = do_not_disturb
 		}
-		if = {
-			limit = {
-				NOT = { trait = scarred }
-			}
-			add_trait = scarred
-		}
+		add_scarred_tiered_effect = yes
 		prestige = 200
 		tooltip = {
 			FROMFROM = { prestige = -200 }
@@ -1137,7 +1124,7 @@ character_event = {
 			clr_character_flag = do_not_disturb
 		}
 		prestige = 200
-		add_trait = scarred
+		add_scarred_tiered_effect = yes
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1439,7 +1426,7 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_TOG_5005
-		add_trait = scarred
+		add_scarred_tiered_effect = yes
 		prestige = 200
 		tooltip = {
 			FROM = { prestige = -200 }
@@ -1458,7 +1445,7 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_TOG_5005
-		add_trait = scarred
+		add_scarred_tiered_effect = yes
 		prestige = 200
 		tooltip = {
 			FROM = {
