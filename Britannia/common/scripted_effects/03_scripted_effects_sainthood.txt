@@ -38,10 +38,8 @@ deciding_upon_saint_effect = {
         modifier = {
             factor = 0.4
             OR = {
-                has_landed_title = k_nuncio_britanniae
-                has_landed_title = d_arian
-                any_claim = { title = k_nuncio_britanniae }
-                any_claim = { title = d_arian }
+                has_christian_religious_head_title_trigger = yes
+                is_christian_religious_head_title_claimant_trigger = yes
             }
         }
 
@@ -341,6 +339,12 @@ deciding_upon_saint_effect = {
                         has_global_flag = gnostic_saint
                     }
                 }
+                AND = {
+                    religion = manichean
+                    NOT = {
+                        has_global_flag = manichean_saint
+                    }
+                }
             }
         }
         random_realm_province = {
@@ -355,6 +359,7 @@ deciding_upon_saint_effect = {
             priscillian = { set_global_flag = priscillian_saint }
             arian = { set_global_flag = arian_saint }
             gnostic = { set_global_flag = gnostic_saint }
+            manichean = { set_global_flag = manichean_saint }
         }
     }
 }
