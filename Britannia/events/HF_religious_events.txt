@@ -13131,15 +13131,15 @@ character_event = {
 		is_alternate_start = no 
 		NOT = { year = 774 }
 		has_landed_title = c_nithersi
-		religion = germanic_pagan #Could be ruler-designed.
+		is_unreformed_germanic_pagan_trigger = yes #Could be ruler-designed.
 	}
 	immediate = { 
 		862 = { 
-			set_province_flag = flag_great_pillar_germanic_irminsul
+			set_province_flag = flag_great_pillar_norse_irminsul
 			province_event = { id = HF.23478 days = 1 }
 		}
 		b_nithersichurch = { 
-			add_building = tp_great_pillar_germanic
+			add_building = tp_great_pillar_norse
 		}
 		religion_authority = {
 			modifier = built_great_pillar
@@ -13180,14 +13180,8 @@ character_event = {
 			holding_type = tribal
 			location = {  
 				OR = {  
-					has_province_flag = flag_great_pillar_briton
-					has_province_flag = flag_great_pillar_pict
-					has_province_flag = flag_great_pillar_gael
+					has_province_flag = flag_great_pillar_celtic
 					has_province_flag = flag_great_pillar_norse
-					has_province_flag = flag_great_pillar_germanic
-					has_province_flag = flag_great_pillar_frankish
-					has_province_flag = flag_great_pillar_suebic
-					has_province_flag = flag_great_pillar_gothic
 					has_province_flag = flag_great_pillar_alan
 					has_province_flag = flag_great_pillar_tengri
 					has_province_flag = flag_great_pillar_vasconic
@@ -13219,11 +13213,11 @@ character_event = {
 			FROM = { 	#Remove the flag to destroy the actual building.
 				if = {
 					limit = {
-						location = { has_province_flag = flag_great_pillar_briton }
+						location = { has_province_flag = flag_great_pillar_celtic }
 					}
 					location = {
-						clr_province_flag = flag_great_pillar_briton
-						set_province_flag = flag_just_destroyed_briton_pillar #Needed for next event.
+						clr_province_flag = flag_great_pillar_celtic
+						set_province_flag = flag_just_destroyed_celtic_pillar #Needed for next event.
 						province_event = { id = HF.23475 days = 60 } #Clean up flag.
 					}
 					briton_pagan = {
@@ -13232,47 +13226,11 @@ character_event = {
 							years = 10
 						}
 					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = briton_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_pict }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_pict
-						set_province_flag = flag_just_destroyed_pict_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
-					}
 					pict_pagan = {
 						religion_authority = {
 							modifier = destroyed_great_pillar
 							years = 10
 						}
-					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = pict_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_gael }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_gael
-						set_province_flag = flag_just_destroyed_gael_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
 					}
 					gael_pagan = {
 						religion_authority = {
@@ -13283,7 +13241,7 @@ character_event = {
 					owner = {
 						any_realm_character = {
 							limit = {
-								religion = gael_pagan
+								is_unreformed_celtic_pagan_trigger = yes
 							}
 							character_event = { id = HF.23474 }
 						}
@@ -13304,47 +13262,11 @@ character_event = {
 							years = 10
 						}
 					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = norse_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_germanic }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_germanic
-						set_province_flag = flag_just_destroyed_germanic_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
-					}
 					germanic_pagan = {
 						religion_authority = {
 							modifier = destroyed_great_pillar
 							years = 10
 						}
-					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = germanic_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_frankish }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_frankish
-						set_province_flag = flag_just_destroyed_frankish_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
 					}
 					frankish_pagan = {
 						religion_authority = {
@@ -13352,47 +13274,11 @@ character_event = {
 							years = 10
 						}
 					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = frankish_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_suebic }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_suebic
-						set_province_flag = flag_just_destroyed_suebic_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
-					}
 					suebic_pagan = {
 						religion_authority = {
 							modifier = destroyed_great_pillar
 							years = 10
 						}
-					}
-					owner = {
-						any_realm_character = {
-							limit = {
-								religion = suebic_pagan
-							}
-							character_event = { id = HF.23474 }
-						}
-					}
-				}
-				if = {
-					limit = {
-						location = { has_province_flag = flag_great_pillar_gothic }
-					}
-					location = {
-						clr_province_flag = flag_great_pillar_gothic
-						set_province_flag = flag_just_destroyed_gothic_pillar #Needed for next event.
-						province_event = { id = HF.23475 days = 60 } #Clean up flag.
 					}
 					gothic_pagan = {
 						religion_authority = {
@@ -13403,7 +13289,7 @@ character_event = {
 					owner = {
 						any_realm_character = {
 							limit = {
-								religion = gothic_pagan
+								is_unreformed_germanic_pagan_trigger = yes
 							}
 							character_event = { id = HF.23474 }
 						}
@@ -13486,8 +13372,8 @@ character_event = {
 						location = { has_province_flag = flag_great_pillar_roman }
 					}
 					location = {
-						clr_province_flag = flag_great_pillar_roman
-						set_province_flag = flag_just_destroyed_roman_pillar #Needed for next event.
+						clr_province_flag = flag_great_pillar_hellenic
+						set_province_flag = flag_just_destroyed_hellenic_pillar #Needed for next event.
 						province_event = { id = HF.23475 days = 60 } #Clean up flag.
 					}
 					roman_pagan = {
@@ -13574,58 +13460,8 @@ character_event = {
 		trigger = { religion_group = pagan_group }
 		if = {
 			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_briton_pillar } }
-				religion = briton_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_pict_pillar } }
-				religion = pict_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_gael_pillar } }
-				religion = gael_pagan
+				FROMFROM = { location = { has_province_flag = flag_just_destroyed_celtic_pillar } }
+				is_unreformed_celtic_pagan_trigger = yes
 			}
 			tooltip = { #Already removed in previous event.
 				religion_authority = {
@@ -13650,107 +13486,7 @@ character_event = {
 		if = {
 			limit = {
 				FROMFROM = { location = { has_province_flag = flag_just_destroyed_norse_pillar } }
-				religion = norse_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_germanic_pillar } }
-				religion = germanic_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_frankish_pillar } }
-				religion = frankish_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_suebic_pillar } }
-				religion = suebic_pagan
-			}
-			tooltip = { #Already removed in previous event.
-				religion_authority = {
-					modifier = destroyed_great_pillar
-					years = 10
-				}
-			}
-			if = {
-				limit = { has_character_modifier = recently_built_great_pillar }
-				remove_character_modifier = recently_built_great_pillar
-			}
-			add_character_modifier = { #Prevents rebuilding one immediately after.
-				name = recently_destroyed_great_pillar_cooldown
-				years = 30
-			}
-			opinion = {
-				who = FROM
-				modifier = opinion_sacrilege
-				years = 10
-			}
-		}
-		if = {
-			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_gothic_pillar } }
-				religion = gothic_pagan
+				is_unreformed_germanic_pagan_trigger = yes
 			}
 			tooltip = { #Already removed in previous event.
 				religion_authority = {
@@ -13849,7 +13585,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				FROMFROM = { location = { has_province_flag = flag_just_destroyed_roman_pillar } }
+				FROMFROM = { location = { has_province_flag = flag_just_destroyed_hellenic_pillar } }
 				religion = roman_pagan
 			}
 			tooltip = { #Already removed in previous event.
@@ -13887,18 +13623,12 @@ province_event = {
 	is_triggered_only = yes
 
 	immediate = { 
-		clr_province_flag = flag_just_destroyed_briton_pillar
-		clr_province_flag = flag_just_destroyed_pict_pillar
-		clr_province_flag = flag_just_destroyed_gael_pillar
+		clr_province_flag = flag_just_destroyed_celtic_pillar
 		clr_province_flag = flag_just_destroyed_norse_pillar
-		clr_province_flag = flag_just_destroyed_germanic_pillar
-		clr_province_flag = flag_just_destroyed_frankish_pillar
-		clr_province_flag = flag_just_destroyed_suebic_pillar
-		clr_province_flag = flag_just_destroyed_gothic_pillar
 		clr_province_flag = flag_just_destroyed_alan_pillar
 		clr_province_flag = flag_just_destroyed_tengri_pillar
 		clr_province_flag = flag_just_destroyed_vasconic_pillar
-		clr_province_flag = flag_just_destroyed_roman_pillar
+		clr_province_flag = flag_just_destroyed_celtic_pillar
 	}
 }
 

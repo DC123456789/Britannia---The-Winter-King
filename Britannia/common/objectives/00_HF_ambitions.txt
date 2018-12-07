@@ -222,16 +222,38 @@ obj_forge_bloodline = {
 			}
 		}
 		OR = {
-			prestige = 5000 #Adults
-			AND = { #Child facilitation
-				prestige = 2500
-				is_adult = no
+			AND = {
+				has_dynasty_flag = flag_dynasty_forged_bloodline
 				OR = {
-					trait = willful
-					trait = proud
-					trait = ambitious
-					trait = quick
-					trait = genius 
+					prestige = 20000 #Adults
+					AND = { #Child facilitation
+						prestige = 15000
+						is_adult = no
+						OR = {
+							trait = willful
+							trait = proud
+							trait = ambitious
+							trait = quick
+							trait = genius 
+						}
+					}
+				}
+			}
+			AND = {
+				NOT = { has_dynasty_flag = flag_dynasty_forged_bloodline }
+				OR = {
+					prestige = 5000 #Adults
+					AND = { #Child facilitation
+						prestige = 2500
+						is_adult = no
+						OR = {
+							trait = willful
+							trait = proud
+							trait = ambitious
+							trait = quick
+							trait = genius 
+						}
+					}
 				}
 			}
 		}
@@ -307,10 +329,7 @@ obj_forge_bloodline = {
 		}
 	}	
 	abort = {
-		OR = {
-			trait = incapable
-			trait = content
-		}
+		trait = incapable
 	}
 	
 	abort_effect = {
@@ -319,5 +338,6 @@ obj_forge_bloodline = {
 	
 	effect = {
 		prestige = 1000
+		set_dynasty_flag = flag_dynasty_forged_bloodline
 	}
 }

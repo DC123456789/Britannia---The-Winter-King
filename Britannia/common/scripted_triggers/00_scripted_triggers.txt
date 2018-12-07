@@ -1159,6 +1159,7 @@ can_be_marshal_trigger = {
 	prisoner = no
 	NOT = { trait = incapable }
 	NOT = { trait = in_hiding }
+	NOT = { trait = manichaean_elect }
 	NOT = { has_character_modifier = resigned_in_anger }
 	NOT = { 
 		liege = { 
@@ -4845,7 +4846,83 @@ religion_openly_hellenic_or_reformed_trigger = {
 		}
 	}
 }
-
+religion_openly_briton_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_briton_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = briton_pagan
+				religion = briton_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_pict_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_pict_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_gael_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_gael_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_germanic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_germanic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_frankish_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_frankish_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = frankish_pagan
+				religion = frankish_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_suebic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_suebic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = suebic_pagan
+				religion = suebic_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_gothic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_gothic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = gothic_pagan
+				religion = gothic_pagan_reformed
+			}
+		}
+	}
+}
 religion_openly_alan_or_reformed_trigger = {
 	custom_tooltip = {
 		text = religion_openly_alan_or_reformed_tooltip
@@ -4853,6 +4930,17 @@ religion_openly_alan_or_reformed_trigger = {
 			OR = {
 				religion = alan_pagan
 				religion = alan_pagan_reformed
+			}
+		}
+	}
+}
+religion_openly_vasconic_or_reformed_trigger = {
+	custom_tooltip = {
+		text = religion_openly_vasconic_or_reformed_tooltip
+		hidden_trigger = {
+			OR = {
+				religion = vasconic_pagan
+				religion = vasconic_pagan_reformed
 			}
 		}
 	}
@@ -7800,5 +7888,180 @@ any_neighbor_province_has_light_rain_trigger = {
     	is_land = yes
 		region_africa_west_central_or_east_trigger = yes
 		has_province_modifier = africa_light_rain
+	}
+}
+
+varangian_guard_events_default_trigger = {
+	always = no
+	# ai = yes
+	# age = 16
+	# is_incapable = no
+	# prisoner = no
+	# culture_group = north_germanic
+	# has_character_flag = serving_varangian
+	# has_dlc = "The Old Gods"
+}
+
+
+ere_elective_politician_titles_trigger = { #Used in Imperial Elective to determine AI behavior.
+	OR = {
+		has_job_title = job_marshal
+		has_job_title = job_spymaster
+		has_job_title = job_treasurer
+		has_job_title = job_chancellor
+		#has_minor_title = title_despot
+		#has_minor_title = title_sebastokrator
+		has_minor_title = title_caesar
+		#has_minor_title = title_kouropalates
+		#has_minor_title = title_anthypatos
+	} 
+}
+
+can_still_be_commander_byzantine_trigger = { 
+	NOT = { 
+		primary_title = { temporary = yes } 
+	}
+	liege = { 
+		character = FROMFROM 
+		has_law = succ_byzantine_elective
+	}
+	OR = {
+		AND = {
+			OR = {
+				male_can_hold_minor_title_trigger = yes
+				female_can_hold_minor_commander_title_trigger = yes
+			}
+			# OR = {
+				# NOT = { religion = hindu }
+				# trait = kshatriya
+			# }
+			is_adult = yes
+		}
+		has_character_flag = special_marshal
+	}
+	
+	prisoner = no
+	NOT = { trait = incapable }
+	NOT = { trait = manichaean_elect }
+ 	NOT = { trait = sick_incapable }
+	NOT = { is_inaccessible_trigger = yes }
+	NOT = { has_character_flag = guru }
+	NOT = { has_character_modifier = refusing_to_lead }
+	NOR = { 
+		war_with = FROMFROM
+		any_liege = {  
+			war_with = FROMFROM
+		}
+	}
+	OR = { 
+		government = legion_government
+		has_minor_title = title_caesar
+		has_minor_title = title_caesar_non_voter
+	}
+}
+
+can_still_be_marshal_byzantine_trigger = {
+	liege = { 
+		character = FROMFROM
+		has_law = succ_byzantine_elective
+	}
+	NOR = { 
+		war_with = FROMFROM
+		any_liege = {  
+			war_with = FROMFROM
+		}
+	}
+	OR = {
+		AND = {
+			OR = {
+				AND = { #Patriarchal religions can only hire males. Matriarchal religions can only hire females.
+					is_female = no 
+					NOT = { liege = { has_religion_feature = religion_matriarchal } } 
+				}
+				AND = {
+					is_female = yes 
+					OR = { 
+						liege = { has_religion_feature = religion_matriarchal } 
+						liege = { has_religion_feature = religion_equal } 
+						liege = { has_religion_feature = religion_feature_bon } 
+					} 
+				}
+				trait = horse # So we can have female glitterhoofs! :D
+				OR = {
+					AND = {
+						religion = promethean_pagan
+						liege = { religion = promethean_pagan }
+					}
+				}
+				AND = {
+					liege = {
+						primary_title = {
+							OR = {
+								has_law = status_of_women_3
+							}
+						}
+					}
+					OR = {
+						liege = {
+							OR = {
+								dynasty = ROOT
+								is_close_relative = ROOT
+								any_spouse = { character = ROOT }
+								any_consort = { character = ROOT }
+							}
+						}
+						is_landed = yes
+						
+					}
+				}
+				OR = {
+					AND = { 
+						is_female = yes
+						liege = { primary_title = { has_law = status_of_women_4 } } 
+					}
+					has_game_rule = {
+						name = gender
+						value = all
+					}
+				}
+			}
+			# OR = {
+				# NOT = { religion = hindu }
+				# trait = kshatriya
+			# }
+			is_adult = yes
+			martial = 6
+			diplomacy = 4
+		}
+		has_character_flag = special_marshal
+	}
+	
+	OR = {
+		FROM = {
+			NAND = { 
+				government = imperial_government 
+				tier = EMPEROR
+			} 
+		}
+		government = legion_government
+		has_minor_title = title_caesar
+		has_minor_title = title_caesar_non_voter
+	}
+	
+	independent = no
+	prisoner = no
+	NOT = { trait = incapable }
+ 	NOT = { trait = sick_incapable }
+	NOT = { trait = in_hiding }
+	NOT = { trait = manichaean_elect }
+	NOT = { has_character_flag = guru }
+	NOT = { has_character_modifier = resigned_in_anger }
+	NOT = { 
+		liege = { 
+			has_opinion_modifier = {
+				who = ROOT	
+				modifier = opinion_resigned_from_council 
+			} 
+		} 
 	}
 }

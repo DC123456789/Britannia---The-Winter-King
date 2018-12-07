@@ -21,7 +21,7 @@
 	}
 
 	1 = { #throne room
-		factor = 50
+		factor = 15
 		modifier = {
 			factor = 0
 			trait = saint 
@@ -30,6 +30,13 @@
 			factor = 0
 			NOT = { real_tier = king }
 			NOT = { real_tier = emperor }
+		}
+		modifier = {
+			factor = 5
+			OR = { 
+				real_tier = emperor 
+				spouse = { real_tier = emperor }
+			}
 		}
 		modifier = {
 			factor = 0
@@ -67,10 +74,10 @@
 			factor = 0.01
 			is_nomadic = yes
 		}
-		modifier = {
-			factor = 10
-			is_tribal = yes
-		}
+		# modifier = {
+			# factor = 10
+			# is_tribal = yes
+		# }
 	}
 
 	4 = { # bed
@@ -101,7 +108,7 @@
 		}
 	}
 	
-	5 = { # tavern
+	5 = { # secret room
 		factor = 100
 		modifier = {
 			factor = 0
@@ -109,12 +116,27 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { 
-				OR = {
-					trait = drunkard
-					trait = hedonist
-					trait = lustful
-				}
+			OR = { 
+				religion_group = muslim
+				# religion_group = indian_group
+				# religion_group = zoroastrian_group
+				# religion = zun_pagan
+				# religion = zun_pagan_reformed 
+			}
+		}
+		modifier = {
+			factor = 0
+			NOR = { 
+				trait = drunkard
+				trait = hedonist
+				trait = lustful
+			}
+		}
+		modifier = {
+			factor = 0.25
+			OR = {
+				higher_real_tier_than = DUKE
+				spouse = { higher_real_tier_than = DUKE } 
 			}
 		}
 	}
@@ -156,6 +178,22 @@
 			NOT = { religion_group = pagan_group }
 		}
 		modifier = {
+			factor = 0
+			religion_group = zoroastrian_group
+		}
+		modifier = {
+			factor = 0
+			OR = { 
+				is_offmap_tag_including_dead = offmap_china
+				# location = { 
+					# NOR = { 
+						# region = world_europe 
+						# region = world_steppe
+					# } 
+				# }
+			}
+		}
+		modifier = {
 			factor = 100
 			is_alive = no
 		}
@@ -184,6 +222,13 @@
 				death_execution_trigger = yes
 			}
 		}
+		modifier = {
+			factor = 0.75
+			OR = {
+				higher_real_tier_than = DUKE
+				spouse = { higher_real_tier_than = DUKE } 
+			}
+		}
 	}
 	
 	9 = { # Church
@@ -198,9 +243,17 @@
 		}
 		modifier = {
 			factor = 0
-			OR = {
-				is_ruler = no
-				is_theocracy = no
+			NOR = {
+				is_theocracy = yes
+				has_job_title = job_spiritual
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = { 
+				has_landed_title = d_roman_pagan 
+				has_christian_religious_head_title_trigger = yes
+				is_christian_religious_head_title_claimant_trigger = yes
 			}
 		}
 	}
@@ -213,9 +266,31 @@
 		}
 		modifier = {
 			factor = 0
-			# NOT = { religion_group = muslim }
-			# NOT = { religion_group = zoroastrian_group }
-			# NOT = { religion = zun_pagan }
+			always = yes
+			# OR = { 
+				# is_offmap_tag_including_dead = offmap_china
+				# location = { 
+					# NOR = { 
+						# region = world_middle_east_jerusalem 
+						# region = world_middle_east_arabia
+						# region = world_africa
+					# } 
+				# }
+			# }
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT } 
+			}
+		}
+		modifier = {
+			factor = 10
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+			}
 		}
 	}
 	
@@ -227,17 +302,29 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { culture_group = altaic }
+			always = yes
+			# OR = { 
+				# is_offmap_tag_including_dead = offmap_china
+				# location = { 
+					# NOT = { 
+						# region = world_steppe
+					# } 
+				# }
+			# }
 		}
-		
 		modifier = {
 			factor = 10
-			culture_group = altaic
-			# NOT = { culture = turkish }
+			OR = {
+				is_tribal = yes
+				is_nomadic = yes
+			}
 		}
 		modifier = {
-			factor = 10
-			is_nomadic = yes
+			factor = 0
+			OR = {
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT } 
+			}
 		}
 	}
 	
@@ -249,7 +336,19 @@
 		}
 		modifier = {
 			factor = 0
-			is_patrician = no
+			OR = { 
+				is_offmap_tag_including_dead = offmap_china
+				capital_scope = { 
+					NOT = { 
+						port = yes 
+					} 
+				}
+				location = { 
+					NOT = { 
+						terrain = coastal_desert 
+					} 
+				}
+			}
 		}
 	}
 	
@@ -280,6 +379,7 @@
 			# NOT = { religion_group = indian_group }
 			# NOT = { religion_group = zoroastrian_group }
 			# NOT = { religion = zun_pagan }
+			# NOT = { religion = zun_pagan_reformed }
 		}
 		modifier = {
 			factor = 100
@@ -291,14 +391,29 @@
 	}
 	
 	15 = { # Muslim interior 2
-		factor = 5
+		factor = 10
 		modifier = {
 			factor = 0
 			trait = saint 
 		}
 		modifier = {
 			factor = 0
-			NOT = { religion_group = muslim }
+			always = yes
+			# OR = { 
+				# is_offmap_tag_including_dead = offmap_china
+				# location = { 
+					# NOR = { 
+						# region = world_middle_east_jerusalem 
+						# region = world_middle_east_arabia
+						# region = world_africa
+					# } 
+				# }
+			# }
+		}
+		modifier = {
+			factor = 0
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE } 
 		}
 	}
 
@@ -310,8 +425,12 @@
 		}
 		modifier = {
 			factor = 0
-			always = yes
-			#NOT = { culture = mongol }
+			is_nomadic = no
+		}
+		modifier = {
+			factor = 2
+			always = no
+			#culture = mongol
 		}
 	}
 
@@ -323,8 +442,25 @@
 		}
 		modifier = {
 			factor = 0
-			always = yes
-			#NOT = { culture = mongol }
+			always = no
+			# OR = { 
+				# is_offmap_tag_including_dead = offmap_china
+				# location = { 
+					# NOT = { 
+						# region = world_steppe
+					# } 
+				# }
+			# }
+		}
+		modifier = {
+			factor = 2
+			always = no
+			#culture = mongol
+		}
+		modifier = {
+			factor = 0
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE } 
 		}
 	}
 
@@ -336,10 +472,9 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { has_landed_title = k_nuncio_britanniae }
-			# NOT = { has_landed_title = d_fraticelli }
-			# NOT = { has_claim = k_papal_state }
-			# NOT = { has_claim = d_fraticelli }
+			NOT = { has_landed_title = d_roman_pagan }
+			has_christian_religious_head_title_trigger = no
+			is_christian_religious_head_title_claimant_trigger = no
 		}
 	}
 
@@ -355,9 +490,9 @@
 		}
 		modifier = {
 			factor = 0
-			OR = {
-				is_ruler = no
-				is_theocracy = no
+			NOR = {
+				is_theocracy = yes
+				has_job_title = job_spiritual
 			}
 		}
 	}
@@ -396,6 +531,76 @@
 		modifier = {
 			factor = 1000
 			trait = saint 
+		}
+	}
+	22 = { # blue curtains
+		factor = 4
+		modifier = {
+			factor = 0
+			trait = saint 
+		}
+		modifier = {
+			factor = 0
+			NOT = { 
+				culture_group = imperiale
+			}
+		}
+	}
+	23 = { # ocean window
+		factor = 5
+		modifier = {
+			factor = 0
+			trait = saint 
+		}
+		modifier = {
+			factor = 0
+			OR = { 
+				is_offmap_tag_including_dead = offmap_china
+				location = { 
+					NOR = { 
+						region = world_britannia  
+						region = world_caledonia
+						region = world_ireland
+						region = world_gaul
+						region = world_germania
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE } 
+		}
+		modifier = {
+			factor = 5
+			location = { 
+				port = yes 
+			}
+		}
+	}
+	24 = { # field window
+		factor = 5
+		modifier = {
+			factor = 0
+			trait = saint 
+		}
+		modifier = {
+			factor = 0
+			OR = { 
+				is_offmap_tag_including_dead = offmap_china
+				location = { 
+					NOR = { 
+						#region = world_europe_east   
+						region = custom_scandinavia
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE } 
 		}
 	}
 }
@@ -1815,7 +2020,7 @@
 		modifier = { #If you are Emperor and died without being crowned, you don't wear a crown.
 			factor = 0
 			real_tier = EMPEROR
-			trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+			trait = uncrowned # Only on death of uncrowned Christians
 		}
 		modifier = { #If you are a living Emperor and are not crowned, you don't wear a crown.
 			factor = 0
@@ -1827,10 +2032,7 @@
 			} 
 			real_tier = EMPEROR
 			is_alive = yes
-			OR = { 
-				religion = catholic
-				#religion = fraticelli
-			} 
+			religion_group = christian
 			NOR = { 
 				trait = crowned_by_priest 
 				trait = crowned_by_bishop
@@ -1849,7 +2051,7 @@
 			NOT = { real_tier = EMPEROR }
 			spouse = { 
 				real_tier = EMPEROR
-				trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+				trait = uncrowned # Only on death of uncrowned Christians
 			} 
 		}
 		modifier = {
@@ -1864,10 +2066,7 @@
 			spouse = { 
 				real_tier = EMPEROR
 				is_alive = yes 
-				OR = { 
-					religion = catholic
-					#religion = fraticelli
-				} 
+				religion_group = christian
 				NOR = { 
 					trait = crowned_by_priest 
 					trait = crowned_by_bishop
@@ -1956,7 +2155,7 @@
 			factor = 0
 			has_dlc = "Holy Fury" #Ignore Coronation triggers if Holy Fury is disabled.
 			real_tier = KING
-			trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+			trait = uncrowned # Only on death of uncrowned Christians
 		}
 		modifier = { #If you are a living Emperor and are not crowned, you don't wear a crown.
 			factor = 0
@@ -1968,10 +2167,7 @@
 			} 
 			real_tier = KING
 			is_alive = yes
-			OR = { 
-				religion = catholic
-				#religion = fraticelli
-			} 
+			religion_group = christian
 			NOR = { 
 				trait = crowned_by_priest 
 				trait = crowned_by_bishop
@@ -1990,7 +2186,7 @@
 			NOT = { real_tier = KING }
 			spouse = { 
 				real_tier = KING
-				trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+				trait = uncrowned # Only on death of uncrowned Christians
 			} 
 		}
 		modifier = {
@@ -2005,10 +2201,7 @@
 			spouse = { 
 				real_tier = KING
 				is_alive = yes 
-				OR = { 
-					religion = catholic
-					#religion = fraticelli
-				} 
+				religion_group = christian
 				NOR = { 
 					trait = crowned_by_priest 
 					trait = crowned_by_bishop
@@ -2096,7 +2289,7 @@
 			factor = 0
 			has_dlc = "Holy Fury" #Ignore Coronation triggers if Holy Fury is disabled.
 			real_tier = KING
-			trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+			trait = uncrowned # Only on death of uncrowned Christians
 		}
 		modifier = { #If you are a living Emperor and are not crowned, you don't wear a crown.
 			factor = 0
@@ -2108,10 +2301,7 @@
 			} 
 			real_tier = KING
 			is_alive = yes
-			OR = { 
-				religion = catholic
-				#religion = fraticelli
-			} 
+			religion_group = christian
 			NOR = { 
 				trait = crowned_by_priest 
 				trait = crowned_by_bishop
@@ -2130,7 +2320,7 @@
 			NOT = { real_tier = KING }
 			spouse = { 
 				real_tier = KING
-				trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+				trait = uncrowned # Only on death of uncrowned Christians
 			} 
 		}
 		modifier = {
@@ -2145,10 +2335,7 @@
 			spouse = { 
 				real_tier = KING
 				is_alive = yes 
-				OR = { 
-					religion = catholic
-					#religion = fraticelli
-				} 
+				religion_group = christian
 				NOR = { 
 					trait = crowned_by_priest 
 					trait = crowned_by_bishop
@@ -2248,7 +2435,7 @@
 			factor = 0
 			has_dlc = "Holy Fury" #Ignore Coronation triggers if Holy Fury is disabled.
 			real_tier = KING
-			trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+			trait = uncrowned # Only on death of uncrowned Christians
 		}
 		modifier = { #If you are a living Emperor and are not crowned, you don't wear a crown.
 			factor = 0
@@ -2260,10 +2447,7 @@
 			} 
 			real_tier = KING
 			is_alive = yes
-			OR = { 
-				religion = catholic
-				#religion = fraticelli
-			} 
+			religion_group = christian
 			NOR = { 
 				trait = crowned_by_priest 
 				trait = crowned_by_bishop
@@ -2281,7 +2465,7 @@
 			NOT = { real_tier = KING }
 			spouse = { 
 				real_tier = KING
-				trait = uncrowned # Only on death of uncrowned Catholics/Fraticelli
+				trait = uncrowned # Only on death of uncrowned Christians
 			} 
 		}
 		modifier = {
@@ -2296,10 +2480,7 @@
 			spouse = { 
 				real_tier = KING
 				is_alive = yes 
-				OR = { 
-					religion = catholic
-					#religion = fraticelli
-				} 
+				religion_group = christian
 				NOR = { 
 					trait = crowned_by_priest 
 					trait = crowned_by_bishop
@@ -2345,10 +2526,7 @@
 			OR = { 
 				AND = { 
 					higher_real_tier_than = DUKE 
-					OR = { 
-						religion = catholic
-						#religion = fraticelli
-					}
+					religion_group = christian
 					OR = { 
 						trait = crowned_by_priest
 						trait = crowned_by_bishop
@@ -2367,10 +2545,7 @@
 				}
 				spouse = { 
 					higher_real_tier_than = DUKE 
-					OR = { 
-						religion = catholic
-						#religion = fraticelli
-					}
+					religion_group = christian
 					OR = { 
 						trait = crowned_by_priest
 						trait = crowned_by_bishop
@@ -2411,8 +2586,7 @@
 			factor = 0
 			is_ruler = yes
 			NOT = { trait = uncrowned }
-			NOT = { religion = catholic }
-			#NOT = { religion = fraticelli }
+			NOT = { religion_group = christian }
 			higher_real_tier_than = DUKE
 			OR = { 
 				is_nomadic = no 
@@ -2427,7 +2601,7 @@
 		}
 		modifier = {
 			factor = 0
-			is_republic = yes
+			NOT = { real_tier = count }
 			NOT = { real_tier = duke }
 			NOT = { real_tier = king }
 			NOT = { real_tier = emperor }
@@ -2435,6 +2609,7 @@
 			NOT = { spouse = { real_tier = emperor } }
 			NOT = { spouse = { real_tier = king } }
 			NOT = { spouse = { real_tier = duke } }
+			NOT = { spouse = { real_tier = count } }
 			OR = { 
 				is_gallo_romance_culture_trigger = no
 				AND = { 
@@ -2443,6 +2618,19 @@
 					NOT = { spouse = { real_tier = count } }
 				} 
 			}
+		}
+		modifier = { #French Counts also wear the golden band.
+			factor = 0 
+			has_dlc = "Holy Fury"
+			is_gallo_romance_culture_trigger = no
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE }
+		}
+		modifier = { #Otherwise go as normal.
+			factor = 0 
+			NOT = { has_dlc = "Holy Fury" }
+			lower_real_tier_than = DUKE
+			spouse = { lower_real_tier_than = DUKE }
 		}
 		modifier = {
 			factor = 0
@@ -2531,19 +2719,8 @@
 		}
 		modifier = { # Specific rules for frankish / Occitanian layering
 			factor = 0
-			has_dlc = "Holy Fury"
-			is_female = yes
-			is_gallo_romance_culture_trigger = yes
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-			OR = {
-				is_married = no
-				NOT = { age = 40 }
-			}
 			NOT = {
-				has_portrait_property = { layer = 3 index = 10 }
+				french_courtier_overlayer_trigger = yes
 			}
 		}
 	}
@@ -2597,6 +2774,12 @@
 				has_portrait_property = { layer = 3 index = 10 }
 			}
 		}
+		modifier = { # Specific rules for frankish / Occitanian layering
+			factor = 0
+			NOT = {
+				french_courtier_overlayer_trigger = yes
+			}
+		}
 	}
 
 	# Common headgear 3 - Red hat
@@ -2647,6 +2830,12 @@
 			}
 			NOT = {
 				has_portrait_property = { layer = 3 index = 10 }
+			}
+		}
+		modifier = { # Specific rules for frankish / Occitanian layering
+			factor = 0
+			NOT = {
+				french_courtier_overlayer_trigger = yes
 			}
 		}
 	}
@@ -2764,6 +2953,12 @@
 			}
 			NOT = {
 				has_portrait_property = { layer = 3 index = 10 }
+			}
+		}
+		modifier = { # Specific rules for frankish / Occitanian layering
+			factor = 0
+			NOT = {
+				french_courtier_overlayer_trigger = yes
 			}
 		}
 	}
@@ -5731,604 +5926,168 @@
 31 = {
 	0 = { # Blank
 		factor = 100
-		modifier = {
-			factor = 100
-			has_game_started = no
-		}
-		modifier = {
-			factor = 100
-			OR = { 
-				is_theocracy = yes 
-				is_in_society = yes
-				has_job_title = job_spiritual
-				higher_real_tier_than = DUKE
-			}
-		}
-		modifier = {
-			factor = 100
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 100
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			has_dlc = "Holy Fury"
-			has_game_started = yes
-			is_in_society = no
-			NOR = { 
-				is_theocracy = yes 
-				is_in_society = yes
-				has_job_title = job_spiritual
-			}
-			is_gallo_romance_culture_trigger = yes
+		trigger = {
 			OR = {
-				AND = { 
-					lower_real_tier_than = KING
-					has_portrait_property = { layer = 5 index = 4 } 
-				}
-				has_portrait_property = { layer = 5 index = 10 }
-			}
-			NOR = {
-				trait = dead_crown_hre #Dead kings don't have artifacts
-				trait = dead_crown_byzantine #Dead kings don't have artifacts
-				trait = dead_crown_pahlavi #Dead kings don't have artifacts
-				trait = dead_crown_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_tengri_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_finnish_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_slavic_fylkir
-				trait = dead_crown_romuva_fylkir
-				trait = dead_crown_zun_fylkir
-				trait = dead_crown_west_african_fylkir
-				trait = dead_crown_aztec_fylkir
-				trait = dead_crown_germanic_fylkir
-				trait = dead_crown_frankish_fylkir
-				trait = dead_crown_suebic_fylkir
-				trait = dead_crown_gothic_fylkir
-				trait = dead_crown_briton_fylkir
-				trait = dead_crown_pict_fylkir
-				trait = dead_crown_gael_fylkir
-				trait = dead_crown_alan_fylkir
-				trait = dead_crown_vasconic_fylkir
-				has_augustus_trait = yes # Laurels
-				any_artifact = {
-					OR = {
-						artifact_type = crown_hre
-						artifact_type = crown_byzantine
-						artifact_type = crown_pahlavi
-						artifact_type = crown_fylkir
-						artifact_type = crown_tengri_fylkir
-						artifact_type = crown_finnish_fylkir
-						artifact_type = crown_slavic_fylkir
-						artifact_type = crown_romuva_fylkir
-						artifact_type = crown_zun_fylkir
-						artifact_type = crown_west_african_fylkir
-						artifact_type = crown_aztec_fylkir
-						artifact_type = crown_germanic_fylkir
-						artifact_type = crown_frankish_fylkir
-						artifact_type = crown_suebic_fylkir
-						artifact_type = crown_gothic_fylkir
-						artifact_type = crown_briton_fylkir
-						artifact_type = crown_pict_fylkir
-						artifact_type = crown_gael_fylkir
-						artifact_type = crown_alan_fylkir
-						artifact_type = crown_vasconic_fylkir
-						artifact_type = iron_crown_of_lombardy
-						artifact_type = cursed_diamond_crown
-					}
-					is_artifact_equipped = yes 
+				has_game_started = no
+				is_in_society = yes
+				is_theocracy = yes
+				is_merchant_republic = yes
+				has_job_title = job_spiritual
+				french_overlayer_special_crown_trigger = yes
+				NOR = {
+					#has_portrait_property = { layer = 5 index = 0 }
+					#has_portrait_property = { layer = 5 index = 1 }
+					#has_portrait_property = { layer = 5 index = 2 }
+					#has_portrait_property = { layer = 5 index = 3 }
+					#has_portrait_property = { layer = 5 index = 4 }
+					#has_portrait_property = { layer = 5 index = 10 }
+					french_martial_overlayer_trigger = yes
+					french_count_overlayer_trigger = yes
+					french_duke_overlayer_trigger = yes
 				}
 			}
 		}
 	}
 	1 = { # Military Helm 01
 		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	2 = { # Military Helm 02
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	3 = { # Military Helm 03
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	4 = { # Military Helm 04
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	5 = { # Count Accessories
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-				spouse = { has_minor_title = title_prince }
+		trigger = {
+			french_count_overlayer_trigger = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	6 = { # Count Accessories
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-				spouse = { has_minor_title = title_prince }
+		trigger = {
+			french_count_overlayer_trigger = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	7 = { # Count Accessories
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-				spouse = { has_minor_title = title_prince }
+		trigger = {
+			french_count_overlayer_trigger = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	8 = { # Count Accessories
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-				spouse = { has_minor_title = title_prince }
+		trigger = {
+			french_count_overlayer_trigger = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	9 = { # Count Accessories
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-				spouse = { has_minor_title = title_prince }
+		trigger = {
+			french_count_overlayer_trigger = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	10 = { # Duke Accessories
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duke_overlayer_trigger = yes
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	11 = { # Duke Accessories
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duke_overlayer_trigger = yes
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	12 = { # Duke Accessories
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duke_overlayer_trigger = yes
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	13 = { # Duke Accessories
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duke_overlayer_trigger = yes
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	14 = { # Duke Accessories
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duke_overlayer_trigger = yes
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				has_job_title = job_spiritual
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
+	}
+}
+			OR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+	}
+	13 = { # Duke Accessories
+		trigger = {
+			french_duke_overlayer_trigger = yes
+			OR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
+			}
 		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+	}
+	14 = { # Duke Accessories
+		factor = 1
+		trigger = {
+			french_duke_overlayer_trigger = yes
+			OR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
@@ -6338,1205 +6097,251 @@
 32 = {
 	0 = { # Blank
 	factor = 100
-		modifier = {
-			factor = 100
-			has_game_started = no
-		}
-		modifier = {
-			factor = 100
-			OR = { 
-				is_theocracy = yes 
-				is_in_society = yes
-				is_merchant_republic = yes
-			}
-		}
-		modifier = {
-			factor = 100
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 10
-			has_game_started = yes
-			has_portrait_property = { layer = 5 index = 4 }
-			is_gallo_romance_culture_trigger = yes
-		}
-		modifier = {
-			factor = 100
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			has_dlc = "Holy Fury"
-			has_game_started = yes
-			has_portrait_property = { layer = 5 index = 10 }
-			is_gallo_romance_culture_trigger = yes
-			NOR = { 
-				is_theocracy = yes 
-				is_in_society = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-			NOR = {
-				trait = dead_crown_hre #Dead kings don't have artifacts
-				trait = dead_crown_byzantine #Dead kings don't have artifacts
-				trait = dead_crown_pahlavi #Dead kings don't have artifacts
-				trait = dead_crown_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_tengri_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_finnish_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_slavic_fylkir
-				trait = dead_crown_romuva_fylkir
-				trait = dead_crown_zun_fylkir
-				trait = dead_crown_west_african_fylkir
-				trait = dead_crown_aztec_fylkir
-				trait = dead_crown_germanic_fylkir
-				trait = dead_crown_frankish_fylkir
-				trait = dead_crown_suebic_fylkir
-				trait = dead_crown_gothic_fylkir
-				trait = dead_crown_briton_fylkir
-				trait = dead_crown_pict_fylkir
-				trait = dead_crown_gael_fylkir
-				trait = dead_crown_alan_fylkir
-				trait = dead_crown_vasconic_fylkir
-				has_augustus_trait = yes # Laurels
-				any_artifact = {
-					OR = {
-						artifact_type = crown_hre
-						artifact_type = crown_byzantine
-						artifact_type = crown_pahlavi
-						artifact_type = crown_fylkir
-						artifact_type = crown_tengri_fylkir
-						artifact_type = crown_finnish_fylkir
-						artifact_type = crown_slavic_fylkir
-						artifact_type = crown_romuva_fylkir
-						artifact_type = crown_zun_fylkir
-						artifact_type = crown_west_african_fylkir
-						artifact_type = crown_aztec_fylkir
-						artifact_type = crown_germanic_fylkir
-						artifact_type = crown_frankish_fylkir
-						artifact_type = crown_suebic_fylkir
-						artifact_type = crown_gothic_fylkir
-						artifact_type = crown_briton_fylkir
-						artifact_type = crown_pict_fylkir
-						artifact_type = crown_gael_fylkir
-						artifact_type = crown_alan_fylkir
-						artifact_type = crown_vasconic_fylkir
-						artifact_type = iron_crown_of_lombardy
-						artifact_type = cursed_diamond_crown
-					}
-					is_artifact_equipped = yes 
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			has_dlc = "Holy Fury"
-			has_game_started = yes
-			is_in_society = no
-			has_portrait_property = { layer = 5 index = 10 }
-			is_gallo_romance_culture_trigger = yes
-			NOR = {
-				trait = dead_crown_hre #Dead kings don't have artifacts
-				trait = dead_crown_byzantine #Dead kings don't have artifacts
-				trait = dead_crown_pahlavi #Dead kings don't have artifacts
-				trait = dead_crown_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_tengri_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_finnish_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_slavic_fylkir
-				trait = dead_crown_romuva_fylkir
-				trait = dead_crown_zun_fylkir
-				trait = dead_crown_west_african_fylkir
-				trait = dead_crown_aztec_fylkir
-				trait = dead_crown_germanic_fylkir
-				trait = dead_crown_frankish_fylkir
-				trait = dead_crown_suebic_fylkir
-				trait = dead_crown_gothic_fylkir
-				trait = dead_crown_briton_fylkir
-				trait = dead_crown_pict_fylkir
-				trait = dead_crown_gael_fylkir
-				trait = dead_crown_alan_fylkir
-				trait = dead_crown_vasconic_fylkir
-				has_augustus_trait = yes # Laurels
-				any_artifact = {
-					OR = {
-						artifact_type = crown_hre
-						artifact_type = crown_byzantine
-						artifact_type = crown_pahlavi
-						artifact_type = crown_fylkir
-						artifact_type = crown_tengri_fylkir
-						artifact_type = crown_finnish_fylkir
-						artifact_type = crown_slavic_fylkir
-						artifact_type = crown_romuva_fylkir
-						artifact_type = crown_zun_fylkir
-						artifact_type = crown_west_african_fylkir
-						artifact_type = crown_aztec_fylkir
-						artifact_type = crown_germanic_fylkir
-						artifact_type = crown_frankish_fylkir
-						artifact_type = crown_suebic_fylkir
-						artifact_type = crown_gothic_fylkir
-						artifact_type = crown_briton_fylkir
-						artifact_type = crown_pict_fylkir
-						artifact_type = crown_gael_fylkir
-						artifact_type = crown_alan_fylkir
-						artifact_type = crown_vasconic_fylkir
-						artifact_type = iron_crown_of_lombardy
-						artifact_type = cursed_diamond_crown
-					}
-					is_artifact_equipped = yes 
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			has_dlc = "Holy Fury"
-			has_game_started = yes
-			NOR = { 
-				is_theocracy = yes 
-				is_in_society = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-			is_gallo_romance_culture_trigger = yes
-			is_ruler = no
-			spouse = { is_ruler = no }
+		trigger = {
 			OR = {
-				is_married = yes
-				any_spouse = { is_alive = no }
-			}
-			NOR = {
-				trait = dead_crown_hre #Dead kings don't have artifacts
-				trait = dead_crown_byzantine #Dead kings don't have artifacts
-				trait = dead_crown_pahlavi #Dead kings don't have artifacts
-				trait = dead_crown_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_tengri_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_finnish_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_slavic_fylkir
-				trait = dead_crown_romuva_fylkir
-				trait = dead_crown_zun_fylkir
-				trait = dead_crown_west_african_fylkir
-				trait = dead_crown_aztec_fylkir
-				trait = dead_crown_germanic_fylkir
-				trait = dead_crown_frankish_fylkir
-				trait = dead_crown_suebic_fylkir
-				trait = dead_crown_gothic_fylkir
-				trait = dead_crown_briton_fylkir
-				trait = dead_crown_pict_fylkir
-				trait = dead_crown_gael_fylkir
-				trait = dead_crown_alan_fylkir
-				trait = dead_crown_vasconic_fylkir
-				has_augustus_trait = yes # Laurels
-				any_artifact = {
-					OR = {
-						artifact_type = crown_hre
-						artifact_type = crown_byzantine
-						artifact_type = crown_pahlavi
-						artifact_type = crown_fylkir
-						artifact_type = crown_tengri_fylkir
-						artifact_type = crown_finnish_fylkir
-						artifact_type = crown_slavic_fylkir
-						artifact_type = crown_romuva_fylkir
-						artifact_type = crown_zun_fylkir
-						artifact_type = crown_west_african_fylkir
-						artifact_type = crown_aztec_fylkir
-						artifact_type = crown_germanic_fylkir
-						artifact_type = crown_frankish_fylkir
-						artifact_type = crown_suebic_fylkir
-						artifact_type = crown_gothic_fylkir
-						artifact_type = crown_briton_fylkir
-						artifact_type = crown_pict_fylkir
-						artifact_type = crown_gael_fylkir
-						artifact_type = crown_alan_fylkir
-						artifact_type = crown_vasconic_fylkir
-						artifact_type = iron_crown_of_lombardy
-						artifact_type = cursed_diamond_crown
-					}
-					is_artifact_equipped = yes 
+				has_game_started = no
+				is_in_society = yes
+				is_theocracy = yes
+				is_merchant_republic = yes
+				has_job_title = job_spiritual
+				french_overlayer_special_crown_trigger = yes
+				NOR = {
+					#has_portrait_property = { layer = 5 index = 0 }
+					#has_portrait_property = { layer = 5 index = 1 }
+					#has_portrait_property = { layer = 5 index = 2 }
+					#has_portrait_property = { layer = 5 index = 3 }
+					#has_portrait_property = { layer = 5 index = 4 }
+					#has_portrait_property = { layer = 5 index = 10 }
+					french_martial_overlayer_trigger = yes
+					french_duchess_overlayer_trigger = yes
+					french_countess_overlayer_trigger = yes
+					french_courtier_overlayer_trigger = yes
 				}
 			}
 		}
 	}
 	1 = { # Military Helm 01
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		factor = 1
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	2 = { # Military Helm 02
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		factor = 1
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	3 = { # Military Helm 03
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		factor = 1
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
 	4 = { # Military Helm 04
-		factor = 100
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = { 
-				is_theocracy = yes 
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOT = { has_portrait_property = { layer = 5 index = 10 } }
+		factor = 1
+		trigger = {
+			french_martial_overlayer_trigger = yes
 		}
 	}
-	5 = { # Duchess Accessories - Whole timeline
+	5 = { # Duchess Accessories - Early
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			NOT = { year = 1180 }
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
-	6 = { # Duchess Accessories - Whole timeline
+	6 = { # Duchess Accessories - Early
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			NOT = { year = 1180 }
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
-	7 = { # Duchess Accessories - Whole timeline
+	7 = { # Duchess Accessories - Early
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			NOT = { year = 1180 }
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	8 = { # Duchess Accessories - Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			year = 1180
 			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	9 = { # Duchess Accessories - Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			year = 1180
+			OR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
-		modifier = {
-			factor = 0
+	}
+	10 = { # Countess Accessories - Early
+		factor = 1
+		trigger = {
+			french_countess_overlayer_trigger = yes
 			NOT = { year = 1180 }
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-				is_vice_royalty = yes
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
-	10 = { # Countess Accessories - Whole timeline
+	11 = { # Countess Accessories - Early
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-	}
-	11 = { # Countess Accessories - Whole timeline
-		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			NOT = { year = 1180 }
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	12 = { # Countess Accessories - Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	13 = { # Countess Accessories - Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	14 = { # Countess Accessories - Post-1180
 		factor = 1
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	15 = { # Countess Accessories - Post-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			NOT = { 
-				has_portrait_property = { layer = 5 index = 4 } 
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
+			NOR = { 
+				higher_real_tier_than = COUNT
+				spouse = { higher_real_tier_than = COUNT }
 			}
 		}
 	}
 	16 = { # Non-noble Pre-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			year = 1180
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	17 = { # Non-noble Pre-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			year = 1180
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	18 = { # Non-noble Pre-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			year = 1180
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	19 = { # Non-noble Pre-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			year = 1180
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	20 = { # Non-noble Post-1180
 		factor = 1
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 	21 = { # Non-noble Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 	22 = { # Non-noble Post-1180
 		factor = 1
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 	23 = { # Non-noble Post-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 	24 = { # Non-noble Post-1180
 		factor = 1
-		hide_layers = { 1 = { } }
-		hide_layers = { 33 = { } } #Veil overload.
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-				has_job_title = job_marshal
-				has_job_title = job_spymaster
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				is_ruler = yes
-				spouse = { is_ruler = yes }
-			}
-		}
-		modifier = {
-			factor = 10
-			piety = 100
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
+		#hide_layers = { 1 = { } }
+		#hide_layers = { 33 = { } } #Veil overload.
+		trigger = {
+			french_courtier_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 }
@@ -7545,92 +6350,24 @@
 33 = {
 	0 = { # Blank
 		factor = 100
-		modifier = {
-			factor = 100
-			has_game_started = no
-		}
-		modifier = {
-			factor = 100
-			OR = { 
-				is_merchant_republic = yes
-				is_theocracy = yes 
-				is_in_society = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 100
-			NOT = { 
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = {
-			factor = 0
-			has_dlc = "Holy Fury"
-			has_game_started = yes
-			is_in_society = no
-			is_theocracy = no
-			NOR = {
-				is_merchant_republic = yes
-				is_theocracy = yes 
-				is_in_society = yes
-				has_job_title = job_spiritual
-				has_portrait_property = { layer = 5 index = 9 }
-				has_portrait_property = { layer = 5 index = 10 }
-			}
+		trigger = {
 			OR = {
-				higher_tier_than = BARON
-				spouse = { higher_tier_than = BARON }
-			}
-			is_gallo_romance_culture_trigger = yes
-			NOR = {
-				trait = dead_crown_hre #Dead kings don't have artifacts
-				trait = dead_crown_byzantine #Dead kings don't have artifacts
-				trait = dead_crown_pahlavi #Dead kings don't have artifacts
-				trait = dead_crown_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_tengri_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_finnish_fylkir #Dead kings don't have artifacts
-				trait = dead_crown_slavic_fylkir
-				trait = dead_crown_romuva_fylkir
-				trait = dead_crown_zun_fylkir
-				trait = dead_crown_west_african_fylkir
-				trait = dead_crown_aztec_fylkir
-				trait = dead_crown_germanic_fylkir
-				trait = dead_crown_frankish_fylkir
-				trait = dead_crown_suebic_fylkir
-				trait = dead_crown_gothic_fylkir
-				trait = dead_crown_briton_fylkir
-				trait = dead_crown_pict_fylkir
-				trait = dead_crown_gael_fylkir
-				trait = dead_crown_alan_fylkir
-				trait = dead_crown_vasconic_fylkir
-				has_augustus_trait = yes # Laurels
-				any_artifact = {
-					OR = {
-						artifact_type = crown_hre
-						artifact_type = crown_byzantine
-						artifact_type = crown_pahlavi
-						artifact_type = crown_fylkir
-						artifact_type = crown_tengri_fylkir
-						artifact_type = crown_finnish_fylkir
-						artifact_type = crown_slavic_fylkir
-						artifact_type = crown_romuva_fylkir
-						artifact_type = crown_zun_fylkir
-						artifact_type = crown_west_african_fylkir
-						artifact_type = crown_aztec_fylkir
-						artifact_type = crown_germanic_fylkir
-						artifact_type = crown_frankish_fylkir
-						artifact_type = crown_suebic_fylkir
-						artifact_type = crown_gothic_fylkir
-						artifact_type = crown_briton_fylkir
-						artifact_type = crown_pict_fylkir
-						artifact_type = crown_gael_fylkir
-						artifact_type = crown_alan_fylkir
-						artifact_type = crown_vasconic_fylkir
-						artifact_type = iron_crown_of_lombardy
-						artifact_type = cursed_diamond_crown
-					}
-					is_artifact_equipped = yes 
+				has_game_started = no
+				is_in_society = yes
+				is_theocracy = yes
+				is_merchant_republic = yes
+				has_job_title = job_spiritual
+				french_overlayer_special_crown_trigger = yes
+				NOR = {
+					#has_portrait_property = { layer = 5 index = 0 }
+					#has_portrait_property = { layer = 5 index = 1 }
+					#has_portrait_property = { layer = 5 index = 2 }
+					#has_portrait_property = { layer = 5 index = 3 }
+					#has_portrait_property = { layer = 5 index = 4 }
+					#has_portrait_property = { layer = 5 index = 10 }
+					french_queen_underlayer_trigger = yes
+					french_duchess_overlayer_trigger = yes
+					french_countess_overlayer_trigger = yes
 				}
 			}
 		}
@@ -7638,722 +6375,153 @@
 	1 = { # Empress / Queen Pre-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			year = 1180
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	2 = { # Empress / Queen Pre-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			year = 1180
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	3 = { # Empress / Queen Pre-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			year = 1180
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	4 = { # Empress / Queen Pre-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			year = 1180
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	5 = { # Empress / Queen Post-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			year = 1180
 		}
 	}
 	6 = { # Empress / Queen Post-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			year = 1180
 		}
 	}
 	7 = { # Empress / Queen Post-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			year = 1180
 		}
 	}
 	8 = { # Empress / Queen Post-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
+		trigger = {
+			french_queen_underlayer_trigger = yes
+			year = 1180
 		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			lower_real_tier_than = KING
-			spouse = { lower_real_tier_than = KING }
-		}
-		modifier = {
-			factor = 0
+	}
+	9 = { # Duchess Early
+		factor = 1
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_duchess_overlayer_trigger = yes
 			NOT = { year = 1180 }
 		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
 	}
-	9 = { # Duchess Whole Timeline
+	10 = { # Duchess Early
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = DUKE
-				spouse = { higher_real_tier_than = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	10 = { # Duchess Whole Timeline
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = DUKE
-				spouse = { higher_real_tier_than = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	11 = { # Duchess Whole Timeline
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society clothes.
-			factor = 0
-			OR = {
-				in_command = no 
-				has_game_rule = {
-					name = martial_headgear
-					value = off
-				}
-			}
-			is_in_society = yes
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = DUKE
-				spouse = { higher_real_tier_than = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	12 = { # Duchess Post-1180
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = DUKE
-				spouse = { higher_real_tier_than = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
+		trigger = {
+			french_duchess_overlayer_trigger = yes
 			NOT = { year = 1180 }
 		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+	}
+	11 = {  # Duchess Early
+		factor = 1
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			NOT = { year = 1180 }
+		}
+	}
+	12 = { # Duchess Early
+		factor = 1
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	13 = { # Duchess Post-1180
 		factor = 1
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			year = 1180
 		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
+	}
+	14 = { # Duchess Post-1180
+		factor = 1
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_duchess_overlayer_trigger = yes
+			year = 1180
 		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = DUKE
-				spouse = { real_tier = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = DUKE
-				spouse = { higher_real_tier_than = DUKE }
-			}
-		}
-		modifier = {
-			factor = 0
+	}
+	15 = { # Countess Early
+		factor = 100
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_countess_overlayer_trigger = yes
 			NOT = { year = 1180 }
 		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
 	}
-	14 = { # Countess Whole Timeline
-		factor = 1
+	16 = { # Countess Early
+		factor = 100
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = COUNT
-				spouse = { higher_real_tier_than = COUNT }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	15 = { # Countess Whole Timeline
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = COUNT
-				spouse = { higher_real_tier_than = COUNT }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	16 = { # Countess Whole Timeline
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = COUNT
-				spouse = { higher_real_tier_than = COUNT }
-			}
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
-		}
-	}
-	17 = { # Countess Post-1180
-		factor = 1
-		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
-		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = COUNT
-				spouse = { higher_real_tier_than = COUNT }
-			}
-		}
-		modifier = {
-			factor = 0
+		trigger = {
+			french_countess_overlayer_trigger = yes
 			NOT = { year = 1180 }
 		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+	}
+	17 = { # Countess Early
+		factor = 100
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			NOT = { year = 1180 }
 		}
 	}
 	18 = { # Countess Post-1180
-		factor = 1
+		factor = 100
 		hide_layers = { 1 = { } }
-		modifier = {
-			factor = 0
-			has_game_started = no
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
 		}
-		modifier = {
-			factor = 0
-			NOT = {
-				has_dlc = "Holy Fury"
-			}
-		}
-		modifier = { #Incompatible with most society and religious clothes.
-			factor = 0
-			OR = { 
-				is_in_society = yes
-				is_theocracy = yes
-				is_merchant_republic = yes
-				has_job_title = job_spiritual
-			}
-		}
-		modifier = {
-			factor = 0
-			NOR = {
-				real_tier = count
-				spouse = { real_tier = count }
-				has_minor_title = title_prince
-			}
-		}
-		modifier = {
-			factor = 0
-			OR = {
-				higher_real_tier_than = COUNT
-				spouse = { higher_real_tier_than = COUNT }
-			}
-		}
-		modifier = {
-			factor = 0
-			NOT = { year = 1180 }
-		}
-		modifier = {
-			factor = 0
-			is_gallo_romance_culture_trigger = no
+	}
+	19 = { # Countess Post-1180
+		factor = 100
+		hide_layers = { 1 = { } }
+		trigger = {
+			french_countess_overlayer_trigger = yes
+			year = 1180
 		}
 	}
 }
@@ -8399,6 +6567,10 @@
 				any_artifact = { artifact_type = crown_winged_helmet is_artifact_equipped = yes } 
 				any_artifact = { artifact_type = crown_wrapped_helmet is_artifact_equipped = yes } 
 			}
+		}
+		modifier = { #Unicorn
+			factor = 0
+			any_artifact = { artifact_type = crown_unicorn_helmet is_artifact_equipped = yes } 
 		}
 	}
 	1 = { #Templar special headgear.
@@ -8684,6 +6856,37 @@
 			# }
 		}
 	}
+	10 = { #Unicorn headgear.
+		factor = 100
+		hide_layers = { 12 = { } } #Hide layer 12 (disfigured masks) when this frame is picked.
+		hide_layers = { 5 = { } } #Hide layer 5 (headgear) when this frame is picked.
+		hide_layers = { 1 = { } } #Hide Hair.
+		hide_layers = { 3 = { } } #Hide Clothes.
+		hide_layers = { 18 = { } } #Hide layers with special crowns.
+		hide_layers = { 19 = { } } #Hide layers with special crowns.
+		hide_layers = { 31 = { } } #Veil overload.
+		hide_layers = { 32 = { } } 
+		hide_layers = { 33 = { } }
+		#modifier = {
+		#	factor = 0
+		#	NAND = { 
+		#		in_command = yes 
+		#		has_game_rule = {
+		#			name = martial_headgear
+		#			value = on
+		#		}
+		#	}
+		#}
+		modifier = {
+			factor = 0
+			NOT = { 
+				any_artifact = {
+					artifact_type = crown_unicorn_helmet
+					is_artifact_equipped = yes 
+				}
+			}
+		}
+	}
 }
 
 
@@ -8834,6 +7037,13 @@
 		}
 		modifier = {
 			factor = 0
+			OR = {
+				in_command = no
+				has_game_rule = {
+					name = martial_headgear
+					value = off
+				}
+			}
 			any_artifact = {
 				OR = {
 					artifact_type = scepter_bon_fylkir
