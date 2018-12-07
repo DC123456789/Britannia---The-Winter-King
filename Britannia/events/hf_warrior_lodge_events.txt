@@ -2947,11 +2947,22 @@ character_event = {
     hide_from = yes
     
     trigger = {
-        is_alive = yes    
+        is_alive = yes
+        NOT = { has_character_modifier = warrior_lodge_HF_10052_cooldown }
     }
 
     notification = yes
 
+    immediate = {
+        hidden_effect = {
+            add_character_modifier = {
+                name = warrior_lodge_HF_10052_cooldown
+                duration = 30
+                hidden = yes
+            }
+        }        
+    }
+	
     option = {      
         name = EXCELLENT
     }
@@ -3113,7 +3124,9 @@ character_event = {
                     }
                 }
             }
-            clr_flag = used_legendary_gathering #So the whole thing is reset...
+            event_target:my_warrior_lodge = {
+                clr_flag = used_legendary_gathering #So the whole thing is reset...
+            }
         }
     }
 }
