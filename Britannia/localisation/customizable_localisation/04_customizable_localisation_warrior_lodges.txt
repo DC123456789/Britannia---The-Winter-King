@@ -10,6 +10,18 @@ defined_text = { #Used in HF.10040 (Power: Warrior Training)
 		trigger = { society_member_of = warrior_lodge_tengri }
 		localisation_key = string_tengri_training
 	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_celtic }
+		localisation_key = string_celtic_training
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_alan }
+		localisation_key = string_alan_training
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_vasconic }
+		localisation_key = string_vasconic_training
+	}
 	# text = {
 		# trigger = { society_member_of = warrior_lodge_baltic }
 		# localisation_key = string_baltic_training
@@ -54,6 +66,18 @@ defined_text = { #Used in HFP.11028 (battle event)
 		trigger = { society_member_of = warrior_lodge_tengri }
 		localisation_key = string_tengri_symbol
 	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_celtic }
+		localisation_key = string_celtic_symbol
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_alan }
+		localisation_key = string_alan_symbol
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_vasconic }
+		localisation_key = string_vasconic_symbol
+	}
 	# text = {
 		# trigger = { society_member_of = warrior_lodge_baltic }
 		# localisation_key = string_baltic_symbol
@@ -97,6 +121,18 @@ defined_text = { #Used here and there? Made *singular*, on purpose...
 		trigger = { society_member_of = warrior_lodge_tengri }
 		localisation_key = string_tengri_symbol_short
 	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_celtic }
+		localisation_key = string_celtic_symbol_short
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_alan }
+		localisation_key = string_alan_symbol_short
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_vasconic }
+		localisation_key = string_vasconic_symbol_short
+	}
 	# text = {
 		# trigger = { society_member_of = warrior_lodge_baltic }
 		# localisation_key = string_baltic_symbol_short
@@ -139,6 +175,18 @@ defined_text = { #Used here and there? Made *singular*, on purpose...
 	text = {
 		trigger = { society_member_of = warrior_lodge_tengri }
 		localisation_key = string_tengri_symbol_short_cap
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_celtic }
+		localisation_key = string_celtic_symbol_short_cap
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_alan }
+		localisation_key = string_alan_symbol_short_cap
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_vasconic }
+		localisation_key = string_vasconic_symbol_short_cap
 	}
 	# text = {
 		# trigger = { society_member_of = warrior_lodge_baltic }
@@ -197,6 +245,18 @@ defined_text = { #Used in HFP.11038 (battle event)
 	text = {
 		trigger = { society_member_of = warrior_lodge_tengri }
 		localisation_key = string_battle_nick_tengri_symbol
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_celtic }
+		localisation_key = string_battle_nick_celtic_symbol
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_alan }
+		localisation_key = string_battle_nick_alan_symbol
+	}
+	text = {
+		trigger = { society_member_of = warrior_lodge_vasconic }
+		localisation_key = string_battle_nick_vasconic_symbol
 	}
 	# text = {
 		# trigger = { society_member_of = warrior_lodge_baltic }
@@ -279,12 +339,44 @@ defined_text = { #Used in HFP.11038 (battle event)
 	name = GetWLCanJoinReligion
 	
 	text = {
-		trigger = { FROM = { is_society = warrior_lodge_norse } }
-		localisation_key = string_WL_norse_religion
+		trigger = { 
+			FROM = { is_society = warrior_lodge_norse } 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		}
+		localisation_key = string_WL_norse_religion_real
+	}
+	text = {
+		trigger = { 
+			FROM = { is_society = warrior_lodge_norse } 
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+		localisation_key = string_WL_norse_religion_random
 	}
 	text = {
 		trigger = { FROM = { is_society = warrior_lodge_tengri } }
 		localisation_key = string_WL_tengri_religion
+	}
+	text = {
+		trigger = { 
+			FROM = { is_society = warrior_lodge_celtic } 
+			NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
+		}
+		localisation_key = string_WL_celtic_religion_real
+	}
+	text = {
+		trigger = { 
+			FROM = { is_society = warrior_lodge_celtic } 
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+		localisation_key = string_WL_celtic_religion_random
+	}
+	text = {
+		trigger = { FROM = { is_society = warrior_lodge_alan } }
+		localisation_key = string_WL_alan_religion
+	}
+	text = {
+		trigger = { FROM = { is_society = warrior_lodge_vasconic } }
+		localisation_key = string_WL_vasconic_religion
 	}
 	# text = {
 		# trigger = { FROM = { is_society = warrior_lodge_baltic } }
@@ -1753,6 +1845,8 @@ defined_text = { #Used to refer to a type of "warrior", initial cap...
 		trigger = {
 			OR = { #Only for northeners
 				society_member_of = warrior_lodge_norse
+				society_member_of = warrior_lodge_celtic
+				society_member_of = warrior_lodge_vasconic
 				#society_member_of = warrior_lodge_slavic
 				#society_member_of = warrior_lodge_baltic
 				#society_member_of = warrior_lodge_finnish

@@ -103,10 +103,30 @@ character_event = {
 		}
 		text = EVTDESCIHF25600
 	}
+	desc = {
+		trigger = {
+			has_character_flag = flag_hunting_wolf_celtic
+		}
+		text = EVTDESCHF25600_celtic
+	}
+	desc = {
+		trigger = {
+			has_character_flag = flag_hunting_wolf_vasconic
+		}
+		text = EVTDESCHF25600_vasconic
+	}
+	desc = {
+		trigger = {
+			has_character_flag = flag_hunting_eagle_alan
+		}
+		text = EVTDESCHF25600_alan
+	}
 	picture = { 
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -118,6 +138,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -181,6 +202,14 @@ character_event = {
 				limit = { society_member_of = warrior_lodge_norse } 
 				set_character_flag = flag_hunting_wolf_norse
 			}
+			if = { 
+				limit = { society_member_of = warrior_lodge_celtic } 
+				set_character_flag = flag_hunting_wolf_celtic
+			}
+			if = { 
+				limit = { society_member_of = warrior_lodge_vasconic } 
+				set_character_flag = flag_hunting_wolf_vasconic
+			}
 			# if = { 
 				# limit = { society_member_of = warrior_lodge_baltic } 
 				# set_character_flag = flag_hunting_wolf_baltic
@@ -196,6 +225,10 @@ character_event = {
 			if = { 
 				limit = { society_member_of = warrior_lodge_tengri } 
 				set_character_flag = flag_hunting_eagle_tengri
+			}
+			if = { 
+				limit = { society_member_of = warrior_lodge_alan } 
+				set_character_flag = flag_hunting_eagle_alan
 			}
 			# if = { 
 				# limit = { society_member_of = warrior_lodge_bon } 
@@ -600,7 +633,11 @@ character_event = {
 			add_blood_splatter_effect = yes
 			if = { 
 				limit = { 
-					society_member_of = warrior_lodge_norse
+					OR = {
+						society_member_of = warrior_lodge_norse
+						society_member_of = warrior_lodge_celtic
+						society_member_of = warrior_lodge_vasconic
+					}
 					NOR = { 
 						trait = african_tattoo_1
 						trait = african_tattoo_2
@@ -710,7 +747,10 @@ character_event = {
 			# }
 			if = { 
 				limit = { 
-					society_member_of = warrior_lodge_tengri
+					OR = {
+						society_member_of = warrior_lodge_tengri
+						society_member_of = warrior_lodge_alan
+					}
 				}
 				remove_character_modifier = tengri_warpaint_1 #Remove all previous paint that might still be lingering, for whatever reason.
 				remove_character_modifier = tengri_warpaint_2
@@ -801,7 +841,11 @@ character_event = {
 				add_blood_splatter_effect = yes
 				if = { 
 					limit = { 
-						society_member_of = warrior_lodge_norse
+						OR = {
+							society_member_of = warrior_lodge_norse
+							society_member_of = warrior_lodge_celtic
+							society_member_of = warrior_lodge_vasconic
+						}
 						NOR = { 
 							trait = african_tattoo_1
 							trait = african_tattoo_2
@@ -911,7 +955,10 @@ character_event = {
 				# }
 				if = { 
 					limit = { 
-						society_member_of = warrior_lodge_tengri
+						OR = {
+							society_member_of = warrior_lodge_tengri
+							society_member_of = warrior_lodge_alan
+						}
 					}
 					remove_character_modifier = tengri_warpaint_1 #Remove all previous paint that might still be lingering, for whatever reason.
 					remove_character_modifier = tengri_warpaint_2
@@ -1061,6 +1108,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1072,6 +1121,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1124,6 +1174,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1135,6 +1187,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1328,6 +1381,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1339,6 +1394,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1471,6 +1527,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1482,6 +1540,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1589,6 +1648,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1600,6 +1661,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1744,6 +1806,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1755,6 +1819,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1877,6 +1942,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1888,6 +1955,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1937,6 +2005,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1948,6 +2018,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -1973,6 +2044,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -1984,6 +2057,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2197,6 +2271,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2208,6 +2284,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2233,6 +2310,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2244,6 +2323,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2437,6 +2517,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2448,6 +2530,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2473,6 +2556,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2484,6 +2569,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2694,6 +2780,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2705,6 +2793,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2730,6 +2819,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2741,6 +2832,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2936,6 +3028,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2947,6 +3041,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -2972,6 +3067,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -2983,6 +3080,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3193,6 +3291,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3204,6 +3304,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3229,6 +3330,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3240,6 +3343,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3433,6 +3537,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3444,6 +3550,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3469,6 +3576,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3480,6 +3589,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3556,6 +3666,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3567,6 +3679,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3857,6 +3970,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3868,6 +3983,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3917,6 +4033,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3928,6 +4046,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -3953,6 +4072,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -3964,6 +4085,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -4608,6 +4730,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -4619,6 +4743,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -4644,6 +4769,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -4655,6 +4782,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -4968,6 +5096,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -4979,6 +5109,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5004,6 +5135,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5015,6 +5148,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5059,6 +5193,8 @@ character_event = {
 			limit = { 
 				OR = { 
 					has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 					has_character_flag = flag_hunting_wolf_baltic
 					has_character_flag = flag_hunting_wolf_hellenic
 				} 
@@ -5073,6 +5209,7 @@ character_event = {
 				OR = { 
 					has_character_flag = flag_hunting_eagle_slavic
 					has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 					has_character_flag = flag_hunting_eagle_bon
 				} 
 			} 
@@ -5183,7 +5320,8 @@ character_event = {
 	}
 	option = { #Tengri finds eagle.
 		name = EVTOPTDHF25620
-		trigger = { has_character_flag = flag_hunting_eagle_tengri OR = { religion = tengri_pagan religion = tengri_pagan_reformed } }
+		trigger = { has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan OR = { religion = tengri_pagan religion = tengri_pagan_reformed } }
 		custom_tooltip = { text = TT_EVTOPTDHF252620 }
 		hidden_tooltip = { character_event = { id = HF.25629 } } #Fluff.
 		ai_chance = { factor = 50 }
@@ -5211,6 +5349,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5222,6 +5362,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5247,6 +5388,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5258,6 +5401,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5302,6 +5446,8 @@ character_event = {
 			limit = { 
 				OR = { 
 					has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 					has_character_flag = flag_hunting_wolf_baltic
 					has_character_flag = flag_hunting_wolf_hellenic
 				} 
@@ -5316,6 +5462,7 @@ character_event = {
 				OR = { 
 					has_character_flag = flag_hunting_eagle_slavic
 					has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 					has_character_flag = flag_hunting_eagle_bon
 				} 
 			} 
@@ -5427,7 +5574,8 @@ character_event = {
 	}
 	option = { #Tengri finds eagle.
 		name = EVTOPTDHF25620
-		trigger = { has_character_flag = flag_hunting_eagle_tengri }
+		trigger = { has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan }
 		custom_tooltip = { text = TT_EVTOPTDHF252620 }
 		hidden_tooltip = { character_event = { id = HF.25629 } } #Give pet.
 		ai_chance = { factor = 50 }
@@ -5449,6 +5597,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 
@@ -5466,6 +5615,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 
@@ -5488,6 +5638,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5499,6 +5651,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5524,6 +5677,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5535,6 +5690,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5586,6 +5742,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 
@@ -5603,6 +5760,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 
@@ -5626,6 +5784,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5637,6 +5797,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5662,6 +5823,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5673,6 +5836,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5726,6 +5890,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5737,6 +5903,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5762,6 +5929,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5773,6 +5942,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5853,6 +6023,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5864,6 +6036,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5889,6 +6062,8 @@ character_event = {
 		trigger = { 
 			OR = { 
 				has_character_flag = flag_hunting_wolf_norse
+				has_character_flag = flag_hunting_wolf_celtic
+				has_character_flag = flag_hunting_wolf_vasconic
 				has_character_flag = flag_hunting_wolf_baltic
 				has_character_flag = flag_hunting_wolf_hellenic
 			} 
@@ -5900,6 +6075,7 @@ character_event = {
 			OR = { 
 				has_character_flag = flag_hunting_eagle_slavic
 				has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 				has_character_flag = flag_hunting_eagle_bon
 			} 
 		} 
@@ -5974,6 +6150,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 
@@ -5991,6 +6168,7 @@ character_event = {
 					OR = { 
 						has_character_flag = flag_hunting_eagle_slavic
 						has_character_flag = flag_hunting_eagle_tengri
+				has_character_flag = flag_hunting_eagle_alan
 						has_character_flag = flag_hunting_eagle_bon
 					} 
 					NOT = { trait = blinded } 

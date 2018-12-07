@@ -5419,6 +5419,18 @@ join_prev_warrior_lodge_society_effect = {
 		limit = { PREV = { society_member_of = warrior_lodge_tengri } }
 		join_society = warrior_lodge_tengri
 	}
+	if = {
+		limit = { PREV = { society_member_of = warrior_lodge_celtic } }
+		join_society = warrior_lodge_celtic
+	}
+	if = {
+		limit = { PREV = { society_member_of = warrior_lodge_alan } }
+		join_society = warrior_lodge_alan
+	}
+	if = {
+		limit = { PREV = { society_member_of = warrior_lodge_vasconic } }
+		join_society = warrior_lodge_vasconic
+	}
 	# if = {
 		# limit = { PREV = { society_member_of = warrior_lodge_baltic } }
 		# join_society = warrior_lodge_baltic
@@ -5452,16 +5464,74 @@ give_this_warrior_lodge_religion_effect = { #Mostly for spawned characters.
 	if = {
 		limit = { 
 			society_member_of = warrior_lodge_norse 
-			NOT = { has_global_flag = norse_reformation }
 		}
-		religion = norse_pagan
-	}
-	if = {
-		limit = { 
-			society_member_of = warrior_lodge_norse 
-			has_global_flag = norse_reformation
+		if = {
+			limit = {
+				is_ingvaeonic_culture_trigger = yes
+			}
+			if = {
+				limit = {
+					has_global_flag = germanic_reformation
+				}	
+				religion = germanic_pagan_reformed	
+			}
+			else = {
+				religion = germanic_pagan
+			}
 		}
-		religion = norse_pagan_reformed
+		else_if = {
+			limit = {
+				is_istvaeonic_culture_trigger = yes
+			}
+			if = {
+				limit = {
+					has_global_flag = frankish_reformation
+				}	
+				religion = frankish_pagan_reformed	
+			}
+			else = {
+				religion = frankish_pagan
+			}
+		}
+		else_if = {
+			limit = {
+				is_irminonic_culture_trigger = yes
+			}
+			if = {
+				limit = {
+					has_global_flag = suebic_reformation
+				}	
+				religion = suebic_pagan_reformed	
+			}
+			else = {
+				religion = suebic_pagan
+			}
+		}
+		else_if = {
+			limit = {
+				is_east_germanic_trigger = yes
+			}
+			if = {
+				limit = {
+					has_global_flag = gothic_reformation
+				}	
+				religion = gothic_pagan_reformed	
+			}
+			else = {
+				religion = gothic_pagan
+			}
+		}
+		else = {		# Default to Norse
+			if = {
+				limit = {
+					has_global_flag = norse_reformation
+				}	
+				religion = norse_pagan_reformed	
+			}
+			else = {
+				religion = norse_pagan
+			}
+		}
 	}
 	if = {
 		limit = { 
@@ -5470,13 +5540,85 @@ give_this_warrior_lodge_religion_effect = { #Mostly for spawned characters.
 		}
 		religion = tengri_pagan
 	}
-	# if = {
-		# limit = { 
-			# society_member_of = warrior_lodge_tengri 
-			# has_global_flag = tengri_reformation
-		# }
-		# religion = tengri_pagan_reformed
-	# }
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_tengri 
+			has_global_flag = tengri_reformation
+		}
+		religion = tengri_pagan_reformed
+	}
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_celtic
+		}
+		if = {
+			limit = {
+				culture = pict
+			}
+			if = {
+				limit = {
+					has_global_flag = pict_reformation
+				}	
+				religion = pict_pagan_reformed	
+			}
+			else = {
+				religion = pict_pagan
+			}
+		}
+		else_if = {
+			limit = {
+				is_gaelic_culture_trigger = yes
+			}
+			if = {
+				limit = {
+					has_global_flag = gael_reformation
+				}	
+				religion = gael_pagan_reformed	
+			}
+			else = {
+				religion = gael_pagan
+			}
+		}
+		else = {		# Default to Briton
+			if = {
+				limit = {
+					has_global_flag = briton_reformation
+				}	
+				religion = briton_pagan_reformed	
+			}
+			else = {
+				religion = briton_pagan
+			}
+		}
+	}
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_alan 
+			has_global_flag = alan_reformation
+		}
+		religion = alan_pagan_reformed
+	}
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_alan 
+			NOT = { has_global_flag = alan_reformation }
+		}
+		religion = alan_pagan
+	}
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_vasconic 
+			has_global_flag = vasconic_reformation
+		}
+		religion = vasconic_pagan_reformed
+	}
+	if = {
+		limit = { 
+			society_member_of = warrior_lodge_vasconic
+			NOT = { has_global_flag = vasconic_reformation }
+		}
+		religion = vasconic_pagan
+	}
 	# if = {
 		# limit = { 
 			# society_member_of = warrior_lodge_baltic 
@@ -22874,6 +23016,15 @@ add_warrior_lodge_leader_trait_effect = {
 		}
 		warrior_lodge_tengri = {
 			add_trait = tengri_leader
+		}
+		warrior_lodge_celtic = {
+			add_trait = celtic_leader
+		}
+		warrior_lodge_alan = {
+			add_trait = alan_leader
+		}
+		warrior_lodge_vasconic = {
+			add_trait = vasconic_leader
 		}
 		# warrior_lodge_baltic = {
 			# add_trait = baltic_leader

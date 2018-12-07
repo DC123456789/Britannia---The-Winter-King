@@ -1300,7 +1300,7 @@ monastic_order_nestorian = {
 				# }
 			# }
 		# }
-		# age = 16
+		# age = 15
 		# OR = {
 			# religion = miaphysite
 			# AND = {
@@ -1501,7 +1501,7 @@ monastic_order_nestorian = {
 			# ai = yes
 	    	# controls_religion = no
 		   	# religion = miaphysite
-			# age = 16
+			# age = 15
 			# is_in_society = no
 			# NOT = { higher_tier_than = DUKE }
 			# NOR = {
@@ -3338,7 +3338,7 @@ the_satanists = {
 				value = none
 			}
 		}
-		age = 16
+		age = 15
 		OR = {
 			religion_group = christian
 			religion_group = muslim
@@ -3627,7 +3627,7 @@ the_satanists = {
 				trait = possessed
 				trait = lunatic
 			}
-			age = 16
+			age = 15
 			is_in_society = no
 			NOT = { higher_tier_than = DUKE }
 			NOR = {
@@ -3696,7 +3696,7 @@ the_trollcrafters = {
 				value = none
 			}
 		}
-		age = 16
+		age = 15
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
@@ -3972,7 +3972,7 @@ the_trollcrafters = {
 				trait = possessed
 				trait = lunatic
 			}
-			age = 16
+			age = 15
 			is_in_society = no
 			NOT = { higher_tier_than = DUKE }
 			NOR = {
@@ -4041,7 +4041,7 @@ the_trollcrafters = {
 				# value = none
 			# }
 		# }
-		# age = 16
+		# age = 15
 		# OR = {
 			# religion = hindu
 			# secret_religion = hindu
@@ -4304,7 +4304,7 @@ the_trollcrafters = {
 				# trait = possessed
 				# trait = lunatic
 			# }
-			# age = 16
+			# age = 15
 			# is_in_society = no
 			# NOT = { higher_tier_than = DUKE }
 			# NOR = {
@@ -4372,7 +4372,7 @@ the_trollcrafters = {
 				# value = none
 			# }
 		# }
-		# age = 16
+		# age = 15
 		# OR = {
 			# religion = baltic_pagan
 			# religion = baltic_pagan_reformed
@@ -4642,7 +4642,7 @@ the_trollcrafters = {
 				# trait = possessed
 				# trait = lunatic
 			# }
-			# age = 16
+			# age = 15
 			# is_in_society = no
 			# NOT = { higher_tier_than = DUKE }
 			# NOR = {
@@ -4711,7 +4711,7 @@ the_plaguebringers = {
 				value = none
 			}
 		}
-		age = 16
+		age = 15
 		OR = {
 			religion = tengri_pagan
 			religion = tengri_pagan_reformed
@@ -4977,7 +4977,7 @@ the_plaguebringers = {
 				trait = possessed
 				trait = lunatic
 			}
-			age = 16
+			age = 15
 			is_in_society = no
 			NOT = { higher_tier_than = DUKE }
 			NOR = {
@@ -5045,7 +5045,7 @@ the_plaguebringers = {
 				# value = none
 			# }
 		# }
-		# age = 16
+		# age = 15
 		# OR = {
 			# religion = west_african_pagan
 			# religion = west_african_pagan_reformed
@@ -5312,7 +5312,7 @@ the_plaguebringers = {
 				# trait = possessed
 				# trait = lunatic
 			# }
-			# age = 16
+			# age = 15
 			# is_in_society = no
 			# NOT = { higher_tier_than = DUKE }
 			# NOR = {
@@ -5383,7 +5383,7 @@ the_bacchants = {
 				value = none
 			}
 		}
-		age = 16
+		age = 15
 		OR = {
 			religion_group = zoroastrian_group
 			secret_religion_group = zoroastrian_group
@@ -5668,7 +5668,7 @@ the_bacchants = {
 				trait = possessed
 				trait = lunatic
 			}
-			age = 16
+			age = 15
 			is_in_society = no
 			NOT = { higher_tier_than = DUKE }
 			NOR = {
@@ -5953,6 +5953,10 @@ secret_religious_society_template = {
 #warrior_lodge_bon - The Sentinels of Light
 #warrior_lodge_hellenic - The Olympian Champions
 
+#warrior_lodge_celtic - The Fianna
+#warrior_lodge_alan
+#warrior_lodge_vasconic
+
 warrior_lodge_norse = {
 	primary_attribute = martial
 	opinion_to_other_members = +10
@@ -5994,7 +5998,7 @@ warrior_lodge_norse = {
 			prisoner = no
 		}
 		OR = {
-			religion_openly_norse_or_reformed_trigger = yes
+			is_germanic_pagan_trigger = yes
 			AND = {
 				custom_tooltip = {
 					text = society_has_at_least_10_members_tt
@@ -6013,20 +6017,20 @@ warrior_lodge_norse = {
 	show_society = {
 		OR = {
 			#You are this religion: will show only this lodge (the other "show_society"'s will make sure)
-			religion_openly_norse_or_reformed_trigger = yes	
+			is_germanic_pagan_trigger = yes	
 			AND = {
 				#You are of a religion that doesn't match *any* warrior lodge
 				has_religion_matching_available_warrior_lodge_trigger = no
 				
 				OR = {
 					#You have neighbors, etc, of the correct religion...
-					any_vassal = { religion_openly_norse_or_reformed_trigger = yes }
-					any_liege = { religion_openly_norse_or_reformed_trigger = yes }
-					any_neighbor_independent_ruler = { religion_openly_norse_or_reformed_trigger = yes }
+					any_vassal = { is_germanic_pagan_trigger = yes }
+					any_liege = { is_germanic_pagan_trigger = yes }
+					any_neighbor_independent_ruler = { is_germanic_pagan_trigger = yes }
 				}
 			}
 			NOT = { #Hide if: you don't have a religion that corresponds to this lodge, but there is another society available to you already
-				religion_openly_norse_or_reformed_trigger = no
+				is_germanic_pagan_trigger = no
 				has_religion_matching_available_warrior_lodge_trigger = yes
 			}
 			#Always show if: You are already a member. Duh.
@@ -6036,9 +6040,9 @@ warrior_lodge_norse = {
 
 	potential = { #if you change religion or become zealous while NOT pagan, you are kicked out
 		OR = {
-			religion_openly_norse_or_reformed_trigger = yes
+			is_germanic_pagan_trigger = yes
 			AND = {
-				religion_openly_norse_or_reformed_trigger = no
+				is_germanic_pagan_trigger = no
 				NOT = { trait = zealous }
 			}
 		}
@@ -6507,7 +6511,7 @@ warrior_lodge_norse = {
 	    trigger = {
 			ai = yes
 	    	controls_religion = no
-		   	religion_openly_norse_or_reformed_trigger = yes
+		   	is_germanic_pagan_trigger = yes
 			is_adult = yes
 			is_in_society = no
 			OR = {

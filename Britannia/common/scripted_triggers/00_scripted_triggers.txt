@@ -6079,132 +6079,237 @@ martyrs_death_trigger = {
 can_build_hillfort_trigger = {
 	OR = { 
 		AND = { 
-			NOR = { 
-				is_building = tb_hillfort_1 
-				has_building = tb_hillfort_1 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_1
+				hidden_tooltip = { 
+					NOR = { 
+						is_building = tb_hillfort_1 
+						has_building = tb_hillfort_1 
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 0 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 0 }
 		}
 		AND = { 
-			has_building = tb_hillfort_1
-			NOR = { 
-				is_building = tb_hillfort_2 
-				has_building = tb_hillfort_2 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_2
+				hidden_tooltip = { 
+					has_building = tb_hillfort_1
+					NOR = { 
+						is_building = tb_hillfort_2 
+						has_building = tb_hillfort_2 
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 0 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 0 }
 		}
 		AND = { 
-			has_building = tb_hillfort_2
-			NOR = { 
-				is_building = tb_hillfort_3 
-				has_building = tb_hillfort_3 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_3
+				hidden_tooltip = { 
+					has_building = tb_hillfort_2
+					NOR = { 
+						is_building = tb_hillfort_3 
+						has_building = tb_hillfort_3 
+					}
+					has_building = tb_market_town_2
+					has_building = tb_training_grounds_1
+					has_building = tb_war_camp_1
+					has_building = tb_practice_range_1
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 1 }
 		}
-		AND = {
-			has_building = tb_hillfort_3
-			NOR = { 
-				is_building = tb_hillfort_4 
-				has_building = tb_hillfort_4 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_4
+				hidden_tooltip = { 
+					has_building = tb_hillfort_3
+					NOR = { 
+						is_building = tb_hillfort_4 
+						has_building = tb_hillfort_4 
+					}
+					has_building = tb_market_town_3 
+					has_building = tb_training_grounds_2
+					has_building = tb_war_camp_2
+					has_building = tb_practice_range_2
+					has_building = tb_arsenal_2
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 1 }
 		}
-		AND = {
-			has_building = tb_hillfort_4
-			NOR = { 
-				is_building = tb_hillfort_5 
-				has_building = tb_hillfort_5 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_5
+				hidden_tooltip = { 
+					has_building = tb_hillfort_4
+					NOR = { 
+						is_building = tb_hillfort_5 
+						has_building = tb_hillfort_5 
+					}
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 1 }
 		}
-		AND = {
-			has_building = tb_hillfort_5
-			NOR = { 
-				is_building = tb_hillfort_6 
-				has_building = tb_hillfort_6 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_6
+				hidden_tooltip = { 
+					has_building = tb_hillfort_5
+					NOR = { 
+						is_building = tb_hillfort_6 
+						has_building = tb_hillfort_6
+					}
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 1 }
 		}
-		AND = {
-			has_building = tb_hillfort_6
-			NOR = { 
-				is_building = tb_hillfort_7 
-				has_building = tb_hillfort_7
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_7
+				hidden_tooltip = { 
+					has_building = tb_hillfort_6
+					NOR = { 
+						is_building = tb_hillfort_7 
+						has_building = tb_hillfort_7 
+					}
+					has_building = tb_market_town_4
+					has_building = tb_training_grounds_3
+					has_building = tb_war_camp_3
+					has_building = tb_practice_range_3
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 2 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 2 }
 		}
-		AND = {
-			has_building = tb_hillfort_7
-			NOR = { 
-				is_building = tb_hillfort_8 
-				has_building = tb_hillfort_8 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_hillfort_8
+				hidden_tooltip = { 
+					has_building = tb_hillfort_7
+					NOR = { 
+						is_building = tb_hillfort_8
+						has_building = tb_hillfort_8 
+					}
+					is_building = tb_market_town_5 
+					is_building = tb_training_grounds_4
+					is_building = tb_war_camp_4
+					is_building = tb_practice_range_4
+					is_building = tb_arsenal_4
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 2 }
+				}
 			}
-			location = { TECH_CASTLE_CONSTRUCTION = 2 }
+		}
+	}
+}
+can_build_roman_forts_trigger = {
+	holding_type = tribal
+	hidden_tooltip = { 
+		location = {
+			OR = {
+				region = custom_wre
+				region = custom_valentia
+			}
+		}
+		NOR = { 
+			is_building = tb_roman_fort_2
+			has_building = tb_roman_fort_2
+		}
+	}
+	OR = { 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_roman_fort_1
+				hidden_tooltip = { 
+					NOR = { 
+						is_building = tb_roman_fort_1 
+						has_building = tb_roman_fort_1
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
+			}
+		}
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_roman_fort_2
+				hidden_tooltip = { 
+					has_building = tb_roman_fort_1
+					NOR = { 
+						is_building = tb_roman_fort_2 
+						has_building = tb_roman_fort_2 
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 2 }
+				}
+			}
 		}
 	}
 }
 can_build_defensive_fortifications_trigger = {
 	holding_type = tribal
-	always = no
-	# hidden_tooltip = { 
-		# NOR = { 
-			# is_building = tb_defensive_fortifications_4
-			# has_building = tb_defensive_fortifications_4
-		# }
-	# }
-	# OR = { 
-		# AND = { 
-			# custom_tooltip = { 
-				# text = tooltip_can_build_tb_defensive_fortifications_1
-				# hidden_tooltip = { 
-					# NOR = { 
-						# is_building = tb_defensive_fortifications_1 
-						# has_building = tb_defensive_fortifications_1
-					# }
-					# location = { TECH_CASTLE_CONSTRUCTION = 0 }
-				# }
-			# }
-		# }
-		# AND = { 
-			# custom_tooltip = { 
-				# text = tooltip_can_build_tb_defensive_fortifications_2 
-				# hidden_tooltip = { 
-					# has_building = tb_defensive_fortifications_1
-					# NOR = { 
-						# is_building = tb_defensive_fortifications_2 
-						# has_building = tb_defensive_fortifications_2 
-					# }
-					# location = { TECH_CASTLE_CONSTRUCTION = 0 }
-				# }
-			# }
-		# }
-		# AND = { 
-			# custom_tooltip = { 
-				# text = tooltip_can_build_tb_defensive_fortifications_3
-				# hidden_tooltip = { 
-					# has_building = tb_defensive_fortifications_2
-					# NOR = { 
-						# is_building = tb_defensive_fortifications_3 
-						# has_building = tb_defensive_fortifications_3 
-					# }
-					# location = { TECH_CASTLE_CONSTRUCTION = 1 }
-				# }
-			# }
-		# }
-		# AND = { 
-			# custom_tooltip = { 
-				# text = tooltip_can_build_tb_defensive_fortifications_4
-				# hidden_tooltip = { 
-					# has_building = tb_defensive_fortifications_3
-					# NOR = { 
-						# is_building = tb_defensive_fortifications_4 
-						# has_building = tb_defensive_fortifications_4 
-					# }
-					# location = { TECH_CASTLE_CONSTRUCTION = 1 }
-				# }
-			# }
-		# }
-	# }
+	hidden_tooltip = { 
+		NOR = { 
+			is_building = tb_defensive_fortifications_4
+			has_building = tb_defensive_fortifications_4
+		}
+	}
+	OR = { 
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_defensive_fortifications_1
+				hidden_tooltip = { 
+					NOR = { 
+						is_building = tb_defensive_fortifications_1 
+						has_building = tb_defensive_fortifications_1
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 0 }
+				}
+			}
+		}
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_defensive_fortifications_2 
+				hidden_tooltip = { 
+					has_building = tb_defensive_fortifications_1
+					NOR = { 
+						is_building = tb_defensive_fortifications_2 
+						has_building = tb_defensive_fortifications_2 
+					}
+					location = { TECH_CASTLE_CONSTRUCTION = 0 }
+				}
+			}
+		}
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_defensive_fortifications_3
+				hidden_tooltip = { 
+					has_building = tb_defensive_fortifications_2
+					NOR = { 
+						is_building = tb_defensive_fortifications_3 
+						has_building = tb_defensive_fortifications_3 
+					}
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
+			}
+		}
+		AND = { 
+			custom_tooltip = { 
+				text = tooltip_can_build_tb_defensive_fortifications_4
+				hidden_tooltip = { 
+					has_building = tb_defensive_fortifications_3
+					NOR = { 
+						is_building = tb_defensive_fortifications_4 
+						has_building = tb_defensive_fortifications_4 
+					}
+					NOT = { holder_scope = { government = tribal_government } }
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
+				}
+			}
+		}
+	}
 }
 can_build_walls_trigger = {
 	holding_type = castle
@@ -6218,20 +6323,20 @@ can_build_walls_trigger = {
 						is_building = ca_wall_1 
 						has_building = ca_wall_1
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 0 }
+					location = { TECH_CASTLE_CONSTRUCTION = 0 }
 				}
 			}
 		}
 		AND = { 
 			custom_tooltip = { 
-				text = tooltip_can_build_ca_wall_2
+				text = tooltip_can_build_ca_wall_2 
 				hidden_tooltip = { 
 					has_building = ca_wall_1
 					NOR = { 
 						is_building = ca_wall_2 
-						has_building = ca_wall_2
+						has_building = ca_wall_2 
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 1 }
+					location = { TECH_CASTLE_CONSTRUCTION = 1 }
 				}
 			}
 		}
@@ -6242,9 +6347,9 @@ can_build_walls_trigger = {
 					has_building = ca_wall_2
 					NOR = { 
 						is_building = ca_wall_3 
-						has_building = ca_wall_3
+						has_building = ca_wall_3 
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 3 }
+					location = { TECH_CASTLE_CONSTRUCTION = 3 }
 				}
 			}
 		}
@@ -6255,9 +6360,9 @@ can_build_walls_trigger = {
 					has_building = ca_wall_3
 					NOR = { 
 						is_building = ca_wall_4 
-						has_building = ca_wall_4
+						has_building = ca_wall_4 
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 5 }
+					location = { TECH_CASTLE_CONSTRUCTION = 5 }
 				}
 			}
 		}
@@ -6268,9 +6373,9 @@ can_build_walls_trigger = {
 					has_building = ca_wall_4
 					NOR = { 
 						is_building = ca_wall_5 
-						has_building = ca_wall_5
+						has_building = ca_wall_5 
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 6 }
+					location = { TECH_CASTLE_CONSTRUCTION = 6 }
 				}
 			}
 		}
@@ -6281,9 +6386,9 @@ can_build_walls_trigger = {
 					has_building = ca_wall_5
 					NOR = { 
 						is_building = ca_wall_6 
-						has_building = ca_wall_6
+						has_building = ca_wall_6 
 					}
-					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 8 }
+					location = { TECH_CASTLE_CONSTRUCTION = 8 }
 				}
 			}
 		}
@@ -6345,9 +6450,9 @@ can_build_castle_fortifications_trigger = {
 						is_building = ca_wall_q_4 
 						has_building = ca_wall_q_4 
 					}
+					location = { TECH_FORTIFICATIONS_CONSTRUCTION = 4 }
 				}
 			}
-			location = { TECH_FORTIFICATIONS_CONSTRUCTION = 4 }
 		}
 		AND = { 
 			custom_tooltip = { 
