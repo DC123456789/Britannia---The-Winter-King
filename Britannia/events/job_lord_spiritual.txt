@@ -13,6 +13,7 @@ character_event = {
 			OR = {
 				NOT = { ROOT = { religion_group = pagan_group } }
 				location = { is_heresy_of = ROOT }
+				ROOT = { has_religion_feature = religion_proselytizing }
 			}
 		}
 		text = EVTDESC900
@@ -22,6 +23,7 @@ character_event = {
 			NOR = {
 				NOT = { ROOT = { religion_group = pagan_group } }
 				location = { is_heresy_of = ROOT }
+				ROOT = { has_religion_feature = religion_proselytizing }
 			}
 		}
 		text = EVTDESC900_pagan
@@ -46,8 +48,9 @@ character_event = {
 		NOT = { location = { has_province_modifier = held_rel_authority_council } }
 		NAND = {
 			religion_group = pagan_group
+			NOT = { has_religion_feature = religion_proselytizing }
 			location = {
-				OR = {
+				OR = {		# Is already the correct pagan religion
 					religion_group = pagan_group
 					AND = {
 						religion_group = zoroastrian_group
@@ -392,6 +395,7 @@ character_event = {
 				OR = {
 					NOT = { ROOT = { religion_group = pagan_group } }
 					location = { is_heresy_of = ROOT }
+					ROOT = { has_religion_feature = religion_proselytizing }
 				}
 			}
 			location = { religion = ROOT }
@@ -489,6 +493,7 @@ character_event = {
 			OR = {
 				NOT = { ROOT = { religion_group = pagan_group } }
 				event_target:converted_character = { is_heresy_of = ROOT }
+				has_religion_feature = religion_proselytizing
 			}
 		}
 		text = EVTDESC901
@@ -498,6 +503,7 @@ character_event = {
 			NOR = {
 				NOT = { ROOT = { religion_group = pagan_group } }
 				event_target:converted_character = { is_heresy_of = ROOT }
+				has_religion_feature = religion_proselytizing
 			}
 		}
 		text = EVTDESC901_pagan
@@ -533,9 +539,8 @@ character_event = {
 				}
 				same_realm = ROOT
 				OR = {
-					ROOT = {
-						NOT = { religion_group = pagan_group }
-					}
+					ROOT = { NOT = { religion_group = pagan_group } }
+					ROOT = { has_religion_feature = religion_proselytizing }
 					NOR = { 
 						religion_group = pagan_group 
 						AND = {
@@ -752,9 +757,8 @@ character_event = {
 					}
 					same_realm = ROOT
 					OR = {
-						ROOT = {
-							NOT = { religion_group = pagan_group }
-						}
+						ROOT = { NOT = { religion_group = pagan_group } }
+						ROOT = { has_religion_feature = religion_proselytizing }
 						NOR = { 
 							religion_group = pagan_group 
 							AND = {
@@ -787,6 +791,7 @@ character_event = {
 				OR = {
 					NOT = { ROOT = { religion_group = pagan_group } }
 					event_target:converted_character = { is_heresy_of = ROOT }
+					ROOT = { has_religion_feature = religion_proselytizing }
 				}
 			}
 			event_target:converted_character = {
@@ -809,6 +814,7 @@ letter_event = {
 			OR = {
 				NOT = { FROM = { religion_group = pagan_group } }
 				ROOT = { is_heresy_of = FROM }
+				FROM = { has_religion_feature = religion_proselytizing }
 			}
 		}
 		text = EVTDESC20010
@@ -818,6 +824,7 @@ letter_event = {
 			NOR = {
 				NOT = { FROM = { religion_group = pagan_group } }
 				ROOT = { is_heresy_of = FROM }
+				FROM = { has_religion_feature = religion_proselytizing }
 			}
 		}
 		text = EVTDESC20010_pagan
@@ -832,6 +839,7 @@ letter_event = {
 				OR = {
 					NOT = { FROM = { religion_group = pagan_group } }
 					ROOT = { is_heresy_of = FROM }
+					ROOT = { has_religion_feature = religion_proselytizing }
 				}
 			}
 			text = EVTOPTA20010
@@ -841,6 +849,7 @@ letter_event = {
 				NOR = {
 					NOT = { FROM = { religion_group = pagan_group } }
 					ROOT = { is_heresy_of = FROM }
+					ROOT = { has_religion_feature = religion_proselytizing }
 				}
 			}
 			text = EVTOPTA20010_pagan
@@ -858,6 +867,7 @@ letter_event = {
 				OR = {
 					NOT = { FROM = { religion_group = pagan_group } }
 					is_heresy_of = FROM
+					ROOT = { has_religion_feature = religion_proselytizing }
 				}
 			}
 			religion = FROM

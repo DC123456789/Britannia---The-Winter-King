@@ -39433,7 +39433,7 @@ e_germania = {				# High Kingdom of Germania
 
 				b_nithersicastle = {		# Eresburg
 				}
-				b_nithersichurch = {		# Irminsul/Priesterberg
+				b_nithersichurch = {		# Priesterberg, Obermarsberg
 				}
 			}
 
@@ -59241,15 +59241,22 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion_group = zoroastrian_group
-					religion_group = pagan_group
-					religion_group = christian
-				}
-				NOT = {
-					culture = pictish
-					culture = oldirish
-					is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion_group = zoroastrian_group
+						religion_group = pagan_group
+						religion_group = christian
+					}
+					NOT = {
+						culture = pictish
+						culture = oldirish
+						is_ingvaeonic_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59279,15 +59286,22 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion_group = zoroastrian_group
-					religion_group = pagan_group
-					religion_group = christian
-				}
-				NOT = {
-					culture = pictish
-					culture = oldirish
-					is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion_group = zoroastrian_group
+						religion_group = pagan_group
+						religion_group = christian
+					}
+					NOT = {
+						culture = pictish
+						culture = oldirish
+						is_ingvaeonic_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59317,15 +59331,22 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion_group = zoroastrian_group
-					religion_group = pagan_group
-					religion_group = christian
-				}
-				NOT = {
-					culture = pictish
-					culture = oldirish
-					is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion_group = zoroastrian_group
+						religion_group = pagan_group
+						religion_group = christian
+					}
+					NOT = {
+						culture = pictish
+						culture = oldirish
+						is_ingvaeonic_culture_trigger = yes
+					}					
 				}
 			}
 			
@@ -59354,21 +59375,28 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					culture = briton
-					culture = romanobritish
-				}
-				OR = {
-					has_landed_title = e_britannia						# High Kings of Britannia
-					has_landed_title = e_cymru						# High Kings of Cymru
-					has_landed_title = d_warriors_of_britain				# Protectors of the Brotherhood
-					AND = {										# Celtic Kings defending against non-celtic invaders
-						tier = king
-						war = yes
-						any_war = {
-							defender = { character = ROOT }
-							attacker = {
-								NOT = { culture_group = celtic }
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						culture = briton
+						culture = romanobritish
+					}
+					OR = {
+						has_landed_title = e_britannia						# High Kings of Britannia
+						has_landed_title = e_cymru						# High Kings of Cymru
+						has_landed_title = d_warriors_of_britain				# Protectors of the Brotherhood
+						AND = {										# Celtic Kings defending against non-celtic invaders
+							tier = king
+							war = yes
+							any_war = {
+								defender = { character = ROOT }
+								attacker = {
+									NOT = { culture_group = celtic }
+								}
 							}
 						}
 					}
@@ -59403,19 +59431,26 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					character = 3
-					AND = {
-						year = 500
+				conditional_tooltip = {
+					trigger = {
 						NOT = {
-							any_playable_ruler = {
-								character = 3
-								is_alive = yes
-							}
+							is_alternate_start = yes
 						}
-						OR = {
-							culture = briton
-							culture = romanobritish
+					}
+					OR = {
+						character = 3
+						AND = {
+							year = 500
+							NOT = {
+								any_playable_ruler = {
+									character = 3
+									is_alive = yes
+								}
+							}
+							OR = {
+								culture = briton
+								culture = romanobritish
+							}
 						}
 					}
 				}
@@ -59446,16 +59481,23 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion_group = zoroastrian_group
-					religion_group = pagan_group
-					religion_group = christian
-				}
-				NOR = {
-					culture = pictish
-					culture = oldirish
-					is_ingvaeonic_culture_trigger = yes
-					is_frankish_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion_group = zoroastrian_group
+						religion_group = pagan_group
+						religion_group = christian
+					}
+					NOR = {
+						culture = pictish
+						culture = oldirish
+						is_ingvaeonic_culture_trigger = yes
+						is_frankish_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59486,8 +59528,15 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				NOT = {
-					is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					NOT = {
+						is_ingvaeonic_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59572,8 +59621,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion_group = pagan_group
-				culture_group = celtic
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					is_celtic_pagan_trigger = yes
+				}
 			}
 			
 			culture = briton
@@ -59604,8 +59659,15 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				NOT = {
-					is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					NOT = {
+						is_ingvaeonic_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59664,12 +59726,19 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				NOR = {
-					culture = pictish
-					culture = gaelic
-					culture = oldirish
-					is_ingvaeonic_culture_trigger = yes
-					is_frankish_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					NOR = {
+						culture = pictish
+						culture = gaelic
+						culture = oldirish
+						is_ingvaeonic_culture_trigger = yes
+						is_frankish_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -59700,7 +59769,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					is_ingvaeonic_culture_trigger = yes					
+				}
 			}
 			
 			religion = germanic_pagan
@@ -59729,7 +59805,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					is_ingvaeonic_culture_trigger = yes
+				}
 			}
 			
 			culture = oldsaxon
@@ -59766,7 +59849,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					is_ingvaeonic_culture_trigger = yes
+				}
 			}
 
 			title = "HUSCARL"
@@ -59796,7 +59886,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					is_ingvaeonic_culture_trigger = yes
+				}
 			}
 
 			title = "HUSCARL"
@@ -59824,24 +59921,31 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
-				k_northumbria = { has_holder = yes }
-				OR = {
-					AND = {
-						has_landed_title = k_northumbria
-						num_of_king_titles = 1
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						has_landed_title = k_northumbria
-						num_of_king_titles = 1
-					}
-					AND = {
-						has_landed_title = d_bernicia
-						NOT = { num_of_king_titles = 1 }
-					}
-					AND = {
-						has_landed_title = d_north_angles
-						NOT = { num_of_king_titles = 1 }
+					is_ingvaeonic_culture_trigger = yes
+					k_northumbria = { has_holder = yes }
+					OR = {
+						AND = {
+							has_landed_title = k_northumbria
+							num_of_king_titles = 1
+						}
+						top_liege = {
+							has_landed_title = k_northumbria
+							num_of_king_titles = 1
+						}
+						AND = {
+							has_landed_title = d_bernicia
+							NOT = { num_of_king_titles = 1 }
+						}
+						AND = {
+							has_landed_title = d_north_angles
+							NOT = { num_of_king_titles = 1 }
+						}
 					}
 				}
 			}
@@ -59870,17 +59974,24 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
-				k_mercia = { has_holder = yes }
-				OR = {
-					AND = {
-						has_landed_title = k_mercia
-						num_of_king_titles = 1
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						has_landed_title = k_mercia
-						num_of_king_titles = 1
-					}
+					is_ingvaeonic_culture_trigger = yes
+					k_mercia = { has_holder = yes }
+					OR = {
+						AND = {
+							has_landed_title = k_mercia
+							num_of_king_titles = 1
+						}
+						top_liege = {
+							has_landed_title = k_mercia
+							num_of_king_titles = 1
+						}
+					}					
 				}
 			}
 
@@ -59908,16 +60019,23 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
-				k_sussex = { has_holder = yes }
-				OR = {
-					AND = {
-						has_landed_title = k_sussex
-						num_of_king_titles = 1
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						has_landed_title = k_sussex
-						num_of_king_titles = 1
+					is_ingvaeonic_culture_trigger = yes
+					k_sussex = { has_holder = yes }
+					OR = {
+						AND = {
+							has_landed_title = k_sussex
+							num_of_king_titles = 1
+						}
+						top_liege = {
+							has_landed_title = k_sussex
+							num_of_king_titles = 1
+						}
 					}
 				}
 			}
@@ -59946,16 +60064,23 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
-				k_wessex = { has_holder = yes }
-				OR = {
-					AND = {
-						has_landed_title = k_wessex
-						num_of_king_titles = 1
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						has_landed_title = k_wessex
-						num_of_king_titles = 1
+					is_ingvaeonic_culture_trigger = yes
+					k_wessex = { has_holder = yes }
+					OR = {
+						AND = {
+							has_landed_title = k_wessex
+							num_of_king_titles = 1
+						}
+						top_liege = {
+							has_landed_title = k_wessex
+							num_of_king_titles = 1
+						}
 					}
 				}
 			}
@@ -59984,16 +60109,23 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				is_ingvaeonic_culture_trigger = yes
-				k_essex = { has_holder = yes }
-				OR = {
-					AND = {
-						has_landed_title = k_essex
-						num_of_king_titles = 1
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						has_landed_title = k_essex
-						num_of_king_titles = 1
+					is_ingvaeonic_culture_trigger = yes
+					k_essex = { has_holder = yes }
+					OR = {
+						AND = {
+							has_landed_title = k_essex
+							num_of_king_titles = 1
+						}
+						top_liege = {
+							has_landed_title = k_essex
+							num_of_king_titles = 1
+						}
 					}
 				}
 			}
@@ -60023,17 +60155,24 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					AND = {
-						is_frankish_culture_trigger = yes
-						dynasty = 113
-						higher_tier_than = count
-						hidden_tooltip = {
-							NOT = { has_global_flag = merovingian_guard_converted }
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
 						}
 					}
-					hidden_tooltip = {
-						has_global_flag = merovingian_guard_converted
+					OR = {
+						AND = {
+							is_frankish_culture_trigger = yes
+							dynasty = 113
+							higher_tier_than = count
+							hidden_tooltip = {
+								NOT = { has_global_flag = merovingian_guard_converted }
+							}
+						}
+						hidden_tooltip = {
+							has_global_flag = merovingian_guard_converted
+						}
 					}
 				}
 			}
@@ -60060,18 +60199,25 @@ e_rebels = {
 			religion = arian
 			
 			allow = {
-				OR = {
-					has_landed_title = k_visigoths
-					AND = {
-						has_landed_title = e_visigoths
-						e_visigoths = { has_title_flag = empire_claimed_visigoths }
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						OR = {
-							has_landed_title = k_visigoths
-							AND = {
-								has_landed_title = e_visigoths
-								e_visigoths = { has_title_flag = empire_claimed_visigoths }
+					OR = {
+						has_landed_title = k_visigoths
+						AND = {
+							has_landed_title = e_visigoths
+							e_visigoths = { has_title_flag = empire_claimed_visigoths }
+						}
+						top_liege = {
+							OR = {
+								has_landed_title = k_visigoths
+								AND = {
+									has_landed_title = e_visigoths
+									e_visigoths = { has_title_flag = empire_claimed_visigoths }
+								}
 							}
 						}
 					}
@@ -60101,12 +60247,19 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					culture_group = germanic
-					has_landed_title = e_gaul
-					AND = {
-						has_landed_title = e_roman_britannia
-						has_global_flag = gaul_reconquered_roman
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						culture_group = germanic
+						has_landed_title = e_gaul
+						AND = {
+							has_landed_title = e_roman_britannia
+							has_global_flag = gaul_reconquered_roman
+						}
 					}
 				}
 			}
@@ -60136,12 +60289,19 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					culture_group = germanic
-					has_landed_title = e_gaul
-					AND = {
-						has_landed_title = e_roman_britannia
-						has_global_flag = gaul_reconquered_roman
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						culture_group = germanic
+						has_landed_title = e_gaul
+						AND = {
+							has_landed_title = e_roman_britannia
+							has_global_flag = gaul_reconquered_roman
+						}
 					}
 				}
 			}
@@ -60175,7 +60335,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				culture = oldirish
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					culture = oldirish
+				}
 			}
 			
 			dynasty_title_names = no
@@ -60201,7 +60368,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				culture = oldirish
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					culture = oldirish
+				}
 			}
 			
 			culture = oldirish
@@ -60229,7 +60403,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				culture = oldirish
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					culture = oldirish
+				}
 			}
 			
 			culture = oldirish
@@ -60307,19 +60488,26 @@ e_rebels = {
 			religion = arian
 			
 			allow = {
-				culture = burgundian
-				OR = {
-					has_landed_title = k_burgundy
-					AND = {
-						has_landed_title = e_visigoths
-						e_visigoths = { has_title_flag = empire_claimed_burgundians }
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
 					}
-					top_liege = {
-						OR = {
-							has_landed_title = k_burgundy
-							AND = {
-								has_landed_title = e_visigoths
-								e_visigoths = { has_title_flag = empire_claimed_burgundians }
+					culture = burgundian
+					OR = {
+						has_landed_title = k_burgundy
+						AND = {
+							has_landed_title = e_visigoths
+							e_visigoths = { has_title_flag = empire_claimed_burgundians }
+						}
+						top_liege = {
+							OR = {
+								has_landed_title = k_burgundy
+								AND = {
+									has_landed_title = e_visigoths
+									e_visigoths = { has_title_flag = empire_claimed_burgundians }
+								}
 							}
 						}
 					}
@@ -60349,9 +60537,16 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					culture_group = basque
-					culture = romanoaquitanian
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						culture_group = basque
+						culture = romanoaquitanian
+					}
 				}
 			}
 			
@@ -60382,9 +60577,16 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					culture_group = basque
-					culture = romanoaquitanian
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						culture_group = basque
+						culture = romanoaquitanian
+					}
 				}
 			}
 			
@@ -60517,7 +60719,14 @@ e_rebels = {
 			religion = arian
 			
 			allow = {
-				has_landed_title = k_praetorian_prefecture_of_gaul
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					has_landed_title = k_praetorian_prefecture_of_gaul
+				}
 			}
 			
 			dynasty_title_names = no
@@ -60546,13 +60755,20 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion_group = pagan_group
-					religion_group = christian
-				}
-				OR = {
-					culture_group = celtic
-					culture_group = imperiale
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion_group = pagan_group
+						religion_group = christian
+					}
+					OR = {
+						culture_group = celtic
+						culture_group = imperiale
+					}
 				}
 			}
 			
@@ -60581,9 +60797,16 @@ e_rebels = {
 
 			# Hire Trigger
 			allow = {
-				OR = {
-					religion = gael_pagan
-					culture = gaelic
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					OR = {
+						religion = gael_pagan
+						culture = gaelic
+					}
 				}
 			}
 					
@@ -60616,10 +60839,17 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion = briton_pagan
-				NOR = {
-					is_ingvaeonic_culture_trigger = yes
-					is_frankish_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					religion = briton_pagan
+					NOR = {
+						is_ingvaeonic_culture_trigger = yes
+						is_frankish_culture_trigger = yes
+					}
 				}
 			}
 			
@@ -60649,8 +60879,15 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion = catholic
-				is_ingvaeonic_culture_trigger = no
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					religion = catholic
+					is_ingvaeonic_culture_trigger = no
+				}
 			}
 			
 			religion = catholic
@@ -60678,7 +60915,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion = catholic
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					religion = catholic
+				}
 			}
 			
 			religion = catholic
@@ -60707,8 +60951,15 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion = germanic_pagan
-				is_ingvaeonic_culture_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					religion = germanic_pagan
+					is_ingvaeonic_culture_trigger = yes
+				}
 			}
 			
 			religion = germanic_pagan
@@ -60763,7 +61014,14 @@ e_rebels = {
 			
 			# Hire Trigger
 			allow = {
-				religion = manichean
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							is_alternate_start = yes
+						}
+					}
+					religion = manichean
+				}
 			}
 			
 			religion = manichean

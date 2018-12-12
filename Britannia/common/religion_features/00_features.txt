@@ -7,7 +7,7 @@ religion_nature = {
 			custom_tooltip = { text = tooltip_religion_feature_pacifist }
 			custom_tooltip = { text = tooltip_religion_feature_peace_piety }
 			custom_tooltip = { text = tooltip_religion_feature_no_looting }
-			custom_tooltip = { text = tooltip_religion_feature_no_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_no_crusade }
 			hidden_tooltip = { 
 				set_allow_looting = no
 				set_can_call_crusade = no
@@ -46,7 +46,7 @@ religion_nature = {
 		picture = GFX_religion_feature_warlike
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_war_levies }
-			custom_tooltip = { text = tooltip_religion_feature_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_crusade }
 			custom_tooltip = { text = tooltip_religion_feature_warlike }
 			custom_tooltip = { text = tooltip_religion_feature_prestige_loss }
 			hidden_tooltip = {
@@ -136,7 +136,7 @@ religion_nature = {
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_defensive }
 			custom_tooltip = { text = tooltip_religion_feature_hard_conversion }
-			custom_tooltip = { text = tooltip_religion_feature_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_crusade }
 			hidden_tooltip = { 
 				set_pacifist = no
 				set_peace_piety_gain = 0
@@ -148,7 +148,7 @@ religion_nature = {
 				set_convert_other_groups = 1
 				set_convert_same_group = 1
 				set_ai_aggression = 0.5
-				set_unit_modifier = {		
+				set_unit_modifier = {
 					garrison_size = 0.3
 					levy_size = 0.2
 					
@@ -181,11 +181,7 @@ religion_nature = {
 					OR = { 
 						religion = pict_pagan
 						religion = gael_pagan
-						religion = norse_pagan
-						religion = germanic_pagan
-						religion = frankish_pagan
-						religion = suebic_pagan
-						religion = gothic_pagan
+						is_unreformed_germanic_pagan_trigger = yes
 						religion = alan_pagan
 						religion = roman_pagan
 					}
@@ -256,7 +252,8 @@ religion_nature = {
 		picture = GFX_religion_feature_proselytizing
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_proselytizing }
-			custom_tooltip = { text = tooltip_religion_feature_crusade }
+			custom_tooltip = { text = tooltip_religion_feature_convert_other_pagans }
+			#custom_tooltip = { text = tooltip_religion_feature_crusade }
 			custom_tooltip = { text = tooltip_religion_feature_piety_same_religion_loss }
 			hidden_tooltip = { 
 				set_pacifist = no
@@ -358,7 +355,7 @@ religion_nature = {
 		}
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_dogmatic_1 }
-			custom_tooltip = { text = tooltip_religion_feature_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_crusade }
 			custom_tooltip = { text = tooltip_religion_feature_dogmatic_2 }
 			custom_tooltip = { text = tooltip_religion_feature_piety_same_religion_loss }
 			hidden_tooltip = { 
@@ -436,7 +433,7 @@ religion_nature = {
 		picture = GFX_religion_feature_cosmopolitan
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_cosmopolitan_2 }
-			custom_tooltip = { text = tooltip_religion_feature_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_crusade }
 			custom_tooltip = { text = tooltip_religion_feature_impotent }
 			custom_tooltip = { text = tooltip_religion_feature_cosmopolitan_1 }
 			hidden_tooltip = { 
@@ -948,9 +945,18 @@ religion_doctrine = {
 			}
 		}
 		effect = {
-			custom_tooltip = { text = tooltip_religion_feature_adventuring }
+			#custom_tooltip = { text = tooltip_religion_feature_adventuring }
 			custom_tooltip = { text = tooltip_religion_feature_pirating }
-			hidden_tooltip = { enable_prepared_invasion = ROOT }
+			#hidden_tooltip = { enable_prepared_invasion = ROOT }
+			custom_tooltip = { text = tooltip_religion_feature_increased_culture_spread }
+			custom_tooltip = { text = tooltip_religion_feature_larger_levies }
+			hidden_tooltip = { 
+				set_unit_modifier = {
+					levy_size = 0.15
+					
+					key = "ADVENTURING_RELIGION"
+				}
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -1097,12 +1103,12 @@ religion_doctrine = {
 	}
 	religion_animistic = {
 		picture = GFX_religion_feature_animistic
-		potential = {
+		# potential = {
 			# NOR = {
 				# religion = west_african_pagan #Redundant
 				# religion = west_african_pagan_reformed #Redundant
 			# }
-		}
+		# }
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_land_morale }
 			custom_tooltip = { text = tooltip_religion_feature_adulthood_rite }
@@ -1177,14 +1183,23 @@ religion_doctrine = {
 			}
 		}
 		effect = {
-			custom_tooltip = { text = tooltip_religion_feature_adventuring }
+			#custom_tooltip = { text = tooltip_religion_feature_adventuring }
 			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
 			custom_tooltip = { text = tooltip_religion_feature_ship_maintenance }
 			custom_tooltip = { text = tooltip_religion_feature_seafaring }
 			hidden_tooltip = { 
-				enable_prepared_invasion = yes
+				#enable_prepared_invasion = yes
 				set_seafaring = yes
 				set_allow_rivermovement = yes
+			}
+			custom_tooltip = { text = tooltip_religion_feature_increased_culture_spread }
+			custom_tooltip = { text = tooltip_religion_feature_larger_levies }
+			hidden_tooltip = { 
+				set_unit_modifier = {
+					levy_size = 0.15
+					
+					key = "ADVENTURING_RELIGION"
+				}
 			}
 		}
 		ai_will_do = {
@@ -1605,7 +1620,7 @@ religion_leadership = {
 			custom_tooltip = { text = tooltip_religion_feature_branches }
 			custom_tooltip = { text = tooltip_religion_feature_dynamic }
 			custom_tooltip = { text = tooltip_religion_feature_no_leader }
-			custom_tooltip = { text = tooltip_religion_feature_no_crusade }
+			#custom_tooltip = { text = tooltip_religion_feature_no_crusade }
 			hidden_tooltip = { 
 				set_no_head_of_religion = yes
 				set_religion_head = none

@@ -612,16 +612,23 @@ is_roman_pagan_or_reformed_trigger = {
 has_theocratic_religion_head_trigger = {
 	OR = {
 		AND = {
-			religion = alan_pagan_reformed
-			religion = tengri_pagan_reformed
-			religion = vasconic_pagan_reformed
+			OR = {
+				religion = alan_pagan_reformed
+				religion = tengri_pagan_reformed
+				religion = vasconic_pagan_reformed
+			}
 			has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+		}
+		AND = {
+			has_religion_features = yes
+			religion_group = pagan_group
+			is_reformed_religion = yes
+			NOT = { has_religion_feature = religion_temporal_head }
 		}
 		religion_group = christian
 		religion_group = gnostic_group
 		religion = sol_invictus
 	}
-	NOT = { has_religion_feature = religion_temporal_head }
 }
 
 is_jewish_settlement_region_trigger = {
@@ -707,6 +714,7 @@ is_romanized_or_germanic_government_trigger = {
 }
 
 is_wrong_pagan_religion_trigger = {
+	NOT = { has_religion_feature = religion_proselytizing }
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
@@ -791,6 +799,7 @@ is_wrong_pagan_religion_trigger = {
 }
 
 is_wrong_secret_pagan_religion_trigger = {
+	NOT = { secret_religion_scope = { has_religion_feature = religion_proselytizing } }
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
@@ -894,7 +903,7 @@ is_same_default_pagan_religion_as_ROOT = {
 		}
 		AND = {
 			is_ingvaeonic_culture_trigger = yes
-			ROOT = { is_brythonic_culture_trigger = yes }
+			ROOT = { is_ingvaeonic_culture_trigger = yes }
 		}
 		AND = {
 			is_istvaeonic_culture_trigger = yes
