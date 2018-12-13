@@ -3579,70 +3579,129 @@ character_event = {
 	}
 }
 
-##### PAGAN TRAIT ASSIGNMENT #####
+##### REFORMED RELIGION TOLERANCE FOR OTHER PAGANS #####
 
-# character_event = {
-	# id = 39350
-	# desc = "You're not supposed to see this..."
-	# picture = "GFX_evt_priests_grey"
-	# hide_new = yes
-	# hide_window = yes
+# Calls 39351 for all of the character's demesne provinces 
+character_event = {
+	id = 39350
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_priests_grey"
+	hide_new = yes
+	hide_window = yes
 	
-	# trigger = {
-		# religion_group = pagan_group
-		# NOR = {
-			# trait = briton_pagan_trait
-			# trait = gael_pagan_trait
-			# trait = pictish_pagan_trait
-			# trait = germanic_pagan_trait
-			# trait = frankish_pagan_trait
-			# trait = suebic_pagan_trait
-			# trait = gothic_pagan_trait
-			# trait = norse_pagan_trait
-		# }
-	# }
+	is_triggered_only = yes
 	
-	# mean_time_to_happen = {
-		# days = 2
-	# }
+	immediate = {
+		if = {
+			limit = {
+				religion_group = pagan_group
+				OR = {
+					has_religion_feature = religion_peaceful 
+					has_religion_feature = religion_warlike
+					has_religion_feature = religion_defensive
+					has_religion_feature = religion_cosmopolitan
+				}
+			}
+			any_demesne_province = {
+				province_event = { id = 39351 }		# Add correct modifier
+			}
+		}
+		else = {		# If doesn't have the religion features, just remove all the modifiers 
+			any_demesne_province = {
+				limit = {
+					OR = {
+						has_province_modifier = tolerant_reformed_religion_non_tribal
+						has_province_modifier = tolerant_reformed_religion_tribal
+						has_province_modifier = cosmopolitan_religion_non_tribal
+						has_province_modifier = cosmopolitan_religion_tribal
+					}
+				}
+				remove_province_modifier = tolerant_reformed_religion_non_tribal
+				remove_province_modifier = tolerant_reformed_religion_tribal
+				remove_province_modifier = cosmopolitan_religion_non_tribal
+				remove_province_modifier = cosmopolitan_religion_tribal
+			}
+		}
+	}
+}
+
+province_event = {
+	id = 39351
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_priests_grey"
+	hide_new = yes
+	hide_window = yes
 	
-	# immediate = {
-		# if = {
-			# limit = { is_brythonic_culture_trigger = yes }
-			# add_trait = briton_pagan_trait
-		# }
-		# if = {
-			# limit = {
-				# OR = {	
-					# culture = oldirish
-					# culture = gaelic
-				# }
-			# }
-			# add_trait = gael_pagan_trait
-		# }
-		# if = {
-			# limit = { culture = pictish }
-			# add_trait = pictish_pagan_trait
-		# }
-		# if = {
-			# limit = { is_ingvaeonic_culture_trigger = yes }
-			# add_trait = germanic_pagan_trait
-		# }
-		# if = {
-			# limit = { is_istvaeonic_culture_trigger = yes }
-			# add_trait = frankish_pagan_trait
-		# }
-		# if = {
-			# limit = { is_irminonic_culture_trigger = yes }
-			# add_trait = suebic_pagan_trait
-		# }
-		# if = {
-			# limit = { is_east_germanic_trigger = yes }
-			# add_trait = gothic_pagan_trait
-		# }
-		# if = {
-			# limit = {  is_north_germanic_trigger = yes }
-			# add_trait = norse_pagan_trait
-		# }
-	# }
-# }
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_province_modifier = tolerant_reformed_religion_non_tribal
+		remove_province_modifier = tolerant_reformed_religion_tribal
+		remove_province_modifier = cosmopolitan_religion_non_tribal
+		remove_province_modifier = cosmopolitan_religion_tribal
+		if = {
+			limit = {
+				OR = {
+					religion_group = pagan_group
+					religion_group = zoroastrian_group		# They're pagans too
+				}
+				owner = {
+					religion_group = pagan_group
+					NOR = {
+						religion = PREV
+						is_heresy_of = PREV
+						ROOT = { is_heresy_of = PREV }
+					}
+				}
+			}
+			if = {
+				limit = {
+					owner = { 
+						OR = {
+							has_religion_feature = religion_peaceful 
+							has_religion_feature = religion_warlike
+							has_religion_feature = religion_defensive
+						}
+					}
+				}
+				if = {
+					limit = { capital_holding = { holding_type = TRIBAL } }
+					add_province_modifier = {
+						name = tolerant_reformed_religion_tribal
+						duration = -1
+						hidden = yes
+					}
+				}
+				else = {	
+					add_province_modifier = {
+						name = tolerant_reformed_religion_non_tribal
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					owner = { 
+						has_religion_feature = religion_cosmopolitan 
+					}
+				}
+				if = {
+					limit = { capital_holding = { holding_type = TRIBAL } }
+					add_province_modifier = {
+						name = cosmopolitan_religion_tribal
+						duration = -1
+						hidden = yes
+					}
+				}
+				else = {	
+					add_province_modifier = {
+						name = cosmopolitan_religion_non_tribal
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+		}
+	}
+}
