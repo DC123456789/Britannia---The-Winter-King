@@ -872,7 +872,12 @@ character_event = {
 			set_character_flag = flag_cheap_diviner #Prevents crit success, increases crit failure.
 		}
 		if = { 
-			limit = { has_religion_feature = religion_ritual_sacrifice }
+			limit = { 
+				OR = {
+					has_religion_feature = religion_ritual_sacrifice
+					has_religion_feature = religion_feature_briton	
+				}
+			}
 			random_courtier = { 
 				limit = {
 					NOR = {
@@ -906,7 +911,10 @@ character_event = {
 	option = { #Human - Ensure no Critical Fail - Unlocks Critical success - Only if also Bloodthirsty Gods.
 		name = EVTOPTZHF23007
 		trigger = { 
-			has_religion_feature = religion_ritual_sacrifice 
+			OR = {
+				has_religion_feature = religion_ritual_sacrifice 
+				has_religion_feature = religion_feature_briton
+			}
 			event_target:potential_victim = { is_alive = yes } 
 		}
 		if = { 
@@ -943,7 +951,12 @@ character_event = {
 	}
 	option = { #Great bull - Ensure no Critical Fail - Unlocks Critical success
 		name = EVTOPTAHF23007
-		trigger = { NOT = { has_religion_feature = religion_ritual_sacrifice } }
+		trigger = { 
+			NOR = { 
+				has_religion_feature = religion_ritual_sacrifice			
+				has_religion_feature = religion_feature_briton			
+			} 
+		}
 		if = { 
 			limit = { ai = no }
 			scaled_wealth = { value = -1 min = -175 max = -500 } 
@@ -3125,6 +3138,7 @@ character_event = {
 			OR = { 
 				has_religion_feature = religion_patriarchal
 				has_religion_feature = religion_equal
+				has_religion_feature = religion_feature_pict
 				#has_religion_feature = religion_feature_bon
 				has_religion_feature = religion_matriarchal
 			}
@@ -3218,6 +3232,7 @@ character_event = {
 				ROOT = {
 					OR = { 
 						has_religion_feature = religion_equal 
+						has_religion_feature = religion_feature_pict
 						#has_religion_feature = religion_feature_bon
 					}
 					NOR = {  
@@ -3248,6 +3263,7 @@ character_event = {
 					FROM = {
 						NOR = { 
 							has_religion_feature = religion_equal 
+							has_religion_feature = religion_feature_pict
 							#has_religion_feature = religion_feature_bon
 							has_religion_feature = religion_patriarchal
 							has_religion_feature = religion_matriarchal
@@ -3277,6 +3293,7 @@ character_event = {
 					FROM = {
 						NOR = { 
 							has_religion_feature = religion_equal 
+							has_religion_feature = religion_feature_pict
 							#has_religion_feature = religion_feature_bon
 							has_religion_feature = religion_matriarchal
 							has_religion_feature = religion_patriarchal
@@ -3307,6 +3324,7 @@ character_event = {
 					ROOT = { 
 						OR = { 
 							has_religion_feature = religion_equal 
+							has_religion_feature = religion_feature_pict
 							#has_religion_feature = religion_feature_bon
 							has_religion_feature = religion_matriarchal
 						}
@@ -3335,6 +3353,7 @@ character_event = {
 					ROOT = { 
 						OR = { 
 							has_religion_feature = religion_equal 
+							has_religion_feature = religion_feature_pict
 							#has_religion_feature = religion_feature_bon
 							has_religion_feature = religion_patriarchal
 						}
@@ -3361,7 +3380,8 @@ character_event = {
 				limit = { 
 					FROM = { 
 						OR = { 
-							has_religion_feature = religion_equal 
+							has_religion_feature = religion_equal
+							has_religion_feature = religion_feature_pict							
 							#has_religion_feature = religion_feature_bon
 						}
 					}
@@ -3391,6 +3411,7 @@ character_event = {
 					FROM = { 
 						OR = { 
 							has_religion_feature = religion_equal 
+							has_religion_feature = religion_feature_pict
 							#has_religion_feature = religion_feature_bon
 						}
 					}
@@ -3430,6 +3451,7 @@ character_event = {
 		OR = { 
 			has_religion_feature = religion_patriarchal
 			has_religion_feature = religion_equal
+			has_religion_feature = religion_feature_pict
 			#has_religion_feature = religion_feature_bon
 			has_religion_feature = religion_matriarchal
 		}
@@ -3514,6 +3536,7 @@ character_event = {
 				ROOT = {
 					OR = { 
 						has_religion_feature = religion_equal 
+						has_religion_feature = religion_feature_pict
 						#has_religion_feature = religion_feature_bon
 					}
 				}
@@ -6725,6 +6748,7 @@ character_event = {
 		trigger = { 
 			OR = { #religion = aztec religion = aztec_reformed 
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 			} 
 			FROM = { location = { NOT = { religion = ROOT } } } #Only if province is of some other religion.
 		}
@@ -7471,7 +7495,10 @@ narrative_event = {
 				religion = norse_pagan_reformed
 				AND = { 
 					has_religion_feature = religion_adventuring 
-					has_religion_feature = religion_seafaring
+					OR = {
+						has_selected_religion_feature = religion_seafaring
+						has_selected_religion_feature = religion_feature_gael
+					}
 				}
 			} 
 		} 
@@ -7484,7 +7511,10 @@ narrative_event = {
 				religion = norse_pagan_reformed
 				AND = { 
 					has_religion_feature = religion_adventuring 
-					has_religion_feature = religion_seafaring
+					OR = {
+						has_selected_religion_feature = religion_seafaring
+						has_selected_religion_feature = religion_feature_gael
+					}
 				}
 			} 
 		} 
@@ -7580,6 +7610,7 @@ character_event = {
 								}
 								has_religion_feature = religion_matriarchal 
 								has_religion_feature = religion_equal 
+								has_religion_feature = religion_feature_pict
 								#has_religion_feature = religion_feature_bon 
 							}
 						} 
@@ -8259,6 +8290,7 @@ character_event = {
 					FROM = { owner = { NOT = { has_religion_feature = religion_matriarchal } } }
 				}
 				FROM = { owner = { has_religion_feature = religion_equal } }
+				FROM = { owner = { has_religion_feature = religion_feature_pict } }
 				#FROM = { owner = { has_religion_feature = religion_feature_bon } }
 				FROM = { 
 					owner = { 
@@ -8314,6 +8346,7 @@ character_event = {
 					FROM = { owner = { has_religion_feature = religion_matriarchal } }
 				}
 				FROM = { owner = { has_religion_feature = religion_equal } }
+				FROM = { owner = { has_religion_feature = religion_feature_pict } }
 				#FROM = { owner = { has_religion_feature = religion_feature_bon } }
 			} 
 		} 
@@ -9452,6 +9485,7 @@ character_event = {
 			NOT = { trait = incapable }
 			OR = { 
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				#religion = aztec
 				#religion = aztec_reformed
 				AND = {
@@ -10180,6 +10214,7 @@ character_event = {
 			NOT = { trait = incapable }
 			OR = { 
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				# religion = aztec
 				# religion = aztec_reformed
 			}
@@ -10262,6 +10297,7 @@ character_event = {
 		NOT = { trait = bloodthirsty_gods_1 }
 		OR = { 
 			has_religion_feature = religion_ritual_sacrifice
+			has_religion_feature = religion_feature_briton
 			# religion = aztec
 			# religion = aztec_reformed
 		}
@@ -10330,6 +10366,7 @@ character_event = {
 	trigger = {
 		OR = { 
 			has_religion_feature = religion_ritual_sacrifice
+			has_religion_feature = religion_feature_briton
 			# religion = aztec
 			# religion = aztec_reformed
 		}
@@ -10409,6 +10446,7 @@ character_event = {
 	trigger = {
 		OR = { 
 			has_religion_feature = religion_ritual_sacrifice
+			has_religion_feature = religion_feature_briton
 			# religion = aztec
 			# religion = aztec_reformed
 		}
@@ -10485,6 +10523,7 @@ narrative_event = {
 	trigger = {
 		OR = { 
 			has_religion_feature = religion_ritual_sacrifice
+			has_religion_feature = religion_feature_briton
 			# religion = aztec
 			# religion = aztec_reformed
 		}
@@ -10602,6 +10641,7 @@ narrative_event = {
 			OR = {
 				religion = FROM
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				# religion = aztec
 				# religion = aztec_reformed
 			}
@@ -10613,6 +10653,7 @@ narrative_event = {
 			NOR = {
 				religion = FROM
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				# religion = aztec
 				# religion = aztec_reformed
 			}
@@ -10651,6 +10692,7 @@ narrative_event = {
 			OR = {
 				religion = FROM
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				# religion = aztec
 				# religion = aztec_reformed
 			}
@@ -10662,6 +10704,7 @@ narrative_event = {
 			NOR = {
 				religion = FROM
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 				# religion = aztec
 				# religion = aztec_reformed
 			}
@@ -12719,6 +12762,7 @@ character_event = {
 						# religion = aztec
 						# religion = aztec_reformed
 						has_religion_feature = religion_ritual_sacrifice
+						has_religion_feature = religion_feature_briton
 					}
 				} 
 				character_event = { id = HF.23464 } 
@@ -12820,6 +12864,7 @@ character_event = {
 						# religion = aztec
 						# religion = aztec_reformed
 						has_religion_feature = religion_ritual_sacrifice
+						has_religion_feature = religion_feature_briton
 					}
 				} 
 				character_event = { id = HF.23464 } 
@@ -12886,6 +12931,7 @@ character_event = {
 							NOT = { has_religion_feature = religion_peaceful }
 						}
 						has_religion_feature = religion_ritual_sacrifice
+						has_religion_feature = religion_feature_briton
 					}
 				} 
 				character_event = { id = HF.23464 } 
@@ -13023,6 +13069,7 @@ character_event = {
 				# religion = aztec
 				# religion = aztec_reformed
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 			}
 		}
 		if = { 
@@ -13044,6 +13091,7 @@ character_event = {
 				# religion = aztec
 				# religion = aztec_reformed
 				has_religion_feature = religion_ritual_sacrifice
+				has_religion_feature = religion_feature_briton
 			}
 		}
 	}
@@ -13802,12 +13850,14 @@ character_event = {
 				ROOT = { 
 					OR = { 
 						has_religion_feature = religion_equal 
+						has_religion_feature = religion_feature_pict
 						#has_religion_feature = religion_feature_bon 	
 					} 
 				} 
 				FROMFROM = { 
 					OR = { 
 						has_religion_feature = religion_equal 
+						has_religion_feature = religion_feature_pict
 						#has_religion_feature = religion_feature_bon 	
 					} 
 				}
@@ -13907,7 +13957,8 @@ character_event = {
 				ROOT = {
 					OR = { 
 						has_religion_feature = religion_equal 
-						has_religion_feature = religion_feature_bon
+						has_religion_feature = religion_feature_pict
+						#has_religion_feature = religion_feature_bon
 					}
 					NOR = {  
 						#is_merchant_republic = yes
@@ -16145,14 +16196,24 @@ character_event = {
 				# religion = west_african_pagan
 				# religion = west_african_pagan_reformed
 			# } 
-			has_religion_feature = religion_animistic 
+			OR = {
+				has_religion_feature = religion_animistic 
+				has_religion_feature = religion_feature_briton
+				has_religion_feature = religion_feature_pict
+				has_religion_feature = religion_feature_gael
+			}
 		} 
 		picture = GFX_evt_magic_ritual
 	}
 	picture = { 
 		trigger = { 
 			NOT = { has_dlc = "Mystics" } 
-			has_religion_feature = religion_animistic 
+			OR = {
+				has_religion_feature = religion_animistic 
+				has_religion_feature = religion_feature_briton
+				has_religion_feature = religion_feature_pict
+				has_religion_feature = religion_feature_gael
+			}
 		} 
 		picture = GFX_evt_tribal_shrine
 	}
@@ -16170,6 +16231,9 @@ character_event = {
 			# religion = west_african_pagan
 			# religion = west_african_pagan_reformed
 			has_religion_feature = religion_animistic 
+			has_religion_feature = religion_feature_briton
+			has_religion_feature = religion_feature_pict
+			has_religion_feature = religion_feature_gael
 		}
 	}
 	
@@ -16332,14 +16396,24 @@ character_event = {
 				# religion = west_african_pagan
 				# religion = west_african_pagan_reformed
 			# } 
-			has_religion_feature = religion_animistic 
+			OR = {
+				has_religion_feature = religion_animistic 
+				has_religion_feature = religion_feature_briton
+				has_religion_feature = religion_feature_pict
+				has_religion_feature = religion_feature_gael
+			}
 		} 
 		picture = GFX_evt_magic_ritual
 	}
 	picture = { 
 		trigger = { 
 			NOT = { has_dlc = "Mystics" } 
-			has_religion_feature = religion_animistic 
+			OR = {
+				has_religion_feature = religion_animistic 
+				has_religion_feature = religion_feature_briton
+				has_religion_feature = religion_feature_pict
+				has_religion_feature = religion_feature_gael
+			}
 		} 
 		picture = GFX_evt_tribal_shrine
 	}
@@ -16661,6 +16735,9 @@ character_event = {
 			# religion = west_african_pagan
 			# religion = west_african_pagan_reformed
 			has_religion_feature = religion_animistic 
+			has_religion_feature = religion_feature_briton
+			has_religion_feature = religion_feature_pict
+			has_religion_feature = religion_feature_gael
 		}
 	}
 	
@@ -16687,6 +16764,9 @@ character_event = {
 			# religion = west_african_pagan
 			# religion = west_african_pagan_reformed
 			has_religion_feature = religion_animistic
+			has_religion_feature = religion_feature_briton
+			has_religion_feature = religion_feature_pict
+			has_religion_feature = religion_feature_gael
 		}
 	}
 	immediate = { 
