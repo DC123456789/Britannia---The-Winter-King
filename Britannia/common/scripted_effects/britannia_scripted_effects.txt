@@ -3696,36 +3696,69 @@ flag_culture_pagan_religion_effect = {
 
 destroy_held_religion_head_title_effect = {
 	if = {
-		limit = { has_landed_title = d_germanic_pagan }
-		d_germanic_pagan = { destroy_landed_title = THIS }
+		limit = { 
+			NOR = {
+				AND = {
+					has_religion_features = no
+					is_celtic_pagan_trigger = yes
+				}
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
+		any_demesne_title = {
+			limit = {
+				controls_religion = yes
+			}
+			if = {			# Temporal religious head titles are destroyed
+				limit = { is_landless_type_title = no }
+				destroy_landed_title = THIS
+			}
+			else = {		# Hierocratic religious head titles are given to a random new character
+				hidden_tooltip = {
+					liege = {
+						save_event_target_as = liege_target
+					}
+					create_character = {
+						age = 38
+						dynasty = random
+						religion = ROOT
+						culture = ROOT
+						random_traits = yes
+					}
+					new_character = {
+						save_event_target_as = new_holder
+					}
+				}
+				any_demesne_title = {
+					limit = {
+						controls_religion = yes
+					}
+					grant_title = event_target:new_holder
+					holder_scope = {
+						any_vassal = {
+							set_defacto_liege = event_target:liege_target
+						}
+					}
+				}
+				hidden_tooltip = {
+					set_defacto_liege = event_target:liege_target
+				}
+			}
+		}
 	}
-	if = {
-		limit = { has_landed_title = d_frankish_pagan }
-		d_frankish_pagan = { destroy_landed_title = THIS }
-	}
-	if = {
-		limit = { has_landed_title = d_suebic_pagan }
-		d_suebic_pagan = { destroy_landed_title = THIS }
-	}
-	if = {
-		limit = { has_landed_title = d_gothic_pagan }
-		d_gothic_pagan = { destroy_landed_title = THIS }
-	}
-	if = {
-		limit = { has_landed_title = d_norse_pagan }
-		d_norse_pagan = { destroy_landed_title = THIS }
-	}
-	if = {
-		limit = { has_landed_title = d_briton_pagan }
-		hidden_tooltip = { character_event = { id = 316047 } }
-	}
-	if = {
-		limit = { has_landed_title = d_pict_pagan }
-		hidden_tooltip = { character_event = { id = 316147 } }
-	}
-	if = {
-		limit = { has_landed_title = d_gael_pagan }
-		hidden_tooltip = { character_event = { id = 316247 } }
+	else = {		# Druidic religious head titles trigger succession
+		if = {
+			limit = { has_landed_title = d_briton_pagan }
+			hidden_tooltip = { character_event = { id = 316047 } }
+		}
+		if = {
+			limit = { has_landed_title = d_pict_pagan }
+			hidden_tooltip = { character_event = { id = 316147 } }
+		}
+		if = {
+			limit = { has_landed_title = d_gael_pagan }
+			hidden_tooltip = { character_event = { id = 316247 } }
+		}
 	}
 }
 
