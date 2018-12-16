@@ -196,7 +196,7 @@ religion_nature = {
 					character = yes 
 					OR = { 
 						religion = briton_pagan
-						religion = vasconic_pagan
+						#religion = vasconic_pagan
 					}
 				}
 			}
@@ -733,9 +733,15 @@ religion_doctrine = {
 	religion_haruspicy = { #Gives option to divinate the future before waging a war.
 		picture = GFX_religion_feature_haruspicy
 		potential = {
-			NOT = { religion_group = zoroastrian_group } #Core feature of the religion itself.
+			NOR = { 
+				religion_group = zoroastrian_group  	#Core feature of the religion itself.
+			}
 		}
-
+		trigger = {
+			NOT = {				
+				has_selected_religion_feature = religion_feature_alan
+			}
+		}
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_haruspicy }
 		}
@@ -820,6 +826,7 @@ religion_doctrine = {
 				has_selected_religion_feature = religion_patriarchal
 				#has_selected_religion_feature = religion_feature_bon
 				has_selected_religion_feature = religion_feature_pict
+				has_selected_religion_feature = religion_feature_vasconic
 				trigger_if = {
 					limit = { has_game_started = yes }
 					FROM = { 
@@ -1075,6 +1082,7 @@ religion_doctrine = {
 				has_selected_religion_feature = religion_feature_tengri
 				has_selected_religion_feature = religion_feature_suebic
 				has_selected_religion_feature = religion_feature_gothic
+				has_selected_religion_feature = religion_feature_alan
 			}
 		}
 		effect = {
