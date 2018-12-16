@@ -1022,7 +1022,10 @@ check_if_ancestor_worship_worthy_effect = {
         # Positive
         modifier = {
             factor = 1.5
-            has_religion_feature = religion_harems
+			OR = {
+				has_religion_feature = religion_harems
+				has_religion_feature = religion_feature_frankish
+			}
             any_spouse = {
                 count = 2
             }
@@ -1030,7 +1033,10 @@ check_if_ancestor_worship_worthy_effect = {
         # Negative 
         modifier = {
             factor = 0.65
-            has_religion_feature = religion_harems
+			OR = {
+				has_religion_feature = religion_harems
+				has_religion_feature = religion_feature_frankish
+			}
             NOT = {
                 any_spouse = {
                     count = 2
@@ -1039,14 +1045,22 @@ check_if_ancestor_worship_worthy_effect = {
         }
         modifier = {
             factor = 0.65
-            has_religion_feature = religion_harems
+			OR = {
+				has_religion_feature = religion_harems
+				has_religion_feature = religion_feature_frankish
+			}
             trait = chaste
         }
         ## Meritocratic ##
         # Positive
         modifier = {
             factor = 1.5
-            has_religion_feature = religion_meritocratic
+			OR = {
+				has_religion_feature = religion_meritocratic
+				has_religion_feature = religion_feature_hellenic
+				has_religion_feature = religion_feature_germanic
+				has_religion_feature = religion_feature_suebic
+			}
             NOT = {
                 is_foe = current_heir
             }
@@ -1054,7 +1068,12 @@ check_if_ancestor_worship_worthy_effect = {
         #
         modifier = {
             factor = 0.65
-            has_religion_feature = religion_meritocratic
+			OR = {
+				has_religion_feature = religion_meritocratic
+				has_religion_feature = religion_feature_hellenic
+				has_religion_feature = religion_feature_germanic
+				has_religion_feature = religion_feature_suebic
+			}
             is_foe = current_heir
         }
         ## Stable ##
@@ -1262,7 +1281,8 @@ check_if_ancestor_worship_worthy_effect = {
             OR = {
                 has_religion_feature = religion_adventuring
                 has_religion_feature = religion_seafaring
-				has_selected_religion_feature = religion_feature_gael
+				has_religion_feature = religion_feature_gael
+				has_religion_feature = religion_feature_germanic
             }
             OR = { 
                 trait = pirate
@@ -1278,7 +1298,8 @@ check_if_ancestor_worship_worthy_effect = {
             OR = {
                 has_religion_feature = religion_adventuring
                 has_religion_feature = religion_seafaring
-				has_selected_religion_feature = religion_feature_gael
+				has_religion_feature = religion_feature_gael
+				has_religion_feature = religion_feature_germanic
             }
             NOR = {
                 trait = pirate
@@ -1292,25 +1313,41 @@ check_if_ancestor_worship_worthy_effect = {
         # Positive
         modifier = {
             factor = 1.5
-            has_religion_feature = religion_relentless
+			OR = {
+				has_religion_feature = religion_relentless
+				has_religion_feature = religion_feature_suebic
+				has_religion_feature = religion_feature_gothic
+			}
             martial = 20
         }
         modifier = {
             factor = 1.5
-            has_religion_feature = religion_relentless
+			OR = {
+				has_religion_feature = religion_relentless
+				has_religion_feature = religion_feature_suebic
+				has_religion_feature = religion_feature_gothic
+			}
             has_any_leadership_trait_trigger = yes
         }
         # Negative
         modifier = {
             factor = 0.65
-            has_religion_feature = religion_relentless
+			OR = {
+				has_religion_feature = religion_relentless
+				has_religion_feature = religion_feature_suebic
+				has_religion_feature = religion_feature_gothic
+			}
             NOT = {
                 martial = 15
             }
         }
         modifier = {
             factor = 0.65
-            has_religion_feature = religion_relentless
+			OR = {
+				has_religion_feature = religion_relentless
+				has_religion_feature = religion_feature_suebic
+				has_religion_feature = religion_feature_gothic
+			}
             NOT = {
                 has_any_leadership_trait_trigger = yes
             }

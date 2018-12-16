@@ -113,6 +113,155 @@ religion_doctrine = {
 			factor = 50
 		}
 	}
+	religion_feature_germanic = {
+		picture = GFX_religion_feature_germanic
+		potential = {
+			has_game_started = yes
+			religion = germanic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = germanic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_seafaring #Redundant
+				has_selected_religion_feature = religion_meritocratic #Redundant
+				has_selected_religion_feature = religion_peaceful
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
+			custom_tooltip = { text = tooltip_religion_feature_ship_maintenance }
+			custom_tooltip = { text = tooltip_religion_feature_seafaring }
+			hidden_tooltip = {
+				set_seafaring = yes
+				set_allow_rivermovement = yes
+			}
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
+			hidden_tooltip = {
+				set_heir_designation = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_frankish = {
+		picture = GFX_religion_feature_frankish
+		potential = {
+			has_game_started = yes
+			religion = frankish_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = frankish_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_harems #Redundant
+				has_selected_religion_feature = religion_beatification
+				has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_war_levies }
+			custom_tooltip = { text = tooltip_religion_feature_harems }
+			hidden_tooltip = { 
+				set_max_consorts = 0
+				set_max_wives = 4
+				set_raised_vassal_opinion_loss = no
+			}
+			custom_tooltip = { text = tooltip_religion_feature_beatification }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_suebic = {
+		picture = GFX_religion_feature_suebic
+		potential = {
+			has_game_started = yes
+			religion = suebic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = suebic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_meritocratic #Redundant
+				has_selected_religion_feature = religion_relentless #Redundant
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			hidden_tooltip = { 
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "RELENTLESS_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
+			hidden_tooltip = {
+				set_heir_designation = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_gothic = {
+		picture = GFX_religion_feature_gothic
+		potential = {
+			has_game_started = yes
+			religion = gothic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = gothic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_beatification #Redundant
+				has_selected_religion_feature = religion_relentless #Redundant
+				has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			hidden_tooltip = { 
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "RELENTLESS_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_beatification }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
 }
 
 religion_leadership = {		
