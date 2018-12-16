@@ -824,7 +824,7 @@ has_crusade_trait_trigger = {
 			# trait = sun_warrior
 		# }
 		AND = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 			trait = ares_own
 		}
 		AND = {
@@ -2264,9 +2264,9 @@ true_religion_roman_pagan_reformed_trigger = {
 	true_religion = roman_pagan_reformed
 }
 
-true_religion_sol_invictus_trigger = {
-	true_religion = sol_invictus
-}
+# true_religion_sol_invictus_trigger = {
+	# true_religion = sol_invictus
+# }
 
 true_religion_titan_pagan_trigger = {
 	true_religion = titan_pagan
@@ -2289,9 +2289,9 @@ true_religion_group_jewish_group_trigger = {
 	true_religion_group = jewish_group
 }
 
-true_religion_group_zoroastrian_group_trigger = {
-	true_religion_group = zoroastrian_group
-}
+# true_religion_group_zoroastrian_group_trigger = {
+	# true_religion_group = zoroastrian_group
+# }
 
 true_religion_group_pagan_group_trigger = {
 	true_religion_group = pagan_group
@@ -2330,7 +2330,7 @@ FROMs_religion_is_playable_trigger = {
 			FROM = {
 				OR = {
 					religion_group = pagan_group
-					religion_group = zoroastrian_group
+					# religion_group = zoroastrian_group
 				}
 			}
 			NOT = { has_dlc = "The Old Gods" }
@@ -2352,7 +2352,7 @@ ROOTs_religion_is_playable_trigger = {
 			ROOT = {
 				OR = {
 					religion_group = pagan_group
-					religion_group = zoroastrian_group
+					# religion_group = zoroastrian_group
 				}
 			}
 			NOT = { has_dlc = "The Old Gods" }
@@ -2712,10 +2712,10 @@ is_muslim_secret_religious_society_member_trigger = {
 	secret_religion_group = muslim
 }
 
-is_zoroastrian_secret_religious_society_member_trigger = {
-	society_member_of = secret_religious_cult
-	secret_religion_group = zoroastrian_group
-}
+# is_zoroastrian_secret_religious_society_member_trigger = {
+	# society_member_of = secret_religious_cult
+	# secret_religion_group = zoroastrian_group
+# }
 
 is_jewish_secret_religious_society_member_trigger = {
 	society_member_of = secret_religious_cult
@@ -2841,10 +2841,10 @@ is_roman_secret_religious_society_member_trigger = {
 	}
 }
 
-is_sol_invictus_secret_religious_society_member_trigger = {
-	society_member_of = secret_religious_cult
-	society_member_of = secret_religious_society_sol_invictus
-}
+# is_sol_invictus_secret_religious_society_member_trigger = {
+	# society_member_of = secret_religious_cult
+	# society_member_of = secret_religious_society_sol_invictus
+# }
 
 is_titan_secret_religious_society_member_trigger = {
 	society_member_of = secret_religious_cult
@@ -3138,10 +3138,10 @@ is_in_prevs_interesting_society_trigger = {
 			society_member_of = secret_religious_society_roman_pagan_reformed
 			PREV = { interested_in_society = secret_religious_society_roman_pagan_reformed }
 		}
-		AND = {
-			society_member_of = secret_religious_society_sol_invictus
-			PREV = { interested_in_society = secret_religious_society_sol_invictus }
-		}
+		# AND = {
+			# society_member_of = secret_religious_society_sol_invictus
+			# PREV = { interested_in_society = secret_religious_society_sol_invictus }
+		# }
 		AND = {
 			society_member_of = secret_religious_society_titan_pagan
 			PREV = { interested_in_society = secret_religious_society_titan_pagan }
@@ -3774,7 +3774,7 @@ looting_artifact_event_religious_artifacts_trigger = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
 				has_artifact_flag = roman_pagan
-				ROOT = { OR = { religion = roman_pagan religion = roman_pagan_reformed religion = sol_invictus } }
+				ROOT = { OR = { religion = roman_pagan religion = roman_pagan_reformed } }
 			}
 		}
 		NAND = {
@@ -3812,13 +3812,13 @@ looting_artifact_event_religious_artifacts_trigger = {
 				ROOT = { religion_group = pagan_group }
 			}
 		}
-		NAND = {
-			any_artifact = {
-				has_artifact_flag = looted_artifact_tooltip_1
-				has_artifact_flag = zoroastrian_group
-				ROOT = { religion_group = zoroastrian_group }
-			}
-		}
+		# NAND = {
+			# any_artifact = {
+				# has_artifact_flag = looted_artifact_tooltip_1
+				# has_artifact_flag = zoroastrian_group
+				# ROOT = { religion_group = zoroastrian_group }
+			# }
+		# }
 		NAND = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
@@ -4445,32 +4445,7 @@ has_unsafe_secret_religion = {
 		AND = {
 			NOT = { has_dlc = "The Old Gods" }
 			OR = {
-				secret_religion = briton_pagan
-				secret_religion = briton_pagan_reformed
-				secret_religion = pict_pagan
-				secret_religion = pict_pagan_reformed
-				secret_religion = gael_pagan
-				secret_religion = gael_pagan_reformed
-				secret_religion = norse_pagan
-				secret_religion = norse_pagan_reformed
-				secret_religion = germanic_pagan
-				secret_religion = germanic_pagan_reformed
-				secret_religion = frankish_pagan
-				secret_religion = frankish_pagan_reformed
-				secret_religion = suebic_pagan
-				secret_religion = suebic_pagan_reformed
-				secret_religion = gothic_pagan
-				secret_religion = gothic_pagan_reformed
-				secret_religion = alan_pagan
-				secret_religion = alan_pagan_reformed
-				secret_religion = tengri_pagan
-				secret_religion = tengri_pagan_reformed
-				secret_religion = vasconic_pagan
-				secret_religion = vasconic_pagan_reformed
-				secret_religion = roman_pagan
-				secret_religion = roman_pagan_reformed
-				secret_religion = sol_invictus
-				secret_religion = promethean_pagan
+				secret_religion_group = pagan_group
 			}
 		}
 	}
@@ -4860,7 +4835,7 @@ religion_openly_hellenic_or_reformed_trigger = {
 	custom_tooltip = {
 		text = religion_openly_hellenic_or_reformed_tooltip
 		hidden_trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 }
@@ -5499,7 +5474,7 @@ has_unsafe_religion = {
 			NOT = { has_dlc = "The Old Gods" }
 			OR = {
 				religion_group = pagan_group
-				religion_group = zoroastrian_group
+				# religion_group = zoroastrian_group
 			}
 		}
 		AND = {
@@ -6744,7 +6719,7 @@ this_is_diplomatic_culture_trigger = { #Not really about culture - Used in AI vo
 	OR = { 
 		religion_group = christian
 		religion_group = jewish_group
-		religion_group = zoroastrian_group
+		is_hellenic_group_religion_trigger = yes
 		has_religion_feature = religion_cosmopolitan
 	}
 }
@@ -7794,10 +7769,10 @@ dlc_religion_check_trigger = {
 			# }
 			# has_dlc = "Jade Dragon"
 		# }
-		AND = {
-			religion_group = zoroastrian_group
-			has_dlc = "The Old Gods"
-		}
+		# AND = {
+			# religion_group = zoroastrian_group
+			# has_dlc = "The Old Gods"
+		# }
 		# AND = {
 			# religion = khurmazta
 			# has_dlc = "Jade Dragon"

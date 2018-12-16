@@ -442,8 +442,8 @@ character_event = {
 					if = {
 						limit = {
 							is_close_relative = PREV
-							NOT = { religion = messalian }
-							NOT = { religion = zoroastrian }
+							# NOT = { religion = messalian }
+							# NOT = { religion = zoroastrian }
 						}
 						add_character_modifier = {
 							name = incestuous_adulteress
@@ -454,8 +454,8 @@ character_event = {
 						limit = {
 							OR = {
 								NOT = { is_close_relative = PREV }
-								religion = messalian
-								religion = zoroastrian
+								# religion = messalian
+								# religion = zoroastrian
 							}
 						}
 						add_character_modifier = {
@@ -540,8 +540,8 @@ character_event = {
 					if = {
 						limit = {
 							is_close_relative = PREV
-							NOT = { religion = messalian }
-							NOT = { religion = zoroastrian }
+							# NOT = { religion = messalian }
+							# NOT = { religion = zoroastrian }
 						}
 						add_character_modifier = {
 							name = incestuous_adulterer
@@ -553,8 +553,8 @@ character_event = {
 							is_married = yes
 							OR = {
 								NOT = { is_close_relative = PREV }
-								religion = messalian
-								religion = zoroastrian
+								# religion = messalian
+								# religion = zoroastrian
 							}
 						}
 						if = {
@@ -3940,32 +3940,32 @@ character_event = {
 narrative_event = {
 	id = 670
 	title = "EVTNAME670"
-	desc = EVTDESC670
-	# desc = {
-		# trigger = {
-			# has_dlc = "Holy Fury" 
-			# NOT = {
-				# has_alternate_start_parameter = { key = religion_names value = random }
-			# }
-		# }
-		# text = EVTDESC670_HF
-		# sound = pagan_reformation
-	# }
-	# desc = {
-		# trigger = {
-			# has_dlc = "Holy Fury" 
-			# has_alternate_start_parameter = { key = religion_names value = random }
-		# }
-		# text = EVTDESC670_HF_B
-		# sound = pagan_reformation
-	# }
-	# desc = {
-		# trigger = {
-			# NOT = { has_dlc = "Holy Fury" }
-		# }
-		# text = EVTDESC670
-		# sound = pagan_reformation
-	# }
+	#desc = EVTDESC670
+	desc = {
+		trigger = {
+			has_dlc = "Holy Fury" 
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		text = EVTDESC670_HF
+		sound = pagan_reformation
+	}
+	desc = {
+		trigger = {
+			has_dlc = "Holy Fury" 
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+		text = EVTDESC670_HF_B
+		sound = pagan_reformation
+	}
+	desc = {
+		trigger = {
+			NOT = { has_dlc = "Holy Fury" }
+		}
+		text = EVTDESC670
+		sound = pagan_reformation
+	}
 	picture = { 
 		trigger = { 
 			ROOT = {
@@ -4244,11 +4244,10 @@ narrative_event = {
 				remove_intermarry = vasconic_pagan_reformed
 				remove_intermarry = roman_pagan
 				remove_intermarry = roman_pagan_reformed
-				remove_intermarry = sol_invictus
+				# remove_intermarry = sol_invictus
 				remove_intermarry = titan_pagan
 				remove_intermarry = promethean_pagan
 				remove_intermarry = pagan_group
-				remove_intermarry = zoroastrian_group
 				remove_intermarry = christian
 				remove_intermarry = muslim
 				remove_intermarry = gnostic_group
@@ -4408,8 +4407,41 @@ narrative_event = {
 					grant_title_no_opinion = d_suebic_pagan
 				}
 				if = {
-					limit = { religion = gothic_pagan_reformed }					
+					limit = { religion = gothic_pagan_reformed }
 					grant_title_no_opinion = d_gothic_pagan
+				}
+				if = {
+					limit = { 
+						religion = roman_pagan_reformed 
+					}
+					if = {
+						limit = { real_tier = EMPEROR }
+						grant_title_no_opinion = d_roman_pagan
+					}
+					else = {
+						d_roman_pagan = { destroy_landed_title = THIS }
+					}
+				}
+			} 
+		}
+		if = {
+			limit = { #Apply default special features if player doesn't have dlc.
+				NOT = { has_dlc = "Holy Fury" } 
+				ROOT = { 
+					religion = roman_pagan_reformed
+				}
+			}
+			ROOT = {
+				if = {
+					limit = { real_tier = EMPEROR }
+					make_reformer_head_of_religion = yes
+					grant_title_no_opinion = d_roman_pagan
+				}
+				else = {
+					d_roman_pagan = { 
+						destroy_landed_title = THIS 
+						set_title_landless = { title = THIS status = no }
+					}
 				}
 			} 
 		}
@@ -4752,8 +4784,12 @@ narrative_event = {
 		# }
 		if = {
 			limit = { 
-				has_religion_feature = religion_temporal_head 
+				OR = {
+					NOT = { has_dlc = "Holy Fury" } 
+					has_religion_feature = religion_temporal_head 
+				}
 				religion = roman_pagan_reformed 
+				real_tier = EMPEROR
 			}
 			add_artifact = scepter_hellenic_fylkir
 		}
@@ -4773,42 +4809,98 @@ narrative_event = {
 		if = {
 			limit = { religion = briton_pagan_reformed }
 			set_global_flag = briton_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_briton_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = pict_pagan_reformed }
 			set_global_flag = pict_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_pict_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = gael_pagan_reformed }
 			set_global_flag = gael_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_gael_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = germanic_pagan_reformed }
 			set_global_flag = germanic_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_germanic_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = frankish_pagan_reformed }
 			set_global_flag = frankish_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_frankish_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = suebic_pagan_reformed }
 			set_global_flag = suebic_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_suebic_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = gothic_pagan_reformed }
 			set_global_flag = gothic_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_gothic_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = norse_pagan_reformed }
 			set_global_flag = norse_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_norse_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = alan_pagan_reformed }
 			set_global_flag = alan_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_alan_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 		if = {
 			limit = { religion = vasconic_pagan_reformed }
 			set_global_flag = vasconic_reformation
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_vasconic_pagan = { set_title_landless = { title = THIS status = no } }
+			}
+		}
+		if = {
+			limit = { religion = roman_pagan_reformed }
+			set_global_flag = roman_reformation
+			# set_parent_religion = { religion = sol_invictus parent = roman_pagan_reformed }
+			set_parent_religion = { religion = promethean_pagan parent = roman_pagan_reformed }
+			set_parent_religion = { religion = titan_pagan parent = roman_pagan_reformed }
+			if = {
+				limit = { has_religion_feature = religion_temporal_head }
+				set_no_head_of_religion = no
+				#set_religion_head = d_roman_pagan
+			}
+			if = {
+				limit = { has_theocratic_religion_head_trigger = no }
+				d_roman_pagan = { set_title_landless = { title = THIS status = no } }
+			}
 		}
 	}
 

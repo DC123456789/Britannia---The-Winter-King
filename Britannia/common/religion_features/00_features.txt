@@ -734,7 +734,7 @@ religion_doctrine = {
 		picture = GFX_religion_feature_haruspicy
 		potential = {
 			NOR = { 
-				religion_group = zoroastrian_group  	#Core feature of the religion itself.
+				is_hellenic_group_religion_trigger = yes  	#Core feature of the religion itself.
 			}
 		}
 		trigger = {
@@ -752,7 +752,7 @@ religion_doctrine = {
 	religion_astrology = {
 		picture = GFX_religion_feature_astrology
 		potential = {
-			NOT = { religion_group = zoroastrian_group } #Core feature of the religion itself.
+			NOT = { is_hellenic_group_religion_trigger = yes } #Core feature of the religion itself.
 		}
 
 		effect = {
@@ -1514,13 +1514,13 @@ religion_doctrine = {
 		picture = GFX_religion_feature_hellenic
 		potential = {
 			has_game_started = yes
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 			NOR = { 
 				has_selected_religion_feature = religion_syncretic
 				has_selected_religion_feature = religion_dogmatic
@@ -1557,11 +1557,31 @@ religion_leadership = {
 		}
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_temporal_head }
+			if = {
+				limit = {
+					FROM = { is_hellenic_group_religion_trigger = yes }
+				}
+				custom_tooltip = { text = tooltip_religion_feature_hellenic_claim_pontifex_maximus }
+			}
 			hidden_tooltip = {
 				set_can_excommunicate = no
 				set_can_grant_divorce = no
 				set_can_grant_claim = no
-				make_reformer_head_of_religion = yes
+				if = {
+					limit = { 
+						FROM = { 
+							OR = {
+								real_tier = EMPEROR
+								is_hellenic_group_religion_trigger = no
+							}
+						}
+					}
+					make_reformer_head_of_religion = yes
+				}
+				else = {
+					set_no_head_of_religion = yes	# Temporary to make sure no head is generated
+					#set_religion_head = none
+				}
 			}
 		}
 		ai_will_do = {
@@ -1587,7 +1607,7 @@ religion_leadership = {
 			hidden_tooltip = { 
 				set_can_excommunicate = yes
 				set_can_grant_divorce = yes
-				set_can_grant_invasion_cb = yes
+				#set_can_grant_invasion_cb = yes
 				set_can_grant_claim = yes
 			}
 		}

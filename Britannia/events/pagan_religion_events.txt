@@ -2603,6 +2603,7 @@ character_event = {
 	
 	trigger = {
 		religion_group = pagan_group
+		is_hellenic_group_religion_trigger = no
 		is_wrong_pagan_religion_trigger = yes
 	}
 	
@@ -2761,14 +2762,13 @@ character_event = {
 			limit = { NOT = { has_global_flag = roman_reformation } }
 			religion = roman_pagan
 		}
-		if = {
-			limit = { has_global_flag = roman_reformation_roman_pagan_reformed }
+		else = {
 			religion = roman_pagan_reformed
 		}
-		if = {
-			limit = { has_global_flag = roman_reformation_sol_invictus }
-			religion = sol_invictus
-		}
+		# if = {
+			# limit = { has_global_flag = roman_reformation_sol_invictus }
+			# religion = sol_invictus
+		# }
 	}
 	
 	option = {
@@ -2883,6 +2883,7 @@ character_event = {
 	trigger = {
 		secret_religion_group = pagan_group
 		has_secret_religion = yes
+		is_secretly_hellenic_group_religion_trigger = no
 		is_wrong_secret_pagan_religion_trigger = yes
 	}
 	
@@ -3019,14 +3020,13 @@ character_event = {
 			limit = { NOT = { has_global_flag = roman_reformation } }
 			set_secret_religion = roman_pagan
 		}
-		if = {
-			limit = { has_global_flag = roman_reformation_roman_pagan_reformed }
+		else = {
 			set_secret_religion = roman_pagan_reformed
 		}
-		if = {
-			limit = { has_global_flag = roman_reformation_sol_invictus }
-			set_secret_religion = sol_invictus
-		}
+		# if = {
+			# limit = { has_global_flag = roman_reformation_sol_invictus }
+			# set_secret_religion = sol_invictus
+		# }
 	}
 	
 	option = {
@@ -3135,6 +3135,7 @@ province_event = {
 	
 	trigger = {
 		religion_group = pagan_group
+		is_hellenic_group_religion_trigger = no
 		is_wrong_pagan_religion_trigger = yes
 	}
 	
@@ -3302,14 +3303,14 @@ province_event = {
 		religion = roman_pagan_reformed
 	}
 	
-	option = {
-		name = "EVTOPTC317905"
-		trigger = { 
-			is_roman_pagan_culture_trigger = yes
-			owner = { religion = sol_invictus } 
-		}
-		religion = sol_invictus
-	}
+	# option = {
+		# name = "EVTOPTC317905"
+		# trigger = { 
+			# is_roman_pagan_culture_trigger = yes
+			# owner = { religion = sol_invictus } 
+		# }
+		# religion = sol_invictus
+	# }
 	
 	option = {
 		name = "EVTOPTD317905"
@@ -3472,7 +3473,7 @@ province_event = {
 					}
 				}
 				AND = {
-					owner = { religion_group = zoroastrian_group }
+					owner = { is_hellenic_group_religion_trigger = yes }
 					is_roman_pagan_culture_trigger = no
 				}
 			}
@@ -3641,10 +3642,7 @@ province_event = {
 		remove_province_modifier = cosmopolitan_religion_tribal
 		if = {
 			limit = {
-				OR = {
-					religion_group = pagan_group
-					religion_group = zoroastrian_group		# They're pagans too
-				}
+				religion_group = pagan_group
 				owner = {
 					religion_group = pagan_group
 					NOR = {

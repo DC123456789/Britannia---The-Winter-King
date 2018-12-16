@@ -56,7 +56,7 @@ targetted_decisions = {
 			modifier = {
 				factor = 0.25
 				NOT = {
-					religion_group = zoroastrian_group
+					is_hellenic_group_religion_trigger = yes
 				}
 			}			
 		}
@@ -535,22 +535,12 @@ targetted_decisions = {
 			modifier = {
 				factor = 0.25
 				top_liege = {
-					OR = {
-						AND = {
-							religion_group = pagan_group
-							is_reformed_religion = yes
-						}
-						religion = roman_pagan_reformed
-						religion = sol_invictus
-					}
+					religion_group = pagan_group
+					is_reformed_religion = yes
 				}
-				NOR = {
-					AND = {
-						religion_group = pagan_group
-						is_reformed_religion = yes
-					}
-					religion = roman_pagan_reformed
-					religion = sol_invictus
+				NAND = {
+					religion_group = pagan_group
+					is_reformed_religion = yes
 				}
 			}
 		}
@@ -569,16 +559,16 @@ targetted_decisions = {
 			is_ruler = yes
 			age = 15
 			NOR = { 
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 				has_character_flag = converted_to_roman_religion
 				has_character_flag = converted
 				trait = incapable
 				trait = imbecile
 			}
 			OR = {
-				any_demesne_province = { religion_group = zoroastrian_group }
-				any_courtier = { religion_group = zoroastrian_group }
-				any_vassal = { religion_group = zoroastrian_group }
+				any_demesne_province = { is_hellenic_group_religion_trigger = yes }
+				any_courtier = { is_hellenic_group_religion_trigger = yes }
+				any_vassal = { is_hellenic_group_religion_trigger = yes }
 			}
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
@@ -587,7 +577,7 @@ targetted_decisions = {
 		allow = {
 			age = 15
 			NOR = { 
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 				trait = zealous
 			}
 		}
