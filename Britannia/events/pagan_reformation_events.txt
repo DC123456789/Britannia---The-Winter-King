@@ -52,7 +52,7 @@ character_event = {			# Stop Brythonic Reformation if Old Gods haven't been rest
 	option = {
 		name = "EVTOPTA316000" # Start Ambition
 		trigger = {
-			age = 16
+			age = 15
 			religion = briton_pagan	
 			NOT = { character = 3 }
 			NOT = { trait = incapable }
@@ -162,7 +162,7 @@ character_event = {				# Set up Brythonic Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = briton_archdruid
+			character_event = { id = 316002 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -240,40 +240,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_briton_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = briton_archdruid
 	}
@@ -283,6 +284,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_briton_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_briton_fylkir
 	}
 }
 
@@ -3017,6 +3019,16 @@ character_event = {				# Inform new Archdruid
 		d_briton_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_briton_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_briton_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316010 }		# Start successor election events
 		remove_character_modifier = briton_archdruid_successor
 		hidden_tooltip = {
@@ -3489,6 +3501,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316051
 		d_briton_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_briton_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_briton_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316010 }		# Start successor election events
 		remove_character_modifier = briton_archdruid_successor
@@ -3984,7 +4006,7 @@ character_event = {				# Set up Pictish Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = pict_archdruid
+			character_event = { id = 316102 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -4062,40 +4084,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_pict_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = pict_archdruid
 		any_realm_character = { 		
@@ -4121,6 +4144,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_pict_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_pict_fylkir
 	}
 }
 
@@ -6850,6 +6874,16 @@ character_event = {				# Inform new Archdruid
 		d_pict_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_pict_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_pict_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316110 }		# Start successor election events
 		remove_character_modifier = pict_archdruid_successor
 		hidden_tooltip = {
@@ -7323,6 +7357,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316151
 		d_pict_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_pict_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_pict_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316110 }		# Start successor election events
 		remove_character_modifier = pict_archdruid_successor
@@ -7820,7 +7864,7 @@ character_event = {				# Set up Gaelic Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = gael_archdruid
+			character_event = { id = 316202 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -7898,40 +7942,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_gael_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = gael_archdruid
 		any_realm_character = { 		
@@ -7957,6 +8002,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_gael_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_gael_fylkir
 	}
 }
 
@@ -10713,6 +10759,16 @@ character_event = {				# Inform new Archdruid
 		d_gael_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_gael_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_gael_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316210 }		# Start successor election events
 		remove_character_modifier = gael_archdruid_successor
 		hidden_tooltip = {
@@ -11185,6 +11241,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316251
 		d_gael_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_gael_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_gael_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316210 }		# Start successor election events
 		remove_character_modifier = gael_archdruid_successor

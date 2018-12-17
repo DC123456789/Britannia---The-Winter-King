@@ -14242,28 +14242,40 @@ character_event = {
 			AND =  {
 				has_landed_title = d_briton_pagan
 				any_artifact = { artifact_type = crown_briton_fylkir }
-				d_briton_pagan = {
-					current_heir = {
-						NOT = { dynasty = ROOT }
+				OR = {
+					d_briton_pagan = {
+						current_heir = {
+							NOT = { dynasty = ROOT }
+						}
 					}
+					has_religion_features = no
+					has_religion_feature = religion_druidic_leadership
 				}
 			}
 			AND =  {
 				has_landed_title = d_pict_pagan
 				any_artifact = { artifact_type = crown_pict_fylkir }
-				d_pict_pagan = {
-					current_heir = {
-						NOT = { dynasty = ROOT }
+				OR = {
+					d_pict_pagan = {
+						current_heir = {
+							NOT = { dynasty = ROOT }
+						}
 					}
+					has_religion_features = no
+					has_religion_feature = religion_druidic_leadership
 				}
 			}
 			AND =  {
 				has_landed_title = d_gael_pagan
 				any_artifact = { artifact_type = crown_gael_fylkir }
-				d_gael_pagan = {
-					current_heir = {
-						NOT = { dynasty = ROOT }
+				OR = {
+					d_gael_pagan = {
+						current_heir = {
+							NOT = { dynasty = ROOT }
+						}
 					}
+					has_religion_features = no
+					has_religion_feature = religion_druidic_leadership
 				}
 			}
 			AND =  {
@@ -14485,8 +14497,21 @@ character_event = {
 				has_landed_title = d_briton_pagan
 				any_artifact = { artifact_type = crown_briton_fylkir }
 			}
-			d_briton_pagan = {
-				current_heir = { save_event_target_as = worthy_briton_fylkir_crown }
+			if = {
+				limit = {
+					NOR = {
+						has_religious_features = no
+						has_religion_feature = religion_druidic_leadership
+					}
+				}
+				d_briton_pagan = {
+					current_heir = { save_event_target_as = worthy_briton_fylkir_crown }
+				}
+			}
+			else = {
+				event_target:briton_druid_successor = {
+					save_event_target_as = worthy_briton_fylkir_crown
+				}
 			}
 			player_heir = { save_event_target_as = unworthy_briton_fylkir_crown }
 			any_artifact = {
@@ -14500,8 +14525,21 @@ character_event = {
 				has_landed_title = d_pict_pagan
 				any_artifact = { artifact_type = crown_pict_fylkir }
 			}
-			d_pict_pagan = {
-				current_heir = { save_event_target_as = worthy_pict_fylkir_crown }
+			if = {
+				limit = {
+					NOR = {
+						has_religious_features = no
+						has_religion_feature = religion_druidic_leadership
+					}
+				}
+				d_pict_pagan = {
+					current_heir = { save_event_target_as = worthy_pict_fylkir_crown }
+				}
+			}
+			else = {
+				event_target:pict_druid_successor = {
+					save_event_target_as = worthy_pict_fylkir_crown
+				}
 			}
 			player_heir = { save_event_target_as = unworthy_pict_fylkir_crown }
 			any_artifact = {
@@ -14515,8 +14553,21 @@ character_event = {
 				has_landed_title = d_gael_pagan
 				any_artifact = { artifact_type = crown_gael_fylkir }
 			}
-			d_gael_pagan = {
-				current_heir = { save_event_target_as = worthy_gael_fylkir_crown }
+			if = {
+				limit = {
+					NOR = {
+						has_religious_features = no
+						has_religion_feature = religion_druidic_leadership
+					}
+				}
+				d_gael_pagan = {
+					current_heir = { save_event_target_as = worthy_gael_fylkir_crown }
+				}
+			}
+			else = {
+				event_target:gael_druid_successor = {
+					save_event_target_as = worthy_gael_fylkir_crown
+				}
 			}
 			player_heir = { save_event_target_as = unworthy_gael_fylkir_crown }
 			any_artifact = {
