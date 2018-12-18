@@ -8,17 +8,13 @@ targetted_decisions = {
 		from_potential = {
 			has_dlc = "Holy Fury"
 			#is_tribal = yes
-			OR = {
-				religion_group = pagan_group
-				religion = roman_pagan
-			}
+			religion_group = pagan_group
 			#higher_real_tier_than = count 		#condition only for ai to avoid single counts spamming Kings
 			NOT = { trait = incapable }
 			NOT = { is_reformed_religion = yes }
 			#NOT = { has_character_modifier = baptism_request_cooldown }
 			NOT = { has_character_flag = flag_converting_baptism }
 			independent = yes
-
 		}
 		potential = {
 			independent = yes
@@ -31,14 +27,13 @@ targetted_decisions = {
 			NOT = { religion = FROM }
 			NOT = { pays_tribute_to = FROM }
 			NOT = { has_character_flag = flag_sponsoring_baptism }
-			#OR = {
+			OR = {
 				NOT = { religion_group = pagan_group }
-				NOR = {
-					religion = roman_pagan
-					religion = titan_pagan
-				}
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				has_religion_feature = religion_proselytizing
 				#is_reformed_religion = yes
-			#}
+			}
 		}
 		allow = {
 			is_within_diplo_range = FROM
@@ -359,47 +354,47 @@ targetted_decisions = {
 			additive_modifier = {
 				value = 10
 				localisation_key = baptism_sponsor_distance
-				NOT = { distance_from_realm = { who = FROM value = 35 } }
+				NOT = { distance_from_realm = { who = FROM value = 140 } }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			additive_modifier = {
 				value = -5
 				localisation_key = baptism_sponsor_distance
-				distance_from_realm = { who = FROM value = 50 }
-				NOT = { distance_from_realm = { who = FROM value = 75 } }
+				distance_from_realm = { who = FROM value = 200 }
+				NOT = { distance_from_realm = { who = FROM value = 300 } }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			additive_modifier = {
 				value = -15
 				localisation_key = baptism_sponsor_distance
-				distance_from_realm = { who = FROM value = 75 }
-				NOT = { distance_from_realm = { who = FROM value = 100 } }
+				distance_from_realm = { who = FROM value = 300 }
+				NOT = { distance_from_realm = { who = FROM value = 400 } }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			additive_modifier = {
 				value = -30
 				localisation_key = baptism_sponsor_distance
-				distance_from_realm = { who = FROM value = 100 }
-				NOT = { distance_from_realm = { who = FROM value = 150 } }
+				distance_from_realm = { who = FROM value = 400 }
+				NOT = { distance_from_realm = { who = FROM value = 600 } }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			additive_modifier = {
 				value = -50
 				localisation_key = baptism_sponsor_distance
-				distance_from_realm = { who = FROM value = 150 }
-				NOT = { distance_from_realm = { who = FROM value = 250 } }
+				distance_from_realm = { who = FROM value = 600 }
+				NOT = { distance_from_realm = { who = FROM value = 1000 } }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			additive_modifier = {
 				value = -75
 				localisation_key = baptism_sponsor_distance
-				distance_from_realm = { who = FROM value = 250 }
+				distance_from_realm = { who = FROM value = 1000 }
 				#NOT = { ROOT = { is_offmap_governor = offmap_china } }
 			}
 			# additive_modifier = {
 				# value = -35
 				# localisation_key = baptism_sponsor_distance
-				# distance_from_realm = { who = FROM value = 250 }
+				# distance_from_realm = { who = FROM value = 1000 }
 				# ROOT = { is_offmap_governor = offmap_china }
 			# }
 		}
@@ -520,10 +515,7 @@ decisions = {
 			is_tribal = yes
 			higher_real_tier_than = COUNT
 			NOT = { trait = incapable }
-			OR = {
-				religion_group = pagan_group
-				religion = roman_pagan
-			}
+			religion_group = pagan_group
 			NOT = { is_reformed_religion = yes }
 			#NOT = { religion = bon }
 			NOT = { has_character_modifier = baptism_request_cooldown }
@@ -550,11 +542,10 @@ decisions = {
 				NOT = { is_rival = ROOT }
 				OR = {
 					NOT = { religion_group = pagan_group }
+					religion = roman_pagan_reformed
+					religion = promethean_pagan
 					is_reformed_religion = yes
-				}
-				NOR = {
-					religion = roman_pagan
-					religion = titan_pagan
+					has_religion_feature = religion_proselytizing
 				}
 				wealth = 0 
 				relative_power = { who = ROOT power = 1 }
@@ -604,11 +595,10 @@ decisions = {
 						is_within_diplo_range = ROOT
 						OR = {
 							NOT = { religion_group = pagan_group }
+							religion = roman_pagan_reformed
+							religion = promethean_pagan
 							is_reformed_religion = yes
-						}
-						NOR = {
-							religion = roman_pagan
-							religion = titan_pagan
+							has_religion_feature = religion_proselytizing
 						}
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
@@ -639,11 +629,10 @@ decisions = {
 							is_within_diplo_range = ROOT
 							OR = {
 								NOT = { religion_group = pagan_group }
+								religion = roman_pagan_reformed
+								religion = promethean_pagan
 								is_reformed_religion = yes
-							}
-							NOR = {
-								religion = roman_pagan
-								religion = titan_pagan
+								has_religion_feature = religion_proselytizing
 							}
 							wealth = 0 
 							relative_power = { who = ROOT power = 1 }
@@ -692,11 +681,10 @@ decisions = {
 						is_within_diplo_range = ROOT
 						OR = {
 							NOT = { religion_group = pagan_group }
+							religion = roman_pagan_reformed
+							religion = promethean_pagan
 							is_reformed_religion = yes
-						}
-						NOR = {
-							religion = roman_pagan
-							religion = titan_pagan
+							has_religion_feature = religion_proselytizing
 						}
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
@@ -720,11 +708,10 @@ decisions = {
 						is_within_diplo_range = ROOT
 						OR = {
 							NOT = { religion_group = pagan_group }
+							religion = roman_pagan_reformed
+							religion = promethean_pagan
 							is_reformed_religion = yes
-						}
-						NOR = {
-							religion = roman_pagan
-							religion = titan_pagan
+							has_religion_feature = religion_proselytizing
 						}
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
@@ -776,11 +763,10 @@ decisions = {
 						is_within_diplo_range = ROOT
 						OR = {
 							NOT = { religion_group = pagan_group }
+							religion = roman_pagan_reformed
+							religion = promethean_pagan
 							is_reformed_religion = yes
-						}
-						NOR = {
-							religion = roman_pagan
-							religion = titan_pagan
+							has_religion_feature = religion_proselytizing
 						}
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
@@ -811,11 +797,10 @@ decisions = {
 							is_within_diplo_range = ROOT
 							OR = {
 								NOT = { religion_group = pagan_group }
+								religion = roman_pagan_reformed
+								religion = promethean_pagan
 								is_reformed_religion = yes
-							}
-							NOR = {
-								religion = roman_pagan
-								religion = titan_pagan
+								has_religion_feature = religion_proselytizing
 							}
 							wealth = 0 
 							relative_power = { who = ROOT power = 1 }
@@ -864,11 +849,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					wealth = 0 
 					relative_power = { who = ROOT power = 1 }
@@ -925,11 +909,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 1.5 }
@@ -946,11 +929,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 2 }
@@ -967,11 +949,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 3 }
@@ -988,11 +969,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 4 }
@@ -1009,11 +989,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 5 }
@@ -1030,11 +1009,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 10 }
@@ -1051,11 +1029,10 @@ decisions = {
 					is_within_diplo_range = ROOT
 					OR = {
 						NOT = { religion_group = pagan_group }
+						religion = roman_pagan_reformed
+						religion = promethean_pagan
 						is_reformed_religion = yes
-					}
-					NOR = {
-						religion = roman_pagan
-						religion = titan_pagan
+						has_religion_feature = religion_proselytizing
 					}
 					NOT = { lower_tier_than = ROOT } 
 					relative_power = { who = ROOT power = 20 }
@@ -1325,11 +1302,7 @@ decisions = {
 				NOT = { 
 					any_neighbor_independent_ruler = { 
 						OR = {
-							NOR = { 
-								religion_group = pagan_group 
-								religion = roman_pagan
-								religion = titan_pagan
-							}
+							NOT = { religion_group = pagan_group }
 							is_reformed_religion = yes
 						}
 					}
