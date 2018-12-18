@@ -634,10 +634,12 @@ narrative_event = {
 			hidden_tooltip = { add_trait = baptized_by_bishop }
 			if = { #AND Crowned by Bishop if Catholic/Fraticelli
 				limit = {
-					ROOT = { higher_real_tier_than = DUKE }
+					ROOT = { 
+						higher_real_tier_than = DUKE 
+						are_coronations_active_trigger = yes
+					}
 					event_target:sponsoring_king = {
 						religion_group = christian
-						are_coronations_active_trigger = yes
 					}
 				}
 				hidden_tooltip = { save_persistent_event_target = { name = coronation_priest_per scope = event_target:scoped_baptizer } }
