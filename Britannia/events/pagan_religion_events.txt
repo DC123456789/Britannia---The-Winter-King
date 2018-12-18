@@ -3499,6 +3499,31 @@ province_event = {
 	}
 }
 
+# Alternate start pagan religion setup
+character_event = {
+	id = 317905
+	hide_new = yes
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = pagan_religions_set }
+	}
+	
+	immediate = {
+		set_global_flag = pagan_religions_set
+		any_character = {
+			limit = { religion = pagan }
+			convert_to_default_cultural_pagan_religion_effect = yes
+		}
+		any_province = {
+			limit = { religion = pagan }
+			convert_to_default_cultural_pagan_religion_effect = yes
+		}
+	}
+}
+
 # Vassal mercenary companies convert to Reformed Religion
 character_event = {
 	id = 39300

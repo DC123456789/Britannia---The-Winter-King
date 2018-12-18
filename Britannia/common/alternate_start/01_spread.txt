@@ -81,7 +81,7 @@ culture_group_spread = {
 		}
 	}
 	modifier = { 		# Decrease small culture groups
-		factor = 0.25
+		factor = 0.20
 		culture_group = basque
 		NOT = {
 			has_alternate_start_setting = {
@@ -91,7 +91,7 @@ culture_group_spread = {
 		}
 	}
 	modifier = { 		# Decrease small culture groups
-		factor = 0.25
+		factor = 0.20
 		culture_group = sarmatian
 		NOT = {
 			has_alternate_start_setting = {
@@ -111,11 +111,18 @@ culture_group_spread = {
 		}
 	}
 	modifier = { # Boost groups with very many individual cultures even more
-		factor = 5
-		OR = {
-			culture_group = germanic
-			culture_group = imperiale
+		factor = 3.5		
+		culture_group = imperiale
+		NOT = {
+			has_alternate_start_setting = {
+				setting = culture
+				option = full_random
+			}
 		}
+	}
+	modifier = { # Boost groups with very many individual cultures even more
+		factor = 5
+		culture_group = germanic
 		NOT = {
 			has_alternate_start_setting = {
 				setting = culture
@@ -301,11 +308,6 @@ religion_group_spawn = {
 			region = world_ireland
 		}
 	}
-	modifier = { # Imperial cultures can't be pagan
-		factor = 0
-		religion_group = pagan_group
-		culture_group = imperiale
-	}
 }
 
 religion_group_spread = {
@@ -362,7 +364,7 @@ religion_group_spread = {
 		}
 	}
 	modifier = {
-		factor = 0.25
+		factor = 0.15
 		religion_group = gnostic_group
 		NOT = {
 			has_alternate_start_setting = {
@@ -372,7 +374,7 @@ religion_group_spread = {
 		}
 	}
 	modifier = {
-		factor = 8
+		factor = 6
 		religion_group = pagan_group
 		NOT = {
 			has_alternate_start_setting = {
@@ -408,7 +410,7 @@ religion_group_spread = {
 		}
 	}
 	modifier = {
-		factor = 25
+		factor = 15
 		religion_group = pagan_group
 		has_alternate_start_setting = {
 			setting = random_scenario_more_pagans
@@ -497,16 +499,6 @@ religion_spread = {
 	modifier = {
 		factor = 0.15
 		religion = priscillian
-		NOT = {
-			has_alternate_start_setting = {
-				setting = religion
-				option = full_random
-			}
-		}
-	}
-	modifier = {
-		factor = 3
-		religion = roman_pagan
 		NOT = {
 			has_alternate_start_setting = {
 				setting = religion
