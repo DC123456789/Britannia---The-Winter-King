@@ -30,7 +30,10 @@ byzantine_elective = {
 		additive_modifier = { #And finally the generals.
 			value = 10
 			vassal_of = FROMFROM 
-			has_minor_title = title_commander
+			OR = {
+				has_minor_title = title_commander
+				government = legion_government
+			}
 		}
 	}
 	elector_vote_strength = { 
@@ -496,6 +499,7 @@ byzantine_elective = {
 			NOT = { martial = 10 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -512,6 +516,7 @@ byzantine_elective = {
 			NOT = { martial = 12 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -528,6 +533,7 @@ byzantine_elective = {
 			NOT = { martial = 14 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -544,6 +550,7 @@ byzantine_elective = {
 			NOT = { martial = 16 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -560,6 +567,7 @@ byzantine_elective = {
 			NOT = { martial = 18 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -576,6 +584,7 @@ byzantine_elective = {
 			NOT = { martial = 20 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -592,6 +601,7 @@ byzantine_elective = {
 			NOT = { martial = 25 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -608,6 +618,7 @@ byzantine_elective = {
 			NOT = { martial = 30 }
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -623,6 +634,7 @@ byzantine_elective = {
 			martial = 30
 			OR = {
 				has_minor_title = title_commander
+				government = legion_government
 				has_job_title = job_marshal
 			}
 		}
@@ -1734,6 +1746,23 @@ byzantine_elective = {
 				NOT = { is_vassal_or_below_of = ROOT_FROMFROM }
 			}
 		}
+		additive_modifier = { 
+			value = -50
+			localisation_key = tooltip_imperial_elector_vote_not_roman_culture
+			NOT = { character = FROM }
+			FROM = { is_roman_culture_trigger = no }
+			is_roman_culture_trigger = yes
+		}
+		additive_modifier = { 
+			value = -20
+			localisation_key = tooltip_imperial_elector_vote_not_true_roman
+			NOT = { character = FROM }
+			FROM = { 
+				is_roman_culture_trigger = yes 
+				NOT = { culture = roman }
+			}
+			culture = roman
+		}
 
 		#Faithism
 		additive_modifier = { #Infidel
@@ -2020,6 +2049,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 10
@@ -2034,6 +2064,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 12
@@ -2048,6 +2079,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 16
@@ -2062,6 +2094,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 18
@@ -2076,6 +2109,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 20
@@ -2090,6 +2124,7 @@ byzantine_elective = {
 			FROM = { 
 				OR = { 
 					has_minor_title = title_commander
+					government = legion_government
 					has_job_title = job_marshal
 				} 
 				martial = 30
@@ -4748,7 +4783,16 @@ byzantine_elective = {
 			NOR = { 
 				trait = crusader_king 
 				trait = crusader_queen
-			} 
+			}
+			NAND = {
+				is_ruler = yes
+				ROOT_FROMFROM = {		# WRE and ERE cannot ever be inherited by ruler characters
+					OR = {
+						title = e_western_roman_empire
+						title = e_eastern_roman_empire
+					}
+				}
+			}
 		} 
 		FROM = { #Either the candidate is in the realm, or is landless, or the title is independent, or the realm of the title does NOT have protected inheritance.
 			OR = { 
@@ -4773,6 +4817,10 @@ byzantine_elective = {
 			}
 			FROM = { 
 				has_minor_title = title_commander
+				vassal_of = ROOT_FROMFROM 
+			}
+			FROM = { 
+				government = legion_government
 				vassal_of = ROOT_FROMFROM 
 			}
 		}

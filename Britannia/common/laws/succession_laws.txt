@@ -109,10 +109,14 @@ succession_laws = {
 				holder_scope = {
 					OR = {
 						government = imperial_government
-						government = sub_roman_government
-						government = sub_roman_brythonic_government
-					}
-					culture_group = imperiale
+						AND = {
+							OR = {
+								government = sub_roman_government
+								government = sub_roman_brythonic_government
+							}
+							culture_group = imperiale
+						}
+					}					
 					higher_tier_than = COUNT
 				}
 			}
@@ -129,6 +133,7 @@ succession_laws = {
 					}
 				}
 			}
+			is_roman_empire_title_trigger = no
 		}
 		allow = {
 			NOT = { 
@@ -249,8 +254,7 @@ succession_laws = {
 				NOT = { tier = baron }
 				holder_scope = { is_patrician = yes }
 			}
-			NOT = { title = e_gaul }
-			NOT = { title = e_roman_britannia }
+			is_roman_empire_title_trigger = no
 			NOT = { title = e_britannia }
 			NOT = { title = e_aengland }
 			NOT = { title = e_ireland }
@@ -338,6 +342,7 @@ succession_laws = {
 					}
 				}
 			}
+			is_roman_empire_title_trigger = no
 		}
 		allow = {
 			NOT = {
@@ -459,6 +464,10 @@ succession_laws = {
 				title = e_britannia
 				holder_scope = {
 					is_feudal = yes
+					NAND = {
+						government = imperial_government
+						independent = yes
+					}
 					OR = {
 						independent = yes
 						NOT = {
@@ -483,6 +492,7 @@ succession_laws = {
 					}
 				}
 			}
+			is_roman_empire_title_trigger = no
 		}
 		allow = {
 			OR = {
@@ -574,12 +584,12 @@ succession_laws = {
 		dynasty_opinion = -5
 		feudal_opinion = -5
 		potential = {
+			is_roman_empire_title_trigger = yes
 			holder_scope = {
-				is_roman_emperor_trigger = yes
 				NOT = { religion_group = muslim }
 				is_merchant_republic = no
 				is_patrician = no
-				is_roman_culture_trigger = yes
+				#is_roman_culture_trigger = yes
 				OR = {
 					independent = yes
 					NOT = {
@@ -591,6 +601,8 @@ succession_laws = {
 			}
 			OR = {
 				is_landless_type_title = no
+				title = e_western_roman_empire
+				title = e_eastern_roman_empire
 				is_tribal_type_title = yes
 				temporary = yes
 			}
@@ -615,15 +627,13 @@ succession_laws = {
 			always = no
 		}			
 	}
-	
-	succ_feudal_elective = {
-		oldest_child_opinion = -25
+	succ_germanic_elective = {
+		oldest_child_opinion = -15
 		child_opinion = -10
 		dynasty_opinion = -5
 		vassal_opinion = 10
 		
 		potential = {
-			NOT = { title = d_roman_pagan }
 			OR = {
 				is_landless_type_title = no
 				is_tribal_type_title = yes
@@ -634,57 +644,35 @@ succession_laws = {
 				NOT = { tier = count }
 				is_tribal_type_title = yes
 			}
-			OR = {
-				title = e_britannia
-				holder_scope = {
-					is_feudal = yes
-					OR = {
-						independent = yes
-						NOT = {
-							any_demesne_title = {
-								is_vice_royalty = yes
-							}
+			holder_scope = {
+				is_feudal = yes
+				NAND = {
+					government = imperial_government
+					independent = yes
+				}
+				OR = {
+					independent = yes
+					NOT = {
+						any_demesne_title = {
+							is_vice_royalty = yes
 						}
 					}
 				}
-				AND = {
-					OR = {
-						higher_tier_than = DUKE
-						title = d_airgialla
-					}
-					holder_scope = {
-						is_tribal = yes
-						OR = {
-							culture = oldirish
-							culture = gaelic
-							culture = pictish
-						}
-					}
+				OR = {
+					culture_group = germanic
+					PREV = { has_law = succ_germanic_elective }		# Can keep the law if already has it
 				}
 			}
+			is_roman_empire_title_trigger = no
 		}
-		allow = {
+		allow = {			
+			holder_scope = { culture_group = germanic }
 			OR = {
-				title = e_britannia
 				holder_scope = {
 					OR = {
 						government = sub_roman_government
 						government = sub_roman_brythonic_government
-						government = imperial_government
-					}
-				}
-				AND = {
-					OR = {
-						higher_tier_than = DUKE
-						title = d_airgialla
-					}
-					holder_scope = {
-						is_tribal = yes
-						OR = {
-							culture = oldirish
-							culture = gaelic
-							culture = pictish
-						}
+						#government = germanic_government
 					}
 				}
 				AND = {
@@ -739,7 +727,7 @@ succession_laws = {
 		effect = {
 			succession = {
 				base_type = feudal_elective
-				voting_rules = feudal_elective
+				voting_rules = germanic_elective
 			}
 		}
 		revoke_allowed = {
@@ -764,6 +752,7 @@ succession_laws = {
 					e_roman_britannia = { has_holder = yes }
 				}
 			}
+			is_roman_empire_title_trigger = no
 			OR = {
 				tier = DUKE
 				tier = KING
@@ -875,6 +864,7 @@ succession_laws = {
 			}
 			NOT = { title = e_ireland }
 			NOT = { title = d_roman_pagan }
+			is_roman_empire_title_trigger = no
 			OR = {
 				hidden_tooltip = {
 					has_crown_law_title = no
@@ -974,6 +964,7 @@ succession_laws = {
 					NOT = { religion = catholic } 
 				}
 			}
+			is_roman_empire_title_trigger = no
 		}
 		effect = {
 			succession = open_elective
