@@ -487,7 +487,6 @@ succession_laws = {
 						OR = {
 							culture = oldirish
 							culture = gaelic
-							culture = pictish
 						}
 					}
 				}
@@ -514,7 +513,6 @@ succession_laws = {
 						OR = {
 							culture = oldirish
 							culture = gaelic
-							culture = pictish
 						}
 					}
 				}
@@ -796,6 +794,76 @@ succession_laws = {
 			succession = {
 				base_type = tanistry
 				voting_rules = tanistry
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}			
+	}
+	succ_pictish_tanistry = {
+		oldest_child_opinion = -25
+		child_opinion = -15
+		dynasty_opinion = 20
+		vassal_opinion = 10
+		
+		potential = {
+			NOT = { title = k_gaul }
+			NOR = {
+				AND = {
+					de_jure_liege_or_above = e_gaul
+					e_gaul = { has_holder = yes }
+				}
+				AND = {
+					de_jure_liege_or_above = e_roman_britannia
+					e_roman_britannia = { has_holder = yes }
+				}
+			}
+			is_roman_empire_title_trigger = no
+			OR = {
+				tier = DUKE
+				tier = KING
+				title = e_ireland
+				title = e_alba
+			}
+			holder_scope = {
+				#is_tribal = no
+				is_theocracy = no
+				OR = {
+					culture_group = celtic
+					any_owned_bloodline = {
+						has_bloodline_flag = bloodline_tanistry
+					}
+				}
+				OR = {
+					independent = yes
+					NOT = {
+						any_demesne_title = {
+							is_vice_royalty = yes
+						}
+					}
+				}
+				OR = {
+					culture = pictish
+					PREV = { has_law = succ_tanistry }
+				}
+			}
+			OR = {
+				is_landless_type_title = no
+				is_tribal_type_title = yes
+			}
+			is_primary_type_title = no
+			NOT = { title = d_roman_pagan }
+		}
+		allow = {
+			holder_scope = { 
+				culture = pictish
+				NOT = { has_character_flag = liege_forced_succ_law } 
+			}
+		}
+		effect = {
+			succession = {
+				base_type = tanistry
+				voting_rules = pictish_tanistry
 			}
 		}
 		revoke_allowed = {
