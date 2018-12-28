@@ -581,6 +581,14 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 					}
 				}
 			}
+			modifier = {
+				factor = 0.75
+				FROM = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = britannia_high_king_bloodline
+					}
+				}
+			}
 		}
 	}
 }
@@ -1063,57 +1071,65 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 				}
 			}
 			ROOT = {
-				add_trait = blood_pendragon
+				# add_trait = blood_pendragon
 				remove_trait = bastard
 				remove_trait = legit_bastard
-				any_child = {
-					limit = {
-						is_female = no
-					}
-					add_trait = blood_pendragon
-					any_child = {
-						limit = {
-							is_female = no
-						}
-						add_trait = blood_pendragon
-						any_child = {
-							limit = {
-								is_female = no
-							}
-							add_trait = blood_pendragon
-						}
-					}
-				}
+				# any_child = {
+					# limit = {
+						# is_female = no
+					# }
+					# add_trait = blood_pendragon
+					# any_child = {
+						# limit = {
+							# is_female = no
+						# }
+						# add_trait = blood_pendragon
+						# any_child = {
+							# limit = {
+								# is_female = no
+							# }
+							# add_trait = blood_pendragon
+						# }
+					# }
+				# }
 			}
 		}
-		if = {
-			limit = {
-				ROOT = {
-					character = 1010
-				}
-			}
-			ROOT = {
-				add_trait = blood_vortigern
-				any_child = {
-					limit = {
-						is_female = no
-					}
-					add_trait = blood_vortigern
-					any_child = {
-						limit = {
-							is_female = no
-						}
-						add_trait = blood_vortigern
-						any_child = {
-							limit = {
-								is_female = no
-							}
-							add_trait = blood_vortigern
-						}
-					}
-				}
-			}
-		}
+		# if = {
+			# limit = {
+				# ROOT = {
+					# character = 1010
+				# }
+			# }
+			# if = {
+				# limit = {
+					# has_dlc = "Holy Fury"
+				# }
+				# create_bloodline = {
+					# type = vortigern
+				# }
+			# }
+			# ROOT = {
+				# add_trait = blood_vortigern
+				# any_child = {
+					# limit = {
+						# is_female = no
+					# }
+					# add_trait = blood_vortigern
+					# any_child = {
+						# limit = {
+							# is_female = no
+						# }
+						# add_trait = blood_vortigern
+						# any_child = {
+							# limit = {
+								# is_female = no
+							# }
+							# add_trait = blood_vortigern
+						# }
+					# }
+				# }
+			# }
+		# }
 		any_playable_ruler = { 
 			limit = {
 				OR = {
@@ -1135,6 +1151,31 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 		name = "EVTOPTB312165"		# Gain High Kingdom of Britannia
 		trigger = {
 			has_character_flag = HK_britannia_claimant
+		}
+		if = {
+			limit = {
+				ROOT = {
+					character = 1010
+				}
+			}
+			if = {
+				limit = {
+					has_dlc = "Holy Fury"
+				}
+				create_bloodline = {
+					type = vortigern
+				}
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					character = 3
+				}
+			}
+			create_bloodline = {
+				type = arthur_pendragon
+			}
 		}
 		clr_character_flag = HK_britannia_claimant
 		clr_global_flag = HK_britannia_claim
