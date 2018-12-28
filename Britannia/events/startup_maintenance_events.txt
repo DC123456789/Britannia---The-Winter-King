@@ -2536,3 +2536,127 @@ character_event = {
 		}
 	}
 }
+
+
+### PICTISH SUCCESSION CLAIMANT EVENTS ###
+# on_adulthood the female-line niblings and grandchildren of a Pictish Tanistry ruler will gain a weak non-inheritable claim
+character_event = { 
+	id = 319040
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_title = {
+			has_law = succ_pictish_tanistry
+			NOT = { ROOT = { has_claim = PREV } }
+			any_previous_holder = {
+				ROOT = {
+					mother_even_if_dead = {
+						OR = {
+							any_sibling_even_if_dead = {
+								character = PREVPREVPREV
+							}
+							mother_even_if_dead = {
+								character = PREVPREVPREV
+							}
+							father_even_if_dead = {
+								character = PREVPREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		any_title = {
+			limit = {
+				has_law = succ_pictish_tanistry
+				NOT = { ROOT = { has_claim = PREV } }
+				any_previous_holder = {
+					ROOT = {
+						mother_even_if_dead = {
+							OR = {
+								any_sibling_even_if_dead = {
+									character = PREVPREVPREV
+								}
+								mother_even_if_dead = {
+									character = PREVPREVPREV
+								}
+								father_even_if_dead = {
+									character = PREVPREVPREV
+								}
+							}
+						}
+					}
+				}
+			}
+			add_weak_claim = ROOT
+		}
+	}
+}
+
+# on_new_holder the female-line niblings and grandchildren of a Pictish Tanistry ruler will gain weak non-inheritable claims
+character_event = { 
+	id = 319041
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			has_law = succ_pictish_tanistry
+		}
+		ROOT = {
+			OR = {
+				any_sibling_even_if_dead = {
+					is_female = yes
+					any_child = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+				}
+				any_child_even_if_dead = {
+					is_female = yes
+					any_child = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}					
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		ROOT = {
+			any_sibling_even_if_dead = {
+				limit = { is_female = yes }				
+				any_child = {
+					limit = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+					FROM = { add_weak_claim = PREV }
+				}
+			}
+			any_child_even_if_dead = {
+				limit = { is_female = yes }				
+				any_child = {
+					limit = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+					FROM = { add_weak_claim = PREV }
+				}
+			}
+		}
+	}
+}
