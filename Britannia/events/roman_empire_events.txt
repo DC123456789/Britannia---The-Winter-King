@@ -2653,6 +2653,80 @@ narrative_event = {
 			has_landed_title = e_roman_britannia
 		}
 		prestige = 300
+		if = { #New Imperial Bloodline. (male)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = no
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_hellenic_or_reformed_trigger = yes
+				}
+				NOT = {
+					any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_male
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}	
+			sound_effect = bloodline_added			
+		}
+		if = { #New Imperial Bloodline. (female)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = yes
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_hellenic_or_reformed_trigger = yes
+				}
+    			NOT = {
+    				any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_female
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}				
+			sound_effect = bloodline_added
+		}
+		# Transfer Imperial Diadem from ERE
+		if = {
+			limit = {
+				e_eastern_roman_empire = {
+					holder_scope = {
+						any_artifact = {
+							artifact_type = crown_wre
+						}
+					}
+				}
+			}
+			e_eastern_roman_empire = {
+				show_scope_change = no
+				holder_scope = {
+					show_scope_change = no
+					any_artifact = {
+						show_scope_change = no
+						limit = { artifact_type = crown_wre }
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -2716,6 +2790,80 @@ narrative_event = {
 			has_landed_title = e_gaul
 		}
 		prestige = 300
+		if = { #New Imperial Bloodline. (male)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = no
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_hellenic_or_reformed_trigger = yes
+				}
+				NOT = {
+					any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_male
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}	
+			sound_effect = bloodline_added			
+		}
+		if = { #New Imperial Bloodline. (female)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = yes
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_hellenic_or_reformed_trigger = yes
+				}
+    			NOT = {
+    				any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_female
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}				
+			sound_effect = bloodline_added
+		}
+		# Transfer Imperial Diadem from ERE
+		if = {
+			limit = {
+				e_eastern_roman_empire = {
+					holder_scope = {
+						any_artifact = {
+							artifact_type = crown_wre
+						}
+					}
+				}
+			}
+			e_eastern_roman_empire = {
+				show_scope_change = no
+				holder_scope = {
+					show_scope_change = no
+					any_artifact = {
+						show_scope_change = no
+						limit = { artifact_type = crown_wre }
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	option = {

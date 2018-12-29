@@ -14267,13 +14267,42 @@ character_event = {
 				} 
 			}
 			AND = { 
-				has_landed_title = e_western_roman_empire
-				any_artifact = { artifact_type = crown_byzantine }
-				e_western_roman_empire = { 
-					current_heir = { 
-						NOT = { dynasty = ROOT }
-					} 
-				} 
+				any_artifact = { artifact_type = crown_wre }
+				OR = {
+					# Shouldn't be holding two empires at the same time in any case
+					AND = {
+						has_landed_title = e_western_roman_empire
+						e_western_roman_empire = { 
+							current_heir = { 
+								NOT = { dynasty = ROOT }
+							} 
+						}
+					}
+					AND = {
+						has_landed_title = e_gaul
+						e_gaul = { 
+							current_heir = { 
+								NOT = { dynasty = ROOT }
+							} 
+						}
+					}
+					AND = {
+						has_landed_title = e_roman_britannia
+						e_roman_britannia = { 
+							current_heir = { 
+								NOT = { dynasty = ROOT }
+							} 
+						}
+					}
+					AND = {
+						has_landed_title = e_eastern_roman_empire
+						e_eastern_roman_empire = { 
+							current_heir = { 
+								NOT = { dynasty = ROOT }
+							} 
+						}
+					}
+				}
 			}
 			AND = { 
 				has_landed_title = e_eastern_roman_empire
@@ -14497,16 +14526,37 @@ character_event = {
 		}
 		if = { 
 			limit = { 
-				has_landed_title = e_western_roman_empire
-				any_artifact = { artifact_type = crown_byzantine }
+				is_roman_emperor_trigger = yes
+				any_artifact = { artifact_type = crown_wre }
 			}
-			e_western_roman_empire = { 
-				current_heir = { save_event_target_as = worthy_byz_crown }
+			if = {
+				limit = { has_landed_title = e_western_roman_empire }
+				e_western_roman_empire = { 
+					current_heir = { save_event_target_as = worthy_wre_crown }
+				}
 			}
-			player_heir = { save_event_target_as = unworthy_byz_crown }
+			else_if = {
+				limit = { has_landed_title = e_gaul }
+				e_gaul = { 
+					current_heir = { save_event_target_as = worthy_wre_crown }
+				}
+			}
+			else_if = {
+				limit = { has_landed_title = e_roman_britannia }
+				e_roman_britannia = { 
+					current_heir = { save_event_target_as = worthy_wre_crown }
+				}
+			}
+			else_if = {
+				limit = { has_landed_title = e_eastern_roman_empire }
+				e_eastern_roman_empire = { 
+					current_heir = { save_event_target_as = worthy_wre_crown }
+				}
+			}
+			player_heir = { save_event_target_as = unworthy_wre_crown }
 			any_artifact = { 
-				limit = { artifact_type = crown_byzantine }
-				save_event_target_as = inheriting_artifact_2
+				limit = { artifact_type = crown_wre }
+				save_event_target_as = inheriting_artifact_wrecrown
 			}
 			current_heir = { character_event = { id = HF.20407 days = 1 } }
 		}
@@ -14884,6 +14934,12 @@ character_event = {
 			transfer_artifact = {
 				from = event_target:unworthy_byz_crown
 				to = event_target:worthy_byz_crown
+ 			} 
+ 		}
+		event_target:inheriting_artifact_wrecrown = {
+			transfer_artifact = {
+				from = event_target:unworthy_wre_crown
+				to = event_target:worthy_wre_crown
  			} 
  		}
 		event_target:inheriting_artifact_3 = {
@@ -15962,13 +16018,13 @@ character_event = {
 				# FROMFROM = { any_artifact = { artifact_type = crown_pahlavi } } 
 			# } 
 			AND = {
-				FROM = { title = e_western_roman_empire } 
-				FROMFROM = { any_artifact = { artifact_type = crown_byzantine } } 
-			} 
-			AND = {
 				FROM = { title = e_eastern_roman_empire } 
 				FROMFROM = { any_artifact = { artifact_type = crown_byzantine } } 
 			} 
+			AND = {
+				FROM = { is_roman_empire_title_trigger = yes } 
+				FROMFROM = { any_artifact = { artifact_type = crown_wre } } 
+			}
 			AND = {
 				FROM = { title = d_norse_pagan } 
 				FROMFROM = { any_artifact = { artifact_type = crown_fylkir } } 
@@ -16066,13 +16122,15 @@ character_event = {
 		}
 		if = {
 			limit = {
-				FROM = { title = e_western_roman_empire } 
-				FROMFROM = { any_artifact = { artifact_type = crown_byzantine } } 
+				FROM = { 
+					is_roman_empire_title_trigger = yes
+				} 
+				FROMFROM = { any_artifact = { artifact_type = crown_wre } } 
 			} 
 			FROMFROM = { 
 				any_artifact = { 
-					limit = { artifact_type = crown_byzantine }
-					save_event_target_as = inheriting_artifact_2
+					limit = { artifact_type = crown_wre }
+					save_event_target_as = inheriting_artifact_wrecrown
 				}
 			}
 		}
@@ -16244,6 +16302,12 @@ character_event = {
 				to = ROOT
  			} 
  		}
+		event_target:inheriting_artifact_wrecrown = {
+			transfer_artifact = {
+				from = FROMFROM
+				to = ROOT
+ 			} 
+ 		}
 		event_target:inheriting_artifact_3 = {
 			transfer_artifact = {
 				from = FROMFROM
@@ -16346,12 +16410,13 @@ character_event = {
 				any_artifact = { artifact_type = crown_hre } 
 			}
 			AND = { 
-				has_landed_title = e_eastern_roman_empire 
-				any_artifact = { artifact_type = crown_byzantine }
-			}
-			AND = { 
-				has_landed_title = e_western_roman_empire 
-				any_artifact = { artifact_type = crown_byzantine }
+				is_roman_emperor_trigger = yes
+				any_artifact = { 
+					OR = {
+						artifact_type = crown_byzantine 
+						artifact_type = crown_wre 
+					}
+				}
 			}
 			AND = { 
 				has_landed_title = d_norse_pagan
@@ -16452,16 +16517,14 @@ character_event = {
 			add_trait = dead_crown_hre
 		}
 		if =  { 
-			limit =  { 
-				has_landed_title = e_eastern_roman_empire 
-				any_artifact = { artifact_type = crown_byzantine }
-			}
-			add_trait = dead_crown_byzantine
-		}
-		if =  { 
-			limit =  { 
-				has_landed_title = e_western_roman_empire 
-				any_artifact = { artifact_type = crown_byzantine }
+			limit = { 
+				is_roman_emperor_trigger = yes
+				any_artifact = { 
+					OR = {
+						artifact_type = crown_byzantine 
+						artifact_type = crown_wre 
+					}
+				}
 			}
 			add_trait = dead_crown_byzantine
 		}

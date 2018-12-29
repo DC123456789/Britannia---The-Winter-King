@@ -2204,12 +2204,24 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	immediate = {
+		e_eastern_roman_empire = {
+			holder_scope = {
+				save_event_target_as = eastern_emperor
+			}
+		}
 		e_western_roman_empire = {
 			set_title_landless = {
 				title = THIS
 				status = no
 			}
 			holder_scope = {
+				any_artifact = {
+					limit = { artifact_type = crown_wre }
+					transfer_artifact = {
+						from = PREV
+						to = event_target:eastern_emperor
+					}
+				}
 				death = {
 					death_reason = death_murder
 				}

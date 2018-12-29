@@ -23906,17 +23906,31 @@ transfer_crown_on_abdication_effect = {
 	# }
 	if = {
 		limit = { 
-			is_roman_emperor_trigger = yes
+			has_landed_title = e_eastern_roman_empire
 			any_artifact = { artifact_type = crown_byzantine }
 		}
-			current_heir = { save_event_target_as = crown_byzantine_heir }
-			any_artifact = { 
-				limit = { artifact_type = crown_byzantine }
-				transfer_artifact = {
-					from = PREV
-					to = event_target:crown_byzantine_heir
-				} 
-			}
+		current_heir = { save_event_target_as = crown_byzantine_heir }
+		any_artifact = { 
+			limit = { artifact_type = crown_byzantine }
+			transfer_artifact = {
+				from = PREV
+				to = event_target:crown_byzantine_heir
+			} 
+		}
+	}
+	if = {
+		limit = { 
+			is_roman_emperor_trigger = yes
+			any_artifact = { artifact_type = crown_wre }
+		}
+		current_heir = { save_event_target_as = crown_wre_heir }
+		any_artifact = { 
+			limit = { artifact_type = crown_wre }
+			transfer_artifact = {
+				from = PREV
+				to = event_target:crown_wre_heir
+			} 
+		}
 	}
 	# if = {
 		# limit = { 
@@ -24191,6 +24205,7 @@ transfer_crown_on_abdication_effect = {
 			NOR = {
 				#artifact_type = crown_hre
 				artifact_type = crown_byzantine 
+				artifact_type = crown_wre
 				#artifact_type = crown_pahlavi
 				artifact_type = crown_fylkir
 				artifact_type = crown_tengri_fylkir
