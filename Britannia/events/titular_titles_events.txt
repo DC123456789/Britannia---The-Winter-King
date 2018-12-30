@@ -5429,6 +5429,14 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				factor = 0
 				pays_tribute_to = FROM
 			}
+			modifier = {
+				factor = 0.75
+				FROM = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = aengland_bretwalda_bloodline
+					}
+				}
+			}
 		}
 	}
 }
@@ -5704,6 +5712,13 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 		}
 		clr_character_flag = HK_aengland_claimant
 		clr_global_flag = HK_aengland_claim
+		if = {
+			limit = { NOT = { has_global_flag = first_bretwalda } }
+			create_bloodline = {
+				type = aelle_bretwalda
+			}
+			set_global_flag = first_bretwalda
+		}
 	}
 		
 	option = {
