@@ -1,0 +1,51 @@
+########################################
+#
+# Norse Flavour/Storyline Events
+#
+# IDs 303100 - 303199
+#
+########################################
+
+# Hrothgar gets his bloodline - delay of one day so players get to see it
+character_event = {
+	id = 303100
+	picture = GFX_evt_royal_court
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	only_men = yes
+	has_character_flag = hrothgar_of_zealand
+	
+	trigger = {
+		is_adult = yes
+		OR = {
+			has_landed_title = d_zealand
+			has_landed_title = k_zealand
+			has_landed_title = e_denmark
+		}
+		NOT = { has_character_flag = hrothgar_gained_bloodline }
+	}
+	
+	immediate = {
+		set_character_flag = hrothgar_gained_bloodline
+		character_event = { id = 303101 days = 1 }		
+	}
+}
+
+# Actual event
+character_event = {
+	id = 303101
+	desc = EVTDESC303101
+	picture = GFX_evt_royal_court
+
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA303101
+		prestige = 10
+		create_bloodline = {
+			type = hrothgar
+		}
+	}
+}
