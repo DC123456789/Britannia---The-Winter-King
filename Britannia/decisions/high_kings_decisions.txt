@@ -760,6 +760,86 @@ decisions = {
 		}
 	}
 	
+	HK_britannia_empower_the_high_council = {			# Britannia reform 3
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_established_central_mint
+			NOT = { has_global_flag = britannia_empowered_high_council }
+			NOT = { has_character_flag = britannia_empowering_high_council }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			diplomacy = 12
+			martial = 10
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			capital_scope = {
+				TECH_MAJESTY = 3
+				TECH_LEGALISM = 3
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.7
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			set_character_flag = britannia_empowering_high_council
+			any_independent_ruler = {
+				limit = {
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+				custom_tooltip = {
+					text = centralize_realm_soissons_tooltip
+				}
+			}
+			custom_tooltip = {
+				text = HK_britannia_empower_the_high_council_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 302920 days = 3 }
+				character_event = { id = 302924 days = 5 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
 		only_independent = yes
 		is_high_prio = yes

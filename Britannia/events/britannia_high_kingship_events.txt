@@ -2553,6 +2553,70 @@ character_event = {
 	}
 }
 
+# on_new_holder high_king_britannia_score initialization
+character_event = {
+	id = 302913
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = { title = e_britannia }
+		NOT = {
+			check_variable = { 
+				which = high_king_britannia_score
+				value = 0.01
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			which = high_king_britannia_score
+			value = 0
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# on_startup high_king_britannia_score initialization
+character_event = {
+	id = 302914
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = e_britannia
+		NOT = {
+			check_variable = { 
+				which = high_king_britannia_score
+				value = 0.01
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			which = high_king_britannia_score
+			value = 0
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
 narrative_event = {		# Establishing a Central Mint
 	id = 302915
 	title = "EVTNAME302915"
@@ -2715,6 +2779,330 @@ narrative_event = {		# Establishing a Central Mint
 					name = britannia_mint_modifier
 					duration = -1
 				}
+			}
+		}
+	}
+}
+
+# Empower the High Council - Bounce demand to each Subject Kingdom
+character_event = {
+	id = 302920
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = e_britannia
+	}
+	
+	immediate = {
+		any_independent_ruler = {
+			limit = {
+				is_tributary = {
+					type = britannia_subject
+					suzerain = ROOT
+				}
+			}
+			character_event = { id = 302921 }
+		}
+	}
+}
+
+# Demand to Subject Kingdoms
+letter_event = {
+	id = 302921
+	desc = "EVTDESC302921"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = "EVTOPTA302921"
+		prestige = -50
+		reverse_opinion = {
+			modifier = opinion_accepted_vassalage
+			who = FROM
+			years = 10
+		}
+		FROM = { character_event = { id = 302922 } }
+		custom_tooltip = {
+			text = EVTOPTA302921TT
+		}
+		tooltip = {
+			FROM = { remove_tributary = ROOT }
+			any_demesne_title = {
+				limit = { tier = EMPEROR }
+				destroy_landed_title = THIS
+			}
+			set_defacto_liege = FROM
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					trait = ambitious
+					trait = unloyal
+					NOT = { opinion = { who = FROM value = 20 } }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = FROM value = 40 } }
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 1500
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 2000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 2500
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 3000
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture_group = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROM }
+			}
+			modifier = {
+				factor = 3
+				has_non_aggression_pact_with = FROM
+			}
+		}
+	}
+	
+	option = {			# Never!
+		name = "EVTOPTB302921"
+		prestige = 60
+		reverse_opinion = {
+			modifier = opinion_furious
+			who = FROM
+			years = 10
+		}
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 0
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 2
+				is_tribal = yes
+			}
+			modifier = {
+				factor = 1.5
+				is_roman_culture_trigger = no
+			}
+			modifier = {
+				factor = 1.25
+				higher_tier_than = DUKE
+			}
+		}
+		FROM = { character_event = { id = 302923 } }
+		custom_tooltip = {
+			text = EVTOPTB302921TT
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { NOT = { any_independent_ruler = { has_character_flag = britannia_revolt_leader } } }
+				set_character_flag = britannia_revolt_leader
+				set_global_flag = empowering_high_council_war
+				any_war = {
+					limit = { attacker = { character = ROOT } }
+					end_war = whitepeace
+				}
+				war = {
+					casus_belli = depose_high_king_britannia_revolt_cb
+					target = e_britannia					
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							owner = ROOT
+							province = PREV
+							troops = {
+								archers = { 100 100 }
+								pikemen = { 100 100 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 400 400 }
+								light_cavalry = { 50 50 }
+							}
+							attrition = 1.0
+							disband_on_peace = yes
+							maintenance_multiplier = 0.5
+						}
+					}
+				}
+			}
+			else = {
+				any_independent_ruler = {
+					limit = { has_character_flag = britannia_revolt_leader }
+					ROOT = { join_attacker_wars = PREV }
+				}
+			}
+		}
+	}
+}
+
+# Subject Kingdom accepts
+letter_event = {
+	id = 302922
+	desc = "EVTDESC302922"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302922"
+		prestige = 50
+	}
+}
+
+# Subject Kingdom refuses
+letter_event = {
+	id = 302923
+	desc = "EVTDESC302923"
+	picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302923"
+	}
+}
+
+# Victory - vassalize all Subject Kingdoms
+narrative_event = {
+	id = 302924
+	title = "EVTNAME302924"
+	desc = "EVTDESC302924"
+	picture = "GFX_evt_royal_court"
+	major = yes
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			has_global_flag = empowering_high_council_war
+		}
+		has_landed_title = e_britannia
+	}
+	
+	immediate = {
+		clr_character_flag = britannia_empowering_high_council
+		any_tributary = {
+			limit = { is_tributary = { type = britannia_subject } }
+			set_character_flag = was_britannia_tributary
+			ROOT = { remove_tributary = PREV }
+			if = {
+				limit = { tier = EMPEROR }
+				any_vassal = {
+					limit = {
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									higher_tier_than = PREVPREV
+									NOT = { higher_tier_than = KING }
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				any_demesne_title = {
+					limit = { tier = EMPEROR }
+					destroy_landed_title = THIS
+				}
+			}
+			set_defacto_liege = ROOT
+		}
+	}
+	
+	option = {				# High King
+		name = "EVTOPTA302924"
+		trigger = {
+			character = ROOT
+		}
+		custom_tooltip = {
+			text = EVTOPTA302924_tooltip
+		}
+	}
+	
+	option = {				# Defeated Kings
+		name = "EVTOPTB302924"
+		trigger = {
+			has_character_flag = defeated_britannia_rebel
+		}
+		clr_character_flag = defeated_britannia_rebel
+		clr_character_flag = was_britannia_tributary
+		tooltip = {
+			set_defacto_liege = ROOT
+		}
+	}
+	
+	option = {				# Vassalized Kings
+		name = "EVTOPTC302924"
+		trigger = {
+			NOT = { has_character_flag = defeated_britannia_rebel }
+			has_character_flag = was_britannia_tributary
+		}
+		clr_character_flag = was_britannia_tributary
+		tooltip = {
+			set_defacto_liege = ROOT
+		}
+	}
+	
+	option = {				# Other vassals
+		name = "EVTOPTE302924"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+				has_character_flag = was_britannia_tributary
+			}
+			top_liege = { character = ROOT }
+		}
+	}
+	
+	option = {				# Others
+		name = "EVTOPTF302924"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+				has_character_flag = was_britannia_tributary
+				top_liege = { character = ROOT }
 			}
 		}
 	}

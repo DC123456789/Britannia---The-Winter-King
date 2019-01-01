@@ -4875,6 +4875,7 @@ depose_high_king_britannia_revolt_cb = {
 	on_success = {
 		clr_global_flag = claiming_imperium_britanniarum_410
 		clr_global_flag = claiming_imperium_britanniarum_war
+		clr_global_flag = empowering_high_council_war
 		
 		FROM = {
 			prestige = -500
@@ -4888,42 +4889,97 @@ depose_high_king_britannia_revolt_cb = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 150 }
 		}
-		custom_tooltip = {
-			text = depose_high_king_britannia_cb_succ_tip
-		}
-		hidden_tooltip = {
-			FROM = { character_event = { id = 312166 } }
-			ROOT = {
-				if = {
-					limit = {
-						is_tributary = yes
-						suzerain = {
-							OR = {
-								character = FROM
-								any_liege = {
+		if = {
+			limit = { NOT = { has_global_flag = britannia_formalized_high_kingship } }
+			custom_tooltip = {
+				text = depose_high_king_britannia_cb_succ_tip
+			}
+			hidden_tooltip = {
+				FROM = { character_event = { id = 312166 } }
+				ROOT = {
+					if = {
+						limit = {
+							is_tributary = yes
+							suzerain = {
+								OR = {
 									character = FROM
+									any_liege = {
+										character = FROM
+									}
 								}
 							}
 						}
+						suzerain = {
+							remove_tributary = PREV
+						}
 					}
-					suzerain = {
-						remove_tributary = PREV
+					any_vassal = {
+						limit = {
+							is_tributary = yes
+							suzerain = {
+								OR = {
+									character = FROM
+									any_liege = {
+										character = FROM
+									}
+								}
+							}
+						}
+						suzerain = {
+							remove_tributary = PREV
+						}
 					}
 				}
-				any_vassal = {
-					limit = {
-						is_tributary = yes
-						suzerain = {
+			}
+		}
+		else = {		# Standard depose liege effect
+			FROM = {
+				if = {
+					limit = { NOT = { has_dlc = "Zeus" } }
+					any_demesne_title = { # All titles
+						limit = {
 							OR = {
-								character = FROM
-								any_liege = {
-									character = FROM
-								}
+								tier = king
+								tier = emperor
 							}
+		#					is_titular = no
+							NOT = { has_law = crown_authority_0 }
+						}
+						if = {
+							limit = { has_law = crown_authority_1 }
+							add_law = crown_authority_0
+						}
+						if = {
+							limit = { has_law = crown_authority_2 }
+							add_law = crown_authority_1
+						}
+						if = {
+							limit = { has_law = crown_authority_3 }
+							add_law = crown_authority_2
+						}
+						if = {
+							limit = { has_law = crown_authority_4 }
+							add_law = crown_authority_3
 						}
 					}
-					suzerain = {
-						remove_tributary = PREV
+				}
+				
+				primary_title = { set_title_flag = former_primary_title }
+				if = {
+					limit = { NOT = { government = tribal_government } }
+					abdicate = yes
+				}
+			}
+			
+			# Transfer foederati
+			hidden_tooltip = {
+				any_title = { 
+					limit = { 
+						has_title_flag = former_primary_title 
+						higher_tier_than = COUNT
+					}
+					holder_scope = { 
+						character_event = { id = foederati.21 } 
 					}
 				}
 			}
@@ -4931,25 +4987,36 @@ depose_high_king_britannia_revolt_cb = {
 	}
 
 	on_fail = {
-		clr_global_flag = claiming_imperium_britanniarum_410
-		clr_global_flag = claiming_imperium_britanniarum_war
 		ROOT = {
 			prestige = -100
 		}
 		FROM = {
 			prestige = 100
+			if = {
+				limit = { has_global_flag = empowering_high_council_war }
+				hidden_tooltip = {
+					add_character_modifier = {
+						name = recently_raised_high_king_authority
+						years = 10
+					}
+				}
+			}
 		}
+		clr_global_flag = claiming_imperium_britanniarum_410
+		clr_global_flag = claiming_imperium_britanniarum_war
+		clr_global_flag = empowering_high_council_war
 	}
 
 	on_reverse_demand = {
-		clr_global_flag = claiming_imperium_britanniarum_410
-		clr_global_flag = claiming_imperium_britanniarum_war
 		ROOT = {
 			prestige = -100
-			tooltip = {
-				any_demesne_title = {
-					limit = { higher_tier_than = DUKE }
-					destroy_landed_title = THIS
+			if = {
+				limit = { has_global_flag = claiming_imperium_britanniarum_war }
+				tooltip = {
+					any_demesne_title = {
+						limit = { higher_tier_than = DUKE }
+						destroy_landed_title = THIS
+					}
 				}
 			}
 			set_character_flag = defeated_britannia_rebel
@@ -4963,19 +5030,33 @@ depose_high_king_britannia_revolt_cb = {
 				}
 			}
 			prestige = -100
-			tooltip = {
-				any_demesne_title = {
-					limit = { higher_tier_than = DUKE }
-					destroy_landed_title = THIS
+			if = {
+				limit = { has_global_flag = claiming_imperium_britanniarum_war }
+				tooltip = {
+					any_demesne_title = {
+						limit = { higher_tier_than = DUKE }
+						destroy_landed_title = THIS
+					}
 				}
 			}
 			set_character_flag = defeated_britannia_rebel
 		}
 
+		
 		FROM = {
 			prestige = 200
-			hidden_tooltip = { character_event = { id = 302906 } }
+			if = {
+				limit = { has_global_flag = claiming_imperium_britanniarum_war }
+				hidden_tooltip = { character_event = { id = 302906 } }
+			}
+			else_if = {
+				limit = { has_global_flag = empowering_high_council_war }
+				hidden_tooltip = { character_event = { id = 302924 } }
+			}
 		}
+		clr_global_flag = claiming_imperium_britanniarum_410
+		clr_global_flag = claiming_imperium_britanniarum_war
+		clr_global_flag = empowering_high_council_war
 	}
 	
 	on_defender_leader_death = {
