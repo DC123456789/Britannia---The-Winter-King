@@ -855,7 +855,7 @@ decisions = {
 			piety = 1000
 			diplomacy = 10
 			learning = 12
-			ruled_years = 10
+			#ruled_years = 10
 			age = 30
 			war = no
 			wealth = 300
@@ -929,17 +929,81 @@ decisions = {
 			wealth = -300
 			piety = -500
 			set_global_flag = britannia_centralized_church
-			# tooltip = {
-				# capital_holding = {
-					# if = {
-						# limit = { holding_type = castle }
-						# add_building = ca_britannia_mint
-					# }
-					# else = {
-						# add_building = ct_britannia_mint
-					# }
-				# }
-			# }
+			if = {
+				limit = {
+					OR = {
+						religion_group = christian
+						religion_group = gnostic_group
+					}
+				}
+				47 = {
+					show_scope_change = no
+					random_province_holding = {
+						limit = { holding_type = temple }
+						set_title_flag = britannia_cathedral_holding
+						add_building = tp_britannia_london_cathedral
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					capital_scope = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+				}
+				capital_scope = {
+					show_scope_change = no
+					random_province_holding = {
+						limit = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+						set_title_flag = britannia_state_church_seat_holding
+						add_building = tp_britannia_state_church_seat
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_demesne_province = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+				}
+				random_demesne_province = {
+					limit = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+					show_scope_change = no
+					random_province_holding = {
+						limit = {
+							holding_type = temple
+							is_liege_or_above = ROOT
+						}
+						set_title_flag = britannia_state_church_seat_holding
+						add_building = tp_britannia_state_church_seat
+					}
+				}
+			}
+			else = {
+				random_realm_title = {
+					limit = {
+						tier = BARON
+						holding_type = temple
+						holder_scope = { is_liege_or_above = ROOT }
+					}
+					set_title_flag = britannia_state_church_seat_holding
+					add_building = tp_britannia_state_church_seat
+				}
+			}
 			tooltip = {
 				add_character_modifier = {
 					name = britannia_centralized_church_modifier

@@ -3104,3 +3104,152 @@ narrative_event = {
 		}
 	}
 }
+
+narrative_event = {		# Centralizing the Church
+	id = 302930
+	title = {
+		text = EVTNAME302930_christian
+		trigger = {
+			ROOT = {
+				OR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+	}
+	title = {
+		text = EVTNAME302930_pagan
+		trigger = {
+			ROOT = {
+				NOR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC302930_christian
+		trigger = {
+			ROOT = {
+				OR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC302930_pagan
+		trigger = {
+			ROOT = {
+				NOR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+	}
+    picture = { 
+		trigger = {
+			ROOT = {
+				OR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+        picture = GFX_evt_roman_town_forum
+    }
+    picture = { 
+		trigger = {
+			ROOT = {
+				NOR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+        picture = GFX_evt_roman_town_forum
+    }
+	major = yes
+	
+	is_triggered_only = yes
+	
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				region = world_britannia
+			}
+			top_liege = {
+				OR = {
+					has_landed_title = e_britannia
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = britannia_centralized_church
+		add_character_modifier = {
+			name = recently_raised_high_king_authority
+			years = 10
+		}
+		any_vassal = {
+			limit = {
+				primary_title = { defacto_liege_title = { title = e_britannia } }
+			}
+			opinion = {
+				who = ROOT
+				modifier = opinion_raised_high_king_authority
+				months = 60
+			}
+		}
+		
+		# Save proper religion event target
+		if = {
+			limit = {				
+				NOR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+			religion_scope = { save_global_event_target_as = britannia_centralized_church_religion }
+		}
+		
+		# Add mint building modifier
+		add_character_modifier = {
+			name = britannia_centralized_church_modifier
+			duration = -1
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302930"		# High King
+		trigger = {
+			has_landed_title = e_britannia
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB302930"		# Vassals
+		trigger = {
+			top_liege = { has_landed_title = e_britannia }
+			NOT = { has_landed_title = e_britannia }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC302930"		# Other Rulers
+		trigger = {
+			NOR = { 
+				top_liege = { has_landed_title = e_britannia }
+			}
+		}
+	}
+}

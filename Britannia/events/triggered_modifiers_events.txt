@@ -3542,6 +3542,58 @@ character_event = {
 		remove_character_modifier = britannia_mint_modifier
 	}
 }
+# Britannia Centralized Church Modifier
+character_event = {
+	id = 301964
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = britannia_centralized_church_modifier }
+		has_global_flag = britannia_centralized_church
+		OR = {
+			has_landed_title = e_britannia
+			has_landed_title = e_roman_britannia
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = {
+			modifier = britannia_centralized_church_modifier
+			duration = -1
+		}
+	}
+}
+character_event = {
+	id = 301965
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = britannia_centralized_church_modifier
+		NAND = {
+			has_global_flag = britannia_centralized_church
+			OR = {
+				has_landed_title = e_britannia
+				has_landed_title = e_roman_britannia
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = britannia_centralized_church_modifier
+	}
+}
 
 character_event = {
 	id = 301999
@@ -3614,6 +3666,8 @@ character_event = {
 			has_character_modifier = imperial_negative_money_2
 			has_character_modifier = imperial_negative_money_3
 			has_character_modifier = imperial_negative_money_4
+			has_character_modifier = britannia_mint_modifier
+			has_character_modifier = britannia_centralized_church_modifier
 		}
 	}
 	
@@ -3681,5 +3735,6 @@ character_event = {
 		remove_character_modifier = imperial_negative_money_3
 		remove_character_modifier = imperial_negative_money_4
 		remove_character_modifier = britannia_mint_modifier
+		remove_character_modifier = britannia_centralized_church_modifier
 	}
 }
