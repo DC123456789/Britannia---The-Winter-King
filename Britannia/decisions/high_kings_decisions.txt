@@ -840,6 +840,108 @@ decisions = {
 		}
 	}
 	
+	
+	HK_britannia_centralize_the_church = {			# Britannia reform 4
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_empowered_high_council
+			NOT = { has_global_flag = britannia_centralized_church }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 3000
+			piety = 1000
+			diplomacy = 10
+			learning = 12
+			ruled_years = 10
+			age = 30
+			war = no
+			wealth = 300
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			OR = {
+				has_religion_feature = religion_no_leader
+				AND = {
+					custom_tooltip = {
+						text = has_religious_head
+						religion_head = {
+							always = yes
+						}
+					}
+					religion_head = {
+						OR = {
+							top_liege = { character = ROOT }
+							opinion = {
+								who = ROOT
+								value = 60
+							}
+						}
+					}
+				}
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.75
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			wealth = -300
+			peity = -500
+			set_global_flag = britannia_centralized_church
+			# tooltip = {
+				# capital_holding = {
+					# if = {
+						# limit = { holding_type = castle }
+						# add_building = ca_britannia_mint
+					# }
+					# else = {
+						# add_building = ct_britannia_mint
+					# }
+				# }
+			# }
+			# tooltip = {
+				# add_character_modifier = {
+					# name = britannia_centralized_church_modifier
+					# duration = -1
+				# }
+			# }
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302930 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
 		only_independent = yes
 		is_high_prio = yes
