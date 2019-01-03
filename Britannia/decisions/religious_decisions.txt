@@ -7,12 +7,12 @@ decisions = {
 	
 		potential = {
 			is_playable = yes
-			religion = arian
-			NOT = { has_global_flag = arian_papacy_created }
-			d_arian_papacy = {
-				has_holder = no
+			religion_group = christian
+			NOT = {
+				religion_head = {
+					always = yes
+				}
 			}
-			has_dlc = "Sons of Abraham"
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
@@ -21,37 +21,82 @@ decisions = {
 		allow = {
 			independent = yes
 			higher_tier_than = DUKE
-			piety = 1000
-			completely_controls = c_poitou
-			completely_controls = c_lutetia 
-			completely_controls = c_lugdunum
+			religion_authority = 0.2
+			realm_size = 150
+			piety = 750
+			OR = {
+				any_realm_title = {
+					is_holy_site = ROOT
+				}
+				piety = 1200
+			}
+			custom_tooltip = {
+				text = at_least_25_ROOT_religion_provinces_tooltip
+				any_realm_province = {
+					religion = ROOT
+					count = 25
+				}
+			}
 		}
 		
 		effect = {
-			activate_title = { title = d_arian_papacy status = yes }
-			hidden_tooltip = {
-				create_random_priest = {
-					random_traits = yes
-				}
-				new_character = {
-					d_arian_papacy = {
-						grant_title = PREV
-					}
-					wealth = 500
-					opinion = {
-						who = ROOT
-						modifier = opinion_creator_of_rel_heal
-					}
-					set_defacto_liege = PREV
-				}
-				
-				religion_authority = {
-					modifier = papacy_instituted
-					years = 20
+			if = {
+				limit = { religion = pelagian }
+				d_pelagian = {
+					activate_title = { title = d_pelagian status = yes }
+					save_event_target_as = new_rel_head_title
 				}
 			}
-			piety = 1000
-			set_global_flag = arian_papacy_created
+			else_if = {
+				limit = { religion = priscillian }
+				d_priscillian = {
+					activate_title = { title = d_priscillian status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = nestorian }
+				d_nestorian = {
+					activate_title = { title = d_nestorian status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = arian }
+				d_arian_papacy = {
+					activate_title = { title = d_arian_papacy status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = gnostic }
+				d_gnostic = {
+					activate_title = { title = d_gnostic status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			hidden_tooltip = {
+				ROOT = {
+					create_random_priest = {
+						random_traits = yes
+					}
+					new_character = {
+						grant_title = event_target:new_rel_head_title
+						wealth = 500
+						opinion = {
+							who = ROOT
+							modifier = opinion_creator_of_rel_heal
+						}
+						set_defacto_liege = PREV
+					}
+					
+					religion_authority = {
+						modifier = papacy_instituted
+						years = 20
+					}
+				}
+			}
+			piety = 200
 			hidden_tooltip = {
 				narrative_event = { id = 39100 }
 			}
