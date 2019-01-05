@@ -3330,3 +3330,72 @@ narrative_event = {		# Codifying the Succession
 		}
 	}
 }
+
+narrative_event = {		# Unifying the Legal Codes
+	id = 302940
+	title = "EVTNAME302940"
+	desc = "EVTDESC302940"
+	picture = GFX_evt_council
+	major = yes
+	
+	is_triggered_only = yes
+	
+	major_trigger = {
+		OR = {
+			capital_scope = {
+				region = world_britannia
+			}
+			top_liege = {
+				OR = {
+					has_landed_title = e_britannia
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = britannia_unified_legal_code
+		add_character_modifier = {
+			name = recently_raised_high_king_authority
+			years = 10
+		}
+		any_vassal = {
+			limit = {
+				primary_title = { defacto_liege_title = { title = e_britannia } }
+			}
+			opinion = {
+				who = ROOT
+				modifier = opinion_raised_high_king_authority
+				months = 60
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302940"		# High King
+		trigger = {
+			has_landed_title = e_britannia
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB302940"		# Vassals
+		trigger = {
+			top_liege = { has_landed_title = e_britannia }
+			NOT = { has_landed_title = e_britannia }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC302940"		# Other Rulers
+		trigger = {
+			NOR = { 
+				top_liege = { has_landed_title = e_britannia }
+			}
+		}
+	}
+}

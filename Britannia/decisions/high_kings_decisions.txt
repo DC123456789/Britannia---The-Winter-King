@@ -1032,7 +1032,6 @@ decisions = {
 			prestige = 5000
 			diplomacy = 12
 			stewardship = 10
-			wealth = 400
 			ruled_years = 10
 			age = 30
 			war = no
@@ -1047,9 +1046,6 @@ decisions = {
 				trait = blinded 
 				trait = imbecile
 				trait = eunuch
-			}
-			capital_scope = {
-				TECH_LEGALISM = 4
 			}
 			NOT = {
 				any_vassal = {
@@ -1099,6 +1095,73 @@ decisions = {
 			}
 			hidden_tooltip = {
 				ROOT = { narrative_event = { id = 302935 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_unify_the_legal_codes = {			# Britannia reform 6
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_formalized_heir
+			NOT = { has_global_flag = britannia_unified_legal_code }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			learning = 12
+			diplomacy = 10
+			wealth = 250
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			capital_scope = {
+				TECH_LEGALISM = 4
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.85
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			wealth = -250
+			custom_tooltip = {
+				text = HK_britannia_unify_the_legal_codes_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302940 } }
 			}
 		}
 		
