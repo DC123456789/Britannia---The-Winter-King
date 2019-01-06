@@ -1183,6 +1183,7 @@ decisions = {
 			has_landed_title = e_britannia
 			has_global_flag = britannia_unified_legal_code
 			NOT = { has_global_flag = britannia_reclaimed_caratacus_legacy }
+			NOT = { has_global_flag = britannia_restored_senate }
 		}
 		allow = {
 			is_feudal = yes
@@ -1218,6 +1219,57 @@ decisions = {
 			}				
 			hidden_tooltip = {
 				ROOT = { narrative_event = { id = 302945 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_restore_the_senate = {			# Britannia reform 7 - Roman path
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_unified_legal_code
+			NOT = { has_global_flag = britannia_reclaimed_caratacus_legacy }
+			NOT = { has_global_flag = britannia_restored_senate }
+		}
+		allow = {
+			is_romanized_government_trigger = yes
+			prestige = 5000
+			wealth = 300
+			diplomacy = 15
+			learning = 12
+			stewardship = 10
+			ruled_years = 10
+			age = 30
+			war = no
+			is_roman_culture_trigger = yes
+			e_western_roman_empire = { has_holder = no }
+			NOR = {
+				trait = shy
+				trait = uneducated
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			completely_controls_region = world_britannia
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			#wealth = -300
+			custom_tooltip = {
+				text = HK_britannia_restore_the_senate_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302950 } }
 			}
 		}
 		

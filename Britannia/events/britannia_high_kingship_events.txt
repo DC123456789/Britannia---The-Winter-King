@@ -3416,16 +3416,6 @@ narrative_event = {		# Reclaiming the Legacy of Caratacus
 			name = recently_raised_high_king_authority
 			years = 10
 		}
-		any_vassal = {
-			limit = {
-				primary_title = { defacto_liege_title = { title = e_britannia } }
-			}
-			opinion = {
-				who = ROOT
-				modifier = opinion_raised_high_king_authority
-				months = 60
-			}
-		}
 		add_character_modifier = {
 			name = britannia_heir_of_caratacus
 			duration = -1
@@ -3478,6 +3468,72 @@ narrative_event = {		# Reclaiming the Legacy of Caratacus
 				culture = pictish
 				culture = armorican
 				culture = breton
+			}
+		}
+	}
+}
+
+narrative_event = {		# Restoring the Imperial Senate
+	id = 302950
+	title = "EVTNAME302950"
+	desc = "EVTDESC302950"
+	picture = GFX_evt_roman_town_forum
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = britannia_restored_senate
+		ROOT = { character_event = { id = 315100 } }
+		any_vassal = {
+			limit = { is_roman_culture_trigger = no }
+			opinion = {
+				who = ROOT
+				modifier = opinion_britannia_restored_senate
+				months = 180
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA302950"		# High King
+		trigger = {
+			has_landed_title = e_britannia
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB302950"		# Roman Vassals
+		trigger = {
+			top_liege = { has_landed_title = e_britannia }
+			NOT = { has_landed_title = e_britannia }
+			is_roman_culture_trigger = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC302950"		# Non-Roman Vassals
+		trigger = {
+			top_liege = { has_landed_title = e_britannia }
+			NOT = { has_landed_title = e_britannia }
+			is_roman_culture_trigger = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD302950"		# Other Romans
+		trigger = {
+			NOT = { top_liege = { has_landed_title = e_britannia } }
+			is_roman_culture_trigger = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTE302950"		# Other Rulers
+		trigger = {
+			NOR = { 
+				top_liege = { has_landed_title = e_britannia }
+				is_roman_culture_trigger = yes
 			}
 		}
 	}
