@@ -660,6 +660,7 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			custom_tooltip = {
 				text = HK_britannia_formalize_high_kingship_tooltip
 			}
@@ -729,6 +730,7 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			wealth = -400
 			custom_tooltip = {
 				text = HK_britannia_establish_central_mint_tooltip
@@ -814,6 +816,7 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			set_character_flag = britannia_empowering_high_council
 			any_independent_ruler = {
 				limit = {
@@ -925,6 +928,7 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			wealth = -300
 			piety = -300
 			set_global_flag = britannia_centralized_church
@@ -1081,6 +1085,7 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			custom_tooltip = {
 				text = HK_britannia_formalize_succession_tooltip
 			}
@@ -1156,12 +1161,63 @@ decisions = {
 		}
 		
 		effect = {
+			prestige = -500
 			wealth = -250
 			custom_tooltip = {
 				text = HK_britannia_unify_the_legal_codes_tooltip
 			}				
 			hidden_tooltip = {
 				ROOT = { narrative_event = { id = 302940 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_reclaim_caratacus_legacy = {			# Britannia reform 7 - Brythonic path
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_unified_legal_code
+			NOT = { has_global_flag = britannia_reclaimed_caratacus_legacy }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			martial = 15
+			diplomacy = 12
+			ruled_years = 10
+			age = 30
+			war = no
+			is_brythonic_culture_trigger = yes
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			completely_controls_region = world_britannia
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			tooltip = {
+				add_character_modifier = {
+					name = britannia_heir_of_caratacus
+					duration = -1
+				}
+			}
+			custom_tooltip = {
+				text = HK_britannia_reclaim_caratacus_legacy_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302945 } }
 			}
 		}
 		

@@ -525,7 +525,7 @@ imperial_reclaim = {
 								county = { region = custom_wre }
 								location = { region = custom_wre }
 							}
-							NOT = { duchy = { title = event_target:conquered_duchy } }
+							NOT = { location = { duchy = { title = event_target:conquered_duchy } } }
 						}
 						usurp_title = PREVPREV
 					}
@@ -534,7 +534,7 @@ imperial_reclaim = {
 							capital_scope = {
 								OR = {
 									NOT = { region = custom_wre }
-									NOT = { duchy = { title = event_target:conquered_duchy } }
+									NOT = { location = { duchy = { title = event_target:conquered_duchy } } }
 								}
 							}
 						}
@@ -607,7 +607,7 @@ imperial_reclaim = {
 									county = { region = custom_wre }
 									location = { region = custom_wre }
 								}
-								NOT = { duchy = { title = event_target:conquered_duchy } }
+								NOT = { location = { duchy = { title = event_target:conquered_duchy } } }
 							}
 							usurp_title = PREVPREV
 						}
@@ -2565,7 +2565,7 @@ cultural_reconquest = {
 	name = CB_NAME_CULTURAL_RECONQUEST
 	war_name = WAR_NAME_CULTURAL_RECONQUEST
 	sprite = 6
-	truce_days = 1095
+	truce_days = 2190
 	hostile_against_others = yes
 	is_permanent = yes
 	check_all_titles = yes # if permanent, setting this to true will check against all of someones titles, including vassal held titles
@@ -2874,6 +2874,389 @@ cultural_reconquest = {
 				independent = no
 			}
 		}		
+	}	
+}
+cultural_reconquest_duchy = {
+	name = CB_NAME_CULTURAL_RECONQUEST
+	war_name = WAR_NAME_CULTURAL_RECONQUEST
+	sprite = 6
+	truce_days = 1095
+	hostile_against_others = yes
+	is_permanent = yes
+	check_all_titles = yes # if permanent, setting this to true will check against all of someones titles, including vassal held titles
+	press_claim = yes
+	can_ask_to_join_war = yes
+	can_attack_vassals = yes
+	reflect_titleholder_change = yes
+	check_de_jure_tier = DUKE # this scans all dejure duchies for the counties which are held by or vassals(or below) of selected character. Only valid if is_permanent = yes
+	
+	allowed_to_target_tributaries = no
+	
+	sort_priority = 1000
+	
+	can_use_gui = {
+		ROOT = {
+			prestige = 3000
+			martial = 15
+			is_adult = yes
+			NOR = {
+				is_incapable = yes
+				trait = weak
+				trait = imbecile
+				trait = slow
+			}
+			prisoner = no
+			culture_group = celtic
+		}
+	}
+	
+	can_use = {
+		ROOT = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_reclaimed_caratacus_legacy			
+		}
+		FROM = {		# Not if can use the Subjugation cb instead
+			NOR = {
+				culture_group = celtic
+				primary_title = {
+					OR = {
+						capital_scope = {
+							OR = {
+								region = world_gaul_lugdunensis_armorica
+								region = world_ireland
+								region = world_caledonia
+							}
+						}
+						empire = { title = e_armorica }
+					}
+				}
+			}
+		}
+	}
+
+	is_valid = {
+		ROOT = {
+			NOT = { same_realm = FROM }
+			culture_group = celtic
+		}
+	}
+	
+	can_use_title = {
+		tier = DUKE
+		# The attacker needs at least one county in the target duchy, or a border, or be only one sea zone away from one of your counties
+		any_direct_de_jure_vassal_title = {
+			OR = {
+				holder_scope = {
+					OR = {
+						character = ROOT
+						is_liege_or_above = ROOT
+					}
+				}
+				location = {
+					any_neighbor_province = {
+						OR = {
+							AND = {
+								has_owner = yes
+								owner = {
+									OR = {
+										character = ROOT
+										is_liege_or_above = ROOT
+									}
+								}
+							}
+							AND = {
+								is_land = no
+								any_neighbor_province = {
+									has_owner = yes
+									owner = {
+										OR = {
+											character = ROOT
+											is_liege_or_above = ROOT
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		capital_scope = {
+			OR = {
+				region = world_britannia
+				region = world_ireland
+				region = world_caledonia
+				region = world_armorica
+			}
+		}
+		OR = {
+			FROM = {
+				has_landed_title = PREV
+			}
+			holder_scope = {
+				is_liege_or_above = FROM
+				NOT = { same_realm = ROOT }
+			}
+		}
+	}
+	
+	is_valid_title = {
+		any_direct_de_jure_vassal_title = {
+			holder_scope = {
+				OR = {
+					is_liege_or_above = FROM
+					character = FROM
+				}
+				NOT = { same_realm = ROOT }
+			}
+		}
+	}
+	
+	on_add = {
+		ROOT = {
+			prestige = -150
+		}
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+	}
+
+	on_success_title = {
+		custom_tooltip = {
+			text = cultural_reconquest_duchy_tooltip
+		}
+		hidden_tooltip = {
+			save_event_target_as = conquered_duchy
+			# Try to vassalize any same culture group lords first
+			ROOT_FROM = {
+				any_realm_lord = {
+					limit = {
+						capital_scope = {
+							duchy = { title = event_target:conquered_duchy }
+						}
+						culture_group = ROOT
+						higher_tier_than = BARON
+					}
+					set_defacto_liege = ROOT
+					opinion = {
+						modifier = opinion_subjugated
+						who = ROOT
+						months = 120
+					}
+					any_demesne_title = {
+						limit = {
+							lower_tier_than = DUKE
+							NOT = { location = { duchy = { title = event_target:conquered_duchy } } }
+						}
+						usurp_title = PREVPREV
+					}
+					any_realm_lord = {
+						limit = {
+							capital_scope = {
+								NOT = { duchy = { title = event_target:conquered_duchy } }
+							}
+						}
+						set_character_flag = not_conquered_character
+						set_defacto_liege = PREVPREV
+					}
+				}
+				# Vassalize FROM if same culture group and holds nothing outside the duchy
+				if = {
+					limit = {
+						culture_group = ROOT
+						NOT = {
+							any_realm_province = {
+								duchy = { NOT = { title = event_target:conquered_duchy } }
+							}
+						}
+					}
+					if = {
+						limit = {
+							NOT = {
+								any_demesne_title = {
+									OR = {
+										tier = COUNT
+										tier = DUKE
+									}
+								}
+							}
+						}
+						any_vassal = {
+							set_defacto_liege = ROOT
+						}
+					}
+					any_demesne_title = {
+						limit = {
+							higher_tier_than = DUKE
+						}
+						destroy_landed_title = THIS
+					}
+					set_defacto_liege = ROOT
+					opinion = {
+						modifier = opinion_subjugated
+						who = ROOT
+						months = 120
+					}
+				}
+				else = {
+					# Vassalize all remaining Roman baron-tier characters
+					any_realm_lord = {
+						limit = {
+							capital_scope = {
+								duchy = { title = event_target:conquered_duchy }
+							}
+							culture_group = ROOT
+							tier = BARON
+						}
+						set_defacto_liege = ROOT
+						opinion = {
+							modifier = opinion_subjugated
+							who = ROOT
+							months = 120
+						}
+						any_demesne_title = {
+							limit = {
+								lower_tier_than = DUKE
+								NOT = { location = { duchy = { title = event_target:conquered_duchy } } }
+							}
+							usurp_title = PREVPREV
+						}
+					}
+				}
+			}
+			# Directly take any remaining titles
+			any_direct_de_jure_vassal_title = {
+				if = {
+					limit = {
+						holder_scope = {
+							OR = {
+								character = FROM
+								is_liege_or_above = FROM
+							}
+							NOR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
+						}
+					}
+					location = {
+						any_province_holding = {
+							limit = {
+								holder_scope = {
+									OR = {
+										character = FROM
+										is_liege_or_above = FROM
+									}
+									NOR = {
+										character = ROOT
+										is_liege_or_above = ROOT
+									}
+								}
+								is_capital = no		# Dealt with afterwards so that county is properly usurped
+							}
+							usurp_title = ROOT
+						}
+					}
+					usurp_title = ROOT
+				}
+				if = {
+					limit = {
+						NOT = { culture = ROOT }
+					}
+					conquest_culture = ROOT
+				}
+			}
+		}
+		ROOT = {
+			participation_scaled_prestige = 100
+		}
+		any_attacker = {
+			limit = {
+				character = ROOT
+				NOT = { religion_group = christian }
+			}
+			piety = 50
+		}
+		any_attacker = {
+			limit = {
+				NOT = { character = ROOT }
+			}
+			hidden_tooltip = { participation_scaled_prestige = 100 }
+		}
+	}
+
+	on_fail_title = {
+		ROOT = {
+			prestige = -100
+		}
+		FROM = {
+			participation_scaled_prestige = 50
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 50 }
+		}
+	}
+
+	on_reverse_demand = {
+		ROOT = {
+			prestige = -200
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 4.0
+			}
+		}
+		FROM = {
+			participation_scaled_prestige = 100
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 100 }
+		}
+	}
+	
+	attacker_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	attacker_ai_defeat_worth = {
+		factor = 95
+	}
+
+	defender_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	defender_ai_defeat_worth = {
+		factor = 95
+	}
+	
+	# ai importance placed on this CB: scope is the targeted title, ROOT is the attacking character, FROM is the defending character
+	ai_will_do = { 
+		factor = 1
+		modifier = {
+			factor = 0.5
+			ROOT = {
+				NOR = {
+					trait = ambitious
+					trait = proud
+					trait = war_hero
+					trait = authoritative
+					trait = inspiring_leader
+					# trait = honorable
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			FROM = {
+				higher_tier_than = ROOT
+			}
+		}
+		modifier = {
+			factor = 1.5
+			FROM = {
+				lower_tier_than = ROOT
+			}
+		}	
 	}	
 }
 duchy_invasion = {
@@ -5987,7 +6370,13 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 	sort_priority = 1000
 	
 	on_add = {
-		ROOT = { prestige = -750 }
+		if = {
+			limit = { is_britannia_caratacus_subjugation_trigger = yes }
+			ROOT = { prestige = -500 }
+		}
+		else = {
+			ROOT = { prestige = -750 }
+		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
@@ -5996,15 +6385,22 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 			prestige = 3000
 			num_of_count_titles_in_realm = 6
 			is_adult = yes
-			OR = {
-				prestige = 5000
-				martial = 20
-				AND = {
-					martial = 15
-					diplomacy = 15
+			conditional_tooltip = {
+				trigger = { is_britannia_caratacus_subjugation_trigger = no }
+				OR = {
+					prestige = 5000
+					martial = 20
+					AND = {
+						martial = 15
+						diplomacy = 15
+					}
+					trait = brilliant_strategist
+					trait = skilled_tactician
 				}
-				trait = brilliant_strategist
-				trait = skilled_tactician
+			}
+			conditional_tooltip = {
+				trigger = { is_britannia_caratacus_subjugation_trigger = yes }
+				martial = 15
 			}
 			NOR = {
 				is_incapable = yes
@@ -6022,52 +6418,27 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 			lower_tier_than = ROOT
 			independent = yes
 			culture_group = ROOT
-			NOT = {
-				primary_title = {
-					higher_tier_than = BARON
-					OR = {
-						AND = {
-							lower_tier_than = DUKE
-							duchy = {
-								holder_scope = {
-									OR = {
-										character = ROOT
-										is_liege_or_above = ROOT
-									}
-								}
-							}
-						}
-						AND = {
-							lower_tier_than = KING
-							kingdom = {
-								holder_scope = {
-									OR = {
-										character = ROOT
-										is_liege_or_above = ROOT
-									}
-								}
-							}
-						}
-						AND = {
-							lower_tier_than = EMPEROR
-							empire = {
-								holder_scope = {
-									OR = {
-										character = ROOT
-										is_liege_or_above = ROOT
-									}
-								}
-							}
-						}
-					}
-				}
-			}
 			any_realm_province = {
 				any_neighbor_province = {
-					owner = {
-						OR = {
-							character = ROOT
-							is_liege_or_above = ROOT
+					OR = {
+						owner = {
+							OR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
+						}
+						AND = {		# Britannia subjugation allowed to be one sea zone away
+							is_britannia_caratacus_subjugation_trigger = yes
+							is_land = no
+							any_neighbor_province = {
+								has_owner = yes
+								owner = {
+									OR = {
+										character = ROOT
+										is_liege_or_above = ROOT
+									}
+								}
+							}
 						}
 					}
 				}
@@ -6085,6 +6456,15 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 					}
 				}
 				NOT = { has_global_flag = britannia_empowered_high_council }
+			}
+			
+			# Not if can use the de jure subjugation cb instead
+			NOT = {
+				can_use_cb = {
+					target = FROM
+					casus_belli = vassalize
+					only_check_triggers = yes
+				}
 			}
 		}
 		NAND = {			# Block Franks against Frisians and Saxons
@@ -6185,10 +6565,21 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 	
 	on_add = {
 		hidden_tooltip = {
-			ROOT = {
-				add_character_modifier = {
-					name = vassalize_timer 
-					duration = 3650
+			if = {
+				limit = { is_britannia_caratacus_subjugation_trigger = yes }
+				ROOT = {
+					add_character_modifier = {
+						name = vassalize_timer 
+						duration = 1825
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					add_character_modifier = {
+						name = vassalize_timer 
+						duration = 3650
+					}
 				}
 			}
 		}

@@ -64,7 +64,7 @@ NDiplomacy = {
 	
 	CONCLAVE_VASSAL_LIMIT_DUKE_MULT = 3.0, 				-- Extra Vassal Limit from the ruler's rank
 	CONCLAVE_VASSAL_LIMIT_KING_MULT = 6.0, 				-- Extra Vassal Limit from the ruler's rank
-	CONCLAVE_VASSAL_LIMIT_EMPEROR_MULT = 10.0, 			-- Extra Vassal Limit from the ruler's rank
+	CONCLAVE_VASSAL_LIMIT_EMPEROR_MULT = 12.0, 			-- Extra Vassal Limit from the ruler's rank
 	CONCLAVE_VASSAL_LIMIT_GREAT_DUKE_BONUS = 3.0, 		-- Extra Vassal Limit for Dukes with more than one Duchy
 	
 	OBJECTIVE_DISCARD_WEIGHT_THRESHOLD = 0.15,					-- AI will not pick ambitions or plots below this evaluated weight

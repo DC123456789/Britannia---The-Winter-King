@@ -3594,6 +3594,54 @@ character_event = {
 		remove_character_modifier = britannia_centralized_church_modifier
 	}
 }
+# Britannia Heir of Caratacus Modifier
+character_event = {
+	id = 301966
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = britannia_heir_of_caratacus }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		has_landed_title = e_britannia
+		culture_group = celtic
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = {
+			modifier = britannia_heir_of_caratacus
+			duration = -1
+		}
+	}
+}
+character_event = {
+	id = 301967
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = britannia_heir_of_caratacus
+		NAND = {
+			has_global_flag = britannia_centralized_church
+			has_landed_title = e_britannia
+			culture_group = celtic
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = britannia_heir_of_caratacus
+	}
+}
 
 character_event = {
 	id = 301999
@@ -3668,6 +3716,7 @@ character_event = {
 			has_character_modifier = imperial_negative_money_4
 			has_character_modifier = britannia_mint_modifier
 			has_character_modifier = britannia_centralized_church_modifier
+			has_character_modifier = britannia_heir_of_caratacus
 		}
 	}
 	
@@ -3736,5 +3785,6 @@ character_event = {
 		remove_character_modifier = imperial_negative_money_4
 		remove_character_modifier = britannia_mint_modifier
 		remove_character_modifier = britannia_centralized_church_modifier
+		remove_character_modifier = britannia_heir_of_caratacus
 	}
 }
