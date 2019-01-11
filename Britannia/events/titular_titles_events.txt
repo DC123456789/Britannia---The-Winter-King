@@ -20650,7 +20650,10 @@ narrative_event = {
 	}
 	
 	immediate = {
+		k_benoic = { de_jure_liege = e_armorica }
+		k_broceliande = { de_jure_liege = e_armorica }
 		set_global_flag = armorica_created
+		clr_global_flag = armorica_conquered_britannia
 	}
 	
 	option = {
@@ -21000,6 +21003,137 @@ narrative_event = {
 	}
 }
 
+
+# Conquest of Caledonia
+narrative_event = {
+	id = 314470
+	title = "EVTNAME314470"
+	desc = "EVTDESC314470"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_warriors_hills_mist"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_britannia
+		NOT = { has_landed_title = e_alba }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_caledonia
+		completely_controls = e_alba
+		NOT = { has_global_flag = alba_conquered_britannia }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		e_alba = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+			destroy_landed_title = THIS
+		}
+		clr_global_flag = alba_formed
+		set_global_flag = alba_conquered_britannia
+	}
+	
+	option = {
+		name = "EVTOPTA314470"
+	}
+}
+
+# Conquest of Ireland
+narrative_event = {
+	id = 314471
+	title = "EVTNAME314471"
+	desc = "EVTDESC314471"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_ireland"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_britannia
+		NOT = { has_landed_title = e_ireland }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_ireland
+		NOT = { has_global_flag = ireland_conquered_britannia }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		e_ireland = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+			destroy_landed_title = THIS
+		}
+		clr_global_flag = ireland_formed
+		set_global_flag = ireland_conquered_britannia
+	}
+	
+	option = {
+		name = "EVTOPTA314471"
+	}
+}
+
+# Conquest of Armorica
+narrative_event = {
+	id = 314472
+	title = "EVTNAME314472"
+	desc = "EVTDESC314472"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_armorica"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_britannia
+		NOT = { has_landed_title = e_armorica }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_gaul_lugdunensis_armorica
+		completely_controls = e_armorica
+		NOT = { has_global_flag = armorica_conquered_britannia }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		k_broceliande = { de_jure_liege = e_britannia }
+		k_benoic = { de_jure_liege = e_britannia }
+		e_armorica = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+			destroy_landed_title = THIS
+		}
+		clr_global_flag = armorica_created
+		set_global_flag = armorica_conquered_britannia
+	}
+	
+	option = {
+		name = "EVTOPTA314472"
+	}
+}
+
 ### Brotherhood of Britain ###
 narrative_event = {		# Form the Brotherhood (triggered by decision)
 	id = 3121659
@@ -21175,7 +21309,14 @@ narrative_event = {
 	}
 	
 	immediate = {
+		k_ulaid = { de_jure_liege = e_ireland }
+		k_mide = { de_jure_liege = e_ireland }
+		k_leinster = { de_jure_liege = e_ireland }
+		k_connacht = { de_jure_liege = e_ireland }
+		k_munster = { de_jure_liege = e_ireland }
+		k_northern_ui_neill = { de_jure_liege = e_ireland }
 		set_global_flag = ireland_formed
+		clr_global_flag = ireland_conquered_britannia
 	}
 	
 	option = {
@@ -21365,6 +21506,9 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = alba_formed
+		clr_global_flag = alba_conquered_britannia
+		k_dalriada = { de_jure_liege = e_alba }
+		k_caledonia = { de_jure_liege = e_alba }
 		k_strathclyde = { de_jure_liege = e_alba }
 		k_lothian = { de_jure_liege = e_alba }
 	}

@@ -3048,12 +3048,23 @@ narrative_event = {
 			}
 			set_defacto_liege = ROOT
 		}
+		
+		e_hen_ogledd = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+		}
 	}
 	
 	option = {				# High King
 		name = "EVTOPTA302924"
 		trigger = {
 			character = ROOT
+		}
+		if = {
+			limit = { has_landed_title = e_hen_ogledd }
+			e_hen_ogledd = { destroy_landed_title = THIS }
 		}
 	}
 	
