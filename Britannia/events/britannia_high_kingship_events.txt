@@ -3549,3 +3549,369 @@ narrative_event = {		# Restoring the Imperial Senate
 		}
 	}
 }
+
+# Bounce event to each vassal
+character_event = {
+	id = 302955
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = e_britannia
+	}
+	
+	immediate = {
+		any_vassal = {
+			limit = {
+				higher_tier_than = BARON
+			}
+			character_event = { id = 302956 }
+		}
+		character_event = { id = 302960 days = 1 }
+	}
+}
+
+# Demand to Vassals
+letter_event = {
+	id = 302956
+	desc = "EVTDESC302956"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = "EVTOPTA302956"
+		prestige = -30
+		reverse_opinion = {
+			modifier = opinion_happy
+			who = FROM
+			years = 10
+		}
+		FROM = { character_event = { id = 302957 } }
+		custom_tooltip = {
+			text = EVTOPTA302956TT
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				OR = {
+					trait = ambitious
+					trait = unloyal
+					NOT = { opinion = { who = FROM value = 20 } }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = FROM value = 40 } }
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 1500
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 2000
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 2500
+			}
+			modifier = {
+				factor = 0.75
+				realm_levies = 3000
+			}
+			modifier = {
+				factor = 1.5
+				culture = roman
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { culture_group = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROM }
+			}
+		}
+	}
+	
+	option = {			# Never!
+		name = "EVTOPTB302956"
+		set_character_flag = britannia_revolter
+		prestige = 50
+		reverse_opinion = {
+			modifier = opinion_furious
+			who = FROM
+			years = 10
+		}
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 0
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 0.5
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 2
+				is_tribal = yes
+			}
+			modifier = {
+				factor = 1.5
+				is_roman_culture_trigger = no
+			}
+			modifier = {
+				factor = 1.25
+				higher_tier_than = DUKE
+			}
+			modifier = {
+				factor = 0
+				has_non_aggression_pact_with = FROM
+			}
+		}
+		FROM = { character_event = { id = 302958 } }
+		custom_tooltip = {
+			text = EVTOPTB302956TT
+		}
+		hidden_tooltip = {
+			diplomatic_immunity = yes
+		}
+	}
+}
+
+# Declare the actual war 
+character_event = {
+	id = 302960
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_vassal = {
+			limit = { has_character_flag = britannia_revolter }
+			clr_character_flag = britannia_revolter
+			set_defacto_liege = THIS
+			make_britannia_subject_of_ROOT_effect = yes
+			set_global_flag = claiming_imperium_britanniarum_war
+			any_war = {
+				limit = { attacker = { character = ROOT } }
+				end_war = whitepeace
+			}
+			war = {
+				casus_belli = depose_high_king_britannia_revolt_cb
+				target = e_britannia
+			}
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						owner = ROOT
+						province = PREV
+						troops = {
+							archers = { 100 100 }
+							pikemen = { 100 100 }
+							light_infantry = { 500 500 }
+							heavy_infantry = { 400 400 }
+							light_cavalry = { 50 50 }
+						}
+						attrition = 1.0
+						disband_on_peace = yes
+						maintenance_multiplier = 0.5
+					}
+				}
+			}
+			any_character = {
+				limit = { has_character_flag = britannia_revolter }
+				set_defacto_liege = THIS
+				make_britannia_subject_of_ROOT_effect = yes
+				clr_character_flag = britannia_revolter
+				join_attacker_wars = PREV
+			}
+		}
+	}
+}
+
+# Subject Kingdom accepts
+letter_event = {
+	id = 302957
+	desc = "EVTDESC302957"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302957"
+		prestige = 50
+	}
+}
+
+# Subject Kingdom refuses
+letter_event = {
+	id = 302958
+	desc = "EVTDESC302958"
+	picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302958"
+	}
+}
+
+# Victory - gain Imperium Britanniarum
+narrative_event = {
+	id = 302959
+	title = "EVTNAME302959"
+	desc = "EVTDESC302959"
+	picture = "GFX_evt_roman_aquila_pillar"
+	major = yes
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = {
+			has_global_flag = claiming_imperium_britanniarum_war
+		}
+		NOT = { has_landed_title = e_roman_britannia }
+	}
+	
+	immediate = {
+		clr_global_flag = claiming_imperium_britanniarum_410
+		any_tributary = {
+			limit = { is_tributary = { type = britannia_subject } }
+			ROOT = { remove_tributary = PREV }
+			if = {
+				limit = { tier = EMPEROR }
+				any_vassal = {
+					limit = {
+						NOT = {
+							FROM = {
+								any_demesne_title = {
+									higher_tier_than = PREVPREV
+									NOT = { higher_tier_than = KING }
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+				any_demesne_title = {
+					limit = { tier = EMPEROR }
+					destroy_landed_title = THIS
+				}
+			}
+			set_defacto_liege = ROOT
+		}
+		any_vassal = {
+			limit = { has_character_flag = defeated_britannia_rebel }
+			any_demesne_title = {
+				limit = { tier = KING }
+				destroy_landed_title = THIS
+			}
+		}
+		e_roman_britannia = { grant_title = ROOT }
+		e_britannia = { destroy_landed_title = THIS }
+		
+		set_global_flag = imperium_britannicum_created
+		e_roman_britannia = {
+			holder_scope = { set_character_flag = created_roman_empire_title }
+		}
+	}
+	
+	option = {				# New Imperator
+		name = "EVTOPTA302959"
+		trigger = {
+			character = ROOT
+		}
+		tooltip = {
+			e_roman_britannia = { grant_title = ROOT }
+			e_britannia = { destroy_landed_title = THIS }
+		}
+	}
+	
+	option = {				# Defeated Vassals
+		name = "EVTOPTB302959"
+		trigger = {
+			has_character_flag = defeated_britannia_rebel
+		}
+		clr_character_flag = defeated_britannia_rebel
+		custom_tooltip = {
+			text = EVTOPTB302959_tooltip
+		}
+	}
+	
+	option = {				# Other Roman culture vassals
+		name = "EVTOPTC302959"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+			}
+			top_liege = { character = ROOT }
+			is_roman_culture_trigger = yes
+		}
+	}
+	
+	option = {				# Other non-Roman culture vassals
+		name = "EVTOPTD302959"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+			}
+			top_liege = { character = ROOT }
+			is_roman_culture_trigger = no
+		}
+	}
+	
+	option = {				# Other Roman emperors
+		name = "EVTOPTE302959"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+				top_liege = { character = ROOT }
+			}
+			is_roman_emperor_trigger = yes
+		}
+	}
+	
+	option = {				# Others
+		name = "EVTOPTF302959"
+		trigger = {
+			NOR = { 
+				character = ROOT
+				has_character_flag = defeated_britannia_rebel
+				top_liege = { character = ROOT }
+				is_roman_emperor_trigger = yes
+			}
+		}
+	}
+}

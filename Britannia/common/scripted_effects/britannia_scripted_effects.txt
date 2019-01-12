@@ -1010,6 +1010,31 @@ make_britannia_subject_of_ROOT_effect = {
 	}
 }
 
+make_britannia_subject_of_FROM_effect = {
+	FROM = {
+		if = {
+			limit = { is_tributary = yes }
+			suzerain = {
+				remove_tributary = PREV
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = britannia_established_central_mint } }
+			make_tributary = {
+				who = PREV 
+				tributary_type = britannia_subject 
+			}
+		}
+		else = {
+			make_tributary = {
+				who = PREV 
+				tributary_type = britannia_subject
+				percentage = 0.15
+			}
+		}
+	}
+}
+
 britannia_revoke_last_reform_effect = {
 	if = {
 		limit = { has_global_flag = britannia_restored_roman_senate }

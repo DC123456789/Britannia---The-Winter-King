@@ -5266,6 +5266,7 @@ depose_high_king_britannia_revolt_cb = {
 		
 		FROM = {
 			prestige = -500
+			clr_character_flag = revoking_royal_privileges
 		}
 
 		ROOT = {
@@ -5275,6 +5276,23 @@ depose_high_king_britannia_revolt_cb = {
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 150 }
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { 
+					NOT = { has_global_flag = claiming_imperium_britanniarum_410 } 
+					has_global_flag = claiming_imperium_britanniarum_war 
+				}
+				any_attacker = {
+					limit = { 
+						is_tributary = {
+							type = britannia_subject
+							suzerain = FROM
+						}
+					}
+					set_defacto_liege = FROM
+				}
+			}
 		}
 		if = {
 			limit = { NOT = { has_global_flag = britannia_formalized_high_kingship } }
@@ -5370,6 +5388,41 @@ depose_high_king_britannia_revolt_cb = {
 					}
 				}
 			}
+			
+			# Senate is forcibly disbanded
+			if = {
+				limit = { has_global_flag = britannia_restored_senate }
+				clr_global_flag = britannia_restored_senate
+				FROM = {
+					remove_character_modifier = restored_roman_senate
+					any_demesne_title = {
+						clr_title_flag = senate_restored_title
+					}
+					custom_tooltip = { 
+						text = EVTOPTB315106TT
+						hidden_tooltip = {
+							any_courtier = {
+								limit = {
+									has_minor_title = title_senator
+								}
+								remove_title = title_senator
+							}
+							any_vassal = {
+								limit = {
+									has_minor_title = title_senator
+								}
+								remove_title = title_senator
+							}
+							any_realm_character = {
+								limit = {
+									has_minor_title = title_senator
+								}
+								remove_title = title_senator
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -5379,6 +5432,7 @@ depose_high_king_britannia_revolt_cb = {
 		}
 		FROM = {
 			prestige = 100
+			clr_character_flag = revoking_royal_privileges
 			if = {
 				limit = { has_global_flag = empowering_high_council_war }
 				hidden_tooltip = {
@@ -5386,6 +5440,23 @@ depose_high_king_britannia_revolt_cb = {
 						name = recently_raised_high_king_authority
 						years = 10
 					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { 
+					NOT = { has_global_flag = claiming_imperium_britanniarum_410 } 
+					has_global_flag = claiming_imperium_britanniarum_war 
+				}
+				any_attacker = {
+					limit = { 
+						is_tributary = {
+							type = britannia_subject
+							suzerain = FROM
+						}
+					}
+					set_defacto_liege = FROM
 				}
 			}
 		}
@@ -5406,8 +5477,16 @@ depose_high_king_britannia_revolt_cb = {
 					}
 				}
 			}
-			else = {
+			if = {
+				limit = { NOT = { has_global_flag = claiming_imperium_britanniarum_410 } }
 				imprison = FROM
+			}
+			if = {
+				limit = { 
+					NOT = { has_global_flag = claiming_imperium_britanniarum_410 } 
+					has_global_flag = claiming_imperium_britanniarum_war 
+				}
+				set_defacto_liege = FROM
 			}
 			set_character_flag = defeated_britannia_rebel
 		}
@@ -5429,20 +5508,37 @@ depose_high_king_britannia_revolt_cb = {
 					}
 				}
 			}
-			else = {
+			if = {
+				limit = { NOT = { has_global_flag = claiming_imperium_britanniarum_410 } }
 				imprison = FROM
+			}
+			if = {
+				limit = { 
+					NOT = { has_global_flag = claiming_imperium_britanniarum_410 } 
+					has_global_flag = claiming_imperium_britanniarum_war 
+				}
+				set_defacto_liege = FROM
 			}
 			set_character_flag = defeated_britannia_rebel
 		}
 
 		
 		FROM = {
+			clr_character_flag = revoking_royal_privileges
 			prestige = 200
 			if = {
-				limit = { has_global_flag = claiming_imperium_britanniarum_war }
+				limit = { 
+					has_global_flag = claiming_imperium_britanniarum_war 
+					has_global_flag = claiming_imperium_britanniarum_410
+				}
 				clr_global_flag = claiming_imperium_britanniarum_410
 				clr_global_flag = claiming_imperium_britanniarum_war
 				hidden_tooltip = { character_event = { id = 302906 } }
+			}
+			else_if = {
+				limit = { has_global_flag = claiming_imperium_britanniarum_war }
+				clr_global_flag = claiming_imperium_britanniarum_war
+				hidden_tooltip = { character_event = { id = 302959 } }
 			}
 			else_if = {
 				limit = { has_global_flag = empowering_high_council_war }
@@ -5457,8 +5553,27 @@ depose_high_king_britannia_revolt_cb = {
 	}
 	
 	on_invalidation = {
+		hidden_tooltip = {
+			if = {
+				limit = { 
+					NOT = { has_global_flag = claiming_imperium_britanniarum_410 } 
+					has_global_flag = claiming_imperium_britanniarum_war 
+				}
+				any_attacker = {
+					limit = { 
+						is_tributary = {
+							type = britannia_subject
+							suzerain = FROM
+						}
+					}
+					set_defacto_liege = FROM
+				}
+			}
+		}
 		clr_global_flag = claiming_imperium_britanniarum_410
 		clr_global_flag = claiming_imperium_britanniarum_war
+		clr_global_flag = empowering_high_council_war
+		FROM = { clr_character_flag = revoking_royal_privileges }
 	}
 
 	attacker_ai_victory_worth = {
