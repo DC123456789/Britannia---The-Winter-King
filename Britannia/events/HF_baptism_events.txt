@@ -298,7 +298,7 @@ narrative_event = {
 					NOT = { religion = tengri_pagan_reformed }
 					# NOT = { religion = zun_pagan_reformed }
 					# NOT = { religion = aztec_reformed }
-					# NOT = { religion = hellenic_pagan_reformed }
+					is_hellenic_group_religion_trigger = no
 				}
 			}
 			ROOT = { give_nickname = nick_the_exalted }
@@ -574,8 +574,12 @@ narrative_event = {
 			}
 		}
 		religion = event_target:sponsoring_king
-		custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 
-		hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+		#custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 
+		#hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+		capital_scope = { 
+			show_scope_change = no 
+			religion = event_target:sponsoring_king
+		}
 		
 		if = { 
 			limit = { 
@@ -2143,16 +2147,20 @@ narrative_event = {
 		}
 		hidden_tooltip = { religion = event_target:sponsoring_king }
 
-		if = { 
-			limit = { 
-				higher_real_tier_than = BARON
-				NOT = { has_character_flag = flag_deceitful_baptism } 
-			}
-			custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 		#Show it only to vassals that are not secretly remaining pagans.
-		}
+		# if = { 
+			# limit = { 
+				# higher_real_tier_than = BARON
+				# NOT = { has_character_flag = flag_deceitful_baptism } 
+			# }
+			# custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 		#Show it only to vassals that are not secretly remaining pagans.
+		# }
 		if = { 
 			limit = { higher_real_tier_than = BARON }	
-			hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+			#hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+			capital_scope = { 
+				show_scope_change = no 
+				religion = event_target:sponsoring_king
+			}
 		}
 		if = { limit = { has_character_flag = flag_deceitful_baptism }
 			custom_tooltip = {
@@ -2587,16 +2595,20 @@ narrative_event = {
 			hidden_tooltip = { add_trait = baptized_by_bishop }
 		}
 
-		if = { 
-			limit = { 
-				higher_real_tier_than = BARON
-				NOT = { has_character_flag = flag_deceitful_baptism } 
-			}
-			custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 		#Show it only to vassals that are not secretly remaining pagans.
-		}
+		# if = { 
+			# limit = { 
+				# higher_real_tier_than = BARON
+				# NOT = { has_character_flag = flag_deceitful_baptism } 
+			# }
+			# custom_tooltip = { text = ALL_PROVINCES_CONVERT_TOOLTIP } 		#Show it only to vassals that are not secretly remaining pagans.
+		# }
 		if = { 
 			limit = { higher_real_tier_than = BARON }	
-			hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+			#hidden_tooltip = { any_demesne_province = { religion = event_target:sponsoring_king } } 
+			capital_scope = { 
+				show_scope_change = no 
+				religion = event_target:sponsoring_king
+			}
 		}
 		if = { limit = { has_character_flag = flag_deceitful_baptism }
 			custom_tooltip = {
