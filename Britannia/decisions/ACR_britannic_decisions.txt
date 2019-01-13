@@ -1,0 +1,397 @@
+decisions = {
+	establish_arch_dryad = {
+		only_playable = yes
+		is_high_prio = yes
+
+		potential = {
+			religion = britannic_pagan
+			religion_authority = 0.25
+			higher_tier_than = COUNT
+			NOT = { has_global_flag = acr_arch_dryad_created }
+		}
+
+		allow = {
+			completely_controls = c_londinium
+			piety = 500
+			prestige = 300
+			wealth = 300
+			higher_tier_than = DUKE
+
+			custom_tooltip = {
+				text = enough_dryads_for_council_tt
+
+				hidden_tooltip = {
+					any_character = {
+						count = 16
+
+						is_theocracy = yes
+						religion = britannic_pagan
+					}
+				}
+			}
+		}
+
+		effect = {
+			piety = -500
+			prestige = -300
+			wealth = -300
+
+			set_global_flag = acr_arch_dryad_created
+
+			hidden_tooltip = {
+				create_character = {
+					female = yes
+					age = 32
+					trait = dryad
+					trait = zealous
+					trait = patient
+					trait = gregarious
+					trait = kind
+					trait = just
+					trait = lustful
+					trait = mastermind_theologian
+					culture = ROOT
+					religion = britannic_pagan
+				}
+				new_character = {
+					activate_title = { title = k_britannic_pagan status = yes }
+					k_britannic_pagan = {
+						grant_title = PREV
+					}
+					set_defacto_liege = THIS
+					c_londinium = {
+						location = {
+							random_province_holding = {
+								limit = { holding_type = temple }
+
+								grant_title = PREVPREVPREV
+							}
+						}
+					}
+
+					save_event_target_as = archdryad
+				}
+
+				character_event = { id = britannic.0 days = 0 }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				NOR = {
+					wealth = 500
+					piety = 700
+					prestige = 500
+				}
+
+			}
+		}
+	}
+
+	hold_imbolg = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 3
+		potential = {
+			is_playable = yes
+			religion = britannic_pagan
+			prisoner = no
+			NOT = {
+				has_character_modifier = holding_imbolg
+			}
+			NOT = {
+				has_character_modifier = imbolg_timer
+			}
+			num_of_vassals = 1
+			OR = {
+				NOT = { has_character_flag = recent_imbolg }
+				had_character_flag = {
+					flag = recent_imbolg
+					days = 60
+				}
+			}
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = UNOCCUPIED_DEMESNE_TITLE
+				hidden_tooltip = {
+					any_demesne_title = {
+						NOT = { higher_tier_than = count }
+						is_occupied = no
+					}
+				}
+			}
+			wealth = 25
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			month = 1
+			NOT = {
+				month = 4
+			}
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			wealth = -25
+			add_character_modifier = {
+				name = holding_imbolg
+				duration = -1
+			}
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			hidden_tooltip = {
+				character_event = {
+					id = britannic.199
+					days = 60
+				}
+				character_event = { id = britannic.150 }
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 8 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 200
+				}
+			}
+
+			modifier = {
+				factor = 0
+				trait = slothful
+			}
+
+			modifier = {
+				factor = 0
+				NOT = { stewardship = 10 }
+			}
+
+			modifier = {
+				factor = 0
+				has_character_flag = recent_minor_decision
+				NOT = {
+					had_character_flag = {
+						flag = recent_minor_decision
+						days = 730
+					}
+				}
+			}
+
+		}
+	}
+
+	placate_archdryad = {
+		only_playable = yes
+		is_high_prio = yes
+
+		potential = {
+			religion = britannic_pagan
+			is_title_active = k_britannic_pagan
+
+			NOT = { had_character_flag = { flag = archdryad_noninterference days = 1850 } }
+		}
+
+		allow = {
+			scaled_wealth = { value = 1 min = 25 max = 500 }
+		}
+
+		effect = {
+			k_britannic_pagan = {
+				holder_scope = {
+					transfer_scaled_wealth = {
+						from = FROM
+						to = ROOT
+						value = 1
+						min = 25
+						max = 500
+					}
+
+					custom_tooltip = {
+						text = placate_archdryad.tt
+						hidden_tooltip = {
+							letter_event = { id = britannic.26 days = 1 }
+						}
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			modifier = {
+				factor = 0
+				NOT = {
+					scaled_wealth = 2
+				}
+			}
+		}
+	}
+}
+
+targeted_decisions = {
+	#FROMFROM 	= Child to get tumtha, third_party
+	#FROM 		= Decision Taker
+	#ROOT 		= Dryad to Officiate
+	hold_tumoidechais = {
+		third_party = FROM
+		filter = sub_realm
+		third_party_filter = home_court_including_me
+
+		from_potential = {
+			religion = britannic_pagan
+		}
+		potential = {
+			religion = britannic_pagan
+			is_theocracy = yes
+			#is_celtic_clergy_trigger = yes
+		}
+		third_party_potential = {
+			FROMFROM = {
+				NOR = {
+					age = 3
+					has_character_flag = tumtha
+				}
+			}
+		}
+		allow = {
+			FROM = {
+				OR = {
+					AND = {
+						custom_tooltip = {
+							text = has_direct_access_to_the_sea_tt
+							hidden_tooltip = {
+								any_demesne_province = {
+									any_neighbor_province = {
+										is_land = no
+									}
+								}
+							}
+						}
+						wealth = 25
+					}
+					AND = {
+						custom_tooltip = {
+							text = has_access_to_the_sea_tt
+							hidden_tooltip = {
+								top_liege = {
+									any_realm_province = {
+										any_neighbor_province = {
+											is_land = no
+										}
+									}
+								}
+							}
+						}
+						wealth = 50
+					}
+					wealth = 100 # getting to the coast safely is expensive when your entire country is landlocked
+				}
+			}
+		}
+		third_party_allow = {
+			FROMFROM = {
+				OR = {
+					religion = britannic_pagan
+					mother = {
+						religion = britannic_pagan
+					}
+				}
+			}
+		}
+		effect = {
+			save_event_target_as = the_dryad
+			FROMFROM = {
+				save_event_target_as = the_child
+			}
+			FROM = {
+				save_event_target_as = the_ruler
+			}
+			custom_tooltip = {
+				text = tumoidechais_tt
+				hidden_tooltip = {
+					character_event = { id = britannic.110 days = 2 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.5
+			# figure out how to make the parent more likely to take the decision for their child
+		}
+		third_party_score = {
+			factor = 500
+
+			modifier = {
+				factor = 2
+				FROMFROM = {
+					father = {
+						character = FROM
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = {
+					mother = {
+						character = FROM
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = {
+					mother = {
+						character = ROOT
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					any_dynasty_member = {
+						character = FROM
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				FROMFROM = {
+					any_dynasty_member = {
+						character = ROOT
+					}
+				}
+			}
+			modifier = {
+				factor = 10
+				FROMFROM = {
+					is_primary_heir = FROM
+				}
+			}
+			modifier = {
+				factor = 2
+				k_britannic_pagan = {
+					holder_scope = { character = ROOT }
+				}
+			}
+		}
+	}
+}

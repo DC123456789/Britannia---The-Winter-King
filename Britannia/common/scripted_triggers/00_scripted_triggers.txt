@@ -2217,6 +2217,10 @@ true_religion_briton_pagan_reformed_trigger = {
 	true_religion = briton_pagan_reformed
 }
 
+true_religion_britannic_pagan_trigger = {
+	true_religion = britannic_pagan
+}
+
 true_religion_pict_pagan_reformed_trigger = {
 	true_religion = pict_pagan_reformed
 }
@@ -2733,6 +2737,7 @@ is_briton_secret_religious_society_member_trigger = {
 	OR = {
 		society_member_of = secret_religious_society_briton_pagan_reformed
 		society_member_of = secret_religious_society_briton_pagan
+		society_member_of = secret_religious_society_britannic_pagan
 	}
 }
 
@@ -3092,6 +3097,10 @@ is_in_prevs_interesting_society_trigger = {
 			PREV = { interested_in_society = secret_religious_society_briton_pagan_reformed }
 		}
 		AND = {
+			society_member_of = secret_religious_society_britannic_pagan
+			PREV = { interested_in_society = secret_religious_society_britannic_pagan }
+		}
+		AND = {
 			society_member_of = secret_religious_society_pict_pagan_reformed
 			PREV = { interested_in_society = secret_religious_society_pict_pagan_reformed }
 		}
@@ -3331,6 +3340,12 @@ is_visible_to_self_trigger = { #For hidden modifiers
 	    	# }
 	    # }
 		# AND = {
+			# has_character_flag = character_was_britannic_pagan
+	    	# any_character = {
+	    		# religion = britannic_pagan
+	    	# }
+	    # }
+		# AND = {
 			# has_character_flag = character_was_pict_pagan_reformed
 	    	# any_character = {
 	    		# religion = pict_pagan_reformed
@@ -3537,7 +3552,7 @@ has_trollcrafters_prerequisites = {
 has_bacchants_prerequisites = {
 	has_common_devilworship_prerequisites = yes
 	OR = { 
-		religion_openly_hellenic_or_reformed_trigger = yes
+		religion_openly_in_hellenic_subgroup_trigger = yes
 		culture_group = imperiale #Historically fashionable thrill for bored patricians.
 		AND = { 
 			top_liege = { is_roman_emperor_trigger = yes } #Historically a plague for the Empire.
@@ -3698,7 +3713,7 @@ looting_artifact_event_religious_artifacts_trigger = {
 			any_artifact = {
 				has_artifact_flag = looted_artifact_tooltip_1
 				has_artifact_flag = briton_pagan
-				ROOT = { OR = { religion = briton_pagan religion = briton_pagan_reformed } }
+				ROOT = { religion_openly_briton_or_reformed_trigger = yes }
 			}
 		}
 		NAND = {
@@ -4847,6 +4862,7 @@ religion_openly_briton_or_reformed_trigger = {
 			OR = {
 				religion = briton_pagan
 				religion = briton_pagan_reformed
+				religion = britannic_pagan
 			}
 		}
 	}

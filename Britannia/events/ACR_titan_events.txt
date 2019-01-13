@@ -3,8 +3,8 @@
 # Ancient Religions
 # - Titan Flavor Events
 #
-# ancrel.3600-3699 Titan Thysia
-# ancrel.3700-3749 Holy Orders
+# titan.0-3699 Titan Thysia
+# titan.100-3749 Holy Orders
 #
 ###################################
 
@@ -13,19 +13,19 @@
 #
 # Ancient Religions
 # - Titan Thysia Events
-# ancrel.3600 - ancrel.3699 reserved
+# titan.0 - titan.99 reserved
 #
 ###################################
 
 # Written by Henrik Eklund for the Viking Blot
 # Adapted for the Titan Cult by Adam 'theStormWeaver' Chevalier
 
-namespace = ancrel
+namespace = titan
 
 # You summon your vassals to a Thysia
 character_event = {
-	id = ancrel.3600
-	desc = EVTDESCancrel.3600
+	id = titan.0
+	desc = titan.0.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -34,7 +34,7 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3600
+		name = titan.0.a
 		any_vassal = {
 			limit = {
 				religion = titan_pagan
@@ -43,8 +43,8 @@ character_event = {
 				war = no
 				NOT = { trait = incapable }
 			}
-			character_event = { id = ancrel.3601 tooltip = EVTTOOLTIPancrel.3601 }
-			hidden_tooltip = { character_event = { id = ancrel.3605 days = 10 } }
+			character_event = { id = titan.1 tooltip = titan.1.tt }
+			hidden_tooltip = { character_event = { id = titan.5 days = 10 } }
 		}
 		any_vassal = {
 			limit = {
@@ -60,23 +60,23 @@ character_event = {
 				war = no
 				NOT = { trait = incapable }
 			}
-			character_event = { id = ancrel.3602 tooltip = EVTTOOLTIPancrel.3602 }
+			character_event = { id = titan.2 tooltip = titan.2.tt }
 		}
-		hidden_tooltip = { character_event = { id = ancrel.3604 days = 10 } }
+		hidden_tooltip = { character_event = { id = titan.4 days = 10 } }
 	}
 }
 
 # Summoned to Thysia (Vassal)
 character_event = {
-	id = ancrel.3601
-	desc = EVTDESCancrel.3601
+	id = titan.1
+	desc = titan.1.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3601
+		name = titan.1.a
 		set_character_flag = attending_titan_thysia
 		set_character_flag = do_not_disturb
 		if = {
@@ -89,14 +89,14 @@ character_event = {
 			}
 			hidden_tooltip = { character_event = { id = CM.6400 } } # Notify plotters and family
 		}
-		hidden_tooltip = { character_event = { id = ancrel.3699 days = 50 } } # Safety catch flag clearing
+		hidden_tooltip = { character_event = { id = titan.99 days = 50 } } # Safety catch flag clearing
 	}
 }
 
 # Non-Titanic Pagans pay to skip Thysia
 character_event = {
-	id = ancrel.3602
-	desc = EVTDESCancrel.3602
+	id = titan.2
+	desc = titan.2.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -105,19 +105,19 @@ character_event = {
 	hide_from = yes
 	
 	option = { # Pay
-		name = EVTOPTAancrel.3602
+		name = titan.2.a
 		trigger = {
 			wealth = 5
 		}
 		FROM = {
-			character_event = { id = ancrel.3603 tooltip = EVTTOOLTIPancrel.3603 }
+			character_event = { id = titan.3 tooltip = titan.3.tt }
 		}
 		wealth = -5
 	}
 	option = { # Don't pay
-		name = EVTOPTBancrel.3602
+		name = titan.2.b
 		FROM = {
-			character_event = { id = ancrel.3636 tooltip = EVTTOOLTIPancrel.3636 }
+			character_event = { id = titan.36 tooltip = titan.36.tt }
 		}
 		tooltip = {
 			FROM = {
@@ -139,37 +139,37 @@ character_event = {
 
 # Non-Titanic Pagans pay to skip Thysia (Liege)
 character_event = {
-	id = ancrel.3603
-	desc = EVTDESCancrel.3603
+	id = titan.3
+	desc = titan.3.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3603
+		name = titan.3.a
 		wealth = 20
 	}
 }
 
 # Non-Titanic Pagans refuse to pay to skip Thysia (Liege)
 character_event = {
-	id = ancrel.3636
-	desc = EVTDESCancrel.3636
+	id = titan.36
+	desc = titan.36.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3636
+		name = titan.36.a
 	}
 }
 
 # Thysia Begins! (Liege)
 character_event = {
-	id = ancrel.3604
-	desc = EVTDESCancrel.3604
+	id = titan.4
+	desc = titan.4.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -178,7 +178,7 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3604
+		name = titan.4.a
 		hidden_tooltip = {
 			if = {
 				limit = { 
@@ -194,7 +194,7 @@ character_event = {
 						host = { character = ROOT }
 						age = 16
 					}
-					character_event = { id = ancrel.3606 days = 5 }
+					character_event = { id = titan.6 days = 5 }
 				}
 			}
 			if = {
@@ -207,7 +207,7 @@ character_event = {
 						}
 					}
 				}
-				character_event = { id = ancrel.3634 days = 5 }
+				character_event = { id = titan.34 days = 5 }
 			}
 		}
 		custom_tooltip = { text = titan_thysia_begins }
@@ -223,8 +223,8 @@ character_event = {
 
 # Thysia Begins! (Vassal)
 character_event = {
-	id = ancrel.3605
-	desc = EVTDESCancrel.3605
+	id = titan.5
+	desc = titan.5.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -233,21 +233,21 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3604
+		name = titan.4.a
 	}
 }
 
 # Sacrifice Prisoner 1 (Prisoner)
 character_event = {
-	id = ancrel.3606
-	desc = EVTDESCancrel.3606
+	id = titan.6
+	desc = titan.6.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3606
+		name = titan.6.a
 		hidden_tooltip = {
 			if = {
 				limit = { # Generic
@@ -263,10 +263,10 @@ character_event = {
 					}
 				}
 				random_list = {
-					25 = { FROM = { character_event = { id = ancrel.3610 } } }
-					25 = { FROM = { character_event = { id = ancrel.3680 } } }
-					25 = { FROM = { character_event = { id = ancrel.3681 } } }
-					25 = { FROM = { character_event = { id = ancrel.3682 } } }
+					25 = { FROM = { character_event = { id = titan.10 } } }
+					25 = { FROM = { character_event = { id = titan.80 } } }
+					25 = { FROM = { character_event = { id = titan.81 } } }
+					25 = { FROM = { character_event = { id = titan.82 } } }
 				}
 			}
 			if = {
@@ -281,7 +281,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3611 } }
+				FROM = { character_event = { id = titan.11 } }
 			}
 			if = {
 				limit = { # Muslim
@@ -295,35 +295,35 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3612 } }
+				FROM = { character_event = { id = titan.12 } }
 			}
 			if = {
 				limit = { # Brother
 					sibling = FROM
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3613 } }
+				FROM = { character_event = { id = titan.13 } }
 			}
 			if = {
 				limit = { # Sister
 					sibling = FROM
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3614 } }
+				FROM = { character_event = { id = titan.14 } }
 			}
 			if = {
 				limit = { # Father
 					any_child = { character = FROM }
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3615 } }
+				FROM = { character_event = { id = titan.15 } }
 			}
 			if = {
 				limit = { # Mother
 					any_child = { character = FROM }
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3616 } }
+				FROM = { character_event = { id = titan.16 } }
 			}
 			if = {
 				limit = { # Son
@@ -333,7 +333,7 @@ character_event = {
 					}
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3617 } }
+				FROM = { character_event = { id = titan.17 } }
 			}
 			if = {
 				limit = { # Daughter
@@ -343,7 +343,7 @@ character_event = {
 					}
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3618 } }
+				FROM = { character_event = { id = titan.18 } }
 			}
 			if = {
 				limit = { # Kin
@@ -356,7 +356,7 @@ character_event = {
 						any_child = { character = FROM }
 					}
 				}
-				FROM = { character_event = { id = ancrel.3619 } }
+				FROM = { character_event = { id = titan.19 } }
 			}
 			if = {
 				limit = { # Spouse
@@ -369,7 +369,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3620 } }
+				FROM = { character_event = { id = titan.20 } }
 			}
 			if = {
 				limit = { # Hellenic ('Olympian')
@@ -383,24 +383,24 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3621 } }
+				FROM = { character_event = { id = titan.21 } }
 			}
-			FROM = { character_event = { id = ancrel.3645 } }
+			FROM = { character_event = { id = titan.45 } }
 		}
 	}
 }
 
 # Sacrifice Prisoner 2 (Prisoner)
 character_event = {
-	id = ancrel.3607
-	desc = EVTDESCancrel.3606
+	id = titan.7
+	desc = titan.6.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3606
+		name = titan.6.a
 		hidden_tooltip = {
 			if = {
 				limit = { # Generic
@@ -416,10 +416,10 @@ character_event = {
 					}
 				}
 				random_list = {
-					25 = { FROM = { character_event = { id = ancrel.3610 } } }
-					25 = { FROM = { character_event = { id = ancrel.3680 } } }
-					25 = { FROM = { character_event = { id = ancrel.3681 } } }
-					25 = { FROM = { character_event = { id = ancrel.3682 } } }
+					25 = { FROM = { character_event = { id = titan.10 } } }
+					25 = { FROM = { character_event = { id = titan.80 } } }
+					25 = { FROM = { character_event = { id = titan.81 } } }
+					25 = { FROM = { character_event = { id = titan.82 } } }
 				}
 			}
 			if = {
@@ -434,7 +434,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3611 } }
+				FROM = { character_event = { id = titan.11 } }
 			}
 			if = {
 				limit = { # Muslim
@@ -448,35 +448,35 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3612 } }
+				FROM = { character_event = { id = titan.12 } }
 			}
 			if = {
 				limit = { # Brother
 					sibling = FROM
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3613 } }
+				FROM = { character_event = { id = titan.13 } }
 			}
 			if = {
 				limit = { # Sister
 					sibling = FROM
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3614 } }
+				FROM = { character_event = { id = titan.14 } }
 			}
 			if = {
 				limit = { # Father
 					any_child = { character = FROM }
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3615 } }
+				FROM = { character_event = { id = titan.15 } }
 			}
 			if = {
 				limit = { # Mother
 					any_child = { character = FROM }
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3616 } }
+				FROM = { character_event = { id = titan.16 } }
 			}
 			if = {
 				limit = { # Son
@@ -486,7 +486,7 @@ character_event = {
 					}
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3617 } }
+				FROM = { character_event = { id = titan.17 } }
 			}
 			if = {
 				limit = { # Daughter
@@ -496,7 +496,7 @@ character_event = {
 					}
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3618 } }
+				FROM = { character_event = { id = titan.18 } }
 			}
 			if = {
 				limit = { # Kin
@@ -509,7 +509,7 @@ character_event = {
 						any_child = { character = FROM }
 					}
 				}
-				FROM = { character_event = { id = ancrel.3619 } }
+				FROM = { character_event = { id = titan.19 } }
 			}
 			if = {
 				limit = { # Spouse
@@ -522,7 +522,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3620 } }
+				FROM = { character_event = { id = titan.20 } }
 			}
 			if = {
 				limit = { # Hellenic ('Olympian')
@@ -536,24 +536,24 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3621 } }
+				FROM = { character_event = { id = titan.21 } }
 			}
-			FROM = { character_event = { id = ancrel.3646 } }
+			FROM = { character_event = { id = titan.46 } }
 		}
 	}
 }
 
 # Sacrifice Prisoner 3 (Prisoner)
 character_event = {
-	id = ancrel.3608
-	desc = EVTDESCancrel.3606
+	id = titan.8
+	desc = titan.6.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3606
+		name = titan.6.a
 		hidden_tooltip = {
 			if = {
 				limit = { # Generic
@@ -569,10 +569,10 @@ character_event = {
 					}
 				}
 				random_list = {
-					25 = { FROM = { character_event = { id = ancrel.3610 } } }
-					25 = { FROM = { character_event = { id = ancrel.3680 } } }
-					25 = { FROM = { character_event = { id = ancrel.3681 } } }
-					25 = { FROM = { character_event = { id = ancrel.3682 } } }
+					25 = { FROM = { character_event = { id = titan.10 } } }
+					25 = { FROM = { character_event = { id = titan.80 } } }
+					25 = { FROM = { character_event = { id = titan.81 } } }
+					25 = { FROM = { character_event = { id = titan.82 } } }
 				}
 			}
 			if = {
@@ -587,7 +587,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3611 } }
+				FROM = { character_event = { id = titan.11 } }
 			}
 			if = {
 				limit = { # Muslim
@@ -601,35 +601,35 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3612 } }
+				FROM = { character_event = { id = titan.12 } }
 			}
 			if = {
 				limit = { # Brother
 					sibling = FROM
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3613 } }
+				FROM = { character_event = { id = titan.13 } }
 			}
 			if = {
 				limit = { # Sister
 					sibling = FROM
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3614 } }
+				FROM = { character_event = { id = titan.14 } }
 			}
 			if = {
 				limit = { # Father
 					any_child = { character = FROM }
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3615 } }
+				FROM = { character_event = { id = titan.15 } }
 			}
 			if = {
 				limit = { # Mother
 					any_child = { character = FROM }
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3616 } }
+				FROM = { character_event = { id = titan.16 } }
 			}
 			if = {
 				limit = { # Son
@@ -639,7 +639,7 @@ character_event = {
 					}
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3617 } }
+				FROM = { character_event = { id = titan.17 } }
 			}
 			if = {
 				limit = { # Daughter
@@ -649,7 +649,7 @@ character_event = {
 					}
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3618 } }
+				FROM = { character_event = { id = titan.18 } }
 			}
 			if = {
 				limit = { # Kin
@@ -662,7 +662,7 @@ character_event = {
 						any_child = { character = FROM }
 					}
 				}
-				FROM = { character_event = { id = ancrel.3619 } }
+				FROM = { character_event = { id = titan.19 } }
 			}
 			if = {
 				limit = { # Spouse
@@ -675,7 +675,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3620 } }
+				FROM = { character_event = { id = titan.20 } }
 			}
 			if = {
 				limit = { # Hellenic ('Olympian')
@@ -689,24 +689,24 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3621 } }
+				FROM = { character_event = { id = titan.21 } }
 			}
-			FROM = { character_event = { id = ancrel.3647 } }
+			FROM = { character_event = { id = titan.47 } }
 		}
 	}
 }
 
 # Sacrifice Prisoner 4 (Prisoner)
 character_event = {
-	id = ancrel.3609
-	desc = EVTDESCancrel.3606
+	id = titan.9
+	desc = titan.6.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3606
+		name = titan.6.a
 		hidden_tooltip = {
 			if = {
 				limit = { # Generic
@@ -722,10 +722,10 @@ character_event = {
 					}
 				}
 				random_list = {
-					25 = { FROM = { character_event = { id = ancrel.3610 } } }
-					25 = { FROM = { character_event = { id = ancrel.3680 } } }
-					25 = { FROM = { character_event = { id = ancrel.3681 } } }
-					25 = { FROM = { character_event = { id = ancrel.3682 } } }
+					25 = { FROM = { character_event = { id = titan.10 } } }
+					25 = { FROM = { character_event = { id = titan.80 } } }
+					25 = { FROM = { character_event = { id = titan.81 } } }
+					25 = { FROM = { character_event = { id = titan.82 } } }
 				}
 			}
 			if = {
@@ -740,7 +740,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3611 } }
+				FROM = { character_event = { id = titan.11 } }
 			}
 			if = {
 				limit = { # Muslim
@@ -754,35 +754,35 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3612 } }
+				FROM = { character_event = { id = titan.12 } }
 			}
 			if = {
 				limit = { # Brother
 					sibling = FROM
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3613 } }
+				FROM = { character_event = { id = titan.13 } }
 			}
 			if = {
 				limit = { # Sister
 					sibling = FROM
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3614 } }
+				FROM = { character_event = { id = titan.14 } }
 			}
 			if = {
 				limit = { # Father
 					any_child = { character = FROM }
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3615 } }
+				FROM = { character_event = { id = titan.15 } }
 			}
 			if = {
 				limit = { # Mother
 					any_child = { character = FROM }
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3616 } }
+				FROM = { character_event = { id = titan.16 } }
 			}
 			if = {
 				limit = { # Son
@@ -792,7 +792,7 @@ character_event = {
 					}
 					is_female = no
 				}
-				FROM = { character_event = { id = ancrel.3617 } }
+				FROM = { character_event = { id = titan.17 } }
 			}
 			if = {
 				limit = { # Daughter
@@ -802,7 +802,7 @@ character_event = {
 					}
 					is_female = yes
 				}
-				FROM = { character_event = { id = ancrel.3618 } }
+				FROM = { character_event = { id = titan.18 } }
 			}
 			if = {
 				limit = { # Kin
@@ -815,7 +815,7 @@ character_event = {
 						any_child = { character = FROM }
 					}
 				}
-				FROM = { character_event = { id = ancrel.3619 } }
+				FROM = { character_event = { id = titan.19 } }
 			}
 			if = {
 				limit = { # Spouse
@@ -828,7 +828,7 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3620 } }
+				FROM = { character_event = { id = titan.20 } }
 			}
 			if = {
 				limit = { # Hellenic ('Olympian')
@@ -842,24 +842,24 @@ character_event = {
 						any_dynasty_member = { character = FROM}
 					}
 				}
-				FROM = { character_event = { id = ancrel.3621 } }
+				FROM = { character_event = { id = titan.21 } }
 			}
-			FROM = { character_event = { id = ancrel.3640 days = 5 } }
+			FROM = { character_event = { id = titan.40 days = 5 } }
 		}
 	}
 }
 
 # Sacrifice Generic 1 (Liege)
 character_event = {
-	id = ancrel.3610
-	desc = EVTDESCancrel.3610
+	id = titan.10
+	desc = titan.10.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3610
+		name = titan.10.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -869,30 +869,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3622 }
+				character_event = { id = titan.22 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3610
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.10.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Christian (Liege)
 character_event = {
-	id = ancrel.3611
-	desc = EVTDESCancrel.3611
+	id = titan.11
+	desc = titan.11.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3611
+		name = titan.11.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -902,30 +902,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3623 }
+				character_event = { id = titan.23 }
 			}
 		}
 		prestige = 50
 		piety = 25
 	}
 	option = {
-		name = EVTOPTBancrel.3611
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.11.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -50
 	}
 }
 
 # Sacrifice Muslim (Liege)
 character_event = {
-	id = ancrel.3612
-	desc = EVTDESCancrel.3612
+	id = titan.12
+	desc = titan.12.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3612
+		name = titan.12.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -935,30 +935,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3624 }
+				character_event = { id = titan.24 }
 			}
 		}
 		prestige = 50
 		piety = 25
 	}
 	option = {
-		name = EVTOPTBancrel.3612
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.12.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -50
 	}
 }
 
 # Sacrifice Brother (Liege)
 character_event = {
-	id = ancrel.3613
-	desc = EVTDESCancrel.3613
+	id = titan.13
+	desc = titan.13.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3613
+		name = titan.13.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -970,30 +970,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3625 }
+				character_event = { id = titan.25 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3613
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.13.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Sister (Liege)
 character_event = {
-	id = ancrel.3614
-	desc = EVTDESCancrel.3614
+	id = titan.14
+	desc = titan.14.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3614
+		name = titan.14.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1005,30 +1005,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3626 }
+				character_event = { id = titan.26 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3614
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.14.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Father (Liege)
 character_event = {
-	id = ancrel.3615
-	desc = EVTDESCancrel.3615
+	id = titan.15
+	desc = titan.15.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3615
+		name = titan.15.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1040,30 +1040,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3627 }
+				character_event = { id = titan.27 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3615
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.15.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Mother (Liege)
 character_event = {
-	id = ancrel.3616
-	desc = EVTDESCancrel.3616
+	id = titan.16
+	desc = titan.16.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3616
+		name = titan.16.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1075,30 +1075,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3628 }
+				character_event = { id = titan.28 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3616
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.16.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Son (Liege)
 character_event = {
-	id = ancrel.3617
-	desc = EVTDESCancrel.3617
+	id = titan.17
+	desc = titan.17.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3617
+		name = titan.17.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1110,30 +1110,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3629 }
+				character_event = { id = titan.29 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3617
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.17.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Daughter (Liege)
 character_event = {
-	id = ancrel.3618
-	desc = EVTDESCancrel.3618
+	id = titan.18
+	desc = titan.18.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3618
+		name = titan.18.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1145,30 +1145,30 @@ character_event = {
 			character_event = { id = 38287 } #Notify Kinslayer
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3630 }
+				character_event = { id = titan.30 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3618
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.18.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Other Kinsman (Liege)
 character_event = {
-	id = ancrel.3619
-	desc = EVTDESCancrel.3619
+	id = titan.19
+	desc = titan.19.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3619
+		name = titan.19.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1178,30 +1178,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3631 }
+				character_event = { id = titan.31 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3619
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.19.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Spouse/Consort (Liege)
 character_event = {
-	id = ancrel.3620
-	desc = EVTDESCancrel.3620
+	id = titan.20
+	desc = titan.20.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3620
+		name = titan.20.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1211,30 +1211,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3632 }
+				character_event = { id = titan.32 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3620
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.20.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Olympian (Liege)
 character_event = {
-	id = ancrel.3621
-	desc = EVTDESCancrel.3621
+	id = titan.21
+	desc = titan.21.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3621
+		name = titan.21.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -1244,30 +1244,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3633 }
+				character_event = { id = titan.33 }
 			}
 		}
 		prestige = 50
 		piety = 25
 	}
 	option = {
-		name = EVTOPTBancrel.3621
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.21.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -50
 	}
 }
 
 # Sacrifice Generic (Vassal)
 character_event = {
-	id = ancrel.3622
-	desc = EVTDESCancrel.3622
+	id = titan.22
+	desc = titan.22.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1281,15 +1281,15 @@ character_event = {
 
 # Sacrifice Christian (Vassal)
 character_event = {
-	id = ancrel.3623
-	desc = EVTDESCancrel.3623
+	id = titan.23
+	desc = titan.23.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1303,15 +1303,15 @@ character_event = {
 
 # Sacrifice Muslim (Vassal)
 character_event = {
-	id = ancrel.3624
-	desc = EVTDESCancrel.3624
+	id = titan.24
+	desc = titan.24.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1325,15 +1325,15 @@ character_event = {
 
 # Sacrifice Brother (Vassal)
 character_event = {
-	id = ancrel.3625
-	desc = EVTDESCancrel.3625
+	id = titan.25
+	desc = titan.25.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1347,15 +1347,15 @@ character_event = {
 
 # Sacrifice Sister (Vassal)
 character_event = {
-	id = ancrel.3626
-	desc = EVTDESCancrel.3626
+	id = titan.26
+	desc = titan.26.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1369,15 +1369,15 @@ character_event = {
 
 # Sacrifice Father (Vassal)
 character_event = {
-	id = ancrel.3627
-	desc = EVTDESCancrel.3627
+	id = titan.27
+	desc = titan.27.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1391,15 +1391,15 @@ character_event = {
 
 # Sacrifice Mother (Vassal)
 character_event = {
-	id = ancrel.3628
-	desc = EVTDESCancrel.3628
+	id = titan.28
+	desc = titan.28.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1413,15 +1413,15 @@ character_event = {
 
 # Sacrifice Son (Vassal)
 character_event = {
-	id = ancrel.3629
-	desc = EVTDESCancrel.3629
+	id = titan.29
+	desc = titan.29.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1435,15 +1435,15 @@ character_event = {
 
 # Sacrifice Daughter (Vassal)
 character_event = {
-	id = ancrel.3630
-	desc = EVTDESCancrel.3630
+	id = titan.30
+	desc = titan.30.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1457,15 +1457,15 @@ character_event = {
 
 # Sacrifice Other Kinsman (Vassal)
 character_event = {
-	id = ancrel.3631
-	desc = EVTDESCancrel.3631
+	id = titan.31
+	desc = titan.31.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1479,15 +1479,15 @@ character_event = {
 
 # Sacrifice Spouse/Consort (Vassal)
 character_event = {
-	id = ancrel.3632
-	desc = EVTDESCancrel.3632
+	id = titan.32
+	desc = titan.32.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1501,15 +1501,15 @@ character_event = {
 
 # Sacrifice Olympian (Vassal)
 character_event = {
-	id = ancrel.3633
-	desc = EVTDESCancrel.3633
+	id = titan.33
+	desc = titan.33.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3622
+		name = titan.22.a
 		tooltip = {
 			FROMFROM = {
 				death = {
@@ -1523,8 +1523,8 @@ character_event = {
 
 # No Prisoners, Slaves sacrificed instead (Liege)
 character_event = {
-	id = ancrel.3634
-	desc = EVTDESCancrel.3634
+	id = titan.34
+	desc = titan.34.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -1533,13 +1533,13 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3634
+		name = titan.34.a
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3635 }
+				character_event = { id = titan.35 }
 			}
-			character_event = { id = ancrel.3640 days = 5 }
+			character_event = { id = titan.40 days = 5 }
 		}
 		wealth = -50
 		prestige = 50
@@ -1549,35 +1549,35 @@ character_event = {
 
 # No Prisoners, Slaves sacrificed instead (Vassal)
 character_event = {
-	id = ancrel.3635
-	desc = EVTDESCancrel.3635
+	id = titan.35
+	desc = titan.35.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3635
+		name = titan.35.a
 	}
 }
 
 # Liege changed his mind about sacrifice (prisoner)
 character_event = {
-	id = ancrel.3637
-	desc = EVTDESCancrel.3637
+	id = titan.37
+	desc = titan.37.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3637
+		name = titan.37.a
 	}
 }
 
 # Prisoner 2 (Liege invisible)
 character_event = {
-	id = ancrel.3645
+	id = titan.45
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -1599,7 +1599,7 @@ character_event = {
 					age = 16
 					NOT = { character = FROM }
 				}
-				character_event = { id = ancrel.3607 days = 5 }
+				character_event = { id = titan.7 days = 5 }
 			}
 		}
 		if = {
@@ -1613,14 +1613,14 @@ character_event = {
 					}
 				}
 			}
-			character_event = { id = ancrel.3640 days = 5 }
+			character_event = { id = titan.40 days = 5 }
 		}
 	}
 }
 
 # Prisoner 3 (Liege invisible)
 character_event = {
-	id = ancrel.3646
+	id = titan.46
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -1642,7 +1642,7 @@ character_event = {
 					age = 16
 					NOT = { character = FROM }
 				}
-				character_event = { id = ancrel.3608 days = 5 }
+				character_event = { id = titan.8 days = 5 }
 			}
 		}
 		if = {
@@ -1656,14 +1656,14 @@ character_event = {
 					}
 				}
 			}
-			character_event = { id = ancrel.3640 days = 5 }
+			character_event = { id = titan.40 days = 5 }
 		}
 	}
 }
 
 # Prisoner 4 (Liege invisible)
 character_event = {
-	id = ancrel.3647
+	id = titan.47
 	hide_window = yes
 	
 	is_triggered_only = yes
@@ -1685,7 +1685,7 @@ character_event = {
 					age = 16
 					NOT = { character = FROM }
 				}
-				character_event = { id = ancrel.3609 days = 5 }
+				character_event = { id = titan.9 days = 5 }
 			}
 		}
 		if = {
@@ -1699,15 +1699,15 @@ character_event = {
 					}
 				}
 			}
-			character_event = { id = ancrel.3640 days = 5 }
+			character_event = { id = titan.40 days = 5 }
 		}
 	}
 }
 
 # Feast Begins (Liege)
 character_event = {
-	id = ancrel.3640
-	desc = EVTDESCancrel.3640
+	id = titan.40
+	desc = titan.40.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -1716,48 +1716,48 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3640
+		name = titan.40.a
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3641 }
+				character_event = { id = titan.41 }
 			}
-			character_event = { id = ancrel.3642 days = 25 }
+			character_event = { id = titan.42 days = 25 }
 			random_list = {
-				10 = { character_event = { id = ancrel.3683 days = 3 } }
-				10 = { character_event = { id = ancrel.3684 days = 3 } }
-				10 = { character_event = { id = ancrel.3685 days = 3 } }
-				10 = { character_event = { id = ancrel.3686 days = 3 } }
-				10 = { character_event = { id = ancrel.3687 days = 3 } }
-				10 = { character_event = { id = ancrel.3688 days = 3 } }
-				10 = { character_event = { id = ancrel.3689 days = 3 } }
-			}
-			random_list = {
-				10 = { character_event = { id = ancrel.3683 days = 8 } }
-				10 = { character_event = { id = ancrel.3684 days = 8 } }
-				10 = { character_event = { id = ancrel.3685 days = 8 } }
-				10 = { character_event = { id = ancrel.3686 days = 8 } }
-				10 = { character_event = { id = ancrel.3687 days = 8 } }
-				10 = { character_event = { id = ancrel.3688 days = 8 } }
-				10 = { character_event = { id = ancrel.3689 days = 8 } }
+				10 = { character_event = { id = titan.83 days = 3 } }
+				10 = { character_event = { id = titan.84 days = 3 } }
+				10 = { character_event = { id = titan.85 days = 3 } }
+				10 = { character_event = { id = titan.86 days = 3 } }
+				10 = { character_event = { id = titan.87 days = 3 } }
+				10 = { character_event = { id = titan.88 days = 3 } }
+				10 = { character_event = { id = titan.89 days = 3 } }
 			}
 			random_list = {
-				10 = { character_event = { id = ancrel.3683 days = 13 } }
-				10 = { character_event = { id = ancrel.3684 days = 13 } }
-				10 = { character_event = { id = ancrel.3685 days = 13 } }
-				10 = { character_event = { id = ancrel.3686 days = 13 } }
-				10 = { character_event = { id = ancrel.3687 days = 13 } }
-				10 = { character_event = { id = ancrel.3688 days = 13 } }
-				10 = { character_event = { id = ancrel.3689 days = 13 } }
+				10 = { character_event = { id = titan.83 days = 8 } }
+				10 = { character_event = { id = titan.84 days = 8 } }
+				10 = { character_event = { id = titan.85 days = 8 } }
+				10 = { character_event = { id = titan.86 days = 8 } }
+				10 = { character_event = { id = titan.87 days = 8 } }
+				10 = { character_event = { id = titan.88 days = 8 } }
+				10 = { character_event = { id = titan.89 days = 8 } }
 			}
 			random_list = {
-				10 = { character_event = { id = ancrel.3683 days = 18 } }
-				10 = { character_event = { id = ancrel.3684 days = 18 } }
-				10 = { character_event = { id = ancrel.3685 days = 18 } }
-				10 = { character_event = { id = ancrel.3686 days = 18 } }
-				10 = { character_event = { id = ancrel.3687 days = 18 } }
-				10 = { character_event = { id = ancrel.3688 days = 18 } }
-				10 = { character_event = { id = ancrel.3689 days = 18 } }
+				10 = { character_event = { id = titan.83 days = 13 } }
+				10 = { character_event = { id = titan.84 days = 13 } }
+				10 = { character_event = { id = titan.85 days = 13 } }
+				10 = { character_event = { id = titan.86 days = 13 } }
+				10 = { character_event = { id = titan.87 days = 13 } }
+				10 = { character_event = { id = titan.88 days = 13 } }
+				10 = { character_event = { id = titan.89 days = 13 } }
+			}
+			random_list = {
+				10 = { character_event = { id = titan.83 days = 18 } }
+				10 = { character_event = { id = titan.84 days = 18 } }
+				10 = { character_event = { id = titan.85 days = 18 } }
+				10 = { character_event = { id = titan.86 days = 18 } }
+				10 = { character_event = { id = titan.87 days = 18 } }
+				10 = { character_event = { id = titan.88 days = 18 } }
+				10 = { character_event = { id = titan.89 days = 18 } }
 			}
 		}
 		set_character_flag = titan_thysia_feast
@@ -1778,15 +1778,15 @@ character_event = {
 
 # Feast Begins (Vassal)
 character_event = {
-	id = ancrel.3641
-	desc = EVTDESCancrel.3640
+	id = titan.41
+	desc = titan.40.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3641
+		name = titan.41.a
 		set_character_flag = titan_thysia_feast_vassal
 		custom_tooltip = { text = feast_begins }
 	}
@@ -1794,8 +1794,8 @@ character_event = {
 
 # Feast Ends (Liege)
 character_event = {
-	id = ancrel.3642
-	desc = EVTDESCancrel.3642
+	id = titan.42
+	desc = titan.42.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
@@ -1804,11 +1804,11 @@ character_event = {
 	hide_from = yes
 	
 	option = {
-		name = EVTOPTAancrel.3642
+		name = titan.42.a
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3643 }
+				character_event = { id = titan.43 }
 			}
 		}
 		add_character_modifier = {
@@ -1833,15 +1833,15 @@ character_event = {
 
 # Feast Ends (Vassal)
 character_event = {
-	id = ancrel.3643
-	desc = EVTDESCancrel.3643
+	id = titan.43
+	desc = titan.43.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3642
+		name = titan.42.a
 		clr_character_flag = attending_titan_thysia
 		clr_character_flag = titan_thysia_feast_vassal
 		clr_character_flag = feast_drunkard
@@ -1858,16 +1858,17 @@ character_event = {
 
 # Drunkard (Guest)
 character_event = {
-	id = ancrel.3650
-	desc = EVTDESCancrel.3650
+	id = titan.50
+	desc = titan.50.desc
 	picture = GFX_evt_drunk
 	border = GFX_event_normal_frame_religion
 	hide_from = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_drunkard }
 		liege = { 
 			has_character_flag = titan_thysia_feast
@@ -1877,19 +1878,19 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTAancrel.3650
+		name = titan.50.a
 		tooltip_info = drunkard
 		set_character_flag = feast_drunkard
 		hidden_tooltip = {
 			liege = {
 				set_character_flag = feast_drunkard
-				character_event = { id = ancrel.3651 }
+				character_event = { id = titan.51 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
 						NOT = { character = ROOT }
 					}
-					character_event = { id = ancrel.3651 }
+					character_event = { id = titan.51 }
 				}
 			}
 		}
@@ -1938,15 +1939,15 @@ character_event = {
 
 # Drunkard (Host and Other Guests)
 character_event = {
-	id = ancrel.3651
-	desc = EVTDESCancrel.3651
+	id = titan.51
+	desc = titan.51.desc
 	picture = GFX_evt_drunk
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3651
+		name = titan.51.a
 		trigger = { 
 			NOT = { trait = drunkard } 
 		}
@@ -1956,7 +1957,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTBancrel.3651
+		name = titan.51.b
 		tooltip_info = drunkard
 		trigger = { 
 			trait = drunkard
@@ -1970,13 +1971,14 @@ character_event = {
 
 # Gluttonous (Victim Hidden)
 character_event = {
-	id = ancrel.3652
+	id = titan.52
 	hide_window = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		liege = {
 			has_character_flag = titan_thysia_feast
 			NOT = { has_character_flag = feast_gluttonous }
@@ -1998,7 +2000,7 @@ character_event = {
 					trait = gluttonous
 					NOT = { character = ROOT }
 				}
-				character_event = { id = ancrel.3653 }
+				character_event = { id = titan.53 }
 				set_character_flag = feast_gluttonous
 			}
 		}
@@ -2007,22 +2009,22 @@ character_event = {
 
 # Gluttonous (Guest)
 character_event = {
-	id = ancrel.3653
-	desc = EVTDESCancrel.3653
+	id = titan.53
+	desc = titan.53.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3653
+		name = titan.53.a
 		tooltip_info = gluttonous
 		FROM = {
-			character_event = { id = ancrel.3654 tooltip = EVTTOOLTIPancrel.3654 }
+			character_event = { id = titan.54 tooltip = titan.54.tt }
 		}	
 		hidden_tooltip = {
 			liege = {
-				character_event = { id = ancrel.3655 }
+				character_event = { id = titan.55 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
@@ -2031,7 +2033,7 @@ character_event = {
 							character = FROM
 						}
 					}
-					character_event = { id = ancrel.3655 }
+					character_event = { id = titan.55 }
 				}
 			}
 		}
@@ -2067,15 +2069,15 @@ character_event = {
 
 # Gluttonous (Victim)
 character_event = {
-	id = ancrel.3654
-	desc = EVTDESCancrel.3654
+	id = titan.54
+	desc = titan.54.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3654
+		name = titan.54.a
 		opinion = {
 			modifier = opinion_vomit
 			who = FROM
@@ -2085,15 +2087,15 @@ character_event = {
 
 # Gluttonous (Host and Other Guests)
 character_event = {
-	id = ancrel.3655
-	desc = EVTDESCancrel.3655
+	id = titan.55
+	desc = titan.55.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3655
+		name = titan.55.a
 		opinion = {
 			modifier = opinion_feast_scandal
 			who = FROM
@@ -2103,17 +2105,18 @@ character_event = {
 
 # Lunatic (Guest)
 character_event = {
-	id = ancrel.3656
-	desc = EVTDESCancrel.3656
+	id = titan.56
+	desc = titan.56.desc
 	picture = GFX_evt_lunatic
 	border = GFX_event_normal_frame_religion
 	hide_from = yes
 	
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_lunatic }
 		liege = { 
 			has_character_flag = titan_thysia_feast
@@ -2123,19 +2126,19 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTAancrel.3656
+		name = titan.56.a
 		tooltip_info = lunatic
 		set_character_flag = feast_lunatic
 		hidden_tooltip = {
 			liege = {
 				set_character_flag = feast_lunatic
-				character_event = { id = ancrel.3657 }
+				character_event = { id = titan.57 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
 						NOT = { character = ROOT }
 					}
-					character_event = { id = ancrel.3657 }
+					character_event = { id = titan.57 }
 				}
 			}
 		}
@@ -2184,15 +2187,15 @@ character_event = {
 
 # Lunatic (Host and Other Guests)
 character_event = {
-	id = ancrel.3657
-	desc = EVTDESCancrel.3657
+	id = titan.57
+	desc = titan.57.desc
 	picture = GFX_evt_lunatic
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3657
+		name = titan.57.a
 		trigger = {
 			NOT = { trait = lunatic }
 		}
@@ -2202,7 +2205,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTBancrel.3657
+		name = titan.57.b
 		tooltip_info = lunatic
 		trigger = {
 			trait = lunatic
@@ -2216,27 +2219,28 @@ character_event = {
 
 # Lustful (Guest)
 character_event = {
-	id = ancrel.3658
-	desc = EVTDESCancrel.3658
+	id = titan.58
+	desc = titan.58.desc
 	picture = GFX_evt_brothel
 	border = GFX_event_normal_frame_religion
 	hide_from = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	only_men = yes
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_lustful }
 		liege = { 
 			has_character_flag = titan_thysia_feast
 			NOT = { has_character_flag = feast_lustful }
 		}
 		trait = lustful
-		is_female = no
 	}
 	
 	option = {
-		name = EVTOPTAancrel.3658
+		name = titan.58.a
 		tooltip_info = lustful
 		set_character_flag = feast_lustful
 		trigger = {
@@ -2245,13 +2249,13 @@ character_event = {
 		hidden_tooltip = {
 			liege = {
 				set_character_flag = feast_lustful
-				character_event = { id = ancrel.3659 }
+				character_event = { id = titan.59 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
 						NOT = { character = ROOT }
 					}
-					character_event = { id = ancrel.3659 }
+					character_event = { id = titan.59 }
 				}
 			}
 		}
@@ -2297,7 +2301,7 @@ character_event = {
 		}	
 	}
 	option = {
-		name = EVTOPTBancrel.3658
+		name = titan.58.b
 		tooltip_info = lustful
 		set_character_flag = feast_lustful
 		trigger = {
@@ -2306,13 +2310,13 @@ character_event = {
 		hidden_tooltip = {
 			liege = {
 				set_character_flag = feast_lustful
-				character_event = { id = ancrel.3659 }
+				character_event = { id = titan.59 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
 						NOT = { character = ROOT }
 					}
-					character_event = { id = ancrel.3659 }
+					character_event = { id = titan.59 }
 				}
 			}
 		}
@@ -2368,15 +2372,15 @@ character_event = {
 
 # Lustful (Host and Other Guests)
 character_event = {
-	id = ancrel.3659
-	desc = EVTDESCancrel.3659
+	id = titan.59
+	desc = titan.59.desc
 	picture = GFX_evt_brothel
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3659
+		name = titan.59.a
 		trigger = {
 			NOT = { trait = lustful }
 			NOT = { any_spouse = { character = FROM } }
@@ -2387,7 +2391,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTBancrel.3659
+		name = titan.59.b
 		tooltip_info = lustful
 		trigger = {
 			trait = lustful
@@ -2399,7 +2403,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTCancrel.3659
+		name = titan.59.c
 		trigger = {
 			any_spouse = { character = FROM }
 		}
@@ -2413,13 +2417,14 @@ character_event = {
 
 # Friendship Formed (Guest 1 Hidden)
 character_event = {
-	id = ancrel.3660
+	id = titan.60
 	hide_window = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_friendship }
 		liege = { 
 			has_character_flag = titan_thysia_feast
@@ -2441,7 +2446,7 @@ character_event = {
 					NOT = { character = ROOT }
 					opinion = { who = ROOT value =  20 }
 				}
-				character_event = { id = ancrel.3661 }
+				character_event = { id = titan.61 }
 				set_character_flag = feast_friendship
 				opinion = {
 					modifier = opinion_feast_friend
@@ -2458,18 +2463,18 @@ character_event = {
 
 # Friendship Formed (Guest 2)
 character_event = {
-	id = ancrel.3661
-	desc = EVTDESCancrel.3661
+	id = titan.61
+	desc = titan.61.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3661
+		name = titan.61.a
 		hidden_tooltip = {
 			FROM = {
-				character_event = { id = ancrel.3662 }
+				character_event = { id = titan.62 }
 			}
 		}
 		tooltip = {
@@ -2489,15 +2494,15 @@ character_event = {
 
 # Friendship Formed (Guest 1)
 character_event = {
-	id = ancrel.3662
-	desc = EVTDESCancrel.3661
+	id = titan.62
+	desc = titan.61.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3661
+		name = titan.61.a
 		tooltip = {
 			FROM = {
 				opinion = {
@@ -2515,16 +2520,17 @@ character_event = {
 
 # Homosexual Male (Guest 1 Hidden)
 character_event = {
-	id = ancrel.3663
+	id = titan.63
 	hide_window = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	only_men = yes
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_homosexual }
 		trait = homosexual
-		is_female = no
 		has_lover = no
 		liege = { 
 			NOT = { has_character_flag = feast_homosexual }
@@ -2554,7 +2560,7 @@ character_event = {
 					trait = homosexual
 					is_female = no
 				}
-				character_event = { id = ancrel.3664 }
+				character_event = { id = titan.64 }
 				add_lover = FROM
 				set_character_flag = feast_homosexual
 			}		
@@ -2564,22 +2570,22 @@ character_event = {
 
 # Homosexual Male (Guest 2)
 character_event = {
-	id = ancrel.3664
-	desc = EVTDESCancrel.3664
+	id = titan.64
+	desc = titan.64.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3664
+		name = titan.64.a
 		tooltip_info = homosexual
 		hidden_tooltip = {
 			FROM = {
-				character_event = { id = ancrel.3665 }
+				character_event = { id = titan.65 }
 			}
 			liege = {
-				character_event = { id = ancrel.3670 }
+				character_event = { id = titan.70 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
@@ -2588,14 +2594,14 @@ character_event = {
 							character = FROM
 						}
 					}
-					character_event = { id = ancrel.3670 }
+					character_event = { id = titan.70 }
 				}
 			}
 		}
 		tooltip = {
 			random = {
 				chance = 50
-				character_event = { id = ancrel.3669 tooltip = EVTTOOLTIPancrel.3669 }
+				character_event = { id = titan.69 tooltip = titan.69.tt }
 			}
 			add_lover = FROM
 		}
@@ -2604,22 +2610,22 @@ character_event = {
 
 # Homosexual Male (Guest 1)
 character_event = {
-	id = ancrel.3665
-	desc = EVTDESCancrel.3664
+	id = titan.65
+	desc = titan.64.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3664
+		name = titan.64.a
 		tooltip_info = homosexual
 		random = {
 			chance = 50
-			character_event = { id = ancrel.3669 tooltip = EVTTOOLTIPancrel.3669 }
+			character_event = { id = titan.69 tooltip = titan.69.tt }
 			hidden_tooltip = {
 				FROM = {
-					character_event = { id = ancrel.3669 }
+					character_event = { id = titan.69 }
 				}
 			}
 		}
@@ -2631,16 +2637,17 @@ character_event = {
 
 # Homosexual Female (Guest 1 Hidden)
 character_event = {
-	id = ancrel.3666
+	id = titan.66
 	hide_window = yes
 	is_triggered_only = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast_vassal
+	only_women = yes
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast_vassal
 		NOT = { has_character_flag = feast_homosexual }
 		trait = homosexual
-		is_female = yes
 		has_lover = no
 		liege = { 
 			NOT = { has_character_flag = feast_homosexual }
@@ -2670,7 +2677,7 @@ character_event = {
 					trait = homosexual
 					is_female = yes
 				}
-				character_event = { id = ancrel.3667 }
+				character_event = { id = titan.67 }
 				set_character_flag = feast_homosexual
 				add_lover = FROM
 			}		
@@ -2680,22 +2687,22 @@ character_event = {
 
 # Homosexual Female (Guest 2)
 character_event = {
-	id = ancrel.3667
-	desc = EVTDESCancrel.3664
+	id = titan.67
+	desc = titan.64.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3664
+		name = titan.64.a
 		tooltip_info = homosexual
 		hidden_tooltip = {
 			FROM = {
-				character_event = { id = ancrel.3668 }
+				character_event = { id = titan.68 }
 			}
 			liege = {
-				character_event = { id = ancrel.3670 }
+				character_event = { id = titan.70 }
 				any_vassal = {
 					limit = {
 						has_character_flag = titan_thysia_feast_vassal
@@ -2704,14 +2711,14 @@ character_event = {
 							character = FROM
 						}
 					}
-					character_event = { id = ancrel.3670 }
+					character_event = { id = titan.70 }
 				}
 			}			
 		}
 		tooltip = {
 			random = {
 				chance = 50
-				character_event = { id = ancrel.3669 tooltip = EVTTOOLTIPancrel.3669 }
+				character_event = { id = titan.69 tooltip = titan.69.tt }
 			}
 			add_lover = FROM
 		}
@@ -2720,22 +2727,22 @@ character_event = {
 
 # Homosexual Female (Guest 1)
 character_event = {
-	id = ancrel.3668
-	desc = EVTDESCancrel.3664
+	id = titan.68
+	desc = titan.64.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3664
+		name = titan.64.a
 		tooltip_info = homosexual
 		random = {
 			chance = 50
-			character_event = { id = ancrel.3669 tooltip = EVTTOOLTIPancrel.3669 }
+			character_event = { id = titan.69 tooltip = titan.69.tt }
 			hidden_tooltip = {
 				FROM = {
-					character_event = { id = ancrel.3669 }
+					character_event = { id = titan.69 }
 				}
 			}
 		}
@@ -2747,15 +2754,15 @@ character_event = {
 
 # Homosexual Caught
 character_event = {
-	id = ancrel.3669
-	desc = EVTDESCancrel.3669
+	id = titan.69
+	desc = titan.69.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3669
+		name = titan.69.a
 		tooltip = {
 			liege = {
 				if = {
@@ -2801,15 +2808,15 @@ character_event = {
 
 # Homosexual Caught (Host and Other Guests)
 character_event = {
-	id = ancrel.3670
-	desc = EVTDESCancrel.3670
+	id = titan.70
+	desc = titan.70.desc
 	picture = GFX_evt_viking_throneroom_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3670
+		name = titan.70.a
 		trigger = {
 			NOT = { trait = homosexual }
 		}
@@ -2819,7 +2826,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTBancrel.3670
+		name = titan.70.b
 		tooltip_info = homosexual
 		trigger = {
 			trait = homosexual
@@ -2833,15 +2840,15 @@ character_event = {
 
 # Sacrifice Generic 2 (Liege)
 character_event = {
-	id = ancrel.3680
-	desc = EVTDESCancrel.3680
+	id = titan.80
+	desc = titan.80.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3610
+		name = titan.10.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -2851,30 +2858,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3622 }
+				character_event = { id = titan.22 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3610
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.10.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Generic 3 (Liege)
 character_event = {
-	id = ancrel.3681
-	desc = EVTDESCancrel.3681
+	id = titan.81
+	desc = titan.81.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3610
+		name = titan.10.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -2884,30 +2891,30 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3622 }
+				character_event = { id = titan.22 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3610
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.10.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 # Sacrifice Generic 4 (Liege)
 character_event = {
-	id = ancrel.3682
-	desc = EVTDESCancrel.3682
+	id = titan.82
+	desc = titan.82.desc
 	picture = GFX_evt_midwinter_blot_oldgods
 	border = GFX_event_normal_frame_religion
 	
 	is_triggered_only = yes
 	
 	option = {
-		name = EVTOPTAancrel.3610
+		name = titan.10.a
 		FROM = {
 			death = {
 				death_reason = death_sacrificed
@@ -2917,30 +2924,31 @@ character_event = {
 		hidden_tooltip = {
 			any_vassal = {
 				limit = { has_character_flag = attending_titan_thysia }
-				character_event = { id = ancrel.3622 }
+				character_event = { id = titan.22 }
 			}
 		}
 		prestige = 25
 		piety = 15
 	}
 	option = {
-		name = EVTOPTBancrel.3610
-		FROM = { character_event = { id = ancrel.3637 tooltip = EVTTOOLTIPancrel.3637 } }
+		name = titan.10.b
+		FROM = { character_event = { id = titan.37 tooltip = titan.37.tt } }
 		piety = -25
 	}
 }
 
 ### Feast event bounces
 character_event = { #feast_drunkard
-	id = ancrel.3683
+	id = titan.83
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast
 		NOT = { has_character_flag = feast_drunkard }
 		any_vassal = {
 			has_character_flag = titan_thysia_feast_vassal
@@ -2955,21 +2963,22 @@ character_event = { #feast_drunkard
 				has_character_flag = titan_thysia_feast_vassal
 				trait = drunkard
 			}
-			character_event = { id = ancrel.3650 }
+			character_event = { id = titan.50 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3684 #feast_gluttonous
+	id = titan.84 #feast_gluttonous
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast
 		NOT = { has_character_flag = feast_gluttonous }
 		any_vassal = {
 			has_character_flag = titan_thysia_feast_vassal
@@ -2984,21 +2993,22 @@ character_event = {
 				has_character_flag = titan_thysia_feast_vassal
 				trait = gluttonous
 			}
-			character_event = { id = ancrel.3652 }
+			character_event = { id = titan.52 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3685 #feast_lunatic
+	id = titan.85 #feast_lunatic
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast
 		NOT = { has_character_flag = feast_lunatic }
 		any_vassal = {
 			has_character_flag = titan_thysia_feast_vassal
@@ -3013,21 +3023,22 @@ character_event = {
 				has_character_flag = titan_thysia_feast_vassal
 				trait = lunatic
 			}
-			character_event = { id = ancrel.3656 }
+			character_event = { id = titan.56 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3686 #feast_lustful
+	id = titan.86 #feast_lustful
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast
 		NOT = { has_character_flag = feast_lustful }
 		any_vassal = { 
 			has_character_flag = titan_thysia_feast_vassal
@@ -3044,21 +3055,22 @@ character_event = {
 				trait = lustful
 				is_female = no
 			}
-			character_event = { id = ancrel.3658 }
+			character_event = { id = titan.58 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3687 #feast_friendship
+	id = titan.87 #feast_friendship
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
-		has_character_flag = titan_thysia_feast
 		NOT = { has_character_flag = feast_friendship }
 		has_character_flag = titan_thysia_feast_vassal
 		any_vassal = {
@@ -3089,22 +3101,23 @@ character_event = {
 					}		
 				}
 			}
-			character_event = { id = ancrel.3660 }
+			character_event = { id = titan.60 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3688 #male_homosexual
+	id = titan.88 #male_homosexual
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
 		NOT = { has_character_flag = feast_homosexual }
-		has_character_flag = titan_thysia_feast
 		any_vassal = { 
 			has_character_flag = titan_thysia_feast_vassal
 			NOT = { has_character_flag = feast_homosexual }
@@ -3145,22 +3158,23 @@ character_event = {
 					}		
 				}
 			}
-			character_event = { id = ancrel.3663 }
+			character_event = { id = titan.63 }
 		}
 	}
 }
 
 character_event = {
-	id = ancrel.3689 #female_homosexual
+	id = titan.89 #female_homosexual
 	
 	is_triggered_only = yes
 	
 	hide_window = yes
 	
+	has_dlc = "The Old Gods"
+	has_character_flag = titan_thysia_feast
+	
 	trigger = {
-		has_dlc = "The Old Gods"
 		NOT = { has_character_flag = feast_homosexual }
-		has_character_flag = titan_thysia_feast
 		any_vassal = { 
 			has_character_flag = titan_thysia_feast_vassal
 			NOT = { has_character_flag = feast_homosexual }
@@ -3201,7 +3215,7 @@ character_event = {
 					}		
 				}
 			}
-			character_event = { id = ancrel.3666 }
+			character_event = { id = titan.66 }
 		}
 	}
 }
@@ -3212,7 +3226,7 @@ character_event = {
 
 # Safety catch - clears character flags and modifiers
 character_event = {
-	id = ancrel.3699
+	id = titan.99
 
 	hide_window = yes
 	
@@ -3237,15 +3251,15 @@ character_event = {
 #
 # Ancient Religions
 # - Titan Holy Order Events
-# ancrel.3700 - ancrel.3749 reserved
+# titan.100 - titan.149 reserved
 #
 ###################################
 
 # The Sickles are formed, and now everyone knows it!
 # narrative_event = {
-	# id = ancrel.3700
-	# title = ancrel.3700.title
-	# desc = ancrel.3700.desc
+	# id = titan.100
+	# title = titan.100.title
+	# desc = titan.100.desc
 	# picture = GFX_evt_war_planning
 	# border = GFX_event_narrative_frame_religion
 
@@ -3264,7 +3278,7 @@ character_event = {
 			# portrait = [From.GetID]
 		# }
 
-		# name = ancrel.3700.a
+		# name = titan.100.a
 	# }
 
 	# option = {
@@ -3273,7 +3287,7 @@ character_event = {
 			# NOT = { has_character_flag = acr_formed_sickles }
 		# }
 
-		# name = ancrel.3700.b
+		# name = titan.100.b
 	# }
 
 	# option = {
@@ -3283,6 +3297,6 @@ character_event = {
 			# }
 		# }
 
-		# name = ancrel.3700.c
+		# name = titan.100.c
 	# }
 # }

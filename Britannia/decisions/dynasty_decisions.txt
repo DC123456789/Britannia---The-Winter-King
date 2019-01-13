@@ -161,8 +161,12 @@ targetted_decisions = {
 		ai_check_interval = 30
 		
 		from_potential = {
-			ai = no
-			is_playable = yes
+			#ai = no
+			OR = {
+				trait = dryad
+				trait = bad_dryad
+				is_playable = yes
+			}
 			has_children = yes
 			has_polygamy = no
 		}
@@ -199,21 +203,31 @@ targetted_decisions = {
 		}
 		effect = {
 			remove_trait = bastard
-			add_trait = legit_bastard
+			if = {
+				limit = { 
+					FROM = {
+						NAND = {
+							religion = britannic_pagan
+							is_celtic_clergy_trigger = yes
+						}
+					}
+				}
+				add_trait = legit_bastard
+			}
 			recalc_succession = yes
 			FROM = { 
 				show_scope_change = no
 				if = {
 					limit = {
-						NOT = {
+						NOR = {
+							trait = dryad
+							trait = bad_dryad
 							any_owned_bloodline = {
 								has_bloodline_flag = bloodline_legitimize
 							}
 						}
 					}
-					FROM = {
-						piety = -20
-					}
+					piety = -20
 				}
 				if = {
 					limit = { PREV = { character = 3 } }
@@ -284,6 +298,11 @@ targetted_decisions = {
 		}
 		ai_will_do = {
 			factor = 0
+			additive_modifier = {
+				value = 100
+				religion = britannic_pagan
+				is_celtic_clergy_trigger = yes
+			}
 		}
 	}
 	# legitimize_arthur = {

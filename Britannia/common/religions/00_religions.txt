@@ -5,7 +5,12 @@
 # This trigger defines who can see a character's secret religion. The character with the secret religion is FROM, while the viewer is ROOT
 # Characters can always see their own secret religion. The observer can see all secret religions
 secret_religion_visibility_trigger = {
-	secret_religion = FROM
+	OR = {
+		secret_religion = FROM
+		FROM = {
+			has_character_flag = confessed_secret_religion_to_@ROOT
+		}
+	}
 }
 
 # women_can_take_consorts = yes # If set, women can take consorts as well, not just men. Defaults to "no". Has no effect if max_consorts is 0
@@ -482,6 +487,66 @@ pagan_group = {
 		intermarry = jewish_group
 		intermarry = muslim
 	}
+	britannic_pagan = {
+		graphical_culture = norsegfx
+		interface_skin = { christian_interface pagan_interface }
+		alternate_start = { always = no }
+		
+		icon = 17
+		heresy_icon = 15
+		
+		ai_convert_other_group = 2 # always try to convert
+		ai_convert_same_group = 2 # always try to convert
+		
+		color = { 0.5 0.9 0.5 }
+		crusade_name = GREAT_HOLY_WAR
+		scripture_name = THE_CYCLES
+		priest_title = DRYAD
+
+		high_god_name = GOD_BRITANNIA
+
+		god_names = {
+			GOD_BRITANNIA GOD_HOLY_MOTHER GOD_SC_ANDRASTE GOD_ST_BOUDICCA GOD_ST_BRIGID GOD_SC_RHIANNON GOD_SC_OLWEN
+		}
+		evil_god_names = {
+			EVIL_UNSEELIE
+		}
+		
+		parent = briton_pagan_reformed
+		#pre_reformed = yes
+
+		priests_can_marry = yes
+		priests_can_inherit = no
+		investiture = yes
+
+		hard_to_convert = yes
+		can_demand_religious_conversion = yes
+
+		female_temple_holders = yes
+		feminist = yes
+		women_can_take_consorts = yes
+		men_can_take_consorts = no
+		male_temple_holders = no
+
+		#can_have_antipopes = yes
+		can_excommunicate = yes
+		can_grant_divorce = yes
+		#can_grant_invasion_cb = invasion
+		#can_grant_claim = yes
+		#can_call_crusade = yes
+		join_crusade_if_bordering_hostile = yes
+
+		religious_clothing_head = 3
+		religious_clothing_priest = 3
+
+		allow_in_ruler_designer = no
+
+		intermarry = christian
+		intermarry = pagan_group
+		intermarry = gnostic_group
+		intermarry = jewish_group
+		intermarry = muslim
+	}
 	pict_pagan_reformed = {
 		graphical_culture = norsegfx
 		alternate_start = { always = no }
@@ -493,6 +558,7 @@ pagan_group = {
 		character_modifier = {
 			briton_pagan_opinion = 5
 			briton_pagan_reformed_opinion = 5
+			britannic_pagan_opinion = 5
 			gael_pagan_opinion = 5
 			gael_pagan_reformed_opinion = 5
 		}
@@ -548,6 +614,7 @@ pagan_group = {
 		character_modifier = {
 			briton_pagan_opinion = 5
 			briton_pagan_reformed_opinion = 5
+			britannic_pagan_opinion = 5
 			gael_pagan_opinion = 5
 			gael_pagan_reformed_opinion = 5
 		}
@@ -611,6 +678,7 @@ pagan_group = {
 		character_modifier = {
 			briton_pagan_opinion = 5
 			briton_pagan_reformed_opinion = 5
+			britannic_pagan_opinion = 5
 			pict_pagan_opinion = 5
 			pict_pagan_reformed_opinion = 5
 		}
@@ -666,6 +734,7 @@ pagan_group = {
 		character_modifier = {
 			briton_pagan_opinion = 5
 			briton_pagan_reformed_opinion = 5
+			britannic_pagan_opinion = 5
 			pict_pagan_opinion = 5
 			pict_pagan_reformed_opinion = 5
 		}
@@ -1756,6 +1825,8 @@ pagan_group = {
 		psc_marriage = yes
 		reformed = roman_pagan_reformed
 		
+		can_demand_religious_conversion = yes
+		
 		religious_clothing_head = 12
 		religious_clothing_priest = 11
 		
@@ -1844,7 +1915,7 @@ pagan_group = {
 		allow_in_ruler_designer = no
 
 		character_modifier = {
-			combat_rating = 2
+			combat_rating = 10
 		}
 		
 		intermarry = christian
@@ -1860,15 +1931,15 @@ pagan_group = {
 
 		icon = 43
 		heresy_icon = 37
-		parent = roman_pagan
+		parent = roman_pagan_reformed
 
-		pre_reformed = yes
+		#pre_reformed = yes
 		
 		color = { 0.6 0 0 }
 
 		high_god_name = GOD_PROMETHEUS
 		god_names = {
-			GOD_PROMETHEUS GOD_EPIMETHEUS
+			GOD_PROMETHEUS GOD_EPIMETHEUS GOD_THE_BROTHERS GOD_PANDORA GOD_ASIA
 		}
 		evil_god_names = {
 			GOD_OLYMPIANS		
@@ -1879,11 +1950,15 @@ pagan_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 
+		hard_to_convert = yes
+		can_demand_religious_conversion = yes
+		
 		peace_piety_gain = 1.0
 		aggression = 0.75
 		short_reign_opinion_year_mult = 1.5 # The default is 2
 		has_heir_designation = yes
 		feminist = yes
+		attacking_same_religion_piety_loss = yes
 
 		religious_clothing_head = 12
 		religious_clothing_priest = 11

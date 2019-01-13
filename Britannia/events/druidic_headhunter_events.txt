@@ -3,18 +3,18 @@
 # ANCIENT RELIGIONS
 # - Druidic Headhunters
 #
-# Event ID ancrel.0010 - ancrel.0019 reserved
+# Event ID celtic.10 - celtic.19 reserved
 #
 #######################################
 
 # Written by Patrick Marchand
 
-namespace = ancrel
+namespace = celtic
 
 #Pictish Pagan warrior takes first enemies head
 character_event = {
-	id = ancrel.0010
-	desc = EVTDESCancrel.0010
+	id = celtic.10
+	desc = celtic.10.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -206,15 +206,15 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTAancrel.0010
+		name = celtic.10.a
 		add_trait = head1
 	}
 }
 
 #Pictish Pagan warrior takes second enemies head
 character_event = {
-	id = ancrel.0011
-	desc = EVTDESCancrel.0011
+	id = celtic.11
+	desc = celtic.11.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -403,7 +403,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTAancrel.0011
+		name = celtic.11.a
 		remove_trait = head1
 		add_trait = head2
 	}
@@ -411,8 +411,8 @@ character_event = {
 
 #Druidic character takes third enemy head
 character_event = {
-	id = ancrel.0012
-	desc = EVTDESCancrel.0012
+	id = celtic.12
+	desc = celtic.12.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -601,7 +601,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTAancrel.0012
+		name = celtic.12.a
 		remove_trait = head2
 		add_trait = head3
 	}
@@ -609,8 +609,8 @@ character_event = {
 
 #Druidic character takes fourth enemy head
 character_event = {
-	id = ancrel.0013
-	desc = EVTDESCancrel.0013
+	id = celtic.13
+	desc = celtic.13.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -799,7 +799,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTAancrel.0013
+		name = celtic.13.a
 		remove_trait = head3
 		add_trait = head4
 	}
@@ -807,8 +807,8 @@ character_event = {
 
 #Druidic character takes fifth enemy head and becomes a legend
 character_event = {
-	id = ancrel.0014
-	desc = EVTDESCancrel.0014
+	id = celtic.14
+	desc = celtic.14.desc
 	picture = GFX_evt_headhunter
 	border = GFX_event_normal_frame_war
 
@@ -996,8 +996,39 @@ character_event = {
 		}
 	}
 	option = {
-		name = EVTOPTAancrel.0014
+		name = celtic.14.a
 		remove_trait = head4
 		add_trait = head5
+		custom_tooltip = {
+			text = found_living_legend_bloodine_tt
+			hidden_tooltip = {
+				if = {
+					limit = {
+						is_female = yes
+					}
+					create_bloodline = {
+						type = living_legend_female
+					}
+				} 
+				else = {
+					create_bloodline = {
+						type = living_legend_male
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = celtic.14.a
+		remove_trait = head4
+		add_trait = head5
+
+		trigger = {
+			OR = {
+				is_bloodline_member_of = living_legend_male
+				is_bloodline_member_of = living_legend_female
+			}
+		}
 	}
 }

@@ -1022,6 +1022,7 @@ succession_laws = {
 			OR = {
 				title = k_nuncio_britanniae
 				title = d_manichean
+				title = k_britannic_pagan
 			}
 		}
 		
@@ -1054,6 +1055,11 @@ succession_laws = {
 	}
 	succ_open_elective = {
 		potential = {
+			NOR = {
+				title = k_nuncio_britanniae
+				title = d_manichean
+				title = k_britannic_pagan
+			}
 			OR = {
 				is_primary_type_title = yes
 				AND = {
@@ -1067,7 +1073,15 @@ succession_laws = {
 					tier = baron
 					OR = {
 						is_republic = yes
-						is_theocracy = yes
+						AND = {
+							is_theocracy = yes
+							NOR = { 
+								holder_scope = { 
+									religion_group = muslim
+									religion = britannic_pagan
+								}
+							}
+						}
 					}
 				}
 				holder_scope = { 
@@ -1106,7 +1120,10 @@ succession_laws = {
 			}
 			
 			holder_scope = {
-				religion = catholic
+				OR = {
+					religion = catholic
+					religion = britannic_pagan
+				}
 				is_merchant_republic = no
 				OR = {
 					independent = yes
@@ -1178,6 +1195,7 @@ gender_laws = {
 	cognatic_succession = {
 		potential = {
 			holder_scope = {
+				NOT = { religion = britannic_pagan }
 				NOT = { has_religion_feature = religion_matriarchal }
 				NOT = { has_religion_feature = religion_equal }
 				NOT = { has_religion_feature = religion_feature_pict }
@@ -1312,6 +1330,7 @@ gender_laws = {
 				NOT = { has_religion_feature = religion_matriarchal } 
 				NOT = { has_religion_feature = religion_equal }
 				NOT = { has_religion_feature = religion_feature_pict }
+				NOT = { religion = britannic_pagan }
 			}
 		}
 		effect = {
@@ -1334,6 +1353,7 @@ gender_laws = {
 			OR = {
 				holder_scope = { religion = promethean_pagan }
 				holder_scope = { culture = vasconian }
+				holder_scope = { religion = britannic_pagan }
 				holder_scope = { has_religion_feature = religion_equal }
 				holder_scope = { has_religion_feature = religion_feature_pict }
 				AND = {
@@ -1410,7 +1430,12 @@ gender_laws = {
 					OR = {
 						has_religion_feature = religion_equal
 						has_religion_feature = religion_feature_pict
+						religion = promethean_pagan
+						culture = vasconian
 					}
+					religion = promethean_pagan
+					culture = vasconian
+					religion = britannic_pagan
 				}
 			}
 		}
@@ -1452,7 +1477,10 @@ gender_laws = {
 		female_dynasty_opinion = 20
 		
 		potential = {
-			holder_scope = { has_religion_feature = religion_matriarchal }
+			OR = {
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { religion = britannic_pagan }
+			}
 		}
 		allow = {
 			always = yes
@@ -1475,6 +1503,7 @@ gender_laws = {
 		potential = {
 			holder_scope = {
 				OR = {
+					religion = britannic_pagan
 					has_religion_feature = religion_matriarchal
 					any_owned_bloodline = {
 						has_bloodline_flag = bloodline_enatic_cognatic 
@@ -1499,6 +1528,7 @@ gender_laws = {
 				NOT = {
 					holder_scope = {
 						OR = {
+							religion = britannic_pagan
 							has_religion_feature = religion_matriarchal
 							any_owned_bloodline = {
 								has_bloodline_flag = bloodline_enatic_cognatic 
