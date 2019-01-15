@@ -444,75 +444,8 @@ character_event = {
 	only_playable = yes
 	
 	trigger = {
-		#NOT = { has_character_modifier = restored_roman_senate }
-		#NOT = { culture = roman }
 		NOT = { has_character_modifier = base_levies_timer }
-		OR = {
-			AND = {
-				realm_size = 30
-				NOT = { realm_size = 40 }
-				NOT = { has_character_modifier = base_levies_1 }
-			}
-			AND = {
-				realm_size = 40
-				NOT = { realm_size = 50 }
-				NOT = { has_character_modifier = base_levies_2 }
-			}
-			AND = {
-				realm_size = 50
-				NOT = { realm_size = 60 }
-				NOT = { has_character_modifier = base_levies_3 }
-			}
-			AND = {
-				realm_size = 60
-				NOT = { realm_size = 70 }
-				NOT = { has_character_modifier = base_levies_4 }
-			}
-			AND = {
-				realm_size = 70
-				NOT = { realm_size = 80 }
-				NOT = { has_character_modifier = base_levies_5 }
-			}
-			AND = {
-				realm_size = 80
-				NOT = { realm_size = 90 }
-				NOT = { has_character_modifier = base_levies_6 }
-			}
-			AND = {
-				realm_size = 90
-				NOT = { realm_size = 100 }
-				NOT = { has_character_modifier = base_levies_7 }
-			}
-			AND = {
-				realm_size = 100
-				NOT = { realm_size = 110 }
-				NOT = { has_character_modifier = base_levies_8 }
-			}
-			AND = {
-				realm_size = 110
-				NOT = { realm_size = 120 }
-				NOT = { has_character_modifier = base_levies_9 }
-			}
-			AND = {
-				realm_size = 120
-				NOT = { realm_size = 130 }
-				NOT = { has_character_modifier = base_levies_10 }
-			}
-			AND = {
-				realm_size = 130
-				NOT = { realm_size = 140 }
-				NOT = { has_character_modifier = base_levies_11 }
-			}
-			AND = {
-				realm_size = 140
-				NOT = { realm_size = 150 }
-				NOT = { has_character_modifier = base_levies_12 }
-			}
-			AND = {
-				realm_size = 150
-				NOT = { has_character_modifier = base_levies_13 }
-			}
-		}
+		realm_size = 30
 	}
 	
 	mean_time_to_happen = {
@@ -690,6 +623,16 @@ character_event = {
 				value = 1.25
 			}
 		}
+		# Germanic government reduces realm size penalty
+		if = {
+			limit = {
+				government = germanic_government
+			}
+			divide_variable = {
+				which = base_levies_realm_size
+				value = 1.2
+			}
+		}
 		# Imperial government reduces realm size penalty
 		if = {
 			limit = {
@@ -698,12 +641,12 @@ character_event = {
 			}
 			divide_variable = {
 				which = base_levies_realm_size
-				value = 3
+				value = 2.75
 			}
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 200 }
+				check_variable = { which = base_levies_realm_size value = 260 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_13 } }
@@ -717,7 +660,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 180 }
+				check_variable = { which = base_levies_realm_size value = 232 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_12 } }
@@ -731,7 +674,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 155 }
+				check_variable = { which = base_levies_realm_size value = 205 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_11 } }
@@ -745,7 +688,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 140 }
+				check_variable = { which = base_levies_realm_size value = 180 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_10 } }
@@ -759,7 +702,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 125 }
+				check_variable = { which = base_levies_realm_size value = 157 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_9 } }
@@ -773,7 +716,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 110 }
+				check_variable = { which = base_levies_realm_size value = 135 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_8 } }
@@ -787,7 +730,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 95 }
+				check_variable = { which = base_levies_realm_size value = 115 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_7 } }
@@ -801,7 +744,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 80 }
+				check_variable = { which = base_levies_realm_size value = 97 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_6 } }
@@ -815,7 +758,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 70 }
+				check_variable = { which = base_levies_realm_size value = 80 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_5 } }
@@ -829,7 +772,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 60 }
+				check_variable = { which = base_levies_realm_size value = 65 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_4 } }
@@ -843,7 +786,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				check_variable = { which = base_levies_realm_size value = 50 }
+				check_variable = { which = base_levies_realm_size value = 52 }
 			}
 			if = {
 				limit = { NOT = { has_character_modifier = base_levies_3 } }
