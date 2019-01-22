@@ -1059,6 +1059,14 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 		primary_title = {
 			e_britannia = {
 				copy_title_laws = PREV
+				if = {
+					limit = { NOT = { has_dlc = "Conclave" } }
+					add_law = crown_authority_0
+				}
+				else = {
+					add_law = out_of_realm_inheritance_law_0
+					add_law = vassal_wars_law_0
+				}
 				gain_title = ROOT 
 				add_law = succ_feudal_elective
 			}
@@ -3054,6 +3062,10 @@ narrative_event = {
 				limit = { tier = KING }
 				de_jure_liege = e_britannia
 			}
+		}
+		if = {
+			limit = { has_dlc = "Conclave" }
+			add_law = revoke_title_law_0
 		}
 	}
 	
