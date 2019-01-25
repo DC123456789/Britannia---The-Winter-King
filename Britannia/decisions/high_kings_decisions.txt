@@ -442,47 +442,7 @@ decisions = {
 			e_britannia = { add_claim = ROOT }
 			any_playable_ruler = {
 				limit = {
-					# Any independent Brythonic or Imperial ruler in lower Britannia gets asked
-					OR = {
-						primary_title = {
-							capital_scope = {
-								region = world_britannia
-								NOT = { region = world_britannia_cymry_henogledd }
-							}
-							OR = {
-								lower_tier_than = DUKE
-								empire = {
-									NOR = {
-										title = e_aengland
-										title = e_danes
-									}
-								}
-							}
-						}
-						any_demesne_title = {
-							tier = KING
-							capital_scope = {
-								region = world_britannia
-								NOT = { region = world_britannia_cymry_henogledd }
-							}
-							empire = {
-								NOR = {
-									title = e_aengland
-									title = e_danes
-								}
-							}
-						}
-					}
-					is_landed = yes
-					independent = yes
-					OR = {
-						culture_group = celtic
-						culture_group = imperiale
-					}
-					age = 15
-					NOT = { trait = incapable }
-					NOT = { has_character_flag = HK_britannia_claimant }
-					NOT = { has_character_flag = HK_challenge_loser }
+					is_potential_britannia_subject_trigger = yes
 				}
 				set_character_flag = HK_britannia_king
 				character_event = { id = 312161 days = 4 random = 4 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }

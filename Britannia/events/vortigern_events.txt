@@ -100,11 +100,11 @@ character_event = {
 		year = 425
 		war = no
 	}
-		
+	
 	mean_time_to_happen = {
 		months = 12
 	}
-		
+	
 	immediate = {
 		set_global_flag = vortigern_high_king
 		# ROOT = {
@@ -132,15 +132,29 @@ character_event = {
 		
 	option = {
 		name = "EVTOPTAVORTIGERN3"
+		set_character_flag = gained_britannia
 		e_britannia = {
 			grant_title = PREV
 		}
+		clr_character_flag = gained_britannia
 		if = {
 			limit = {
 				has_dlc = "Holy Fury"
 			}
 			create_bloodline = {
 				type = vortigern
+			}
+		}
+		# Ask other rulers if they want to submit
+		custom_tooltip = {
+			text = EVTTOOLTIPAVORTIGERN3
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					is_potential_britannia_subject_trigger = yes
+				}
+				character_event = { id = history.3020 }
 			}
 		}
 		ai_chance = {
@@ -152,6 +166,324 @@ character_event = {
 		name = "EVTOPTBVORTIGERN3"
 		e_britannia = {
 			remove_claim = PREV
+		}
+	}
+}
+
+# Other kings can submit to Vortigern
+character_event = {
+	id = history.3020
+	desc = "EVTDESCVORTIGERN20"
+	picture = "GFX_evt_castle_grass_hill"
+	
+	is_triggered_only = yes
+		
+	option = {
+		name = "EVTOPTAVORTIGERN20"		# Become Subject Kingdom
+		make_britannia_subject_of_FROM_effect = yes
+		ai_chance = {
+			factor = 60
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = FROM value = 25 } }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { opinion = { who = FROM value = 50 } }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 75 }
+			}
+			modifier = {
+				factor = 2.0
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 2.0
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 1.5
+				has_non_aggression_pact_with = FROM
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 3.0
+				is_allied_with = FROM
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = loyal
+			}
+			modifier = {
+				factor = 0.5
+				trait = unloyal
+			}
+			modifier = {
+				factor = 0.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2.0
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { NOT = { prestige = 3000 } }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { prestige = 4500 }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { trait = just }
+			}
+			modifier = {
+				factor = 0.7
+				FROM = { trait = arbitrary }
+			}
+			modifier = {
+				factor = 0.6
+				FROM = { trait = cruel }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = weak }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { trait = strong }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { martial = 18 }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { diplomacy = 18 }
+			}
+			modifier = {
+				factor = 1.25
+				culture = FROM
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { culture_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { FROM = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				NOR = { 
+					FROM = { culture_group = ROOT } 
+					AND = {
+						FROM = { is_roman_culture_trigger = yes }
+						ROOT = { is_roman_culture_trigger = yes }
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 0.25
+				relative_power = {
+					who = FROM
+					power = 1
+				}
+			}
+			modifier = {
+				factor = 0.5
+				relative_power = {
+					who = FROM
+					power = 0.75
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBVORTIGERN20"		# Ignore
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0.5
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -25 } }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = FROM value = -50 } }
+			}
+			modifier = {
+				factor = 100
+				NOT = { opinion = { who = FROM value = -75 } }
+			}
+			modifier = {
+				factor = 0.25
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 0.75
+				culture = FROM
+			}
+			modifier = {
+				factor = 0.5
+				trait = loyal
+			}
+			modifier = {
+				factor = 2.0
+				trait = unloyal
+			}
+			modifier = {
+				factor = 3.0
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 2.0
+				FROM = { trait = weak }
+			}
+			modifier = {
+				factor = 0.7
+				FROM = { trait = strong }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { NOT = { diplomacy = 10 } }
+			}
+			modifier = {
+				factor = 1.5
+				FROM = { NOT = { martial = 10 } }
+			}
+			modifier = {
+				factor = 2.0
+				FROM = { NOT = { prestige = 3000 } }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { FROM = { age = ROOT } }
+			}
+			modifier = {
+				factor = 1.75
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 1.5
+				NOR = { 
+					FROM = { culture_group = ROOT } 
+					AND = {
+						FROM = { is_roman_culture_trigger = yes }
+						ROOT = { is_roman_culture_trigger = yes }
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				FROM = { religion = ROOT }
+			}
+			modifier = {
+				factor = 2.0
+				NOT = { FROM = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 2.5
+				AND = {
+					NOT = { FROM = { religion_group = ROOT } }
+					ROOT = { trait = zealous }
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = {
+					who = FROM
+					power = 1.75
+				}
+			}
+			modifier = {
+				factor = 1.5
+				relative_power = {
+					who = FROM
+					power = 1.5
+				}
+			}
+			modifier = {
+				factor = 1.25
+				relative_power = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					relative_power = {
+						who = FROM
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					relative_power = {
+						who = FROM
+						power = 0.75
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				FROM = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = britannia_high_king_bloodline
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				pays_tribute_to = FROM
+			}
+			modifier = {
+				factor = 3		# Irish kings don't really care
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					culture_group = imperiale
+				}
+			}
 		}
 	}
 }

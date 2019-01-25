@@ -1338,3 +1338,47 @@ are_dejure_changes_allowed_trigger = {
 		is_alternate_start = no
 	}
 }
+
+is_potential_britannia_subject_trigger = {
+	# Any independent Brythonic or Imperial ruler in lower Britannia gets asked
+	OR = {
+		primary_title = {
+			capital_scope = {
+				region = world_britannia
+				NOT = { region = world_britannia_cymry_henogledd }
+			}
+			OR = {
+				lower_tier_than = DUKE
+				empire = {
+					NOR = {
+						title = e_aengland
+						title = e_danes
+					}
+				}
+			}
+		}
+		any_demesne_title = {
+			tier = KING
+			capital_scope = {
+				region = world_britannia
+				NOT = { region = world_britannia_cymry_henogledd }
+			}
+			empire = {
+				NOR = {
+					title = e_aengland
+					title = e_danes
+				}
+			}
+		}
+	}
+	is_landed = yes
+	independent = yes
+	OR = {
+		culture_group = celtic
+		culture_group = imperiale
+	}
+	#age = 15
+	#NOT = { trait = incapable }
+	NOT = { has_character_flag = HK_britannia_claimant }
+	NOT = { has_character_flag = HK_challenge_loser }	
+}
