@@ -14710,39 +14710,20 @@ character_event = {
 	
 	trigger = {
 		year = 600
+		NOT = { year = 700 }
 		ai = yes
-		liege = { ai = yes }
-		top_liege = { ai = yes }
 		independent = no
 		prisoner = no
 		wealth = 20
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		OR = { 
-			AND = {
-				has_landed_title = c_trent_hills
-				has_landed_title = d_mercia
-			}
-			AND = {
-				has_landed_title = c_glevum
-				has_landed_title = d_hwicce
-			}
-			AND = {
-				has_landed_title = c_lugg_vale
-				has_landed_title = d_magonsaete
-			}
-			AND = {
-				has_landed_title = c_letocetum
-				has_landed_title = d_tomsaete
-			}
-			AND = {
-				has_landed_title = c_viroconium
-				has_landed_title = d_wrocensaete
-			}
-			AND = {
-				has_landed_title = c_ratae
-				has_landed_title = d_middle_angles
-			}
+			has_landed_title = d_mercia
+			has_landed_title = d_hwicce
+			has_landed_title = d_magonsaete
+			has_landed_title = d_tomsaete
+			has_landed_title = d_wrocensaete
+			has_landed_title = d_middle_angles
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_mercia }
@@ -14761,6 +14742,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 12
+		modifier = {
+			factor = 3
+			k_mercia = { has_holder = yes }
+		}
 	}
 	
 	immediate = {
@@ -14787,12 +14772,32 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 1250 1250 }
-							heavy_infantry = { 1450 1450 }
-							archers = { 300 300 }
-							light_infantry = { 700 700 }
+							pikemen = { 800 800 }
+							heavy_infantry = { 800 800 }
+							archers = { 175 175 }
+							light_infantry = { 400 400 }
 						}
 						attrition = 1
+					}
+					if = {
+						limit = {
+							NOT = {
+								k_mercia = { any_previous_holder = { always = yes } }
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 450 450 }
+								heavy_infantry = { 650 650 }
+								archers = { 125 125 }
+								light_infantry = { 300 300 }
+							}
+							merge = yes
+							attrition = 1
+						}
 					}
 				}
 			}
@@ -14811,30 +14816,17 @@ character_event = {
 	
 	trigger = {
 		ai = yes
-		liege = { ai = yes }
-		top_liege = { ai = yes }
+		NOT = { year = 700 }
 		independent = no
 		prisoner = no
 		wealth = 20
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		OR = { 
-			AND = {
-				has_landed_title = c_durnovaria
-				has_landed_title = d_dorset
-			}
-			AND = {
-				has_landed_title = c_venta
-				has_landed_title = d_hampshire
-			}
-			AND = {
-				has_landed_title = c_isca_dumnonia
-				has_landed_title = d_devon
-			}
-			AND = {
-				has_landed_title = c_avalon
-				has_landed_title = d_somerset
-			}
+			has_landed_title = d_dorset
+			has_landed_title = d_hampshire
+			has_landed_title = d_devon
+			has_landed_title = d_somerset
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_wessex }
@@ -14853,6 +14845,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 12
+		modifier = {
+			factor = 3
+			k_wessex = { has_holder = yes }
+		}
 	}
 	
 	immediate = {
@@ -14879,11 +14875,30 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 1250 1250 }
-							heavy_infantry = { 1050 1050 }
-							archers = { 300 300 }
+							pikemen = { 700 700 }
+							heavy_infantry = { 600 600 }
+							archers = { 175 175 }
 						}
 						attrition = 1
+					}
+					if = {
+						limit = {
+							NOT = {
+								k_wessex = { any_previous_holder = { always = yes } }
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 550 550 }
+								heavy_infantry = { 450 450 }
+								archers = { 125 125 }
+							}
+							merge = yes
+							attrition = 1
+						}
 					}
 				}
 			}
@@ -14902,30 +14917,17 @@ character_event = {
 	
 	trigger = {
 		ai = yes
-		liege = { ai = yes }
-		top_liege = { ai = yes }
+		NOT = { year = 700 }
 		independent = no
 		prisoner = no
 		wealth = 20
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		OR = { 
-			AND = {
-				has_landed_title = c_bernicia
-				has_landed_title = d_bernicia
-			}
-			AND = {
-				has_landed_title = c_eburacum
-				has_landed_title = d_deira
-			}
-			AND = {
-				has_landed_title = c_hibernicum
-				has_landed_title = d_cumbria
-			}
-			AND = {
-				has_landed_title = c_cornovia
-				has_landed_title = d_cumbria
-			}
+			has_landed_title = d_bernicia
+			has_landed_title = d_deira
+			has_landed_title = d_cumbria
+			has_landed_title = d_lancaster
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_northumbria }
@@ -14944,6 +14946,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 12
+		modifier = {
+			factor = 3
+			k_northumbria = { has_holder = yes }
+		}
 	}
 	
 	immediate = {
@@ -14955,7 +14961,7 @@ character_event = {
 				}
 			}
 		}
-		add_claim = k_northumbria
+		add_claim = c
 		add_trait = unloyal
 		set_character_flag = revolt_for_northumbria
 	}
@@ -14970,11 +14976,30 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 1250 1250 }
-							heavy_infantry = { 1050 1050 }
-							archers = { 300 300 }
+							pikemen = { 700 700 }
+							heavy_infantry = { 600 600 }
+							archers = { 175 175 }
 						}
 						attrition = 1
+					}
+					if = {
+						limit = {
+							NOT = {
+								k_northumbria = { any_previous_holder = { always = yes } }
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 550 550 }
+								heavy_infantry = { 450 450 }
+								archers = { 125 125 }
+							}
+							merge = yes
+							attrition = 1
+						}
 					}
 				}
 			}
@@ -14993,22 +15018,16 @@ character_event = {
 	
 	trigger = {
 		ai = yes
-		liege = { ai = yes }
-		top_liege = { ai = yes }
+		year = 500
+		NOT = { year = 700 }
 		independent = no
 		prisoner = no
 		wealth = 20
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		OR = {
-			AND = {
-				has_landed_title = d_eastseaxe
-				completely_controls = c_thunreslea
-			}
-			AND = {
-				has_landed_title = d_middleseaxe
-				completely_controls = c_londinium
-			}
+			has_landed_title = d_eastseaxe
+			has_landed_title = d_middleseaxe
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_essex }
@@ -15024,11 +15043,14 @@ character_event = {
 				has_global_flag = anglia_collapse_factions
 			}
 		}
-		year = 500
 	}
 	
 	mean_time_to_happen = {
 		months = 12
+		modifier = {
+			factor = 3
+			k_eastseaxe = { has_holder = yes }
+		}
 	}
 	
 	immediate = {
@@ -15055,11 +15077,30 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 1500 1500 }
-							heavy_infantry = { 1000 1000 }
-							archers = { 300 300 }
+							pikemen = { 700 700 }
+							heavy_infantry = { 500 500 }
+							archers = { 175 175 }
 						}
 						attrition = 1
+					}
+					if = {
+						limit = {
+							NOT = {
+								k_eastseaxe = { any_previous_holder = { always = yes } }
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 600 600 }
+								heavy_infantry = { 400 400 }
+								archers = { 125 125 }
+							}
+							merge = yes
+							attrition = 1
+						}
 					}
 				}
 			}
@@ -15082,6 +15123,7 @@ character_event = {
 		prisoner = no
 		wealth = 20
 		year = 479
+		NOT = { year = 700 }
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		has_landed_title = d_the_weald
@@ -15103,6 +15145,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 12
+		modifier = {
+			factor = 3
+			k_sussex = { has_holder = yes }
+		}
 	}
 	
 	immediate = {
@@ -15129,12 +15175,32 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 1700 1700 }
-							heavy_infantry = { 1500 1500 }
-							archers = { 700 700 }
+							light_infantry = { 400 400 }
+							pikemen = { 800 800 }
+							heavy_infantry = { 700 700 }
+							archers = { 400 400 }
 						}
 						attrition = 1
+					}
+					if = {
+						limit = {
+							NOT = {
+								k_sussex = { any_previous_holder = { always = yes } }
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 300 300 }
+								pikemen = { 700 700 }
+								heavy_infantry = { 600 600 }
+								archers = { 300 300 }
+							}
+							merge = yes
+							attrition = 1
+						}
 					}
 				}
 			}
@@ -15367,6 +15433,7 @@ character_event = {
 		independent = no
 		prisoner = no
 		wealth = 20
+		NOT = { year = 700 }
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		has_landed_title = d_cantware
