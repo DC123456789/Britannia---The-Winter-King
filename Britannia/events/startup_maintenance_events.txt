@@ -2172,6 +2172,8 @@ character_event = {
 				region = custom_scandinavia
 			}
 			NOT = { region = world_bructeria }
+			NOT = { region = world_hesse }
+			NOT = { region = custom_alemannia }
 		}
 		NOT = { has_character_flag = bad_nontribal_marked }
 		has_global_flag = debug
@@ -2223,7 +2225,7 @@ character_event = {
 	}
 }
 
-# Gavelkind hotfix
+# Tribal succession hotfix
 character_event = {
 	id = 312998
 	desc = "You're not supposed to see this..."
@@ -2232,23 +2234,23 @@ character_event = {
 	hide_window = yes
 	
 	is_triggered_only = yes
-	only_rulers = yes
+	only_playable = yes
 	
 	trigger = {
 		is_ruler = yes
-		primary_title = {
-			OR = {
-				has_law = succ_gavelkind
-				has_law = succ_elective_gavelkind
+		is_tribal = yes
+		OR = {
+			current_heir = {
+				is_ruler = no
 			}
-			higher_tier_than = count
-		}
-		current_heir = {
-			is_landed = no
-			NOT = {
-				capital_holding = {
-					current_heir = {
-						character = PREVPREV
+			any_close_relative = {
+				is_ruler = no
+				any_heir_title = {
+					ROOT = {
+						any_demesne_title = {
+							tier = COUNT
+							title = PREVPREV
+						}
 					}
 				}
 			}
@@ -2256,19 +2258,52 @@ character_event = {
 	}
 	
 	immediate = {
-		current_heir = {
-			set_character_flag = gavelkind_fix
-		}
-		any_demesne_title = {
-			limit = { tier = count }
-			location = {
-				set_province_flag = gavelkind_fix_province
+		if = {
+			limit = { government = tribal_government }
+			current_heir = {
+				if = {
+					limit = { is_ruler = no }
+					set_character_flag = set_to_tribal_government
+				}
+			}
+			any_close_relative = {
+				limit = {
+					is_ruler = no
+					any_heir_title = {
+						ROOT = {
+							any_demesne_title = {
+								tier = COUNT
+								title = PREVPREV
+							}
+						}
+					}
+				}
+				set_character_flag = set_to_tribal_government
 			}
 		}
-	}
-	
-	option = {
-		name = "OK"
+		else_if = {
+			limit = { government = high_tribal_government }
+			current_heir = {
+				if = {
+					limit = { is_ruler = no }
+					set_character_flag = set_to_high_tribal_government
+				}
+			}
+			any_close_relative = {
+				limit = {
+					is_ruler = no
+					any_heir_title = {
+						ROOT = {
+							any_demesne_title = {
+								tier = COUNT
+								title = PREVPREV
+							}
+						}
+					}
+				}
+				set_character_flag = set_to_high_tribal_government
+			}
+		}
 	}
 }
 
@@ -2282,24 +2317,23 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		has_character_flag = gavelkind_fix
+		OR = {
+			has_character_flag = set_to_tribal_government
+			has_character_flag = set_to_high_tribal_government
+		}
 	}
 
 	immediate = {
-		any_independent_ruler = {
-			any_realm_province = {
-				limit = { has_province_flag = gavelkind_fix_province }
-				county = {
-					grant_title = ROOT
-				}
-				clr_province_flag = gavelkind_fix_province
-			}
+		if = {
+			limit = { has_character_flag = set_to_tribal_government }
+			clr_character_flag = set_to_tribal_government
+			set_government_type = tribal_government
 		}
-		clr_character_flag = gavelkind_fix
-	}
-
-	option = {
-		name = "OK"
+		if = {
+			limit = { has_character_flag = set_to_high_tribal_government }
+			clr_character_flag = set_to_high_tribal_government
+			set_government_type = high_tribal_government
+		}
 	}
 }
 
