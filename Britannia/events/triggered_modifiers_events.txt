@@ -2503,7 +2503,7 @@ character_event = {
 			which = tribal_prestige
 		}
 		
-		# Tribal Variable -= max(Num of Provinces - 4, 0)(*0.75 if High Tribal)(*1.2 if Low Tribal)
+		# Tribal Variable -= max(Num of Provinces - 4, 0)(*0.7 if High Tribal)(*1.2 if Low Tribal)
 		export_to_variable = {
 			which = tribal_num_provinces
 			value = num_of_count_titles_in_realm
@@ -2572,7 +2572,7 @@ character_event = {
 			limit = { government = high_tribal_government }
 			multiply_variable = {
 				which = tribal_num_provinces
-				value = 0.75
+				value = 0.7
 			}
 		}
 		if = {
@@ -2605,12 +2605,19 @@ character_event = {
 			which = tribal_martial
 		}
 		
-		# Divide by one half for High Tribals
+		# Divide by one half for High Tribals, and a further 20% reduction if negative
 		if = {
 			limit = { government = high_tribal_government }
 			divide_variable = {
 				which = tribal_prestige_modifier
 				value = 2
+			}
+			if = {
+				limit = { NOT = { check_variable = { which = tribal_prestige_modifier value = 0 } } }
+				multiply_variable = {
+					which = tribal_prestige_modifier
+					value = 0.8
+				}
 			}
 		}
 		

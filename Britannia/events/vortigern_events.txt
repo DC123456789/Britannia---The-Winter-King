@@ -133,8 +133,41 @@ character_event = {
 	option = {
 		name = "EVTOPTAVORTIGERN3"
 		set_character_flag = gained_britannia
-		e_britannia = {
-			grant_title = PREV
+		primary_title = {
+			show_scope_change = no
+			e_britannia = {
+				hidden_tooltip = {
+					copy_title_laws = PREV
+					if = {
+						limit = { NOT = { has_dlc = "Conclave" } }
+						add_law = { 
+							law = crown_authority_0
+							cooldown = no 
+							opinion_effect = no
+						}
+					}
+					else = {
+						add_law = { 
+							law = out_of_realm_inheritance_law_0
+							cooldown = no 
+							opinion_effect = no
+						}
+						add_law = { 
+							law = vassal_wars_law_0
+							cooldown = no 
+							opinion_effect = no
+						}
+					}
+				}
+				gain_title = ROOT 
+				hidden_tooltip = {
+					add_law = { 
+						law = succ_feudal_elective
+						cooldown = no 
+						opinion_effect = no
+					}
+				}
+			}
 		}
 		clr_character_flag = gained_britannia
 		if = {

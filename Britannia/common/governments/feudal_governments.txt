@@ -1,4 +1,54 @@
 feudal_governments = {
+
+	feudal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			imperial_government
+		}
+		potential = {
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				has_global_flag = startup
+				NOR = {
+					is_government_potential = sub_roman_government 
+					is_government_potential = sub_roman_brythonic_government 
+					is_government_potential = germanic_government 
+				}
+			}
+			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
+		}
+		
+		color = { 91 133 207 }
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
 	
 	imperial_government = {
 		preferred_holdings = { CASTLE }
@@ -356,56 +406,6 @@ feudal_governments = {
 		have_gender_laws = no
 		
 		capital_move_delay = 120
-	}
-
-	feudal_government = {
-		preferred_holdings = { CASTLE }
-		allowed_holdings = { 
-			CASTLE 
-			FORT
-			HOSPITAL
-		}
-		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
-			TRIBAL
-		}
-		accepts_liege_governments = { # Gets the wrong religion modifier instead
-			muslim_government
-			imperial_government
-		}
-		potential = {
-			OR = {
-				controls_religion = no
-				has_theocratic_religion_head_trigger = no
-			}
-			NOT = {	religion_group = muslim	}
-			is_patrician = no
-			NOT = { has_landed_title = c_benoc_folc }
-			OR = {
-				has_global_flag = startup
-				NOR = {
-					is_government_potential = sub_roman_government 
-					is_government_potential = sub_roman_brythonic_government 
-					is_government_potential = germanic_government 
-				}
-			}
-			NOT = { is_government_potential = imperial_government }
-			NOT = { is_government_potential = legion_government }
-			NOT = { is_government_potential = order_government }
-		}
-		
-		color = { 91 133 207 }
-		
-		dukes_called_kings = yes
-		barons_need_dynasty = yes
-
-		can_build_tribal = no
-		
-		can_be_granted_kingdoms_and_empires_by_other_government = yes
-		
-		ignore_in_vassal_limit_calculation = {
-			tribal_government
-		}
-		capital_move_delay = 600
 	}
 	
 	order_government = {
