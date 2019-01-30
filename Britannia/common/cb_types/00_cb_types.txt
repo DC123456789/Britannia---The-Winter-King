@@ -569,7 +569,45 @@ other_claim = {
 				}
 			}
 
+			# Flag characters that should be tribal
+			if = {
+				limit = { 
+					ROOT = { is_ruler = no }
+					FROM = { is_tribal = yes }
+				}
+				ROOT = { set_character_flag = convert_to_tribal }
+			}
+			
 			usurp_title_plus_barony_if_unlanded = ROOT
+			
+			# Make sure that tribals stay tribal
+			if = {
+				limit = { 
+					ROOT = { has_character_flag = convert_to_tribal }
+				}
+				ROOT = { 
+					clr_character_flag = convert_to_tribal 
+					if = {
+						limit = { 
+							capital_holding = {
+								holding_type = TRIBAL
+							}
+						}
+						if = {
+							limit = {
+								OR = {
+									FROM = { government = high_tribal_government }
+									FROMFROM = { government = high_tribal_government }
+								}
+								set_government_type = high_tribal_government
+							}
+						}
+						else = {
+							set_government_type = tribal_government
+						}						
+					}
+				}
+			}
 			
 			hidden_tooltip = {
 				ROOT = { 
