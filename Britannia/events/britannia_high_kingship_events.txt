@@ -1944,6 +1944,61 @@ character_event = {			# Notify HK Claimant backing down or war
 	}
 }
 
+### MAINTENANCE EVENTS ###
+
+# Make sure Subject Kings that get deposed don't stay a tributary
+# Called by on_yearly_pulse and after subjugation wars
+character_event = {
+	id = 302990
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_battle_cavalry
+	hide_window = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_tributary = { type = britannia_subject }
+		independent = no
+	}
+	
+	immediate = {
+		suzerain = {
+			remove_tributary = ROOT
+		}
+	}
+}
+
+# Called by OFFER_VASSALIZATION_INTERACTION_ACCEPT_EVENT
+character_event = {
+	id = 302991
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_battle_cavalry
+	hide_window = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	immediate = {
+		FROM = { character_event = { id = 302990 } }
+	}
+}
+
+# Called by on_new_holder/on_new_holder_inheritance/on_new_holder_usurpation
+character_event = {
+	id = 302992
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_battle_cavalry
+	hide_window = yes
+	
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	immediate = {
+		FROMFROM = { character_event = { id = 302990 } }
+	}
+}
+
 ### CLAIM IMPERIUM BRITANNIARUM DECISION CHAIN ###
 # Demand to Subject Kingdoms
 letter_event = {
