@@ -1458,7 +1458,7 @@ NMilitary = {
 	SHATTERED_RETREAT_FRIENDLY_ATTRITION = 0,	-- Attrition taken when traversing friendly territory during a shattered retreat (as a percentage)
 	
 	SHATTERED_RETREAT_MOVEMENT_MULTIPLIER = 1.3,-- Multiplier of unit movement speed when shattered
-	SHATTERED_RETREAT_MORALE_MULTIPLIER = 1.5,	-- Multiplier of morale regain when shattered
+	SHATTERED_RETREAT_MORALE_MULTIPLIER = 1.75,	-- Multiplier of morale regain when shattered
 	
 	SHATTERED_RETREAT_PREFERRED_PROVINCES = 4,				-- Units will try to move at least this many provinces away in shattered retreat
 	SHATTERED_RETREAT_MAX_PROVINCES = 6,					-- Units can not move longer than this many provinces during a shattered retreat

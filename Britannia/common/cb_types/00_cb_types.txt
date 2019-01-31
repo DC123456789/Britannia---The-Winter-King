@@ -566,6 +566,10 @@ other_claim = {
 				}
 				ROOT = {
 					set_character_flag = claimant_is_vassal_ruler_flag
+					if = {
+						limit = { tier = KING }
+						set_character_flag = claimant_is_king_vassal_ruler_flag
+					}
 				}
 			}
 
@@ -611,7 +615,7 @@ other_claim = {
 			
 			hidden_tooltip = {
 				ROOT = { 
-					any_child =  { 
+					any_child = { 
 						limit = { 
 							is_ruler = no 
 							is_married = no 
@@ -646,9 +650,37 @@ other_claim = {
 						holder_scope = {
 							is_liege_or_above = FROMFROM
 						}
-						NOT = { de_jure_liege_or_above = FROMFROM }
-						ROOT = {
-							NOT = { dynasty = FROMFROM }
+						OR = {
+							AND = {
+								NOT = { 
+									FROMFROM = {
+										any_demesne_title = {
+											de_jure_vassal_or_below = PREVPREV
+											OR = {
+												NOT = { title = e_britannia }
+												has_global_flag = britannia_empowered_high_council
+											}
+										}
+									}
+								}
+								ROOT = {
+									NOT = { dynasty = FROMFROM }
+								}
+							}
+							AND = {
+								NOT = { ROOT = { has_character_flag = claimant_is_king_vassal_ruler_flag } }
+								FROMFROM = {
+									NOT = {
+										any_demesne_title = {
+											tier = EMPEROR
+											OR = { 
+												NOT = { title = e_britannia }
+												has_global_flag = britannia_empowered_high_council
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 					ROOT = { set_defacto_liege = ROOT }
@@ -664,9 +696,33 @@ other_claim = {
 							}
 						}
 						OR = {
-							holder_scope = { de_jure_liege_or_above = FROMFROM }
+							holder_scope = {
+								FROMFROM = {
+									any_demesne_title = {
+										de_jure_vassal_or_below = PREVPREV
+										OR = {
+											NOT = { title = e_britannia }
+											has_global_flag = britannia_empowered_high_council
+										}
+									}
+								}
+							}
 							ROOT = { has_character_flag = claimant_is_vassal_ruler_flag }
 							ROOT = { dynasty = FROMFROM }
+						}
+						NAND = {
+							ROOT = { tier = KING }
+							FROMFROM = {
+								NOT = {
+									any_demesne_title = {
+										tier = EMPEROR
+										OR = { 
+											NOT = { title = e_britannia }
+											has_global_flag = britannia_empowered_high_council
+										}
+									}
+								}
+							}
 						}
 					}
 					ROOT = {
@@ -717,9 +773,26 @@ other_claim = {
 					}
 				}
 				
+				# If FROMFROM is the high king and ROOT is independent, make ROOT a Subject Kingdom if applicable
+				if = {
+					limit = {
+						ROOT = {
+							independent = yes
+							is_potential_britannia_subject_trigger = yes
+						}		
+						FROMFROM = {
+							has_landed_title = e_britannia 
+							NOT = { has_global_flag = britannia_empowered_high_council }
+						}			
+					}
+					FROMFROM = { save_event_target_as = britannia_high_king }
+					ROOT = { make_britannia_subject_of_event_target_effect = yes }
+				}
+				
 				ROOT = { 
 					clr_character_flag = other_claim_tmp_flag 
 					clr_character_flag = claimant_is_vassal_ruler_flag 
+					clr_character_flag = claimant_is_king_vassal_ruler_flag
 				}
 			}
 		}

@@ -902,6 +902,14 @@ narrative_event = {
 			factor = 0.1
 			year = 545
 		}
+		modifier = {
+			factor = 2
+			k_burgundy = {
+				holder_scope = {
+					realm_levy_diff = { who = ROOT value = 0 }
+				}
+			}
+		}
 	}
 	
 	immediate = {
@@ -917,6 +925,91 @@ narrative_event = {
 			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
+			}
+		}		
+		if = {
+			limit = { ai = yes }
+			if = {
+				limit = {
+					k_burgundy = {		# Burgundy is within 1000 levies of ROOT
+						holder_scope = {
+							realm_levy_diff = { 
+								who = ROOT 
+								value = -1000
+							}
+						}
+					}
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							province = PREV
+							troops = {
+								light_infantry = { 500 500 }
+								heavy_infantry = { 750 750 }
+								pikemen = { 400 400 }
+								archers = { 300 300 }
+								light_cavalry = { 75 75 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					k_burgundy = {
+						holder_scope = {		# Burgundy is within 500 levies of ROOT
+							realm_levy_diff = { 
+								who = ROOT 
+								value = -500
+							}
+						}
+					}
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							province = PREV
+							troops = {
+								light_infantry = { 250 250 }
+								heavy_infantry = { 500 500 }
+								pikemen = { 200 200 }
+								archers = { 100 100 }
+							}
+							#disband_on_peace = yes
+							attrition = 0.5
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					k_burgundy = {
+						holder_scope = {		# Burgundy is within 500 levies of ROOT
+							realm_levy_diff = { 
+								who = ROOT 
+								value = -500
+							}
+						}
+					}
+				}
+				capital_scope = {
+					ROOT = {
+						spawn_unit = {
+							province = PREV
+							troops = {
+								light_infantry = { 250 250 }
+								heavy_infantry = { 500 500 }
+								pikemen = { 200 200 }
+								archers = { 100 100 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
+					}
+				}
 			}
 		}
 	}
