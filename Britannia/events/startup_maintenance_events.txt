@@ -1858,17 +1858,14 @@ character_event = {
 		if = {
 			limit = { culture_group = imperiale }
 			add_trait = imperial_group_trait
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { culture = romanobritish }
 			add_trait = romanobritish_culture_trait
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { culture_group = romance }
 			add_trait = romance_group_trait
-			break = yes
 		}
 	}
 }
@@ -2333,6 +2330,48 @@ character_event = {
 			limit = { has_character_flag = set_to_high_tribal_government }
 			clr_character_flag = set_to_high_tribal_government
 			set_government_type = high_tribal_government
+		}
+	}
+}
+
+# Deal with AI granting titles to mercenaries
+character_event = {
+	id = 319099
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		FROMFROM = {
+			mercenary = yes
+		}
+	}
+	
+	immediate = {
+		FROM = { save_event_target_as = fromfrom_liege }
+		FROMFROM = {
+			save_event_target_as = original_merc_leader
+			create_random_soldier = {
+				dynasty = culture
+				religion = PREV
+				culture = PREV
+				age = 24
+				random_traits = yes
+			}
+			new_character = {
+				event_target:original_merc_leader = {
+					any_demesne_title = {
+						limit = { mercenary = yes }
+						grant_title = PREVPREV
+					}
+					set_defacto_liege = event_target:fromfrom_liege
+					event_target:fromfrom_liege = { save_event_target_as = target_to_switch_government_to }
+					set_government_to_target_effect = yes
+				}
+				set_defacto_liege = event_target:fromfrom_liege
+			}
 		}
 	}
 }

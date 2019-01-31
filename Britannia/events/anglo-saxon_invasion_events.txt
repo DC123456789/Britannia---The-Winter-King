@@ -6503,6 +6503,109 @@ character_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		if = {
+			limit = {
+				ai = yes
+			}
+			any_demesne_title = {
+				limit = {
+					NOR = {
+						location = { region = world_britannia }
+						capital_scope = { region = world_britannia }
+					}
+				}
+				ROOT = { 
+					if = {
+						limit = { independent = no }
+						liege = {
+							grant_title_no_opinion = PREVPREV
+						}
+					}
+					else_if = {
+						limit = {
+							job_chancellor = {
+								is_ruler = no
+								NOR = { 
+									dynasty = ROOT
+									is_close_relative = ROOT
+								}
+							}
+						}
+						job_chancellor = {
+							save_event_target_as = new_ruler
+						}
+					}
+					else_if = {
+						limit = {
+							job_marshal = {
+								is_ruler = no
+								NOR = { 
+									dynasty = ROOT
+									is_close_relative = ROOT
+								}
+							}
+						}
+						job_marshal = {
+							save_event_target_as = new_ruler
+						}
+					}
+					else_if = {
+						limit = {
+							any_courtier = {
+								is_adult = yes
+								is_female = no
+								is_ruler = no
+								culture = ROOT
+								religion = ROOT
+								NOR = { 
+									dynasty = ROOT
+									is_close_relative = ROOT
+								}
+							}
+						}
+						random_courtier = {
+							limit = {
+								is_adult = yes
+								is_female = no
+								is_ruler = no
+								culture = ROOT
+								religion = ROOT
+								NOR = { 
+									dynasty = ROOT
+									is_close_relative = ROOT
+								}
+							}
+							save_event_target_as = new_ruler
+						}
+					}
+					else = {
+						create_character = {
+							random_traits = yes
+							dynasty = culture
+							religion = ROOT
+							culture = ROOT
+							female = no
+							employer = ROOT
+							random_traits = yes
+							age = 24
+						}
+						new_character = {
+							save_event_target_as = new_ruler
+						}
+					}
+					event_target:new_ruler = {
+						grant_title_no_opinion = PREVPREV
+						if = {
+							limit = { ROOT = { independent = no } }
+							ROOT = { liege = { set_defacto_vassal = PREVPREV } }
+						}
+						else = {
+							set_defacto_liege = THIS
+						}
+					}
+				}
+			}
+		}
 		death = { 
 			death_reason = death_natural
 		}
