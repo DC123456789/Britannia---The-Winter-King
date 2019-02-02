@@ -304,78 +304,126 @@ narrative_event = {
 		}
 	}
 }
-# narrative_event = {
-	# id = 3132012
-	# desc = "You're not supposed to see this..."
-	# major = no
-	# hide_new = yes
-	# picture = "GFX_evt_battle_smoke"
+# Encourage rapid conquest of former Soissons client states by the Franks
+character_event = {
+	id = 313202
+	desc = "You're not supposed to see this..."
+	major = no
+	hide_new = yes
+	picture = "GFX_evt_battle_smoke"	
+	hide_window = yes
 	
-	# hide_window = yes
+	ai = yes
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
 	
-	# ai = yes
-	# only_rulers = yes
-	# min_age = 15
-	# capable_only = yes
-	# prisoner = no
+	trigger = {
+		year = 480
+		NOT = { year = 520 }
+		OR = {
+			has_landed_title = k_franks
+			has_landed_title = k_neustria
+			has_landed_title = k_orleans
+		}
+		war = no
+		wealth = 0
+		is_frankish_culture_trigger = yes
+		OR = {
+			has_global_flag = soissons_conquered
+			k_gaul = { has_holder = no }
+		}
+		any_neighbor_independent_ruler = {
+			NOR = { 
+				reverse_has_truce = ROOT 
+				has_non_aggression_pact_with = ROOT
+				is_allied_with = ROOT
+				realm_levy_diff = { 
+					who = ROOT 
+					value = -1000
+				}
+				tier = KING
+			}
+			any_realm_province = {
+				region = custom_roman_soissons_area
+				duchy = {
+					ROOT = {
+						can_use_cb = { #against target
+							target = PREVPREVPREV
+							thirdparty_title = PREV
+							casus_belli = duchy_invasion
+						}				
+					}
+				}
+			}
+		}
+	}
 	
-	# trigger = {
-		# year = 483
-		# NOT = { year = 510 }
-		# has_landed_title = k_franks
-		# war = no
-		# is_frankish_culture_trigger = yes
-		# has_global_flag = frankish_invasion_483
-		# NOR = { 
-			# has_global_flag = franks_sack_trebes
-			# has_global_flag = frankish_reclaim_trebes
-			# has_global_flag = franks_renamed 
-		# }
-	# }
+	mean_time_to_happen = {
+		months = 6
+		modifier = {
+			factor = 4
+			has_global_flag = benoic_conquered
+		}
+	}
 	
-	# mean_time_to_happen = {
-		# months = 6
-		# modifier = {
-			# factor = 0.5
-			# year = 487
-		# }
-		# modifier = {
-			# factor = 0.5
-			# year = 490
-		# }
-	# }
-	
-	# immediate = {
-		# ROOT = {
-			# add_claim = c_ynys_trebes
-		# }
-		# c_ynys_trebes = {
-			# reverse_war = {
-				# target = ROOT
-				# casus_belli = claim
-			# }
-		# }
-		# ROOT = {
-			# spawn_unit = {
-				# province = 177 # Tournai
-				# troops =
-				# {
-					# light_infantry = { 350 350 }
-					# heavy_infantry = { 500 500 }
-					# pikemen = { 200 200 }
-					# archers = { 100 100 }
-					# light_cavalry = { 130 130 }
-				# }
-				# attrition = 1
-			# }
-		# }
-		# set_global_flag = frankish_reclaim_trebes
-	# }
-	
-	# option = {
-		# name = "OK"
-	# }
-# }
+	immediate = {
+		random_neighbor_independent_ruler = {
+			limit = {
+				NOR = { 
+					reverse_has_truce = ROOT 
+					has_non_aggression_pact_with = ROOT
+					is_allied_with = ROOT
+					realm_levy_diff = { 
+						who = ROOT 
+						value = -1000
+					}
+					tier = KING
+				}
+				any_realm_province = {
+					region = custom_roman_soissons_area
+					duchy = {
+						ROOT = {
+							can_use_cb = { #against target
+								target = PREVPREVPREV
+								thirdparty_title = PREV
+								casus_belli = duchy_invasion
+							}				
+						}
+					}
+				}
+			}
+			preferred_limit = {
+				NOT = { culture_group = germanic }	# Prefer Armorican/Roman petty states
+			}
+			random_realm_province = {
+				limit = {
+					region = custom_roman_soissons_area
+					duchy = {
+						ROOT = {
+							can_use_cb = { #against target
+								target = PREVPREVPREV
+								thirdparty_title = PREV
+								casus_belli = duchy_invasion
+							}				
+						}
+					}
+				}
+				duchy = {
+					ROOT = {
+						unsafe_war = {
+							casus_belli = duchy_invasion
+							target = PREVPREV
+							thirdparty_title = PREVPREV
+							tier = DUKE
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 ###### Siege of Trebes ######
