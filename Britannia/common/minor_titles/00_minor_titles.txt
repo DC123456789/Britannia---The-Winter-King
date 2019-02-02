@@ -1066,70 +1066,6 @@ title_court_eunuch = {
 	message = yes
 }
 
-title_court_calligrapher = {
-	dignity = 0.04
-	realm_in_name = yes
-	grant_limit = 1
-	opinion_effect = 15
-	show_as_title = yes
-	
-	monthly_salary = 0.01
-	monthly_prestige = 0.002
-	
-	allowed_to_hold = {
-		NOT = {
-			primary_title = { temporary = yes } 
-		}
-		is_adult = yes
-		OR = { 
-			male_can_hold_minor_title_trigger = yes
-			female_can_hold_minor_title_trigger = yes
-		}
-		diplomacy = 10
-		learning = 10
-		NOT = { trait = incapable }
-		NOT = { trait = uneducated }
-		NOT = { has_minor_title = title_court_jester }
-		NOT = { has_minor_title = title_dominus_convivii }
-		NOT = { has_minor_title = title_master_of_the_horse }
-		NOT = { has_minor_title = title_master_of_the_hunt }
-		NOT = { has_minor_title = title_master_of_the_hounds }
-		NOT = { has_minor_title = title_high_almoner }
-		NOT = { has_minor_title = title_food_taster }
-		#NOT = { has_minor_title = title_court_bard }
-		NOT = { has_minor_title = title_court_poet }
-		NOT = { has_minor_title = title_chief_architect }
-		NOT = { has_minor_title = title_cupbearer }
-		NOT = { has_minor_title = title_seneschal }
-	}
-	
-	allowed_to_grant = {
-		OR = {
-			is_feudal = yes
-			is_tribal = yes
-		}
-		primary_title = {
-			OR = {
-				tier = king
-				tier = emperor
-			}
-		}
-		OR = {
-			culture_group = imperiale
-			culture = romanobritish
-			culture = armorican
-			culture = breton
-		}
-	}
-	
-	gain_effect = {
-	}
-	lose_effect = {
-	}
-
-	message = yes
-}
-
 title_court_bard = {
 	dignity = 0.15
 	realm_in_name = yes
@@ -1386,12 +1322,11 @@ title_food_taster = {
 	message = yes
 }
 
-
 title_court_calligrapher = {
 	dignity = 0.05
 	realm_in_name = yes
 	grant_limit = 1
-	opinion_effect = 5
+	opinion_effect = 10
 	
 	monthly_salary = 0.01
 	monthly_prestige = 0.20
@@ -1399,7 +1334,7 @@ title_court_calligrapher = {
 	is_unique = yes
 	
 	allowed_to_hold = {
-		NOT = { 
+		NOT = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
@@ -1407,7 +1342,22 @@ title_court_calligrapher = {
 			male_can_hold_minor_title_trigger = yes
 			female_can_hold_minor_title_trigger = yes
 		}
-		NOT = { trait = incapable } 
+		diplomacy = 10
+		learning = 10
+		NOT = { trait = incapable }
+		NOT = { trait = uneducated }
+		NOT = { has_minor_title = title_court_jester }
+		NOT = { has_minor_title = title_dominus_convivii }
+		NOT = { has_minor_title = title_master_of_the_horse }
+		NOT = { has_minor_title = title_master_of_the_hunt }
+		NOT = { has_minor_title = title_master_of_the_hounds }
+		NOT = { has_minor_title = title_high_almoner }
+		NOT = { has_minor_title = title_food_taster }
+		#NOT = { has_minor_title = title_court_bard }
+		NOT = { has_minor_title = title_court_poet }
+		NOT = { has_minor_title = title_chief_architect }
+		NOT = { has_minor_title = title_cupbearer }
+		NOT = { has_minor_title = title_seneschal }
 	}
 
 	allowed_to_grant = {
@@ -1421,7 +1371,13 @@ title_court_calligrapher = {
 				tier = emperor
 			}
 		}
-		religion_group = muslim
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			culture = breton
+			religion_group = muslim
+		}
 	}
 	
 	gain_effect = {
