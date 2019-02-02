@@ -318,6 +318,52 @@ vassalize_all_flagged_provinces_to_ROOT_effect = {
 			}
 			usurp_title = PREVPREV
 		}
+		# Return any vassals not in the vassalization zone
+		any_vassal = {
+			limit = {
+				capital_scope = {
+					NOT = { has_province_flag = vassalize_province }
+				}
+			}	
+			set_defacto_liege = PREVPREV
+			any_demesne_title = {
+				limit = {
+					lower_tier_than = DUKE
+					OR = {
+						county = {
+							has_province_flag = vassalize_province
+						}
+						location = {
+							has_province_flag = vassalize_province
+						}
+					}
+				}
+				usurp_title = PREVPREV
+			}
+			# Return any of THEIR vassals that are in the vassalization zone
+			any_vassal = {
+				limit = {
+					capital_scope = {
+						has_province_flag = vassalize_province
+					}
+				}	
+				set_defacto_liege = PREVPREV
+				any_demesne_title = {
+					limit = {
+						lower_tier_than = DUKE
+						NOR = {
+							county = {
+								has_province_flag = vassalize_province
+							}
+							location = {
+								has_province_flag = vassalize_province
+							}
+						}
+					}
+					usurp_title = PREVPREV
+				}
+			}
+		}
 	}
 	any_realm_lord = {
 		limit = {
