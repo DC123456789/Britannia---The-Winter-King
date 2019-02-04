@@ -14218,9 +14218,32 @@ character_event = {
 		}
 		set_character_flag = anglia_collapse_faction
 		prestige = 50
+		hidden_tooltip = {
+			if = {
+				limit = { NOT = { in_faction = faction_independence } }
+				leave_faction = all
+			}
+		}
 		start_faction = {
 			faction = faction_independence
 			can_join_existing = yes
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { NOT = { in_faction = faction_independence } }
+				liege = {
+					any_vassal = {
+						limit = { leads_faction = faction_independence }
+						ROOT = {
+							join_faction = {
+								faction = faction_independence
+								faction_leader = PREV
+								ignore_requirements = yes
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	

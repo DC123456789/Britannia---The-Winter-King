@@ -1035,6 +1035,7 @@ decisions = {
 			OR = {
 				is_landed = yes
 				is_patrician = yes
+				controls_religion = yes		# So the Papal Nuncios don't get continually wiped out
 			}
 			NOR = {
 				is_tribal = yes
@@ -1057,6 +1058,10 @@ decisions = {
 						OR = {
 							ai = no
 							capital_scope = { has_epidemic = yes }
+							AND = {
+								is_landed = no
+								location = { has_epidemic = yes }
+							}
 						}
 						OR = {
 							capital_scope = {
@@ -1073,6 +1078,17 @@ decisions = {
 									any_realm_province = {
 										has_epidemic = yes
 									}
+								}
+							}
+							AND = {
+								is_landed = no
+								location = {
+									OR = {
+										has_epidemic = yes
+										any_neighbor_province = {
+											has_epidemic = yes
+										}
+									} 
 								}
 							}
 						}
@@ -1193,12 +1209,26 @@ decisions = {
 			
 			modifier = {
 				factor = 0
-				NOT = {
-					capital_scope = {
-						OR = {
-							has_epidemic = yes
-							any_neighbor_province = {
+				NOR = {
+					AND = {
+						is_landed = yes
+						capital_scope = {
+							OR = {
 								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
+							}
+						}
+					}
+					AND = {
+						is_landed = no
+						location = {
+							OR = {
+								has_epidemic = yes
+								any_neighbor_province = {
+									has_epidemic = yes
+								}
 							}
 						}
 					}
@@ -1208,11 +1238,24 @@ decisions = {
 			modifier = {
 				factor = 0.01
 				OR = {
-					capital_scope = {
-						OR = {
-							disease = tuberculosis
-							disease = measles
-							disease = malaria
+					AND = {
+						is_landed = yes
+						capital_scope = {
+							OR = {
+								disease = tuberculosis
+								disease = measles
+								disease = malaria
+							}
+						}
+					}
+					AND = {
+						is_landed = no
+						location = {
+							OR = {
+								disease = tuberculosis
+								disease = measles
+								disease = malaria
+							}
 						}
 					}
 				}
@@ -1239,7 +1282,16 @@ decisions = {
 			}
 			modifier = {
 				factor = 50
-				capital_scope = { disease = bubonic_plague }
+				OR = {
+					AND = {
+						is_landed = yes
+						capital_scope = { disease = bubonic_plague }
+					}
+					AND = {
+						is_landed = no
+						location = { disease = bubonic_plague }
+					}
+				}
 			}
 		}
 	}
@@ -1342,7 +1394,16 @@ decisions = {
 			modifier = {
 				factor = 0
 				AND = {
-					capital_scope = { has_disease = yes }
+					OR = {
+						AND = {
+							is_landed = yes
+							capital_scope = { has_disease = yes }
+						}
+						AND = {
+							is_landed = no
+							location = { has_disease = yes }
+						}
+					}
 					NOT = { has_character_modifier = starving_food_shortage }
 				}
 			}
@@ -1359,7 +1420,16 @@ decisions = {
 
 			modifier = {
 				factor = 3
-				capital_scope = { has_disease = no }
+				OR = {
+					AND = {
+						is_landed = yes
+						capital_scope = { has_disease = no }
+					}
+					AND = {
+						is_landed = no
+						location = { has_disease = no }
+					}
+				}
 			}
 
 			modifier = {
