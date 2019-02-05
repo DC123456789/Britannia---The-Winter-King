@@ -21619,6 +21619,16 @@ narrative_event = {
 		k_caledonia = { de_jure_liege = e_alba }
 		k_strathclyde = { de_jure_liege = e_alba }
 		k_lothian = { de_jure_liege = e_alba }
+		
+		# If Dalriada has not been created, integrate the area into Pictavia
+		if = {
+			NOT = { has_global_flag = dalriada_created }			
+			d_hebrides = { de_jure_liege = k_caledonia }
+			if = {
+				limit = { NOT = { has_global_flag = argyll_renamed }
+				d_argyll = { de_jure_liege = k_caledonia }
+			}
+		}
 	}
 	
 	option = {
@@ -23547,7 +23557,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = k_north_islands
-		NOT = { has_global_flag = kingdom_south_north_created }
+		NOT = { has_global_flag = kingdom_north_islands_created }
 	}
 	
 	mean_time_to_happen = {
