@@ -213,6 +213,25 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 		ROOT = { ai = yes }
 	}
 	
+	# Block High Tribals from using against Low Tribals correct culture provinces
+	NAND = {
+		ROOT = {
+			government = high_tribal_government
+		}
+		FROM = {
+			government = tribal_government
+			OR = {
+				culture = PREV
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					PREV = {
+						is_ingvaeonic_culture_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	
 	# Block Franks against Frisians and Saxons
 	NAND = {
 		ROOT = {
@@ -731,9 +750,34 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 				}
 			}
 		}
+		
+		# Block High Tribals from using against Low Tribals correct culture provinces
+		AND = {
+			ROOT = {
+				government = high_tribal_government
+			}
+			FROM = {
+				government = tribal_government
+			}
+			any_direct_de_jure_vassal_title = {
+				OR = {
+					culture = PREV
+					AND = {
+						is_ingvaeonic_culture_trigger = yes
+						FROM = {
+							is_ingvaeonic_culture_trigger = yes
+						}
+					}
+				}
+			}
+		}
+		
+		# Armorica protection
 		capital_scope = {
 			region = world_gaul_lugdunensis_armorica
 		}
+		
+		# Wales protection
 		capital_scope = {
 			region = world_britannia_cymry_wales
 		}

@@ -2385,6 +2385,19 @@ take_vassal_tribal = {
 					ROOT = { government = tribal_government }
 					NOT = { num_of_count_titles_in_realm = 7 }
 				}
+				AND = {
+					ROOT = { 
+						capital_scope = { 
+							NOR = {
+								region = world_britannia
+								region = world_ireland
+								region = world_caledonia
+								region = custom_scandinavia
+							}
+						}
+					}
+					NOT = { num_of_count_titles_in_realm = 5 }
+				}
 				NOT = { num_of_count_titles_in_realm = 4 }
 			}
 			NOT = { character = FROM }
@@ -2436,6 +2449,10 @@ take_vassal_tribal = {
 		}
 		else = {
 			if = {
+				limit = { holder_scope = { num_of_count_titles_in_realm = 4 } }
+				ROOT = { prestige = -350 }
+			}
+			else_if = {
 				limit = { holder_scope = { num_of_count_titles_in_realm = 3 } }
 				ROOT = { prestige = -300 }
 			}
@@ -6026,8 +6043,6 @@ raid_cb = {					# Raid (war for money)
 	
 	#battle_warscore_mult = 1.25
 	
-	defender_unoccupied_warscore = yes
-	
 	allowed_to_target_tributaries = no
 	
 	sort_priority = 800
@@ -6084,11 +6099,34 @@ raid_cb = {					# Raid (war for money)
 	# }
 
 	can_use_title = {
-		FROM = {
-			primary_title = {
-				title = PREVPREV
+		tier = COUNT
+		location = {				# Must be bordering province, or one sea zone away
+			any_neighbor_province = {
+				OR = {
+					AND = {
+						has_owner = yes
+						owner = {
+							OR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
+						}
+					}
+					AND = {
+						is_land = no
+						any_neighbor_province = {
+							has_owner = yes
+							owner = {
+								OR = {
+									character = ROOT
+									is_liege_or_above = ROOT
+								}
+							}
+						}
+					}
+				}
 			}
-		}	
+		}
 	}
 	
 	on_add = {
@@ -6487,7 +6525,12 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 	
 	on_add = {
 		if = {
-			limit = { is_britannia_caratacus_subjugation_trigger = yes }
+			limit = { 
+				OR = {
+					is_britannia_caratacus_subjugation_trigger = yes 
+					ROOT = { government = high_tribal_government }
+				}
+			}
 			ROOT = { prestige = -500 }
 		}
 		else = {
@@ -6508,7 +6551,7 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 					martial = 20
 					AND = {
 						martial = 15
-						diplomacy = 15
+						diplomacy = 12
 					}
 					trait = brilliant_strategist
 					trait = skilled_tactician
@@ -6688,7 +6731,12 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 	on_add = {
 		hidden_tooltip = {
 			if = {
-				limit = { is_britannia_caratacus_subjugation_trigger = yes }
+				limit = { 
+					OR = {
+						is_britannia_caratacus_subjugation_trigger = yes 
+						ROOT = { government = high_tribal_government }
+					}
+				}
 				ROOT = {
 					add_character_modifier = {
 						name = vassalize_timer 

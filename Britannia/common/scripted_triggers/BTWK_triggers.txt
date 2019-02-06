@@ -1386,3 +1386,51 @@ is_potential_britannia_subject_trigger = {
 	NOT = { has_character_flag = HK_britannia_claimant }
 	NOT = { has_character_flag = HK_challenge_loser }	
 }
+
+is_at_war_hostile_with_ROOT_trigger = {
+	OR = {		# Is not just looting
+		any_war = {
+			OR = {
+				any_attacker = { character = ROOT }
+				any_defender = { character = ROOT }
+				any_attacker = {
+					ROOT = {
+						any_liege = {
+							character = PREVPREV
+						}
+					}
+				}
+				any_defender = {
+					ROOT = {
+						any_liege = {
+							character = PREVPREV
+						}
+					}
+				}
+			}
+		}
+		any_liege = {
+			any_war = {
+				OR = {
+					any_attacker = { character = ROOT }
+					any_defender = { character = ROOT }
+					any_attacker = {
+						ROOT = {
+							any_liege = {
+								character = PREVPREV
+							}
+						}
+					}
+					any_defender = {
+						ROOT = {
+							any_liege = {
+								character = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+	
