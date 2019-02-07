@@ -1,59 +1,19 @@
 Changelog 
-- Germanic and Feudal governments now have a small bonus to vassal levies and a small malus to vassal taxes
-- Increased costs for creating and destroying titles
-- Pillaging events will now only trigger for sieges involving a war
-- Blocked High Tribals from using the county conquest or duchy invasion cbs against correct-culture provinces of (Low) Tribal rulers
-- Other minor balance changes
 
 Bugfix changelog
-- Fixed incorrect de jure shift when reconquering Kollonlant as a Roman character
-- Fixed bug with removing Celtic pagan artifacts event spamming constantly
-- Adjusted Essex creation requirements
-- Rebalanced West Saxon invader event troops to be less heavy infantry-heavy
-- Fixed some bugs with ported ACR events (especially relating to Britannic paganism)
-- Fixed lack of court druid reminder event firing when the player already has one
-- Made AI Franks much more aggressive towards former Soissons client states
-- Fixed Court Calligrapher honorary title being ungrantable
-- Fixed de jure shift events between Saxon and Frankish kingdoms in Gaul firing during revolts
-- Fixed the Frankish Invasion cb sometimes also transferring vassals outside the invasion region
-- Fixed victorious Foederati Status revokation war not properly clearing foederati status
-- Fixed missing dynasties for some offmap regional Roman cultures
-- Fixed Middle Anglia being Germanic government in later start dates
-- Religion heads will now also go into seclusion during epidemics event if not landed
-- Picts can now create Alba if Dalriada has not yet been created
-- The Raid cb now targets a specific province (should make extremely long raid wars less common)
+- Fixed Subject Kingdom tributary relation breaking on death of tributary
 
 Bugs (List of Bugs in the live version- marked as fixed once fixed)
-- Incorrect de jure shift when reconquering Kollonlant as a Roman character - fixed
-- Franks not sufficiently aggressive against Soissons client states - fixed
-- Make Essex formation easier - fixed
-- Nerf West Saxon invasion - fixed
-- celtic.246 broken - fixed
-- Can vote for Britannia when title doesn't exist - vanilla bug
-- Various ACR events broken - fixed
-- Court druid reminder event firing when ruler has one - fixed
-- Can't grant Court Calligrapher title - fixed
 - Religious revolt creates a republic
-- Invasion cb sometimes taking wrong vassals - fixed
-- Saxon-Frankish de jure shifts can trigger during revolts - fixed
-- Anglia revolt is not very reliable - fixed
-- Revoke Foederati Status decision is available against vassal foederati - fixed
-- Missing dynasties for some Roman regional cultures - fixed
-- High AI death rates? - fixed
-- Low title destruction costs - fixed
-- Middle Anglia is Germanic government in 530 - fixed
-- Papal Nuncios don't close their gates and are wiped out by the Plague of Justinian - fixed
-- Looting/sacking events fire when raiding - fixed
-- Alemanni invading Saxony - fixed
-- Aellings not assimilating to Saxon culture - fixed
-- Franks have too many event troops - fixed
 - Missing Pope baptism option for AAtY
-- Alba can't be created by Picts in 410 start - fixed
-- Raid cb can last forever (target to a province instead) - fixed
+- Subject Kingdoms break on succession - fixed
 
 --- TODO ---
 Issues
-- AI seems to make theocracies/republics too often
+- Not enough AI raiding
+- Arthur-Mordred setup in 496
+- Christianity spreads a bit fast in Britannia?
+- AI doesn't upgrade government form fast enough - building problems?
 
 Current Plans (What you are currently doing and what you plan/want to do for this patch):
 - Decision to create the Classis Britannica
@@ -68,18 +28,24 @@ Current Plans (What you are currently doing and what you plan/want to do for thi
 		- Easier to use on non-de jure territory (of the defender) -> represents the competition between Mercia and Wessex for SE England
 	- Add cb allowing Anglo-Saxon kings to subjugate small neighbouring Anglo-Saxon realms for a significant prestige/gold cost (allows subjugating small king-level realms as well)
 	- Add pagan subjugation-esque cb allowing you to subjugate other Saxons within your de jure Anglo-Saxon kingdom (activates ~530 - 540?)
+	- Revolt risk for holding territory in the wrong de jure kingdom
+	- In general, add in liberation revolts for if Anglo-Saxon kingdoms get conquered -> possibly event chain where a deposed king or claimant can invade as an adventurer, with their former vassals rising up against you as well (historically there were a few instances of whole kingdoms being annexed, but it was usually reversed soon afterwards)
 	- Aenglaland can be claimed by accumulating enough hegemony score, which is gained by a combination of how many provinces you rule over (including tributaries) + number of tributaries + number of king level titles (past 1)
 		- Encourage tributarizing all of the realms around you, though tributaries should also try to rebel and regain their independence quite often
 		- Also allows for claiming Aengland if you are more or less the only Anglo-Saxon king left, because the others have been conquered (e.g. as historically by the Danes, or if you manage to unite most of England anyway)
 		- Will need some ideas for how this works without Horse Lords since they don't have access to normal tributaries -> special tributary type, which in particular persists across succession?
-	- Aenglaland is not automatically lost on death, but tributary kings are very likely to rebel in moments of weakness if they don't like you (especially if you end up in a civil war)
-	- Instead, the title is lost if you lose control of too many of the other Anglo-Saxon kingdoms/territory
-	- If you've had another Anglo-Saxon kingdom as a tributary for long enough and there is a weak king, you can take a targeted decision to either depose him and forcibly take his titles and annex his kingdom to your own (e.g. Edward the Elder to Ælfwynn)
-		- This will make your other tributary kingdoms very angry/scared of you, and of the kingdom you're trying to annex is strong enough they might decide to rebel against you instead
-		- Vassals will also dislike you for annexing their kingdom, and might rebel at some point as well
-	- In general, add in liberation revolts for if Anglo-Saxon kingdoms get conquered -> possibly event chain where a deposed king or claimant can invade as an adventurer, with their former vassals rising up against you as well (historically there were a few instances of whole kingdoms being annexed, but it was usually reversed soon afterwards)
+	- Once Feudal and controlling (directly or indirectly) enough of Aengland, you can take a decision to Establish the [Adjective] Supremacy, which means that Aenglaland is no longer lost upon succession
+	- However, tributary kings are still very likely to rebel in moments of weakness if they don't like you (especially if you end up in a civil war), and if you lose control over enough of England you can still lose the title
+	- Once you Establish Supremacy, you start gaining Influence score for all of your Anglo-Saxon subjects -> accumulates faster if you are strong and they are weak
+	- Once you have accumulated enough Influence score (scaling based on the size of the kingdom) and there is a weak king, you can take a targeted decision to either depose him and forcibly take his titles and annex his kingdom to your own (e.g. Edward the Elder to Ælfwynn)
+		- This will make your other tributary kingdoms very angry/scared of you -> possible rebellions, and of the kingdom you're trying to annex is strong enough they might decide to rebel against you instead
+		- Their/your new vassals will also dislike you for annexing their kingdom, and might rebel at some point as well
+	- Once you've annexed or vassalized all of the Anglo-Saxon kingdoms, triggers Unification of England event -> Aenglaland will now be considered a normal title, cannot be lost by being too weak
 	- Change Earl to mean viceroyal king?
+	- Decisions to invade/establish the Welsh Marches (Powys, Gwent, Glywyssing), then the rest of Wales, Scotland, Ireland, Normandy?
 - Redraw Kent according to the lathes and split into two duchies (East and West Kent)
+- Revise Sussex to include some still Romano-British provinces (and maybe even rulers?)
+- Redraw Siluria according to the cantrefs
 - AI spends all their prestige on tribal armies
 - De jure shift for Frankish kingdoms on conquest of Burgundy
 - Add decision for persecuting Christian missionaries as a pagan ruler
