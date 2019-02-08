@@ -511,7 +511,10 @@ decisions = {
 			has_dlc = "Holy Fury"
 			prisoner = no
 			has_regent = no
-			is_tribal = yes
+			OR = {
+				is_tribal = yes
+				is_feudal = yes
+			}
 			higher_real_tier_than = COUNT
 			NOT = { trait = incapable }
 			religion_group = pagan_group
@@ -549,7 +552,7 @@ decisions = {
 				wealth = 0 
 				relative_power = { who = ROOT power = 1 }
 				NOT = { lower_tier_than = ROOT } 
-				NOT = { distance_from_realm = { who = ROOT value = 180 } }
+				NOT = { distance_from_realm = { who = ROOT value = 800 } }
 			}
 			custom_tooltip = {
 				text = TT_UNREFORMED_PAGAN
@@ -559,12 +562,15 @@ decisions = {
 					#NOT = { religion = bon }
 				}
 			}
-			primary_title = {
-				OR = { 
-					has_law = tribal_organization_4 
-					has_law = tribal_organization_5 
-					has_law = tribal_organization_6 
-				}  
+			OR = {
+				primary_title = {
+					OR = { 
+						has_law = tribal_organization_4 
+						has_law = tribal_organization_5 
+						has_law = tribal_organization_6 
+					}  
+				}
+				is_feudal = yes
 			}
 		}
 		effect = {
@@ -602,7 +608,7 @@ decisions = {
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
 						NOT = { lower_tier_than = ROOT }
-						NOT = { distance_from_realm = { who = ROOT value = 180 } }
+						NOT = { distance_from_realm = { who = ROOT value = 800 } }
 					}
 				}
 				random = { 
@@ -636,7 +642,7 @@ decisions = {
 							wealth = 0 
 							relative_power = { who = ROOT power = 1 }
 							NOT = { lower_tier_than = ROOT }
-							NOT = { distance_from_realm = { who = ROOT value = 180 } }
+							NOT = { distance_from_realm = { who = ROOT value = 800 } }
 						}
 						add_character_modifier = {
 							name = baptism_request_cooldown
@@ -688,7 +694,7 @@ decisions = {
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
 						NOT = { lower_tier_than = ROOT }
-						NOT = { distance_from_realm = { who = ROOT value = 180 } }
+						NOT = { distance_from_realm = { who = ROOT value = 800 } }
 					}
 				}
 				random_independent_ruler = { 
@@ -715,7 +721,7 @@ decisions = {
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
 						NOT = { lower_tier_than = ROOT }
-						NOT = { distance_from_realm = { who = ROOT value = 180 } }
+						NOT = { distance_from_realm = { who = ROOT value = 800 } }
 					}
 					preferred_limit = {
 						any_neighbor_independent_ruler = { character = ROOT }
@@ -770,7 +776,7 @@ decisions = {
 						wealth = 0 
 						relative_power = { who = ROOT power = 1 }
 						NOT = { lower_tier_than = ROOT }
-						NOT = { distance_from_realm = { who = ROOT value = 180 } }
+						NOT = { distance_from_realm = { who = ROOT value = 800 } }
 					}
 				}
 				random = { 
@@ -804,7 +810,7 @@ decisions = {
 							wealth = 0 
 							relative_power = { who = ROOT power = 1 }
 							NOT = { lower_tier_than = ROOT }
-							NOT = { distance_from_realm = { who = ROOT value = 180 } }
+							NOT = { distance_from_realm = { who = ROOT value = 800 } }
 						}
 						add_character_modifier = {
 							name = baptism_request_cooldown
@@ -856,7 +862,7 @@ decisions = {
 					wealth = 0 
 					relative_power = { who = ROOT power = 1 }
 					NOT = { lower_tier_than = ROOT }
-					NOT = { distance_from_realm = { who = ROOT value = 80 } }
+					NOT = { distance_from_realm = { who = ROOT value = 500 } }
 				}
 				preferred_limit = {
 					any_neighbor_independent_ruler = { character = ROOT }
@@ -886,7 +892,7 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.25
+				factor = 0.05
 				always = yes
 			}
 			modifier = {
@@ -1135,6 +1141,20 @@ decisions = {
 				}
 			}
 			modifier = {
+				factor = 0.5
+				religion = roman_pagan
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { year = 510 }
+				OR = {
+					culture = briton
+					culture = cumbrian
+					culture = armorican
+					culture = romanobritish
+				}
+			}
+			modifier = {
 				factor = 0.01
 				NOT = { year = 590 }
 				NOR = {
@@ -1265,14 +1285,22 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.75
+				religion_authority = 0.4
+			}
+			modifier = {
+				factor = 0.5
 				religion_authority = 0.6
+			}
+			modifier = {
+				factor = 0.25
+				religion_authority = 0.8
 			}
 			modifier = {
 				factor = 0.1
 				religion_authority = 1.0
 			}
 			modifier = {
-				factor = 0.15
+				factor = 0.1
 				trait = zealous
 			}
 			modifier = {
@@ -1348,6 +1376,10 @@ decisions = {
 						opinion = { who = from value = -20 }
 					}
 				}
+			}
+			modifier = {
+				factor = 0.8
+				is_tributary = { type = client_state }
 			}
 			# modifier = {
 				# factor = 0.5
