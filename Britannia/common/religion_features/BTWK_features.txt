@@ -160,8 +160,9 @@ religion_doctrine = {
 			religion = frankish_pagan_reformed
 			NOR = {
 				has_selected_religion_feature = religion_harems #Redundant
-				has_selected_religion_feature = religion_beatification
-				has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+				has_selected_religion_feature = religion_monastic
+				#has_selected_religion_feature = religion_beatification		# Doesn't work properly
+				#has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
 			}
 		}
 		effect = {
@@ -170,9 +171,14 @@ religion_doctrine = {
 			hidden_tooltip = { 
 				set_max_consorts = 0
 				set_max_wives = 4
+				set_can_retire_to_monastery = yes
+				set_priests_can_marry = no
+				set_priests_can_inherit = no
 				set_raised_vassal_opinion_loss = no
 			}
-			custom_tooltip = { text = tooltip_religion_feature_beatification }
+			custom_tooltip = { text = tooltip_religion_feature_monastic }
+			custom_tooltip = { text = tooltip_religion_feature_celibate_priests }
+			#custom_tooltip = { text = tooltip_religion_feature_beatification }
 		}
 		ai_will_do = {
 			factor = 50
@@ -233,14 +239,16 @@ religion_doctrine = {
 		trigger = {
 			religion = gothic_pagan_reformed
 			NOR = {
-				has_selected_religion_feature = religion_beatification #Redundant
+				#has_selected_religion_feature = religion_beatification #Redundant	- Doesn't work properly
 				has_selected_religion_feature = religion_relentless #Redundant
-				has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+				has_selected_religion_feature = religion_jizya # Redundant
+				#has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
 			}
 		}
 		effect = {
 			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
 			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			custom_tooltip = { text = tooltip_religion_feature_jizya }
 			hidden_tooltip = { 
 				set_ignores_defensive_attrition = yes
 				set_unit_modifier = { 
@@ -255,8 +263,9 @@ religion_doctrine = {
 					war_elephants_offensive = 0.1
 					key = "RELENTLESS_RELIGION"
 				}
+				set_jizya_tax = yes
 			}
-			custom_tooltip = { text = tooltip_religion_feature_beatification }
+			#custom_tooltip = { text = tooltip_religion_feature_beatification }
 		}
 		ai_will_do = {
 			factor = 50
