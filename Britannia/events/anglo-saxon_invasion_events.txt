@@ -20,6 +20,7 @@
 # 313100 - 313119	Collapse of Anglia
 # 313120 - 313129	Rise of Bernicia
 # 313130 - 313139	Rise of Deira
+# 313150 - 313169	Return of the Saxons
 # 313170 - 313178	Anglia/Sussex province-granting events
 # 313179 - 313179   Conquest of Magnis
 # 313180 - 313192	Revolts for New Kingdoms
@@ -1556,10 +1557,10 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV 
 							troops = {
-								light_infantry = { 200 200 }
-								heavy_infantry = { 100 100 }
-								pikemen = { 150 150 }
-								archers = { 75 75 }
+								light_infantry = { 400 400 }
+								heavy_infantry = { 300 300 }
+								pikemen = { 250 250 }
+								archers = { 150 150 }
 							}
 							attrition = 0.5
 						}
@@ -1693,8 +1694,8 @@ character_event = {
 					spawn_unit = {
 						province = PREVPREV
 						troops = {
-							light_infantry = { 350 750 }
-							heavy_infantry = { 300 300 }
+							light_infantry = { 400 400 }
+							heavy_infantry = { 350 350 }
 							pikemen = { 250 250 }
 							archers = { 150 150 }
 						}
@@ -1705,10 +1706,10 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV
 							troops = {
-								light_infantry = { 400 400 }
-								heavy_infantry = { 300 300 }
-								pikemen = { 300 300 }
-								archers = { 100 100 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 350 350 }
+								pikemen = { 350 350 }
+								archers = { 200 200 }
 							}
 							attrition = 0.5
 						}
@@ -1716,8 +1717,8 @@ character_event = {
 					spawn_unit = {
 						province = PREVPREV
 						troops = {
-							light_infantry = { 650 650 }
-							heavy_infantry = { 550 550 }
+							light_infantry = { 600 600 }
+							heavy_infantry = { 500 500 }
 							pikemen = { 350 350 }
 							archers = { 350 350 }
 						}
@@ -2699,7 +2700,7 @@ character_event = {
 		}
 		war = no
 		prestige = 75
-		wealth = 75
+		wealth = 25
 		any_realm_province = {
 			any_neighbor_province = {
 				region = custom_bernicia
@@ -2776,8 +2777,9 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 750 750 }
-							heavy_infantry = { 750 750 }
+							light_infantry = { 600 600 }
+							pikemen = { 450 450 }
+							heavy_infantry = { 450 450 }
 							archers = { 500 500 }
 						}
 						attrition = 0.5
@@ -2787,9 +2789,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							pikemen = { 750 750 }
-							heavy_infantry = { 750 750 }
-							archers = { 500 500 }
+							light_infantry = { 500 500 }
+							pikemen = { 450 450 }
+							heavy_infantry = { 350 350 }
+							archers = { 450 450 }
 						}
 						attrition = 0.5
 						disband_on_peace = yes
@@ -2824,7 +2827,7 @@ character_event = {
 			has_earmarked_regiments = north_angles_army_559
 		}
 		war = no
-		num_of_count_titles = 3
+		num_of_count_titles = 5
 	}
 	
 	mean_time_to_happen = {
@@ -5112,6 +5115,11 @@ province_event = {
 			d_west_saxons = {
 				activate_title = { title = d_west_saxons status = yes }
 				gain_title = PREV
+				add_law = {
+					law = succ_elective_gavelkind 
+					cooldown = no 
+					opinion_effect = no
+				}
 			}
 			set_government_type = high_tribal_government
 			character_event = { id = 313022 }
@@ -14862,6 +14870,177 @@ character_event = {
 	}
 }
 
+# RETURN OF THE SAXONS
+
+# Create warlord title
+character_event = {
+	id = 313150
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_lord_overlooking_bridge
+	
+	only_playable = yes
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = k_nuncio_britanniae
+		had_global_flag = {
+			flag = anglo_saxons_defeated
+			days = 5475		# 15 years
+		}
+		NOT = { has_global_flag = anglo_saxon_return_title_created }
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		set_global_flag = anglo_saxon_return_title_created
+		random_character = {
+			limit = {
+				is_ingvaeonic_culture_trigger = yes
+				is_ruler = no
+				is_heir = no
+				is_adult = yes
+				is_female = no
+				NOT = { age = 50 }
+				prisoner = no
+				is_incapable = no
+				OR = {
+					any_claim = {
+						capital_scope = { region = world_britannia }
+					}
+					any_title = {
+						capital_scope = { region = world_britannia } 
+						OR = {
+							lower_tier_than = DUKE
+							empire = { title = e_aengland }
+						}
+						any_previous_holder = {
+							character = PREVPREV
+						}
+					}
+				}
+			}
+			preferred_limit = {
+				e_aengland = {		# Former Bretwalda
+					any_previous_holder = {
+						character = PREVPREV
+					} 
+				}
+			}
+			preferred_limit = {
+				any_title = {		# Former King
+					capital_scope = { region = world_britannia } 
+					tier = KING
+					empire = { title = e_aengland }
+					any_previous_holder = {
+						character = PREVPREV
+					}
+				}
+			}
+			preferred_limit = {
+				any_claim = {		# Kingdom claimant
+					capital_scope = { region = world_britannia } 
+					tier = KING
+					empire = { title = e_aengland }
+				}
+			}
+			preferred_limit = {
+				any_title = {		# Former Duke
+					capital_scope = { region = world_britannia } 
+					tier = DUKE
+					empire = { title = e_aengland }
+					any_previous_holder = {
+						character = PREVPREV
+					}
+				}
+			}
+			preferred_limit = {
+				any_claim = {		# Duchy claimant
+					capital_scope = { region = world_britannia } 
+					tier = DUKE
+					empire = { title = e_aengland }
+				}
+			}
+			preferred_limit = {
+				any_title = {		# Former Count
+					capital_scope = { region = world_britannia } 
+					tier = COUNT
+					any_previous_holder = {
+						character = PREVPREV
+					}
+				}
+			}
+			save_event_target_as = anglo_saxon_return_invader
+		}
+		event_target:anglo_saxon_return_invader = {
+			create_title = {
+				tier = DUKE
+				holder = THIS
+				landless = yes
+				name = "ANGLO_SAXON_HOST_NAME"
+				base_title = d_saxons
+				ruler = HIGH_CHIEF
+				foa = "HIGH_CHIEF_FOA"
+				short_name = yes
+			}
+			new_title = {
+				set_title_flag = anglo_saxon_return_invader_title
+				adjective = ANGLO_SAXON_HOST_NAME_ADJ
+				set_preferred_capital = 458	# Sturmaria			
+			}
+			prestige = 1000
+			wealth = 250
+			character_event = { id = 313151 }
+		}
+	}	
+}
+
+# Notify characters in Britannia
+character_event = {
+	id = 313151
+	desc = {
+		text = EVTDESC313151
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+	}
+	desc = {
+		text = EVTDESC313151_1
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+	picture = "GFX_evt_coastal_town"
+	major = yes
+	show_FROM = no
+	
+	is_triggered_only = yes
+	
+	major_trigger = {
+		OR = {
+			any_realm_province = {
+				region = world_britannia
+			}
+			is_brythonic_culture_trigger = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA313151"
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA313151"
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+}
 
 # REVOLTS FOR NEW ANGLOSAXON KINGDOMS
 # Revolts for new Kingdoms - Mercia
