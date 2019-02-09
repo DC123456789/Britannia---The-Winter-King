@@ -34964,14 +34964,27 @@ e_gaul = {		# Imperium Galliarum
 	gain_effect = {
 		change_diplomacy = 1
 		change_martial = 1
-		# hidden_tooltip = {
-			# e_gaul = {
-				# any_vassal = {
-					# limit = { tier = duke }
-					# primary_title = { gender_succ = agnatic_succession }
-				# }
-			# }
-		# }
+		hidden_tooltip = {
+			if = {
+				limit = {
+					primary_title = { NOT = { has_law = ze_administration_laws_2 } }
+				}
+				primary_title = {
+					add_law = { 
+						law = ze_administration_laws_2 
+						cooldown = no 
+						opinion_effect = no 
+					}
+				}
+			}
+			e_gaul = {
+				add_law = { 
+					law = succ_byzantine_elective
+					cooldown = no 
+					opinion_effect = no
+				}
+			}
+		}
 	}
 }
 	
@@ -47827,6 +47840,13 @@ e_roman_britannia = {
 						cooldown = no 
 						opinion_effect = no 
 					}
+				}
+			}
+			e_roman_britannia = {
+				add_law = { 
+					law = succ_byzantine_elective
+					cooldown = no 
+					opinion_effect = no
 				}
 			}
 		}
