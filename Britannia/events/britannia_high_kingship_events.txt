@@ -1079,12 +1079,7 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 						opinion_effect = no
 					}
 				}
-				gain_title = ROOT 
-				add_law = { 
-					law = succ_feudal_elective
-					cooldown = no 
-					opinion_effect = no
-				}
+				gain_title = ROOT
 			}
 		}
 		clr_character_flag = gained_britannia
@@ -3933,7 +3928,27 @@ narrative_event = {
 				destroy_landed_title = THIS
 			}
 		}
-		e_roman_britannia = { grant_title = ROOT }
+		e_roman_britannia = { 
+			grant_title = ROOT 
+			copy_title_laws = e_britannia
+			add_law = { 
+				law = succ_byzantine_elective
+				cooldown = no 
+				opinion_effect = no
+			}
+			if = {
+				limit = { has_dlc = "Zeus" }
+				add_law = { 
+					law = ze_administration_laws_2
+					cooldown = no 
+					opinion_effect = no
+				}
+			}
+		}
+		if = {
+			limit = { any_demesne_title = { has_title_flag = senate_restored_title } }
+			e_roman_britannia = { set_title_flag = senate_restored_title }
+		}
 		e_britannia = { destroy_landed_title = THIS }
 		
 		set_global_flag = imperium_britannicum_created
