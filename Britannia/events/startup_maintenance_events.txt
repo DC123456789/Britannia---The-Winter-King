@@ -1918,7 +1918,7 @@ character_event = {
 }
 
 
-# Assign correct government and succession law to tribal revolters
+# Assign correct government and succession law to revolters
 character_event = {
 	id = 319005
 	desc = "You're not supposed to see this..."
@@ -1936,6 +1936,27 @@ character_event = {
 			set_government_type = high_tribal_government
 		}
 		clr_character_flag = set_to_high_tribal_government
+		if = {
+			limit = {
+				has_character_flag = set_to_sub_roman_government
+			}
+			set_government_type = sub_roman_government
+			clr_character_flag = set_to_sub_roman_government
+		}
+		else_if = {
+			limit = { 
+				has_character_flag = set_to_sub_roman_brythonic_government
+			}
+			set_government_type = sub_roman_brythonic_government
+			clr_character_flag = set_to_sub_roman_brythonic_government
+		}
+		else_if = {
+			limit = { 
+				has_character_flag = set_to_germanic_government
+			}
+			set_government_type = germanic_government
+			clr_character_flag = set_to_germanic_government
+		}
 		if = {
 			limit = { has_law = succ_open_elective }
 			if = {

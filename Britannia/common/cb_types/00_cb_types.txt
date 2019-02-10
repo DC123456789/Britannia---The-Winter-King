@@ -7258,15 +7258,36 @@ peasant_revolt = {
 	}
 
 	on_success_title = {
-		usurp_title_plus_barony_if_unlanded = ROOT
-		ROOT = { 
-			set_defacto_liege = ROOT 
+		# Flag and set correct government
+		ROOT = {
 			if = {
 				limit = {
 					FROM = { government = high_tribal_government }
 				}
 				set_character_flag = set_to_high_tribal_government
 			}
+			else_if = {
+				limit = {
+					government = sub_roman_government
+				}
+				set_character_flag = set_to_sub_roman_government
+			}
+			else_if = {
+				limit = {
+					government = sub_roman_brythonic_government
+				}
+				set_character_flag = set_to_sub_roman_brythonic_government
+			}
+			else_if = {
+				limit = {
+					government = germanic_government
+				}
+				set_character_flag = set_to_germanic_government
+			}
+		}
+		usurp_title_plus_barony_if_unlanded = ROOT
+		ROOT = { 
+			set_defacto_liege = ROOT 
 			character_event = { id = 319005 days = 1 }
 		}
 		FROM = {
@@ -7337,6 +7358,25 @@ heretic_revolt = {
 
 	on_success = {
 		ROOT = {
+			# Flag and set correct government
+			if = {
+				limit = {
+					government = sub_roman_government
+				}
+				set_character_flag = set_to_sub_roman_government
+			}
+			else_if = {
+				limit = {
+					government = sub_roman_brythonic_government
+				}
+				set_character_flag = set_to_sub_roman_brythonic_government
+			}
+			else_if = {
+				limit = {
+					government = germanic_government
+				}
+				set_character_flag = set_to_germanic_government
+			}
 			prestige = 200
 			piety = 100
 			occupy_minors_of_occupied_settlements = FROM
@@ -7362,6 +7402,7 @@ heretic_revolt = {
 	}
 
 	on_success_title = {
+		
 		ROOT = {
 			vassalize_or_take_under_title = {
 				title = PREV
@@ -7477,6 +7518,25 @@ religious_revolt = {
  
 	on_success = {
 		ROOT = {
+			# Flag and set correct government
+			if = {
+				limit = {
+					government = sub_roman_government
+				}
+				set_character_flag = set_to_sub_roman_government
+			}
+			else_if = {
+				limit = {
+					government = sub_roman_brythonic_government
+				}
+				set_character_flag = set_to_sub_roman_brythonic_government
+			}
+			else_if = {
+				limit = {
+					government = germanic_government
+				}
+				set_character_flag = set_to_germanic_government
+			}
 			prestige = 200
 			piety = 100
 			occupy_minors_of_occupied_settlements = FROM
@@ -7501,7 +7561,7 @@ religious_revolt = {
 		}
 	}
 
-	on_success_title = {
+	on_success_title = {		
 		ROOT = {
 			vassalize_or_take_under_title = {
 				title = PREV
