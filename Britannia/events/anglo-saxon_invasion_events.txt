@@ -14973,6 +14973,37 @@ character_event = {
 				}
 			}
 			save_event_target_as = anglo_saxon_return_invader
+			set_global_flag = anglo_saxon_return_invader_chosen
+		}
+		if = {
+			limit = { NOT = { has_global_flag = anglo_saxon_return_invader_chosen } }
+			random_province = {
+				limit = {
+					is_ingvaeonic_culture_trigger = yes
+					region = world_britannia
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					culture = THIS
+					religion = THIS
+					female = no
+					age = 27
+					attributes = {
+						martial = 10
+						diplomacy = 8
+						intrigue = 7
+					}
+					trait = brilliant_strategist
+					trait = veteran
+					trait = brave
+					trait = diligent
+					trait = ambitious
+				}
+				new_character = {
+					save_event_target_as = anglo_saxon_return_invader
+				}
+			}
 		}
 		event_target:anglo_saxon_return_invader = {
 			create_title = {
@@ -14987,6 +15018,7 @@ character_event = {
 			}
 			new_title = {
 				set_title_flag = anglo_saxon_return_invader_title
+				save_global_event_target_as = anglo_saxon_return_invader_title_target
 				adjective = ANGLO_SAXON_HOST_NAME_ADJ
 				set_preferred_capital = 458	# Sturmaria			
 			}
@@ -15027,10 +15059,35 @@ character_event = {
 		}
 	}
 	
+	immediate = {
+		any_province = {
+			limit = {
+				region = world_britannia
+				is_ingvaeonic_culture_trigger = yes
+			}
+			add_province_modifier = {
+				name = anglo_saxons_peaceful
+				duration = 3650		# 10 years
+			}
+		}
+	}
+	
 	option = {
 		name = "EVTOPTA313151"
 		trigger = {
 			is_ingvaeonic_culture_trigger = no
+		}
+		tooltip = {
+			any_realm_province = {
+				limit = {
+					region = world_britannia
+					is_ingvaeonic_culture_trigger = yes
+				}
+				add_province_modifier = {
+					name = anglo_saxons_peaceful
+					duration = 3650		# 10 years
+				}
+			}
 		}
 	}
 	
@@ -15038,6 +15095,463 @@ character_event = {
 		name = "EVTOPTA313151"
 		trigger = {
 			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+}
+
+# Invasion
+narrative_event = {
+	id = 313152
+	title = "EVTNAME313152"
+	desc = "EVTDESC313152"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	ai = yes
+	
+	trigger = {
+		had_global_flag = {
+			flag = anglo_saxon_return_title_created
+			days = 1095		# 3 years
+		}
+		NOT = { has_global_flag = anglo_saxons_returned }
+		any_demesne_title = {
+			has_title_flag = anglo_saxon_return_title_created
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.5
+			had_global_flag = {
+				flag = anglo_saxon_return_title_created
+				days = 1825		# 5 years
+			}
+		}
+		modifier = {
+			factor = 0.25
+			had_global_flag = {
+				flag = anglo_saxon_return_title_created
+				days = 2190		# 6 years
+			}
+		}
+		modifier = {
+			factor = 0.1
+			had_global_flag = {
+				flag = anglo_saxon_return_title_created
+				days = 2555		# 7 years
+			}
+		}
+		modifier = {
+			factor = 0.75
+			OR = {
+				c_aldeburgh = {
+					holder_scope = {
+						top_liege = {
+							war = yes
+						}
+					}
+				}
+				c_thunreslea = {
+					holder_scope = {
+						top_liege = {
+							war = yes
+						}
+					}
+				}
+				c_durovernum = {
+					holder_scope = {
+						top_liege = {
+							war = yes
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			OR = {
+				c_aldeburgh = {
+					holder_scope = {
+						top_liege = {
+							OR = {
+								is_primary_war_attacker = yes
+								is_primary_war_defender = yes
+							}
+						}
+					}
+				}
+				c_thunreslea = {
+					holder_scope = {
+						top_liege = {
+							OR = {
+								is_primary_war_attacker = yes
+								is_primary_war_defender = yes
+							}
+						}
+					}
+				}
+				c_durovernum = {
+					holder_scope = {
+						top_liege = {
+							OR = {
+								is_primary_war_attacker = yes
+								is_primary_war_defender = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			OR = {
+				c_aldeburgh = {
+					holder_scope = {
+						top_liege = {
+							any_war = {
+								OR = {
+									attacker = { 
+										character = PREVPREV 
+										NOT = { war_score = -25 }
+									}
+									defender = {
+										character = PREVPREV 
+										war_score = 25
+									}
+								}
+							}
+						}
+					}
+				}
+				c_thunreslea = {
+					holder_scope = {
+						top_liege = {
+							any_war = {
+								OR = {
+									attacker = { 
+										character = PREVPREV 
+										NOT = { war_score = -25 }
+									}
+									defender = {
+										character = PREVPREV 
+										war_score = 25
+									}
+								}
+							}
+						}
+					}
+				}
+				c_durovernum = {
+					holder_scope = {
+						top_liege = {
+							any_war = {
+								OR = {
+									attacker = { 
+										character = PREVPREV 
+										NOT = { war_score = -25 }
+									}
+									defender = {
+										character = PREVPREV 
+										war_score = 25
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = { 
+		if = {
+			limit = { 
+				OR = {
+					is_landed = yes
+					is_incapable = yes
+					is_adult = no
+				}
+			}
+			random_province = {
+				limit = {
+					is_ingvaeonic_culture_trigger = yes
+					region = world_britannia
+				}
+				create_character = {
+					random_traits = yes
+					dynasty = random
+					culture = THIS
+					religion = THIS
+					female = no
+					age = 27
+					attributes = {
+						martial = 10
+						diplomacy = 8
+						intrigue = 7
+					}
+					trait = brilliant_strategist
+					trait = veteran
+					trait = brave
+					trait = diligent
+					trait = ambitious
+				}
+				new_character = {
+					usurp_title_no_opinion = event_target:anglo_saxon_return_invader_title_target
+					save_event_target_as = anglo_saxon_return_invader
+					set_global_flag = anglo_saxon_return_invader_set
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = anglo_saxon_return_invader_set } }
+			save_event_target_as = anglo_saxon_return_invader
+		}
+		random_list = {
+			33 = {
+				modifier = {
+					factor = 100
+					c_aldeburgh = {
+						holder_scope = {
+							top_liege = {
+								any_war = {
+									OR = {
+										attacker = { 
+											character = PREVPREV 
+											NOT = { war_score = -25 }
+										}
+										defender = {
+											character = PREVPREV 
+											war_score = 25
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				137 = {
+					save_event_target_as = invader_target_province
+				}
+			}
+			33 = {
+				modifier = {
+					factor = 100
+					c_thunreslea = {
+						holder_scope = {
+							top_liege = {
+								any_war = {
+									OR = {
+										attacker = { 
+											character = PREVPREV 
+											NOT = { war_score = -25 }
+										}
+										defender = {
+											character = PREVPREV 
+											war_score = 25
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				48 = {
+					save_event_target_as = invader_target_province
+				}
+			}
+			33 = {
+				modifier = {
+					factor = 100
+					c_durovernum = {
+						holder_scope = {
+							top_liege = {
+								any_war = {
+									OR = {
+										attacker = { 
+											character = PREVPREV 
+											NOT = { war_score = -25 }
+										}
+										defender = {
+											character = PREVPREV 
+											war_score = 25
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				44 = {
+					save_event_target_as = invader_target_province
+				}
+			}
+		}
+		event_target:invader_target_province = {
+			kingdom = {
+				event_target:anglo_saxon_return_invader = {
+					unsafe_war = {
+						casus_belli = full_kingdom_invasion
+						target = PREVPREV
+						thirdparty_title = PREVPREV
+						tier = KING
+					}
+				}
+			}
+		}
+		# Spawn base event troops
+		event_target:anglo_saxon_return_invader = {
+			spawn_unit = {
+				province = event_target:invader_target_province
+				home = event_target:invader_target_province
+				owner = THIS
+				troops = {
+					light_infantry = { 1000 1000 }
+					pikemen = { 600 600 }
+					heavy_infantry = { 800 800 }
+					archers = { 600 600 }
+					light_cavalry = { 200 200 }
+				}
+				attrition = 0.25
+				maintenance_multiplier = 0.25
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = culture
+				religion = THIS
+				culture = THIS
+				female = no
+				employer = event_target:anglo_saxon_return_invader_title_target
+				age = 28
+				attributes = {
+					martial = 12
+					diplomacy = 12
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+			}
+			new_character = {
+				spawn_unit = {
+					province = event_target:invader_target_province
+					home = event_target:invader_target_province
+					owner = THIS
+					earmark = anglo_saxon_return_army
+					troops = {
+						light_infantry = { 600 600 }
+						pikemen = { 400 400 }
+						heavy_infantry = { 450 450 }
+						archers = { 400 400 }
+						light_cavalry = { 125 125 }
+					}
+					attrition = 0.25
+					maintenance_multiplier = 0.25
+				}
+			}
+			create_character = {
+				random_traits = no
+				dynasty = culture
+				religion = THIS
+				culture = THIS
+				female = no
+				employer = d_north_angles
+				age = 35
+				attributes = {
+					martial = 10
+					diplomacy = 10
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+				trait = quick
+				trait = gregarious
+			}
+			new_character = {
+				spawn_unit = {
+					province = event_target:invader_target_province
+					home = event_target:invader_target_province
+					owner = THIS
+					earmark = anglo_saxon_return_army
+					troops = {
+						light_infantry = { 600 600 }
+						pikemen = { 400 400 }
+						heavy_infantry = { 450 450 }
+						archers = { 400 400 }
+						light_cavalry = { 125 125 }
+					}
+					attrition = 0.25
+					maintenance_multiplier = 0.25
+				}
+			}
+		}
+		any_province = {
+			limit = { has_province_modifier = anglo_saxons_peaceful }
+			remove_province_modifier = anglo_saxons_peaceful
+		}
+		any_province = {
+			limit = { 
+				region = world_britannia
+				NOT = { owner = { top_liege = { is_ingvaeonic_culture_trigger = yes } } }
+			}
+			add_province_modifier = {
+				name = anglo_saxons_uprising
+				duration = 1825		# 5 years
+			}
+			event_target:anglo_saxon_return_invader = {
+				spawn_unit = {
+					province = PREV
+					home = event_target:invader_target_province
+					owner = THIS
+					earmark = anglo_saxon_return_army
+					troops = {
+						light_infantry = { 90 90 }
+						pikemen = { 50 50 }
+						heavy_infantry = { 30 30 }
+						archers = { 50 50 }
+						light_cavalry = { 10 10 }
+					}
+					attrition = 0.25
+					maintenance_multiplier = 0.25
+				}
+			}
+		}
+			
+		set_global_flag = anglo_saxons_returned 
+	}
+	
+	option = {
+		name = "EVTOPTA313152"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTB313152"	# Britons and British rulers
+		trigger = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
+			is_ingvaeonic_culture_trigger = no
+		}
+	}
+	option = {
+		name = "EVTOPTC313152"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			NOR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
 		}
 	}
 }
