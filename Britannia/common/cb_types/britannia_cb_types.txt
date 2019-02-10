@@ -3952,6 +3952,14 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 	}
 	
 	on_success_title = {
+		if = {
+			limit = { 
+				ROOT = { has_character_flag = saxon_gallic_invader } 
+				FROM = { is_romanized_or_germanic_government_trigger = yes }
+			}
+			ROOT = { set_character_flag = convert_to_germanic_government }
+		}
+		
 		custom_tooltip = {
 			text = duchy_invasion_event_cb_succ_tip
 			hidden_tooltip = {

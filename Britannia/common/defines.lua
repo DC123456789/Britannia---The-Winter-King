@@ -1312,7 +1312,7 @@ NMilitary = {
 	LOOT_BUILDING_MULTIPLIER = 0.011,				-- Extra gold looted from raided holdings, from buildings (LOOT_BUILDING_MULTIPLIER * building built cost)
 	LOOT_HOLDING_DEST_MIN_SAFE = 4,					-- there is a 1 in LOOT_HOLDING_DESTRUCTION_ODDS chance that
 	LOOT_HOLDING_DESTRUCTION_ODDS = 20,				-- a holding with less than LOOT_HOLDING_DEST_MIN_SAFE buildings will be destroyed by looting
-	LOOT_HOLDING_BUILDING_DEST_ODDS = 10,			-- there is a 1 in this chance a random building is destroyed when looted
+	LOOT_HOLDING_BUILDING_DEST_ODDS = 13,			-- there is a 1 in this chance a random building is destroyed when looted
 	SETTLED_ADVENTURER_MODIFIER_YEARS = 20,			-- How long provinces are spared from raiding after settling a raider adventurer.
 	
 	RETINUE_FROM_REALMSIZE = 9.0,
@@ -1615,7 +1615,7 @@ NAI =
 	CONSIDER_CONSORTS_DESIRED_AMOUNT_OF_CHILDREN = 3,		-- AI will desire these many children of their own before they disregard consorts
 	CONSORT_SECURE_DYNASTY_AGE = 30,							-- At this age the AI will get worried about it's offspring and try to secure it with acquiring consorts
 	RAID_MAX_REALM_SIZE = 40,								-- Realms with more holdings than this will never go on Raids
-	RAID_AGGRESSION = 2,									-- General frequency of raids. A LOWER number means more often!
+	RAID_AGGRESSION = 3,									-- General frequency of raids. A LOWER number means more often!
 	RAID_PREP_INV_SPARE_SAME_CULTURE = 0,					-- AI of religions that allow prepared invasions will not raid provinces in their own culture group (to prevent intra-Scandinavian raids)
 	RAID_SPARE_ACCEPTED_RELIGIONS = 0,						-- AI will not raid rulers of other religions in the same religion group, unless heresy vs parent religion
 	TRIBAL_VASSAL_EXTRA_CALL_CHANCE = 20,					-- Extra AI willingness to join calls from their liege if they are tribal vassals

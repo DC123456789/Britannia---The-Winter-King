@@ -2105,9 +2105,17 @@ character_event = {
 		name = "EVTOPTA301619"
 		prestige = 100
 		if = {
-			limit = { is_tribal = yes }
+			limit = { 
+				OR = {
+					is_tribal = yes 
+					AND = {
+						government = feudal_government
+						has_character_flag = convert_to_germanic_government
+					}
+				}
+			}
 			set_government_type = germanic_government
-		}	
+		}
 	}
 }
 
