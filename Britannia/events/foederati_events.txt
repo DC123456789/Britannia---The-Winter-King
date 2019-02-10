@@ -67,7 +67,10 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
-		culture_group = germanic
+		OR = {
+			culture_group = germanic
+			culture_group = sarmatian
+		}
 		age = 15
 		is_female = no
 		NOT = { trait = foederate }
@@ -102,7 +105,10 @@ character_event = {
 	only_independent = yes
 	
 	trigger = {
-		culture_group = germanic
+		OR = {
+			culture_group = germanic
+			culture_group = sarmatian
+		}
 		trait = foederate
 		top_liege = {
 			NOT = { culture_group = celtic }
@@ -137,7 +143,10 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
-		culture_group = germanic
+		OR = {
+			culture_group = germanic
+			culture_group = sarmatian
+		}
 		trait = foederate
 		independent = no
 		in_revolt = no
@@ -420,7 +429,10 @@ character_event = {
 	trigger = {
 		FROMFROM = { trait = foederate }
 		NOT = { trait = foederate }
-		culture_group = germanic
+		OR = {
+			culture_group = germanic
+			culture_group = sarmatian
+		}
 		OR = {
 			AND = {
 				independent = no
@@ -753,6 +765,36 @@ character_event = {
 						archers = { 150 150 }
 					}
 					attrition = 0.5
+				}
+				if = {
+					limit = { higher_tier_than = COUNT }
+					spawn_unit = {
+						province = PREV
+						#earmark = foederati_revolt_army
+						troops = {
+							light_infantry = { 1000 1000 }
+							heavy_infantry = { 750 750 }
+							pikemen = { 500 500 }
+							archers = { 300 300 }
+							light_cavalry = { 100 100 }
+						}
+						attrition = 0.5
+					}
+				}
+				if = {
+					limit = { higher_tier_than = DUKE }
+					spawn_unit = {
+						province = PREV
+						earmark = foederati_revolt_army
+						troops = {
+							light_infantry = { 1000 1000 }
+							heavy_infantry = { 750 750 }
+							pikemen = { 550 550 }
+							archers = { 400 400 }
+							light_cavalry = { 150 150 }
+						}
+						attrition = 0.5
+					}
 				}
 			}
 		}
