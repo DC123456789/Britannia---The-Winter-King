@@ -232,7 +232,11 @@ character_event = {
 				trigger = {
 					has_dlc = "Holy Fury"
 					is_member_of_any_warrior_lodge_trigger = yes
-					NOT = { trait = robust }
+					NOR = { 
+						trait = robust 
+						trait = tough
+						trait = strong
+					}
 				}
 				good_soldier_outcome_score = yes
 				character_event = { id = HFP.11034 } # You become Brawny.
@@ -4291,7 +4295,11 @@ character_event = {
     hide_from = yes
     
     trigger = {
-		NOT = { trait = robust }
+		NOR = { 
+			trait = robust 
+			trait = tough
+			trait = strong
+		}
 	}
 
     immediate = {
@@ -4313,6 +4321,22 @@ character_event = {
         custom_tooltip = { text = EVTOPTA_HFP_11034_TT }
 
         if = {
+        	limit = { trait = weak }
+			random = {
+				chance = 33
+				remove_trait = weak
+				add_trait = fragile
+			}
+        }
+        else_if = {
+        	limit = { trait = fragile }
+			random = {
+				chance = 67
+				remove_trait = fragile
+				add_trait = feeble
+			}
+        }
+        else_if = {
         	limit = { trait = feeble }
         	remove_trait = feeble
         }

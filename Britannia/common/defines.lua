@@ -1308,8 +1308,8 @@ NMilitary = {
 	OCCUPATION_PENALTY_MONTHS_DIFFERENT_CULTUREGROUP = 180,
 	
 	LOOTED_MODIFIER_MONTHS = 36,					-- How long pagan looting lasts
-	LOOT_TAX_MULTIPLIER = 0.7,						-- Base gold looted from raided holdings is (tax * LOOT_TAX_MULTIPLIER) + (total building value * LOOT_BUILDING_MULTIPLIER)
-	LOOT_BUILDING_MULTIPLIER = 0.011,				-- Extra gold looted from raided holdings, from buildings (LOOT_BUILDING_MULTIPLIER * building built cost)
+	LOOT_TAX_MULTIPLIER = 0.65,						-- Base gold looted from raided holdings is (tax * LOOT_TAX_MULTIPLIER) + (total building value * LOOT_BUILDING_MULTIPLIER)
+	LOOT_BUILDING_MULTIPLIER = 0.010,				-- Extra gold looted from raided holdings, from buildings (LOOT_BUILDING_MULTIPLIER * building built cost)
 	LOOT_HOLDING_DEST_MIN_SAFE = 4,					-- there is a 1 in LOOT_HOLDING_DESTRUCTION_ODDS chance that
 	LOOT_HOLDING_DESTRUCTION_ODDS = 20,				-- a holding with less than LOOT_HOLDING_DEST_MIN_SAFE buildings will be destroyed by looting
 	LOOT_HOLDING_BUILDING_DEST_ODDS = 13,			-- there is a 1 in this chance a random building is destroyed when looted
