@@ -1283,6 +1283,48 @@ character_event = {
                         # }
                         else_if = {
                             limit = {
+                                is_reformed_celtic_pagan_trigger = yes
+                            }
+                            if = {
+                                limit = {
+                                    is_female = yes
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_celtic_01
+                                    religion = celtic_pagan_reformed
+                                    inheritance = matrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_celtic_01
+                                    religion = celtic_pagan_reformed
+                                }
+                            }
+                        }
+                        else_if = {
+                            limit = {
+                                religion = britannic_pagan
+                            }
+                            if = {
+                                limit = {
+                                    is_female = no
+                                }
+                                create_bloodline = {
+                                    type = saintly_bloodline_britannic_01
+                                    religion = britannic_pagan
+                                    inheritance = patrilineal
+                                }
+                            }
+                            else = {
+                                create_bloodline = {
+                                    type = saintly_bloodline_britannic_01
+                                    religion = britannic_pagan
+                                }
+                            }
+                        }
+                        else_if = {
+                            limit = {
                                 religion_group = pagan_group
                             }
                             if = {
@@ -2829,7 +2871,7 @@ narrative_event = {
             sound_effect = saint_proclaimed
         }
         opinion = {
-            name = opinion_very_grateful_donation
+            modifier = opinion_very_grateful_donation
             who = FROM
             years = 30
         }

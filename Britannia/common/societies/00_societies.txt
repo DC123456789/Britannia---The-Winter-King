@@ -2310,6 +2310,7 @@ monastic_order_stoics = {
 		}
 		OR = { 
 			is_hellenic_group_religion_trigger = yes
+			trait = stoic
 			AND = {
 				is_roman_culture_trigger = yes
 				OR = { #Somewhat compatible when mixed with Roman culture.
@@ -2319,7 +2320,11 @@ monastic_order_stoics = {
 				}
 			}
 		}
-		NOT = { trait = excommunicated }
+		NOR = {
+			trait = excommunicated
+			trait = skeptic
+			trait = epicurean
+		}
 		custom_tooltip = {
 			text = did_not_betray_society
 			NOT = { has_character_flag = betrayed_monastic_order_stoics }
@@ -2340,6 +2345,7 @@ monastic_order_stoics = {
 		}
 		OR = { 
 			is_hellenic_group_religion_trigger = yes
+			trait = stoic
 			AND = {
 				is_roman_culture_trigger = yes
 				OR = { #Somewhat compatible when mixed with Roman culture.
@@ -2420,8 +2426,16 @@ monastic_order_stoics = {
     	
     	per_attribute = {
     		name = learning
-    		value = 0.5
+    		value = 0.3
     	}
+		per_attribute = {
+			name = diplomacy
+			value = 0.2
+		}
+		has_trait = {
+			trait = stoic
+			value = 5
+		}
 		has_trait = {
 			trait = scholar
 			value = 4
@@ -2507,6 +2521,10 @@ monastic_order_stoics = {
 		value = 10
 
 		modifier = {
+			trait = stoic
+			factor = 5
+		}
+		modifier = {
 			trait = scholar
 			factor = 5
 		}
@@ -2574,6 +2592,7 @@ monastic_order_stoics = {
 			}
 			OR = { 
 				is_hellenic_group_religion_trigger = yes
+				trait = stoic
 				AND = {
 					is_roman_culture_trigger = yes
 					OR = { #Somewhat compatible when mixed with Roman culture.
@@ -2590,7 +2609,11 @@ monastic_order_stoics = {
 				mercenary = yes
 				holy_order = yes
 			}
-			NOT = { trait = excommunicated }
+			NOR = {
+				trait = excommunicated
+				trait = skeptic
+				trait = epicurean
+			}
 			has_secret_religion_trait_trigger = no
 			OR = {
 				trait = zealous
@@ -2640,7 +2663,13 @@ hermetics = {
 			religion_group = christian
 			religion_group = muslim
 			religion_group = jewish_group
-			is_hellenic_group_religion_trigger = yes
+			custom_tooltip = {
+				text = hellenic_hermetic_join_tooltip
+				OR = {
+					religion = hellenic_pagan
+					religion = hellenic_pagan_reformed
+				}
+			}
 			religion_group = gnostic_group
 		}
 		NOR = {

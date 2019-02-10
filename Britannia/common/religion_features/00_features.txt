@@ -1901,12 +1901,13 @@ religion_leadership = {
 			custom_tooltip = { text = tooltip_religion_feature_default_invasion_dynamic }
 			custom_tooltip = { text = tooltip_religion_feature_default_claim_dynamic }
 			hidden_tooltip = {
-				# if = {
-					# limit = { 
+				if = {
+					limit = { 
 						# religion_group = christian 
-					# }
-					# set_can_excommunicate = yes
-				# }
+						religion = britannic_pagan
+					}
+					set_can_excommunicate = yes
+				}
 				# if = {
 					# limit = { 
 						# OR = { 
@@ -1956,15 +1957,16 @@ religion_leadership = {
 					# }
 					# set_can_grant_invasion_cb = yes
 				# }
-				# if = {
-					# limit = { 
+				if = {
+					limit = { 
 						# OR = { 
 							# religion = catholic
 							# religion = fraticelli
+                            religion = britannic_pagan
 						# } 
-					# }
-					# set_can_grant_claim = yes
-				# }
+					}
+					set_can_grant_claim = yes
+				}
 				# if = {
 					# limit = { 
 						# religion = taoist
@@ -1987,6 +1989,28 @@ religion_leadership = {
 						# learning = 4
 					# }
 				# }
+                if = {
+                    limit = {
+                        religion = promethean_pagan
+                        NOT = {
+                            has_alternate_start_parameter = { key = religion_names value = random }
+                        }
+                    }
+                    set_character_modifier = {
+                        learning = 4
+                    }
+                }
+                if = {
+                    limit = {
+                        religion = titan_pagan
+                        NOT = {
+                            has_alternate_start_parameter = { key = religion_names value = random }
+                        }
+                    }
+                    set_character_modifier = {
+                        combat_rating = 10
+                    }
+                }
 				# if = {
 					# limit = {
 						# religion = taoist
@@ -2053,6 +2077,67 @@ religion_leadership = {
 						# }
 					# }
 				# }
+				if = {
+					limit = {
+						religion = promethean_pagan
+						has_alternate_start_parameter = { key = religion_names value = random }
+					}
+					random_list = {
+						10 = {
+							set_character_modifier = {
+								diplomacy = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								martial = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								intrigue = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								stewardship = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								learning = 4
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						religion = titan_pagan
+						has_alternate_start_parameter = { key = religion_names value = random }
+					}
+					random_list = {
+						10 = {
+							set_character_modifier = {
+								combat_rating = 10
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								martial = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								intrigue = 2
+							}
+						}
+						10 = {
+							set_character_modifier = {
+								health = 1
+							}
+						}
+					}
+				}
 			}
 		}
 	}

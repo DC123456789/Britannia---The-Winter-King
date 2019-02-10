@@ -3,9 +3,9 @@
 # Ancient Religions
 # - Titan Flavor Events
 #
-# titan.0-3699 Titan Thysia
-# titan.100-3749 Holy Orders
-#
+# titan.0-99    Titan Thysia
+# titan.100-149 Holy Orders
+# titan.150     Ravagers of Perses created
 ###################################
 
 
@@ -3298,5 +3298,49 @@ character_event = {
 		# }
 
 		# name = titan.100.c
+	# }
+# }
+
+#Titan Warrior Lodge has been recreated.
+#Players notified.
+# narrative_event = {
+	# id = titan.150
+	# title = titan.150.title
+	# desc = titan.150.desc
+	# hide_from = yes
+	# hide_new = yes
+
+	# picture = GFX_evt_celtic_warriors
+	
+	# only_playable = yes
+	# is_triggered_only = yes
+	
+	# option = {
+		# name = titan.150.a
+		# trigger = {
+			# OR = { 
+				# society_member_of = warrior_lodge_titan
+				# religion = titan_pagan
+				# secret_religion = titan_pagan
+				# can_join_society = warrior_lodge_titan
+			# }
+		# }
+		# if = {
+			# limit = { 
+				# NOT = { society_member_of = warrior_lodge_titan }
+				# can_join_society = warrior_lodge_titan
+			# }
+			# join_society = warrior_lodge_titan
+		# }
+	# }
+	# option = {
+		# name = titan.150.b
+		# trigger = {
+			# NOR = { 
+				# society_member_of = warrior_lodge_titan
+				# religion = titan_pagan
+				# secret_religion = titan_pagan
+			# }
+		# }
 	# }
 # }

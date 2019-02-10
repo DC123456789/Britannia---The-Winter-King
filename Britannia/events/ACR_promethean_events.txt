@@ -5,8 +5,8 @@
 #
 # Event IDs promethean.3400-3549 are reserved
 #
-# promethean.400 - 3410	various maintenance type events
-# promethean.411 - 3420	Rebuilding of Crotone
+# promethean.400 - 410	various events
+# promethean.411 - 420	Rebuilding of Crotone
 # promethean.450 - 3549	The Unbinding Festival
 # promethean.550 - 3599	Holy Order Events
 #
@@ -52,6 +52,14 @@ namespace = promethean
 		# name = promethean.400.c
 		# trigger = {
 			# NOT = { religion = promethean_pagan }
+		# }
+	# }
+
+	# after = {
+		# hidden_tooltip = {
+			# d_promethean_pagan = {
+				# holder_scope = { narrative_event = { id = promethean.408 days = 60 random = 21 } }
+			# }
 		# }
 	# }
 # }
@@ -460,6 +468,170 @@ character_event = {
 		name = promethean.403.c
 		add_trait = epicurean
 
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
+# Neoplatonist schools are flourishing with the restoration of The First Academy
+narrative_event = {
+	id = promethean.408
+	title = EVTTITLEHF23123
+	desc = promethean.408.desc
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_narrative_frame_religion
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = flag_restored_stoic_intelligentia
+	}
+
+	option = {
+		name = EVTOPTAHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_stoics 
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+				secret_religion = promethean_pagan
+				can_join_society = monastic_order_stoics
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_stoics }
+				can_join_society = monastic_order_stoics
+			}
+			join_society = monastic_order_stoics
+		}
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = EVTOPTBHF23123
+		trigger = {
+			NOR = { 
+				society_member_of = monastic_order_stoics 
+				society_member_of = monastic_order_skeptics
+				society_member_of = monastic_order_epicureans
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+				secret_religion = promethean_pagan
+			}
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.2
+				has_education_martial_trigger = yes
+			}
+			modifier = {
+				factor = 1.2
+				has_lifestyle_martial_trigger = yes
+			}
+			modifier = {
+				factor = 1.5
+				trait = imbecile
+			}
+			modifier = {
+				factor = 1.3
+				trait = inbred
+			}
+			modifier = {
+				factor = 1.1
+				trait = slow
+			}
+		}
+	}
+    ### ACR ###
+	option = { # skeptics
+		name = EVTOPTCHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_skeptics 
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+                secret_religion = promethean_pagan
+				can_join_society = monastic_order_skeptics
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_skeptics }
+				can_join_society = monastic_order_skeptics
+			}
+			join_society = monastic_order_skeptics
+		}
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = { #epicureans
+		name = EVTOPTDHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_epicureans
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+                secret_religion = promethean_pagan
+				can_join_society = monastic_order_epicureans
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_epicureans }
+				can_join_society = monastic_order_epicureans
+			}
+			join_society = monastic_order_epicureans
+		}
 		ai_chance = {
 			factor = 25
 			modifier = {

@@ -97,7 +97,7 @@ archdryad_non_interference_trigger = {
 	}
 }
 
-# evaluates to true if hte currently scoped character has
+# evaluates to true if the currently scoped character has
 # submitted to the arch-dryad's demands recently
 archdryad_submission_trigger = {
 	AND = {
@@ -270,16 +270,12 @@ true_religion_hellenic_or_reformed_trigger = {
 
 religion_openly_in_celtic_subgroup_trigger = {
 	custom_tooltip = {
-		text = religion_openly_celtic_or_reformed_tooltip
+		text = religion_openly_in_celtic_subgroup_tt
 		hidden_trigger = {
 			OR = {
-				religion = briton_pagan
-				religion = briton_pagan_reformed
-				religion = britannic_pagan
-				religion = gael_pagan
-				religion = gael_pagan_reformed
-				religion = pict_pagan
-				religion = pict_pagan_reformed
+				religion_openly_briton_or_reformed_trigger = yes
+				religion_openly_pict_or_reformed_trigger = yes
+				religion_openly_gael_or_reformed_trigger = yes
 			}
 		}
 	}
@@ -683,8 +679,10 @@ has_unseelie_prerequisites = {
 has_coven_prerequisites = {
 	has_common_devilworship_prerequisites = yes
 	OR = {
-		religion_openly_in_hellenic_subgroup_trigger = yes
-		religion_secretly_in_hellenic_subgroup_trigger = yes
+		religion = promethean_pagan
+		religion = titan_pagan
+		secret_religion = promethean_pagan
+		secret_religion = titan_pagan
 	}
 }
 
@@ -704,4 +702,25 @@ has_dionysus_prerequisites = {
 		trait = hedonist
 		trait = decadent
 	}
+}
+
+has_shezmu_prerequisites = {
+	age = 15
+	OR = {
+		religion_openly_in_egyptian_subgroup_trigger = yes
+		religion_secretly_in_egyptian_subgroup_trigger = yes
+	}
+	NOT = { has_common_devilworship_prerequisites = yes }
+}
+
+is_hellenic_monastic_order_member_trigger = {
+	OR = {
+		is_in_society = monastic_order_stoics
+		is_in_society = monastic_order_skeptics
+		is_in_society = monastic_order_epicureans
+	}
+}
+
+is_celtic_monastic_order_member_trigger = {
+	always = no # none exist yet!
 }
