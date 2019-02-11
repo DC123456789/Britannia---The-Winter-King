@@ -2778,7 +2778,34 @@ character_event = {
 		death = {
 			death_reason = death_suicide
 		}
-		trigger = { has_character_flag = desc_C }
+		trigger = { 
+			has_character_flag = desc_C 
+			OR = {
+				ai = no				
+				NOR = {			# Make sure important characters don't kill themselves...
+					AND = {
+						has_character_flag = aelle_of_anglia
+						NOT = { year = 495 }
+					}
+					AND = {
+						has_character_flag = cerdic_of_sussex
+						NOT = { year = 495 }
+					}
+					AND = {
+						has_character_flag = arthur
+						NOT = { year = 495 }
+					}
+					AND = {
+						has_character_flag = derfel_cadarn
+						NOT = { year = 495 }
+					}
+					AND = {
+						has_character_flag = clovis_of_the_franks
+						NOT = { year = 500 }
+					}
+				}
+			}
+		}
 	}
 	option = { #Try to cope (Scenario C: Survivor's guilt)
 		name = EVTOPTC_HFP_11019_2 #Some people will always want me dead
