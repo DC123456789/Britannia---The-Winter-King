@@ -1949,7 +1949,7 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 360
+		months = 240
 		modifier = {
 			factor = 1.5
 			owner = { 
@@ -1982,9 +1982,179 @@ province_event = {
 			limit = { ROOT = { region = world_britannia_cymry_henogledd } }
 			culture = cumbrian
 		}
-		if = {
-			limit = { NOT = { ROOT = { region = world_britannia_cymry_henogledd } } }
+		else = {
 			culture = briton
+		}
+		if = {
+			limit = { 
+				OR = {
+					government = sub_roman_brythonic_government 
+					government = sub_roman_government
+				}
+			}
+			government = feudal_government
+		}
+	}
+}
+
+# Romano-Britons assimilate into Briton culture (character event)
+character_event = {
+	id = 55021
+	desc = "EVTDESC55021"
+	picture = GFX_evt_interior_ruins
+
+	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
+		
+		year = 530
+		OR = {
+			is_roman_culture_trigger = yes
+			government = sub_roman_brythonic_government 
+			government = sub_roman_government
+		}
+		capital_scope = { 
+			region = world_britannia_cymry 
+			is_roman_culture_trigger = no
+		}
+		
+		# Requires all Romano-British cities neighbouring the region to have fallen to the Saxons
+		OR = {
+			AND = {
+				capital_scope = { region = world_britannia_cymry_henogledd }
+				c_lindum = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_ratae = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+			AND = {
+				capital_scope = { 
+					NOT = { region = world_britannia_cymry_henogledd }
+					NOT = { region = world_britannia_cymry_cornwall }
+				}
+				c_glevum = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_corinium = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_ratae = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+			AND = {
+				capital_scope = { region = world_britannia_cymry_cornwall }
+				c_corinium = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_aquae_sulis = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_lindinis = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_durnovaria = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+		}
+		
+		# Won't assimilate if part of a realm with continential Romans in it
+		top_liege = {
+			NAND = {
+				OR = {
+					culture = romanobritish
+					culture_group = imperiale
+					is_romanized_germanic_trigger = yes
+				}
+				any_realm_province = {
+					OR = {
+						culture = romanobritish
+						culture_group = imperiale
+					}
+					NOT = { region = world_britannia }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			NOT = { religion_group = christian }
+		}
+	}
+
+	option = {
+		name = "EVTOPTA55021"
+		if = {
+			limit = { is_roman_culture_trigger = yes }
+			if = {
+				limit = { ROOT = { capital_scope = { region = world_britannia_cymry_henogledd } } }
+				culture = cumbrian
+			}
+			else = {
+				culture = briton
+			}
 		}
 		if = {
 			limit = { 

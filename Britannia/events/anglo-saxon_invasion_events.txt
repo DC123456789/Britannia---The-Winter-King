@@ -15300,7 +15300,7 @@ narrative_event = {
 					trait = ambitious
 				}
 				new_character = {
-					usurp_title_no_opinion = event_target:anglo_saxon_return_invader_title_target
+					grant_title_no_opinion = event_target:anglo_saxon_return_invader_title_target
 					save_event_target_as = anglo_saxon_return_invader
 					set_global_flag = anglo_saxon_return_invader_set
 				}
@@ -15525,13 +15525,78 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA313152"	# Other Saxons
+		name = "EVTOPTA313152"	# Saxons in Britannia - join rebellion
 		trigger = {
 			is_ingvaeonic_culture_trigger = yes
+			capital_scope = {
+				region = world_britannia
+			}
+			OR = {
+				independent = yes
+				NOT = {
+					any_liege = {
+						is_ingvaeonic_culture_trigger = yes
+					}					
+				}
+			}
+		}
+		ai_chance = {
+			factor = 80
 		}
 	}
 	option = {
-		name = "EVTOPTB313152"	# Britons and British rulers
+		name = "EVTOPTB313152"	# Saxons in Britannia - wait and see
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			capital_scope = {
+				region = world_britannia
+			}
+			OR = {
+				independent = yes
+				NOT = {
+					any_liege = {
+						is_ingvaeonic_culture_trigger = yes
+					}					
+				}
+			}
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				NOR = {
+					trait = loyal
+					trait = content
+					trait = craven
+					opinion = {
+						who = LIEGE
+						value = 80
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313152"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			NAND = {
+				capital_scope = {
+					region = world_britannia
+				}
+				OR = {
+					independent = yes
+					NOT = {
+						any_liege = {
+							is_ingvaeonic_culture_trigger = yes
+						}					
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD313152"	# Britons and British rulers
 		trigger = {
 			OR = {
 				is_brythonic_culture_trigger = yes
@@ -15543,7 +15608,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC313152"	# Others
+		name = "EVTOPTE313152"	# Others
 		trigger = {
 			is_ingvaeonic_culture_trigger = no
 			NOR = {

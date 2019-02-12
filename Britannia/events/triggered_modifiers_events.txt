@@ -3601,7 +3601,7 @@ character_event = {
 	
 	trigger = {
 		ai = yes
-		is_tribal = yes
+		government = tribal_government
 		NOT = { has_character_modifier = ai_tribal_discount }
 	}
 	
@@ -3627,7 +3627,7 @@ character_event = {
 		has_character_modifier = ai_tribal_discount
 		NAND = {
 			ai = yes
-			is_tribal = yes
+			government = tribal_government
 		}
 	}
 	
@@ -3637,6 +3637,53 @@ character_event = {
 	
 	immediate = {
 		remove_character_modifier = ai_tribal_discount
+	}
+}
+# AI High Tribal discount modifier
+character_event = {
+	id = 301970
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		ai = yes
+		government = high_tribal_government
+		NOT = { has_character_modifier = ai_high_tribal_discount }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = {
+			modifier = ai_high_tribal_discount
+			duration = -1
+			hidden = yes
+		}
+	}
+}
+character_event = {
+	id = 301971
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = ai_high_tribal_discount
+		NAND = {
+			ai = yes
+			government = high_tribal_government
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = ai_high_tribal_discount
 	}
 }
 
@@ -3785,5 +3832,6 @@ character_event = {
 		remove_character_modifier = britannia_centralized_church_modifier
 		remove_character_modifier = britannia_heir_of_caratacus
 		remove_character_modifier = ai_tribal_discount
+		remove_character_modifier = ai_high_tribal_discount
 	}
 }
