@@ -941,16 +941,14 @@ province_event = {
 		months = 60
 		modifier = {
 			factor = 5
-			NOT = {
-				OR = {
-					any_neighbor_province = {
-						any_province_holding = {
-							holding_type = tribal
-						}
+			NOR = {
+				any_neighbor_province = {
+					any_province_holding = {
+						holding_type = tribal
 					}
-					has_province_flag = saxon_invasion
-					has_province_flag = mercia_anglian_invasion
 				}
+				has_province_flag = saxon_invasion
+				has_province_flag = mercia_anglian_invasion
 			}
 		}
 		modifier = {
@@ -964,15 +962,22 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 8
+			factor = 4
+			region = world_gaul
+		}
+		modifier = {
+			factor = 2
 			owner = {
 				top_liege = {
-					is_istvaeonic_culture_trigger = yes
+					OR = {
+						is_istvaeonic_culture_trigger = yes
+						is_irminonic_culture_trigger = yes
+					}
 				}
 			}
-		}		
+		}
 		modifier = {
-			factor = 10
+			factor = 3
 			owner = {
 				top_liege = {
 					is_romanized_germanic_trigger = yes
@@ -1075,12 +1080,12 @@ character_event = {
 			if = {
 				limit = { liege = { government = tribal_government } }
 				set_government_type = tribal_government
-				log = "[Root.GetBestName] was granted territory and became Tribal"
+				#log = "[Root.GetBestName] was granted territory and became Tribal"
 			}
 			if = {
 				limit = { liege = { government = high_tribal_government } }
 				set_government_type = high_tribal_government
-				log = "[Root.GetBestName] was granted territory and became High Tribal"
+				#log = "[Root.GetBestName] was granted territory and became High Tribal"
 			}
 			if = {
 				limit = { 
@@ -1092,22 +1097,22 @@ character_event = {
 					} 
 				}
 				set_government_type = sub_roman_government
-				log = "[Root.GetBestName] was granted territory and became Sub Roman"
+				#log = "[Root.GetBestName] was granted territory and became Sub Roman"
 			}
 			if = {
 				limit = { liege = { government = sub_roman_brythonic_government } }
 				set_government_type = sub_roman_brythonic_government
-				log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
+				#log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
 			}
 			if = {
 				limit = { liege = { government = germanic_government } }
 				set_government_type = germanic_government
-				log = "[Root.GetBestName] was granted territory and became Germanic"
+				#log = "[Root.GetBestName] was granted territory and became Germanic"
 			}
 			if = {
 				limit = { liege = { government = feudal_government } }
 				set_government_type = feudal_government
-				log = "[Root.GetBestName] was granted territory and became Feudal"
+				#log = "[Root.GetBestName] was granted territory and became Feudal"
 			}
 		}
 	}

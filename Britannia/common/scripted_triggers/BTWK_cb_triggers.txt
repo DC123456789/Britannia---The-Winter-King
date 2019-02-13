@@ -759,13 +759,15 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 			FROM = {
 				government = tribal_government
 			}
-			any_direct_de_jure_vassal_title = {
-				OR = {
-					culture = PREV
-					AND = {
-						is_ingvaeonic_culture_trigger = yes
-						FROM = {
+			NOT = {
+				any_direct_de_jure_vassal_title = {
+					NOR = {
+						culture = FROM
+						AND = {
 							is_ingvaeonic_culture_trigger = yes
+							FROM = {
+								is_ingvaeonic_culture_trigger = yes
+							}
 						}
 					}
 				}

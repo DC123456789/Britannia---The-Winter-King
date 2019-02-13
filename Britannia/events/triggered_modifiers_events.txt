@@ -3686,6 +3686,56 @@ character_event = {
 		remove_character_modifier = ai_high_tribal_discount
 	}
 }
+# AI High Tribal discount modifier
+character_event = {
+	id = 301972
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		is_tribal = yes
+		any_liege = {
+			is_tribal = no
+		}
+		NOT = { has_character_modifier = tribal_vassal_of_feudal }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = {
+			modifier = tribal_vassal_of_feudal
+			duration = -1
+		}
+	}
+}
+character_event = {
+	id = 301973
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_character_modifier = tribal_vassal_of_feudal
+		NAND = {
+			is_tribal = yes
+			any_liege = {
+				is_tribal = no
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = tribal_vassal_of_feudal
+	}
+}
 
 character_event = {
 	id = 301999
@@ -3762,6 +3812,8 @@ character_event = {
 			has_character_modifier = britannia_centralized_church_modifier
 			has_character_modifier = britannia_heir_of_caratacus
 			has_character_modifier = ai_tribal_discount
+			has_character_modifier = ai_high_tribal_discount
+			has_character_modifier = tribal_vassal_of_feudal
 		}
 	}
 	
@@ -3833,5 +3885,6 @@ character_event = {
 		remove_character_modifier = britannia_heir_of_caratacus
 		remove_character_modifier = ai_tribal_discount
 		remove_character_modifier = ai_high_tribal_discount
+		remove_character_modifier = tribal_vassal_of_feudal
 	}
 }
