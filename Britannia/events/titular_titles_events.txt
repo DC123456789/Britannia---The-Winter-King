@@ -20985,9 +20985,23 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_the_belgae = { de_jure_liege = k_belgae }
+		if = {
+			limit = { NOT = { has_global_flag = celemion_renamed } }
+			d_eastdumnonia = { de_jure_liege = k_belgae }
+		}
 		d_gradawc = { de_jure_liege = k_belgae }
-		d_eastdumnonia = { de_jure_liege = k_belgae }
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = belgae_renamed 
+					AND = {
+						has_global_flag = meonware_conquered
+						NOT = { has_global_flag = meonware_destroyed }
+					}
+				} 
+			}
+			d_the_belgae = { de_jure_liege = k_belgae }
+		}
 		set_global_flag = belgae_created
 	}
 	
