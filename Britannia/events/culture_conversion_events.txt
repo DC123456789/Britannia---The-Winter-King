@@ -2138,6 +2138,10 @@ character_event = {
 			factor = 0.75
 			NOT = { religion_group = christian }
 		}
+		modifier = {
+			factor = 0.75
+			year = 600
+		}
 	}
 
 	option = {
@@ -2150,6 +2154,48 @@ character_event = {
 			}
 			else = {
 				culture = briton
+			}
+			hidden_tooltip = {
+				any_child = {
+					limit = {
+						is_roman_culture_trigger = yes
+						employer = {
+							character = ROOT
+						}
+						is_ruler = no
+					}
+					culture = ROOT
+					any_child = {
+						limit = {
+							is_roman_culture_trigger = yes
+							employer = {
+								character = ROOT
+							}
+							is_ruler = no
+						}
+						culture = ROOT
+						any_child = {
+							limit = {
+								is_roman_culture_trigger = yes
+								employer = {
+									character = ROOT
+								}
+								is_ruler = no
+							}
+							culture = ROOT
+						}
+					}
+				}
+				any_courtier = {
+					limit = {
+						employer = {
+							character = ROOT
+						}
+						is_ruler = no
+						culture = romanobritish
+					}
+					culture = ROOT
+				}
 			}
 		}
 		if = {
