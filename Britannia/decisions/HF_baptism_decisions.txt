@@ -863,6 +863,14 @@ decisions = {
 					relative_power = { who = ROOT power = 0.75 }
 					NOT = { lower_tier_than = ROOT }
 					NOT = { distance_from_realm = { who = ROOT value = 600 } }
+					ROOT = { 		# If capital is not pagan, will only convert to capital religion
+						capital_scope = {
+							OR = {
+								religion_group = pagan_group
+								religion = PREVPREV
+							}
+						}
+					}
 				}
 				preferred_limit = {
 					any_neighbor_independent_ruler = { character = ROOT }

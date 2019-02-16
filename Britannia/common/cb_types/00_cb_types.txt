@@ -1743,7 +1743,10 @@ other_claim_on_liege = {
 			limit = {
 				higher_tier_than = ROOT
 				holder_scope = {
-					is_feudal = yes
+					OR = {
+						is_feudal = yes
+						is_tribal = yes
+					}
 				}
 				ROOT = {
 					is_ruler = yes
@@ -3072,6 +3075,11 @@ invasion = {					# Available only to skilled and prestigious High Kings
 	
 	defender_ai_defeat_worth = {
 		factor = 95
+	}
+	
+	# ai importance placed on this CB: scope is the targeted title, ROOT is the attacking character, FROM is the defending character
+	ai_will_do = { 
+		factor = 0
 	}
 }
 
@@ -7258,33 +7266,7 @@ peasant_revolt = {
 	}
 
 	on_success_title = {
-		# Flag and set correct government
-		ROOT = {
-			if = {
-				limit = {
-					FROM = { government = high_tribal_government }
-				}
-				set_character_flag = set_to_high_tribal_government
-			}
-			else_if = {
-				limit = {
-					government = sub_roman_government
-				}
-				set_character_flag = set_to_sub_roman_government
-			}
-			else_if = {
-				limit = {
-					government = sub_roman_brythonic_government
-				}
-				set_character_flag = set_to_sub_roman_brythonic_government
-			}
-			else_if = {
-				limit = {
-					government = germanic_government
-				}
-				set_character_flag = set_to_germanic_government
-			}
-		}
+		ROOT = { britannia_flag_proper_post_revolt_government = yes }
 		usurp_title_plus_barony_if_unlanded = ROOT
 		ROOT = { 
 			set_defacto_liege = ROOT 
@@ -7358,25 +7340,7 @@ heretic_revolt = {
 
 	on_success = {
 		ROOT = {
-			# Flag and set correct government
-			if = {
-				limit = {
-					government = sub_roman_government
-				}
-				set_character_flag = set_to_sub_roman_government
-			}
-			else_if = {
-				limit = {
-					government = sub_roman_brythonic_government
-				}
-				set_character_flag = set_to_sub_roman_brythonic_government
-			}
-			else_if = {
-				limit = {
-					government = germanic_government
-				}
-				set_character_flag = set_to_germanic_government
-			}
+			britannia_flag_proper_post_revolt_government = yes
 			prestige = 200
 			piety = 100
 			occupy_minors_of_occupied_settlements = FROM
@@ -7518,25 +7482,7 @@ religious_revolt = {
  
 	on_success = {
 		ROOT = {
-			# Flag and set correct government
-			if = {
-				limit = {
-					government = sub_roman_government
-				}
-				set_character_flag = set_to_sub_roman_government
-			}
-			else_if = {
-				limit = {
-					government = sub_roman_brythonic_government
-				}
-				set_character_flag = set_to_sub_roman_brythonic_government
-			}
-			else_if = {
-				limit = {
-					government = germanic_government
-				}
-				set_character_flag = set_to_germanic_government
-			}
+			britannia_flag_proper_post_revolt_government = yes
 			prestige = 200
 			piety = 100
 			occupy_minors_of_occupied_settlements = FROM
@@ -7695,16 +7641,11 @@ liberation_revolt = {
 	
 	on_success = {
 		ROOT = {
+			britannia_flag_proper_post_revolt_government = yes
 			prestige = 1000
 			occupy_minors_of_occupied_settlements = FROM
 			gain_all_occupied_titles = FROM
 			give_nickname = nick_the_liberator
-			if = {
-				limit = {
-					FROM = { government = high_tribal_government }
-				}
-				set_character_flag = set_to_high_tribal_government
-			}
 			character_event = { id = 319005 days = 1 }
 		}
 		FROM = {

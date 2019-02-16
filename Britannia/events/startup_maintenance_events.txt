@@ -1918,7 +1918,7 @@ character_event = {
 }
 
 
-# Assign correct government and succession law to revolters
+# Assign correct government and succession law to revolters (post-revolt)
 character_event = {
 	id = 319005
 	desc = "You're not supposed to see this..."
@@ -1963,15 +1963,12 @@ character_event = {
 				limit = { 
 					is_tribal = yes
 				}
-				set_character_flag = here_set_succ
 				primary_title = {
 					add_law = succ_elective_gavelkind
 					succession = elective_gavelkind
 				}
-				recalc_succession = yes
-				break = yes
 			}
-			if = {
+			else_if = {
 				limit = { 
 					OR = {
 						government = sub_roman_government
@@ -1983,13 +1980,14 @@ character_event = {
 					add_law = succ_primogeniture
 					succession = primogeniture
 				}
-				recalc_succession = yes
-				break = yes
 			}
-			primary_title = {
-				add_law = succ_gavelkind
-				succession = gavelkind
+			else = {
+				primary_title = {
+					add_law = succ_gavelkind
+					succession = gavelkind
+				}
 			}
+			recalc_succession = yes
 		}
 	}
 }

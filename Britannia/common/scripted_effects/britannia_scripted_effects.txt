@@ -1011,7 +1011,26 @@ set_proper_rebel_government_effect = {
 		}
 		else_if = {
 			limit = {
-				ROOT = { owner = { top_liege = { is_romanized_or_germanic_government_trigger = yes } } }
+				ROOT = { 
+					owner = { 
+						top_liege = {
+							OR = {							
+								is_romanized_or_germanic_government_trigger = yes 
+								AND = {
+									is_tribal = yes
+									ROOT = {
+										NOT = { any_province_holding = { holding_type = TRIBAL } }
+									}
+									OR = {
+										is_roman_culture_trigger = yes
+										is_frankish_culture_trigger = yes
+										is_romanized_germanic_trigger = yes
+									}
+								}
+							} 
+						}
+					}
+				}
 			}
 			if = {
 				limit = { 
@@ -1033,6 +1052,33 @@ set_proper_rebel_government_effect = {
 		else = {
 			set_government_type = feudal_government
 		}
+	}
+}
+
+britannia_flag_proper_post_revolt_government_effect = {
+	if = {
+		limit = {
+			FROM = { government = high_tribal_government }
+		}
+		set_character_flag = set_to_high_tribal_government
+	}
+	else_if = {
+		limit = {
+			government = sub_roman_government
+		}
+		set_character_flag = set_to_sub_roman_government
+	}
+	else_if = {
+		limit = {
+			government = sub_roman_brythonic_government
+		}
+		set_character_flag = set_to_sub_roman_brythonic_government
+	}
+	else_if = {
+		limit = {
+			government = germanic_government
+		}
+		set_character_flag = set_to_germanic_government
 	}
 }
 
