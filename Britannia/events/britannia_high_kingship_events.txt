@@ -1429,11 +1429,31 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 		hidden_tooltip = {
 			if = {
 				limit = { character = ROOT }
-				any_character = {
-					limit = { has_character_flag = restore_vassalage_@ROOT }
-					clr_character_flag = restore_vassalage_@ROOT
-					set_defacto_liege = THIS
-					set_defacto_liege = ROOT
+				if = {
+					limit = {
+						character = 3	# Arthur
+						NOT = { tier = KING }
+					}
+					# Transfer all lost vassals back to Mordred
+					k_dumnonia = {
+						holder_scope = {
+							any_character = {
+								limit = { has_character_flag = restore_vassalage_@ROOT }
+								clr_character_flag = restore_vassalage_@ROOT
+								set_defacto_liege = THIS
+								set_defacto_liege = PREV
+							}
+							ROOT = { set_defacto_liege = PREV }
+						}
+					}
+				}
+				else = {
+					any_character = {
+						limit = { has_character_flag = restore_vassalage_@ROOT }
+						clr_character_flag = restore_vassalage_@ROOT
+						set_defacto_liege = THIS
+						set_defacto_liege = ROOT
+					}
 				}
 			}
 		}
@@ -1478,20 +1498,43 @@ narrative_event = {
 			ROOT = { remove_tributary = PREV }
 		}
 		# This ensures that all actual vassals of ROOT are kept when Britannia is destroyed
-		any_character = {
-			limit = { has_character_flag = restore_vassalage_@ROOT }
-			clr_character_flag = restore_vassalage_@ROOT
-			set_defacto_liege = THIS
-			if = {
-				limit = { 
-					ROOT = { higher_tier_than = PREV }
+		if = {
+			limit = {
+				character = 3	# Arthur
+				NOT = { 
+					any_demesne_title = {
+						tier = KING 
+					}
 				}
-				set_defacto_liege = ROOT
 			}
-			else = {
-				ROOT = {
-					current_heir = {
-						set_defacto_vassal = PREVPREV
+			# Transfer all lost vassals back to Mordred
+			k_dumnonia = {
+				holder_scope = {
+					any_character = {
+						limit = { has_character_flag = restore_vassalage_@ROOT }
+						clr_character_flag = restore_vassalage_@ROOT
+						set_defacto_liege = PREV
+					}
+					ROOT = { set_defacto_liege = PREV }
+				}
+			}
+		}
+		else = {
+			any_character = {
+				limit = { has_character_flag = restore_vassalage_@ROOT }
+				clr_character_flag = restore_vassalage_@ROOT
+				set_defacto_liege = THIS
+				if = {
+					limit = { 
+						ROOT = { higher_tier_than = PREV }
+					}
+					set_defacto_liege = ROOT
+				}
+				else = {
+					ROOT = {
+						current_heir = {
+							set_defacto_vassal = PREVPREV
+						}
 					}
 				}
 			}
