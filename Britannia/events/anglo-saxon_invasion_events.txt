@@ -14209,7 +14209,11 @@ character_event = {
 		has_global_flag = anglia_collapse_start
 		OR = {
 			NOT = { has_global_flag = anglia_collapse_factions }
-			had_global_flag = { flag = anglia_collapse_factions days = 1460 }
+			had_global_flag = { flag = anglia_collapse_factions days = 1825 }
+		}
+		OR = {
+			NOT = { has_global_flag = anglia_first_revolt }
+			had_global_flag = { flag = anglia_first_revolt days = 1825 }
 		}
 		#has_character_flag = anglia_collapse_target
 		NOT = { has_global_flag = anglia_collapsed }
@@ -14226,8 +14230,8 @@ character_event = {
 			any_vassal = {
 				limit = { 
 					higher_tier_than = BARON 
-					NOT = { trait = incapable }	
-					is_adult = yes
+					#NOT = { trait = incapable }	
+					#is_adult = yes
 					prisoner = no
 				}
 				character_event = { id = 313105 days = 30 random = 10 }
@@ -14272,6 +14276,7 @@ character_event = {
 		start_faction = {
 			faction = faction_independence
 			can_join_existing = yes
+			ignore_requirements = yes
 		}
 		hidden_tooltip = {
 			if = {
@@ -14283,7 +14288,7 @@ character_event = {
 							join_faction = {
 								faction = faction_independence
 								faction_leader = PREV
-								ignore_requirements = yes
+								#ignore_requirements = yes
 							}
 						}
 					}
@@ -14382,11 +14387,11 @@ character_event = {
 					home = PREV
 					owner = ROOT
 					troops = {
-						pikemen = { 1200 1200 }
-						heavy_infantry = { 1500 1500 }
-						archers = { 900 900 }
-						light_infantry = { 1000 1000 }
-						light_cavalry = { 300 300 }
+						pikemen = { 900 900 }
+						heavy_infantry = { 900 900 }
+						archers = { 800 800 }
+						light_infantry = { 1200 1200 }
+						light_cavalry = { 200 200 }
 					}
 					attrition = 0.1
 					disband_on_peace = yes
@@ -14396,10 +14401,10 @@ character_event = {
 					home = PREV
 					owner = ROOT
 					troops = {
-						pikemen = { 700 700 }
-						heavy_infantry = { 900 900 }
+						pikemen = { 600 600 }
+						heavy_infantry = { 600 600 }
 						archers = { 500 500 }
-						light_infantry = { 1000 1000 }
+						light_infantry = { 800 800 }
 					}
 					attrition = 0.1
 					disband_on_peace = yes
@@ -14437,7 +14442,14 @@ narrative_event = {
 		trigger = {
 			has_landed_title = k_anglia
 		}
-		remove_character_modifier = anglia_unstable_realm
+		if = {
+			limit = { has_character_modifier = anglia_unstable_realm }
+			remove_character_modifier = anglia_unstable_realm
+		}
+		if = {
+			limit = { has_character_modifier = anglia_unstable_realm_2 }
+			remove_character_modifier = anglia_unstable_realm_2
+		}
 		k_anglia = { 
 			destroy_landed_title = THIS
 			activate_title = { title = THIS status = no }
@@ -14580,7 +14592,18 @@ character_event = {
 # Revolt Crushed
 character_event = {
 	id = 313110
-	desc = "EVTDESC313110"
+	desc = {
+		text = EVTDESC313110
+		trigger = {
+			has_global_flag = anglia_first_revolt
+		}
+	}
+	desc = {
+		text = EVTDESC313110_1
+		trigger = {
+			NOT = { has_global_flag = anglia_first_revolt }
+		}
+	}
 	picture = "GFX_evt_lord_overlooking_bridge"
 	
 	is_triggered_only = yes
@@ -14594,28 +14617,70 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA313110"
-		prestige = 300
-		remove_character_modifier = anglia_unstable_realm
+		prestige = 200
+		trigger = {
+			has_global_flag = anglia_first_revolt
+		}
+		remove_character_modifier = anglia_unstable_realm_2
+		clr_global_flag = anglia_collapse_start
+		clr_global_flag = anglia_collapse_factions
 		any_character = {
 			clr_character_flag = anglia_collapse_faction
 			#clr_character_flag = anglia_collapse_target
 		}
-		clr_global_flag = anglia_collapse_start
-		clr_global_flag = anglia_collapse_factions
+	}
+	
+	option = {
+		name = "EVTOPTB313110"
+		prestige = 200
+		trigger = {
+			NOT = { has_global_flag = anglia_first_revolt }
+		}
+		set_global_flag = anglia_first_revolt
+		remove_character_modifier = anglia_unstable_realm
+		add_character_modifier = {
+			name = anglia_unstable_realm_2
+			duration = -1
+		}
+		any_character = {
+			clr_character_flag = anglia_collapse_faction
+			#clr_character_flag = anglia_collapse_target
+		}
 	}
 }
 
 # Inform vassals
 character_event = {
 	id = 313111
-	desc = "EVTDESC313111"
+	desc = {
+		text = EVTDESC313111
+		trigger = {
+			NOT = { has_global_flag = anglia_collapse_start }
+		}
+	}
+	desc = {
+		text = EVTDESC313111_1
+		trigger = {
+			has_global_flag = anglia_collapse_start
+		}
+	}
 	picture = "GFX_evt_lord_overlooking_bridge"
 	
 	is_triggered_only = yes
 	
 	option = {
 		name = "EVTOPTA313111"
+		trigger = {
+			NOT = { has_global_flag = anglia_collapse_start }
+		}
 		prestige = -200
+	}
+	option = {
+		name = "EVTOPTB313111"
+		trigger = {
+			has_global_flag = anglia_collapse_start
+		}
+		prestige = -100
 	}
 }
 
@@ -14636,7 +14701,10 @@ character_event = {
 				has_global_flag = anglia_collapse_start
 			}
 			AND = {
-				has_character_modifier = anglia_unstable_realm
+				OR = {
+					has_character_modifier = anglia_unstable_realm
+					has_character_modifier = anglia_unstable_realm_2
+				}
 				NOT = { has_landed_title = k_anglia }
 			}
 		}
@@ -14645,14 +14713,25 @@ character_event = {
 	immediate = {
 		if = {
 			limit = { has_landed_title = k_anglia }
-			add_character_modifier = {
-				name = anglia_unstable_realm
-				duration = -1
+			if = {
+				limit = { has_global_flag = anglia_first_revolt }
+				add_character_modifier = {
+					name = anglia_unstable_realm_2
+					duration = -1
+				}
+			}
+			else = {
+				add_character_modifier = {
+					name = anglia_unstable_realm
+					duration = -1
+				}
 			}
 			FROMFROM = { remove_character_modifier = anglia_unstable_realm }
+			FROMFROM = { remove_character_modifier = anglia_unstable_realm_2 }
 		}
 		else = {
 			remove_character_modifier = anglia_unstable_realm
+			remove_character_modifier = anglia_unstable_realm_2
 		}
 	}
 }
