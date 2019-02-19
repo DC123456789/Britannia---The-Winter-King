@@ -14878,9 +14878,17 @@ character_event = {
 		if = {
 			limit = { NOT = { has_global_flag = anglo_saxon_return_invader_chosen } }
 			random_province = {
-				limit = {
+				limit = { 
 					is_ingvaeonic_culture_trigger = yes
-					region = world_britannia
+					OR = {		# If somehow there are no Anglo-Saxon provinces in Britannia
+						region = world_britannia
+						NOT = { 
+							any_province = {
+								region = world_britannia
+								is_ingvaeonic_culture_trigger = yes
+							}
+						}
+					}
 				}
 				create_character = {
 					random_traits = yes
@@ -15018,7 +15026,7 @@ narrative_event = {
 		}
 		NOT = { has_global_flag = anglo_saxons_returned }
 		any_demesne_title = {
-			has_title_flag = anglo_saxon_return_title_created
+			has_title_flag = anglo_saxon_return_invader_title
 		}
 	}
 	
@@ -15234,7 +15242,7 @@ narrative_event = {
 					}
 				}
 				137 = {
-					save_event_target_as = invader_target_province
+					save_global_event_target_as = anglo_saxon_return_invader_target_province
 				}
 			}
 			33 = {
@@ -15260,7 +15268,7 @@ narrative_event = {
 					}
 				}
 				48 = {
-					save_event_target_as = invader_target_province
+					save_global_event_target_as = anglo_saxon_return_invader_target_province
 				}
 			}
 			33 = {
@@ -15286,11 +15294,11 @@ narrative_event = {
 					}
 				}
 				44 = {
-					save_event_target_as = invader_target_province
+					save_global_event_target_as = anglo_saxon_return_invader_target_province
 				}
 			}
 		}
-		event_target:invader_target_province = {
+		event_target:anglo_saxon_return_invader_target_province = {
 			kingdom = {
 				event_target:anglo_saxon_return_invader = {
 					unsafe_war = {
@@ -15305,8 +15313,8 @@ narrative_event = {
 		# Spawn base event troops
 		event_target:anglo_saxon_return_invader = {
 			spawn_unit = {
-				province = event_target:invader_target_province
-				home = event_target:invader_target_province
+				province = event_target:anglo_saxon_return_invader_target_province
+				home = event_target:anglo_saxon_return_invader_target_province
 				owner = THIS
 				troops = {
 					light_infantry = { 1000 1000 }
@@ -15337,8 +15345,8 @@ narrative_event = {
 			}
 			new_character = {
 				spawn_unit = {
-					province = event_target:invader_target_province
-					home = event_target:invader_target_province
+					province = event_target:anglo_saxon_return_invader_target_province
+					home = event_target:anglo_saxon_return_invader_target_province
 					owner = THIS
 					earmark = anglo_saxon_return_army
 					troops = {
@@ -15373,8 +15381,8 @@ narrative_event = {
 			}
 			new_character = {
 				spawn_unit = {
-					province = event_target:invader_target_province
-					home = event_target:invader_target_province
+					province = event_target:anglo_saxon_return_invader_target_province
+					home = event_target:anglo_saxon_return_invader_target_province
 					owner = THIS
 					earmark = anglo_saxon_return_army
 					troops = {
@@ -15396,6 +15404,7 @@ narrative_event = {
 		any_province = {
 			limit = { 
 				region = world_britannia
+				is_ingvaeonic_culture_trigger = yes
 				NOT = { owner = { top_liege = { is_ingvaeonic_culture_trigger = yes } } }
 			}
 			add_province_modifier = {
@@ -15405,14 +15414,14 @@ narrative_event = {
 			event_target:anglo_saxon_return_invader = {
 				spawn_unit = {
 					province = PREV
-					home = event_target:invader_target_province
+					home = event_target:anglo_saxon_return_invader_target_province
 					owner = THIS
 					earmark = anglo_saxon_return_army
 					troops = {
-						light_infantry = { 90 90 }
-						pikemen = { 50 50 }
+						light_infantry = { 80 80 }
+						pikemen = { 45 45 }
 						heavy_infantry = { 30 30 }
-						archers = { 50 50 }
+						archers = { 40 40 }
 						light_cavalry = { 10 10 }
 					}
 					attrition = 0.25
@@ -15520,6 +15529,131 @@ narrative_event = {
 		}
 	}
 }
+
+# If the war invalidates, repeat the invasion
+character_event = {
+	id = 313153
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Invader gets some extra troops
+		spawn_unit = {
+			province = event_target:anglo_saxon_return_invader_target_province
+			home = event_target:anglo_saxon_return_invader_target_province
+			owner = THIS
+			troops = {
+				light_infantry = { 500 500 }
+				pikemen = { 300 300 }
+				heavy_infantry = { 400 400 }
+				archers = { 300 300 }
+				light_cavalry = { 100 100 }
+			}
+			attrition = 0.25
+			maintenance_multiplier = 0.25
+		}
+		event_target:anglo_saxon_return_invader_target_province = {
+			kingdom = {
+				event_target:anglo_saxon_return_invader = {
+					unsafe_war = {
+						casus_belli = full_kingdom_invasion
+						target = PREVPREV
+						thirdparty_title = PREVPREV
+						tier = KING
+					}
+				}
+			}
+		}
+	}
+}
+
+
+# Invasion victorious
+narrative_event = {
+	id = 313154
+	title = "EVTNAME313154"
+	desc = "EVTDESC313154"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = anglo_saxons_returned_victorious
+		if = {
+			limit = { event_target:anglo_saxon_return_invader_target_province = { region = custom_eastanglia } }
+			grant_title = k_east_anglia
+		}
+		else_if = {
+			limit = { event_target:anglo_saxon_return_invader_target_province = { region = custom_essex } }
+			grant_title = k_eastseaxe
+		}
+		else_if = {
+			limit = { event_target:anglo_saxon_return_invader_target_province = { region = custom_cantia } }
+			grant_title = k_cantia
+		}
+		set_character_flag = gained_aengland
+		grant_title = e_aengland
+		clr_character_flag = gained_aengland
+	}
+	
+	option = {
+		name = "EVTOPTA313152"	# Saxons in Britannia
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			capital_scope = {
+				region = world_britannia
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB313152"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			NOT = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313152"	# Britons and British rulers
+		trigger = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
+			is_ingvaeonic_culture_trigger = no
+		}
+	}
+	option = {
+		name = "EVTOPTD313152"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			NOR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+}
+
+# 313155 AI-directing Invasion events
+
+# 313156 Properly handing out titles
+
+# 313157 Death of the Bretwalda (?)
+
+# 313158 Anglo-Saxons defeated 2.0
 
 # REVOLTS FOR NEW ANGLOSAXON KINGDOMS
 # Revolts for new Kingdoms - Mercia

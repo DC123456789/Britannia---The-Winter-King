@@ -9217,6 +9217,7 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 	hostile_against_others = yes
 	is_permanent = no
 	can_ask_to_join_war = yes
+	allow_whitepeace = no
 	check_de_jure_tier = KING # this scans all de jure kingdoms for the counties which are held by or vassals(or below) of selected character. Only valid if is_permanent = yes
 	
 	allowed_to_target_tributaries = no
@@ -9276,6 +9277,7 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 					is_crusade = yes # Even if the title holder is not participating in the war, gain holdings occupied by all Crusade participants
 					type = holy_war
 				}
+				character_event = { id = 313154 }
 			}
 		}
 	}
@@ -9331,6 +9333,10 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 		}
 	}
 
+	on_invalidation = {
+		ROOT = { character_event = { id = 313153 } }
+	}
+	
 	attacker_ai_victory_worth = {
 		factor = -1 # always accept
 	}
