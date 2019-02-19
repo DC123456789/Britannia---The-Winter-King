@@ -15309,6 +15309,10 @@ narrative_event = {
 					}
 				}
 			}
+			if = {
+				limit = { any_province_holding = { holding_type = TRIBAL } }
+				ROOT = { set_government_type = high_tribal_government }
+			}
 		}
 		# Spawn base event troops
 		event_target:anglo_saxon_return_invader = {
@@ -15317,10 +15321,10 @@ narrative_event = {
 				home = event_target:anglo_saxon_return_invader_target_province
 				owner = THIS
 				troops = {
-					light_infantry = { 1000 1000 }
-					pikemen = { 600 600 }
-					heavy_infantry = { 800 800 }
-					archers = { 600 600 }
+					light_infantry = { 900 900 }
+					pikemen = { 650 650 }
+					heavy_infantry = { 1200 1200 }
+					archers = { 500 500 }
 					light_cavalry = { 200 200 }
 				}
 				attrition = 0.25
@@ -15347,12 +15351,12 @@ narrative_event = {
 				spawn_unit = {
 					province = event_target:anglo_saxon_return_invader_target_province
 					home = event_target:anglo_saxon_return_invader_target_province
-					owner = THIS
+					owner = PREV
 					earmark = anglo_saxon_return_army
 					troops = {
-						light_infantry = { 600 600 }
+						light_infantry = { 500 500 }
 						pikemen = { 400 400 }
-						heavy_infantry = { 450 450 }
+						heavy_infantry = { 600 600 }
 						archers = { 400 400 }
 						light_cavalry = { 125 125 }
 					}
@@ -15383,12 +15387,12 @@ narrative_event = {
 				spawn_unit = {
 					province = event_target:anglo_saxon_return_invader_target_province
 					home = event_target:anglo_saxon_return_invader_target_province
-					owner = THIS
+					owner = PREV
 					earmark = anglo_saxon_return_army
 					troops = {
-						light_infantry = { 600 600 }
+						light_infantry = { 500 500 }
 						pikemen = { 400 400 }
-						heavy_infantry = { 450 450 }
+						heavy_infantry = { 600 600 }
 						archers = { 400 400 }
 						light_cavalry = { 125 125 }
 					}
@@ -15599,10 +15603,43 @@ narrative_event = {
 		set_character_flag = gained_aengland
 		grant_title = e_aengland
 		clr_character_flag = gained_aengland
+		any_title = {
+			limit = { has_title_flag = anglo_saxon_return_invader_title }
+			activate_title = { title = THIS status = no }
+			destroy_landed_title = THIS
+		}
+		character_event = { id = 315003 days = 1 random = 3 }
+		any_province = {
+			limit = { 
+				has_province_modifier = anglo_saxons_uprising
+			}
+			remove_province_modifier = anglo_saxons_uprising
+		}
+		set_character_flag = anglo_saxons_return_leader
+		prestige = 500
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = THIS
+					earmark = anglo_saxon_return_army
+					troops = {
+						light_infantry = { 600 600 }
+						pikemen = { 500 500 }
+						heavy_infantry = { 800 800 }
+						archers = { 400 400 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.25
+					maintenance_multiplier = 0.25
+				}			
+			}
+		}
 	}
 	
 	option = {
-		name = "EVTOPTA313152"	# Saxons in Britannia
+		name = "EVTOPTA313154"	# Saxons in Britannia
 		trigger = {
 			is_ingvaeonic_culture_trigger = yes
 			capital_scope = {
@@ -15611,7 +15648,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTB313152"	# Other Saxons
+		name = "EVTOPTB313154"	# Other Saxons
 		trigger = {
 			is_ingvaeonic_culture_trigger = yes
 			NOT = {
@@ -15622,7 +15659,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTC313152"	# Britons and British rulers
+		name = "EVTOPTC313154"	# Britons and British rulers
 		trigger = {
 			OR = {
 				is_brythonic_culture_trigger = yes
@@ -15632,9 +15669,12 @@ narrative_event = {
 			}
 			is_ingvaeonic_culture_trigger = no
 		}
+		if = {
+			limit = { is_brythonic_culture_trigger = yes }
+		}
 	}
 	option = {
-		name = "EVTOPTD313152"	# Others
+		name = "EVTOPTD313154"	# Others
 		trigger = {
 			is_ingvaeonic_culture_trigger = no
 			NOR = {
@@ -15651,7 +15691,7 @@ narrative_event = {
 
 # 313156 Properly handing out titles
 
-# 313157 Death of the Bretwalda (?)
+# 313157 Death of the Bretwalda
 
 # 313158 Anglo-Saxons defeated 2.0
 
