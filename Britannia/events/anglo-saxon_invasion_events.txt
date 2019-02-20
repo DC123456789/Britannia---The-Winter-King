@@ -15582,7 +15582,7 @@ narrative_event = {
 	desc = "EVTDESC313154"
 	major = yes
 	hide_new = yes
-	picture = "GFX_evt_saxon_army"
+	picture = "GFX_evt_royal_court"
 	
 	is_triggered_only = yes
 	
@@ -15608,6 +15608,7 @@ narrative_event = {
 			activate_title = { title = THIS status = no }
 			destroy_landed_title = THIS
 		}
+		clear_global_event_target = anglo_saxon_return_invader_title_target
 		character_event = { id = 315003 days = 1 random = 3 }
 		any_province = {
 			limit = { 
@@ -15671,6 +15672,9 @@ narrative_event = {
 		}
 		if = {
 			limit = { is_brythonic_culture_trigger = yes }
+			custom_tooltip = {
+				text = EVTOPTC313154TT
+			}
 		}
 	}
 	option = {
@@ -15693,7 +15697,151 @@ narrative_event = {
 
 # 313157 Death of the Bretwalda
 
-# 313158 Anglo-Saxons defeated 2.0
+# Anglo-Saxons defeated, 2.0
+narrative_event = {
+	id = 313158
+	title = "EVTNAME313158"
+	desc = {
+		text = "EVTDESC313158"
+		trigger = {
+			has_global_flag = anglo_saxons_returned_victorious
+		}
+	}
+	desc = {
+		text = EVTDESC313158_1
+		trigger = {
+			NOT = { has_global_flag = anglo_saxons_returned_victorious }
+		}
+	}
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_people_captured"
+	
+	is_triggered_only = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = k_nuncio_britanniae
+		has_global_flag = anglo_saxons_defeated
+		has_global_flag = anglo_saxons_returned
+		OR = {
+			NOT = {
+				event_target:anglo_saxon_return_invader_title_target = {
+					always = yes
+				}
+			}
+			event_target:anglo_saxon_return_invader_title_target = {
+				holder_scope = {
+					war = no
+				}
+			}
+		}
+		NOT = { has_global_flag = anglo_saxons_defeated_again }
+		NOT = {
+			any_province = {
+				region = world_britannia
+				owner = {
+					top_liege = {
+						OR = {
+							AND = {
+								culture_group = germanic
+								is_romanized_germanic_trigger = no
+							}
+							primary_title = {
+								higher_tier_than = COUNT
+								OR = {
+									title = e_aengland
+									empire = { title = e_aengland }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = anglo_saxons_defeated_again
+		any_title = {
+			limit = { has_title_flag = anglo_saxon_return_invader_title }
+			activate_title = { title = THIS status = no }
+			destroy_landed_title = THIS
+		}
+		any_province = {
+			limit = { 
+				has_province_modifier = anglo_saxons_uprising
+			}
+			remove_province_modifier = anglo_saxons_uprising
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA313158"	# Britons and British rulers
+		trigger = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
+			NAND = {
+				culture_group = germanic
+				is_romanized_germanic_trigger = no
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB313158"	# Saxons in Britannia
+		trigger = {
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+			capital_scope = {
+				region = world_britannia
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313158"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			NOT = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTD313158"	# Norse
+		trigger = {
+			NOT = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+			is_north_germanic_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTE313158"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			is_north_germanic_trigger = no
+			NOR = {
+				is_brythonic_culture_trigger = yes
+				any_realm_province = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+}
 
 # REVOLTS FOR NEW ANGLOSAXON KINGDOMS
 # Revolts for new Kingdoms - Mercia
