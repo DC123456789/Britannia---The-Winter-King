@@ -3883,6 +3883,44 @@ destroy_held_religion_head_title_effect = {
 	}
 }
 
+# Searches lieges of liege for the first one that is King-tier or higher, and then makes the current scope their vassal
+# Used to ensure that characters don't become needlessly independent when taking a duke-tier title (i.e. the Archdruidship)
+set_proper_liege_for_duke_tier_effect = {
+	if = {
+		limit = { 
+			liege = { 
+				lower_real_tier_than = KING 
+				liege = {
+					higher_real_tier_than = DUKE
+				}
+			} 	
+		}
+		liege = {
+			liege = {
+				set_defacto_vassal = ROOT
+			}
+		}
+	}
+	if = {
+		limit = { 
+			liege = { 
+				lower_real_tier_than = KING 
+				liege = {
+					lower_real_tier_than = KING
+					independent = no
+				}
+			} 	
+		}
+		liege = {
+			liege = {
+				liege = {
+					set_defacto_vassal = ROOT
+				}
+			}
+		}
+	}
+}
+
 convert_to_default_cultural_pagan_religion_effect = {
 	if = {
 		limit = {
