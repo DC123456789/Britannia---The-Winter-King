@@ -14872,7 +14872,7 @@ character_event = {
 					}
 				}
 			}
-			save_event_target_as = anglo_saxon_return_invader
+			save_global_event_target_as = anglo_saxon_return_invader
 			set_global_flag = anglo_saxon_return_invader_chosen
 		}
 		if = {
@@ -14909,7 +14909,7 @@ character_event = {
 					trait = ambitious
 				}
 				new_character = {
-					save_event_target_as = anglo_saxon_return_invader
+					save_global_event_target_as = anglo_saxon_return_invader
 				}
 			}
 		}
@@ -15209,14 +15209,14 @@ narrative_event = {
 				}
 				new_character = {
 					grant_title_no_opinion = event_target:anglo_saxon_return_invader_title_target
-					save_event_target_as = anglo_saxon_return_invader
+					save_global_event_target_as = anglo_saxon_return_invader
 					set_global_flag = anglo_saxon_return_invader_set
 				}
 			}
 		}
 		if = {
 			limit = { NOT = { has_global_flag = anglo_saxon_return_invader_set } }
-			save_event_target_as = anglo_saxon_return_invader
+			save_global_event_target_as = anglo_saxon_return_invader
 		}
 		random_list = {
 			33 = {
@@ -15320,15 +15320,35 @@ narrative_event = {
 				province = event_target:anglo_saxon_return_invader_target_province
 				home = event_target:anglo_saxon_return_invader_target_province
 				owner = THIS
+				earmark = anglo_saxon_return_army
 				troops = {
 					light_infantry = { 900 900 }
 					pikemen = { 650 650 }
-					heavy_infantry = { 1200 1200 }
+					heavy_infantry = { 1300 1300 }
 					archers = { 500 500 }
 					light_cavalry = { 200 200 }
 				}
 				attrition = 0.25
 				maintenance_multiplier = 0.25
+				reinforces = yes
+				reinforce_rate_multiplier = 0.25
+			}
+			spawn_unit = {
+				province = event_target:anglo_saxon_return_invader_target_province
+				home = event_target:anglo_saxon_return_invader_target_province
+				owner = THIS
+				troops = {
+					light_infantry = { 200 200 }
+					pikemen = { 150 150 }
+					heavy_infantry = { 400 400 }
+					archers = { 50 50 }
+					light_cavalry = { 25 25 }
+				}
+				attrition = 0.25
+				maintenance_multiplier = 0.25
+				reinforces = yes
+				reinforce_rate_multiplier = 0.25
+				merge = yes
 			}
 			create_character = {
 				random_traits = yes
@@ -15354,14 +15374,17 @@ narrative_event = {
 					owner = PREV
 					earmark = anglo_saxon_return_army
 					troops = {
-						light_infantry = { 500 500 }
-						pikemen = { 400 400 }
-						heavy_infantry = { 600 600 }
+						light_infantry = { 450 450 }
+						pikemen = { 350 350 }
+						heavy_infantry = { 800 800 }
 						archers = { 400 400 }
 						light_cavalry = { 125 125 }
 					}
 					attrition = 0.25
 					maintenance_multiplier = 0.25
+					reinforces = yes
+					reinforce_rate_multiplier = 0.25
+					merge = yes
 				}
 			}
 			create_character = {
@@ -15396,8 +15419,11 @@ narrative_event = {
 						archers = { 400 400 }
 						light_cavalry = { 125 125 }
 					}
+					merge = yes
 					attrition = 0.25
 					maintenance_multiplier = 0.25
+					reinforces = yes
+					reinforce_rate_multiplier = 0.25
 				}
 			}
 		}
@@ -15424,8 +15450,8 @@ narrative_event = {
 					troops = {
 						light_infantry = { 80 80 }
 						pikemen = { 45 45 }
-						heavy_infantry = { 30 30 }
-						archers = { 40 40 }
+						heavy_infantry = { 75 75 }
+						archers = { 35 35 }
 						light_cavalry = { 10 10 }
 					}
 					attrition = 0.25
@@ -15453,42 +15479,43 @@ narrative_event = {
 				}
 			}
 		}
-		ai_chance = {
-			factor = 80
-		}
+		# ai_chance = {
+			# factor = 80
+		# }
+		# join_attacker_wars = ROOT
 	}
-	option = {
-		name = "EVTOPTB313152"	# Saxons in Britannia - wait and see
-		trigger = {
-			is_ingvaeonic_culture_trigger = yes
-			capital_scope = {
-				region = world_britannia
-			}
-			OR = {
-				independent = yes
-				NOT = {
-					any_liege = {
-						is_ingvaeonic_culture_trigger = yes
-					}					
-				}
-			}
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0
-				NOR = {
-					trait = loyal
-					trait = content
-					trait = craven
-					opinion = {
-						who = LIEGE
-						value = 80
-					}
-				}
-			}
-		}
-	}
+	# option = {
+		# name = "EVTOPTB313152"	# Saxons in Britannia - wait and see
+		# trigger = {
+			# is_ingvaeonic_culture_trigger = yes
+			# capital_scope = {
+				# region = world_britannia
+			# }
+			# OR = {
+				# independent = yes
+				# NOT = {
+					# any_liege = {
+						# is_ingvaeonic_culture_trigger = yes
+					# }					
+				# }
+			# }
+		# }
+		# ai_chance = {
+			# factor = 20
+			# modifier = {
+				# factor = 0
+				# NOR = {
+					# trait = loyal
+					# trait = content
+					# trait = craven
+					# opinion = {
+						# who = LIEGE
+						# value = 80
+					# }
+				# }
+			# }
+		# }
+	# }
 	option = {
 		name = "EVTOPTC313152"	# Other Saxons
 		trigger = {
@@ -15549,6 +15576,7 @@ character_event = {
 			province = event_target:anglo_saxon_return_invader_target_province
 			home = event_target:anglo_saxon_return_invader_target_province
 			owner = THIS
+			earmark = anglo_saxon_return_army
 			troops = {
 				light_infantry = { 500 500 }
 				pikemen = { 300 300 }
@@ -15609,7 +15637,14 @@ narrative_event = {
 			destroy_landed_title = THIS
 		}
 		clear_global_event_target = anglo_saxon_return_invader_title_target
+		clear_global_event_target = anglo_saxon_return_invader
+		
+		# Force de jure duchy creation
 		character_event = { id = 315003 days = 1 random = 3 }
+		character_event = { id = 315003 days = 1 random = 3 }
+		character_event = { id = 315003 days = 1 random = 3 }
+		character_event = { id = 315003 days = 1 random = 3 }
+		
 		any_province = {
 			limit = { 
 				has_province_modifier = anglo_saxons_uprising
@@ -15647,6 +15682,11 @@ narrative_event = {
 				region = world_britannia
 			}
 		}
+		if = {
+			limit = { has_character_flag = anglo_saxon_invasion_supporter }
+			set_defacto_liege = ROOT
+		}
+		clr_character_flag = anglo_saxon_invasion_supporter
 	}
 	option = {
 		name = "EVTOPTB313154"	# Other Saxons
@@ -15658,6 +15698,7 @@ narrative_event = {
 				}
 			}
 		}
+		clr_character_flag = anglo_saxon_invasion_supporter
 	}
 	option = {
 		name = "EVTOPTC313154"	# Britons and British rulers
@@ -15695,7 +15736,23 @@ narrative_event = {
 
 # 313156 Properly handing out titles
 
-# 313157 Death of the Bretwalda
+# Disband most event troops when the Bretwalda dies
+character_event = {
+	id = 313157
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_earmarked_regiments = anglo_saxon_return_army
+	}
+	
+	immediate = {
+		disband_event_forces = anglo_saxon_return_army
+	}
+}
 
 # Anglo-Saxons defeated, 2.0
 narrative_event = {
@@ -15722,7 +15779,10 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
-		has_landed_title = k_nuncio_britanniae
+		OR = {
+			has_landed_title = k_nuncio_britanniae
+			has_character_flag = defeated_anglo_saxon_return_leader
+		}
 		has_global_flag = anglo_saxons_defeated
 		has_global_flag = anglo_saxons_returned
 		OR = {
@@ -15733,7 +15793,10 @@ narrative_event = {
 			}
 			event_target:anglo_saxon_return_invader_title_target = {
 				holder_scope = {
-					war = no
+					OR = {
+						war = no
+						has_character_flag = defeated_anglo_saxon_return_leader
+					}
 				}
 			}
 		}
@@ -15778,6 +15841,12 @@ narrative_event = {
 				has_province_modifier = anglo_saxons_uprising
 			}
 			remove_province_modifier = anglo_saxons_uprising
+		}
+		any_character = {
+			limit = {
+				has_earmarked_regiments = anglo_saxon_return_army
+			}
+			disband_event_forces = anglo_saxon_return_army
 		}
 	}
 	

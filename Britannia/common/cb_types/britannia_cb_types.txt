@@ -1839,13 +1839,21 @@ county_conquest = {
 		# Stop AI from using county conquest if it can use duchy invasion instead
 		modifier = {
 			factor = 0
-			duchy = {
+			dejure_liege_title = {
 				ROOT = { 
-					can_use_cb = {
-						target = FROM
-						casus_belli = duchy_invasion
-						thirdparty_title = PREV
-						only_check_triggers = yes
+					OR = {
+						can_use_cb = {
+							target = FROM
+							casus_belli = duchy_invasion
+							thirdparty_title = PREV
+							only_check_triggers = yes
+						}
+						can_use_cb = {
+							target = FROM
+							casus_belli = duchy_invasion_event
+							thirdparty_title = PREV
+							only_check_triggers = yes
+						}
 					}
 				}
 			}
@@ -3887,7 +3895,10 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 		ROOT = { 
 			OR = {
 				has_character_flag = saxon_gallic_invasion_allowed 
-				has_character_flag = anglo_saxons_return_leader
+				AND = {
+					has_character_flag = anglo_saxons_return_leader
+					FROM = { NOT = { culture_group = germanic } }
+				}
 			}
 		}
 	}
@@ -3941,6 +3952,12 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 					}
 				}
 				any_direct_de_jure_vassal_title = {
+					holder_scope = {
+						OR = {
+							character = FROM
+							is_liege_or_above = FROM
+						}
+					}
 					location = {
 						is_ingvaeonic_culture_trigger = yes
 					}
@@ -4109,7 +4126,7 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 	}
 	
 	ai_will_do = { 
-		factor = 1
+		factor = 1000
 	}
 }
 duchy_invasion_tribal = {
@@ -9282,6 +9299,8 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 	
 	sort_priority = 2000
 
+	battle_warscore_mult = 0.75
+	
 	can_use = {
 		any_demesne_title = {
 			has_title_flag = anglo_saxon_return_invader_title
@@ -9312,6 +9331,15 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = { participation_scaled_prestige = 200 }
+			if = {
+				limit = {
+					is_ingvaeonic_culture_trigger = yes
+					capital_scope = {
+						region = world_britannia
+					}
+				}
+				set_character_flag = anglo_saxon_invasion_supporter
+			}
 		}
 		FROM = {
 			show_scope_change = no
@@ -9320,10 +9348,44 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 	}
 	
 	on_success_title = {
+		if = {
+			limit = { 
+				FROM = { 
+					any_realm_lord = { 
+						is_ingvaeonic_culture_trigger = yes 
+						higher_tier_than = BARON
+					} 
+				} 
+			}
+			custom_tooltip = { 
+				text = vassalize_all_anglosaxon_vassals
+			}
+		}
 		custom_tooltip = {  
 			text = full_kingdom_invasion_succ_tip
 		}
 		hidden_tooltip = {
+			ROOT = {
+				set_character_flag = gained_aengland
+				grant_title = e_aengland
+				clr_character_flag = gained_aengland
+			}
+			FROM = {
+				any_vassal = {
+					limit = { 
+						is_ingvaeonic_culture_trigger = yes 
+						higher_tier_than = BARON
+					}
+					set_defacto_liege = ROOT
+				}
+				any_realm_lord = {
+					limit = { 
+						is_ingvaeonic_culture_trigger = yes 
+						higher_tier_than = BARON
+					}
+					set_defacto_liege = ROOT
+				}
+			}				
 			ROOT = {
 				occupy_minors_of_occupied_settlements = FROM
 				gain_all_occupied_titles = FROM
@@ -9363,6 +9425,7 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 		ROOT = {
 			show_scope_change = no
 			prestige = -500
+			set_character_flag = defeated_anglo_saxon_return_leader
 			character_event = { id = 313158 }
 		}
 		FROM = {
