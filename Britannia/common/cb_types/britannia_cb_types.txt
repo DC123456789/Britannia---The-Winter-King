@@ -9299,7 +9299,7 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 	
 	sort_priority = 2000
 
-	battle_warscore_mult = 0.75
+	#battle_warscore_mult = 0.75
 	
 	can_use = {
 		any_demesne_title = {
@@ -9369,6 +9369,21 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 				set_character_flag = gained_aengland
 				grant_title = e_aengland
 				clr_character_flag = gained_aengland
+			}
+			# Usurp the target province first to make sure it's the invader's capital
+			if = {
+				limit = { 
+					event_target:anglo_saxon_return_invader_target_province = {
+						owner = {
+							top_liege = { character = FROM }
+						}
+					}
+				}
+				event_target:anglo_saxon_return_invader_target_province = {
+					county = {
+						usurp_title = ROOT
+					}
+				}
 			}
 			FROM = {
 				any_vassal = {

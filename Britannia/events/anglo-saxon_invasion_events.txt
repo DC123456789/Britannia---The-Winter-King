@@ -14985,18 +14985,21 @@ character_event = {
 		trigger = {
 			is_ingvaeonic_culture_trigger = no
 		}
-		tooltip = {
-			any_realm_province = {
-				limit = {
-					region = world_britannia
-					is_ingvaeonic_culture_trigger = yes
-				}
-				add_province_modifier = {
-					name = anglo_saxons_peaceful
-					duration = 3650		# 10 years
-				}
-			}
+		custom_tooltip = {
+			text = EVTOPTA313151TT
 		}
+		# tooltip = {
+			# any_realm_province = {
+				# limit = {
+					# region = world_britannia
+					# is_ingvaeonic_culture_trigger = yes
+				# }
+				# add_province_modifier = {
+					# name = anglo_saxons_peaceful
+					# duration = 3650		# 10 years
+				# }
+			# }
+		# }
 	}
 	
 	option = {
@@ -15316,6 +15319,7 @@ narrative_event = {
 		}
 		# Spawn base event troops
 		event_target:anglo_saxon_return_invader = {
+			add_trait = inspiring_leader
 			spawn_unit = {
 				province = event_target:anglo_saxon_return_invader_target_province
 				home = event_target:anglo_saxon_return_invader_target_province
@@ -15324,12 +15328,12 @@ narrative_event = {
 				troops = {
 					light_infantry = { 900 900 }
 					pikemen = { 650 650 }
-					heavy_infantry = { 1300 1300 }
+					heavy_infantry = { 1500 1500 }
 					archers = { 500 500 }
 					light_cavalry = { 200 200 }
 				}
 				attrition = 0.25
-				maintenance_multiplier = 0.25
+				maintenance_multiplier = 0.1
 				reinforces = yes
 				reinforce_rate_multiplier = 0.25
 			}
@@ -15345,7 +15349,7 @@ narrative_event = {
 					light_cavalry = { 25 25 }
 				}
 				attrition = 0.25
-				maintenance_multiplier = 0.25
+				maintenance_multiplier = 0.1
 				reinforces = yes
 				reinforce_rate_multiplier = 0.25
 				merge = yes
@@ -15366,6 +15370,7 @@ narrative_event = {
 				trait = veteran
 				trait = brave
 				trait = loyal
+				trait = organizer
 			}
 			new_character = {
 				spawn_unit = {
@@ -15381,7 +15386,7 @@ narrative_event = {
 						light_cavalry = { 125 125 }
 					}
 					attrition = 0.25
-					maintenance_multiplier = 0.25
+					maintenance_multiplier = 0.1
 					reinforces = yes
 					reinforce_rate_multiplier = 0.25
 					merge = yes
@@ -15393,7 +15398,7 @@ narrative_event = {
 				religion = THIS
 				culture = THIS
 				female = no
-				employer = d_north_angles
+				employer = event_target:anglo_saxon_return_invader_title_target
 				age = 35
 				attributes = {
 					martial = 10
@@ -15405,6 +15410,7 @@ narrative_event = {
 				trait = loyal
 				trait = quick
 				trait = gregarious
+				trait = inspiring_leader
 			}
 			new_character = {
 				spawn_unit = {
@@ -15413,18 +15419,58 @@ narrative_event = {
 					owner = PREV
 					earmark = anglo_saxon_return_army
 					troops = {
-						light_infantry = { 500 500 }
-						pikemen = { 400 400 }
-						heavy_infantry = { 600 600 }
-						archers = { 400 400 }
+						light_infantry = { 450 450 }
+						pikemen = { 350 350 }
+						heavy_infantry = { 800 800 }
+						archers = { 300 300 }
 						light_cavalry = { 125 125 }
 					}
 					merge = yes
 					attrition = 0.25
-					maintenance_multiplier = 0.25
+					maintenance_multiplier = 0.1
 					reinforces = yes
 					reinforce_rate_multiplier = 0.25
 				}
+			}
+			create_character = {
+				random_traits = no
+				dynasty = culture
+				religion = THIS
+				culture = THIS
+				female = no
+				employer = event_target:anglo_saxon_return_invader_title_target
+				age = 27
+				attributes = {
+					martial = 11
+					diplomacy = 8
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = diligent
+				trait = loyal
+				trait = strong
+				trait = cruel
+				trait = heavy_infantry_leader
+			}
+			create_character = {
+				random_traits = no
+				dynasty = culture
+				religion = THIS
+				culture = THIS
+				female = no
+				employer = event_target:anglo_saxon_return_invader_title_target
+				age = 29
+				attributes = {
+					martial = 12
+					diplomacy = 5
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = patient
+				trait = loyal
+				trait = agile
+				trait = wroth
+				trait = aggressive_leader
 			}
 		}
 		any_province = {
@@ -15450,12 +15496,12 @@ narrative_event = {
 					troops = {
 						light_infantry = { 80 80 }
 						pikemen = { 45 45 }
-						heavy_infantry = { 75 75 }
+						heavy_infantry = { 85 85 }
 						archers = { 35 35 }
 						light_cavalry = { 10 10 }
 					}
 					attrition = 0.25
-					maintenance_multiplier = 0.25
+					maintenance_multiplier = 0.1
 				}
 			}
 		}
@@ -15644,6 +15690,7 @@ narrative_event = {
 		character_event = { id = 315003 days = 1 random = 3 }
 		character_event = { id = 315003 days = 1 random = 3 }
 		character_event = { id = 315003 days = 1 random = 3 }
+		character_event = { id = 315003 days = 1 random = 3 }
 		
 		any_province = {
 			limit = { 
@@ -15652,7 +15699,11 @@ narrative_event = {
 			remove_province_modifier = anglo_saxons_uprising
 		}
 		set_character_flag = anglo_saxons_return_leader
-		prestige = 500
+		prestige = 750
+		add_character_modifier = {
+			name = great_leader_anglosaxon
+			duration = -1
+		}
 		capital_scope = {
 			ROOT = {
 				spawn_unit = {
@@ -15734,7 +15785,368 @@ narrative_event = {
 
 # 313155 AI-directing Invasion events
 
-# 313156 Properly handing out titles
+# Create and hand out kingdom titles
+character_event = {
+	id = 313156
+	desc = "You're not supposed to see this..."
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	ai = yes
+	
+	trigger = {
+		has_landed_title = e_aengland
+		has_character_flag = anglo_saxons_return_leader
+		OR = {
+			AND = {
+				k_east_anglia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 4
+					region = custom_eastanglia
+				}
+				has_global_flag = anglia_collapsed
+			}
+			AND = {
+				k_eastseaxe = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 4
+					region = custom_essex
+				}
+			}
+			AND = {
+				k_cantia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 5
+					region = custom_cantia
+				}
+			}
+			AND = {
+				k_sussex = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 3
+					region = custom_sussex
+				}
+			}
+			AND = {
+				k_mercia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_mercia
+				}
+			}
+			AND = {
+				k_wessex = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_wessex
+				}
+			}
+			AND = {
+				k_northumbria = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_northumbria
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				k_east_anglia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 4
+					region = custom_eastanglia
+				}
+				has_global_flag = anglia_collapsed
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_eastanglia }
+							location = { region = custom_eastanglia }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_east_anglia
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_eastseaxe = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 4
+					region = custom_essex
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_essex }
+							location = { region = custom_essex }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_eastseaxe
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_cantia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 5
+					region = custom_cantia
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_cantia }
+							location = { region = custom_cantia }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					has_landed_title = d_cantware
+				}
+				preferred_limit = {
+					capital_scope = { region = custom_cantware }
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_cantia
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_sussex = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 3
+					region = custom_sussex
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_sussex }
+							location = { region = custom_sussex }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					has_landed_title = d_the_weald
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_sussex
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_mercia = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_mercia
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_mercia }
+							location = { region = custom_mercia }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					NOT = {
+						primary_title = {
+							title = d_hwicce
+						}
+					}
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_mercia
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_wessex = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_wessex
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_wessex }
+							location = { region = custom_wessex }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					has_landed_title = d_hampshire
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_wessex
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				k_northumbria = {
+					has_holder = no
+				}
+				any_realm_province = {
+					count = 7
+					region = custom_northumbria
+				}
+			}
+			random_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					is_landed = yes
+					primary_title = {
+						OR = {
+							capital_scope = { region = custom_northumbria }
+							location = { region = custom_northumbria }
+						}
+					}
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				preferred_limit = {
+					OR = {
+						has_landed_title = d_bernicia
+						has_landed_title = d_deira
+					}
+				}
+				preferred_limit = {
+					NOT = {
+						primary_title = {
+							title = d_lindsey
+						}
+					}
+				}
+				preferred_limit = {
+					tier = DUKE
+				}
+				grant_title = k_northumbria
+				set_defacto_liege = ROOT
+				any_demesne_title = {
+					remove_claim = ROOT
+				}
+			}
+		}
+	}
+}
 
 # Disband most event troops when the Bretwalda dies
 character_event = {
