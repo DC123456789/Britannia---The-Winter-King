@@ -2037,6 +2037,389 @@ character_event = {
 	}
 }
 
+# Kings that succeed from an uncontested Claimant Faction get asked if they want to swear fealty or not
+character_event = {
+	id = 302993
+	desc = EVTDESC302993
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		e_britannia = {
+			holder_scope = { save_event_target_as = britannia_high_king }
+		}
+	}
+	
+	option = {			# Accept
+		name = "EVTOPTA302993"
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				OR = {
+					is_rival = event_target:britannia_high_king
+					NOT = { opinion = { who = event_target:britannia_high_king value = -60 } }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = event_target:britannia_high_king value = -30 } }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { opinion = { who = event_target:britannia_high_king value = 0 } }
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = event_target:britannia_high_king value = 25 }
+			}
+			modifier = {
+				factor = 1.5
+				opinion = { who = event_target:britannia_high_king value = 50 }
+			}
+			modifier = {
+				factor = 0.1
+				relative_power_including_allies_defender = {
+					who = event_target:britannia_high_king
+					power = 2
+				}
+			}
+			modifier = {
+				factor = 0.5
+				relative_power_including_allies_defender = {
+					who = event_target:britannia_high_king
+					power = 1.75
+				}
+			}
+			modifier = {
+				factor = 0.5
+				relative_power_including_allies_defender = {
+					who = event_target:britannia_high_king
+					power = 1.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				relative_power_including_allies_defender = {
+					who = event_target:britannia_high_king
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 0.75
+				relative_power_including_allies_defender = {
+					who = event_target:britannia_high_king
+					power = 1
+				}
+			}
+			modifier = {
+				factor = 1.25
+				NOT = {
+					relative_power_including_allies_defender = {
+						who = event_target:britannia_high_king
+						power = 0.8
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				NOT = {
+					relative_power_including_allies_defender = {
+						who = event_target:britannia_high_king
+						power = 0.65
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					relative_power_including_allies_defender = {
+						who = event_target:britannia_high_king
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				NOT = {
+					relative_power_including_allies_defender = {
+						who = event_target:britannia_high_king
+						power = 0.25
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture_group = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROM }
+			}
+		}
+		make_britannia_subject_of_event_target_effect = yes
+		hidden_tooltip = {
+			event_target:britannia_high_king = {
+				character_event = { id = 302994 }
+			}
+		}
+	}	
+	option = {			# Refuse
+		name = "EVTOPTB302993"
+		prestige = 50
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				OR = {
+					is_friend = event_target:britannia_high_king
+					is_lover = event_target:britannia_high_king
+					opinion = { who = event_target:britannia_high_king value = 75 }
+					has_non_aggression_pact_with = event_target:britannia_high_king
+					is_allied_with = event_target:britannia_high_king
+				}
+			}
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 1.25
+				is_tribal = yes
+			}
+			modifier = {
+				factor = 1.1
+				higher_tier_than = DUKE
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTB302993TT
+		}
+		hidden_tooltip = {
+			event_target:britannia_high_king = {
+				character_event = { id = 302995 }
+			}
+		}
+	}
+}
+
+# New King accepts
+character_event = {
+	id = 302994
+	desc = "EVTDESC302994"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA302994"
+	}
+}
+
+# Subject Kingdom refuses
+character_event = {
+	id = 302995
+	desc = "EVTDESC302995"
+	picture = "GFX_evt_battle_cavalry"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Declare War
+		name = "EVTOPTA302995"
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0.75
+				war = yes
+			}
+			# Currently losing a war
+			modifier = {
+				factor = 0.5
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = {
+								character = PREVPREV
+							}
+							NOT = { war_score = -25 }
+						}
+						AND = {
+							defender = {
+								character = PREVPREV
+							}
+							war_score = 25
+						}
+					}
+				}
+			}
+			# Currently losing a war badly
+			modifier = {
+				factor = 0.25
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = {
+								character = PREVPREV
+							}
+							NOT = { war_score = -50 }
+						}
+						AND = {
+							defender = {
+								character = PREVPREV
+							}
+							war_score = 50
+						}
+					}
+				}
+			}
+			# Currently losing a war very badly
+			modifier = {
+				factor = 0
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = {
+								character = PREVPREV
+							}
+							NOT = { war_score = -75 }
+						}
+						AND = {
+							defender = {
+								character = PREVPREV
+							}
+							war_score = 75
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 5
+				relative_power_including_allies_attacker = {
+					who = FROM
+					power = 2
+				}
+			}
+			modifier = {
+				factor = 3
+				relative_power_including_allies_attacker = {
+					who = FROM
+					power = 1.75
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power_including_allies_attacker = {
+					who = FROM
+					power = 1.5
+				}
+			}
+			modifier = {
+				factor = 1.5
+				relative_power_including_allies_attacker = {
+					who = FROM
+					power = 1.25
+				}
+			}
+			modifier = {
+				factor = 1.25
+				relative_power_including_allies_attacker = {
+					who = FROM
+					power = 1
+				}
+			}
+			modifier = {
+				factor = 0.75
+				NOT = {
+					relative_power_including_allies_attacker = {
+						who = FROM
+						power = 0.8
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					relative_power_including_allies_attacker = {
+						who = FROM
+						power = 0.65
+					}
+				}
+			}
+			modifier = {
+				factor = 0.25
+				NOT = {
+					relative_power_including_allies_attacker = {
+						who = FROM
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				NOT = {
+					relative_power_including_allies_attacker = {
+						who = FROM
+						power = 0.25
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { culture = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture_group = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROM }
+			}
+		}
+		unsafe_war = {
+			target = FROM
+			casus_belli = tributary_britannia_subject_cb
+		}
+	}	
+	option = {			# Do nothing
+		name = "EVTOPTB302995"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.5
+				trait = craven
+			}
+		}
+		prestige = -100
+	}
+}
+
 ### CLAIM IMPERIUM BRITANNIARUM DECISION CHAIN ###
 # Demand to Subject Kingdoms
 letter_event = {

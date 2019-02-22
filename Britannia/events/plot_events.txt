@@ -3081,6 +3081,14 @@ letter_event = {
 						}
 					}
 					
+					
+					if = {
+						limit = { 
+							FROM = { is_tributary = { type = britannia_subject } }
+						}
+						PREVPREV = { set_character_flag = prompt_high_king_subject }
+					}
+					
 					usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = PREVPREV type = faction_demand }
 					
 					# Transfer foederati and client states
@@ -3099,6 +3107,16 @@ letter_event = {
 						}
 						PREVPREV = {
 							character_event = { id = 315925 } 
+						}
+					}
+					
+					# Prompt for submitting to High King
+					PREVPREV = {
+						if = {
+							limit = { 
+								has_character_flag = prompt_high_king_subject
+							}
+							character_event = { id = 302993 }
 						}
 					}
 				}
