@@ -3404,7 +3404,7 @@ character_event = {
 	}
 }
 
-# AI CREATION OF JARLDOMS
+# AI CREATION OF TITULAR DUCHIES
 narrative_event = {		# Mercia
 	id = 315000
 	desc = "You're not supposed to see this..."
@@ -5049,6 +5049,50 @@ narrative_event = {		# Alemannia
 		}
 	}
 }
+narrative_event = {		# Celts (Bretons)
+	id = 315013
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = yes
+	only_playable = yes
+	only_independent = yes
+	culture_group = celtic
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_broceliande
+	}
+	
+	immediate = {
+		if = {			# Etre Daou Vor
+			limit = {
+				d_etre_daou_vor = { has_holder = no }
+				is_landed_title_allowed = d_etre_daou_vor
+				NOT = { has_global_flag = etre_daou_vor_created }
+			}
+			d_etre_daou_vor = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Retz
+			limit = {
+				d_retz = { has_holder = no }
+				is_landed_title_allowed = d_retz
+				NOT = { has_global_flag = retz_created }
+			}
+			d_retz = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+	}
+}
+
 ### CYNERICE OF AENGLALAND ###
 
 character_event = {		# Triggered from Decision / Claim is sent to other Kings
