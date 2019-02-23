@@ -3357,22 +3357,26 @@ letter_event = {
 			set_defacto_liege = FROM
 		}
 		ai_chance = {
-			factor = 30
+			factor = 33
 			modifier = {
 				factor = 0
 				OR = {
 					trait = ambitious
 					trait = unloyal
-					NOT = { opinion = { who = FROM value = 20 } }
+					NOT = { opinion = { who = FROM value = 0 } }
 				}
 			}
 			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value = 40 } }
+				factor = 0.75
+				NOT = { opinion = { who = FROM value = 20 } }
 			}
 			modifier = {
 				factor = 0.75
-				realm_levies = 1500
+				NOT = { opinion = { who = FROM value = 40 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { realm_levies = 1000 }
 			}
 			modifier = {
 				factor = 0.75
@@ -3414,26 +3418,30 @@ letter_event = {
 			years = 10
 		}
 		ai_chance = {
-			factor = 60
+			factor = 67
 			modifier = {
 				factor = 0.2
 				trait = craven
 			}
 			modifier = {
-				factor = 0
-				opinion = { who = FROM value = 70 }
+				factor = 0.5
+				opinion = { who = FROM value = 60 }
 			}
 			modifier = {
-				factor = 2
-				is_tribal = yes
+				factor = 0
+				opinion = { who = FROM value = 80 }
 			}
 			modifier = {
 				factor = 1.5
-				is_roman_culture_trigger = no
+				is_tribal = yes
+			}
+			modifier = {
+				factor = 0.75
+				lower_tier_than = KING
 			}
 			modifier = {
 				factor = 1.25
-				higher_tier_than = DUKE
+				higher_tier_than = KING
 			}
 			modifier = {
 				factor = 0
