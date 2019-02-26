@@ -287,6 +287,7 @@ character_event = {
 	option = {
 		name = "EVTOPTB5020"
 		prestige = 20
+		pacifists_lose_piety_effect = yes
 		set_character_flag = stake_pole
 	}
 }
@@ -725,6 +726,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTB5030" #Duelist!
+		pacifists_lose_piety_effect = yes
 		random_list = {
 			50 = {
 				character_event = { #Ignored
@@ -1435,14 +1437,30 @@ character_event = {
 	option = {
 		name = "EVTOPTA5050" #Poet
 		random_list = {
-			50 = {
+			50 = { # Poetry is Boring
 				character_event = {
 					id = 5051
 					days = 14
 					tooltip = "EVTTOOLTIP5051"
 				}
 			}
-			50 = {
+			50 = { # Poetry is Nice
+				modifier = {
+					factor = 1.2
+					OR = {
+						trait = scholar
+						trait = faqih
+					}
+				}
+				modifier = {
+					factor = 1.2
+					trait = humble
+				}
+				modifier = {
+					factor = 1.2
+					trait = erudite
+				}
+				
 				character_event = {
 					id = 5052
 					days = 14
@@ -1455,14 +1473,27 @@ character_event = {
 	option = {
 		name = "EVTOPTB5050" #Falconry
 		random_list = {
-			50 = {
+			50 = { # Falconry is Boring
 				character_event = {
 					id = 5053 
 					days = 14
 					tooltip = "EVTTOOLTIP5043"
 				}
 			}
-			50 = {
+			50 = { # Falconry is Nice
+				modifier = {
+					factor = 1.2
+					trait = hunter
+				}
+				modifier = {
+					factor = 1.2
+					trait = brave
+				}
+				modifier = {
+					factor = 1.2
+					trait = gregarious
+				}
+				
 				character_event = {
 					id = 5054
 					days = 14
@@ -2364,6 +2395,12 @@ character_event = {
 		}
 		NOT = {
 			trait = faqih
+		}
+		NOT = {
+			has_alternate_start_parameter = {
+				key = religion_names
+				value = random
+			}
 		}
 	}
 	

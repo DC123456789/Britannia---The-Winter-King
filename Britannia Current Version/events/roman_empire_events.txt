@@ -16,9 +16,12 @@ character_event = {
 	hide_from = yes	
 	is_triggered_only = yes
 	
+	immediate = {
+		set_character_flag = senate_restore_choice
+	}
+	
 	option = {
 		name = "EVTOPTA315100"
-		set_character_flag = senate_restore_choice
 		set_global_flag = senate_restored
 		wealth = -200
 		character_event = { id = 315101 days = 1 tooltip = "EVTTOOLTIP315100" }
@@ -27,11 +30,14 @@ character_event = {
 			duration = 36500
 		}
 		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					NOT = { has_character_flag = senate_restore_choice }
-				}	
-				character_event = { id = 315105 days = 1 }
+			if = {
+				limit = { NOT = { has_landed_title = e_britannia } }
+				any_playable_ruler = {
+					limit = {
+						NOT = { has_character_flag = senate_restore_choice }
+					}	
+					character_event = { id = 315105 days = 1 }
+				}
 			}
 			if = {
 				limit = { has_global_flag = senate_restored_first_time }
@@ -333,7 +339,7 @@ character_event = {
 					}
 					trait = quick
 					trait = patient
-					trait = honorable
+					# trait = honorable
 					trait = authoritative
 					trait = scholar
 					trait = diligent
@@ -590,7 +596,6 @@ character_event = {
 		trigger = {
 			ai = no
 		}
-		set_character_flag = senate_restore_choice
 		piety = 100
 		#add_trait = honorable
 	}
@@ -938,7 +943,7 @@ narrative_event = {
 		realm_size = 6.0
 		NOT = { has_global_flag = legio_vi_arrived }
 		d_legio_vi_gallicana = { has_holder = no }
-		completely_controls = c_lutetia
+		completely_controls = c_reims
 	}
 	
 	mean_time_to_happen = {
@@ -1017,10 +1022,10 @@ narrative_event = {
 			factor = 2.0
 			NOT = { diplomacy = 10 }	
 		}
-		modifier = {
-			factor = 0.9
-			trait = honorable		
-		}
+		# modifier = {
+			# factor = 0.9
+			# trait = honorable		
+		# }
 		modifier = {
 			factor = 2
 			NOT = { has_global_flag = frankish_war_480 }		
@@ -1870,10 +1875,10 @@ province_event = {
 		modifier = {
 			factor = 0.75
 			AND = {
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 				owner = {
 					top_liege = {
-						religion_group = zoroastrian_group
+						is_hellenic_group_religion_trigger = yes
 					}
 				}
 			}
@@ -2023,7 +2028,10 @@ province_event = {
 				region = world_ireland
 				AND = {
 					region = world_gaul
-					NOT = { region = world_gaul_romangermania }
+					OR = {
+						NOT = { region = world_gaul_romangermania }
+						region = world_gaul_maxima_sequanorum
+					}
 				}
 			}
 			NOT = { culture_group = germanic }		# Germanic invaders are dealt with in different event
@@ -2095,10 +2103,10 @@ province_event = {
 		modifier = {
 			factor = 0.75
 			AND = {
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 				owner = {
 					top_liege = {
-						religion_group = zoroastrian_group
+						is_hellenic_group_religion_trigger = yes
 					}
 				}
 			}
@@ -2179,64 +2187,10 @@ province_event = {
 			owner = { diplomacy = 18 }
 		}
 		modifier = {
-			factor = 5.3
-			NOR = {
-				AND = {
-					region = world_gaul
-					NOR = { 
-						region = world_gaul_romangermania 
-						region = world_gaul_aquitania_tertia
-					}
-					any_neighbor_province = {
-						culture = romanogallic
-					}
-				}
-				AND = { 
-					OR = {
-						region = world_britannia
-						region = world_caledonia
-						region = world_ireland 
-					}
-					any_neighbor_province = {
-						culture = romanobritish
-					}
-				}
-				AND = { 
-					OR = {
-						region = world_gaul_romangermania 
-						region = world_germania 
-					}
-					NAND = {
-						region = world_germania_jutland
-						has_global_flag = jutland_conquered_norse
-					}
-					NAND = {
-						region = world_germania_angeln
-						has_global_flag = angeln_conquered_norse
-					}
-					any_neighbor_province = {
-						culture = romanogermanic
-					}
-				}
-				AND = { 
-					region = custom_scandinavia 
-					OR = {
-						NOT = { region = world_germania_jutland }
-						has_global_flag = jutland_conquered_norse
-					}
-					OR = {
-						NOT = { region = world_germania_angeln }
-						has_global_flag = angeln_conquered_norse
-					}
-					any_neighbor_province = {
-						culture = romanoscandian
-					}
-				}
-				AND = { 
-					region = world_gaul_aquitania_tertia
-					any_neighbor_province = {
-						culture = romanoaquitanian
-					}
+			factor = 4.5
+			NOT = {
+				any_neighbor_province = {
+					is_roman_culture_trigger = yes
 				}
 			}
 		}
@@ -2447,6 +2401,12 @@ province_event = {
 				}
 			}
 		}
+		modifier = {
+			factor = 0.85
+			is_ingvaeonic_culture_trigger = yes
+			region = world_britannia
+			has_global_flag = anglo_saxons_defeated_again
+		}
 	}
 
 	option = {
@@ -2613,10 +2573,8 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = gaul_reconquered_roman }
 		completely_controls_region = world_gaul
 	}
@@ -2679,6 +2637,80 @@ narrative_event = {
 			has_landed_title = e_roman_britannia
 		}
 		prestige = 300
+		if = { #New Imperial Bloodline. (male)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = no
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_in_hellenic_subgroup_trigger = yes
+				}
+				NOT = {
+					any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_male
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}	
+			sound_effect = bloodline_added			
+		}
+		if = { #New Imperial Bloodline. (female)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = yes
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_in_hellenic_subgroup_trigger = yes
+				}
+    			NOT = {
+    				any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_female
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}				
+			sound_effect = bloodline_added
+		}
+		# Transfer Imperial Diadem from ERE
+		if = {
+			limit = {
+				e_eastern_roman_empire = {
+					holder_scope = {
+						any_artifact = {
+							artifact_type = crown_wre
+						}
+					}
+				}
+			}
+			e_eastern_roman_empire = {
+				show_scope_change = no
+				holder_scope = {
+					show_scope_change = no
+					any_artifact = {
+						show_scope_change = no
+						limit = { artifact_type = crown_wre }
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -2713,10 +2745,8 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = britannia_reconquered_roman }
 		completely_controls_region = custom_roman_britannia
 	}
@@ -2744,6 +2774,80 @@ narrative_event = {
 			has_landed_title = e_gaul
 		}
 		prestige = 300
+		if = { #New Imperial Bloodline. (male)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = no
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_in_hellenic_subgroup_trigger = yes
+				}
+				NOT = {
+					any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_male
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}	
+			sound_effect = bloodline_added			
+		}
+		if = { #New Imperial Bloodline. (female)
+			limit = { 
+				has_dlc = "Holy Fury" 
+				is_female = yes
+				is_alternate_start = no
+				OR = { 
+					religion_group = christian
+					religion_group = gnostic_group
+					religion_openly_in_hellenic_subgroup_trigger = yes
+				}
+    			NOT = {
+    				any_owned_bloodline = {
+						has_bloodline_flag = roman_bloodline #Not if already member of a famous historical Roman Bloodline.
+					}
+				}
+			}
+			create_bloodline = {
+				type = roman_emperor_female
+			}
+			new_bloodline = {
+				set_description = "bloodline_desc_roman"
+			}				
+			sound_effect = bloodline_added
+		}
+		# Transfer Imperial Diadem from ERE
+		if = {
+			limit = {
+				e_eastern_roman_empire = {
+					holder_scope = {
+						any_artifact = {
+							artifact_type = crown_wre
+						}
+					}
+				}
+			}
+			e_eastern_roman_empire = {
+				show_scope_change = no
+				holder_scope = {
+					show_scope_change = no
+					any_artifact = {
+						show_scope_change = no
+						limit = { artifact_type = crown_wre }
+						transfer_artifact = {
+							from = PREV
+							to = ROOT
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	option = {
@@ -2796,10 +2900,8 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = caledonia_conquered_roman }
 		completely_controls_region = world_caledonia
 		completely_controls_region = custom_valentia
@@ -2857,10 +2959,8 @@ narrative_event = {
 	only_rulers = yes
 	
 	trigger = {
-		OR = {
-			has_landed_title = e_gaul
-			has_landed_title = e_roman_britannia
-		}
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
 		NOT = { has_global_flag = hibernia_conquered_roman }
 		completely_controls_region = world_ireland
 	}
@@ -2903,7 +3003,195 @@ narrative_event = {
 	}
 }
 
+# Roman Campaign into the Agri Decumates
+narrative_event = {			
+	id = 315210
+	title = "EVTNAME315210"
+	desc = "EVTDESC315210"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315210"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB315210"
+		trigger = {
+			NOR = { 
+				is_roman_ruler_trigger = yes
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC315210"
+		trigger = {
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+		}	
+	}
+}
 
+# Roman Campaign into Magna Germania
+narrative_event = {			
+	id = 315211
+	title = "EVTNAME315211"
+	desc = "EVTDESC315211"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_army_aquila"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA315211"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB315211"
+		trigger = {
+			NOR = { 
+				is_roman_ruler_trigger = yes
+				AND = {
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC315211"
+		trigger = {
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+		}	
+	}
+}
+
+### Agri Decumates Conquered ###
+narrative_event = {
+	id = 315212
+	title = "EVTNAME315212"
+	desc = "EVTDESC315212"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
+		NOT = { has_global_flag = agri_decumates_reconquered_roman }
+		completely_controls_region = custom_agri_decumates
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = agri_decumates_reconquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315212"
+		trigger = {
+			character = ROOT
+		}
+		prestige = 100
+	}
+	
+	option = {
+		name = "EVTOPTA315212"
+		trigger = {
+			top_liege = {
+				character = ROOT
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315212"
+		trigger = {
+			NOT = {
+				top_liege = {
+					character = ROOT
+				}
+			}
+		}
+	}
+}
+
+### Germania Conquered ###
+narrative_event = {
+	id = 315213
+	title = "EVTNAME315213"
+	desc = "EVTDESC315213"
+	major = yes
+	picture = "GFX_evt_SPQR"
+	
+	only_rulers = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_emperor_trigger = yes
+		NOT = { has_global_flag = germania_reconquered_roman }
+		completely_controls_region = custom_greater_germania_prima
+		completely_controls_region = custom_germania_secunda
+		completely_controls_region = custom_germania_tertia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = germania_reconquered_roman
+	}
+	
+	option = {
+		name = "EVTOPTA315213"
+		trigger = {
+			character = ROOT
+		}
+		prestige = 500
+	}
+	
+	option = {
+		name = "EVTOPTA315213"
+		trigger = {
+			top_liege = {
+				character = ROOT
+			}
+			independent = no
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB315213"
+		trigger = {
+			NOT = {
+				top_liege = {
+					character = ROOT
+				}
+			}
+		}
+	}
+}
 
 ### ROMAN DEFEAT ###
 narrative_event = {
@@ -4018,14 +4306,14 @@ character_event = {
 				has_landed_title = d_legio_xii_victrix
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_twelve_victrix }
-					NOT = { completely_controls = c_treverorum }
+					NOT = { completely_controls = c_argentoratum }
 				}
 			}
 			AND = {
 				has_landed_title = d_legio_vi_gallicana
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_six_gallicana }
-					NOT = { completely_controls = c_beda }
+					NOT = { completely_controls = c_mogontiacum }
 				}
 			}
 		}
@@ -4115,14 +4403,14 @@ narrative_event = {
 				has_landed_title = d_legio_xii_victrix
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_twelve_victrix }
-					NOT = { completely_controls = c_treverorum }
+					NOT = { completely_controls = c_argentoratum }
 				}
 			}
 			AND = {
 				has_landed_title = d_legio_vi_gallicana
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_six_gallicana }
-					NOT = { completely_controls = c_beda }
+					NOT = { completely_controls = c_mogontiacum }
 				}
 			}
 		}

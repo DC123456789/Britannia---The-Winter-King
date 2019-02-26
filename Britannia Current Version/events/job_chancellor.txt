@@ -33,6 +33,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_relations
@@ -267,6 +268,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_relations
@@ -401,6 +403,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_fabricate_claims
@@ -565,10 +568,10 @@ character_event = {
 			factor = 2.0
 			trait = slothful
 		}
-		modifier = {
-			factor = 2.0
-			trait = honorable
-		}
+		# modifier = {
+			# factor = 2.0
+			# trait = honorable
+		# }
 		modifier = {
 			factor = 1.2
 			trait = patient
@@ -649,6 +652,14 @@ character_event = {
 			factor = 4.0
 			liege = { ai = yes }
 		}
+		modifier = {
+			factor = 0.75
+			liege = { any_owned_bloodline = { has_bloodline_flag = bloodline_faster_claims } }
+		}
+		modifier = {
+			factor = 0.75
+			any_owned_bloodline = { has_bloodline_flag = bloodline_faster_claims } #If chancellor is also your relative.
+		}
 	}
 	
 	option = {
@@ -678,6 +689,7 @@ character_event = {
 					chance = 10
 					location = {
 						duchy = {
+							save_event_target_as = target_title
 							holder_scope = {
 								set_character_flag = duchy_claimed
 								character_event = { id = 20130 days = 1 }
@@ -710,6 +722,7 @@ character_event = {
 					chance = 20
 					location = {
 						duchy = {
+							save_event_target_as = target_title
 							holder_scope = {
 								set_character_flag = duchy_claimed
 								character_event = { id = 20130 days = 1 }
@@ -741,6 +754,7 @@ character_event = {
 					chance = 30
 					location = {
 						duchy = {
+							save_event_target_as = target_title
 							holder_scope = {
 								set_character_flag = duchy_claimed
 								character_event = { id = 20130 days = 1 }
@@ -771,6 +785,7 @@ character_event = {
 				}
 				location = {
 					county = {
+						save_event_target_as = target_title
 						holder_scope = {
 							character_event = { id = 20130 days = 1 }
 						}
@@ -856,16 +871,19 @@ letter_event = {
 		}
 		scaled_wealth = -1.0
 		prestige = -150
+#		FROM = {
+#			FROM = {
+#				location = {
+#					county = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
+
 		FROM = {
-			FROM = {
-				location = {
-					county = {
-						add_claim = ROOT
-					}
-				}
-			}
-		}
-		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -895,16 +913,19 @@ letter_event = {
 		}
 		scaled_wealth = -1.0
 		prestige = -100
+#		FROM = {
+#			FROM = {
+#				location = {
+#					county = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
+
 		FROM = {
-			FROM = {
-				location = {
-					county = {
-						add_claim = ROOT
-					}
-				}
-			}
-		}
-		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -934,16 +955,19 @@ letter_event = {
 		}
 		scaled_wealth = -1.0
 		prestige = -50
+#		FROM = {
+#			FROM = {
+#				location = {
+#					county = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
+
 		FROM = {
-			FROM = {
-				location = {
-					county = {
-						add_claim = ROOT
-					}
-				}
-			}
-		}
-		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -1008,16 +1032,18 @@ letter_event = {
 		}
 		scaled_wealth = -2.0
 		prestige = -300
+#		FROM = {
+#			FROM = {
+#				location = {
+#					duchy = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
 		FROM = {
-			FROM = {
-				location = {
-					duchy = {
-						add_claim = ROOT
-					}
-				}
-			}
-		}
-		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -1040,16 +1066,18 @@ letter_event = {
 		}
 		scaled_wealth = -2.0
 		prestige = -200
+#		FROM = {
+#			FROM = {
+#				location = {
+#					duchy = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
 		FROM = {
-			FROM = {
-				location = {
-					duchy = {
-						add_claim = ROOT
-					}
-				}
-			}
-		}
-		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -1072,16 +1100,122 @@ letter_event = {
 		}
 		scaled_wealth = -2.0
 		prestige = -100
+#		FROM = {
+#			FROM = {
+#				location = {
+#					duchy = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
+		FROM = {
+			show_scope_change = no
+			opinion = {
+				modifier = opinion_furious
+				who = ROOT
+				years = 20
+			}
+			hidden_tooltip = {
+				character_event = { id = 20132 days = 7 }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB20131" #Let it go
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				scaled_wealth = 2.25
+			}
+		}
+		piety = 20
+	}
+}
+
+# 20134: The liege is informed and has a choice to press the claim or not
+letter_event = {
+	id = 20134
+	desc = "EVTDESC20134"
+	border = GFX_event_letter_frame_diplomacy
+	
+	show_from_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
 		FROM = {
 			FROM = {
+				has_job_action = action_fabricate_claims
 				location = {
-					duchy = {
-						add_claim = ROOT
+					kingdom = {
+						NOT = { claimed_by = ROOT }
 					}
 				}
 			}
 		}
+	}
+
+	option = {	# Duke
+		name = "EVTOPTA20131" #Press the Claim
+		trigger = { primary_title = { tier = DUKE } }
+		ai_chance = {
+			factor = 90
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 2.25 }
+			}
+		}
+		scaled_wealth = -2.0
+		prestige = -200
+#		FROM = {
+#			FROM = {
+#				location = {
+#					kingdom = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
 		FROM = {
+			show_scope_change = no
+			opinion = {
+				modifier = opinion_furious
+				who = ROOT
+				years = 20
+			}
+			hidden_tooltip = {
+				character_event = { id = 20132 days = 7 }
+			}
+		}
+	}
+	option = {	# Count
+		name = "EVTOPTA20131" #Press the Claim
+		trigger = { primary_title = { tier = COUNT } }
+		ai_chance = {
+			factor = 90
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 2.25 }
+			}
+		}
+		scaled_wealth = -2.0
+		prestige = -100
+#		FROM = {
+#			FROM = {
+#				location = {
+#					kingdom = {
+#						add_claim = ROOT
+#					}
+#				}
+#			}
+#		}
+		event_target:target_title = { show_scope_change = no add_claim = ROOT }
+		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_furious
 				who = ROOT
@@ -1145,6 +1279,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_fabricate_claims
@@ -1194,6 +1329,14 @@ character_event = {
 		modifier = {
 			factor = 1.25
 			diplomacy = 13
+		}
+		modifier = {
+			factor = 1.25
+			liege = { any_owned_bloodline = { has_bloodline_flag = bloodline_faster_claims } }
+		}
+		modifier = {
+			factor = 1.25
+			any_owned_bloodline = { has_bloodline_flag = bloodline_faster_claims } #If chancellor is also your relative.
 		}
 	}
 	
@@ -1391,6 +1534,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_sow_dissent
@@ -1550,10 +1694,10 @@ character_event = {
 			factor = 2.0
 			trait = slothful
 		}
-		modifier = {
-			factor = 1.5
-			trait = honorable
-		}
+		# modifier = {
+			# factor = 1.5
+			# trait = honorable
+		# }
 		modifier = {
 			factor = 1.2
 			trait = kind
@@ -1573,6 +1717,14 @@ character_event = {
 		modifier = {
 			factor = 0.75
 			trait = deceitful
+		}
+		modifier = {
+			factor = 0.75
+			liege = { any_owned_bloodline = { has_bloodline_flag = bloodline_faster_dissent } }
+		}
+		modifier = {
+			factor = 0.75
+			any_owned_bloodline = { has_bloodline_flag = bloodline_faster_dissent } #If chancellor is also your relative.
 		}
 	}
 	
@@ -1679,6 +1831,7 @@ character_event = {
 	#only_men = yes
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_sow_dissent
@@ -1728,6 +1881,14 @@ character_event = {
 		modifier = {
 			factor = 1.25
 			diplomacy = 13
+		}
+		modifier = {
+			factor = 1.25
+			liege = { any_owned_bloodline = { has_bloodline_flag = bloodline_faster_dissent } }
+		}
+		modifier = {
+			factor = 1.25
+			any_owned_bloodline = { has_bloodline_flag = bloodline_faster_dissent } #If chancellor is also your relative.
 		}
 	}
 	
@@ -1940,6 +2101,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_clan_sentiment

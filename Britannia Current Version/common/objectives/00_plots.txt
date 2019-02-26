@@ -400,6 +400,17 @@ plot_gain_vassal_title = {
 					}
 				}
 			}
+			# Belongs to Tyrannical Bloodline
+			custom_tooltip = {
+				text = TT_PLOT_GAIN_VASSAL_TITLE_TYRANNICAL_BLOODLINE
+				hidden_tooltip = {
+					FROM = {
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_revocation_plot 
+						}
+					}
+				}
+			}
 		}
 		holder_scope = {
 			custom_tooltip = { # liege_before_war lacks localisation, among other things
@@ -609,6 +620,12 @@ plot_gain_vassal_title = {
 						holder_scope = {
 							lower_tier_than = DUKE
 							num_of_count_titles = 2
+						}
+					}
+					# Bloodline
+					FROM = {
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_revocation_plot 
 						}
 					}
 				}
@@ -910,6 +927,9 @@ plot_kill_character = {
 					OR = {
 						trait = lunatic
 						trait = possessed
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_murderous 
+						}
 					}
 				}
 				
@@ -1060,6 +1080,12 @@ plot_kill_character = {
 				top_liege = { character = father }
 			}
 		}
+		modifier = {
+			factor = 2.0
+			any_owned_bloodline = { #Backstabbing family.
+				has_bloodline_flag = bloodline_murderous 
+			}
+		}
 	}
 	
 	success = {
@@ -1208,6 +1234,12 @@ plot_kill_spouse = {
 		modifier = {
 			factor = 0
 			their_opinion = { who = FROM value = 80 }
+		}
+		modifier = {
+			factor = 0
+			ROOT = {
+				is_pilgrim = yes
+			}
 		}
 		modifier = {
 			factor = 1.5

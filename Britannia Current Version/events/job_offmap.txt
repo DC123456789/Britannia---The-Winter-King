@@ -15,6 +15,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_statecraft
@@ -426,6 +427,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_relations
@@ -514,6 +516,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_administer_realm
@@ -701,6 +704,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_administer_realm
@@ -829,6 +833,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_organize_army
@@ -837,6 +842,7 @@ character_event = {
 		NOT = { trait = incapable }
 		liege = {
 			any_courtier_or_vassal = {
+				NOT = { character = PREV } #so it does not pick the liege themselves...
 				has_minor_title = title_commander
 				NAND = {
 					martial = 20
@@ -874,6 +880,7 @@ character_event = {
 		liege = {
 			random_courtier_or_vassal = {
 				limit = {
+					NOT = { character = PREV } #so it does not pick the liege themselves...
 					has_minor_title = title_commander
 					NAND = {
 						martial = 20
@@ -1206,6 +1213,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_organize_army
@@ -1343,16 +1351,46 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		create_random_soldier = {
-			random_traits = yes
-			dynasty = none
-			female = no
-			attributes = {
-				martial = 10
+		if = {
+			limit = {
+				gender_equality_trigger = yes
+			}
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = none
+				female = 50
+				attributes = {
+					martial = 10
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_religion_feature = religion_matriarchal
+			}
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = none
+				female = 90
+				attributes = {
+					martial = 10
+				}
+			}
+		}
+		else = {
+			create_random_soldier = {
+				random_traits = yes
+				dynasty = none
+				female = no
+				attributes = {
+					martial = 10
+				}
 			}
 		}
 		new_character = {
 			remove_trait = weak
+			remove_trait = fragile
+			remove_trait = feeble
 			remove_trait = slow
 			remove_trait = imbecile
 			remove_trait = dull
@@ -1382,27 +1420,62 @@ character_event = {
 			remove_trait = seductress
 			remove_trait = theologian
 			remove_trait = scholar
+			remove_trait = trained_warrior
+			remove_trait = poor_warrior
+			remove_trait = skilled_warrior
+			remove_trait = master_warrior
 			
 			random_list = { # Flavor Randomization
-				15 = {
+				25 = {
 					change_martial = 2
-				}
-				10 = {
-					add_trait = robust
-				}
-				10 = {
-					add_trait = duelist
-				}
-				10 = {
-					add_trait = hunter
-				}
-				5 = {
-					add_trait = strategist
 				}
 				5 = {
 					change_martial = 4
 				}
+				30 = {}
+			}
+			if = {
+				limit = {
+					NOT = {
+						trait = robust
+						trait = tough
+						trait = strong
+					}
+				}	
+				random_list = {
+					15 = {
+						add_trait = robust
+					}
+					5 = { 
+						add_trait = tough 
+					}
+					1 = { 
+						add_trait = strong 
+					}
+					25 = {}
+				}
+			}
+			random_list = {
+				50 = {
+					add_trait = trained_warrior
+					change_martial = 1
+				}
+				20 = {
+					add_trait = hunter
+					add_trait = trained_warrior
+				}
+				10 = {
+					add_trait = strategist
+					add_trait = trained_warrior
+				}
 				5 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = veteran
+							trait = war_hero
+						}
+					}	
 					if = {
 						limit = {
 							has_dlc = "Reapers"
@@ -1410,9 +1483,45 @@ character_event = {
 						add_trait = one_eyed
 						change_martial = 1
 					}
+					add_trait = trained_warrior
+					add_trait = veteran
 				}
-				5 = { 
+				5 = {
+					add_trait = poor_warrior
+					add_trait = gamer
+				}
+				4 = {
+					add_trait = duelist
+					add_trait = skilled_warrior
+				}
+				4 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = shrewd
+							trait = quick
+							trait = genius 
+						}
+					}	
 					add_trait = shrewd
+					add_trait = trained_warrior
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						OR = {
+							trait = shrewd
+							trait = quick
+							trait = genius 
+						}
+					}	
+					add_trait = shrewd
+					add_trait = skilled_warrior
+				}
+				1 = {
+					add_trait = duelist
+					add_trait = master_warrior
+					add_trait = fast
 				}
 			}
 			# hidden_tooltip = {
@@ -1440,6 +1549,45 @@ character_event = {
 		}
 		if = {
 			limit = {
+				# OR = { 
+					# NOT = { ROOT = { has_law = succ_byzantine_elective } }  #Either not Imperial...
+					# NOT = { #...Or there are no valid vassal candidates that can be commanders.
+						# any_vassal = { 
+							# higher_real_tier_than = BARON
+							# NOT = { 
+								# primary_title = { temporary = yes } 
+							# }
+							# OR = {
+								# AND = {
+									# OR = {
+										# male_can_hold_minor_title_trigger = yes
+										# female_can_hold_minor_commander_title_trigger = yes
+									# }
+									# OR = {
+										# NOT = { religion = hindu }
+										# trait = kshatriya
+									# }
+									# is_adult = yes
+								# }
+								# has_character_flag = special_marshal
+							# }
+					
+							# prisoner = no
+							# NOT = { trait = incapable }
+							# NOT = { is_inaccessible_trigger = yes }
+							# NOT = { has_character_flag = guru }
+							# NOT = { has_character_modifier = refusing_to_lead }
+							# NOR = {
+								# has_job_title = job_chancellor
+								# has_job_title = job_marshal
+								# has_job_title = job_treasurer
+								# has_job_title = job_spymaster
+								# has_job_title = job_spiritual
+								# has_minor_title = title_commander
+							# }
+						# } 
+					# }
+				# }
 				OR = {
 					AND = {
 						tier = COUNT
@@ -1527,6 +1675,50 @@ character_event = {
 		name = MNM.70013.o
 		
 		trigger = {
+			NAND = { 
+				government = imperial_government 
+				tier = EMPEROR
+			}
+			# OR = { 
+				# NOT = { ROOT = { has_law = succ_byzantine_elective } }  #Either not Imperial...
+				# higher_real_tier_than = BARON #...Or potential commander is vassal...
+				# NOT = { #...Or there are no valid vassal candidates that can be commanders.
+					# any_vassal = { 
+						# higher_real_tier_than = BARON
+						# NOT = { 
+							# primary_title = { temporary = yes } 
+						# }
+						# OR = {
+							# AND = {
+								# OR = {
+									# male_can_hold_minor_title_trigger = yes
+									# female_can_hold_minor_commander_title_trigger = yes
+								# }
+								# OR = {
+									# NOT = { religion = hindu }
+									# trait = kshatriya
+								# }
+								# is_adult = yes
+							# }
+							# has_character_flag = special_marshal
+						# }
+				
+						# prisoner = no
+						# NOT = { trait = incapable }
+						# NOT = { is_inaccessible_trigger = yes }
+						# NOT = { has_character_flag = guru }
+						# NOT = { has_character_modifier = refusing_to_lead }
+						# NOR = {
+							# has_job_title = job_chancellor
+							# has_job_title = job_marshal
+							# has_job_title = job_treasurer
+							# has_job_title = job_spymaster
+							# has_job_title = job_spiritual
+							# has_minor_title = title_commander
+						# }
+					# } 
+				# }
+			# }
 			any_realm_character = {
 				NOT = {
 					higher_tier_than = BARON
@@ -1613,17 +1805,7 @@ character_event = {
 		}
 		
 		event_target:found_commander = {
-			if = {
-				limit = { 
-					ROOT = {
-						NAND = { 
-							government = imperial_government 
-							tier = EMPEROR
-						} 
-					}
-				}
-				give_minor_title = title_commander
-			}
+			give_minor_title = title_commander
 			opinion = {
 				modifier = opinion_loyal_servant
 				who = ROOT
@@ -1644,6 +1826,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_organize_army
@@ -1786,6 +1969,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_sabotage_province
@@ -1911,6 +2095,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
@@ -2009,6 +2194,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
@@ -2161,6 +2347,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_uncover_plots_offmap
@@ -2267,6 +2454,7 @@ character_event = { # Hunt Apostates meta event
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_hunt_heretics
@@ -3198,6 +3386,7 @@ character_event = { # What does the liege wish to do with the apostate?
 		
 		tooltip = {
 			event_target:accused_apostate = {
+				show_scope_change = no
 				death = {
 					death_reason = death_execution_burning
 					killer = ROOT
@@ -3319,6 +3508,7 @@ character_event = { # What does the liege wish to do with the apostate?
 		}
 		
 		event_target:accused_apostate = {
+			show_scope_change = no
 			imprison = ROOT
 		}
 		opinion = {
@@ -3327,6 +3517,7 @@ character_event = { # What does the liege wish to do with the apostate?
 			years = 100
 		}
 		event_target:accused_apostate = {
+			show_scope_change = no
 			if = {
 				limit = {
 					is_devil_worshiper_trigger = yes
@@ -3409,6 +3600,7 @@ character_event = { # What does the liege wish to do with the apostate?
 			years = 100
 		}
 		event_target:accused_apostate = {
+			show_scope_change = no
 			if = {
 				limit = {
 					is_devil_worshiper_trigger = yes

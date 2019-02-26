@@ -221,6 +221,12 @@ province_event = {
 			}
 		}
 		modifier = {
+			factor = 1.1
+			owner = {
+				religion = catholic
+			}
+		}
+		modifier = {
 			factor = 1.5
 			owner = {
 				NOT = { religion = catholic }
@@ -268,7 +274,7 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 1.5
+			factor = 1.25
 			owner = {
 				OR = {
 					culture = briton
@@ -360,19 +366,17 @@ province_event = {
 			terrain = forest
 		}
 		modifier = {
-			factor = 2.5
+			factor = 2
 			OR = {
 				terrain = hills
 				terrain = arctic
 				terrain = marsh
+				terrain = highlands
 			}
 		}
 		modifier = {
 			factor = 4.0
-			OR = {
-				terrain = mountain
-				terrain = highlands
-			}
+			terrain = mountain
 		}
 		modifier = {
 			factor = 0.8
@@ -413,7 +417,10 @@ province_event = {
 				culture = frisian
 			}
 			NOT = { year = 650 }
-			NOT = { region = world_britannia }
+			OR = { 
+				region = world_germania 
+				region = custom_scandinavia 
+			}
 		}
 		modifier = {
 			factor = 5
@@ -425,7 +432,10 @@ province_event = {
 				culture = saxon
 			}
 			NOT = { year = 700 }
-			NOT = { region = world_britannia }
+			OR = { 
+				region = world_germania 
+				region = custom_scandinavia 
+			}
 		}
 		modifier = {
 			factor = 5
@@ -435,7 +445,7 @@ province_event = {
 					is_reformed_religion = yes
 				}
 				AND = {
-					religion_group = zoroastrian_group
+					is_hellenic_group_religion_trigger = yes
 					NOT = { religion = roman_pagan }
 				}
 				AND = {
@@ -457,14 +467,19 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 1.5
+			factor = 1.2
 			NOT = { year = 480 }
 			culture = pictish
 		}
 		modifier = {
-			factor = 1.4
-			NOT = { year = 560 }
+			factor = 0.75
+			yeare = 600
 			culture = pictish
+		}
+		modifier = {
+			factor = 0.8
+			year = 560
+			culture_group = celtic
 		}
 		modifier = {
 			factor = 10

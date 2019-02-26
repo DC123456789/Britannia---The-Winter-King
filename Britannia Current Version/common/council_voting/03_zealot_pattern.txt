@@ -492,24 +492,65 @@ zealot_pattern_for = {
 		}
 	}
 	
+	investiture_law_0 = {
+		religion = britannic_pagan
+	}
+	
 	status_of_women_0 = { 
-		is_female = yes
+		OR = {
+			is_female = yes
+			religion = britannic_pagan
+		}
 		NOT = { has_law = status_of_women_1 }
 	}
 	status_of_women_1 = { 
-		is_female = yes
+		OR = {
+			is_female = yes
+			religion = britannic_pagan
+		}
 		NOT = { has_law = status_of_women_2 }
 	}
 	status_of_women_2 = { 
-		is_female = yes
+		OR = {
+			is_female = yes
+			religion = britannic_pagan
+		}
 		NOT = { has_law = status_of_women_3 }
 	}
 	status_of_women_3 = { 
-		is_female = yes
+		OR = {
+			is_female = yes
+			religion = britannic_pagan
+		}
 		NOT = { has_law = status_of_women_4 }
 	}
 	status_of_women_4 = { 
+		OR = {
+			is_female = yes
+			religion = britannic_pagan
+		}
+	}
+
+	enatic_succession = {
+		religion = britannic_pagan
 		is_female = yes
+	}
+
+	enatic_cognatic_succession = {
+		religion = britannic_pagan
+		OR = {
+			is_female = no
+			FROMFROM = {
+				NOT = { has_law = enatic_succession }
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		religion = britannic_pagan
+		NOT = {
+			FROMFROM = { has_law = enatic_cognatic_succession }
+		}
 	}
 }
 
@@ -897,6 +938,9 @@ zealot_pattern_against = {
 	}
 	ze_administration_laws_2 = { always = yes }
 	
+	investiture_law_1 = {
+		religion = britannic_pagan
+	}	
 	
 	status_of_women_0 = { 
 		always = no
@@ -912,5 +956,30 @@ zealot_pattern_against = {
 	}
 	status_of_women_4 = { 
 		always = yes
+	}
+	
+	enatic_succession = {
+		OR = {
+			is_female = no
+			NOT = {
+				religion = britannic_pagan
+			}
+		}
+	}
+
+	enatic_cognatic_succession = {
+		NOR = {
+			religion = britannic_pagan
+			FROMFROM = {
+				has_law = enatic_succession
+			}
+		}
+	}
+
+	true_cognatic_succession = {
+		NOR = {
+			religion = britannic_pagan
+			true_religion_celtic_or_reformed_trigger = yes
+		}
 	}
 }

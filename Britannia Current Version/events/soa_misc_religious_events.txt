@@ -506,52 +506,52 @@ character_event = {
 }
 
 # Remove relic modifier if no longer Christian
-character_event = {
-	id = SoA.5229
-	desc = EVTDESC_SoA_5229
-	picture = GFX_evt_throne_room
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5229
+	# desc = EVTDESC_SoA_5229
+	# picture = GFX_evt_throne_room
+	# border = GFX_event_normal_frame_religion
 	
-	min_age = 15
-	only_playable = yes
+	# min_age = 15
+	# only_playable = yes
 
-	trigger = {
-		has_dlc = "Sons of Abraham"
-		has_artifact = finger_of_st_john
-		NOT = { religion_group = christian }
-		NOT = { has_character_flag = kept_finger_as_trinket }
-	}
+	# trigger = {
+		# has_dlc = "Sons of Abraham"
+		# has_artifact = finger_of_st_john
+		# NOT = { religion_group = christian }
+		# NOT = { has_character_flag = kept_finger_as_trinket }
+	# }
 
-	mean_time_to_happen = {
-		days = 1
-	}
+	# mean_time_to_happen = {
+		# days = 1
+	# }
 	
-	option = {
-		name = EVTOPTA_SoA_5229
-		prestige = 30
-		set_character_flag = kept_finger_as_trinket
-	}
-	option = {
-		name = EVTOPTB_SoA_5229
-		destroy_artifact = finger_of_st_john
-		wealth = 30
-	}
-	option = {
-		name = EVTOPTC_SoA_5229
-		destroy_artifact = finger_of_st_john
-		hidden_tooltip = {
-			any_realm_character = {
-				limit = { religion_group = christian }
-				opinion = {
-					modifier = insulted
-					who = ROOT
-					years = 5
-				}
-			}
-		}
-		custom_tooltip = { text = insulted_realm_christians }
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5229
+		# prestige = 30
+		# set_character_flag = kept_finger_as_trinket
+	# }
+	# option = {
+		# name = EVTOPTB_SoA_5229
+		# destroy_artifact = finger_of_st_john
+		# wealth = 30
+	# }
+	# option = {
+		# name = EVTOPTC_SoA_5229
+		# destroy_artifact = finger_of_st_john
+		# hidden_tooltip = {
+			# any_realm_character = {
+				# limit = { religion_group = christian }
+				# opinion = {
+					# modifier = insulted
+					# who = ROOT
+					# years = 5
+				# }
+			# }
+		# }
+		# custom_tooltip = { text = insulted_realm_christians }
+	# }
+# }
 
 ###########################################
 #                                         #
@@ -575,7 +575,7 @@ character_event = {
 
 	trigger = {
 		has_dlc = "Sons of Abraham"
-		religion_group = christian
+		in_command = no
 	}
 	
 	mean_time_to_happen = {
@@ -633,7 +633,7 @@ character_event = {
 
 	trigger = {
 		has_dlc = "Sons of Abraham"
-		religion_group = christian
+		in_command = no
 	}
 	
 	mean_time_to_happen = {
@@ -691,7 +691,7 @@ character_event = {
 
 	trigger = {
 		has_dlc = "Sons of Abraham"
-		religion_group = christian
+		in_command = no
 		trait = ill
 		piety = 1
 	}
@@ -731,6 +731,7 @@ character_event = {
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		in_command = no
 		NOT = { trait = blinded }
 	}
 	
@@ -763,6 +764,7 @@ character_event = {
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		in_command = no
 		NOT = { trait = blinded }
 	}
 	
@@ -800,6 +802,7 @@ character_event = {
 	
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		in_command = no
 		NOT = { has_character_modifier = in_seclusion }
 	}
 	
@@ -838,13 +841,18 @@ character_event = {
 
 	trigger = {
 		has_dlc = "Sons of Abraham"
+		in_command = no
 		any_child = {
 			is_ruler = no
-			age = 13
-			NOT = { age = 16 }
+			age = 12
+			NOT = { age = 15 }
 			NOT = { trait = cynical }
 			NOT = { is_ascetic_trigger = yes }
-			religion_group = christian
+			NOT = { has_character_flag = is_child_of_destiny }
+			OR = {
+				religion_group = christian
+				religion_group = gnostic_group
+			}
 		}
 	}
 
@@ -856,10 +864,11 @@ character_event = {
 		random_child = {
 			limit = {
 				is_ruler = no
-				age = 13
-				NOT = { age = 16 }
+				age = 12
+				NOT = { age = 15 }
 				NOT = { trait = cynical }
 				NOT = { is_ascetic_trigger = yes }
+				NOT = { has_character_flag = is_child_of_destiny }
 			}
 			character_event = { id = SoA.5217 }
 		}
@@ -1314,6 +1323,7 @@ character_event = {
 	is_triggered_only = yes
 
 	min_age = 15
+	ai = yes
 	only_capable = yes
 	prisoner = no	
 	religion_group = christian
@@ -1380,219 +1390,219 @@ character_event = {
 }
 
 # Muslim becoming a wicked caliph
-character_event = {
-	id = SoA.5301
-	desc = EVTDESC_SoA_5301
-	picture = GFX_evt_scandal
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5301
+	# desc = EVTDESC_SoA_5301
+	# picture = GFX_evt_scandal
+	# border = GFX_event_normal_frame_religion
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	only_playable = yes
-	min_age = 15
-	only_capable = yes
-	prisoner = no	
-	religion_group = muslim
+	# only_playable = yes
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no	
+	# religion_group = muslim
 	
-	trigger = {
-		NOR = {
-			intrigue = 3
-			diplomacy = 3
-			trait = bad_priest_muslim
-		}
-		controls_religion = yes
-		has_dlc = "Sons of Abraham"
-		OR = {
-			trait = cynical
-			trait = lustful
-			trait = gluttonous
-			trait = greedy
-			trait = slothful
-			trait = envious
-			trait = wroth
-			trait = proud
-			trait = lunatic
-			trait = possessed
-			trait = hedonist
-		}
-	}
+	# trigger = {
+		# NOR = {
+			# intrigue = 3
+			# diplomacy = 3
+			# trait = bad_priest_muslim
+		# }
+		# controls_religion = yes
+		# has_dlc = "Sons of Abraham"
+		# OR = {
+			# trait = cynical
+			# trait = lustful
+			# trait = gluttonous
+			# trait = greedy
+			# trait = slothful
+			# trait = envious
+			# trait = wroth
+			# trait = proud
+			# trait = lunatic
+			# trait = possessed
+			# trait = hedonist
+		# }
+	# }
 
-	option = {
-		name = EVTOPTA_SoA_5301
-		add_trait = bad_priest_muslim
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				NOT = { trait = possessed }
-				NOT = { trait = lunatic }
-			}
-			give_nickname = nick_the_wicked
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = possessed
-			}
-			give_nickname = nick_the_bewitched
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = lunatic
-			}
-			give_nickname = nick_the_mad
-		}
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5301
+		# add_trait = bad_priest_muslim
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# NOT = { trait = possessed }
+				# NOT = { trait = lunatic }
+			# }
+			# give_nickname = nick_the_wicked
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = possessed
+			# }
+			# give_nickname = nick_the_bewitched
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = lunatic
+			# }
+			# give_nickname = nick_the_mad
+		# }
+	# }
+# }
 
 # Norse becoming an unworthy priest
-character_event = {
-	id = SoA.5302
-	desc = EVTDESC_SoA_5302
-	picture = GFX_evt_scandal
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5302
+	# desc = EVTDESC_SoA_5302
+	# picture = GFX_evt_scandal
+	# border = GFX_event_normal_frame_religion
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	min_age = 15
-	only_capable = yes
-	prisoner = no	
-	religion_group = pagan_group
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no	
+	# religion_group = pagan_group
 	
-	trigger = {
-		NOR = {
-			intrigue = 3
-			diplomacy = 3
-			trait = bad_priest_norse
-		}
-		OR = {
-			religion = norse_pagan
-			religion = norse_pagan_reformed
-		}
-		OR = {
-			is_priest = yes
-			has_landed_title = d_norse_pagan
-		}
-		has_dlc = "Sons of Abraham"
-		OR = {
-			trait = cynical
-			trait = gluttonous
-			trait = greedy
-			trait = slothful
-			trait = envious
-			trait = wroth
-			trait = craven
-			trait = lunatic
-			trait = possessed
-			trait = hedonist
-			trait = arbitrary
-		}
-	}
+	# trigger = {
+		# NOR = {
+			# intrigue = 3
+			# diplomacy = 3
+			# trait = bad_priest_norse
+		# }
+		# OR = {
+			# religion = norse_pagan
+			# religion = norse_pagan_reformed
+		# }
+		# OR = {
+			# is_priest = yes
+			# has_landed_title = d_norse_pagan
+		# }
+		# has_dlc = "Sons of Abraham"
+		# OR = {
+			# trait = cynical
+			# trait = gluttonous
+			# trait = greedy
+			# trait = slothful
+			# trait = envious
+			# trait = wroth
+			# trait = craven
+			# trait = lunatic
+			# trait = possessed
+			# trait = hedonist
+			# trait = arbitrary
+		# }
+	# }
 
-	option = {
-		name = EVTOPTA_SoA_5302
-		add_trait = bad_priest_norse
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				NOT = { trait = possessed }
-				NOT = { trait = lunatic }
-			}
-			give_nickname = nick_the_unready
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = possessed
-			}
-			give_nickname = nick_the_bewitched
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = lunatic
-			}
-			give_nickname = nick_the_mad
-		}
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5302
+		# add_trait = bad_priest_norse
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# NOT = { trait = possessed }
+				# NOT = { trait = lunatic }
+			# }
+			# give_nickname = nick_the_unready
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = possessed
+			# }
+			# give_nickname = nick_the_bewitched
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = lunatic
+			# }
+			# give_nickname = nick_the_mad
+		# }
+	# }
+# }
 
 # Tengri becoming an unworthy priest
-character_event = {
-	id = SoA.5303
+# character_event = {
+	# id = SoA.5303
 
-	hide_window = yes
+	# hide_window = yes
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 	
-	min_age = 15
-	only_capable = yes
-	prisoner = no	
-	religion_group = pagan_group
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no	
+	# religion_group = pagan_group
 
-	trigger = {
-		NOR = {
-			intrigue = 3
-			diplomacy = 3
-			trait = bad_priest_tengri
-		}
-		OR = {
-			religion = tengri_pagan
-			religion = tengri_pagan_reformed
-		}
-		OR = {
-			is_priest = yes
-			has_landed_title = d_tengri_pagan
-		}
-		OR = {
-			trait = cynical
-			trait = arbitrary
-			trait = paranoid
-			trait = greedy
-			trait = slothful
-			trait = envious
-			trait = wroth
-			trait = lunatic
-			trait = cruel
-		}
-		has_dlc = "Sons of Abraham"
-	}
+	# trigger = {
+		# NOR = {
+			# intrigue = 3
+			# diplomacy = 3
+			# trait = bad_priest_tengri
+		# }
+		# OR = {
+			# religion = tengri_pagan
+			# religion = tengri_pagan_reformed
+		# }
+		# OR = {
+			# is_priest = yes
+			# has_landed_title = d_tengri_pagan
+		# }
+		# OR = {
+			# trait = cynical
+			# trait = arbitrary
+			# trait = paranoid
+			# trait = greedy
+			# trait = slothful
+			# trait = envious
+			# trait = wroth
+			# trait = lunatic
+			# trait = cruel
+		# }
+		# has_dlc = "Sons of Abraham"
+	# }
 
-	immediate = {
-		add_trait = bad_priest_tengri
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				NOT = { trait = possessed }
-				NOT = { trait = lunatic }
-			}
-			give_nickname = nick_the_wicked
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = possessed
-			}
-			give_nickname = nick_the_bewitched
-		}
-		if = {
-			limit = {
-				is_ruler = yes
-				has_nickname = no
-				trait = lunatic
-			}
-			give_nickname = nick_the_mad
-		}
-	}
-}
+	# immediate = {
+		# add_trait = bad_priest_tengri
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# NOT = { trait = possessed }
+				# NOT = { trait = lunatic }
+			# }
+			# give_nickname = nick_the_wicked
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = possessed
+			# }
+			# give_nickname = nick_the_bewitched
+		# }
+		# if = {
+			# limit = {
+				# is_ruler = yes
+				# has_nickname = no
+				# trait = lunatic
+			# }
+			# give_nickname = nick_the_mad
+		# }
+	# }
+# }
 
 # # Zoroastrian becoming an immoral priest
 # character_event = {
@@ -1664,6 +1674,11 @@ character_event = {
 	# id = SoA.5305
 
 	# hide_window = yes
+	# ai = yes
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no
+	# religion_group = pagan_group
 
 	# trigger = {
 		# has_dlc = "Sons of Abraham"
@@ -1837,173 +1852,173 @@ character_event = {
 }
 
 # Wicked Caliph!
-character_event = {
-	id = SoA.5313
+# character_event = {
+	# id = SoA.5313
 	
-	hide_window = yes
+	# hide_window = yes
 	
-	only_playable = yes
-	min_age = 15
-	only_capable = yes
-	prisoner = no
-	religion_group = muslim
+	# only_playable = yes
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no
+	# religion_group = muslim
 
-	trigger = {
-		controls_religion = yes
-		has_dlc = "Sons of Abraham"
-		trait = bad_priest_muslim
-		NOT = { has_character_modifier = bad_rel_head }
-	}
+	# trigger = {
+		# controls_religion = yes
+		# has_dlc = "Sons of Abraham"
+		# trait = bad_priest_muslim
+		# NOT = { has_character_modifier = bad_rel_head }
+	# }
 
-	mean_time_to_happen = {
-		days = 1
-	}
+	# mean_time_to_happen = {
+		# days = 1
+	# }
 
-	immediate = {
-		add_character_modifier = {
-			name = bad_rel_head
-			duration = -1
-			hidden = yes
-		}
-		any_playable_ruler = {
-			limit = {
-				ai = no
-				religion_head = {
-					character = ROOT
-				}
-			}
-			character_event = { id = SoA.5314 days = 8 random = 7 }         # Notify player
-		}
-	}
-}
+	# immediate = {
+		# add_character_modifier = {
+			# name = bad_rel_head
+			# duration = -1
+			# hidden = yes
+		# }
+		# any_playable_ruler = {
+			# limit = {
+				# ai = no
+				# religion_head = {
+					# character = ROOT
+				# }
+			# }
+			# character_event = { id = SoA.5314 days = 8 random = 7 }         # Notify player
+		# }
+	# }
+# }
 
 # Wicked Caliph player notification
-character_event = {
-	id = SoA.5314
-	desc = EVTDESC_SoA_5314
-	picture = GFX_evt_throne_room
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5314
+	# desc = EVTDESC_SoA_5314
+	# picture = GFX_evt_throne_room
+	# border = GFX_event_normal_frame_religion
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	option = {
-		name = EVTOPTA_SoA_5314
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5314
+	# }
+# }
 
 # Unworthy Fylkir!
-character_event = {
-	id = SoA.5315
+# character_event = {
+	# id = SoA.5315
 	
-	hide_window = yes
+	# hide_window = yes
 	
-	only_playable = yes
-	min_age = 15
-	only_capable = yes
-	prisoner = no
-	religion = norse_pagan_reformed
+	# only_playable = yes
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no
+	# religion = norse_pagan_reformed
 	
-	only_rulers = yes
+	# only_rulers = yes
 
-	trigger = {
-		has_dlc = "Sons of Abraham"
-		has_landed_title = d_norse_pagan
-		trait = bad_priest_norse
-		NOT = { has_character_modifier = bad_rel_head }
-	}
+	# trigger = {
+		# has_dlc = "Sons of Abraham"
+		# has_landed_title = d_norse_pagan
+		# trait = bad_priest_norse
+		# NOT = { has_character_modifier = bad_rel_head }
+	# }
 
-	mean_time_to_happen = {
-		days = 1
-	}
+	# mean_time_to_happen = {
+		# days = 1
+	# }
 
-	immediate = {
-		add_character_modifier = {
-			name = bad_rel_head
-			duration = -1
-			hidden = yes
-		}
-		any_playable_ruler = {
-			limit = {
-				ai = no
-				religion_head = {
-					character = ROOT
-				}
-			}
-			character_event = { id = SoA.5316 days = 8 random = 7 }         # Notify player
-		}
-	}
-}
+	# immediate = {
+		# add_character_modifier = {
+			# name = bad_rel_head
+			# duration = -1
+			# hidden = yes
+		# }
+		# any_playable_ruler = {
+			# limit = {
+				# ai = no
+				# religion_head = {
+					# character = ROOT
+				# }
+			# }
+			# character_event = { id = SoA.5316 days = 8 random = 7 }         # Notify player
+		# }
+	# }
+# }
 
 # Unworthy Fylkir player notification
-character_event = {
-	id = SoA.5316
-	desc = EVTDESC_SoA_5316
-	picture = GFX_evt_viking_throneroom_oldgods
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5316
+	# desc = EVTDESC_SoA_5316
+	# picture = GFX_evt_viking_throneroom_oldgods
+	# border = GFX_event_normal_frame_religion
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	option = {
-		name = EVTOPTA_SoA_5316
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5316
+	# }
+# }
 
 # Unworthy Head Priest! (Tengri)
-character_event = {
-	id = SoA.5317
+# character_event = {
+	# id = SoA.5317
 	
-	hide_window = yes
+	# hide_window = yes
 	
-	only_rulers = yes
+	# only_rulers = yes
 	
-	only_playable = yes
-	min_age = 15
-	only_capable = yes
-	prisoner = no
-	religion = tengri_pagan_reformed
+	# only_playable = yes
+	# min_age = 15
+	# only_capable = yes
+	# prisoner = no
+	# religion = tengri_pagan_reformed
 
-	trigger = {
-		has_dlc = "Sons of Abraham"
-		has_landed_title = d_tengri_pagan_reformed
-		trait = bad_priest_tengri
-		NOT = { has_character_modifier = bad_rel_head }
-	}
+	# trigger = {
+		# has_dlc = "Sons of Abraham"
+		# has_landed_title = d_tengri_pagan_reformed
+		# trait = bad_priest_tengri
+		# NOT = { has_character_modifier = bad_rel_head }
+	# }
 
-	mean_time_to_happen = {
-		days = 1
-	}
+	# mean_time_to_happen = {
+		# days = 1
+	# }
 
-	immediate = {
-		add_character_modifier = {
-			name = bad_rel_head
-			duration = -1
-			hidden = yes
-		}
-		any_playable_ruler = {
-			limit = {
-				ai = no
-				religion_head = {
-					character = ROOT
-				}
-			}
-			character_event = { id = SoA.5318 days = 8 random = 7 }         # Notify player
-		}
-	}
-}
+	# immediate = {
+		# add_character_modifier = {
+			# name = bad_rel_head
+			# duration = -1
+			# hidden = yes
+		# }
+		# any_playable_ruler = {
+			# limit = {
+				# ai = no
+				# religion_head = {
+					# character = ROOT
+				# }
+			# }
+			# character_event = { id = SoA.5318 days = 8 random = 7 }         # Notify player
+		# }
+	# }
+# }
 
 # Unworthy Head Priest player notification (Tengri)
-character_event = {
-	id = SoA.5318
-	desc = EVTDESC_SoA_5318
-	picture = GFX_evt_tengri_throneroom_oldgods
-	border = GFX_event_normal_frame_religion
+# character_event = {
+	# id = SoA.5318
+	# desc = EVTDESC_SoA_5318
+	# picture = GFX_evt_tengri_throneroom_oldgods
+	# border = GFX_event_normal_frame_religion
 
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	option = {
-		name = EVTOPTA_SoA_5318
-	}
-}
+	# option = {
+		# name = EVTOPTA_SoA_5318
+	# }
+# }
 
 # # Immoral Moabadan-Moabad!
 # character_event = {
@@ -2124,16 +2139,21 @@ character_event = {
 	# prisoner = no
 
 	# trigger = {
-		# has_dlc = "Sons of Abraham"
-		# year = 950
-		# has_landed_title = b_cluny
 		# is_priest = yes
+		# year = 950
 		# OR = {
 			# religion = catholic
 			# religion = cathar
 			# religion = fraticelli
 			# religion = waldensian
 			# religion = lollard
+		# }
+		# has_landed_title = b_cluny
+		# NOR = {
+			# has_landed_title = k_papal_state
+			# has_landed_title = d_fraticelli
+			# any_claim = { title = k_papal_state }
+			# any_claim = { title = d_fraticelli }
 		# }
 	# }
 	
@@ -2159,21 +2179,28 @@ character_event = {
 	# only_capable = yes
 
 	# trigger = {
+		# wealth = 200
 		# has_dlc = "Sons of Abraham"
 		# year = 950
-		# b_cluny = {
-			# holder_scope = {
-				# is_priest = yes
-				# religion = ROOT
-			# }
-		# }
 		# OR = {
 			# religion = catholic
+			# religion = cathar
 			# religion = fraticelli
 			# religion = waldensian
 			# religion = lollard
 		# }
-		# wealth = 200
+		# b_cluny = {
+			# holder_scope = {
+				# is_priest = yes
+				# religion = ROOT
+				# NOR = {
+					# has_landed_title = k_papal_state
+					# has_landed_title = d_fraticelli
+					# any_claim = { title = k_papal_state }
+					# any_claim = { title = d_fraticelli }
+				# }
+			# }
+		# }
 	# }
 	
 	# mean_time_to_happen = {
@@ -2244,6 +2271,12 @@ character_event = {
 			# holder_scope = {
 				# is_priest = yes
 				# religion = ROOT
+				# NOR = {
+					# has_landed_title = k_papal_state
+					# has_landed_title = d_fraticelli
+					# any_claim = { title = k_papal_state }
+					# any_claim = { title = d_fraticelli }
+				# }
 			# }
 		# }
 		# OR = {
@@ -2603,7 +2636,6 @@ character_event = {
 		# set_global_flag = jeanne_darc_spawned
 		# create_character = {
 			# random_traits = no
-			# historical = yes
 			# dynasty = NONE
 			# religion = ROOT
 			# culture = ROOT
@@ -2625,6 +2657,7 @@ character_event = {
 				# intrigue = 3
 				# learning = 3
 			# }
+			# historical = yes
 		# }
 		# new_character = {
 			# set_character_flag = is_jeanne_darc
@@ -3631,7 +3664,10 @@ character_event = {
 	# trigger = {
 		# has_dlc = "Sons of Abraham"
 		# any_war = {
-			# using_cb = crusade
+			# OR = {
+				# using_cb = crusade
+				# using_cb = new_crusade
+			# }
 		# }
 		# top_liege = {
 			# is_parent_religion = ROOT
@@ -4224,6 +4260,12 @@ character_event = {
 			trait = mujahid
 		}
 		NOT = { trait = tolerant }
+		NOT = {
+			has_alternate_start_parameter = {
+				key = religion_names
+				value = random
+			}
+		}
 	}
 	
 	mean_time_to_happen = {

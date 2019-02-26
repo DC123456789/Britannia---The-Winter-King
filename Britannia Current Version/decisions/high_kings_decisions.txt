@@ -2,6 +2,8 @@ decisions = {
 	claim_imperium_galliarum = {		# Claim the Imperium Galliarum
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
+		
 		potential = {
 			is_ruler = yes
 			primary_title = {
@@ -60,6 +62,11 @@ decisions = {
 						cooldown = no 
 						opinion_effect = no 
 					}
+					add_law = { 
+						law = succ_byzantine_elective 
+						cooldown = no 
+						opinion_effect = no 
+					}
 				}
 			}
 			k_gaul = { destroy_landed_title = THIS }
@@ -73,6 +80,7 @@ decisions = {
 	claim_imperium_britannicum = {		# Claim the Imperium Britannicum
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
 		potential = {
 			is_ruler = yes
 			OR = {
@@ -84,10 +92,7 @@ decisions = {
 				has_landed_title = k_romancaledonia
 			}
 			tier = KING
-			OR = {
-				culture_group = imperiale
-				culture = romanobritish
-			}
+			is_roman_culture_trigger = yes
 			NOT = { trait = slow }
 			NOT = { trait = dwarf }
 			NOT = { trait = leper }
@@ -114,7 +119,7 @@ decisions = {
 				culture_group = imperiale
 				culture = romanobritish
 			}
-			realm_size = 120
+			realm_size = 150
 			prestige = 1000
 			age = 20
 			is_female = no
@@ -138,9 +143,104 @@ decisions = {
 								cooldown = no 
 								opinion_effect = no 
 							}
+							add_law = { 
+								law = succ_byzantine_elective 
+								cooldown = no 
+								opinion_effect = no 
+							}
 						}
 					}
 				}
+				if = {
+					limit = { has_character_modifier = maxima_caesariensis_decaying_realm }
+					remove_character_modifier = maxima_caesariensis_decaying_realm
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	claim_imperium_britannicum_410 = {		# Claim the Imperium Britannicum
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		potential = {
+			is_ruler = yes
+			OR = {
+				has_landed_title = k_maxima_cesariensis
+				has_landed_title = k_flavia_cesariensis
+				has_landed_title = k_britannia_prima
+				has_landed_title = k_britannia_secunda
+				has_landed_title = k_valentia
+				has_landed_title = k_romancaledonia
+			}
+			is_roman_culture_trigger = yes
+			e_roman_britannia = { has_holder = no }
+			independent = yes
+			e_western_roman_empire = { has_holder = yes }
+			NOT = { has_global_flag = claiming_imperium_britanniarum_410 }
+		}
+		allow = {
+			has_landed_title = e_britannia
+			prestige = 3000
+			ruled_years = 10
+			realm_levies = 3500
+			diplomacy = 12
+			martial = 10
+			is_roman_culture_trigger = yes
+			e_roman_britannia = { has_holder = no }
+			e_western_roman_empire = { has_holder = yes }
+			realm_size = 40
+			age = 20
+			is_female = no
+			NOT = { trait = slow }
+			NOT = { trait = dwarf }
+			NOT = { trait = leper }
+			NOT = { trait = blinded }
+			NOT = { trait = imbecile }
+			NOT = { trait = eunuch }
+			is_incapable = no
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.7
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			set_global_flag = claiming_imperium_britanniarum_410
+			any_independent_ruler = {
+				limit = {
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+				custom_tooltip = {
+					text = centralize_realm_soissons_tooltip
+				}
+			}
+			custom_tooltip = {
+				text = claim_imperium_britannicum_410_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 302903 days = 3 }
+				character_event = { id = 302906 days = 5 }
 			}
 		}
 		
@@ -152,6 +252,7 @@ decisions = {
 	claim_empire_romanized_germanic = {
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
 		potential = {
 			is_ruler = yes
 			primary_title = {
@@ -214,6 +315,8 @@ decisions = {
 						completely_controls = c_treverorum
 						completely_controls = c_reims
 						completely_controls = c_cologne
+						completely_controls = c_vesontio
+						completely_controls = c_mogontiacum
 						completely_controls = c_bourges
 						completely_controls = c_burdigala
 						completely_controls = c_elusa
@@ -235,6 +338,8 @@ decisions = {
 					completely_controls = c_treverorum
 					completely_controls = c_reims
 					completely_controls = c_cologne
+					completely_controls = c_vesontio
+					completely_controls = c_mogontiacum
 					completely_controls = c_bourges
 					completely_controls = c_burdigala
 					completely_controls = c_elusa
@@ -268,41 +373,41 @@ decisions = {
 	HK_claim_britannia = {			# Claim the High Kingdom of Britannia
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
+		
 		potential = {
 			NOT = { has_global_flag = britannia_reconquered_roman }
 			NOT = { has_global_flag = offa_dyke_created }	
 			NOT = { has_global_flag = HK_britannia_claim }
 			is_ruler = yes
-			is_female = no
+			#is_female = no
 			e_britannia = { has_holder = no }
 			NOT = { has_character_flag = HK_britannia_claimant }
 			NOT = { has_character_flag = HK_challenge_loser }
 			NOT = { has_character_modifier = HK_britannia_claim_timer }
-			OR = {
-				has_landed_title = k_dumnonia
-				has_landed_title = k_gwent
-				has_landed_title = k_powys
-				has_landed_title = k_siluria
-				has_landed_title = k_gwynedd
-				has_landed_title = k_icenia
-				has_landed_title = k_cantuaria
-				has_landed_title = k_belgae
-				has_landed_title = k_kernow
-				has_landed_title = k_glevum
-				has_landed_title = k_henis_wyren
-				has_landed_title = k_demetia
-				has_landed_title = k_lindum
-				has_landed_title = k_londinium
+			# Any Brythonic or Imperial kingdom in Britannia, minus Hen Ogledd
+			any_demesne_title = {
+				tier = KING
+				capital_scope = {
+					region = world_britannia
+					NOT = { region = world_britannia_cymry_henogledd }
+				}
+				empire = {
+					NOR = {
+						title = e_aengland
+						title = e_danes
+					}
+				}
 			}
 			independent = yes
 			primary_title = { tier = KING }
-			age = 20
+			#age = 20
 			NOT = { trait = incapable }
 			NOT = { character = 1 }
 			NOT = { has_character_flag = marriage_to_macsen_daughter }
 		}
 		allow = {
-			prestige = 1250
+			prestige = 2000
 			OR = {
 				AND = {
 					is_tribal = yes
@@ -320,10 +425,10 @@ decisions = {
 			ruled_years = 5
 			age = 25
 			war = no
+			is_female = no
 			OR = {
-				culture = briton
-				culture = romanobritish
-				culture = cumbrian
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
 			}
 			OR = {
 				ruled_years = 15
@@ -346,7 +451,7 @@ decisions = {
 		}
 		
 		effect = {
-			any_playable_ruler = { clr_character_flag = HK_oppositor }
+			any_playable_ruler = { clr_character_flag = HK_opponent }
 			any_playable_ruler = { clr_character_flag = HK_supporter }
 			any_playable_ruler = { clr_character_flag = HK_indep_supporter }
 			any_playable_ruler = { clr_character_flag = HK_voter }
@@ -355,34 +460,10 @@ decisions = {
 			e_britannia = { add_claim = ROOT }
 			any_playable_ruler = {
 				limit = {
-					OR = {
-						has_landed_title = k_dumnonia
-						has_landed_title = k_gwent
-						has_landed_title = k_powys
-						has_landed_title = k_siluria
-						has_landed_title = k_gwynedd
-						has_landed_title = k_icenia
-						has_landed_title = k_cantuaria
-						has_landed_title = k_belgae
-						has_landed_title = k_kernow
-						has_landed_title = k_glevum
-						has_landed_title = k_henis_wyren
-						has_landed_title = k_demetia
-					}
-					independent = yes
-					primary_title = { tier = KING }
-					OR = {
-						culture = cumbrian
-						culture = briton
-						culture = romanobritish
-					}
-					age = 15
-					NOT = { trait = incapable }
-					NOT = { has_character_flag = HK_britannia_claimant }
-					NOT = { has_character_flag = HK_challenge_loser }
+					is_potential_britannia_subject_trigger = yes
 				}
 				set_character_flag = HK_britannia_king
-				character_event = { id = 312161 days = 2 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }
+				character_event = { id = 312161 days = 4 random = 4 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }
 			}
 			hidden_tooltip = {
 				any_playable_ruler = {
@@ -397,7 +478,11 @@ decisions = {
 					duration = 1825
 					hidden = yes
 				}
-				ROOT = { narrative_event = { id = 312165 days = 15 } }
+				ROOT = { narrative_event = { id = 312163 days = 10 } }		# Decide whether or not to go to war if someone opposes
+				ROOT = { narrative_event = { id = 312165 days = 13 } }		# Gain High Kingship if nobody opposes
+			}
+			custom_tooltip = {
+				text = HK_claim_britannia_tooltip
 			}
 		}
 		
@@ -421,29 +506,11 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.5
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 15 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 30 }
-					}
-				}
+				NOT = { num_of_count_titles_in_realm = 8 }
 			}
 			modifier = {
 				factor = 1.5
-				OR = {
-					AND = {
-						is_tribal = yes
-						realm_size = 35
-					}
-					AND = {
-						is_tribal = no
-						realm_size = 70
-					}
-				}
+				num_of_count_titles_in_realm = 25
 			}
 			modifier = {
 				factor = 1.5
@@ -497,10 +564,825 @@ decisions = {
 				trait = proud
 			}
 		}
-	}	
+	}
+	
+	HK_britannia_formalize_high_kingship = {			# Britannia reform 1
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			NOT = { has_global_flag = britannia_formalized_high_kingship }
+		}
+		allow = {
+			prestige = 5000
+			diplomacy = 14
+			martial = 12
+			ruled_years = 10
+			custom_tooltip = {
+				text = high_king_britannia_score_tooltip
+				check_variable = { 
+					which = high_king_britannia_score
+					value = 50
+				}
+			}
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.5
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			custom_tooltip = {
+				text = HK_britannia_formalize_high_kingship_tooltip
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302910 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_establish_central_mint = {			# Britannia reform 2
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_formalized_high_kingship
+			NOT = { has_global_flag = britannia_established_central_mint }
+		}
+		allow = {
+			is_feudal = yes
+			capital_holding = {
+				OR = {
+					holding_type = castle
+					holding_type = city
+				}
+			}
+			prestige = 5000
+			diplomacy = 10
+			stewardship = 12
+			wealth = 400
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.55
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			wealth = -400
+			custom_tooltip = {
+				text = HK_britannia_establish_central_mint_tooltip
+			}
+			tooltip = {
+				capital_holding = {
+					if = {
+						limit = { holding_type = castle }
+						add_building = ca_britannia_mint
+					}
+					else = {
+						add_building = ct_britannia_mint
+					}
+				}
+			}
+			tooltip = {
+				add_character_modifier = {
+					name = britannia_mint_modifier
+					duration = -1
+				}
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302915 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_empower_the_high_council = {			# Britannia reform 3
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_established_central_mint
+			NOT = { has_global_flag = britannia_empowered_high_council }
+			NOT = { has_character_flag = britannia_empowering_high_council }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			diplomacy = 12
+			martial = 10
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			capital_scope = {
+				TECH_MAJESTY = 3
+				TECH_LEGALISM = 3
+			}
+			OR = {
+				e_hen_ogledd = { has_holder = no }
+				has_landed_title = e_hen_ogledd
+				e_hen_ogledd = {
+					holder_scope = {
+						is_tributary = {
+							type = britannia_subject
+						}
+						suzerain = { character = ROOT }
+					}
+				}
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.65
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			set_character_flag = britannia_empowering_high_council
+			any_independent_ruler = {
+				limit = {
+					is_tributary = {
+						type = britannia_subject
+						suzerain = ROOT
+					}
+				}
+				custom_tooltip = {
+					text = centralize_realm_soissons_tooltip
+				}
+			}
+			custom_tooltip = {
+				text = HK_britannia_empower_the_high_council_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 302920 days = 3 }
+				character_event = { id = 302924 days = 5 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	HK_britannia_centralize_the_church = {			# Britannia reform 4
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_empowered_high_council
+			NOT = { has_global_flag = britannia_centralized_church }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 3000
+			piety = 600
+			diplomacy = 10
+			learning = 12
+			ruled_years = 10
+			age = 30
+			war = no
+			wealth = 300
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			OR = {
+				has_religion_feature = religion_no_leader
+				AND = {
+					custom_tooltip = {
+						text = has_religious_head
+						religion_head = {
+							always = yes
+						}
+					}
+					religion_head = {
+						OR = {
+							top_liege = { character = ROOT }
+							opinion = {
+								who = ROOT
+								value = 60
+							}
+						}
+					}
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					OR = {
+						religion_group = christian
+						religion_group = gnostic_group
+					}
+				}
+				completely_controls = c_londinium
+				47 = {
+					any_province_holding = {
+						holding_type = temple
+					}
+				}
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.7
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			wealth = -300
+			piety = -300
+			set_global_flag = britannia_centralized_church
+			if = {
+				limit = {
+					OR = {
+						religion_group = christian
+						religion_group = gnostic_group
+					}
+				}
+				47 = {
+					show_scope_change = no
+					random_province_holding = {
+						limit = { holding_type = temple }
+						set_title_flag = britannia_cathedral_holding
+						add_building = tp_britannia_london_cathedral
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					capital_scope = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+				}
+				capital_scope = {
+					show_scope_change = no
+					random_province_holding = {
+						limit = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+						set_title_flag = britannia_state_church_seat_holding
+						add_building = tp_britannia_state_church_seat
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					any_demesne_province = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+				}
+				random_demesne_province = {
+					limit = {
+						any_province_holding = {
+							holding_type = temple
+							holder_scope = { is_liege_or_above = ROOT }
+						}
+					}
+					show_scope_change = no
+					random_province_holding = {
+						limit = {
+							holding_type = temple
+							is_liege_or_above = ROOT
+						}
+						set_title_flag = britannia_state_church_seat_holding
+						add_building = tp_britannia_state_church_seat
+					}
+				}
+			}
+			else = {
+				random_realm_title = {
+					limit = {
+						tier = BARON
+						holding_type = temple
+						holder_scope = { is_liege_or_above = ROOT }
+					}
+					set_title_flag = britannia_state_church_seat_holding
+					add_building = tp_britannia_state_church_seat
+				}
+			}
+			tooltip = {
+				add_character_modifier = {
+					name = britannia_centralized_church_modifier
+					duration = -1
+				}
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302930 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_formalize_succession = {			# Britannia reform 5
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_centralized_church
+			NOT = { has_global_flag = britannia_formalized_heir }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			diplomacy = 12
+			stewardship = 10
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			NOT = {
+				any_vassal = {
+					any_demesne_title = {
+						empire = { title = e_britannia }
+					}
+					NOT = {
+						opinion = {
+							who = ROOT
+							value = 0
+						}
+					}
+				}
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.75
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			custom_tooltip = {
+				text = HK_britannia_formalize_succession_tooltip
+			}
+			tooltip = {
+				if = {
+					limit = { is_romanized_government_trigger = yes }
+					e_britannia = { add_law = succ_primogeniture }
+				}
+				else = {
+					e_britannia = { add_law = succ_gavelkind }
+				}
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302935 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_unify_the_legal_codes = {			# Britannia reform 6
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_formalized_heir
+			NOT = { has_global_flag = britannia_unified_legal_code }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			learning = 12
+			diplomacy = 10
+			wealth = 250
+			ruled_years = 10
+			age = 30
+			war = no
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			capital_scope = {
+				TECH_LEGALISM = 4
+			}
+			regional_percentage = {
+				region = world_britannia
+				percentage = 0.85
+				owner = {
+					top_liege = {
+						OR = {
+							has_landed_title = e_britannia
+							AND = {
+								is_tributary = {
+									type = britannia_subject
+								}
+								suzerain = { has_landed_title = e_britannia }
+							}
+						}
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			wealth = -250
+			custom_tooltip = {
+				text = HK_britannia_unify_the_legal_codes_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302940 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_reclaim_caratacus_legacy = {			# Britannia reform 7 - Brythonic path
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_unified_legal_code
+			NOT = { has_global_flag = britannia_reclaimed_caratacus_legacy }
+			NOT = { has_global_flag = britannia_restored_senate }
+		}
+		allow = {
+			is_feudal = yes
+			prestige = 5000
+			martial = 15
+			diplomacy = 12
+			ruled_years = 10
+			age = 30
+			war = no
+			is_brythonic_culture_trigger = yes
+			NOR = { 
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			completely_controls_region = world_britannia
+			realm_levies = 10000
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			tooltip = {
+				add_character_modifier = {
+					name = britannia_heir_of_caratacus
+					duration = -1
+				}
+			}
+			custom_tooltip = {
+				text = HK_britannia_reclaim_caratacus_legacy_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302945 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_restore_the_senate = {			# Britannia reform 7 - Roman path
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_unified_legal_code
+			NOT = { has_global_flag = britannia_reclaimed_caratacus_legacy }
+			NOT = { has_global_flag = britannia_restored_senate }
+		}
+		allow = {
+			is_romanized_government_trigger = yes
+			prestige = 5000
+			wealth = 300
+			diplomacy = 15
+			learning = 12
+			stewardship = 10
+			ruled_years = 10
+			age = 30
+			war = no
+			is_roman_culture_trigger = yes
+			e_western_roman_empire = { has_holder = no }
+			e_roman_britannia = { has_holder = no }
+			NOR = {
+				trait = shy
+				trait = uneducated
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			completely_controls_region = world_britannia
+			e_britannia = {
+				OR = {
+					has_law = centralization_3
+					has_law = centralization_4
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = { has_dlc = "Conclave" }
+					}
+					OR = {
+						has_law = crown_authority_2
+						has_law = crown_authority_3
+						has_law = crown_authority_4
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						has_dlc = "Conclave"
+					}
+					OR = {
+						has_law = revoke_title_law_1
+						has_law = revoke_title_law_2
+						has_law = out_of_realm_inheritance_law_1
+						has_law = vassal_wars_law_1
+						has_law = vassal_wars_law_2
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			prestige = -500
+			#wealth = -300
+			custom_tooltip = {
+				text = HK_britannia_restore_the_senate_tooltip
+			}				
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 302950 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	HK_britannia_revoke_royal_privileges = {			# Britannia reform 8 - Roman path
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_britannia
+			has_global_flag = britannia_restored_senate
+			NOT = { has_character_flag = revoking_royal_privileges }
+			NOT = { has_global_flag = claiming_imperium_britanniarum_war }
+		}
+		allow = {
+			is_romanized_government_trigger = yes
+			prestige = 5000
+			diplomacy = 15
+			martial = 12
+			ruled_years = 10
+			age = 30
+			war = no
+			is_roman_culture_trigger = yes
+			e_western_roman_empire = { has_holder = no }
+			e_roman_britannia = { has_holder = no }
+			NOR = {
+				trait = shy
+				trait = uneducated
+				trait = slow
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = imbecile
+				trait = eunuch
+			}
+			completely_controls_region = world_britannia
+			e_britannia = {
+				OR = {
+					has_law = centralization_3
+					has_law = centralization_4
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = { has_dlc = "Conclave" }
+					}
+					OR = {
+						has_law = crown_authority_3
+						has_law = crown_authority_4
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						has_dlc = "Conclave"
+					}
+					OR = {
+						has_law = revoke_title_law_1
+						has_law = revoke_title_law_2
+					}
+					has_law = out_of_realm_inheritance_law_1
+					OR = {
+						has_law = vassal_wars_law_1
+						has_law = vassal_wars_law_2
+					}
+				}
+			}
+			NOT = { has_character_modifier = recently_raised_high_king_authority }
+		}
+		
+		effect = {
+			set_character_flag = revoking_royal_privileges
+			prestige = -500
+			custom_tooltip = {
+				text = HK_britannia_revoke_royal_privileges_tooltip
+			}				
+			hidden_tooltip = {
+				character_event = { id = 302955 days = 3 }
+				narrative_event = { id = 302959 days = 5 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	HK_claim_aengland = {			# Claim the Cynerice of Aenglaland
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
+		
 		potential = {
 			is_ruler = yes
 			is_female = no
@@ -559,7 +1441,7 @@ decisions = {
 			NOT = { trait = dwarf }
 			NOT = { trait = leper }
 			NOT = { trait = blinded }
-			# NOT = { trait = idiot }
+			NOT = { trait = dull }
 			NOT = { trait = imbecile }
 			NOT = { trait = eunuch }
 			NOT = { trait = weak }
@@ -659,29 +1541,11 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.5
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 20 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 40 }
-					}
-				}
+				NOT = { num_of_count_titles_in_realm = 10 }
 			}
 			modifier = {
 				factor = 1.5
-				OR = {
-					AND = {
-						is_tribal = yes
-						realm_size = 35
-					}
-					AND = {
-						is_tribal = no
-						realm_size = 70
-					}
-				}
+				num_of_count_titles_in_realm = 30
 			}
 			modifier = {
 				factor = 1.5
@@ -743,6 +1607,8 @@ decisions = {
 	HK_claim_hen_ogledd = {		# Claim the High Kingdom of Hen Ogledd
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 6
+		
 		potential = {
 			ai = no
 			is_ruler = yes
@@ -774,13 +1640,7 @@ decisions = {
 		}
 		allow = {
 			prestige = 1250
-			OR = {
-				AND = {
-					is_tribal = yes
-					realm_size = 25
-				}
-				realm_size = 35
-			}
+			num_of_count_titles_in_realm = 30
 			realm_diplomacy = 30
 			realm_martial = 30
 			realm_stewardship = 30
@@ -874,6 +1734,8 @@ decisions = {
 	create_brotherhood_of_britain = {			# Form the Brotherhood of Britain
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 12
+		
 		potential = {
 			NOT = { has_character_flag = vortigern }
 			is_ruler = yes
@@ -910,11 +1772,13 @@ decisions = {
 	claim_scandinavia = {
 		only_independent = yes
 		is_high_prio = yes
+		ai_check_interval = 12
+		
 		potential = {
 			is_ruler = yes
 			is_north_germanic_trigger = yes	
 			e_scandinavia = { has_holder = no }
-			NOT = { has_global_flag = scandinavia_created }			
+			NOT = { has_global_flag = scandinavia_created }
 			primary_title = {
 				OR = {
 					title = e_denmark

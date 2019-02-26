@@ -153,7 +153,7 @@ de_jure_laws = {
 			modifier = {
 				factor = 2.0
 				AND = {
-					holder_scope = { religion_group = zoroastrian_group }
+					holder_scope = { is_hellenic_group_religion_trigger = yes }
 					has_law = crown_authority_0
 				}
 			}
@@ -255,7 +255,17 @@ de_jure_laws = {
 					has_law = crown_authority_1
 					holder_scope = {
 						prestige = 300
-					}	
+					}
+					conditional_tooltip = {
+						trigger = { 
+							title = e_britannia 
+							NOT = { has_global_flag = britannia_unified_legal_code }
+						}
+						custom_tooltip = {
+							text = britannia_unify_the_legal_codes_passed
+							has_global_flag = britannia_unified_legal_code
+						}
+					}
 				}
 				has_law = crown_authority_3
 			}
@@ -334,7 +344,7 @@ de_jure_laws = {
 			modifier = {
 				factor = 1.5
 				AND = {
-					holder_scope = { religion_group = zoroastrian_group }
+					holder_scope = { is_hellenic_group_religion_trigger = yes }
 					has_law = crown_authority_1
 				}
 			}
@@ -435,7 +445,17 @@ de_jure_laws = {
 					has_law = crown_authority_2
 					holder_scope = {
 						prestige = 300
-					}	
+					}
+					conditional_tooltip = {
+						trigger = { 
+							title = e_britannia 
+							NOT = { has_global_flag = britannia_unified_legal_code }
+						}
+						custom_tooltip = {
+							text = britannia_unify_the_legal_codes_passed
+							has_global_flag = britannia_unified_legal_code
+						}
+					}
 				}
 			}
 		}
@@ -501,7 +521,7 @@ de_jure_laws = {
 			modifier = {
 				factor = 1.35
 				AND = {
-					holder_scope = { religion_group = zoroastrian_group }
+					holder_scope = { is_hellenic_group_religion_trigger = yes }
 					has_law = crown_authority_2
 				}
 			}
@@ -577,6 +597,16 @@ de_jure_laws = {
 				holder_scope = {
 					prestige = 1000
 				}
+				conditional_tooltip = {
+					trigger = { 
+						title = e_britannia 
+						NOT = { has_global_flag = britannia_unified_legal_code }
+					}
+					custom_tooltip = {
+						text = britannia_unify_the_legal_codes_passed
+						has_global_flag = britannia_unified_legal_code
+					}
+				}
 			}
 		}
 		potential = {
@@ -628,7 +658,7 @@ de_jure_laws = {
 			modifier = {
 				factor = 1.35
 				AND = {
-					holder_scope = { religion_group = zoroastrian_group }
+					holder_scope = { is_hellenic_group_religion_trigger = yes }
 					has_law = crown_authority_3
 				}
 			}
@@ -698,13 +728,36 @@ de_jure_laws = {
 		group = investiture_law
 		potential = {
 			holder_scope = { 
-				religion = catholic 
+				OR = {
+					religion = catholic
+					religion = britannic_pagan
+				}
 				is_tribal = no
 				is_nomadic = no
+				NOT = {
+					rightful_religious_head_scope = {
+						character = ROOT
+					}
+				}
 			}
 		}
 		allow = {
-			year = 750
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = { 
+						religion = catholic
+					}
+				}
+				is_papal_investiture_allowed_catholics_trigger = yes
+			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = { 
+						religion = britannic_pagan
+					}
+				}
+				is_title_active = k_britannic_pagan
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -733,16 +786,40 @@ de_jure_laws = {
 		group = investiture_law
 		potential = {
 			holder_scope = { 
-				religion = catholic 
+				OR = {
+					religion = catholic
+					religion = britannic_pagan
+				}
 				is_tribal = no
 				is_nomadic = no
+				NOT = {
+					rightful_religious_head_scope = {
+						character = ROOT
+					}
+				}
 			}
+		}
+		allow = {
+			holy_order = no
 		}
 		revoke_allowed = {
 			always = no
-		}			
+		}					
 		ai_will_do = {
-			factor = 0
+			factor = 1
+			modifier = {
+				factor = 0.002 # Rare to do this
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					holder_scope = {
+						NOT = { trait = cynical }
+					}
+					NOT = { has_law = investiture_law_0 }
+					holder_scope = { religion = britannic_pagan }
+				}
+			}
 		}
 		ai_will_revoke = {
 			factor = 0

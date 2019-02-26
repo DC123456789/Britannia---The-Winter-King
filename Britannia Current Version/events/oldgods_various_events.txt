@@ -8,6 +8,7 @@
 # Written by Henrik Eklund
 
 namespace = TOG
+namespace = TGF
 
 ### Berserker Events
 
@@ -28,7 +29,6 @@ character_event = {
 			religion = norse_pagan_reformed
 		}
 		is_alive = yes
-		is_female = no
 		NOT = { trait = berserker }
 		OR = {
 			NOT = { age = 50 }
@@ -39,61 +39,9 @@ character_event = {
 			trait = aggressive_leader
 		}
 	}
-	
-	weight_multiplier = {
-		days = 1
-		modifier = {
-			factor = 1.5
-			trait = brave
-		}
-		modifier = {
-			factor = 1.5
-			trait = lunatic
-		}
-		modifier = {
-			factor = 1.5
-			trait = possessed
-		}
-		modifier = {
-			factor = 1.2
-			trait = drunkard
-		}
-		modifier = {
-			factor = 1.2
-			trait = cruel
-		}
-		modifier = {
-			is_strong_trigger = yes
-			factor = 1.2
-		}
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}
-		modifier = {
-			is_weak_trigger = yes
-			factor = 0.8
-		}		
-		modifier = {
-			factor = 0.7
-			trait = stressed
-		}
-		modifier = {
-			factor = 0.7
-			trait = depressed
-		}
-		modifier = {
-			factor = 0.8
-			is_ill = yes
-		}
-		modifier = {
-			factor = 0.8
-			trait = kind
-		}
-		modifier = {
-			factor = 0.5
-			trait = infirm
-		}
+
+	immediate = {
+		disallow_new_battle_events_effect = yes #to keep the tombola from spamming you...
 	}
 	
 	option = {
@@ -103,6 +51,8 @@ character_event = {
 			remove_trait = craven
 		}
 		add_trait = berserker
+		add_blood_splatter_effect = yes
+		allow_new_battle_events_effect = yes
 	}
 }
 
@@ -118,166 +68,18 @@ character_event = {
 	trigger = {
 		has_dlc = "The Old Gods"
 		trait = berserker
-		NOT = { is_maimed_trigger = yes }
+		NOT = { trait = maimed }
 		NOT = { trait = one_legged }
 		is_alive = yes
 	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 5
-			has_character_modifier = proving_bravery
-		}
-		modifier = {
-			factor = 1.5
-			trait = brave
-		}
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}
-		modifier = {
-			trait = clubfooted
-			factor = 1.25
-		}
-		modifier = {
-			trait = hunchback
-			factor = 1.25
-		}
-		modifier = {
-			trait = lisp
-			factor = 1.1
-		}
-		modifier = {
-			trait = stutter
-			factor = 1.1
-		}
-		modifier = {
-			trait = dwarf
-			factor = 1.25
-		}		
-		modifier = {
-			trait = genius
-			factor = 0.9
-		}
-		modifier = {
-			OR = {
-				trait = quick
-				trait = shrewd
-			}
-			factor = 0.9
-		}	
-		modifier = {
-			OR = {
-				trait = slow
-				trait = dull
-			}
-			factor = 2.0
-		}
-		
-		modifier = {
-			trait = imbecile
-			factor = 3.0
-		}
-		modifier = {
-			trait = inbred
-			factor = 3.0
-		}
-		modifier = {
-			is_strong_trigger = yes
-			factor = 0.7
-		}
-		modifier = {
-			is_weak_trigger = yes
-			factor = 2.5
-		}		
 
-		modifier = {
-			factor = 1.25
-			trait = stressed
-		}
-		modifier = {
-			factor = 1.25
-			trait = depressed
-		}
-		modifier = {
-			factor = 1.5
-			trait = lunatic
-		}
-		modifier = {
-			factor = 1.5
-			trait = possessed
-		}
-		modifier = {
-			factor = 1.1
-			is_ill = yes
-		}
-		modifier = {
-			factor = 1.25
-			trait = pneumonic
-		}
-		modifier = {
-			factor = 1.25
-			trait = syphilitic
-		}
-		modifier = {
-			factor = 2.0
-			trait = leper
-		}
-		modifier = {
-			factor = 1.15
-			trait = wounded
-		}
-		modifier = {
-			factor = 2.0
-			trait = infirm
-		}
-		modifier = {
-			factor = 3.0
-			trait = incapable
-		}
-		modifier = {
-			factor = 1.1
-			trait = drunkard
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_tuberculosis
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_typhoid_fever
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_typhus
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_bubonic_plague
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_measles
-		}		
-		modifier = {
-			factor = 1.1
-			trait = has_small_pox
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_malaria
-		}	
-		modifier = {
-			factor = 1.1
-			trait = has_saxon_plague
-		}	
+	immediate = {
+		disallow_new_battle_events_effect = yes #to keep the tombola from spamming you...
 	}
-	
+				
 	option = {
 		name = EVTOPTA_TOG_3001
+		add_blood_splatter_effect = yes
 		if = {
 			limit = {
 				NOT = {
@@ -300,6 +102,7 @@ character_event = {
 				resolve_severely_injured_effect = yes
 			}
 		}
+		allow_new_battle_events_effect = yes
 	}
 }
 
@@ -319,163 +122,16 @@ character_event = {
 		NOT = { is_maimed_trigger = yes }
 		is_alive = yes
 	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 5
-			has_character_modifier = proving_bravery
-		}
-		modifier = {
-			factor = 1.5
-			trait = brave
-		}
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}
-		modifier = {
-			trait = clubfooted
-			factor = 1.25
-		}
-		modifier = {
-			trait = hunchback
-			factor = 1.25
-		}
-		modifier = {
-			trait = lisp
-			factor = 1.1
-		}
-		modifier = {
-			trait = stutter
-			factor = 1.1
-		}
-		modifier = {
-			trait = dwarf
-			factor = 1.25
-		}		
-		modifier = {
-			trait = genius
-			factor = 0.9
-		}
-		modifier = {
-			OR = {
-				trait = quick
-				trait = shrewd
-			}
-			factor = 0.9
-		}	
-		modifier = {
-			OR = {
-				trait = slow
-				trait = dull
-			}
-			factor = 2.0
-		}
-		
-		modifier = {
-			trait = imbecile
-			factor = 3.0
-		}
-		modifier = {
-			trait = inbred
-			factor = 3.0
-		}
-		modifier = {
-			is_strong_trigger = yes
-			factor = 0.7
-		}
-		modifier = {
-			is_weak_trigger = yes
-			factor = 2.5
-		}		
-		
-		modifier = {
-			factor = 1.25
-			trait = stressed
-		}
-		modifier = {
-			factor = 1.25
-			trait = depressed
-		}
-		modifier = {
-			factor = 1.5
-			trait = lunatic
-		}
-		modifier = {
-			factor = 1.5
-			trait = possessed
-		}
-		modifier = {
-			factor = 1.1
-			is_ill = yes
-		}
-		modifier = {
-			factor = 1.25
-			trait = pneumonic
-		}
-		modifier = {
-			factor = 1.25
-			trait = syphilitic
-		}
-		modifier = {
-			factor = 2.0
-			trait = leper
-		}
-		modifier = {
-			factor = 1.25
-			is_maimed_trigger = yes
-		}
-		modifier = {
-			factor = 2.0
-			trait = infirm
-		}
-		modifier = {
-			factor = 3.0
-			trait = incapable
-		}
-		modifier = {
-			factor = 1.1
-			trait = drunkard
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_tuberculosis
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_typhoid_fever
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_typhus
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_bubonic_plague
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_measles
-		}		
-		modifier = {
-			factor = 1.1
-			trait = has_small_pox
-		}	
-		modifier = {
-			factor = 1.1
-			trait = has_malaria
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_saxon_plague
-		}		
+
+	immediate = {
+		disallow_new_battle_events_effect = yes #to keep the tombola from spamming you...
 	}
 	
 	option = {
 		name = EVTOPTA_TOG_3001
 		add_trait = wounded
+		add_blood_splatter_effect = yes
+		allow_new_battle_events_effect = yes
 	}
 }
 
@@ -493,182 +149,32 @@ character_event = {
 		trait = berserker
 	}
 	
-	weight_multiplier = {
-		days = 1
-		modifier = {
-			factor = 1.5
-			trait = brave
-		}
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}
-		modifier = {
-			trait = clubfooted
-			factor = 1.25
-		}
-		modifier = {
-			trait = hunchback
-			factor = 1.25
-		}
-		modifier = {
-			trait = lisp
-			factor = 1.1
-		}
-		modifier = {
-			trait = stutter
-			factor = 1.1
-		}
-		modifier = {
-			trait = dwarf
-			factor = 1.25
-		}		
-		modifier = {
-			trait = genius
-			factor = 0.9
-		}
-		modifier = {
-			OR = {
-				trait = quick
-				trait = shrewd
-			}
-			factor = 0.9
-		}	
-		modifier = {
-			OR = {
-				trait = slow
-				trait = dull
-			}
-			factor = 2.0
-		}
-		
-		modifier = {
-			trait = imbecile
-			factor = 3.0
-		}
-		modifier = {
-			trait = inbred
-			factor = 3.0
-		}
-		modifier = {
-			is_strong_trigger = yes
-			factor = 0.7
-		}
-		modifier = {
-			is_weak_trigger = yes
-			factor = 2.5
-		}		
-		modifier = {
-			factor = 1.25
-			trait = stressed
-		}
-		modifier = {
-			factor = 1.25
-			trait = depressed
-		}
-		modifier = {
-			factor = 1.5
-			trait = lunatic
-		}
-		modifier = {
-			factor = 1.5
-			trait = possessed
-		}
-		modifier = {
-			factor = 1.1
-			is_ill = yes
-		}
-		modifier = {
-			factor = 1.25
-			trait = pneumonic
-		}
-		modifier = {
-			factor = 1.25
-			trait = syphilitic
-		}
-		modifier = {
-			factor = 2.0
-			trait = leper
-		}
-		modifier = {
-			factor = 1.15
-			trait = wounded
-		}
-		modifier = {
-			factor = 1.25
-			is_maimed_trigger = yes
-		}
-		modifier = {
-			factor = 2.0
-			trait = infirm
-		}
-		modifier = {
-			factor = 3.0
-			trait = incapable
-		}
-		modifier = {
-			factor = 1.1
-			trait = drunkard
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_tuberculosis
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_typhoid_fever
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_typhus
-		}
-		modifier = {
-			factor = 1.5
-			trait = has_bubonic_plague
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_measles
-		}		
-		modifier = {
-			factor = 1.1
-			trait = has_small_pox
-		}	
-		modifier = {
-			factor = 1.1
-			trait = has_malaria
-		}
-		modifier = {
-			factor = 1.1
-			trait = has_saxon_plague
-		}	
-	}
-	
 	immediate = {
+		disallow_new_battle_events_effect = yes #to keep the tombola from spamming you...
 		liege = {
 			if = {
 				limit = { NOT = { character = ROOT } }
-				character_event = { id = 253 }
+				character_event = { id = HFP.11002 } # (Opponent (liege) is informed that their commander has been killed)
 			}
 		}
 		FROMFROM = {
 			if = {
 				limit = { NOT = { is_vassal_or_below = ROOT } }
 				set_character_flag = temp_battle_kill_242
-				character_event = { id = 249 }
+				character_event = { id = HFP.11003 }
 			}
 		}
-		FROM = {
-			if = {
-				limit = { 
-					NOR = { 
-						has_character_flag = temp_battle_kill_242
-						is_vassal_or_below = ROOT
-					}
-				}
-				character_event = { id = 249 }
-			}
-		}
+#		FROM = { Outcommented because arcane magic script??
+#			if = {
+#				limit = { 
+#					NOR = { 
+#						has_character_flag = temp_battle_kill_242
+#						is_vassal_or_below = ROOT
+#					}
+#				}
+#				character_event = { id = HFP.11003 }
+#			}
+#		}
 		FROMFROM = {
 			clr_character_flag = temp_battle_kill_242
 		}
@@ -709,142 +215,17 @@ character_event = {
 		has_dlc = "The Old Gods"
 		trait = berserker
 	}
-	
-	weight_multiplier = {
-		days = 1
-		modifier = {
-			factor = 1.5
-			trait = brave
-		}
-		modifier = {
-			factor = 0.5
-			trait = craven
-		}
-		modifier = {
-			trait = genius
-			factor = 1.2
-		}
-		modifier = {
-			OR = {
-				trait = quick
-				trait = shrewd
-			}
-			factor = 1.1
-		}	
-		modifier = {
-			OR = {
-				trait = slow
-				trait = dull
-			}
-			factor = 0.9
-		}
-		
-		modifier = {
-			trait = imbecile
-			factor = 0.2
-		}
-		modifier = {
-			trait = inbred
-			factor = 0.2
-		}
-		modifier = {
-			is_strong_trigger = yes
-			factor = 1.5
-		}
-		modifier = {
-			is_weak_trigger = yes
-			factor = 0.8
-		}			
-		modifier = {
-			factor = 0.8
-			trait = stressed
-		}
-		modifier = {
-			factor = 0.8
-			trait = depressed
-		}
-		modifier = {
-			factor = 0.75
-			trait = lunatic
-		}
-		modifier = {
-			factor = 0.75
-			trait = possessed
-		}
-		modifier = {
-			factor = 0.9
-			is_ill = yes
-		}
-		modifier = {
-			factor = 0.8
-			trait = pneumonic
-		}
-		modifier = {
-			factor = 0.8
-			trait = syphilitic
-		}
-		modifier = {
-			factor = 0.5
-			trait = leper
-		}
-		modifier = {
-			factor = 0.9
-			trait = wounded
-		}
-		modifier = {
-			factor = 0.8
-			is_maimed_trigger = yes
-		}
-		modifier = {
-			factor = 0.5
-			trait = infirm
-		}
-		modifier = {
-			factor = 0.4
-			trait = incapable
-		}
-		modifier = {
-			factor = 0.5
-			trait = drunkard
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_tuberculosis
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_typhoid_fever
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_typhus
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_bubonic_plague
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_measles
-		}		
-		modifier = {
-			factor = 0.5
-			trait = has_small_pox
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_malaria
-		}
-		modifier = {
-			factor = 0.5
-			trait = has_saxon_plague
-		}
+
+	immediate = {
+		disallow_new_battle_events_effect = yes #to keep the tombola from spamming you...
 	}
 	
 	option = {
 		name = EVTOPTA_TOG_3004
+		add_blood_splatter_effect = yes
 		prestige = 200
 		change_martial = 1
+		allow_new_battle_events_effect = yes
 	}
 }
 
@@ -863,11 +244,16 @@ character_event = {
 		has_dlc = "The Old Gods"
 		trait = berserker
 		immortal = no
+		OR = { #Either you must have been a *regular* berserker (no flag), or a special one (gained via a Warrior Lodge) for more than ten years...
+			NOT = { has_character_flag = special_berserker }
+			had_character_flag = { flag = special_berserker days = 3650 }
+		}
 	}
 	
 	option = {
 		name = EVTOPTA_TOG_3005
 		remove_trait = berserker
+		clr_character_flag = special_berserker
 	}
 }
 
@@ -882,6 +268,7 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_TOG_3006
+		add_blood_splatter_effect = yes
 		random_list = {
 			50 = {
 				character_event = { id = TOG.3007 days = 1 tooltip = EVTTOOLTIP_TOG_3007 }
@@ -964,17 +351,14 @@ character_event = {
 	}
 	
 	immediate = {
+		add_blood_splatter_effect = yes
 		liege = {
 			character_event = { id = TOG.3006 }
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
-### Varangian Events
+# ### Varangian Events
 
 # # Varangian Guard Founded (Emperor)
 # narrative_event = {
@@ -1006,10 +390,34 @@ character_event = {
 # narrative_event = {
 	# id = TOG.3101
 	# title = EVTNAME_TOG_3100
-	# desc = EVTDESC_TOG_3101
 	# picture = GFX_evt_viking_battle_oldgods
 	# border = GFX_event_narrative_frame_war
 	
+	# desc = {
+		# text = EVTDESC_TOG_3101_A
+		# trigger = { # Men want to join the guard!
+			# gender_equality_trigger = no
+			# NOT = {
+				# has_religion_feature = religion_matriarchal
+			# }
+		# }
+	# }
+	# desc = {
+		# text = EVTDESC_TOG_3101_B
+		# trigger = { # Men *and* women want to join the guard
+			# gender_equality_trigger = yes
+			# NOT = {
+				# has_religion_feature = religion_matriarchal
+			# }
+		# }
+	# }
+	# desc = {
+		# text = EVTDESC_TOG_3101_C
+		# trigger = { # Women want to join the guard!
+			# has_religion_feature = religion_matriarchal
+		# }
+	# }
+
 	# is_triggered_only = yes
 	
 	# option = {
@@ -1021,10 +429,9 @@ character_event = {
 # # Varangian Captain gets Varangian trait
 # character_event = {
 	# id = TOG.3105
-	# hide_window = yes
-	
-	# min_age = 15
-	# only_men = yes
+	# hide_window = yes	
+	# only_rulers = yes
+	# min_age = 16
 	# capable_only = yes
 	# prisoner = no
 	
@@ -1040,13 +447,77 @@ character_event = {
 	# immediate = {
 		# add_trait = varangian
 	# }
-	
-	# option = {
-		# name = OK
-	# }
 # }
 
-# # Son has served a few years
+# # Hack to deal with male only inheritance (sent from on_new_holder_inheritance)
+# # (ROOT is the character, FROM is the title, FROMFROM is the old holder)
+# character_event = {
+    # id = HFP.19100
+    # is_triggered_only = yes
+    # hide_window = yes
+
+    # trigger = {
+    	# NOT = { has_character_flag = varangian_title_sorted }
+    	# NOT = { has_character_flag = is_chosen_varangian_leader }
+    	# has_landed_title = d_varangian_guard
+    	# is_female = no
+    	# OR = {
+	    	# top_liege = {
+	    		# gender_equality_trigger = yes
+	    	# }
+	    	# any_playable_ruler = {
+	    		# religion_openly_norse_or_reformed_trigger = yes
+	    		# has_religion_feature = religion_matriarchal
+	    	# }
+    	# }
+    # }
+
+    # immediate = {
+    	# set_character_flag = varangian_title_sorted
+
+    	# liege = { save_event_target_as = true_liege }
+
+    	# if = {
+			# limit = { gender_equality_trigger = yes }
+			# create_character = {
+				# random_traits = yes
+				# religion = norse_pagan
+				# culture = norse
+				# dynasty = NONE
+				# female = 50
+				# age = 34
+				# trait = skilled_tactician
+			# }
+		# }
+		# else_if = {
+			# limit = {
+				# any_playable_ruler = {
+		    		# religion_openly_norse_or_reformed_trigger = yes
+		    		# has_religion_feature = religion_matriarchal
+		    	# }
+			# }
+			# create_character = {
+				# random_traits = yes
+				# religion = norse_pagan
+				# culture = norse
+				# dynasty = NONE
+				# female = yes
+				# age = 34
+				# trait = skilled_tactician
+			# }
+		# }
+		# new_character = {
+			# add_trait = varangian
+			# set_character_flag = is_chosen_varangian_leader
+			# d_varangian_guard = {
+				# grant_title = PREV
+			# }
+			# set_defacto_liege = event_target:true_liege
+		# }
+    # }
+# }
+
+# # Child has served a few years
 # character_event = {
 	# id = TOG.3108
 	# hide_window = yes
@@ -1061,99 +532,156 @@ character_event = {
 		# set_character_flag = serving_varangian
 		# clr_character_flag = wants_varangian
 	# }
-	
-	# option = {
-		# name = OK
-	# }
 # }
 
-# # Son wants to join the Varangians (Son)
+# # Child wants to join the Varangians (Child)
 # character_event = {
 	# id = TOG.3109
 	# hide_window = yes
 	
+	# is_triggered_only = yes
+	
 	# ai = yes
-	# min_age = 15
+	# min_age = 16
 	# max_age = 40
-	# only_men = yes
 	# capable_only = yes
 	# prisoner = no
+	# culture_group = north_germanic
+	# has_global_flag = varangian_guard_founded
+	# has_dlc = "The Old Gods"
 	
 	# trigger = {
-		# has_dlc = "The Old Gods"
 		# is_landed = no
 		# in_command = no
-		# has_global_flag = varangian_guard_founded
-		# culture_group = north_germanic
-		# NOT = { 
+		# NOR = { 
 			# trait = varangian 
 			# has_character_flag = wants_varangian
 			# has_character_flag = denied_varangian
 		# }
-		# father = {
-			# is_alive = yes
-			# culture_group = north_germanic
-			# is_ruler = yes
-			# is_liege_of = ROOT
-			# prisoner = no
-			# NOT = { trait = incapable }
-			# ROOT = { host = { character = PREVPREV } }
+		# AND = { 
+			# OR = { #Updated: New gender check for ROOT, to account for special circumstances...
+				# has_game_rule = { # Game rules are all on!
+					# name = gender
+					# value = all
+				# }
+				# AND = { # The Old Gods version...
+					# is_female = no
+					# gender_equality_trigger = no
+				# }
+				# AND = { # Status of women version, allowing women in...
+					# is_female = yes
+					# liege = { primary_title = { has_law = status_of_women_4 } }
+				# }
+				# AND = { # Boys always dream of fighting, when not explicitly blocked from it
+					# is_female = no
+					# NOT = { has_religion_feature = religion_matriarchal } 
+				# }
+				# AND = { # Enatic Clans version (no boys allowed)...
+					# is_female = yes
+					# has_religion_feature = religion_matriarchal
+				# }
+			# }
+			# OR = { # Regardless, they might ask either parent...
+				# father = {
+					# is_alive = yes
+					# culture_group = north_germanic
+					# is_ruler = yes
+					# is_liege_of = ROOT
+					# prisoner = no
+					# NOT = { trait = incapable }
+					# ROOT = { host = { character = PREVPREV } }
+				# }
+				# mother = {
+					# is_alive = yes
+					# culture_group = north_germanic
+					# is_ruler = yes
+					# is_liege_of = ROOT
+					# prisoner = no
+					# NOT = { trait = incapable }
+					# ROOT = { host = { character = PREVPREV } }
+				# }
+			# }
 		# }
-		# NOT = { trait = in_hiding }
+		# NOT = { is_inaccessible_trigger = yes }
 	# }
 	
-	# mean_time_to_happen = {
-		# months = 240
+	# weight_multiplier = {
+		# days = 1
 		
 		# modifier = {
-			# factor = 0.5
+			# factor = 1.5
 			# trait = ambitious
 		# }
 		# modifier = {
-			# factor = 0.5
+			# factor = 1.5
 			# trait = brave
 		# }
 		# modifier = {
-			# factor = 0.75
+			# factor = 1.75
 			# trait = berserker
 		# }
 		# modifier = {
-			# factor = 0.75
+			# factor = 1.75
 			# trait = proud
 		# }
 		# modifier = {
-			# factor = 0.75
+			# factor = 1.75
 			# trait = impaler
 		# }
 		# modifier = {
-			# factor = 1.5
+			# factor = 0.5
 			# trait = slothful
 		# }
 		# modifier = {
-			# factor = 1.5
+			# factor = 0.5
 			# trait = content
 		# }
 		# modifier = {
-			# factor = 1.5
+			# factor = 0.5
 			# is_primary_heir = yes
 		# }
 		# modifier = {
-			# factor = 2.0
+			# factor = 0.25
 			# trait = craven
 		# }
 	# }
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3110 } }
+		# random_list = { # Send event to parent-liege...
+			# 50 = {
+				# trigger = {
+					# father = {
+						# is_alive = yes
+						# culture_group = north_germanic
+						# is_ruler = yes
+						# is_liege_of = ROOT
+						# prisoner = no
+						# NOT = { trait = incapable }
+						# ROOT = { host = { character = PREVPREV } }
+					# }
+				# }
+				# father = { character_event = { id = TOG.3110 } }
+			# }
+			# 50 = {
+				# trigger = {
+					# mother = {
+						# is_alive = yes
+						# culture_group = north_germanic
+						# is_ruler = yes
+						# is_liege_of = ROOT
+						# prisoner = no
+						# NOT = { trait = incapable }
+						# ROOT = { host = { character = PREVPREV } }
+					# }
+				# }
+				# mother = { character_event = { id = TOG.3110 } }
+			# }			
+		# }
 		# set_character_flag = wants_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son wants to join the Varangians (Father)
+# # Child wants to join the Varangians (Parent)
 # character_event = {
 	# id = TOG.3110
 	# desc = EVTDESC_TOG_3110
@@ -1161,10 +689,26 @@ character_event = {
 	# border = GFX_event_normal_frame_war
 	
 	# is_triggered_only = yes
+
+	# immediate = {
+		# hidden_effect = { 
+			# FROM = {
+				# save_event_target_as = my_child
+			# }
+			# d_varangian_guard = {
+				# holder_scope = {
+					# liege = {
+						# save_event_target_as = greek_king_or_queen # For loc purposes
+					# }
+				# }
+			# }
+		# }
+	# }
 	
 	# option = { # Deny
 		# name = EVTOPTA_TOG_3110
 		# FROM = {
+			# show_scope_change = no
 			# opinion = {
 				# modifier = opinion_very_disappointed
 				# years = 1
@@ -1178,79 +722,434 @@ character_event = {
 	# option = { # Allow
 		# name = EVTOPTB_TOG_3110
 		# d_varangian_guard = {
+			# show_scope_change = no
 			# holder_scope = {
+				# show_scope_change = no
 				# FROM = {
-					# move_character = PREV
+					# show_scope_change = no
+					# #move_character = PREV #Does not seem to work properly
+					# force_host = PREV #instead using this
 				# }
 			# }
 		# }
 		# hidden_tooltip = {
 			# FROM = { 
-				# character_event = { id = TOG.3108 days = 1460 }
+				# if = {
+					# limit = { is_female = yes }
+					# set_character_flag = special_marshal #for safety, so they can go lead armies...
+				# }
+				# character_event = { id = TOG.3108 days = 1460 } # 4 years later (set some flags, not really necessary anymore, but why not)
+				
+				# character_event = { id = HFP.19102 days = 1465 random = 300 } # 4 + years later
 			# }
 		# }
 		# prestige = 100
 	# }
 # }
 
-# # Son stays in Greece with wife (Son)
+# # Hidden tombola: fired from event above to determine what happened to Varangian child
+# # Formely MTTH events, then random yearly events, but for more control, now a delayed tombola event...
 # character_event = {
-	# id = TOG.3111
+	# id = HFP.19102
+	# is_triggered_only = yes
 	# hide_window = yes
-	
+
 	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# is_married = no
-		# NOT = {
-			# OR = {
-				# father = {
-					# primary_title = {
-						# current_heir = { character = ROOT }
+		# is_alive = yes
+		# varangian_guard_events_default_trigger = yes
+	# }
+
+	# immediate = {
+		# hidden_effect = {
+			# ### Possible outcomes...
+			# # Child stays in Greece with wife (Setup)...................... TOG.3111
+			# # Child returns scarred but seasoned (Setup)................... TOG.3114
+			# # Child returns with notions of Greek love (Setup)............. TOG.3116
+			# # Child returns castrated and blinded (Setup).................. TOG.3118 
+			# # Child returns as excellent strategist (Setup)................ TOG.3120
+			# # Child returns with PTSD (Setup).............................. TOG.3122
+			# # Child returns home with Greek wife (Setup)................... TOG.3124
+			# # Child returns home as a Christian zealot (Setup)............. TOG.3126
+			# # Child returns home as a seasoned warrior (Setup)............. TOG.3128
+			# # Child dies in battle (Setup)................................. TOG.3130
+			# # Child returns with loot (Setup).............................. TOG.3132
+
+			# random_list = {
+				# 10 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# is_married = no
+						# NOR = {
+							# father = {
+								# primary_title = {
+									# current_heir = { character = PREV }
+								# }
+							# }
+							# mother = {
+								# primary_title = {
+									# current_heir = { character = PREV }
+								# }
+							# }
+						# }
+						# had_character_flag = { flag = serving_varangian days = 5 }
 					# }
-				# }
-				# mother = {
-					# primary_title = {
-						# current_heir = { character = ROOT }
+					# modifier = {
+						# factor = 1.75
+						# trait = lustful
 					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = content
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = slothful
+					# }
+					# # Child stays in Greece with spouse (Child)...
+					# character_event = { id = TOG.3111 } # send outcome event...
 				# }
+
+				# 12 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# is_married = no
+						# had_character_flag = { flag = serving_varangian days = 5 }
+						# has_scarred_trait_trigger = no
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = brave
+					# }
+					# modifier = {
+						# factor = 0.25
+						# trait = craven
+					# }
+					# # Child returns scarred but seasoned (Child)
+					# character_event = { id = TOG.3114 } # send outcome event...
+				# }
+
+				# 11 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# NOT = { trait = homosexual }
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = lustful
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = hedonist
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = chaste
+					# }
+					# # Child returns with notions of Greek love (Child)
+					# character_event = { id = TOG.3116 } # send outcome event...
+				# }
+
+				# 7 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# NOT = {
+							# trait = eunuch
+							# trait = blinded
+						# }
+					# }
+					# # Setup: Child returns castrated and blinded (Child)
+					# character_event = { id = TOG.3118 } # send outcome event...
+				# }
+
+				# 12 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# NOT = { trait = brilliant_strategist }
+						# OR = {
+							# trait = misguided_warrior
+							# trait = tough_soldier
+							# trait = skilled_tactician
+						# }
+					# }
+					# modifier = {
+						# factor = 1.5
+						# trait = genius
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = diligent
+					# }
+					# modifier = {
+						# factor = 1.75
+						# OR = {
+							# trait = quick
+							# trait = shrewd
+						# }
+					# }
+					# modifier = {
+						# factor = 0.5
+						# OR = {
+							# trait = slow
+							# trait = dull
+						# }
+					# }
+					# modifier = {
+						# factor = 0.5
+						# trait = imbecile
+					# }
+					# # Child returns as excellent strategist (Child)
+					# character_event = { id = TOG.3120 } # send outcome event...
+				# }
+
+				# 11 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# NOT = { trait = depressed }
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = kind
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = poet
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = just
+					# }
+					# # Child returns with PTSD (Child)
+					# character_event = { id = TOG.3122 } # send outcome event...
+				# }
+
+				# 11 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# is_married = no
+						# d_varangian_guard = {
+							# liege = {
+								# holder_scope = {
+									# culture = greek
+									# OR = {
+										# religion_group = christian
+										# religion = hellenic_pagan
+										# religion = hellenic_pagan_reformed
+									# }
+								# }
+							# }
+						# }
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = lustful
+					# }
+					# # Child returns home with Greek spouse (Child)
+					# character_event = { id = TOG.3124 } # send outcome event...
+				# }
+
+
+				# 12 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+						# OR = {
+							# religion = norse_pagan
+							# religion = norse_pagan_reformed
+						# }
+						# OR = {
+							# father = {
+								# OR = {
+									# religion = norse_pagan
+									# religion = norse_pagan_reformed
+								# }
+								# ai = no
+							# }
+							# mother = {
+								# OR = {
+									# religion = norse_pagan
+									# religion = norse_pagan_reformed
+								# }
+								# ai = no
+							# }
+						# }
+						# NOT = { trait = zealous }
+						# d_varangian_guard = {
+							# liege = {
+								# holder_scope = {
+									# religion = orthodox
+								# }
+							# }
+						# }
+					# }
+					# modifier = {
+						# factor = 0.20
+						# trait = cynical
+					# }
+					# # Child returns home as a Christian zealot (Child)
+					# character_event = { id = TOG.3126 } # send outcome event...
+				# }
+
+				# 14 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = brave
+					# }
+					# modifier = {
+						# factor = 1.75
+						# is_strong_trigger = yes
+					# }
+					# modifier = {
+						# factor = 1.75
+						# OR = {
+							# trait = quick
+							# trait = shrewd
+						# }
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = genius
+					# }
+					# modifier = {
+						# factor = 0.5
+						# trait = slothful
+					# }
+					# modifier = {
+						# factor = 0.5
+						# OR = {
+							# trait = slow
+							# trait = dull
+						# }
+					# }
+					# modifier = {
+						# factor = 0.25
+						# trait = imbecile
+					# }
+					# # Child returns home as a seasoned warrior (Child)
+					# character_event = { id = TOG.3128 } # send outcome event...
+				# }
+
+				# 10 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = brave
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = wroth
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = berserker
+					# }
+					# modifier = {
+						# factor = 0.25
+						# trait = craven
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = drunkard
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = has_tuberculosis
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = has_typhoid_fever
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = has_typhus
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = has_bubonic_plague
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = has_measles
+					# }		
+					# modifier = {
+						# factor = 1.75
+						# trait = has_small_pox
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = wounded
+					# }
+					# modifier = {
+						# factor = 1.5
+						# trait = infirm
+					# }
+					# modifier = {
+						# factor = 1.5
+						# trait = incapable
+					# }
+					# # Child dies in battle (Child)
+					# character_event = { id = TOG.3130 } # send outcome event...
+				# }
+
+				# 12 = {
+					# trigger = {
+						# varangian_guard_events_default_trigger = yes
+					# }
+					# modifier = {
+						# factor = 1.75
+						# trait = greedy
+					# }
+					# modifier = {
+						# factor = 1.75
+						# stewardship = 10
+					# }
+					# # Child returns with loot (Child)
+					# character_event = { id = TOG.3132 } # send outcome event...
+				# }
+				
 			# }
 		# }
 	# }
-	
-	# mean_time_to_happen = {
-		# months = 200
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = lustful
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = content
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = slothful
-		# }
-	# }
+# }
+
+# # Setup: Child stays in Greece with spouse (Child)
+# character_event = {
+	# id = TOG.3111
+	# hide_window = yes	
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3112 } }
-		# e_byzantium = {
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3112 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3112 } }
+			# }
+		# }
+		# d_varangian_guard = {
 			# holder_scope = {
-				# character_event = { id = TOG.3113 }
+				# liege = {
+					# character_event = { id = TOG.3113 }
+				# }
 			# }
 		# }
 		# clr_character_flag = serving_varangian
 	# }
-	
-	# option = {
-		# name = OK
-	# }
 # }
 
-# # Son stays in Greece with wife (Norse father)
+# # Child stays in Greece with spouse (Norse parent)
 # character_event = {
 	# id = TOG.3112
 	# desc = EVTDESC_TOG_3112
@@ -1262,20 +1161,24 @@ character_event = {
 	# option = {
 		# name = EVTOPTA_TOG_3112
 		# tooltip = {
-			# e_byzantium = {
+			# d_varangian_guard = {
+				# show_scope_change = no
 				# holder_scope = {
-					# FROM = {
-						# move_character = PREV
-						# religion = PREV
+					# show_scope_change = no
+					# liege = {
+						# FROM = {
+							# move_character = PREV
+							# religion = PREV
+						# }
 					# }
 				# }
 			# }
 		# }
-		# FROM = { add_trait = varangian }
+		# FROM = { show_scope_change = no add_trait = varangian }
 	# }
 # }
 
-# # Son stays in Greece with wife (Byzantine Emperor)
+# # Child stays in Greece with spouse (Byzantine Emperor)
 # character_event = {
 	# id = TOG.3113
 	# desc = EVTDESC_TOG_3113
@@ -1286,16 +1189,32 @@ character_event = {
 	
 	# option = {
 		# name = EVTOPTA_TOG_3113
-		# create_character = {
-			# random_traits = yes
-			# dynasty = random
-			# female = yes
-			# age = 26
-			# religion = ROOT
-			# culture = greek
+		# if = {
+			# limit = { FROM = { is_female = yes } }
+			# create_character = {
+				# random_traits = yes
+				# dynasty = random
+				# female = no
+				# age = 26
+				# religion = ROOT
+				# culture = greek
+			# }
+			# new_character = {
+				# add_spouse = FROM
+			# }
 		# }
-		# new_character = {
-			# add_spouse_matrilineal = FROM
+		# else = {
+			# create_character = {
+				# random_traits = yes
+				# dynasty = random
+				# female = yes
+				# age = 26
+				# religion = ROOT
+				# culture = greek
+			# }
+			# new_character = {
+				# add_spouse_matrilineal = FROM
+			# }
 		# }
 		# FROM = {
 			# move_character = ROOT
@@ -1304,41 +1223,36 @@ character_event = {
 	# }
 # }
 
-# # Son returns scarred but seasoned (Son)
+# # Setup: Child returns scarred but seasoned (Child)
 # character_event = {
 	# id = TOG.3114
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# NOT = { trait = scarred }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 160
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = brave
-		# }
-		# modifier = {
-			# factor = 1.25
-			# trait = craven
-		# }
-	# }
-	
+	# is_triggered_only = yes
+				
 	# immediate = {
-		# father = { character_event = { id = TOG.3115 } }
+		# add_scarred_high_effect = yes
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3115 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3115 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns scarred but seasoned
+# # Child returns scarred but seasoned
 # character_event = {
 	# id = TOG.3115
 	# desc = EVTDESC_TOG_3115
@@ -1351,52 +1265,44 @@ character_event = {
 		# name = EVTOPTA_TOG_3115
 		# FROM = {
 			# move_character = ROOT
-			# add_trait = scarred
+			# tooltip = {
+				# add_trait = scarred
+			# }
 			# add_trait = varangian
 			# change_martial = 4
 		# }
 	# }
 # }
 
-# # Son returns with notions of Greek love (Son)
+# # Setup: Child returns with notions of Greek love (Child)
 # character_event = {
 	# id = TOG.3116
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# NOT = { trait = homosexual }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 180
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = lustful
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = hedonist
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = chaste
-		# }
-	# }
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3117 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3117 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3117 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns with notions of Greek love
+# # Child returns with notions of Greek love
 # character_event = {
 	# id = TOG.3117
 	# desc = EVTDESC_TOG_3117
@@ -1415,36 +1321,43 @@ character_event = {
 	# }
 # }
 
-# # Son returns castrated and blinded (Son)
+# # Setup: Child returns castrated and blinded (Child)
 # character_event = {
 	# id = TOG.3118
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# NOT = {
-			# trait = eunuch
-			# trait = blinded
-		# }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 250
-	# }
-	
+	# is_triggered_only = yes
+		
 	# immediate = {
+		# if = {
+			# limit = {
+				# trait = one_eyed
+			# }
+			# remove_trait = one_eyed
+		# }
 		# add_trait = blinded
-		# father = { character_event = { id = TOG.3119 } }
+
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3119 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3119 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns castrated and blinded
+# # Child returns (castrated and) blinded
 # character_event = {
 	# id = TOG.3119
 	# desc = EVTDESC_TOG_3119
@@ -1458,64 +1371,46 @@ character_event = {
 		# FROM = {
 			# move_character = ROOT
 			# tooltip = { add_trait = blinded }
-			# add_trait = eunuch
+			# if = {
+				# limit = {
+					# FROM = { is_female = no }
+				# }
+				# add_trait = eunuch
+			# }
 			# add_trait = varangian
 		# }
 	# }
 # }
 
-# # Son returns as excellent strategist (Son)
+# # Setup: Child returns as excellent strategist (Child)
 # character_event = {
 	# id = TOG.3120
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# NOT = { trait = brilliant_strategist }
-		# OR = {
-			# trait = misguided_warrior
-			# trait = tough_soldier
-			# trait = skilled_tactician
-		# }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 160
-		
-		# modifier = {
-			# factor = 0.5
-			# trait = genius
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = diligent
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = quick
-		# }
-		# modifier = {
-			# factor = 1.5
-			# trait = slow
-		# }
-		# modifier = {
-			# factor = 1.5
-			# trait = imbecile
-		# }
-	# }
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3121 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3121 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3121 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns as excellent strategist
+# # Child returns as excellent strategist
 # character_event = {
 	# id = TOG.3121
 	# desc = EVTDESC_TOG_3121
@@ -1562,45 +1457,35 @@ character_event = {
 	# }
 # }
 
-# # Son returns with PTSD (Son)
+# # Setup: Child returns with PTSD (Child)
 # character_event = {
 	# id = TOG.3122
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# NOT = { trait = depressed }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 180
+	# is_triggered_only = yes
 		
-		# modifier = {
-			# factor = 0.75
-			# trait = kind
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = poet
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = just
-		# }
-	# }
-	
 	# immediate = {
-		# father = { character_event = { id = TOG.3123 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3123 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3123 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns with PTSD
+# # Child returns with PTSD
 # character_event = {
 	# id = TOG.3123
 	# desc = EVTDESC_TOG_3123
@@ -1620,43 +1505,35 @@ character_event = {
 	# }
 # }
 
-# # Son returns home with Greek wife (Son)
+# # Setup: Child returns home with Greek spouse (Child)
 # character_event = {
 	# id = TOG.3124
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# is_married = no
-		# e_byzantium = {
-			# holder_scope = {
-				# culture = greek
-				# religion = orthodox
-			# }
-		# }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 180
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = lustful
-		# }
-	# }
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3125 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3125 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3125 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns home with Greek wife
+# # Child returns home with Greek spouse
 # character_event = {
 	# id = TOG.3125
 	# desc = EVTDESC_TOG_3125
@@ -1667,66 +1544,85 @@ character_event = {
 	
 	# option = {
 		# name = EVTOPTA_TOG_3125
-		# create_character = {
-			# random_traits = yes
-			# dynasty = NONE
-			# female = yes
-			# age = 26
-			# religion = orthodox
-			# culture = greek
+		# if = {
+			# limit = { FROM = { is_female = yes } }
+			# create_character = {
+				# random_traits = yes
+				# dynasty = NONE
+				# female = no
+				# age = 26
+				# religion = orthodox
+				# culture = greek
+			# }
+			# new_character = {
+				# add_spouse_matrilineal = FROM
+			# }
+		# }
+		# else = {
+			# create_character = {
+				# random_traits = yes
+				# dynasty = NONE
+				# female = yes
+				# age = 26
+				# religion = orthodox
+				# culture = greek
+			# }
+			# new_character = {
+				# add_spouse = FROM
+			# }
 		# }
 		# new_character = {
-			# add_spouse = FROM
+			# if = { limit = { e_byzantium = { holder_scope = { religion = hellenic_pagan } } }
+				# religion = hellenic_pagan
+			# }
+			# if = { limit = { e_byzantium = { holder_scope = { religion = hellenic_pagan_reformed } } }
+				# religion = hellenic_pagan_reformed
+			# }
 		# }
-		# FROM = { 
+		# FROM = {
 			# add_trait = varangian 
 			# move_character = ROOT
 		# }
 	# }
 # }
 
-# # Son returns home as a Christian zealot (Son)
+# # Setup: Child returns home as a Christian zealot (Child)
 # character_event = {
 	# id = TOG.3126
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-		# OR = {
-			# religion = norse_pagan
-			# religion = norse_pagan_reformed
-		# }
-		# father = {
-			# OR = {
-				# religion = norse_pagan
-				# religion = norse_pagan_reformed
-			# }
-		# }
-		# NOT = { trait = zealous }
-		# e_byzantium = {
-			# holder_scope = {
-				# religion = orthodox
-			# }
-		# }
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 160
-		
-		# modifier = {
-			# factor = 2.0
-			# trait = cynical
-		# }
-	# }
-	
+	# is_triggered_only = yes
+
 	# immediate = {
-		# father = { character_event = { id = TOG.3127 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# trigger = {
+					# OR = {
+						# religion = norse_pagan
+						# religion = norse_pagan_reformed
+					# }
+				# }
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3127 } }
+			# }
+			# 50 = {
+				# trigger = {
+					# OR = {
+						# religion = norse_pagan
+						# religion = norse_pagan_reformed
+					# }
+				# }
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3127 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
@@ -1750,60 +1646,35 @@ character_event = {
 	# }
 # }
 
-# # Son returns home as a seasoned warrior (Son)
+# # Setup: Child returns home as a seasoned warrior (Child)
 # character_event = {
 	# id = TOG.3128
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 120
+	# is_triggered_only = yes
 		
-		# modifier = {
-			# factor = 0.75
-			# trait = brave
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = strong
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = quick
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = genius
-		# }
-		# modifier = {
-			# factor = 1.5
-			# trait = slothful
-		# }
-		# modifier = {
-			# factor = 1.5
-			# trait = slow
-		# }
-		# modifier = {
-			# factor = 1.5
-			# trait = imbecile
-		# }
-	# }
-	
 	# immediate = {
-		# father = { character_event = { id = TOG.3129 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3129 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3129 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns home as a seasoned warrior
+# # Child returns home as a seasoned warrior
 # character_event = {
 	# id = TOG.3129
 	# desc = EVTDESC_TOG_3129
@@ -1823,88 +1694,35 @@ character_event = {
 	# }
 # }
 
-# # Son dies in battle (Son)
+# # Setup: Child dies in battle (Child)
 # character_event = {
 	# id = TOG.3130
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 200
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = brave
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = wroth
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = berserker
-		# }
-		# modifier = {
-			# factor = 1.25
-			# trait = craven
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = drunkard
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = has_tuberculosis
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = has_typhoid_fever
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = has_typhus
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = has_bubonic_plague
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = has_measles
-		# }		
-		# modifier = {
-			# factor = 0.75
-			# trait = has_small_pox
-		# }
-		# modifier = {
-			# factor = 0.75
-			# trait = wounded
-		# }
-		# modifier = {
-			# factor = 0.5
-			# trait = infirm
-		# }
-		# modifier = {
-			# factor = 0.5
-			# trait = incapable
-		# }
-	# }
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3131 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3131 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3131 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son dies in battle
+# # Child dies in battle
 # character_event = {
 	# id = TOG.3131
 	# desc = EVTDESC_TOG_3131
@@ -1912,6 +1730,18 @@ character_event = {
 	# border = GFX_event_normal_frame_war
 	
 	# is_triggered_only = yes
+
+	# immediate = {
+		# hidden_effect = {
+			# d_varangian_guard = {
+				# holder_scope = {
+					# liege = {
+						# save_event_target_as = greek_king_or_queen # For loc purposes
+					# }
+				# }
+			# }
+		# }
+	# }
 	
 	# option = {
 		# name = EVTOPTA_TOG_3131
@@ -1919,40 +1749,35 @@ character_event = {
 	# }
 # }
 
-# # Son returns with loot (Son)
+# # Setup: Child returns with loot (Child)
 # character_event = {
 	# id = TOG.3132
 	# hide_window = yes
 	
-	# trigger = {
-		# has_dlc = "The Old Gods"
-		# has_character_flag = serving_varangian
-	# }
-	
-	# mean_time_to_happen = {
-		# months = 160
-		
-		# modifier = {
-			# factor = 0.75
-			# trait = greedy
-		# }
-		# modifier = {
-			# factor = 0.75
-			# stewardship = 10
-		# }
-	# }
+	# is_triggered_only = yes
 	
 	# immediate = {
-		# father = { character_event = { id = TOG.3133 } }
+		# random_list = { #prioritize player parents
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# father = { ai = no }
+				# }
+				# father = { character_event = { id = TOG.3133 } }
+			# }
+			# 50 = {
+				# modifier = {
+					# factor = 100
+					# mother = { ai = no }
+				# }
+				# mother = { character_event = { id = TOG.3133 } }
+			# }
+		# }
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
-# # Son returns with loot
+# # Child returns with loot
 # character_event = {
 	# id = TOG.3133
 	# desc = EVTDESC_TOG_3133
@@ -1961,6 +1786,18 @@ character_event = {
 	
 	# is_triggered_only = yes
 	
+	# immediate = {
+		# hidden_effect = {
+			# d_varangian_guard = {
+				# holder_scope = {
+					# liege = {
+						# save_event_target_as = greek_king_or_queen # For loc purposes
+					# }
+				# }
+			# }
+		# }
+	# }
+
 	# option = {
 		# name = EVTOPTA_TOG_3133
 		# FROM = {
@@ -1971,12 +1808,36 @@ character_event = {
 	# }
 # }
 
-# # Father dies, Player Son is heir
+# # Setup: Player character dies, ping to new player character (fires from on_death on action)
+# character_event = {
+	# id = HFP.19101
+	# ai = no
+	# is_triggered_only = yes
+	# hide_window = yes
+	# trigger = {
+		# has_dlc = "The Old Gods"
+		# player_heir = {
+			# OR = {
+				# has_character_flag = wants_varangian
+				# has_character_flag = serving_varangian
+			# }
+		# }
+	# }
+	
+	# immediate = {
+		# player_heir = {
+			# character_event = { id = TOG.3134 days = 1 }
+		# }
+	# }
+# }
+
+# # Player Varangian guard character returns home (fires from event above)
 # character_event = {
 	# id = TOG.3134
 	# desc = EVTDESC_TOG_3134
 	# picture = GFX_evt_viking_throneroom_oldgods
 	# border = GFX_event_normal_frame_war
+	# is_triggered_only = yes
 	
 	# ai = no
 	
@@ -1986,13 +1847,9 @@ character_event = {
 			# has_character_flag = wants_varangian
 			# has_character_flag = serving_varangian
 		# }
-		# father_even_if_dead = { is_alive = no }
+		# #father_even_if_dead = { is_alive = no }
 	# }
-	
-	# mean_time_to_happen = {
-		# days = 1
-	# }
-	
+		
 	# immediate = {
 		# clr_character_flag = wants_varangian
 		# clr_character_flag = serving_varangian
@@ -2006,14 +1863,13 @@ character_event = {
 	# }
 # }
 
-# # Father dies, Son gets Varangian trait
+# # Hidden AI only: Father dies, Son gets Varangian trait
 # character_event = {
 	# id = TOG.3135
 	# hide_window = yes
 	
-	# min_age = 15
+	# min_age = 16
 	# ai = yes
-	# only_men = yes
 	# capable_only = yes
 	# prisoner = no
 	
@@ -2034,10 +1890,6 @@ character_event = {
 		# add_trait = varangian
 		# clr_character_flag = wants_varangian
 		# clr_character_flag = serving_varangian
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
@@ -2212,7 +2064,7 @@ character_event = {
 	only_women = yes
 	min_age = 15
 	prisoner = no
-	only_playable = yes
+	only_capable = yes
 	
 	trigger = {
 		has_dlc = "The Old Gods"
@@ -2251,10 +2103,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Völva Warns About Child (AI Völva)
@@ -2268,10 +2116,6 @@ character_event = {
 		liege = {
 			character_event = { id = TOG.3205 }
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2319,15 +2163,12 @@ character_event = {
 	}
 	
 	immediate = {
+		add_trait = lefthanded
 		random_list = {
 			50 = { set_character_flag = demon_child }
 			50 = { set_character_flag = demon_child_fake }
 		}
 		mother = { clr_character_flag = pregnant_with_demon }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2354,10 +2195,6 @@ character_event = {
 	immediate = {
 		set_character_flag = child_strange_1
 		father = { character_event = { id = TOG.3211 } }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2400,10 +2237,6 @@ character_event = {
 		set_character_flag = child_strange_2
 		father = { character_event = { id = TOG.3213 } }
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child acts strange II
@@ -2444,10 +2277,6 @@ character_event = {
 	immediate = {
 		set_character_flag = child_strange_3
 		father = { character_event = { id = TOG.3215 } }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2535,10 +2364,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child kills Courtier I (AI Courtier)
@@ -2550,10 +2375,6 @@ character_event = {
 	
 	immediate = {
 		liege = { character_event = { id = TOG.3218 } }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2646,10 +2467,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child kills Courtier II (AI Courtier)
@@ -2661,10 +2478,6 @@ character_event = {
 	
 	immediate = {
 		liege = { character_event = { id = TOG.3221 } }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2757,10 +2570,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Child kills Courtier III (AI Courtier)
@@ -2772,10 +2581,6 @@ character_event = {
 	
 	immediate = {
 		liege = { character_event = { id = TOG.3224 } }
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2836,10 +2641,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Völva Wants Exorcism (AI Völva)
@@ -2853,10 +2654,6 @@ character_event = {
 		liege = {
 			character_event = { id = TOG.3252 }
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -2930,10 +2727,6 @@ character_event = {
 			}
 		}
 	}
-	
-	option = {
-		name = OK
-	}
 }
 
 # Exorcism Begins (AI Völva)
@@ -2952,10 +2745,6 @@ character_event = {
 				20 = { character_event = { id = TOG.3259 days = 3 } }
 			}
 		}
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -3113,10 +2902,6 @@ character_event = {
 		clr_character_flag = demon_child
 		clr_character_flag = demon_child_fake
 		clr_character_flag = child_exorcism
-	}
-	
-	option = {
-		name = OK
 	}
 }
 
@@ -3326,7 +3111,7 @@ character_event = {
 	hide_from = yes
 	
 	is_triggered_only = yes
-	
+		
 	option = {
 		name = EVTOPTA_TOG_3309
 		custom_tooltip = { text = seraphims }
@@ -3334,11 +3119,41 @@ character_event = {
 	}
 }
 
-# Viking Trait Gained
+#Viking Trait Gained
 character_event = {
-	id = TOG.3320
-	desc = EVTDESC_TOG_3320
-	picture = GFX_evt_vikings_arriving_oldgods
+	id = TGF.3320
+	desc = { 
+		trigger = { 
+			OR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_viking
+				}
+			}
+		} 
+		text = EVTDESC_TOG_3320
+	}
+	desc = { 
+		trigger = { 
+			NOR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_viking
+				}
+			}
+		} 
+		text = EVTDESC_TOG_3320_HF
+	}
+	picture = { 
+		trigger = { is_female = no } 
+		picture = GFX_evt_vikings_arriving_oldgods
+	}
+	picture = { 
+		trigger = { is_female = yes } 
+		picture = GFX_evt_norse_tempest
+	}
 	border = GFX_event_normal_frame_war
 	
 	hide_from = yes
@@ -3346,14 +3161,28 @@ character_event = {
 	is_triggered_only = yes
 	
 	min_age = 15
-	only_men = yes
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		has_dlc = "The Old Gods"
+		OR = {
+			has_dlc = "The Old Gods"
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
+			has_religion_feature = religion_feature_norse
+		}
 		NOR = { 
 			trait = viking
+			trait = pirate
 			trait = ravager
 			trait = seaking
 			trait = sea_queen
@@ -3361,13 +3190,49 @@ character_event = {
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
 		}
 		FROM = { always = yes }
 	}
 	
 	option = {
 		name = EVTOPTA_TOG_3320
-		add_trait = viking
+		if = {
+			limit = { 
+				OR = {  
+					religion = norse_pagan
+					religion = norse_pagan_reformed
+				} 
+			}
+			add_trait = viking
+		}
+		if = {
+			limit = { 
+				NOR = {  
+					religion = norse_pagan
+					religion = norse_pagan_reformed
+				} 
+			}
+			if = {
+				limit = {
+					any_owned_bloodline = {
+						has_bloodline_flag = bloodline_viking
+					}
+				}
+				set_character_flag = acquired_pirate_trait_by_bloodline
+			}
+			add_trait = pirate
+		}
 		hidden_tooltip = {
 			set_variable = { which = viking_raids value = 0 }
 		}
@@ -3376,9 +3241,39 @@ character_event = {
 
 #Ravager 
 character_event = {
-	id = TOG.3321
-	desc = TOG.3321.d
-	picture = GFX_evt_vikings_arriving_oldgods
+	id = TGF.3321
+	desc = { 
+		trigger = { 
+			OR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_viking
+				}
+			}
+		} 
+		text = TOG.3321.d
+	}
+	desc = { 
+		trigger = { 
+			NOR = {
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_viking
+				}
+			}
+		} 
+		text = EVTDESC_TOG_3321_HF
+	}
+	picture = { 
+		trigger = { is_female = no } 
+		picture = GFX_evt_vikings_arriving_oldgods
+	}
+	picture = { 
+		trigger = { is_female = yes } 
+		picture = GFX_evt_norse_tempest
+	}
 	border = GFX_event_normal_frame_war
 	
 	hide_from = yes
@@ -3390,8 +3285,25 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
-		has_dlc = "The Old Gods"
-		trait = viking
+		OR = {
+			has_dlc = "The Old Gods"
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
+			has_religion_feature = religion_feature_norse
+		}
+		OR = {
+			trait = viking
+			trait = pirate
+		}
 		NOR = { 
 			trait = ravager
 			trait = seaking
@@ -3400,6 +3312,17 @@ character_event = {
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
 		}
 		check_variable = { which = viking_raids value = 50 }
 		FROM = { always = yes }
@@ -3407,16 +3330,34 @@ character_event = {
 	
 	option = {
 		name = TOG.3321.a
-		remove_trait = viking
+		if = {
+			limit = { 
+				trait = pirate
+			}
+			remove_trait = pirate
+		}
+		if = {
+			limit = { 
+				trait = viking
+			}
+			remove_trait = viking
+		}
 		add_trait = ravager
 	}
 }
 
 #Sea King
 character_event = {
-	id = TOG.3322
+	id = TGF.3322
 	desc = TOG.3322.d
-	picture = GFX_evt_vikings_arriving_oldgods
+	picture = { 
+		trigger = { is_female = no } 
+		picture = GFX_evt_vikings_arriving_oldgods
+	}
+	picture = { 
+		trigger = { is_female = yes } 
+		picture = GFX_evt_norse_tempest
+	}
 	border = GFX_event_normal_frame_war
 	
 	hide_from = yes
@@ -3428,7 +3369,21 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
-		has_dlc = "The Old Gods"
+		OR = {
+			has_dlc = "The Old Gods"
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
+			has_religion_feature = religion_feature_norse
+		}
 		trait = ravager
 		NOR = { 
 			trait = seaking
@@ -3437,6 +3392,17 @@ character_event = {
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
 		}
 		check_variable = { which = viking_raids value = 100 }
 		FROM = { always = yes }
@@ -3461,32 +3427,58 @@ character_event = {
 }
 
 character_event = {
-	id = TOG.3323
+	id = TGF.3323
 	
 	hide_window = yes
 	
 	is_triggered_only = yes
 	
 	min_age = 15
-	only_men = yes
 	capable_only = yes
 	prisoner = no
 	
 	trigger = {
-		has_dlc = "The Old Gods"
-		OR = {	
+		OR = {
+			has_dlc = "The Old Gods"
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
+			has_religion_feature = religion_feature_norse
+		}
+		OR = {
+			trait = pirate
 			trait = viking
 			trait = ravager
+			trait = seaking #Top trait, but there's still chance of gaining a Bloodline if variable goes high enough.
+			trait = sea_queen
 		}
 		OR = {
 			religion = norse_pagan
 			religion = norse_pagan_reformed
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_viking
+			}
+			AND = {
+				has_religion_feature = religion_adventuring
+				OR = {
+					has_selected_religion_feature = religion_seafaring
+					has_selected_religion_feature = religion_feature_gael
+					has_selected_religion_feature = religion_feature_germanic
+				}
+			}
 		}
 		FROM = { always = yes }
 	}
 	
-	option = {
-		name = OK
+	immediate = {
 		change_variable = { which = viking_raids value = 1 }
 	}
 }
@@ -3502,6 +3494,7 @@ character_event = {
 	# only_women = yes
 	# capable_only = yes
 	# prisoner = no
+	# only_playable = yes
 	
 	# is_triggered_only = yes
 	
@@ -3534,16 +3527,18 @@ character_event = {
 		# num_of_children = 0
 		# has_lover = no
 		# is_pregnant = no
+		# NOT = {
+			# has_alternate_start_parameter = {
+				# key = religion_names
+				# value = random
+			# }
+		# }
 	# }
 	
 	# immediate = {
 		# spouse = {
 			# character_event = { id = TOG.3400 days = 3 }
 		# }
-	# }
-	
-	# option = {
-		# name = OK
 	# }
 # }
 
@@ -3623,6 +3618,7 @@ character_event = {
 	# min_age = 15
 	# capable_only = yes
 	# prisoner = no
+	# only_playable = yes
 	
 	# trigger = {
 		# OR = {
@@ -3630,7 +3626,13 @@ character_event = {
 			# religion = finnish_pagan_reformed
 		# }
 		# NOT = { has_character_flag = peijaiset }
-		# NOT = { trait = in_hiding }
+		# NOT = { is_inaccessible_trigger = yes }
+		# NOT = {
+			# has_alternate_start_parameter = {
+				# key = religion_names
+				# value = random
+			# }
+		# }
 	# }
 	
 	# immediate = {
@@ -3679,6 +3681,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
+	only_playable = yes
 	
 	trigger = {
 		NOT = {
@@ -3693,6 +3696,12 @@ character_event = {
 		}
 		NOT = { has_character_flag = odin_event }
 		NOT = { is_inaccessible_trigger = yes }
+		NOT = {
+			has_alternate_start_parameter = {
+				key = religion_names
+				value = random
+			}
+		}
 	}
 	
 	immediate = {
@@ -3751,10 +3760,6 @@ character_event = {
 				has_province_modifier = loot_prosperity_boost
 			}
 		}
-	}
-	
-	immediate = {
-		
 	}
 	
 	option = {

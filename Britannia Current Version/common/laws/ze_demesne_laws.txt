@@ -17,10 +17,20 @@ laws = {
 		
 		allow = {
 			has_law = status_of_women_1
+			NOR = {
+				holder_scope = { religion = britannic_pagan }
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
+			holy_order = no
 			NOR = {
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
 				has_game_rule = {
 					name = gender
 					value = historical
@@ -139,10 +149,22 @@ laws = {
 				has_law = status_of_women_0
 				has_law = status_of_women_2
 			}
+			NOR = {
+				holder_scope = { religion = britannic_pagan }
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
+			holy_order = no
 			NOR = {
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
 				has_game_rule = {
 					name = gender
 					value = historical
@@ -252,10 +274,22 @@ laws = {
 				has_law = status_of_women_1
 				has_law = status_of_women_3
 			}
+			NOR = {
+				holder_scope = { religion = britannic_pagan }
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
+			holy_order = no
 			NOR = {
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
 				has_game_rule = {
 					name = gender
 					value = historical
@@ -343,10 +377,22 @@ laws = {
 				has_law = status_of_women_2
 				has_law = status_of_women_4
 			}
+			NOR = {
+				holder_scope = { religion = britannic_pagan }
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
+			holy_order = no
 			NOR = {
+				holder_scope = { has_religion_feature = religion_matriarchal }
+				holder_scope = { has_religion_feature = religion_equal }
+				holder_scope = { has_religion_feature = religion_feature_pict }
+				holder_scope = { has_religion_feature = religion_patriarchal }
 				has_game_rule = {
 					name = gender
 					value = historical
@@ -433,11 +479,19 @@ laws = {
 	status_of_women_4 = {
 		group = status_of_women
 		allow = {
-			has_law = status_of_women_3
+			OR = {
+				has_law = status_of_women_3
+				holder_scope = { religion = britannic_pagan }
+			}
+			NOR = {
+				holder_scope = { has_religion_feature = religion_patriarchal }
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
+			holy_order = no
 			NOR = {
+				holder_scope = { has_religion_feature = religion_patriarchal }
 				has_game_rule = {
 					name = gender
 					value = historical
@@ -586,6 +640,16 @@ laws = {
 				has_law = tribal_organization_5
 				has_law = tribal_organization_6
 			}
+			conditional_tooltip = {
+				trigger = { 
+					title = e_britannia 
+					NOT = { has_global_flag = britannia_unified_legal_code }
+				}
+				custom_tooltip = {
+					text = britannia_unify_the_legal_codes_passed
+					has_global_flag = britannia_unified_legal_code
+				}
+			}
 		}
 		potential = {
 			has_dlc = "Zeus"
@@ -618,6 +682,7 @@ laws = {
 		group = revoke_title_law
 		allow = {
 			NOT = { has_law = revoke_title_law_0 }
+			NOT = { holder_scope = { has_religion_feature = religion_cosmopolitan } }
 			holder_scope = {
 				is_feudal = yes
 				trait = zealous
@@ -628,14 +693,24 @@ laws = {
 						religion_group = pagan_group
 						is_reformed_religion = yes
 					}
-					religion = roman_pagan_reformed
-					religion = sol_invictus
+					#religion = sol_invictus
+				}
+			}
+			conditional_tooltip = {
+				trigger = { 
+					title = e_britannia 
+					NOT = { has_global_flag = britannia_unified_legal_code }
+				}
+				custom_tooltip = {
+					text = britannia_unify_the_legal_codes_passed
+					has_global_flag = britannia_unified_legal_code
 				}
 			}
 		}
 		potential = {
 			has_dlc = "Zeus"
 			NOT = { holder_scope = { is_nomadic = yes } }
+			NOT = { holder_scope = { has_religion_feature = religion_cosmopolitan } }
 		}
 		revoke_allowed = { always = no }
 		ai_will_do = {
@@ -675,7 +750,11 @@ laws = {
 		}
 		potential = {
 			has_dlc = "Zeus"
+			NOT = { holder_scope = { is_theocracy = yes } }
+			NOT = { holder_scope = { is_tribal = yes } }
 			NOT = { holder_scope = { is_nomadic = yes } }
+			NOT = { holder_scope = { is_republic = yes } }
+			NOT = { holder_scope = { is_theocracy = yes } }
 			holder_scope = {
 				NOR = {
 					government = sub_roman_government
@@ -688,8 +767,13 @@ laws = {
 		ai_will_revoke = { factor = 0 }
 		pass_effect = { }
 		effect = {
-			custom_tooltip = {
-				text = TOOLTIP_ze_administration_laws_0
+			if = {
+				limit = {
+					has_law = ze_administration_laws_1 
+				}
+				custom_tooltip = {
+					text = TOOLTIP_ze_administration_laws_0
+				}
 			}
 			if = {
 				limit = { 
@@ -737,6 +821,11 @@ laws = {
 		}
 		potential = {
 			has_dlc = "Zeus"
+			NOT = { holder_scope = { is_theocracy = yes } }
+			NOT = { holder_scope = { is_tribal = yes } }
+			NOT = { holder_scope = { is_nomadic = yes } }
+			NOT = { holder_scope = { is_republic = yes } }
+			NOT = { holder_scope = { is_theocracy = yes } }
 			holder_scope = {
 				OR = {
 					government = sub_roman_government
@@ -812,12 +901,26 @@ laws = {
 			# has_law = grant_title_voting_power_0
 			# has_law = banish_voting_power_0
 			# has_law = execution_voting_power_0
-			# has_law = revoke_title_law_2
+			# conditional_tooltip = {
+				# trigger = {
+					# holder_scope = { 
+						# NOR = { 
+							# government = chinese_imperial_government 
+							# has_religion_feature = religion_cosmopolitan
+						# } 
+					# }
+				# }
+				# has_law = revoke_title_law_2
+			# }
 			# has_law = out_of_realm_inheritance_law_1
 		}
 		potential = {
 			has_dlc = "Zeus"
+			NOT = { holder_scope = { is_theocracy = yes } }
+			NOT = { holder_scope = { is_tribal = yes } }
 			NOT = { holder_scope = { is_nomadic = yes } }
+			NOT = { holder_scope = { is_republic = yes } }
+			NOT = { holder_scope = { is_theocracy = yes } }
 			holder_scope = {
 				is_roman_emperor_trigger = yes
 			}

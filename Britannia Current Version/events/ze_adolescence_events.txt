@@ -57,12 +57,32 @@ character_event = {
 					factor = 0
 					NOT = { trait = haughty }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = proud 
+							trait = arbitrary
+							trait = cruel
+						} 
+					}
+				}
 				character_event = { id = ZE.13000 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = affectionate }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = kind 
+							trait = content
+							trait = trusting
+						} 
+					}
 				}
 				character_event = { id = ZE.13010 days = 10 random = 90 }
 			}
@@ -71,12 +91,32 @@ character_event = {
 					factor = 0
 					NOT = { trait = timid }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = shy 
+							trait = humble
+							trait = craven
+						} 
+					}
+				}
 				character_event = { id = ZE.13020 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = rowdy }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = robust 
+							trait = honest
+							trait = dull
+						} 
+					}
 				}
 				character_event = { id = ZE.13030 days = 10 random = 90 }
 			}
@@ -85,12 +125,32 @@ character_event = {
 					factor = 0
 					NOT = { trait = willful }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = brave 
+							trait = ambitious
+							trait = stubborn
+						} 
+					}
+				}
 				character_event = { id = ZE.13040 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = brooding }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = just 
+							trait = wroth
+							trait = envious
+						} 
+					}
 				}
 				character_event = { id = ZE.13050 days = 10 random = 90 }
 			}
@@ -99,12 +159,34 @@ character_event = {
 					factor = 0
 					NOT = { trait = indolent }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = charitable 
+							trait = slothful
+							trait = gluttonous
+							trait = sturdy
+							trait = is_fat
+						} 
+					}
+				}
 				character_event = { id = ZE.13060 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = playful }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = gregarious 
+							trait = deceitful
+							trait = lunatic
+						} 
+					}
 				}
 				character_event = { id = ZE.13070 days = 10 random = 90 }
 			}
@@ -113,12 +195,33 @@ character_event = {
 					factor = 0
 					NOT = { trait = conscientious }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = diligent 
+							trait = temperate
+							trait = feeble
+							trait = is_malnourished
+						} 
+					}
+				}
 				character_event = { id = ZE.13080 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = fussy }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = patient 
+							trait = paranoid
+							trait = greedy
+						} 
+					}
 				}
 				character_event = { id = ZE.13090 days = 10 random = 90 }
 			}
@@ -127,12 +230,32 @@ character_event = {
 					factor = 0
 					NOT = { trait = curious }
 				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = cynical 
+							trait = shrewd
+						} 
+					}
+				}
 				character_event = { id = ZE.13100 days = 10 random = 90 }
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					NOT = { trait = idolizer }
+				}
+				modifier = { #Monkey sees...
+					factor = 1.45
+					educator = { 
+						OR = { 
+							trait = zealous 
+							trait = erudite
+							trait = feeble
+							trait = is_malnourished
+						} 
+					}
 				}
 				character_event = { id = ZE.13110 days = 10 random = 90 }
 			}
@@ -145,7 +268,7 @@ character_event = {
 # Haughty									#
 #############################################
 
-# Haughty turns into Proud, Arbitrary or Cruel
+# Haughty turns into Proud, Arbitrary, Cruel or Groomed.
 character_event = {
 	id = ZE.13000
 
@@ -192,6 +315,39 @@ character_event = {
 					}
 				}
 			}
+			10 = {
+				set_character_flag = haughty_to_groomed
+				modifier = {
+					factor = 0
+					OR = {
+						trait = groomed
+						trait = uncouth
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						trait = proud
+					}
+				}
+				modifier = {
+					factor = 1.5
+					has_focus = focus_ch_pride
+				}
+				modifier = {
+					factor = 1.75
+					has_focus = focus_ch_etiquette
+				}
+				modifier = {
+					factor = 1.75
+					has_focus = focus_ed_diplomacy
+				}
+				modifier = {
+					factor = 1.5
+					is_female = yes
+					NOT = { educator = { has_religion_feature = religion_matriarchal } }
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -207,6 +363,10 @@ character_event = {
 					OR = {
 						trait = kind
 						trait = cruel
+					}
+					OR = {
+						trait = groomed
+						trait = uncouth
 					}
 				}
 			}
@@ -249,6 +409,12 @@ character_event = {
 			FROM = { has_character_flag = haughty_to_cruel }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_HAUGHTY_GROOMED
+		trigger = {
+			FROM = { has_character_flag = haughty_to_groomed }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -281,6 +447,16 @@ character_event = {
 		add_trait = cruel
 		clr_character_flag = haughty_to_cruel
 	}
+	option = {
+		name = EVTOPTAHFP20800_HAUGHTY_GROOMED
+		trigger = {
+			has_character_flag = haughty_to_groomed
+		}
+		remove_trait = haughty
+		add_trait = groomed
+		balance_weight_small_effect = yes
+		clr_character_flag = haughty_to_groomed
+	}
 }
 
 
@@ -307,6 +483,12 @@ character_event = {
 			FROM = { has_character_flag = haughty_to_cruel }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_HAUGHTY_GROOMED_ED
+		trigger = {
+			FROM = { has_character_flag = haughty_to_groomed }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -318,6 +500,7 @@ character_event = {
 			custom_tooltip = { text = haughty_may_become_ambitious }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13004 } } }
+		show_trait = ambitious
 	}
 	option = {
 		name = EVTOPTB_ZE_13002  # Do not intervene
@@ -333,6 +516,10 @@ character_event = {
 		if = {
 			limit = { FROM = { has_character_flag = haughty_to_cruel } }
 			tooltip = { FROM = { remove_trait = haughty add_trait = cruel } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = haughty_to_groomed } }
+			tooltip = { FROM = { remove_trait = haughty add_trait = groomed } }
 		}
 	}
 }
@@ -360,6 +547,12 @@ character_event = {
 			FROM = { has_character_flag = haughty_to_cruel }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_HAUGHTY_GROOMED_RESP
+		trigger = {
+			FROM = { has_character_flag = haughty_to_groomed }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -372,6 +565,7 @@ character_event = {
 		clr_character_flag = haughty_to_proud
 		clr_character_flag = haughty_to_arbitrary
 		clr_character_flag = haughty_to_cruel
+		clr_character_flag = haughty_to_groomed
 		if = {
 			limit = {
 				educator = { ai = no }
@@ -405,6 +599,16 @@ character_event = {
 		remove_trait = haughty
 		add_trait = cruel
 		clr_character_flag = haughty_to_cruel
+	}
+	option = {
+		name = EVTOPTAHFP20800_HAUGHTY_GROOMED_RESP
+		trigger = {
+			has_character_flag = haughty_to_groomed
+		}
+		remove_trait = haughty
+		add_trait = groomed
+		balance_weight_small_effect = yes
+		clr_character_flag = haughty_to_groomed
 	}
 }
 
@@ -440,6 +644,12 @@ character_event = {
 						trait = envious
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = kind
+					}
+				}
 			}
 			10 = {
 				set_character_flag = affectionate_to_content
@@ -450,6 +660,12 @@ character_event = {
 						trait = ambitious
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = content
+					}
+				}
 			}
 			10 = {
 				set_character_flag = affectionate_to_trusting
@@ -458,6 +674,12 @@ character_event = {
 					OR = {
 						trait = trusting
 						trait = paranoid
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = trusting
 					}
 				}
 			}
@@ -588,6 +810,7 @@ character_event = {
 			custom_tooltip = { text = affectionate_may_become_charitable }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13014 } } }
+		show_trait = charitable
 	}
 	option = {
 		name = EVTOPTB_ZE_13012  # Do not intervene
@@ -708,6 +931,12 @@ character_event = {
 						trait = proud
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = humble
+					}
+				}
 			}
 			10 = {
 				set_character_flag = timid_to_shy
@@ -718,6 +947,12 @@ character_event = {
 						trait = gregarious
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = shy
+					}
+				}
 			}
 			10 = {
 				set_character_flag = timid_to_craven
@@ -726,6 +961,12 @@ character_event = {
 					OR = {
 						trait = craven
 						trait = brave
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = craven
 					}
 				}
 			}
@@ -855,6 +1096,7 @@ character_event = {
 			custom_tooltip = { text = timid_may_become_content }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13024 } } }
+		show_trait = content
 	}
 	option = {
 		name = EVTOPTB_ZE_13022  # Do not intervene
@@ -969,6 +1211,12 @@ character_event = {
 		random_list = {  # Select outcome
 			10 = {
 				set_character_flag = rowdy_to_strong
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = robust
+					}
+				}
 			}
 			10 = {
 				set_character_flag = rowdy_to_honest
@@ -979,14 +1227,52 @@ character_event = {
 						trait = deceitful
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = honest
+					}
+				}
 			}
 			10 = {
 				modifier = {
 					factor = 0
 					has_character_flag = child_became_smarter
 				}
+				modifier = {
+					factor = 1.35
+					educator = {
+						trait = slow
+					}
+				}
+				modifier = {
+					factor = 1.65
+					educator = {
+						trait = imbecile
+					}
+				}
 				set_character_flag = rowdy_to_imbecile
 				set_character_flag = child_became_less_smart
+			}
+			10 = {
+				set_character_flag = rowdy_to_uncouth
+				modifier = {
+					factor = 0
+					OR = {
+						trait = groomed
+						trait = uncouth
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = shy
+					}
+				}
+				modifier = {
+					factor = 1.5
+					has_focus = focus_ed_martial
+				}
 			}
 		}
 		if = {
@@ -1003,6 +1289,10 @@ character_event = {
 					OR = {
 						is_dumb_trigger = yes
 						has_character_flag = child_became_smarter
+					}
+					OR = {
+						trait = groomed
+						trait = uncouth
 					}
 				}
 			}
@@ -1043,6 +1333,12 @@ character_event = {
 		text = EVTDESCC_ZE_13031
 		trigger = {
 			FROM = { has_character_flag = rowdy_to_imbecile }
+		}
+	}
+	desc = {
+		text = EVTDESCDHFP20800_ROWDY_UNCOUTH
+		trigger = {
+			FROM = { has_character_flag = rowdy_to_uncouth }
 		}
 	}
 
@@ -1298,6 +1594,15 @@ character_event = {
 			clr_character_flag = rowdy_slow_to_imbecile
 		}
 	}
+	option = {
+		name = EVTOPTDHFP20800_ROWDY_UNCOUTH
+		trigger = {
+			has_character_flag = rowdy_to_uncouth
+		}
+		remove_trait = rowdy
+		add_trait = uncouth
+		clr_character_flag = rowdy_to_uncouth
+	}
 }
 
 
@@ -1324,6 +1629,12 @@ character_event = {
 			FROM = { has_character_flag = rowdy_to_imbecile }
 		}
 	}
+	desc = {
+		text = EVTDESCEHFP20800_ROWDY_UNCOUTH_ED
+		trigger = {
+			FROM = { has_character_flag = rowdy_to_uncouth }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -1335,6 +1646,7 @@ character_event = {
 			custom_tooltip = { text = rowdy_may_become_brave }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13034 } } }
+		show_trait = brave
 	}
 	option = {
 		name = EVTOPTB_ZE_13032  # Do not intervene
@@ -1346,6 +1658,10 @@ character_event = {
 		if = {
 			limit = { FROM = { has_character_flag = rowdy_to_honest } }
 			tooltip = { FROM = { remove_trait = rowdy add_trait = honest } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = rowdy_to_uncouth } }
+			tooltip = { FROM = { remove_trait = rowdy add_trait = uncouth } }
 		}
 		if = {
 			limit = {
@@ -1433,6 +1749,12 @@ character_event = {
 			FROM = { has_character_flag = rowdy_to_imbecile }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_ROWDY_UNCOUTH_RESP
+		trigger = {
+			FROM = { has_character_flag = rowdy_to_uncouth }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -1478,6 +1800,7 @@ character_event = {
 		clr_character_flag = rowdy_to_strong
 		clr_character_flag = rowdy_to_honest
 		clr_character_flag = rowdy_to_imbecile
+		clr_character_flag = rowdy_to_uncouth
 		if = {
 			limit = {
 				educator = { ai = no }
@@ -1502,6 +1825,15 @@ character_event = {
 		remove_trait = rowdy
 		add_trait = honest
 		clr_character_flag = rowdy_to_honest
+	}
+	option = {
+		name = EVTOPTCHFP20800_ROWDY_UNCOUTH_RESP
+		trigger = {
+			has_character_flag = rowdy_to_uncouth
+		}
+		remove_trait = rowdy
+		add_trait = uncouth
+		clr_character_flag = rowdy_to_uncouth
 	}
 	option = {
 		name = EVTOPTD_ZE_13034
@@ -1567,6 +1899,12 @@ character_event = {
 						trait = ambitious
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = ambitious
+					}
+				}
 			}
 			10 = {
 				set_character_flag = willful_to_brave
@@ -1577,12 +1915,24 @@ character_event = {
 						trait = brave
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = brave
+					}
+				}
 			}
 			10 = {
 				set_character_flag = willful_to_stubborn
 				modifier = {
 					factor = 0
 					trait = stubborn
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = stubborn
+					}
 				}
 			}
 		}
@@ -1707,10 +2057,11 @@ character_event = {
 		FROM = {
 			custom_tooltip = { text = willful_may_become_proud }
 		}
+		show_trait = proud
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13044 } } }
 	}
 	option = {
-		name = EVTOPTB_ZE_13042  # Do not intervene
+		name = EVTOPTB_ZE_13042_B  # Do not intervene
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13041 } } } # Go to normal trait change
 		if = {
 			limit = { FROM = { has_character_flag = willful_to_ambitious } }
@@ -1803,7 +2154,7 @@ character_event = {
 # Brooding									#
 #############################################
 
-# brooding turns into just, wroth or envious
+# brooding turns into just, wroth, envious or uncouth.
 character_event = {
 	id = ZE.13050
 
@@ -1829,6 +2180,12 @@ character_event = {
 						trait = just
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = just
+					}
+				}
 			}
 			10 = {
 				set_character_flag = brooding_to_wroth
@@ -1836,6 +2193,12 @@ character_event = {
 					factor = 0
 					OR = {
 						trait = patient
+						trait = wroth
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
 						trait = wroth
 					}
 				}
@@ -1848,6 +2211,32 @@ character_event = {
 						trait = kind
 						trait = envious
 					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = envious
+					}
+				}
+			}
+			10 = {
+				set_character_flag = brooding_to_uncouth
+				modifier = {
+					factor = 0
+					OR = {
+						trait = groomed
+						trait = uncouth
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = shy
+					}
+				}
+				modifier = {
+					factor = 1.5
+					has_focus = focus_ed_martial
 				}
 			}
 		}
@@ -1865,6 +2254,10 @@ character_event = {
 					OR = {
 						trait = kind
 						trait = envious
+					}
+					OR = {
+						trait = groomed
+						trait = uncouth
 					}
 				}
 			}
@@ -1907,6 +2300,12 @@ character_event = {
 			FROM = { has_character_flag = brooding_to_envious }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_BROOD_UNCOUTH
+		trigger = {
+			FROM = { has_character_flag = brooding_to_uncouth }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -1939,6 +2338,15 @@ character_event = {
 		add_trait = envious
 		clr_character_flag = brooding_to_envious
 	}
+	option = {
+		name = EVTOPTDHFP20800_BROOD_UNCOUTH
+		trigger = {
+			has_character_flag = brooding_to_uncouth
+		}
+		remove_trait = brooding
+		add_trait = uncouth
+		clr_character_flag = brooding_to_uncouth
+	}
 }
 
 
@@ -1965,6 +2373,12 @@ character_event = {
 			FROM = { has_character_flag = brooding_to_envious }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_BROOD_UNCOUTH_ED
+		trigger = {
+			FROM = { has_character_flag = brooding_to_uncouth }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -1976,6 +2390,7 @@ character_event = {
 			custom_tooltip = { text = brooding_may_become_temperate }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13054 } } }
+		show_trait = temperate
 	}
 	option = {
 		name = EVTOPTB_ZE_13052  # Do not intervene
@@ -1991,6 +2406,10 @@ character_event = {
 		if = {
 			limit = { FROM = { has_character_flag = brooding_to_envious } }
 			tooltip = { FROM = { remove_trait = brooding add_trait = envious } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = brooding_to_uncouth } }
+			tooltip = { FROM = { remove_trait = brooding add_trait = uncouth } }
 		}
 	}
 }
@@ -2018,6 +2437,12 @@ character_event = {
 			FROM = { has_character_flag = brooding_to_envious }
 		}
 	}
+	desc = {
+		text = EVTDESCDHFP20800_BROOD_UNCOUTH_RESP
+		trigger = {
+			FROM = { has_character_flag = brooding_to_uncouth }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -2027,9 +2452,12 @@ character_event = {
 		name = EVTOPTA_ZE_13054
 		remove_trait = brooding
 		add_trait = temperate
+		lose_weight_small_effect = yes
+		weight_trait_check_effect = yes
 		clr_character_flag = brooding_to_just
 		clr_character_flag = brooding_to_wroth
 		clr_character_flag = brooding_to_envious
+		clr_character_flag = brooding_to_uncouth
 		if = {
 			limit = {
 				educator = { ai = no }
@@ -2064,13 +2492,22 @@ character_event = {
 		add_trait = envious
 		clr_character_flag = brooding_to_envious
 	}
+	option = {
+		name = EVTOPTEHFP20800_BROOD_UNCOUTH
+		trigger = {
+			has_character_flag = brooding_to_uncouth
+		}
+		remove_trait = brooding
+		add_trait = uncouth
+		clr_character_flag = brooding_to_uncouth
+	}
 }
 
 #############################################
 # Indolent									#
 #############################################
 
-# indolent turns into charitable, slothful or gluttonous
+# indolent turns into charitable, slothful, gluttonous, sturdy, or groomed.
 character_event = {
 	id = ZE.13060
 
@@ -2096,6 +2533,12 @@ character_event = {
 						trait = charitable
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						trait = charitable 
+					}
+				}
 			}
 			10 = {
 				set_character_flag = indolent_to_slothful
@@ -2104,6 +2547,12 @@ character_event = {
 					OR = {
 						trait = diligent
 						trait = slothful
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						trait = slothful 
 					}
 				}
 			}
@@ -2115,6 +2564,66 @@ character_event = {
 						trait = temperate
 						trait = gluttonous
 					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						trait = gluttonous 
+					}
+				}
+			}
+			10 = {
+				set_character_flag = indolent_to_sturdy
+				modifier = {
+					factor = 0
+					OR = {
+						trait = sturdy
+						trait = feeble
+						trait = robust
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						OR = { 
+							trait = gluttonous
+							trait = sturdy
+							trait = is_fat  
+						} 
+					}
+				}
+			}
+			10 = {
+				set_character_flag = indolent_to_groomed
+				modifier = {
+					factor = 0
+					OR = {
+						trait = groomed
+						trait = uncouth
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = { 
+						trait = proud
+					}
+				}
+				modifier = {
+					factor = 1.5
+					has_focus = focus_ch_pride
+				}
+				modifier = {
+					factor = 1.75
+					has_focus = focus_ch_etiquette
+				}
+				modifier = {
+					factor = 1.75
+					has_focus = focus_ed_diplomacy
+				}
+				modifier = {
+					factor = 1.5
+					is_female = yes
+					NOT = { educator = { has_religion_feature = religion_matriarchal } }
 				}
 			}
 		}
@@ -2132,6 +2641,14 @@ character_event = {
 					OR = {
 						trait = temperate
 						trait = gluttonous
+					}
+					OR = {
+						trait = sturdy
+						trait = feeble
+					}
+					OR = {
+						trait = groomed
+						trait = uncouth
 					}
 				}
 			}
@@ -2174,6 +2691,24 @@ character_event = {
 			FROM = { has_character_flag = indolent_to_gluttonous }
 		}
 	}
+	desc = {
+		text = EVTDESCEHFP20669
+		trigger = {
+			FROM = { has_character_flag = indolent_to_sturdy is_female = no }
+		}
+	}
+	desc = {
+		text = EVTDESCFHFP20669
+		trigger = {
+			FROM = { has_character_flag = indolent_to_sturdy is_female = yes }
+		}
+	}
+	desc = {
+		text = EVTDESCGHFP20800_INDOLENT_GROOMED
+		trigger = {
+			FROM = { has_character_flag = indolent_to_groomed }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -2204,7 +2739,42 @@ character_event = {
 		}
 		remove_trait = indolent
 		add_trait = gluttonous
+		gain_weight_small_effect = yes
+		weight_trait_check_effect = yes
 		clr_character_flag = indolent_to_gluttonous
+	}
+	option = {
+		name = EVTOPTDHFP20669_ZE
+		trigger = {
+			has_character_flag = indolent_to_sturdy
+		}
+		remove_trait = indolent
+		add_trait = sturdy
+		hidden_tooltip = { 
+			random_list = {  
+				70 = {
+					modifier = { 
+						factor = 1.5
+						trait = content
+					}
+				}
+				30 = { character_event = { id = HFP.20669 days = 900 random = 400 } } #Change physical state event
+			} 
+		} 
+		gain_weight_small_effect = yes
+		weight_trait_check_effect = yes
+		clr_character_flag = indolent_to_sturdy
+	}
+	option = {
+		name = EVTOPTEHFP20800_INDOLENT_GROOMED
+		trigger = {
+			has_character_flag = indolent_to_groomed
+		}
+		remove_trait = indolent
+		add_trait = groomed
+		balance_weight_small_effect = yes
+		weight_trait_check_effect = yes
+		clr_character_flag = indolent_to_groomed
 	}
 }
 
@@ -2232,6 +2802,24 @@ character_event = {
 			FROM = { has_character_flag = indolent_to_gluttonous }
 		}
 	}
+	desc = {
+		text = EVTDESCGHFP20669
+		trigger = {
+			FROM = { has_character_flag = indolent_to_sturdy is_female = no }
+		}
+	}
+	desc = {
+		text = EVTDESCHHFP20669
+		trigger = {
+			FROM = { has_character_flag = indolent_to_sturdy is_female = yes }
+		}
+	}
+	desc = {
+		text = EVTDESCIHFP20800_INDOLENT_GROOMED_ED
+		trigger = {
+			FROM = { has_character_flag = indolent_to_groomed }
+		}
+	}
 
 	is_triggered_only = yes
 	
@@ -2243,6 +2831,7 @@ character_event = {
 			custom_tooltip = { text = indolent_may_become_gregarious }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13064 } } }
+		show_trait = gregarious
 	}
 	option = {
 		name = EVTOPTB_ZE_13062  # Do not intervene
@@ -2257,7 +2846,32 @@ character_event = {
 		}
 		if = {
 			limit = { FROM = { has_character_flag = indolent_to_gluttonous } }
-			tooltip = { FROM = { remove_trait = indolent add_trait = gluttonous } }
+			tooltip = { 
+				FROM = { 
+					remove_trait = indolent 
+					add_trait = gluttonous 
+					gain_weight_small_effect = yes
+				} 
+			}
+		}
+		if = {
+			limit = { FROM = { has_character_flag = indolent_to_sturdy } }
+			tooltip = { 
+				FROM = { 
+					remove_trait = indolent 
+					add_trait = sturdy 
+					gain_weight_small_effect = yes
+				} 
+			}
+		}
+		if = {
+			limit = { FROM = { has_character_flag = indolent_to_groomed } }
+			tooltip = { 
+				FROM = { 
+					remove_trait = indolent 
+					add_trait = groomed
+				} 
+			}
 		}
 	}
 }
@@ -2270,19 +2884,31 @@ character_event = {
 	desc = {
 		text = EVTDESCA_ZE_13064
 		trigger = {
-			FROM = { has_character_flag = indolent_to_charitable }
+			has_character_flag = indolent_to_charitable
 		} 
 	}
 	desc = {
 		text = EVTDESCB_ZE_13064
 		trigger = {
-			FROM = { has_character_flag = indolent_to_slothful }
+			has_character_flag = indolent_to_slothful
 		} 
 	}
 	desc = {
 		text = EVTDESCC_ZE_13064
 		trigger = {
-			FROM = { has_character_flag = indolent_to_gluttonous }
+			has_character_flag = indolent_to_gluttonous
+		}
+	}
+	desc = {
+		text = EVTDESCIHFP20669
+		trigger = {
+			has_character_flag = indolent_to_sturdy 
+		}
+	}
+	desc = {
+		text = EVTDESCLHFP20800_INDOLENT_GROOMED_RESP
+		trigger = {
+			has_character_flag = indolent_to_groomed
 		}
 	}
 
@@ -2297,6 +2923,8 @@ character_event = {
 		clr_character_flag = indolent_to_charitable
 		clr_character_flag = indolent_to_slothful
 		clr_character_flag = indolent_to_gluttonous
+		clr_character_flag = indolent_to_sturdy
+		clr_character_flag = indolent_to_groomed
 		if = {
 			limit = {
 				educator = { ai = no }
@@ -2329,7 +2957,39 @@ character_event = {
 		}
 		remove_trait = indolent
 		add_trait = gluttonous
+		gain_weight_small_effect = yes
 		clr_character_flag = indolent_to_gluttonous
+	}
+	option = {
+		name = EVTOPTEHFP20669
+		trigger = {
+			has_character_flag = indolent_to_sturdy
+		}
+		remove_trait = indolent
+		add_trait = sturdy
+		hidden_tooltip = { 
+			random_list = {  
+				70 = {
+					modifier = { 
+						factor = 1.5
+						trait = content
+					}
+				}
+				30 = { character_event = { id = HFP.20669 days = 900 random = 400 } } #Change physical state event
+			} 
+		} 
+		gain_weight_small_effect = yes
+		clr_character_flag = indolent_to_sturdy
+	}
+	option = {
+		name = EVTOPTFHFP20800_INDOLENT_GROOMED
+		trigger = {
+			has_character_flag = indolent_to_groomed
+		}
+		remove_trait = indolent
+		add_trait = groomed
+		balance_weight_small_effect = yes
+		clr_character_flag = indolent_to_groomed
 	}
 }
 
@@ -2365,6 +3025,12 @@ character_event = {
 					factor = 0.1
 					trait = shy
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = gregarious
+					}
+				}
 			}
 			15 = {
 				set_character_flag = playful_to_deceitful
@@ -2376,6 +3042,12 @@ character_event = {
 					factor = 0.1
 					trait = honest
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = deceitful
+					}
+				}
 			}
 			1 = {
 				set_character_flag = playful_to_lunatic  # This should be RARE but affected by modifiers/traumas
@@ -2386,6 +3058,15 @@ character_event = {
 				modifier = {
 					factor = 3
 					trait = genius
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						OR = { 
+							trait = possessed
+							trait = lunatic
+						}
+					}
 				}
 			}
 		}
@@ -2504,6 +3185,7 @@ character_event = {
 			custom_tooltip = { text = playful_may_become_cruel }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13074 } } }
+		show_trait = cruel
 	}
 	option = {
 		name = EVTOPTB_ZE_13072  # Do not intervene
@@ -2625,6 +3307,12 @@ character_event = {
 						trait = diligent
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = diligent
+					}
+				}
 			}
 			10 = {
 				set_character_flag = conscientious_to_temperate
@@ -2632,6 +3320,12 @@ character_event = {
 					factor = 0
 					OR = {
 						trait = gluttonous
+						trait = temperate
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
 						trait = temperate
 					}
 				}
@@ -2718,6 +3412,8 @@ character_event = {
 		}
 		remove_trait = conscientious
 		add_trait = temperate
+		lose_weight_small_effect = yes
+		weight_trait_check_effect = yes
 		if = {
 			limit = {
 				NOT = { trait = stressed }
@@ -2765,6 +3461,7 @@ character_event = {
 			custom_tooltip = { text = conscientious_may_become_just }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13084 } } }
+		show_trait = just
 	}
 	option = {
 		name = EVTOPTB_ZE_13082  # Do not intervene
@@ -2831,6 +3528,8 @@ character_event = {
 		}
 		remove_trait = conscientious
 		add_trait = temperate
+		lose_weight_small_effect = yes
+		weight_trait_check_effect = yes
 		clr_character_flag = conscientious_to_temperate
 	}
 }
@@ -2867,6 +3566,12 @@ character_event = {
 						trait = patient
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = patient
+					}
+				}
 			}
 			10 = {
 				set_character_flag = fussy_to_greedy
@@ -2877,6 +3582,12 @@ character_event = {
 						trait = greedy
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = greedy
+					}
+				}
 			}
 			10 = {
 				set_character_flag = fussy_to_paranoid
@@ -2884,6 +3595,12 @@ character_event = {
 					factor = 0
 					OR = {
 						trait = trusting
+						trait = paranoid
+					}
+				}
+				modifier = {
+					factor = 1.5
+					educator = {
 						trait = paranoid
 					}
 				}
@@ -3014,6 +3731,7 @@ character_event = {
 			custom_tooltip = { text = fussy_may_become_diligent }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13094 } } }
+		show_trait = diligent
 	}
 	option = {
 		name = EVTOPTB_ZE_13092  # Do not intervene
@@ -3506,6 +4224,7 @@ character_event = {
 			custom_tooltip = { text = curious_may_become_patient }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13104 } } }
+		show_trait = patient
 	}
 	option = {
 		name = {
@@ -3746,6 +4465,13 @@ character_event = {
 						trait = tolerant
 					}
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = zealous
+						religion = ROOT
+					}
+				}
 			}
 			10 = {
 				set_character_flag = idolizer_to_erudite
@@ -3753,9 +4479,21 @@ character_event = {
 					factor = 0
 					trait = erudite
 				}
+				modifier = {
+					factor = 1.5
+					educator = {
+						trait = erudite
+					}
+				}
 			}
 			10 = {
 				set_character_flag = idolizer_to_weak
+				modifier = {
+					factor = 1.5
+					educator = {
+						is_weak_trigger = yes
+					}
+				}
 			}
 		}
 		if = {
@@ -3957,6 +4695,18 @@ character_event = {
 			remove_trait = idolizer
 			change_martial = -2
 		}
+		hidden_tooltip = { 
+			random_list = { 
+				70 = {
+					modifier = { 
+						factor = 1.5
+						trait = content
+					}
+				}
+				30 = { character_event = { id = HFP.20669 days = 900 random = 400 } } #Change physical state event
+			} 
+		} 
+		lose_weight_small_effect = yes
 	}
 }
 
@@ -3995,6 +4745,7 @@ character_event = {
 			custom_tooltip = { text = idolizer_may_become_kind }
 		}
 		hidden_tooltip = { FROM = { character_event = { id = ZE.13114 } } }
+		show_trait = kind
 	}
 	option = {
 		name = EVTOPTB_ZE_13112  # Do not intervene
@@ -4009,7 +4760,12 @@ character_event = {
 		}
 		if = {
 			limit = { FROM = { has_character_flag = idolizer_to_weak } }
-			tooltip = { FROM = { remove_trait = idolizer add_trait = feeble } }
+			tooltip = { 
+				FROM = { 
+					remove_trait = idolizer add_trait = feeble
+					lose_weight_small_effect = yes
+				}
+			}
 		}
 	}
 }
@@ -4081,6 +4837,17 @@ character_event = {
 		}
 		remove_trait = idolizer
 		add_trait = feeble
+		hidden_tooltip = { 
+			random_list = {  
+				70 = {
+					modifier = { 
+						factor = 1.5
+						trait = content
+					}
+				}
+				30 = { character_event = { id = HFP.20669 days = 900 random = 400 } } #Change physical state event
+			} 
+		} 
 		clr_character_flag = idolizer_to_weak
 	}
 }
@@ -4109,6 +4876,7 @@ character_event = {
 		age = 14
 		NOT = { is_inaccessible_trigger = yes }
 		is_ill = no
+		NOT = { has_character_flag = is_child_of_destiny }
 	}
 	
 	immediate = {
@@ -4129,7 +4897,7 @@ character_event = {
 									age = 35
 									same_sex = ROOT
 									trait = incapable
-									trait = ugly
+									is_ugly_trigger = yes
 									trait = blinded
 									trait = celibate
 									trait = eunuch
@@ -4172,7 +4940,7 @@ character_event = {
 					age = 35
 					same_sex = ROOT
 					trait = incapable
-					trait = ugly
+					is_ugly_trigger = yes
 					trait = blinded
 					trait = celibate
 					trait = eunuch
@@ -4193,7 +4961,7 @@ character_event = {
 						age = 35
 						same_sex = ROOT
 						trait = incapable
-						trait = ugly
+						is_ugly_trigger = yes
 						trait = blinded
 						trait = celibate
 						trait = eunuch
@@ -5266,8 +6034,12 @@ character_event = {
 			if = {
 				limit = { trait = gluttonous }
 				remove_trait = gluttonous
+				lose_weight_small_effect = yes
+				weight_trait_check_effect = yes
 			}
 			add_trait = temperate
+			lose_weight_small_effect = yes
+			weight_trait_check_effect = yes
 		}
 		if = {
 			limit = { trait = gluttonous }

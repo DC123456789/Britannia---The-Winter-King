@@ -45,6 +45,19 @@ province_event = {
 							culture = romanobritish
 						}
 					}
+					OR = {
+						is_alternate_start = no
+						AND = {
+							has_alternate_start_parameter = {
+								key = culture
+								value = historical
+							}
+							has_alternate_start_parameter = {
+								key = culture_names
+								value = historical
+							}
+						}
+					}
 				}
 				AND = {
 					OR = {
@@ -216,6 +229,17 @@ province_event = {
 					name = culture_conversion
 					value = faster_melting_pots_and_slower_normal
 				}
+			}
+		}
+		modifier = {
+			factor = 0.8
+			owner = {
+		    	any_owned_bloodline = {
+    				has_bloodline_flag = cultural_saintly_bloodline
+    				founder = {
+    					culture = PREVPREV
+    				}
+    			}
 			}
 		}
 		modifier = {
@@ -417,8 +441,15 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 0.90
+			factor = 0.85
 			has_province_modifier = new_settlements
+		}
+		modifier = {
+			factor = 0.85
+			OR = {
+				has_religion_feature = religion_adventuring
+				has_religion_feature = religion_feature_norse
+			}
 		}
 	}
 
@@ -551,6 +582,19 @@ province_event = {
 						OR = {
 							culture_group = imperiale
 							culture = romanobritish
+						}
+					}
+					OR = {
+						is_alternate_start = no
+						AND = {
+							has_alternate_start_parameter = {
+								key = culture
+								value = historical
+							}
+							has_alternate_start_parameter = {
+								key = culture_names
+								value = historical
+							}
 						}
 					}
 				}
@@ -707,6 +751,17 @@ province_event = {
 		}
 		modifier = {
 			factor = 0.8
+			owner = {
+		    	any_owned_bloodline = {
+    				has_bloodline_flag = cultural_saintly_bloodline
+    				founder = {
+    					culture = PREVPREV
+    				}
+    			}
+			}
+		}
+		modifier = {
+			factor = 0.8
 			owner = { is_ingvaeonic_culture_trigger = yes }
 		}
 		modifier = {
@@ -746,6 +801,19 @@ province_event = {
 					culture = dutch
 				}
 			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				has_religion_feature = religion_adventuring
+				has_religion_feature = religion_feature_norse
+			}
+		}
+		modifier = {
+			factor = 0.85
+			is_ingvaeonic_culture_trigger = yes
+			region = world_britannia
+			has_global_flag = anglo_saxons_defeated_again
 		}
 	}
 
@@ -861,10 +929,10 @@ province_event = {
 			}
 			culture_group = germanic
 			is_romanized_germanic_trigger = no
-			OR = {
+			#OR = {
 				is_tribal = yes
-				NOT = { ROOT = { culture_group = PREV } }
-			}
+				#NOT = { ROOT = { culture_group = PREV } }
+			#}
 		}
 		NOT = {
 			any_province_holding = {
@@ -872,23 +940,21 @@ province_event = {
 			}
 		}
 		has_settlement_construction = no
-		NOT = { year = 700 }
+		NOT = { year = 670 }
 	}
 	
 	mean_time_to_happen = {
 		months = 60
 		modifier = {
 			factor = 5
-			NOT = {
-				OR = {
-					any_neighbor_province = {
-						any_province_holding = {
-							holding_type = tribal
-						}
+			NOR = {
+				any_neighbor_province = {
+					any_province_holding = {
+						holding_type = tribal
 					}
-					has_province_flag = saxon_invasion
-					has_province_flag = mercia_anglian_invasion
 				}
+				has_province_flag = saxon_invasion
+				has_province_flag = mercia_anglian_invasion
 			}
 		}
 		modifier = {
@@ -902,15 +968,22 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 8
+			factor = 4
+			region = world_gaul
+		}
+		modifier = {
+			factor = 2
 			owner = {
 				top_liege = {
-					is_istvaeonic_culture_trigger = yes
+					OR = {
+						is_istvaeonic_culture_trigger = yes
+						is_irminonic_culture_trigger = yes
+					}
 				}
 			}
-		}		
+		}
 		modifier = {
-			factor = 10
+			factor = 3
 			owner = {
 				top_liege = {
 					is_romanized_germanic_trigger = yes
@@ -1013,12 +1086,12 @@ character_event = {
 			if = {
 				limit = { liege = { government = tribal_government } }
 				set_government_type = tribal_government
-				log = "[Root.GetBestName] was granted territory and became Tribal"
+				#log = "[Root.GetBestName] was granted territory and became Tribal"
 			}
 			if = {
 				limit = { liege = { government = high_tribal_government } }
 				set_government_type = high_tribal_government
-				log = "[Root.GetBestName] was granted territory and became High Tribal"
+				#log = "[Root.GetBestName] was granted territory and became High Tribal"
 			}
 			if = {
 				limit = { 
@@ -1030,22 +1103,22 @@ character_event = {
 					} 
 				}
 				set_government_type = sub_roman_government
-				log = "[Root.GetBestName] was granted territory and became Sub Roman"
+				#log = "[Root.GetBestName] was granted territory and became Sub Roman"
 			}
 			if = {
 				limit = { liege = { government = sub_roman_brythonic_government } }
 				set_government_type = sub_roman_brythonic_government
-				log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
+				#log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
 			}
 			if = {
 				limit = { liege = { government = germanic_government } }
 				set_government_type = germanic_government
-				log = "[Root.GetBestName] was granted territory and became Germanic"
+				#log = "[Root.GetBestName] was granted territory and became Germanic"
 			}
 			if = {
 				limit = { liege = { government = feudal_government } }
 				set_government_type = feudal_government
-				log = "[Root.GetBestName] was granted territory and became Feudal"
+				#log = "[Root.GetBestName] was granted territory and became Feudal"
 			}
 		}
 	}
@@ -1200,6 +1273,19 @@ province_event = {
 	picture = GFX_evt_traveller_hills
 
 	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
 		NOR = {
 			culture_group = celtic
 			culture_group = imperiale
@@ -1231,11 +1317,7 @@ province_event = {
 		}
 		OR = {
 			AND = {
-				region = world_gaul
-				NOR = { 
-					region = world_gaul_romangermania 
-					region = world_gaul_aquitania_tertia
-				}
+				is_romanogallic_area_trigger = yes
 				NAND = {
 					owner = {
 						top_liege = {
@@ -1250,20 +1332,20 @@ province_event = {
 				}
 			}
 			AND = {
-				region = world_britannia
+				is_romanobritish_area_trigger = yes
 				any_neighbor_province = {
 					culture = romanobritish
 				}
 			}
 			AND = {
-				region = world_gaul_romangermania
+				is_romanogermanic_area_trigger = yes
 				NOT = { culture_group = germanic }
 				any_neighbor_province = {
 					culture = romanogermanic
 				}
 			}
 			AND = {
-				region = world_gaul_aquitania_tertia
+				is_romanoaquitanian_area_trigger = yes
 				any_neighbor_province = {
 					culture = romanoaquitanian
 				}
@@ -1319,23 +1401,19 @@ province_event = {
 			factor = 0.8
 			OR = {
 				AND = {
-					region = world_gaul
-					NOR = { 
-						region = world_gaul_romangermania 
-						region = world_gaul_aquitania_tertia
-					}
+					is_romanogallic_area_trigger = yes
 					owner = { culture = romanogallic }
 				}
 				AND = {
-					region = world_britannia
+					is_romanobritish_area_trigger = yes
 					owner = { culture = romanobritish }
 				}
 				AND = {
-					region = world_gaul_romangermania
+					is_romanogermanic_area_trigger = yes
 					owner = { culture = romanogermanic }
 				}
 				AND = {
-					region = world_gaul_aquitania_tertia
+					is_romanoaquitanian_area_trigger = yes
 					owner = { culture = romanoaquitanian }
 				}
 			}
@@ -1481,8 +1559,12 @@ province_event = {
 			}
 		}
 		modifier = {
-			factor = 0.9
+			factor = 0.85
 			has_province_modifier = roman_colonies
+		}
+		modifier = {
+			factor = 0.85
+			has_province_modifier = new_settlements
 		}
 	}
 
@@ -1530,7 +1612,6 @@ province_event = {
 					any_neighbor_province = { 
 						NOR = { 
 							religion_group = pagan_group 
-							religion_group = zoroastrian_group 
 						} 
 					}
 				}
@@ -1538,7 +1619,6 @@ province_event = {
 					limit = {
 						NOR = { 
 							religion_group = pagan_group 
-							religion_group = zoroastrian_group 
 						} 
 					}
 					ROOT = {
@@ -1594,6 +1674,19 @@ province_event = {
 	}
 
 	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
 		OR = {
 			culture_group = germanic
 			culture_group = sarmatian
@@ -1669,6 +1762,19 @@ province_event = {
 	picture = GFX_evt_traveller_hills
 
 	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
 		year = 480
 		culture = armorican
 		region = world_gaul
@@ -1725,6 +1831,20 @@ province_event = {
 	picture = GFX_evt_interior_ruins
 
 	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
+		
 		year = 530
 		OR = {
 			culture = romanobritish
@@ -1840,7 +1960,7 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 360
+		months = 240
 		modifier = {
 			factor = 1.5
 			owner = { 
@@ -1873,9 +1993,216 @@ province_event = {
 			limit = { ROOT = { region = world_britannia_cymry_henogledd } }
 			culture = cumbrian
 		}
-		if = {
-			limit = { NOT = { ROOT = { region = world_britannia_cymry_henogledd } } }
+		else = {
 			culture = briton
+		}
+	}
+}
+
+# Romano-Britons assimilate into Briton culture (character event)
+character_event = {
+	id = 55021
+	desc = "EVTDESC55021"
+	picture = GFX_evt_interior_ruins
+
+	trigger = {
+		OR = {
+			is_alternate_start = no
+			AND = {
+				has_alternate_start_parameter = {
+					key = culture
+					value = historical
+				}
+				has_alternate_start_parameter = {
+					key = culture_names
+					value = historical
+				}
+			}
+		}
+		
+		year = 530
+		OR = {
+			is_roman_culture_trigger = yes
+			government = sub_roman_brythonic_government 
+			government = sub_roman_government
+		}
+		capital_scope = { 
+			region = world_britannia_cymry 
+			is_roman_culture_trigger = no
+		}
+		
+		# Requires all Romano-British cities neighbouring the region to have fallen to the Saxons
+		OR = {
+			AND = {
+				capital_scope = { region = world_britannia_cymry_henogledd }
+				c_lindum = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_ratae = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+			AND = {
+				capital_scope = { 
+					NOT = { region = world_britannia_cymry_henogledd }
+					NOT = { region = world_britannia_cymry_cornwall }
+				}
+				c_glevum = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_corinium = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_ratae = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+			AND = {
+				capital_scope = { region = world_britannia_cymry_cornwall }
+				c_corinium = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_aquae_sulis = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_lindinis = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+				c_durnovaria = {
+					owner = {
+						top_liege = {
+							culture_group = germanic
+							is_romanized_germanic_trigger = no
+						}
+					}
+				}
+			}
+		}
+		
+		# Won't assimilate if part of a realm with continential Romans in it
+		top_liege = {
+			NAND = {
+				OR = {
+					culture = romanobritish
+					culture_group = imperiale
+					is_romanized_germanic_trigger = yes
+				}
+				any_realm_province = {
+					OR = {
+						culture = romanobritish
+						culture_group = imperiale
+					}
+					NOT = { region = world_britannia }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 240
+		modifier = {
+			factor = 0.75
+			NOT = { religion_group = christian }
+		}
+		modifier = {
+			factor = 0.75
+			year = 600
+		}
+	}
+
+	option = {
+		name = "EVTOPTA55021"
+		if = {
+			limit = { is_roman_culture_trigger = yes }
+			if = {
+				limit = { ROOT = { capital_scope = { region = world_britannia_cymry_henogledd } } }
+				culture = cumbrian
+			}
+			else = {
+				culture = briton
+			}
+			hidden_tooltip = {
+				any_child = {
+					limit = {
+						is_roman_culture_trigger = yes
+						employer = {
+							character = ROOT
+						}
+						is_ruler = no
+					}
+					culture = ROOT
+					any_child = {
+						limit = {
+							is_roman_culture_trigger = yes
+							employer = {
+								character = ROOT
+							}
+							is_ruler = no
+						}
+						culture = ROOT
+						any_child = {
+							limit = {
+								is_roman_culture_trigger = yes
+								employer = {
+									character = ROOT
+								}
+								is_ruler = no
+							}
+							culture = ROOT
+						}
+					}
+				}
+				any_courtier = {
+					limit = {
+						employer = {
+							character = ROOT
+						}
+						is_ruler = no
+						culture = romanobritish
+					}
+					culture = ROOT
+				}
+			}
 		}
 		if = {
 			limit = { 
@@ -1884,7 +2211,7 @@ province_event = {
 					government = sub_roman_government
 				}
 			}
-			government = feudal_government
+			set_government_type = feudal_government
 		}
 	}
 }
@@ -1924,7 +2251,7 @@ province_event = {
 	mean_time_to_happen = {
 		months = 300
 		modifier = {
-			factor = 2
+			factor = 1.5
 			NOT = { year = 700 }
 		}
 		modifier = {
@@ -2087,7 +2414,7 @@ character_event = {
 			has_dlc = "Rajas of India"
 		}
 		modifier = {
-			factor = 1.5
+			factor = 1.25
 			NOT = { year = 700 }
 		}
 		modifier = {
@@ -2229,6 +2556,7 @@ province_event = {
 		culture_group = germanic
 		NOT = { culture = oldfrisian }
 		region = custom_frisia
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -2320,6 +2648,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 500
 		NOT = { year = 580 }
 		culture_group = germanic
@@ -2531,6 +2860,7 @@ province_event = {
 			region = world_caledonia
 			region = world_ireland
 		}
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -2648,6 +2978,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 600
 		culture = oldfrisian
 		OR = {
@@ -2819,6 +3150,7 @@ province_event = {
 			region = world_caledonia
 			region = world_ireland
 		}
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -2936,6 +3268,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 600
 		OR = {
 			culture = oldsaxon
@@ -3122,6 +3455,7 @@ province_event = {
 	trigger = {
 		year = 730
 		culture = oldalemannic
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -3233,6 +3567,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 730
 		culture = oldalemannic
 		OR = {
@@ -3395,6 +3730,7 @@ province_event = {
 	trigger = {
 		year = 730
 		culture = oldthuringian
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -3506,6 +3842,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 730
 		culture = oldthuringian
 		OR = {
@@ -3668,6 +4005,7 @@ province_event = {
 	trigger = {
 		year = 730
 		culture = oldbavarian
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -3779,6 +4117,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 730
 		culture = oldbavarian
 		OR = {
@@ -3943,6 +4282,7 @@ province_event = {
 	trigger = {
 		year = 630
 		culture = oldfrankish
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -4064,6 +4404,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 630
 		culture = oldfrankish
 		OR = {
@@ -4231,9 +4572,10 @@ province_event = {
 			culture = oldfrankish
 			culture = frankish
 		}
-		NOR = { 
-			region = custom_franconian_area 
-			region = world_gaul_lugdunensis_prima
+		NOR = {
+			region = custom_franconian_area
+			region = custom_arpitan_area
+			region = custom_alemannia
 		}
 		OR = {
 			NOT = { region = world_gaul }
@@ -4242,6 +4584,7 @@ province_event = {
 				culture = dutch
 			}
 		}
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -4344,6 +4687,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		OR = {
 			culture = oldfrankish
@@ -4351,8 +4695,9 @@ character_event = {
 		}
 		capital_scope = {
 			NOR = { 		# Not if they should convert to one of the other Frankish cultures instead
-				region = custom_franconian_area 
-				region = world_gaul_lugdunensis_prima
+				region = custom_franconian_area
+				region = custom_arpitan_area
+				region = custom_alemannia
 				culture = romanogallic			
 				culture = french
 				culture = occitan
@@ -4529,14 +4874,16 @@ province_event = {
 			culture = frankish
 		}
 		OR = {
-			region = custom_franconian_area 
+			region = custom_franconian_area
+			region = custom_alemannia
 			AND = {
-				region = world_gaul_lugdunensis_prima
+				region = custom_arpitan_area
 				any_neighbor_province = {
 					culture = franconian
 				}
 			}
 		}
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -4638,15 +4985,17 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		OR = {
 			culture = oldfrankish
 			culture = frankish
 		}
 		capital_scope = {
-			OR = { 
-				region = custom_franconian_area 
-				region = world_gaul_lugdunensis_prima
+			OR = {
+				region = custom_franconian_area
+				region = custom_alemannia
+				region = custom_arpitan_area
 			}
 			NOR = { 		# Not if they should convert to one of the other Frankish cultures instead
 				culture = romanogallic			
@@ -4746,7 +5095,7 @@ character_event = {
 		modifier = {
 			factor = 3
 			capital_scope = {
-				region = world_gaul_lugdunensis_prima
+				region = custom_arpitan_area
 			}
 		}
 	}
@@ -4832,6 +5181,7 @@ province_event = {
 	picture = GFX_evt_traveller_hills
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		owner = { top_liege = { is_frankish_culture_trigger = yes } }
 		OR = {
@@ -4986,6 +5336,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		OR = {
 			culture = romanogallic
@@ -5242,6 +5593,7 @@ province_event = {
 			region = world_gaul_narbonensis
 		}
 		NOT = { region = custom_arpitan_area }
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -5357,6 +5709,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		OR = {
 			culture = romanogallic
@@ -5578,6 +5931,7 @@ province_event = {
 			culture = frankish
 		}
 		region = custom_arpitan_area
+		should_evolve_cultures_trigger = yes
 	}
 	
 	mean_time_to_happen = {
@@ -5693,6 +6047,7 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
+		should_evolve_cultures_trigger = yes
 		year = 780
 		OR = {
 			culture = romanogallic
@@ -5886,6 +6241,7 @@ province_event = {
 	
 	trigger = {
 		always = no
+		should_evolve_cultures_trigger = yes
 		year = 700
 		owner = {
 			top_liege = {

@@ -50,6 +50,17 @@ character_event = {
 			has_character_modifier = relic_rumor_medium
 			has_character_modifier = relic_rumor_minor
 		}
+		NOT = {
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
+	}
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+		factor = 2.0
+		has_ambition = obj_create_treasury
+		}
 	}
 
 	immediate = {
@@ -174,15 +185,61 @@ character_event = {
 						has_artifact = yada_tashy
 					}
 				}
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_hellenic_or_reformed_trigger = yes
+                        has_artifact = nimean_lion_skin
+                        has_artifact = kronium
+                        has_artifact = caesars_robe
+                        has_artifact = aethons_feather
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion = promethean_pagan
+                        has_artifact = nimean_lion_skin
+                        has_artifact = caesars_robe
+                        has_artifact = odysseus_bow
+                        has_artifact = mask_of_agamemnon
+                        has_artifact = skull_of_alexander
+                        has_artifact = alexanders_armor
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion = promethean_pagan
+                        has_artifact = nimean_lion_skin
+                        has_artifact = caesars_robe
+                        has_artifact = odysseus_bow
+                        has_artifact = mask_of_agamemnon
+                        has_artifact = skull_of_alexander
+                        has_artifact = alexanders_armor
+						has_artifact = aethons_feather
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_celtic_or_reformed_trigger = yes
+                        has_artifact = silver_hand_of_nuada
+                        has_artifact = skull_of_brigid
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion = britannic_pagan
+                        has_artifact = trident_of_britannia
+                        has_artifact = helm_of_britannia
+                        has_artifact = shield_of_britannia
+                    }
+                }
 				modifier = { 
 					factor = 0 
 					OR = {
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
 						religion = germanic_pagan
 						religion = germanic_pagan_reformed
 						religion = frankish_pagan
@@ -193,7 +250,10 @@ character_event = {
 						religion = gothic_pagan_reformed
 						religion = alan_pagan
 						religion = alan_pagan_reformed
-						religion_group = zoroastrian_group
+						AND = {
+							is_hellenic_group_religion_trigger = yes
+							religion_openly_hellenic_or_reformed_trigger = no
+						}
 						religion = manichean
 					} 
 				}
@@ -209,12 +269,6 @@ character_event = {
 						# religion = slavic_pagan_reformed
 						# religion = baltic_pagan
 						# religion = baltic_pagan_reformed
-						religion = briton_pagan
-						religion = briton_pagan_reformed
-						religion = gael_pagan
-						religion = gael_pagan_reformed
-						religion = pict_pagan
-						religion = pict_pagan_reformed
 						religion = germanic_pagan
 						religion = germanic_pagan_reformed
 						religion = frankish_pagan
@@ -225,7 +279,6 @@ character_event = {
 						religion = gothic_pagan_reformed
 						religion = alan_pagan
 						religion = alan_pagan_reformed
-						religion_group = zoroastrian_group
 						religion = tengri_pagan
 						religion = tengri_pagan_reformed
 					} 
@@ -289,6 +342,35 @@ character_event = {
 						has_artifact = gjallarhorn
 					}
 				}
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_in_hellenic_subgroup_trigger = yes
+                        has_artifact = skull_of_alexander
+                        has_artifact = alexanders_armor
+                        has_artifact = sphinx_claw
+                        has_artifact = golden_apple
+                        has_artifact = hectors_armor
+                        has_artifact = odysseus_bow
+                        has_artifact = mask_of_agamemnon
+                        has_artifact = crown_of_theseus
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_in_celtic_subgroup_trigger = yes
+                        has_artifact = tusk_of_torc_triath
+                        has_artifact = horn_of_bran_galed
+                    }
+                }
+				modifier = {
+					factor = 0
+					AND = {
+						religion = britannic_pagan
+						has_artifact = skull_of_brigid
+					}
+				}
 				modifier = {
 					factor = 0
 					AND = {
@@ -302,10 +384,9 @@ character_event = {
 				modifier = { 
 					factor = 0 
 					AND = {
-						OR = {
-							religion_group = pagan_group 
-							religion_group = zoroastrian_group
-						}
+						religion_group = pagan_group 
+                        religion_openly_in_hellenic_subgroup_trigger = no
+                        religion_openly_in_celtic_subgroup_trigger = no
 						has_artifact = famous_head
 						has_artifact = famous_tongue
 						has_artifact = infamous_tongue
@@ -410,6 +491,40 @@ character_event = {
 						has_artifact = engraved_gospel_of_mani
 					}
 				}
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_in_hellenic_subgroup_trigger = yes
+                        has_artifact = achilles_shield_piece
+                        has_artifact = corinthian_helm
+                        has_artifact = tongue_of_oracle
+                        has_artifact = silver_amphora
+						has_artifact = famous_head
+						has_artifact = famous_tongue
+						has_artifact = infamous_tongue
+						has_artifact = famous_hand
+						has_artifact = famous_arm
+						has_artifact = famous_foot
+						has_artifact = famous_ancient_weapon
+                    }
+                }
+                modifier = {
+                    factor = 0
+                    AND = {
+                        religion_openly_in_celtic_subgroup_trigger = yes
+                        has_artifact = torque_of_boudicca
+                        has_artifact = old_carnyx
+                        has_artifact = horned_helm
+                        has_artifact = battersea_shield
+						has_artifact = famous_head
+						has_artifact = famous_tongue
+						has_artifact = infamous_tongue
+						has_artifact = famous_hand
+						has_artifact = famous_arm
+						has_artifact = famous_foot
+						has_artifact = famous_ancient_weapon
+                    }
+                }
 				event_target:rumor_councillor = { character_event = { id = MNM.9003 } }
 			} 
 			9000 = { #AI is less likely to find artifacts
@@ -707,7 +822,7 @@ character_event = {
 							modifier = { factor = 1.4 martial = 15 }	
 							modifier = { factor = 1.4 martial = 18 }	
 							modifier = { factor = 1.4 trait = brave }
-							modifier = { factor = 1.4 combat_rating = 2 }
+							modifier = { factor = 1.4 combat_rating = 20 }
 							event_target:relic_ruler = { 
 								change_variable = { which = relic_score value = 1 } 
 								if = {
@@ -1010,6 +1125,19 @@ character_event = {
 				}
 
 				#Christian artifacts
+				10 = {
+					modifier = { factor = 0 NOT = { religion_group = christian } }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = skull_of_brigid
+					}
+					modifier = {
+						factor = 0
+						NOT = { year = 525 }
+					}
+					narrative_event = { id = celtic.2000 } #receive "Skull of Brigid" event (christian)
+				}
 				10 = {
 					modifier = { factor = 0 NOT = { religion_group = christian } }
 					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
@@ -1701,6 +1829,285 @@ character_event = {
 					narrative_event = { id = MNM.9607 } #Yada Tashy/Rain Stone
 				}
 
+                # Celtic Artifacts
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = silver_hand_of_nuada
+					}
+					narrative_event = { id = celtic.2002 } #receive "Silver Hand of Nuada" event
+				}
+				10 = {
+					modifier = { factor = 0 NOT = { religion = britannic_pagan } }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = trident_of_britannia
+					}
+					narrative_event = { id = celtic.2003 } #receive "Britannia's Trident" event
+				}
+				10 = {
+					modifier = { factor = 0 NOT = { religion = britannic_pagan } }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = helm_of_britannia
+					}
+					narrative_event = { id = celtic.2004 } #receive "Britannia's Helmet" event
+				}
+				10 = {
+					modifier = { factor = 0 NOT = { religion = britannic_pagan } }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = shield_of_britannia
+					}
+					narrative_event = { id = celtic.2005 } #receive "Britannia's Shield" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = skull_of_brigid
+					}
+					modifier = {
+						factor = 0
+						NOT = { year = 525 }
+					}
+					narrative_event = { id = celtic.2000 } #receive "Skull of Brigid" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = horn_of_bran_galed
+					}
+					narrative_event = { id = celtic.2006 } #receive "Horn of Bran Galed" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_medium } }
+					modifier = {
+						factor = 0
+						has_artifact = tusk_of_torc_triath
+					}
+					narrative_event = { id = celtic.2007 } #receive "Tusk of Torc Triath" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = torque_of_boudicca
+					}
+					narrative_event = { id = celtic.2008 } #receive "Boudicca's Torque" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = old_carnyx
+					}
+					narrative_event = { id = celtic.2009 } #receive "Old Carnyx" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = horned_helm
+					}
+					narrative_event = { id = celtic.2010 } #receive "Horned Helm" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_celtic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = battersea_shield
+					}
+					narrative_event = { id = celtic.2011 } #receive "Battersea Shield" event
+				}
+
+                # Hellenic Artifacts
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = nimean_lion_skin
+					}
+					narrative_event = { id = hellenic.1000 } #receive "Nimean Lion Skin" event
+				}
+				10 = {
+					modifier = {
+                        factor = 0
+                        religion_openly_hellenic_or_reformed_trigger = no
+                        NOT = { religion = titan_pagan }
+                    }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = kronium
+					}
+					narrative_event = { id = hellenic.1001 } #receive "Kronium" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = caesars_robe
+					}
+					narrative_event = { id = hellenic.1002 } #receive "Bloody Robe of Caesar" event
+				}
+				10 = {
+					modifier = {
+                        factor = 0
+						OR = {
+	                        religion = promethean_pagan # prometheans don't like aethon
+							NOR = {
+								religion_openly_hellenic_or_reformed_trigger = yes
+								religion = titan_pagan
+							}
+						}
+                    }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = aethons_feather
+					}
+					narrative_event = { id = hellenic.1003 } #receive "aethon's Feather" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_hellenic_or_reformed_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = hectors_armor
+					}
+					narrative_event = { id = hellenic.1005 } #receive "Hector's Armor" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = odysseus_bow
+					}
+					narrative_event = { id = hellenic.1006 } #receive "Odysseus' Bow" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = mask_of_agamemnon
+					}
+					narrative_event = { id = hellenic.1007 } #receive "Mask of Agamemnon" event
+				}
+				10 = {
+					modifier = { 
+                        factor = 0
+                        NOR = {
+                            religion = promethean_pagan
+                            religion_openly_hellenic_or_reformed_trigger = yes
+                        }
+                    }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = crown_of_theseus
+					}
+					narrative_event = { id = hellenic.1008 } #receive "Crown of Theseus" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = skull_of_alexander
+					}
+					narrative_event = { id = hellenic.1009 } #receive "Alexander's Skull" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_major } }
+					modifier = {
+						factor = 0
+						has_artifact = alexanders_armor
+					}
+					narrative_event = { id = hellenic.1010 } #receive "Alexander's Armor" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_medium } }
+					modifier = {
+						factor = 0
+						has_artifact = gold_amphora
+					}
+					narrative_event = { id = hellenic.1011 } #receive "Golden Amphora" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_medium } }
+					modifier = {
+						factor = 0
+						has_artifact = sphinx_claw
+					}
+					narrative_event = { id = hellenic.1012 } #receive "Sphinx Claw" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_medium } }
+					modifier = {
+						factor = 0
+						has_artifact = golden_apple
+					}
+					narrative_event = { id = hellenic.1013 } #receive "Golden Apple" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = achilles_shield_piece
+					}
+					narrative_event = { id = hellenic.1004 } #receive "Fragment of Achilles' Shield" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = corinthian_helm
+					}
+					narrative_event = { id = hellenic.1014 } #receive "Corinthian Helm" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = tongue_of_oracle
+					}
+					narrative_event = { id = hellenic.1015 } #receive "Petrified Tongue of an Oracle" event
+				}
+				10 = {
+					modifier = { factor = 0 religion_openly_in_hellenic_subgroup_trigger = no }
+					modifier = { factor = 0 NOT = { has_character_modifier = relic_rumor_minor } }
+					modifier = {
+						factor = 0
+						has_artifact = silver_amphora
+					}
+					narrative_event = { id = hellenic.1016 } #receive "Silver Amphora" event
+				}
+				
 				# Manichean artifacts
 				20 = {
 					modifier = { factor = 0 NOT = { religion = manichean } }
@@ -8079,14 +8486,26 @@ character_event = {
         		random_list = { #Stewardship
         			15 = { change_stewardship = 1 }
         			25 = { change_stewardship = 3 }
-        			20 = { change_stewardship = 5 }
-        			10 = { change_stewardship = 7 }
+        			20 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				change_stewardship = 5
+        			}
+        			10 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				change_stewardship = 7
+        			}
         		}
         		random_list = { #Personality
         			1 = { add_trait = greedy }
         			1 = { add_trait = envious }
-        			1 = { add_trait = charitable }
-        			1 = { add_trait = diligent }
+        			1 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				add_trait = charitable
+        			}
+        			1 = {
+        				artisan_craftsmen_bloodline_increase_score = yes
+        				add_trait = diligent
+        			}
         			1 = { add_trait = deceitful }
         		}
         		random = {
@@ -8095,6 +8514,7 @@ character_event = {
         				factor = 2
         				trait = indulgent_wastrel
         			}
+        			artisan_craftsmen_bloodline_increase_score = yes
         			upgrade_education_effect = yes
         		}
 			}
@@ -8201,6 +8621,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 	    	}
@@ -8294,6 +8721,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 			}
@@ -8382,6 +8816,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = goldsmith_steal
 				}
 			}
@@ -8496,27 +8937,27 @@ character_event = {
         	add_artifact = dagger_of_glory_2
         	add_artifact = ruby_bracelets_2
         }
-        else_if = {
-        	limit = { 
-        		OR = {
-        			religion_group = indian_group
-        			religion = bon
-        		}
-        	}
-        	add_artifact = dagger_of_glory_2
-        	add_artifact = celestial_necklace_2
-        }
-        else_if = {
-        	limit = { 
-        		OR = {
-        			religion_group = zoroastrian_group
-        			religion = zun_pagan
-        			religion = zun_pagan_reformed
-				}
-			}
-        	add_artifact = circlet_of_the_heavens_2
-        	add_artifact = staff_of_majesty_2
-        }
+        # else_if = {
+        	# limit = { 
+        		# OR = {
+        			# religion_group = indian_group
+        			# religion = bon
+        		# }
+        	# }
+        	# add_artifact = dagger_of_glory_2
+        	# add_artifact = celestial_necklace_2
+        # }
+        # else_if = {
+        	# limit = { 
+        		# OR = {
+        			# religion_group = zoroastrian_group
+        			# religion = zun_pagan
+        			# religion = zun_pagan_reformed
+				# }
+			# }
+        	# add_artifact = circlet_of_the_heavens_2
+        	# add_artifact = staff_of_majesty_2
+        # }
         else_if = {
         	limit = {
         		OR = {
@@ -8527,6 +8968,13 @@ character_event = {
         	add_artifact = crown_of_crows_2
         	add_artifact = sword_of_heroes_2
         }
+		else_if = {
+			limit = {
+				religion_openly_in_celtic_subgroup_trigger = yes
+			}
+			add_artifact = jeweled_torque_2
+			add_artifact = sword_of_heroes_2
+		}
         else = {
         	add_artifact = heros_crown_2
         	add_artifact = axe_of_the_ancestors_2
@@ -8575,7 +9023,7 @@ character_event = {
         		OR = {
         			religion_group = christian 
         			religion_group = jewish_group
-					religion_group = zoroastrian_group
+					is_hellenic_group_religion_trigger = yes
 					religion_group = gnostic_group
 				}
         	}
@@ -8618,6 +9066,13 @@ character_event = {
         	add_artifact = crown_of_crows
         	add_artifact = sword_of_heroes
         }
+		else_if = {
+			limit = {
+				religion_openly_in_celtic_subgroup_trigger = yes
+			}
+			add_artifact = jeweled_torque
+			add_artifact = sword_of_heroes
+		}
         else = {
         	add_artifact = heros_crown
         	add_artifact = axe_of_the_ancestors
@@ -8667,7 +9122,7 @@ character_event = {
         		OR = {
         			religion_group = christian 
         			religion_group = jewish_group
-					religion_group = zoroastrian_group
+					is_hellenic_group_religion_trigger = yes
 					religion_group = gnostic_group
 				}
         	}
@@ -8710,6 +9165,13 @@ character_event = {
         	add_artifact = crown_of_the_sea
         	add_artifact = golden_sword
         }
+		else_if = {
+			limit = {
+				religion_openly_in_celtic_subgroup_trigger = yes
+			}
+			add_artifact = golden_torque
+			add_artifact = golden_sword
+		}
 		else = {
         	add_artifact = amber_crown
         	add_artifact = obsidian_axe
@@ -8766,7 +9228,7 @@ character_event = {
         		OR = {
         			religion_group = christian 
         			religion_group = jewish_group
-					religion_group = zoroastrian_group
+					is_hellenic_group_religion_trigger = yes
 					religion_group = gnostic_group
 				}
         	}
@@ -8809,6 +9271,13 @@ character_event = {
         	add_artifact = iron_crown
         	add_artifact = engraved_sword
         }
+		else_if = {
+			limit = {
+				religion_openly_in_celtic_subgroup_trigger = yes
+			}
+			add_artifact = silver_torque
+			add_artifact = engraved_sword
+		}
         else = {
         	add_artifact = engraved_crown
         	add_artifact = ceremonial_axe
@@ -9034,13 +9503,28 @@ character_event = {
 ###WEAPON EVENTS###
 character_event = {
     id = MNM.9115
-    desc = EVTDESC_MNM_9115
     picture = GFX_evt_weaponsmith
     border = GFX_event_normal_frame_economy
-
     hide_from = yes
     is_triggered_only = yes
 
+	desc = {
+		text = EVTDESC_MNM_9115
+		trigger = {
+			any_courtier_or_vassal = {
+				has_job_title = job_marshal
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC_MNM_9115_b
+		trigger = {
+			NOT = { any_courtier_or_vassal = {
+				has_job_title = job_marshal 
+			} }
+		}
+	}
+	
     trigger = {
     	OR = {
     		has_dlc = "Mystics"
@@ -9110,14 +9594,26 @@ character_event = {
         		random_list = { #Stewardship
         			15 = { change_stewardship = 1 }
         			25 = { change_stewardship = 3 }
-        			20 = { change_stewardship = 5 }
-        			10 = { change_stewardship = 7 }
+        			20 = {
+        				change_stewardship = 5
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
+        			10 = {
+        				change_stewardship = 7
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
         		}
         		random_list = { #Personality
         			1 = { add_trait = greedy }
         			1 = { add_trait = envious }
-        			1 = { add_trait = charitable }
-        			1 = { add_trait = diligent }
+        			1 = {
+        				add_trait = charitable
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
+        			1 = {
+        				add_trait = diligent
+        				artisan_craftsmen_bloodline_increase_score = yes
+        			}
         			1 = { add_trait = deceitful }
         		}
         		random = {
@@ -9126,6 +9622,7 @@ character_event = {
         				factor = 2
         				trait = indulgent_wastrel
         			}
+        			artisan_craftsmen_bloodline_increase_score = yes
         			upgrade_education_effect = yes
         		}
 			}
@@ -9149,8 +9646,31 @@ character_event = {
         		character_event = { id = MNM.9116 days = 7 } 
         	}
         }
+		trigger = {
+			any_courtier_or_vassal = {
+				has_job_title = job_marshal
+			}
+		}
     }
 
+	option = {
+		name = EVTOPTA_MNM_9115_b
+		 custom_tooltip = { text = EVTOPTA_MNM_9115_TT }
+		  hidden_effect = {
+        	save_event_target_as = smith_employer
+        	event_target:smith = { 
+        		character_event = { id = MNM.9116 days = 7 } 
+        	}
+        }
+		trigger = {
+			NOT = { 
+				any_courtier_or_vassal = {
+					has_job_title = job_marshal 
+				} 
+			}
+		}
+	}
+	
     #Don't invite them
     option = {
         name = EVTOPTB_MNM_9115
@@ -9162,7 +9682,52 @@ character_event = {
         }
         clr_character_flag = weaponsmith
         clr_character_flag = armorsmith
+		
+		if = {
+			limit = {
+				NOR = {
+					has_artifact = terrible_sword
+					has_character_flag = got_terrible_sword
+				}
+			}
+			character_event = { id = MNM.9999 days = 7 }
+			set_character_flag = got_terrible_sword
+		}
+		
+		ai_chance = {
+            factor = 0
+        }
     }
+}
+
+character_event = { #Your own smiths have a go
+    id = MNM.9999
+	desc = MNM_9999_DESC
+    picture = GFX_evt_weaponsmith
+    border = GFX_event_normal_frame_economy
+    hide_from = yes
+	hide_new = yes
+    is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+    		has_dlc = "Mystics"
+    		has_dlc = "Jade Dragon"
+    	}
+	}
+	
+	immediate = {
+		add_artifact = terrible_sword
+	}
+	
+	option = {
+		name = EVTOPTA_MNM_9999
+		tooltip ={
+			add_artifact = terrible_sword
+		}
+	
+	}
+	
 }
 
 #Ping event for weaponsmith
@@ -9379,6 +9944,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -9565,6 +10137,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -9727,6 +10306,13 @@ character_event = {
         			modifier = { factor = 0.2 FROM = { trait = content } }
         			modifier = { factor = 1.5 FROM = { trait = ambitious } }
         			modifier = { factor = 1.3 FROM = { trait = deceitful } }
+        			trigger = {
+        				NOT = {
+	        				any_owned_bloodline = {
+								has_bloodline_flag = bloodline_artisan_craftsmen
+							}
+        				}
+        			}
         			set_character_flag = smith_steal
 				}
 			}
@@ -10360,7 +10946,7 @@ character_event = {
     }
     desc = {
     	trigger = {
-    		tier = GENERIC
+    		NOT = { tier = KING }
     	}
     	text = EVTDESC_MNM_9124_GENERIC
     }
@@ -10700,7 +11286,6 @@ character_event = {
 	option = { #Weapon
 		name = EVT_OPTA_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = combat_weapon } }
 	    	job_marshal = { always = yes }
 	    }
 	    custom_tooltip = {
@@ -10710,11 +11295,17 @@ character_event = {
 	    		character_event = { id = MNM.9115 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = combat_weapon }
+            }
+        }
 	}
 	option = { #Armor
 		name = EVT_OPTB_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = armor_set } }
 	    	job_marshal = { always = yes }
 	    }
 	    custom_tooltip = {
@@ -10724,11 +11315,17 @@ character_event = {
 	    		character_event = { id = MNM.9115 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = armor_set }
+            }
+        }
 	}
 	option = { #Gold
 		name = EVT_OPTC_MNM_9310
 	    trigger = {
-	    	NOT = { any_artifact = { has_artifact_flag = crown_jewel } }
 			is_feudal = yes
 	    }
 	    custom_tooltip = {
@@ -10737,6 +11334,13 @@ character_event = {
 	    		character_event = { id = MNM.9100 days = 50 random = 50 }
 	    	}
 	   	}
+		ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                any_artifact = { has_artifact_flag = crown_jewel }
+            }
+        }
 	}
 	option = {
 		name = EVT_OPTD_MNM_9310
@@ -10746,6 +11350,9 @@ character_event = {
 				remove_character_modifier = employ_a_smith_cd
 			}
 		}
+		ai_chance = {
+            factor = 0
+        }
 	}
 }
 
@@ -10776,7 +11383,7 @@ character_event = {
 			        		OR = {
 			        			religion_group = christian 
 			        			religion_group = jewish_group
-			        			religion_group = zoroastrian_group
+			        			is_hellenic_group_religion_trigger = yes
 			        			religion_group = gnostic_group
 							}
 						}
@@ -10841,6 +11448,12 @@ character_event = {
 		        	add_artifact = sword_of_heroes
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
 		        }
+				else_if = {
+					add_artifact = jeweled_torque
+					new_artifact = { set_artifact_flag = stolen_by_smith }
+					add_artifact = sword_of_heroes
+					new_artifact = { set_artifact_flag = stolen_by_smith }
+				}
 		        else = {
 		        	add_artifact = heros_crown
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
@@ -10855,7 +11468,7 @@ character_event = {
 			        		OR = {
 			        			religion_group = christian 
 			        			religion_group = jewish_group
-			        			religion_group = zoroastrian_group
+			        			is_hellenic_group_religion_trigger = yes
 			        			religion_group = gnostic_group
 							}
 						}
@@ -10919,6 +11532,17 @@ character_event = {
 		        	add_artifact = golden_sword
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
 		        }
+				else_if = {
+					limit = {
+						FROM = {
+							religion_openly_in_celtic_subgroup_trigger = yes
+						}
+					}
+					add_artifact = golden_torque
+					new_artifact = { set_artifact_flag = stolen_by_smith }
+					add_artifact = golden_sword
+					new_artifact = { set_artifact_flag = stolen_by_smith }
+				}
 		        else = {
 		        	add_artifact = amber_crown
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
@@ -10933,7 +11557,7 @@ character_event = {
 			        		OR = {
 			        			religion_group = christian 
 			        			religion_group = jewish_group
-			        			religion_group = zoroastrian_group
+			        			is_hellenic_group_religion_trigger = yes
 			        			religion_group = gnostic_group
 							}
 						}
@@ -10997,6 +11621,17 @@ character_event = {
 		        	add_artifact = engraved_sword
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
 		        }
+				else_if = {
+					limit = {
+						FROM = {
+							religion_openly_in_celtic_subgroup_trigger = yes
+						}
+						add_artifact = silver_torque
+						new_artifact = { set_artifact_flag = stolen_by_smith }
+						add_artifact = engraved_sword
+						new_artifact = { set_artifact_flag = stolen_by_smith }
+					}
+				}
 		        else = {
 		        	add_artifact = engraved_crown
 		        	new_artifact = { set_artifact_flag = stolen_by_smith }
@@ -11151,7 +11786,7 @@ character_event = {
 			    }
 			}
 		}
-		#Give to landed rivals first, then rivals, then nearby rulers who dislike the employer, else keep for self and run away
+		#Give to landed rivals first, then nearby rulers who dislike the employer, else keep for self and run away.
 		if = {
 			limit = { 
 				event_target:smith_employer = { 
@@ -11174,24 +11809,8 @@ character_event = {
 		else_if = {
 			limit = { 
 				event_target:smith_employer = { 
-					any_rival = {
-						is_within_diplo_range = ROOT
-					}
-				}
-			}
-			event_target:smith_employer = { 
-				random_rival = {
-					limit = { 
-						is_within_diplo_range = ROOT
-					}
-					save_event_target_as = smith_steal_target
-				}
-			}
-		}
-		else_if = {
-			limit = { 
-				event_target:smith_employer = { 
 					any_neighbor_independent_ruler = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11204,6 +11823,7 @@ character_event = {
 			event_target:smith_employer = { 
 				any_neighbor_independent_ruler = {
 					limit = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11219,6 +11839,7 @@ character_event = {
 			limit = { 
 				event_target:smith_employer = { 
 					any_neighbor_independent_ruler = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11231,6 +11852,7 @@ character_event = {
 			event_target:smith_employer = { 
 				any_neighbor_independent_ruler = {
 					limit = {
+						is_landed = yes
 						NOT = {
 							opinion = {
 								who = PREV
@@ -11305,12 +11927,6 @@ character_event = {
     		any_artifact = {
     			limit = { has_artifact_flag = stolen_by_smith }
     			clr_artifact_flag = stolen_by_smith
-    			tooltip = { 
-    				transfer_artifact = {
-    					to = event_target:smith_steal_target
-    					from = ROOT
-    				}
-    			}
     		}
 			reverse_opinion = {
 				who = ROOT
@@ -11328,6 +11944,37 @@ character_event = {
 			hidden_effect = { remove_nickname = yes }
 		}
     }
+	
+	option = {
+		name = EVT_OPTB_MNM_9132
+		tooltip_info = intrigue
+		custom_tooltip = { text = EVT_OPTB_MNM_9132_TT}
+		trigger = {
+			intrigue = 15
+		}
+		hidden_effect = {
+			event_target:smith_steal_target = {
+				any_artifact = {
+					show_scope_change = no
+					limit = { has_artifact_flag = stolen_by_smith }
+					transfer_artifact = {
+						from = event_target:smith_steal_target
+						to = ROOT
+					}
+					clr_artifact_flag = stolen_by_smith
+				}
+			}
+		}
+		
+		FROM = {
+			show_scope_change = no
+			death = {
+				death_reason = death_execution
+				killer = ROOT
+			}
+		}
+		
+	}
 }
 
 #Tombola for events mid-smithing
@@ -11411,12 +12058,14 @@ character_event = {
 									is_inaccessible_or_incapable_trigger = no
 									liege = { character = ROOT }
 									age <= 16
+									age = 9
 									is_strong_trigger = no
 									NOT = { trait = weak }
 								}
 								any_pupil = {
 									is_inaccessible_or_incapable_trigger = no
 									age <= 16
+									age = 9
 									is_strong_trigger = no
 									NOT = { trait = weak }
 								}
@@ -11450,6 +12099,11 @@ character_event = {
 										event_target:smith = { is_female = no }
 										prefers_men_trigger = yes
 									}
+								}
+							}
+							NOT = {
+								any_owned_bloodline = {
+									has_bloodline_flag = bloodline_artisan_craftsmen #A Legendary Bloodline
 								}
 							}
 						}
@@ -11682,6 +12336,7 @@ character_event = {
 			limit = { 
 				liege = { character = ROOT }
 				age <= 16
+				age = 9
 				is_strong_trigger = no
 				NOT = { trait = weak }
 				is_inaccessible_or_incapable_trigger = no
@@ -11691,6 +12346,7 @@ character_event = {
 		random_pupil = {
 			limit = {
 				age <= 16
+				age = 9
 				is_strong_trigger = no
 				NOT = { trait = weak }
 				is_inaccessible_or_incapable_trigger = no
@@ -12039,7 +12695,7 @@ character_event = {
 		    	clr_character_flag = expensive_weapons
 				clr_character_flag = good_weapons
 				clr_character_flag = cheap_weapons
-				clr_character_flag = amazing_jewel
+				clr_character_flag = amazing_jewels
 		    	clr_character_flag = expensive_jewels
 				clr_character_flag = good_jewels
 				clr_character_flag = cheap_jewels
@@ -12068,7 +12724,7 @@ character_event = {
 	has_dlc = "Mystics"
 	
 	trigger = {
-		FROM = { 
+		FROM = {
 			always = yes
 			is_capital = yes
 			location = { is_capital = yes }
@@ -12086,9 +12742,12 @@ character_event = {
     hide_window = yes
 	
 	is_triggered_only = yes
-	has_dlc = "Mystics"
 
 	trigger = {
+		OR = {
+			has_dlc = "Mystics"
+			has_dlc = "Holy Fury"	
+		}
 		FROM = {
 			is_capital = yes #capital holding
 			location = { is_capital = yes } #of capital province
@@ -12119,6 +12778,7 @@ character_event = {
 				if = {
 					limit = {
 						num_of_artifacts = 1
+						at_location = event_target:target_location
 					}
 					character_event = { id = MNM.9901 } # Chance to lose an artifact.
 				}
@@ -12294,6 +12954,21 @@ character_event = {
 						}
 					}
 				}
+				modifier = {
+					factor = 0.5 # if the sieger was a warrior lodge member
+					FROM = {
+						is_member_of_any_warrior_lodge_trigger = yes
+						society_rank > 1 #Must be rank 2 or higher
+					}
+				}
+				modifier = {
+					factor = 0.5 # if the sieger has a reaver bloodline
+					FROM = {
+						any_owned_bloodline = {
+							has_bloodline_flag = bloodline_reaver
+						}
+					}
+				}
 			}
 		}
 		FROM = {
@@ -12357,6 +13032,7 @@ character_event = {
 		}
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12391,6 +13067,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -12469,6 +13146,7 @@ character_event = {
 		}
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12502,13 +13180,14 @@ character_event = {
 		name = EVTOPTA_MNM_9903
 		tooltip = {
 			FROM = {
+				show_scope_change = no
 				random_artifact = {
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
 					transfer_artifact = {
 						from = ROOT
-						to = THIS
+						to = PREV
 					}
 				}
 			}
@@ -12631,6 +13310,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12669,6 +13349,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -12719,6 +13400,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -12748,6 +13430,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}
@@ -12865,6 +13548,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -12903,6 +13587,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -12982,6 +13667,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}
@@ -13099,6 +13785,7 @@ character_event = {
 		
 		tooltip = {
 			random_artifact = {
+				show_scope_change = no
 				limit = {
 					has_artifact_flag = looted_artifact_tooltip_1
 				}
@@ -13137,6 +13824,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_1
 					}
@@ -13187,6 +13875,7 @@ character_event = {
 		tooltip = {
 			FROM = {
 				random_artifact = {
+					show_scope_change = no
 					limit = {
 						has_artifact_flag = looted_artifact_tooltip_2
 					}
@@ -13216,6 +13905,7 @@ character_event = {
 		}
 		
 		random_artifact = {
+			show_scope_change = no
 			limit = {
 				has_artifact_flag = looted_artifact_tooltip_2
 			}

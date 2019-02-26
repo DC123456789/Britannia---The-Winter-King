@@ -258,7 +258,7 @@ character_event = {
 					religion_group = pagan_group
 					is_celtic_pagan_trigger = no
 				}
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 			}
 		}
 	}
@@ -525,7 +525,7 @@ character_event = {
 					religion_group = pagan_group
 					is_celtic_pagan_trigger = no
 				}
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 			}
 		}
 	}
@@ -792,7 +792,7 @@ character_event = {
 					religion_group = pagan_group
 					is_celtic_pagan_trigger = no
 				}
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 			}
 		}
 	}
@@ -1067,7 +1067,7 @@ character_event = {
 					religion_group = pagan_group
 					is_celtic_pagan_trigger = no
 				}
-				religion_group = zoroastrian_group
+				is_hellenic_group_religion_trigger = yes
 			}
 		}
 	}
@@ -1115,7 +1115,7 @@ narrative_event = {
 	desc = {
 		text = EVTDESC314010_hellenic
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	desc = {
@@ -1176,7 +1176,7 @@ narrative_event = {
 	option = {
 		name = "EVTOPTE314010"
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	option = {
@@ -1230,7 +1230,7 @@ narrative_event = {
 	desc = {
 		text = EVTDESC314011_hellenic
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	desc = {
@@ -1296,7 +1296,7 @@ narrative_event = {
 	option = {
 		name = "EVTOPTE314011"
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	option = {
@@ -1353,7 +1353,7 @@ narrative_event = {
 	desc = {
 		text = EVTDESC314012_hellenic
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	desc = {
@@ -1422,7 +1422,7 @@ narrative_event = {
 	option = {
 		name = "EVTOPTF314012"
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	option = {
@@ -1479,7 +1479,7 @@ narrative_event = {
 	desc = {
 		text = EVTDESC314013_hellenic
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	desc = {
@@ -1548,7 +1548,7 @@ narrative_event = {
 	option = {
 		name = "EVTOPTF314013"
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 	option = {
@@ -1585,9 +1585,9 @@ province_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 120
+		months = 110
 		modifier = {
-			factor = 2
+			factor = 2.75
 			has_global_flag = late_antique_little_ice_age_phase_2_started
 		}
 		modifier = {
@@ -1607,11 +1607,11 @@ province_event = {
 			has_province_modifier = depopulated_1
 		}
 		modifier = {
-			factor = 1.35
+			factor = 1.5
 			has_province_modifier = depopulated_2
 		}
 		modifier = {
-			factor = 1.5
+			factor = 1.75
 			has_province_modifier = depopulated_3
 		}
 		modifier = {
@@ -1623,7 +1623,7 @@ province_event = {
 			num_of_max_settlements = 4
 		}
 		modifier = {
-			factor = 1.5
+			factor = 2
 			capital_holding = { holding_type = TRIBAL }
 		}
 		modifier = {
@@ -1689,44 +1689,59 @@ province_event = {
 	option = {
 		name = "EVTOPTA314020"
 		ROOT = {
-			any_province_holding = {
-				destroy_random_nonspecial_building_effect = yes
-				if = {
-					limit = {
-						ROOT = {
-							OR = {
-								has_province_modifier = depopulated_1
-								has_province_modifier = depopulated_2
-								has_province_modifier = depopulated_3
+			if = {
+				limit = {
+					NOR = {
+						has_province_modifier = prosperity_modifier_1
+						has_province_modifier = prosperity_modifier_2
+						has_province_modifier = prosperity_modifier_3
+					}
+				}
+				any_province_holding = {
+					destroy_random_nonspecial_building_effect = yes
+					if = {
+						limit = {
+							ROOT = {
+								OR = {
+									has_province_modifier = depopulated_1
+									has_province_modifier = depopulated_2
+									has_province_modifier = depopulated_3
+								}
+							}
+							NOR = { 
+								holding_type = TEMPLE 
+								holding_type = TRIBAL
 							}
 						}
-						NOT = { holding_type = TEMPLE }
+						destroy_random_nonspecial_building_effect = yes
 					}
-					destroy_random_nonspecial_building_effect = yes
-				}
-				if = {
-					limit = {
-						ROOT = {
-							OR = {
-								has_province_modifier = depopulated_2
-								has_province_modifier = depopulated_3
+					if = {
+						limit = {
+							ROOT = {
+								OR = {
+									has_province_modifier = depopulated_2
+									has_province_modifier = depopulated_3
+								}
 							}
 						}
+						destroy_random_nonspecial_building_effect = yes
 					}
-					destroy_random_nonspecial_building_effect = yes
-				}
-				if = {
-					limit = {
-						ROOT = {
-							has_province_modifier = depopulated_3
+					if = {
+						limit = {
+							ROOT = {
+								has_province_modifier = depopulated_3
+							}
+							NOR = { 
+								holding_type = TEMPLE 
+								holding_type = TRIBAL
+							}
 						}
-						NOT = { holding_type = TEMPLE }
+						destroy_random_nonspecial_building_effect = yes
 					}
-					destroy_random_nonspecial_building_effect = yes
 				}
 			}
-			decrease_prosperity_or_increase_depopulation_effect = yes
 		}
+		decrease_prosperity_or_increase_depopulation_effect = yes
 	}
 }
 

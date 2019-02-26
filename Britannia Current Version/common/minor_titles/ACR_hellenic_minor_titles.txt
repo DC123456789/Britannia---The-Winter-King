@@ -449,7 +449,25 @@ title_chiliarch = {
 	allowed_to_hold = {
 		is_adult = yes
 		has_regent = no
-		is_female = no
+		OR = {
+			AND = {
+				is_female = no
+				liege = {
+					NOT = {
+						has_religion_feature = religion_matriarchal
+					}
+				}
+			}
+			AND = {
+				is_female = yes
+				liege = {
+					OR = {
+						has_religion_feature = religion_matriarchal
+						has_religion_feature = religion_equal
+					}
+				}
+			}
+		}
 		martial = 6
 	}
 
@@ -526,11 +544,7 @@ title_hellanodikos = {
 
 	allowed_to_grant = {
 		independent = yes
-		OR = {
-			is_roman_pagan_or_reformed_trigger = yes
-			religion = promethean_pagan
-			religion = titan_pagan
-		}
+		religion_openly_in_hellenic_subgroup_trigger = yes
 	}
 
 	gain_effect = {

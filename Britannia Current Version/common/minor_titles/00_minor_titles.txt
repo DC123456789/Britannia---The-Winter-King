@@ -159,6 +159,22 @@ title_courtesan = {
 	message = no
 }
 
+title_male_consort = {
+	dignity = 0.05
+	#realm_in_name = yes
+	revoke_allowed = no
+	
+	monthly_salary = 0.02
+	monthly_prestige = 0.10
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
 # Commander, granted via its own interaction, so very special
 title_commander = {
 	is_high_prio = yes
@@ -170,6 +186,7 @@ title_commander = {
 	
 	monthly_salary = 0.05
 	monthly_prestige = 0.50
+	#combat_rating = 10 # Reactivate if we get this working
 	
 	revoke_allowed = no # Handled by diplomatic interaction
 	
@@ -180,32 +197,8 @@ title_commander = {
 		OR = {
 			AND = {
 				OR = {
-					is_female = no
-					AND = {
-						OR = {
-							religion = pict_pagan_reformed
-							religion = pict_pagan
-							religion = promethean_pagan
-						}
-						liege = { 
-							OR = {
-								religion = pict_pagan_reformed
-								religion = pict_pagan
-								religion = promethean_pagan
-							}
-						}
-					}
-					liege = {
-						OR = {
-							primary_title = {
-								has_law = status_of_women_4
-							}
-							has_game_rule = {
-								name = gender
-								value = all
-							}
-						}
-					}
+					male_can_hold_minor_title_trigger = yes
+					female_can_hold_minor_commander_title_trigger = yes
 				}
 				#OR = {
 				#	NOT = { religion = hindu }
@@ -215,19 +208,22 @@ title_commander = {
 			}
 			has_character_flag = special_marshal
 		}
-		OR = {
-			FROM = { 
-				NAND = { 
+		trigger_if = {
+			limit = {
+				FROM = { 
 					government = imperial_government 
 					tier = EMPEROR
-				} 
+					is_landed = yes			# Excludes the unlanded WRE and ERE, who don't have legions
+				}
 			}
-			government = legion_government
-			custom_tooltip = {
-				text = tooltip_is_caesar
-				OR = {
-					has_minor_title = title_caesar
-					has_minor_title = title_caesar_non_voter
+			OR = {
+				government = legion_government
+				custom_tooltip = {
+					text = tooltip_is_caesar
+					OR = {
+						has_minor_title = title_caesar
+						has_minor_title = title_caesar_non_voter
+					}
 				}
 			}
 		}
@@ -237,11 +233,37 @@ title_commander = {
 		NOT = { trait = manichaean_elect }
 		NOT = { is_inaccessible_trigger = yes }
 		NOT = { has_character_flag = guru }
+		NOT = { has_character_modifier = refusing_to_lead }
 	}
 	
 	gain_effect = {
+		if = {
+			limit = {
+				liege = { 
+					has_law = succ_byzantine_elective 
+				}
+			}
+			character_event = { id = HFP.20805 days = 1 } 
+		}
+		hidden_effect = { # Because this cannot be added in the passive effects, for some code reason
+			add_character_modifier = {
+	        	name = hidden_commander_bonus
+	        	duration = -1
+	        	hidden = yes
+	        }
+		}
 	}
 	lose_effect = {
+		if = {
+			limit = {
+				liege = { has_law = succ_byzantine_elective }
+			}
+			character_event = { id = HFP.20803 days = 1 } #Make sure the commander is not being made a sub-vassal.
+			
+		}
+		hidden_effect = {
+			remove_character_modifier = hidden_commander_bonus
+		}
 	}
 	
 	message = yes
@@ -335,18 +357,8 @@ title_caesar = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = bastard }
 		OR = {
@@ -443,18 +455,8 @@ title_caesar_non_voter = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = bastard }
 		OR = {
@@ -540,7 +542,10 @@ title_senator = {
 			primary_title = { temporary = yes } 
 		}
 		has_global_flag = senate_restored
-		is_female = no
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
+		}
 		age = 30
 		stewardship = 5
 		diplomacy = 7
@@ -583,27 +588,8 @@ title_master_of_the_horse = {
 		}
 		is_adult = yes
 		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_court_jester }
@@ -662,27 +648,8 @@ title_master_of_the_hunt = {
 		}
 		is_adult = yes
 		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		trait = hunter
 		NOT = { trait = incapable }
@@ -731,21 +698,8 @@ title_master_of_the_hounds = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		trait = hunter
 		NOT = { trait = incapable }
@@ -807,6 +761,10 @@ title_high_almoner = {
 			trait = scholarly_theologian
 			trait = mastermind_theologian
 		}
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
+		}
 		NOT = { trait = incapable } 
 		NOT = { has_minor_title = title_court_jester }
 		NOT = { has_minor_title = title_dominus_convivii }
@@ -852,6 +810,10 @@ title_dominus_convivii = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
+		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_court_jester }
 		NOT = { has_minor_title = title_food_taster }
@@ -909,27 +871,8 @@ title_seneschal = {			# Palatinus
 		}
 		is_adult = yes
 		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { trait = uneducated }
@@ -983,21 +926,8 @@ title_chief_architect = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		learning = 10
 		stewardship = 10
@@ -1034,6 +964,7 @@ title_chief_architect = {
 			culture = breton
 			culture = romanobritish
 			culture_group = imperiale
+			religion_group = muslim
 		}
 	}
 	
@@ -1063,27 +994,8 @@ title_cupbearer = {
 		}
 		is_adult = yes
 		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_court_jester }
@@ -1137,11 +1049,9 @@ title_court_eunuch = {
 			is_feudal = yes
 			is_tribal = yes
 		}
-		primary_title = {
-			OR = {
-				tier = king
-				tier = emperor
-			}
+		OR = {
+			real_tier = king
+			real_tier = emperor
 		}
 	}
 	
@@ -1149,83 +1059,6 @@ title_court_eunuch = {
 		FROM = {
 			prestige = 10
 		}
-	}
-	lose_effect = {
-	}
-
-	message = yes
-}
-
-title_court_calligrapher = {
-	dignity = 0.04
-	realm_in_name = yes
-	grant_limit = 1
-	opinion_effect = 15
-	show_as_title = yes
-	
-	monthly_salary = 0.01
-	monthly_prestige = 0.002
-	
-	allowed_to_hold = {
-		NOT = {
-			primary_title = { temporary = yes } 
-		}
-		is_adult = yes
-		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
-		}
-		diplomacy = 10
-		learning = 10
-		NOT = { trait = incapable }
-		NOT = { trait = uneducated }
-		NOT = { has_minor_title = title_court_jester }
-		NOT = { has_minor_title = title_dominus_convivii }
-		NOT = { has_minor_title = title_master_of_the_horse }
-		NOT = { has_minor_title = title_master_of_the_hunt }
-		NOT = { has_minor_title = title_master_of_the_hounds }
-		NOT = { has_minor_title = title_high_almoner }
-		NOT = { has_minor_title = title_food_taster }
-		#NOT = { has_minor_title = title_court_bard }
-		NOT = { has_minor_title = title_court_poet }
-		NOT = { has_minor_title = title_chief_architect }
-		NOT = { has_minor_title = title_cupbearer }
-		NOT = { has_minor_title = title_seneschal }
-	}
-	
-	allowed_to_grant = {
-		OR = {
-			is_feudal = yes
-			is_tribal = yes
-		}
-		primary_title = {
-			OR = {
-				tier = king
-				tier = emperor
-			}
-		}
-		OR = {
-			culture_group = imperiale
-			culture = romanobritish
-			culture = armorican
-			culture = breton
-		}
-	}
-	
-	gain_effect = {
 	}
 	lose_effect = {
 	}
@@ -1251,6 +1084,10 @@ title_court_bard = {
 		OR = {
 			#trait = musician
 			trait = poet
+		}
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		
 		NOT = { trait = incapable }
@@ -1292,21 +1129,8 @@ title_court_poet = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		trait = poet
 		learning = 8
@@ -1360,6 +1184,10 @@ title_court_dwarf = {
 		}
 		is_adult = yes
 		trait = dwarf
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
+		}
 	}
 	
 	allowed_to_grant = {
@@ -1401,6 +1229,10 @@ title_court_jester = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
+		OR = { 
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
+		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_dominus_convivii }
 		NOT = { has_minor_title = title_master_of_the_horse }
@@ -1440,7 +1272,7 @@ title_food_taster = {
 	dignity = 0.01
 	realm_in_name = yes
 	grant_limit = 1
-	opinion_effect = -10
+	opinion_effect = 5
 	
 	monthly_salary = 0.02
 	monthly_prestige = -0.01
@@ -1451,21 +1283,8 @@ title_food_taster = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_court_jester }
@@ -1503,12 +1322,11 @@ title_food_taster = {
 	message = yes
 }
 
-
 title_court_calligrapher = {
 	dignity = 0.05
 	realm_in_name = yes
 	grant_limit = 1
-	opinion_effect = 5
+	opinion_effect = 10
 	
 	monthly_salary = 0.01
 	monthly_prestige = 0.20
@@ -1516,31 +1334,30 @@ title_court_calligrapher = {
 	is_unique = yes
 	
 	allowed_to_hold = {
-		NOT = { 
+		NOT = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_2
-					}
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
-		NOT = { trait = incapable } 
+		diplomacy = 10
+		learning = 10
+		NOT = { trait = incapable }
+		NOT = { trait = uneducated }
+		NOT = { has_minor_title = title_court_jester }
+		NOT = { has_minor_title = title_dominus_convivii }
+		NOT = { has_minor_title = title_master_of_the_horse }
+		NOT = { has_minor_title = title_master_of_the_hunt }
+		NOT = { has_minor_title = title_master_of_the_hounds }
+		NOT = { has_minor_title = title_high_almoner }
+		NOT = { has_minor_title = title_food_taster }
+		#NOT = { has_minor_title = title_court_bard }
+		NOT = { has_minor_title = title_court_poet }
+		NOT = { has_minor_title = title_chief_architect }
+		NOT = { has_minor_title = title_cupbearer }
+		NOT = { has_minor_title = title_seneschal }
 	}
 
 	allowed_to_grant = {
@@ -1554,7 +1371,13 @@ title_court_calligrapher = {
 				tier = emperor
 			}
 		}
-		religion_group = muslim
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			culture = armorican
+			culture = breton
+			religion_group = muslim
+		}
 	}
 	
 	gain_effect = {
@@ -1581,60 +1404,9 @@ title_court_musician = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
-		NOT = { trait = incapable } 
-	}
-
-	allowed_to_grant = {
-		OR = {
-			is_feudal = yes
-			is_tribal = yes
-		}
-		religion_group = muslim
-	}
-	
-	gain_effect = {
-	}
-	lose_effect = {
-	}
-
-	message = yes
-}
-
-title_court_poet = {
-	dignity = 0.05
-	realm_in_name = yes
-	grant_limit = 1
-	opinion_effect = 5
-	
-	monthly_salary = 0.02
-	monthly_prestige = 0.40
-	
-	is_unique = yes
-	
-	allowed_to_hold = {
-		NOT = { 
-			primary_title = { temporary = yes } 
-		}
-		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_2
-					}
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable } 
 	}
@@ -1655,57 +1427,112 @@ title_court_poet = {
 	message = yes
 }
 
-title_chief_architect = {
-	dignity = 0.03
-	realm_in_name = yes
-	grant_limit = 1
-	opinion_effect = 5
+# title_court_poet = {
+	# dignity = 0.05
+	# realm_in_name = yes
+	# grant_limit = 1
+	# opinion_effect = 5
 	
-	monthly_salary = 0.02
-	monthly_prestige = 0.40
+	# monthly_salary = 0.02
+	# monthly_prestige = 0.40
 	
-	is_unique = yes
+	# is_unique = yes
 	
-	allowed_to_hold = {
-		NOT = { 
-			primary_title = { temporary = yes } 
-		}
-		is_adult = yes
-		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
-		}
-		NOT = { trait = incapable } 
-	}
+	# allowed_to_hold = {
+		# NOT = { 
+			# primary_title = { temporary = yes } 
+		# }
+		# is_adult = yes
+		# OR = { 
+			# is_female = no
+			# liege = {
+				# OR = {
+					# primary_title = {
+						# has_law = status_of_women_2
+					# }
+					# primary_title = {
+						# has_law = status_of_women_3
+					# }
+					# primary_title = {
+						# has_law = status_of_women_4
+					# }
+					# has_game_rule = {
+						# name = gender
+						# value = all
+					# }
+				# }
+			# }
+		# }
+		# NOT = { trait = incapable } 
+	# }
 
-	allowed_to_grant = {
-		OR = {
-			is_feudal = yes
-			is_tribal = yes
-		}
-		religion_group = muslim
-	}
+	# allowed_to_grant = {
+		# OR = {
+			# is_feudal = yes
+			# is_tribal = yes
+		# }
+		# religion_group = muslim
+	# }
 	
-	gain_effect = {
-	}
-	lose_effect = {
-	}
+	# gain_effect = {
+	# }
+	# lose_effect = {
+	# }
 
-	message = yes
-}
+	# message = yes
+# }
+
+# title_chief_architect = {
+	# dignity = 0.03
+	# realm_in_name = yes
+	# grant_limit = 1
+	# opinion_effect = 5
+	
+	# monthly_salary = 0.02
+	# monthly_prestige = 0.40
+	
+	# is_unique = yes
+	
+	# allowed_to_hold = {
+		# NOT = { 
+			# primary_title = { temporary = yes } 
+		# }
+		# is_adult = yes
+		# OR = { 
+			# is_female = no
+			# liege = {
+				# OR = {
+					# primary_title = {
+						# has_law = status_of_women_3
+					# }
+					# primary_title = {
+						# has_law = status_of_women_4
+					# }
+					# has_game_rule = {
+						# name = gender
+						# value = all
+					# }
+				# }
+			# }
+		# }
+		# NOT = { trait = incapable } 
+	# }
+
+	# allowed_to_grant = {
+		# OR = {
+			# is_feudal = yes
+			# is_tribal = yes
+		# }
+		# religion_group = muslim
+	# }
+	
+	# gain_effect = {
+	# }
+	# lose_effect = {
+	# }
+
+	# message = yes
+# }
 
 title_chief_qadi = {
 	dignity = 0.15
@@ -1724,18 +1551,8 @@ title_chief_qadi = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		religion_group = muslim
 		liege = { religion = PREV }
@@ -1790,25 +1607,9 @@ title_state_inquisitor = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
-		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+		OR = {
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable } 
 	}
@@ -1841,25 +1642,9 @@ title_high_admiral = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
-		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+		OR = {
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable } 
 	}
@@ -1892,25 +1677,9 @@ title_high_judge = {
 			primary_title = { temporary = yes } 
 		}
 		is_adult = yes
-		OR = { 
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-			}
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+		OR = {
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable } 
 	}
@@ -1942,11 +1711,15 @@ title_patrician_heir = {
 		NOT = {
 			primary_title = { temporary = yes } 
 		}
-		is_female = no
+		OR = {
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
+		}
 		is_landed = no
 		dynasty = FROM
 		NOT = { trait = bastard }
 		NOT = { trait = monk }
+		NOT = { trait = nun }
 		NOT = { trait = eunuch }
 		is_theocracy = no
 	}
@@ -2148,21 +1921,8 @@ title_marksman = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_volva }
@@ -2206,21 +1966,8 @@ title_hirdman = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_volva }
@@ -2266,21 +2013,8 @@ title_champion = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		martial = 10
 		OR = {
@@ -2329,21 +2063,8 @@ title_berserker = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		martial = 10
 		OR = {
@@ -2388,21 +2109,8 @@ title_master_of_the_blade = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_master_of_the_bow }
@@ -2440,21 +2148,8 @@ title_master_of_the_bow = {
 		}
 		is_adult = yes
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_commander_title_trigger = yes
 		}
 		NOT = { trait = incapable }
 		NOT = { has_minor_title = title_master_of_the_blade }
@@ -2491,21 +2186,8 @@ title_venerable_elder = {
 			primary_title = { temporary = yes } 
 		}
 		OR = { 
-			is_female = no
-			liege = {
-				OR = {
-					primary_title = {
-						has_law = status_of_women_3
-					}
-					primary_title = {
-						has_law = status_of_women_4
-					}
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
+			male_can_hold_minor_title_trigger = yes
+			female_can_hold_minor_title_trigger = yes
 		}
 		age = 50
 		NOT = { trait = incapable }
@@ -2580,6 +2262,22 @@ title_councilmember_king = {
 		}
 	}
 	retire_effect = {
+		if = {
+			limit = {
+				NOT = {
+					age = 65
+				}
+				health = 3
+				NOT = {
+					is_sick_or_injured_trigger = yes
+				}
+				can_be_councilmember_king_trigger = yes
+			}
+			
+			FROM = { 
+				opinion = { who = ROOT modifier = opinion_resigned_from_council }
+			}
+		}
 	}
 
 	message = yes
@@ -2636,6 +2334,22 @@ title_councilmember_emperor = {
 		}
 	}
 	retire_effect = {
+		if = {
+			limit = {
+				NOT = {
+					age = 65
+				}
+				health = 3
+				NOT = {
+					is_sick_or_injured_trigger = yes
+				}
+				can_be_councilmember_king_trigger = yes
+			}
+			
+			FROM = { 
+				opinion = { who = ROOT modifier = opinion_resigned_from_council }
+			}
+		}
 	}
 
 	message = yes
@@ -2675,22 +2389,8 @@ title_court_physician = {
 		custom_tooltip = {
 			text = court_physician_tooltip_2
 			OR = {
-				is_female = no
-				AND = {
-					is_feminist_religion_trigger = yes
-					liege = { is_feminist_religion_trigger = yes }
-				}
-				liege = {
-					OR = {
-						primary_title = {
-							has_law = status_of_women_4
-						}
-						has_game_rule = {
-							name = gender
-							value = all
-						}
-					}
-				}
+				male_can_hold_minor_title_trigger = yes
+				female_can_hold_minor_title_trigger = yes
 			}
 		}
 		OR = {

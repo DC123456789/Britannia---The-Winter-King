@@ -20,8 +20,12 @@ character_event = {			# Stop Brythonic Reformation if Old Gods haven't been rest
 	hide_new = yes
 	
 	trigger = {
+		always = no				# Doesn't work
 		NOT = { has_global_flag = old_gods_restored }
 		religion = briton_pagan_reformed
+		NOT = {
+			has_alternate_start_parameter = { key = religion_names value = random }
+		}
 	}
 	
 	immediate = {
@@ -49,7 +53,7 @@ character_event = {			# Stop Brythonic Reformation if Old Gods haven't been rest
 	option = {
 		name = "EVTOPTA316000" # Start Ambition
 		trigger = {
-			age = 16
+			age = 15
 			religion = briton_pagan	
 			NOT = { character = 3 }
 			NOT = { trait = incapable }
@@ -103,6 +107,12 @@ character_event = {				# Set up Brythonic Archdruid title
 	trigger = {
 		has_global_flag = old_gods_restored
 		religion = briton_pagan_reformed
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -153,7 +163,7 @@ character_event = {				# Set up Brythonic Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = briton_archdruid
+			character_event = { id = 316002 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -231,40 +241,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_briton_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = briton_archdruid
 	}
@@ -274,6 +285,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_briton_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_briton_fylkir
 	}
 }
 
@@ -294,6 +306,12 @@ character_event = {				# Trigger successor event
 		}
 		NOT = { has_global_flag = briton_archdruid_first_succession_event }
 		has_landed_title = d_briton_pagan
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -788,6 +806,12 @@ character_event = {			# Bounce events to all candidates
 		has_global_flag = briton_druid_invites_sent
 		NOT = { has_global_flag = no_briton_archdruid_successor }
 		has_landed_title = d_briton_pagan
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2002,6 +2026,12 @@ character_event = {				# Cleanup event
 	trigger = {
 		has_character_modifier = briton_archdruid_successor
 		has_global_flag = no_briton_archdruid_successor
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2378,39 +2408,7 @@ character_event = {					# Druid claims the vacant Archdruidship
 	option = {
 		name = EVTOPTA316028
 		hidden_tooltip = {
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							higher_real_tier_than = DUKE
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						set_defacto_vassal = ROOT
-					}
-				}
-			}
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							lower_real_tier_than = KING
-							independent = no
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-			}
+			set_proper_liege_for_duke_tier_effect = yes
 		}
 		d_briton_pagan = {
 			usurp_title_only = PREV
@@ -2466,6 +2464,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		has_landed_title = d_briton_pagan
 		NOT = { has_character_flag = briton_archdruid_target_assigned }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2493,6 +2497,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		has_character_flag = briton_archdruid_target_assigned
 		NOT = { has_landed_title = d_briton_pagan }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2530,6 +2540,12 @@ character_event = {				# Death of Archdruid (notification)
 	
 	trigger = {
 		has_landed_title = d_briton_pagan
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -2582,6 +2598,12 @@ character_event = {				# Death of Archdruid
 			title = d_briton_pagan
 		}
 		NOT = { ROOT = { has_character_modifier = briton_archdruid_successor } }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -2590,39 +2612,7 @@ character_event = {				# Death of Archdruid
 			limit = { NOT = { has_global_flag = no_briton_archdruid_successor } }
 			event_target:briton_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 				}
 				d_briton_pagan = {
 					usurp_title_only = PREV
@@ -2690,6 +2680,12 @@ character_event = {				# Death of Archdruid - Heir is proper Heir - bounce to no
 			title = d_briton_pagan
 		}
 		ROOT = { has_character_modifier = briton_archdruid_successor }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -2813,6 +2809,12 @@ character_event = {				# Bounce event for unlanded Archdruid
 		has_global_flag = briton_reformation
 		NOT = { has_global_flag = no_briton_archdruid }
 		NOT = { has_global_flag = no_briton_archdruid_checking }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2823,6 +2825,7 @@ character_event = {				# Bounce event for unlanded Archdruid
 		set_global_flag = no_briton_archdruid_checking
 		event_target:briton_archdruid = {
 			character_event = { id = 316044 }
+			break = yes
 		}
 	}
 	
@@ -2851,39 +2854,7 @@ character_event = {				# Inform old Archdruid
 			limit = { NOT = { has_global_flag = no_briton_archdruid_successor } }
 			event_target:briton_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 					activate_title = {
 						title = d_briton_pagan
 						status = yes
@@ -2953,6 +2924,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316045
 		d_briton_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_briton_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_briton_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316010 }		# Start successor election events
 		remove_character_modifier = briton_archdruid_successor
@@ -3044,6 +3025,12 @@ character_event = {				# Conversion of Archdruid
 	
 	trigger = {
 		has_landed_title = d_briton_pagan
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -3052,39 +3039,7 @@ character_event = {				# Conversion of Archdruid
 			limit = { NOT = { has_global_flag = no_briton_archdruid_successor } }
 			event_target:briton_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 				}
 				d_briton_pagan = {
 					usurp_title_only = PREV
@@ -3282,6 +3237,12 @@ character_event = {				# Archdruid no longer a druid
 				trait = archdruid
 			}
 		}
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3300,39 +3261,7 @@ character_event = {				# Archdruid no longer a druid
 		set_character_flag = former_archdruid
 		event_target:briton_druid_successor = {
 			hidden_tooltip = {
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								higher_real_tier_than = DUKE
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								lower_real_tier_than = KING
-								independent = no
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-				}
+				set_proper_liege_for_duke_tier_effect = yes
 			}
 			d_briton_pagan = {
 				usurp_title_only = PREV
@@ -3415,6 +3344,16 @@ character_event = {				# Inform new Archdruid
 		d_briton_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_briton_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_briton_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316010 }		# Start successor election events
 		remove_character_modifier = briton_archdruid_successor
 		hidden_tooltip = {
@@ -3496,6 +3435,12 @@ character_event = {				# Death of Successor
 	
 	trigger = {
 		has_character_modifier = briton_archdruid_successor
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -3539,6 +3484,12 @@ character_event = {				# Conversion of Successor
 	
 	trigger = {
 		has_character_modifier = briton_archdruid_successor
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -3586,6 +3537,12 @@ character_event = {				# Successor no longer a druid
 			OR = {
 				trait = druid
 				trait = archdruid
+			}
+		}
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
 			}
 		}
 	}
@@ -3636,6 +3593,12 @@ character_event = {				# Successor incapable
 	trigger = {
 		has_character_modifier = briton_archdruid_successor
 		trait = incapable
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3682,6 +3645,12 @@ character_event = {				# Successor unlanded
 	trigger = {
 		has_character_modifier = briton_archdruid_successor
 		is_landed = no
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3737,6 +3706,12 @@ character_event = {				# Cleanup event
 			has_global_flag = briton_successor_incapable 
 			has_global_flag = briton_successor_unlanded
 		}
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3776,6 +3751,12 @@ character_event = {				# Cleanup event in case succession messes up somehow and 
 			days = 2
 		}
 		NOT = { has_global_flag = no_briton_archdruid }
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3808,6 +3789,12 @@ character_event = {				# Cleanup event in case flags mess up and game thinks the
 	trigger = {
 		has_global_flag = no_briton_archdruid
 		has_landed_title = d_briton_pagan
+		briton_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3841,6 +3828,12 @@ character_event = {				# Set up Pictish Archdruid title
 	
 	trigger = {
 		religion = pict_pagan_reformed
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -3855,7 +3848,7 @@ character_event = {				# Set up Pictish Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = pict_archdruid
+			character_event = { id = 316102 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -3933,40 +3926,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_pict_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = pict_archdruid
 		any_realm_character = { 		
@@ -3992,6 +3986,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_pict_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_pict_fylkir
 	}
 }
 
@@ -4012,6 +4007,12 @@ character_event = {				# Trigger successor event
 		}
 		NOT = { has_global_flag = pict_archdruid_first_succession_event }
 		has_landed_title = d_pict_pagan
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -4495,6 +4496,12 @@ character_event = {			# Bounce events to all candidates
 		has_global_flag = pict_druid_invites_sent
 		NOT = { has_global_flag = no_pict_archdruid_successor }
 		has_landed_title = d_pict_pagan
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -5709,6 +5716,12 @@ character_event = {				# Cleanup event
 	trigger = {
 		has_character_modifier = pict_archdruid_successor
 		has_global_flag = no_pict_archdruid_successor
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -6086,39 +6099,7 @@ character_event = {					# Druid claims the vacant Archdruidship
 	option = {
 		name = EVTOPTA316128
 		hidden_tooltip = {
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							higher_real_tier_than = DUKE
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						set_defacto_vassal = ROOT
-					}
-				}
-			}
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							lower_real_tier_than = KING
-							independent = no
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-			}
+			set_proper_liege_for_duke_tier_effect = yes
 		}
 		d_pict_pagan = {
 			usurp_title_only = PREV
@@ -6174,6 +6155,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		has_landed_title = d_pict_pagan
 		NOT = { has_character_flag = pict_archdruid_target_assigned }
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -6201,6 +6188,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		NOT = { has_landed_title = d_pict_pagan }
 		has_character_flag = pict_archdruid_target_assigned
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -6238,6 +6231,12 @@ character_event = {				# Death of Archdruid (notification)
 	
 	trigger = {
 		has_landed_title = d_pict_pagan
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -6290,6 +6289,12 @@ character_event = {				# Death of Archdruid
 			title = d_pict_pagan
 		}
 		NOT = { ROOT = { has_character_modifier = pict_archdruid_successor } }
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -6298,39 +6303,7 @@ character_event = {				# Death of Archdruid
 			limit = { NOT = { has_global_flag = no_pict_archdruid_successor } }
 			event_target:pict_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 					activate_title = {
 						title = d_pict_pagan
 						status = yes
@@ -6402,6 +6375,12 @@ character_event = {				# Death of Archdruid - Heir is proper Heir - bounce to no
 			title = d_pict_pagan
 		}
 		ROOT = { has_character_modifier = pict_archdruid_successor }
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -6526,6 +6505,12 @@ character_event = {				# Bounce event for unlanded Archdruid
 		has_global_flag = pict_reformation
 		NOT = { has_global_flag = no_pict_archdruid }
 		NOT = { has_global_flag = no_pict_archdruid_checking }
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -6564,39 +6549,7 @@ character_event = {				# Inform old Archdruid
 			limit = { NOT = { has_global_flag = no_pict_archdruid_successor } }
 			event_target:pict_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 					activate_title = {
 						title = d_pict_pagan
 						status = yes
@@ -6666,6 +6619,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316145
 		d_pict_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_pict_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_pict_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316110 }		# Start successor election events
 		remove_character_modifier = pict_archdruid_successor
@@ -6757,6 +6720,12 @@ character_event = {				# Conversion of Archdruid
 	
 	trigger = {
 		has_landed_title = d_pict_pagan
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -6765,39 +6734,7 @@ character_event = {				# Conversion of Archdruid
 			limit = { NOT = { has_global_flag = no_pict_archdruid_successor } }
 			event_target:pict_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 				}
 				d_pict_pagan = {
 					usurp_title_only = PREV
@@ -6995,6 +6932,12 @@ character_event = {				# Archdruid no longer a druid
 				trait = archdruid
 			}
 		}
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7014,39 +6957,7 @@ character_event = {				# Archdruid no longer a druid
 		set_character_flag = former_archdruid
 		event_target:pict_druid_successor = {
 			hidden_tooltip = {
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								higher_real_tier_than = DUKE
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								lower_real_tier_than = KING
-								independent = no
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-				}
+				set_proper_liege_for_duke_tier_effect = yes
 			}
 			d_pict_pagan = {
 				usurp_title_only = PREV
@@ -7129,6 +7040,16 @@ character_event = {				# Inform new Archdruid
 		d_pict_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_pict_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_pict_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316110 }		# Start successor election events
 		remove_character_modifier = pict_archdruid_successor
 		hidden_tooltip = {
@@ -7210,6 +7131,12 @@ character_event = {				# Death of Successor
 	
 	trigger = {
 		has_character_modifier = pict_archdruid_successor
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -7253,6 +7180,12 @@ character_event = {				# Conversion of Successor
 	
 	trigger = {
 		has_character_modifier = pict_archdruid_successor
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -7300,6 +7233,12 @@ character_event = {				# Successor no longer a druid
 			OR = {
 				trait = druid
 				trait = archdruid
+			}
+		}
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
 			}
 		}
 	}
@@ -7350,6 +7289,12 @@ character_event = {				# Successor incapable
 	trigger = {
 		has_character_modifier = pict_archdruid_successor
 		trait = incapable
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7396,6 +7341,12 @@ character_event = {				# Successor unlanded
 	trigger = {
 		has_character_modifier = pict_archdruid_successor
 		is_landed = no
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7452,6 +7403,12 @@ character_event = {				# Cleanup event
 			has_global_flag = pict_successor_incapable 
 			has_global_flag = pict_successor_unlanded
 		}
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7492,6 +7449,12 @@ character_event = {				# Cleanup event in case succession messes up somehow and 
 			days = 2
 		}
 		NOT = { has_global_flag = no_pict_archdruid }
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7524,6 +7487,12 @@ character_event = {				# Cleanup event in case flags mess up and game thinks the
 	trigger = {
 		has_global_flag = no_pict_archdruid
 		has_landed_title = d_pict_pagan
+		pict_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -7557,6 +7526,12 @@ character_event = {				# Set up Gaelic Archdruid title
 	
 	trigger = {
 		religion = gael_pagan_reformed
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -7571,7 +7546,7 @@ character_event = {				# Set up Gaelic Archdruid title
 					trait = archdruid
 				}
 			}
-			save_global_event_target_as = gael_archdruid
+			character_event = { id = 316202 }
 			break = yes
 		}
 		any_realm_lord = { 		# Try to give the title to a suitable archdruid
@@ -7649,40 +7624,41 @@ character_event = {				# Set up and inform new Archdruid
 	
 	immediate = {
 		if = {
+			limit = {
+				liege = { higher_real_tier_than = DUKE }
+			}
+			liege = { save_event_target_as = proper_liege }
+		}
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
+				liege = {
+					independent = no
 					liege = {
 						higher_real_tier_than = DUKE
 					}
-				} 	
-			}
-			liege = {
-				liege = {
-					set_defacto_vassal = ROOT
 				}
 			}
+			liege = { liege = { save_event_target_as = proper_liege } }
 		}
-		if = {
+		else_if = {
 			limit = { 
-				liege = { 
-					lower_real_tier_than = KING 
-					liege = {
-						lower_real_tier_than = KING
-						independent = no
-					}
-				} 	
-			}
-			liege = {
 				liege = {
+					independent = no
 					liege = {
-						set_defacto_vassal = ROOT
+						independent = no
+						liege = {
+							higher_real_tier_than = DUKE
+						}
 					}
 				}
 			}
-		}		
+			liege = { liege = { liege = { save_event_target_as = proper_liege } } }
+		}	
 		d_gael_pagan = {
 			grant_title = ROOT
+		}
+		event_target:proper_liege = {
+			set_defacto_vassal = ROOT
 		}
 		save_global_event_target_as = gael_archdruid
 		any_realm_character = { 		
@@ -7708,6 +7684,7 @@ character_event = {				# Set up and inform new Archdruid
 		d_gael_pagan = {
 			grant_title = ROOT
 		}
+		add_artifact = crown_gael_fylkir
 	}
 }
 
@@ -7728,6 +7705,12 @@ character_event = {				# Trigger successor event
 		}
 		NOT = { has_global_flag = gael_archdruid_first_succession_event }
 		has_landed_title = d_gael_pagan
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -8202,6 +8185,12 @@ character_event = {			# Bounce events to all candidates
 		has_global_flag = gael_druid_invites_sent
 		NOT = { has_global_flag = no_gael_archdruid_successor }
 		has_landed_title = d_gael_pagan
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -9416,6 +9405,12 @@ character_event = {				# Cleanup event
 	trigger = {
 		has_character_modifier = gael_archdruid_successor
 		has_global_flag = no_gael_archdruid_successor
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -9792,39 +9787,7 @@ character_event = {					# Druid claims the vacant Archdruidship
 	option = {
 		name = EVTOPTA316228
 		hidden_tooltip = {
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							higher_real_tier_than = DUKE
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						set_defacto_vassal = ROOT
-					}
-				}
-			}
-			if = {
-				limit = { 
-					liege = { 
-						lower_real_tier_than = KING 
-						liege = {
-							lower_real_tier_than = KING
-							independent = no
-						}
-					} 	
-				}
-				liege = {
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-			}
+			set_proper_liege_for_duke_tier_effect = yes
 		}
 		d_gael_pagan = {
 			usurp_title_only = PREV
@@ -9880,6 +9843,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		has_landed_title = d_gael_pagan
 		NOT = { has_character_flag = gael_archdruid_target_assigned }
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -9907,6 +9876,12 @@ character_event = {				# Maintenance event
 	trigger = {
 		NOT = { has_landed_title = d_gael_pagan }
 		has_character_flag = gael_archdruid_target_assigned
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -9944,6 +9919,12 @@ character_event = {				# Death of Archdruid (notification)
 	
 	trigger = {
 		has_landed_title = d_gael_pagan
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -9996,6 +9977,12 @@ character_event = {				# Death of Archdruid
 			title = d_gael_pagan
 		}
 		NOT = { ROOT = { has_character_modifier = gael_archdruid_successor } }
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -10004,39 +9991,7 @@ character_event = {				# Death of Archdruid
 			limit = { NOT = { has_global_flag = no_gael_archdruid_successor } }
 			event_target:gael_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 				}
 				d_gael_pagan = {
 					usurp_title_only = PREV
@@ -10104,6 +10059,12 @@ character_event = {				# Death of Archdruid - Heir is proper Heir - bounce to no
 			title = d_gael_pagan
 		}
 		ROOT = { has_character_modifier = gael_archdruid_successor }
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -10227,6 +10188,12 @@ character_event = {				# Bounce event for unlanded Archdruid
 		event_target:gael_archdruid = {
 			character = ROOT
 		}
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -10266,6 +10233,12 @@ character_event = {				# Set flag
 		has_global_flag = gael_reformation
 		NOT = { has_global_flag = no_gael_archdruid }
 		NOT = { has_global_flag = no_gael_archdruid_checking }
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -10301,39 +10274,7 @@ character_event = {				# Inform old Archdruid
 			limit = { NOT = { has_global_flag = no_gael_archdruid_successor } }
 			event_target:gael_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 					activate_title = {
 						title = d_gael_pagan
 						status = yes
@@ -10403,6 +10344,16 @@ character_event = {				# Inform new Archdruid
 		name = EVTOPTA316245
 		d_gael_pagan = {
 			usurp_title_only = ROOT
+		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_gael_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_gael_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
 		}
 		character_event = { id = 316210 }		# Start successor election events
 		remove_character_modifier = gael_archdruid_successor
@@ -10494,6 +10445,12 @@ character_event = {				# Conversion of Archdruid
 	
 	trigger = {
 		has_landed_title = d_gael_pagan
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	immediate = {
@@ -10502,39 +10459,7 @@ character_event = {				# Conversion of Archdruid
 			limit = { NOT = { has_global_flag = no_gael_archdruid_successor } }
 			event_target:gael_druid_successor = {
 				hidden_tooltip = {
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									higher_real_tier_than = DUKE
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-					if = {
-						limit = { 
-							liege = { 
-								lower_real_tier_than = KING 
-								liege = {
-									lower_real_tier_than = KING
-									independent = no
-								}
-							} 	
-						}
-						liege = {
-							liege = {
-								liege = {
-									set_defacto_vassal = ROOT
-								}
-							}
-						}
-					}
+					set_proper_liege_for_duke_tier_effect = yes
 				}
 				d_gael_pagan = {
 					usurp_title_only = PREV
@@ -10732,6 +10657,12 @@ character_event = {				# Archdruid no longer a druid
 				trait = archdruid
 			}
 		}
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -10750,39 +10681,7 @@ character_event = {				# Archdruid no longer a druid
 		set_character_flag = former_archdruid
 		event_target:gael_druid_successor = {
 			hidden_tooltip = {
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								higher_real_tier_than = DUKE
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							set_defacto_vassal = ROOT
-						}
-					}
-				}
-				if = {
-					limit = { 
-						liege = { 
-							lower_real_tier_than = KING 
-							liege = {
-								lower_real_tier_than = KING
-								independent = no
-							}
-						} 	
-					}
-					liege = {
-						liege = {
-							liege = {
-								set_defacto_vassal = ROOT
-							}
-						}
-					}
-				}
+				set_proper_liege_for_duke_tier_effect = yes
 			}
 			d_gael_pagan = {
 				usurp_title_only = PREV
@@ -10865,6 +10764,16 @@ character_event = {				# Inform new Archdruid
 		d_gael_pagan = {
 			usurp_title_only = ROOT
 		}
+		if = {
+			limit = { PREV = { any_artifact = { artifact_type = crown_gael_fylkir } } }
+			any_artifact = {
+				limit = { artifact_type = crown_gael_fylkir }
+				transfer_artifact = {
+					from = PREV
+					to = ROOT
+				}
+			}
+		}
 		character_event = { id = 316210 }		# Start successor election events
 		remove_character_modifier = gael_archdruid_successor
 		hidden_tooltip = {
@@ -10946,6 +10855,12 @@ character_event = {				# Death of Successor
 	
 	trigger = {
 		has_character_modifier = gael_archdruid_successor
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -10989,6 +10904,12 @@ character_event = {				# Conversion of Successor
 	
 	trigger = {
 		has_character_modifier = gael_archdruid_successor
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	option = {
@@ -11036,6 +10957,12 @@ character_event = {				# Successor no longer a druid
 			OR = {
 				trait = druid
 				trait = archdruid
+			}
+		}
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
 			}
 		}
 	}
@@ -11086,6 +11013,12 @@ character_event = {				# Successor incapable
 	trigger = {
 		has_character_modifier = gael_archdruid_successor
 		trait = incapable
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -11132,6 +11065,12 @@ character_event = {				# Successor unlanded
 	trigger = {
 		has_character_modifier = gael_archdruid_successor
 		is_landed = no
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -11188,6 +11127,12 @@ character_event = {				# Cleanup event
 			has_global_flag = gael_successor_incapable 
 			has_global_flag = gael_successor_unlanded
 		}
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -11228,6 +11173,12 @@ character_event = {				# Cleanup event in case succession messes up somehow and 
 			days = 2
 		}
 		NOT = { has_global_flag = no_gael_archdruid }
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -11260,6 +11211,12 @@ character_event = {				# Cleanup event in case flags mess up and game thinks the
 	trigger = {
 		has_global_flag = no_gael_archdruid
 		has_landed_title = d_gael_pagan
+		gael_pagan_reformed = {
+			OR = {
+				has_religion_features = no
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -11293,6 +11250,10 @@ character_event = {
 	
 	trigger = {
 		has_landed_title = d_roman_pagan
+		OR = {
+			has_religion_features = no
+			has_religion_feature = religion_temporal_head
+		}
 		NOT = { real_tier = EMPEROR }
 		any_independent_ruler = {
 			real_tier = EMPEROR
@@ -11370,7 +11331,7 @@ character_event = {
 	}
 
 	option = {						# Refuse Pontificate
-		name = "EVTOPTA316301"
+		name = "EVTOPTB316301"
 		prestige = -100
 		hidden_tooltip = {
 			FROM = {
@@ -11434,6 +11395,10 @@ character_event = {
 	
 	trigger = {
 		has_landed_title = d_roman_pagan
+		OR = {
+			has_religion_features = no
+			has_religion_feature = religion_temporal_head
+		}
 		NOT = { real_tier = EMPEROR }
 		NOT = {
 			any_independent_ruler = {

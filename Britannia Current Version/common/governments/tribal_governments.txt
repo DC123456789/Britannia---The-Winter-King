@@ -17,6 +17,9 @@ tribal_governments = {
 			theocracy_government
 			muslim_government
 		}
+		accepts_liege_governments_culture_and_religion = { 	# Tribals have no opinion penalty towards their liege if of the same culture and religion
+			order_government
+		}
 		vassal_call_to_arms = {
 			tribal_government
 			high_tribal_government
@@ -35,13 +38,14 @@ tribal_governments = {
 				is_feudal = no
 				has_game_started = no
 			}
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			is_patrician = no
 			mercenary = no
 			holy_order = no
+			NOT = { is_government_potential = order_government }
 			OR = {
 				has_global_flag = startup
 				NOT = { is_government_potential = high_tribal_government }
@@ -51,7 +55,7 @@ tribal_governments = {
 		color = { 92 31 23 }
 		
 		character_modifier = {
-			build_cost_tribal_modifier = 1.0
+			build_cost_tribal_modifier = 1.00
 		}
 		
 		dukes_called_kings = yes
@@ -93,6 +97,9 @@ tribal_governments = {
 			theocracy_government
 			muslim_government
 		}
+		accepts_liege_governments_culture_and_religion = { 	# Tribals have no opinion penalty towards their liege if of the same culture and religion
+			order_government
+		}
 		vassal_call_to_arms = {
 			tribal_government
 			high_tribal_government
@@ -111,22 +118,28 @@ tribal_governments = {
 				is_feudal = no
 				has_game_started = no
 			}
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			is_patrician = no
 			mercenary = no
 			holy_order = no
+			NOT = { is_government_potential = order_government }
 			OR = {
 				has_global_flag = startup
+				is_roman_culture_trigger = yes
+				is_semiromanized_nongermanic_culture_trigger = yes
+				is_semiromanized_germanic_culture_trigger = yes
 				capital_scope = {
 					OR = {
 						region = world_britannia
-						AND = {
-							region = custom_wre
-							is_ingvaeonic_culture_trigger = no
-						}
+						# AND = {
+							# region = custom_wre
+							# is_ingvaeonic_culture_trigger = no
+						# }
+						# region = custom_franconia
+						# region = custom_swabia
 					}
 				}
 			}
@@ -136,7 +149,7 @@ tribal_governments = {
 		
 		character_modifier = {
 			tribal_vassal_min_levy = -0.2
-			build_cost_tribal_modifier = 1.0
+			build_cost_tribal_modifier = 0.9
 		}
 		
 		dukes_called_kings = yes
@@ -152,6 +165,7 @@ tribal_governments = {
 		can_build_temple = yes
 		can_build_tribal = yes
 		can_change_to_nomad_on_start = no
+		marriage_ignore_religion = yes
 		
 		vassal_limit = -4
 		

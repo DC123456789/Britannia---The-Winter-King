@@ -66,29 +66,23 @@ decisions = {
 				is_tribal = yes
 				is_nomadic = yes
 			}
-			NOR = {
-				religion = alan_pagan
-				religion = alan_pagan_reformed
-				religion = manichean
+			OR = {
+				NOR = {
+					religion = alan_pagan
+					religion = alan_pagan_reformed
+				}
+				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 			prisoner = no
-			NOT = {
+			NOR = {
 				has_character_modifier = holding_large_feast
-			}
-			NOT = {
 				has_character_modifier = large_feast_timer
-			}
-			NOT = {
 				has_character_modifier = fabulous_feast
-			}
-			NOT = {
 				has_character_flag = guest_feast_started
-			}
-			NOT = {
 				liege = {
 					has_character_modifier = holding_large_feast
 				}
-			}			
+			}		
 			num_of_vassals = 3
 		}
 		allow = {
@@ -383,6 +377,9 @@ decisions = {
 			NOT = {	has_character_flag = preparing_hajj }
 			NOT = {	has_character_flag = ramadan }
 			NOT = {	has_character_flag = activated_hajj }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			is_adult = yes
@@ -486,6 +483,9 @@ decisions = {
 			NOT = { has_character_modifier = observed_ramadan }
 			NOT = { trait = on_hajj }
 			NOT = { trait = incapable }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			war = no
@@ -604,6 +604,7 @@ decisions = {
 	hold_alan_divination = {
 		only_playable = yes
 		is_high_prio = yes
+		ai_check_interval = 4
 		potential = {
 			has_dlc = "The Old Gods"
 			is_playable = yes
@@ -615,6 +616,9 @@ decisions = {
 			}
 			NOT = {	has_character_flag = holding_alan_divination }
 			NOT = {	has_character_modifier = held_alan_divination_timer }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			war = no
@@ -686,10 +690,11 @@ decisions = {
 	hold_sacea = {
 		only_playable = yes
 		is_high_prio = yes
+		ai_check_interval = 2
 		potential = {
 			has_dlc = "The Old Gods"
 			is_playable = yes
-			age = 16
+			age = 15
 			prisoner = no
 			OR = {
 				religion = alan_pagan
@@ -697,6 +702,9 @@ decisions = {
 			}
 			NOT = { has_character_modifier = held_sacea_timer }
 			NOT = {	has_character_flag = holding_sacea }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			war = no
@@ -790,6 +798,9 @@ decisions = {
 			is_north_germanic_trigger = yes
 			NOT = {	has_character_flag = commissioned_runestone }
 			NOT = { year = 1150 }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			wealth = 100
@@ -834,6 +845,9 @@ decisions = {
 			}
 			NOT = { has_character_modifier = held_blot_timer }
 			NOT = {	has_character_flag = holding_blot }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			war = no
@@ -930,7 +944,12 @@ decisions = {
 			is_landed = yes
 			is_adult = yes
 			prisoner = no
-			religion_group = pagan_group
+			OR = {
+				religion_group = pagan_group
+				has_religion_feature = religion_beatification
+				has_religion_feature = religion_feature_frankish
+				has_religion_feature = religion_feature_gothic
+			}
 		}
 
 		allow = {
@@ -1151,6 +1170,9 @@ decisions = {
 			religion_group = jewish_group
 			NOT = { has_character_modifier = held_passover_timer }
 			NOT = {	has_character_flag = holding_passover }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		allow = {
 			war = no
@@ -1234,7 +1256,7 @@ decisions = {
 	
 	borrow_money_jews = {
 		only_playable = yes
-		ai_check_interval = 3
+		ai_check_interval = 30
 		potential = {
 			is_playable = yes
 			is_nomadic = no
@@ -1244,7 +1266,8 @@ decisions = {
 			}
 			NOT = {	religion_group = jewish_group }
 			NOT = { secret_religion = jewish }
-			NOT = { religion = manichean }
+			#NOT = { religion = manichean }
+			NOT = { government = order_government }
 		}
 		
 		allow = {
@@ -1283,7 +1306,7 @@ decisions = {
 				war = yes
 			}			
 			modifier = {
-				factor = 0.01 # Slow it down
+				factor = 0.1 # Slow it down
 			}
 		}
 	}
@@ -1300,12 +1323,39 @@ decisions = {
 		}
 		
 		allow = {
-			wealth = 230
+			conditional_tooltip = {
+				trigger = {
+		    		any_owned_bloodline = {
+	    				has_bloodline_flag = jewish_saintly_bloodline
+	    			}
+	    		}
+    			wealth = 200
+			}
+			conditional_tooltip = {
+				trigger = {
+					NOT = {
+			    		any_owned_bloodline = {
+		    				has_bloodline_flag = jewish_saintly_bloodline
+		    			}
+					}
+				}
+				wealth = 230
+			}
 		}
 		
 		effect = {
 			remove_character_modifier = borrowed_from_jews
-			wealth = -230
+			if = {
+				limit = {
+		    		any_owned_bloodline = {
+	    				has_bloodline_flag = jewish_saintly_bloodline
+	    			}
+	    		}
+	    		wealth = -200
+			}
+			else = {
+				wealth = -230
+			}
 		}
 		
 		revoke_allowed = {
@@ -1323,6 +1373,95 @@ decisions = {
 			}
 		}
 	}
+	
+	celebrate_bema = {
+		only_playable = yes
+		ai_check_interval = 2
+		potential = {
+			NOT = { is_inaccessible_trigger = yes }
+			is_adult = yes
+			prisoner = no
+			religion = manichean
+			NOT = { has_character_modifier = held_bema_timer }
+			NOT = {	has_character_flag = holding_bema }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		allow = {
+			war = no
+			custom_tooltip = {
+				text = UNOCCUPIED_DEMESNE_TITLE
+				hidden_tooltip = {
+					any_demesne_title = {
+						NOT = { higher_tier_than = count }
+						is_occupied = no
+					}
+				}
+			}
+			month = 1
+			NOT = { month = 3 }
+			wealth = 50
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+			custom_tooltip = {
+				text = is_not_busy_trigger_tooltip
+				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
+			}
+		}
+		effect = {
+			wealth = -50
+			set_character_flag = holding_bema
+			set_character_flag = recent_minor_decision
+			set_character_flag = do_not_disturb
+			hidden_tooltip = { character_event = { id = 39818 days = 150 } } # Safety catch flag clearing
+			hidden_tooltip = { 
+				character_event = { id = 39812 } 
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+				}
+				custom_tooltip = {
+					text = capital_prospers_custom_tooltip
+					hidden_tooltip = {
+						capital_scope = {
+							change_variable = { which = prosperity_value value = 8 }
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0
+				NOT = {
+					wealth = 300
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = shy
+			}
+			modifier = {
+				factor = 0
+				NOT = { diplomacy = 10 }
+			}	
+			modifier = {
+				factor = 0
+				has_character_flag = recent_minor_decision
+				NOT = {
+					had_character_flag = {
+						flag = recent_minor_decision
+						days = 730
+					}
+				}
+			}
+		}
+	}
+	
 	destroy_artifact = {
 		only_playable = yes
 		ai = no
@@ -1338,11 +1477,35 @@ decisions = {
 			FROM = {
 				show_scope_change = no
 				is_indestructible = no 
+				custom_tooltip = { text = tooltip_considering_artifact_donation NOT = { has_artifact_flag = flag_considering_donation } } 
 			}
 		}
 		effect = {
 			FROM = {
 				destroy_artifact = yes
+			}
+		}
+	}
+	rename_artifact = {
+		only_playable = yes
+		ai = no
+		hide_in_decisions_list = yes
+		potential = {
+			has_dlc = "Holy Fury"
+			FROM = {
+				owner = {
+					character = ROOT
+				}
+			}
+		}
+		allow = {
+		}
+		effect = {
+			FROM = {
+				prompt_name = {
+					player = ROOT
+					type = RENAME_ARTIFACT_MESSAGE
+				}
 			}
 		}
 	}

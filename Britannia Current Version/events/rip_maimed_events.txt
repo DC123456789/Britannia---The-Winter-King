@@ -244,15 +244,27 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					trait = fair
+					is_fair_trigger = yes
 				}
-				NOT = { trait = fair }
+				NOT = { is_fair_trigger = yes }
+			}
+			if = {
+				limit = {
+					trait = plain
+				}
+				remove_trait = plain
 			}
 			if = {
 				limit = {
 					trait = ugly
 				}
 				remove_trait = ugly
+			}
+			if = {
+				limit = {
+					trait = unsightly
+				}
+				remove_trait = unsightly
 			}
 			add_trait = fair
 		}
@@ -553,6 +565,25 @@ character_event = {
 				limit = { trait = incapable }
 				remove_trait = incapable
 			}
+            if = { 
+                limit = { 
+                 	is_female = no 
+                  	has_dlc = "Holy Fury"
+                }
+                create_bloodline = {
+                    type = immortal_bloodline_01
+                }       
+            }
+            if = { 
+                limit = { 
+                  	is_female = yes 
+                  	has_dlc = "Holy Fury"
+                }
+                create_bloodline = {
+                    type = immortal_bloodline_01
+                    inheritance = matrilineal
+                }       
+            }
 		}
 		### Controls religion
 		if = {

@@ -1,6 +1,6 @@
-This documentation is pretty sparse, sorry. Focus has been simply documenting what's new in 2.8.
+This documentation is pretty sparse, sorry. Focus has been simply documenting what's new in 2.8+.
 
-Two new concepts were introduced:
+Two new concepts were introduced in 2.8:
 * Offmap power decisions - see offmap_powers.info in common/offmap_powers
 * Third party decisions
 
@@ -65,3 +65,33 @@ All filters that say ", except the character themselves" have a version that inc
 
 ########
 ai_check_interval = 5		# Determines how seldom the AI checks the decision, in months. By default 1 (every month). This example would make it every 5th month. Note that ai_will_do is the % chance of taking the decision (1 = 100%, 0.5 = 50%) if available when checked, so if you set the interval 5 times higher, you should also set the ai_will_do 5 times higher
+
+== ai_acceptance ==
+Patch 2.9 added a new parameter for decisions: ai_acceptance. This is intended to be used for targeted decisions to indicate whether the AI will accept the decision. Note that how the AI responds is unaffected by this system; it is meant as a way to communicate the outcome to the player. It is up to the person scripting to make the AI actually act in accordance with the "yes" or "maybe" shown. Only "no" has a mechanical effect; blocking the decision entirely.
+It is defined in the optional ai_acceptance section:
+
+ai_acceptance = {
+	factor = 10	# The base score
+	yes_threshold = 50 # At what point to switch from "maybe" to "yes". Defaults to 0, meaning it will never be "maybe"
+	show_maybe_for_human = no # Whether to always show "maybe" for human targets (defined as ROOT being controlled by a player). Defaults to "yes"
+	additive_modifier = { # Any type of modifier can be used, but "additive" is recommended as it is the most intuitive to the end user. Works same way as MTTHs, ai_will_do, and so on
+		value = 10
+		always = yes
+	}
+	additive_modifier = {
+		value = -10
+		always = yes
+	}
+	additive_modifier = {
+		value = -10
+		always = no
+	}
+	additive_modifier = {
+		value = -100
+		localisation_key = "REASON_WEALTH"
+		wealth = 1000
+	}
+}
+
+If defined, AI acceptance will show in the decision, similar to how it shows for many interactions. The "Do It!" button will be greyed out if the score is below or equal to Zero.
+The exact value will be saved to the local variable "local_ai_acceptance_score", similar to how 3rd party score is saved. It will be saved for player-controlled targets as well, even if show_maybe_for_human is used

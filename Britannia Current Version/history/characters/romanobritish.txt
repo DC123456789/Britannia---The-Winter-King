@@ -4,7 +4,7 @@
 ###################################
 
 
-1 = {				# King Uther Pendragon of Dumnonia							# KING
+1 = {				# King Uther Pendragon of Dumnonia							# KING, book/legendary character
 
 	name="Uther"
 
@@ -20,13 +20,13 @@
 
 	martial=11
 
-	diplomacy=16
+	diplomacy=12
 
-	intrigue=8
+	intrigue=6
 
-	stewardship=14
+	stewardship=12
 
-	learning=10
+	learning=8
 
 	culture="romanobritish"
 
@@ -116,7 +116,7 @@
 
 
 
-3 = {				# Arthur
+3 = {				# Arthur, book/legendary character
 
 	name="Arthur"
 
@@ -132,11 +132,11 @@
 
 	diplomacy=9
 
-	intrigue=6
+	intrigue=2
 
-	stewardship=14
+	stewardship=13
 
-	learning=10
+	learning=8
 
 	fertility=0
 
@@ -237,92 +237,84 @@
 
 		prestige=550
 
-		effect = {
-		
+		effect = {		
 			give_job_title = job_marshal
-
 			c_avalon = {
-
 				holder_scope = { 
-
 					add_friend = ROOT
-
 				}
-
 			}
-
+			spawn_unit = {
+				earmark = arthur_warrior_band
+				province = 78 # Ynys Trebes
+				home = 1 # Durnovaria
+				owner = ROOT
+				leader = ROOT
+				troops = {
+					heavy_infantry = { 50 50 }
+				}
+				attrition = 0.5
+			}
 		}	
 
 	}
 
 	480.10.20={
-
 		employer=5
-
-		prestige=600
-		
-		effect = { set_character_flag = returned }
-		
-		give_nickname = nick_pendragon
-		
-		add_claim = k_dumnonia
-
+		prestige=600		
+		give_nickname = nick_pendragon		
+		add_claim = k_dumnonia		
+		effect = { 
+			set_character_flag = returned 
+			disband_event_forces = arthur_warrior_band
+			spawn_unit = {
+				earmark = arthur_warrior_band
+				province = 1 # Ynys Trebes
+				home = 1 # Durnovaria
+				owner = ROOT
+				leader = ROOT
+				troops = {
+					heavy_infantry = { 50 50 }
+				}
+				attrition = 0.5
+			}
+		}
 	}
 	
 	480.12.5 = {
-	
-		effect = {
-		
-			give_minor_title = title_regent
-			
-		}
-
-	
+		effect = {		
+			give_minor_title = title_regent			
+		}	
 	}
 
 	481.3.25 = {
-
 		remove_trait = forbid_marriage
-
 	}
 	
-	481.4.1 = {
-	
-		effect = {
-			
-			add_lover = 26		# Guinevere
-			
-			remove_lover = 707	# Aileann
-			
-		}
-		
-		add_spouse = 26		# Guinevere
-		
+	481.4.1 = {	
+		effect = {			
+			add_lover = 26		# Guinevere			
+			remove_lover = 707	# Aileann			
+		}		
+		add_spouse = 26		# Guinevere		
 	}
 	
-	496.1.1 = {
-	
-		prestige = 1500
-		
+	496.1.1 = {	
+		prestige = 1500		
 	}
 
-	504.6.6={
-	
+	504.6.6={	
 		add_trait = maimed
-
-		death = {
-		
-			death_reason = death_missing
-		
+		death = {		
+			death_reason = death_missing		
 		}
-
 	}
 
 }
 
 
 
-5 = {				# Mordred (child)
+5 = {				# Mordred (child), book/legendary character
 
 	name="Mordred"
 
@@ -334,15 +326,15 @@
 
 	religion="catholic"
 
-	martial=14
+	martial=11
 
 	diplomacy=4
 
-	intrigue=11
+	intrigue=10
 
-	stewardship=7
+	stewardship=2
 
-	learning=5
+	learning=2
 
 	culture="romanobritish"
 
@@ -416,7 +408,7 @@
 
 
 
-7 = {				# Mordred (father)
+7 = {				# Mordred (father), book character
 
 	name="Mordred"
 
@@ -428,15 +420,15 @@
 
 	religion="catholic"
 
-	martial=13
+	martial=9
 
-	diplomacy=11
+	diplomacy=7
 
-	intrigue=10
+	intrigue=6
 
-	stewardship=11
+	stewardship=7
 
-	learning=9
+	learning=5
 
 	culture="romanobritish"
 
@@ -480,7 +472,7 @@
 
 
 
-14 = {				# King Tewdric of Gwent										# KING
+14 = {				# King Tewdric of Gwent										# KING, partly book character
 
 	name="Tewdric"		
 
@@ -494,13 +486,13 @@
 
 	martial=8
 
-	diplomacy=12
+	diplomacy=9
 
-	intrigue=5
+	intrigue=4
 
-	stewardship=13
+	stewardship=9
 
-	learning=15
+	learning=10
 
 	culture="romanobritish"
 
@@ -510,7 +502,7 @@
 
 	add_trait="scholar"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="patient"
 
@@ -522,7 +514,7 @@
 
 	add_trait="charitable"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	add_trait = plain # Add by Clay
 
@@ -598,7 +590,7 @@
 
 }
 
-19 = {				# Norwenna
+19 = {				# Norwenna, book character
 
 	name="Norwenna"
 
@@ -614,13 +606,13 @@
 
 	martial=3
 
-	diplomacy=11
+	diplomacy=8
 
-	intrigue=8
+	intrigue=3
 
-	stewardship=9
+	stewardship=7
 
-	learning=7
+	learning=6
 
 	health=2
 
@@ -629,8 +621,6 @@
 	add_trait="gluttonous"
 
 	add_trait="proud"
-
-	add_trait="celibate"
 
 	add_trait="familyperson"
 
@@ -649,6 +639,10 @@
 		employer=1
 
 	}
+	
+	479.6.23 = {
+		add_trait = celibate
+	}
 
 	480.10.20={
 
@@ -666,7 +660,7 @@
 
 
 
-20 = {				# Lord Owain Marshal of Dumnonia
+20 = {				# Lord Owain Marshal of Dumnonia, book/legendary character
 
 	name="Owain"		
 
@@ -678,17 +672,15 @@
 
 	religion="briton_pagan"
 
-	martial=11
+	martial=10
 
-	#diplomacy=9 why so high?
-	diplomacy = 7 # Add by Clay
+	diplomacy = 5
 
 	intrigue=7
 
-	stewardship=9
+	stewardship=6
 
-	#learning=7 Why so high?
-	learning = 5 # Add by Clay
+	learning = 3
 
 	culture="romanobritish"
 
@@ -764,7 +756,7 @@
 
 
 
-22 = {				# Prince Gereint of the Stones
+22 = {				# Prince Gereint of the Stones, partly book character
 
 	name="Gereint"		
 
@@ -778,19 +770,19 @@
 
 	martial=7
 
-	diplomacy=9
+	diplomacy=6
 
-	intrigue=7
+	intrigue=5
 
-	stewardship=11
+	stewardship=5
 
-	learning=8
+	learning=4
 
 	culture="romanobritish"
 
 	add_trait="veteran"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="loyal"
 
@@ -867,7 +859,7 @@
 
 }
 
-24 = {				# Vassal King Melwas of the Belgae
+24 = {				# Vassal King Melwas of the Belgae, book/legendary character
 
 	name="Melwas"
 
@@ -879,15 +871,15 @@
 
 	religion="briton_pagan"
 
-	martial=9
+	martial=8
 
-	diplomacy=12
+	diplomacy=7
 
-	intrigue=9
+	intrigue=6
 
-	stewardship=14
+	stewardship=9
 
-	learning=10
+	learning=6
 
 	culture="romanobritish"
 
@@ -941,7 +933,7 @@
 
 }
 
-28 = {				# Prince Meurig Heir of Gwent
+28 = {				# Prince Meurig Heir of Gwent, partly book character
 
 	name="Meurig"
 
@@ -957,11 +949,11 @@
 
 	martial=2
 
-	diplomacy=10
+	diplomacy=9
 
-	intrigue=8
+	intrigue=7
 
-	stewardship=7
+	stewardship=5
 
 	learning=8
 
@@ -982,7 +974,7 @@
 	
 	add_trait="ambitious"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	add_trait = stiff # Add by Clay
 
@@ -1014,7 +1006,7 @@
 
 
 
-41 = {				# Lord Marcus of Magnis, Praetor of Glevensium
+41 = {				# Lord Marcus of Magnis, Praetor of Glevensium (fictional)
 
 	name="Marcus"	
 
@@ -1026,13 +1018,13 @@
 
 	martial=10
 
-	diplomacy=13
+	diplomacy=8
 
 	intrigue=6
 
-	stewardship=11
+	stewardship=7
 
-	learning=13
+	learning=6
 
 	culture="romanobritish"
 
@@ -1052,7 +1044,7 @@
 
 	add_trait="loyal"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="brother_of_mithra"
 
@@ -1094,7 +1086,7 @@
 
 
 
-42 = {				# Lord Gydion of Ratae
+42 = {				# Lord Gydion of Ratae (fictional)
 
 	name="Gydion"
 
@@ -1104,15 +1096,15 @@
 
   	properties="bh0ebkbebb"
 
-	martial=12
+	martial=7
 
-	diplomacy=10
+	diplomacy=9
 
-	intrigue=6
+	intrigue=4
 
-	stewardship=11
+	stewardship=8
 
-	learning=8
+	learning=6
 
 	culture="romanobritish"
 
@@ -1156,7 +1148,7 @@
 
 
 
-43 = {				# Lord Cadog of Vectis
+43 = {				# Lord Cadog of Vectis (fictional)
 
 	name="Cadog"
 
@@ -1166,15 +1158,15 @@
 
   	properties="ll0dckbebb"
 
-	martial=10
+	martial=7
 
-	diplomacy=13
+	diplomacy=6
 
-	intrigue=10
+	intrigue=5
 
-	stewardship=15
+	stewardship=7
 
-	learning=10
+	learning=4
 
 	culture="romanobritish"
 
@@ -1224,27 +1216,29 @@
 
 
 
-49 = {				# Lord Meriadoc of Londinium
+49 = {				# Lord Meriadoc of Londinium (fictional)
 
 	name="Meriadoc"
 
 	dynasty=207
 
-	martial=9
+	martial=3
 
 	diplomacy=9
 
-	intrigue=10
+	intrigue=6
 
-	stewardship=10
+	stewardship=5
 
-	learning=10
+	learning=7
 
 	culture="romanobritish"
 
 	religion="catholic"
 
-	add_trait="honorable"
+	# add_trait="honorable"
+
+	add_trait="craven"
 
 	add_trait="temperate"
 
@@ -1276,7 +1270,7 @@
 
 
 
-50 = {				# Magistrate Cildydd of Aquae Sulis
+50 = {				# Magistrate Cildydd of Aquae Sulis (book character)
 
 	name="Cildydd"
 
@@ -1286,15 +1280,15 @@
 
   	properties="ra0lhkbebb"
 
-	martial=6
+	martial=2
 
-	diplomacy=11
+	diplomacy=7
 
-	intrigue=8
+	intrigue=5
 
-	stewardship=9
+	stewardship=7
 
-	learning=10
+	learning=8
 
 	culture="romanobritish"
 
@@ -1346,7 +1340,7 @@
 
 
 
-51 = {				# Bishop Bedwin of Lindinis, Chancellor of Dumnonia
+51 = {				# Bishop Bedwin of Lindinis, Chancellor of Dumnonia (book character)
 
 	name="Bedwin"	
 
@@ -1356,15 +1350,15 @@
 
   	properties="uf0dhfbebb"
 
-	martial=6
+	martial=8
 
-	diplomacy=19
+	diplomacy=11
 
-	intrigue=10
+	intrigue=6
 
-	stewardship=16
+	stewardship=7
 
-	learning=15
+	learning=9
 
 	culture="romanobritish"
 
@@ -1452,21 +1446,21 @@
 
 
 
-58 = {				# King Meriadoc of Cynwidion
+58 = {				# King Meriadoc of Cynwidion (book character)
 
 	name="Meriadoc"
 
 	dynasty=292
 
-	martial=8
+	martial=6
 
-	diplomacy=8
+	diplomacy=5
 
-	intrigue=9
+	intrigue=5
 
-	stewardship=9
+	stewardship=4
 
-	learning=10
+	learning=6
 
 	culture="romanobritish"
 
@@ -1510,21 +1504,21 @@
 
 
 
-59 = {				# Lord Vitalinus of Londinium
+59 = {				# Lord Vitalinus of Londinium (book character)
 
 	name="Vitalinus"	
 
 	dynasty=207
 
-	martial=8
+	martial=5
 
-	diplomacy=10
+	diplomacy=6
 
-	intrigue=8
+	intrigue=4
 
-	stewardship=12
+	stewardship=8
 
-	learning=12
+	learning=7
 
 	culture="romanobritish"
 
@@ -1566,7 +1560,7 @@
 
 
 
-60 = {				# Queen Anna of Broceliande
+60 = {				# Queen Anna of Broceliande (book/legendary character)
 
 	name="Anna"
 
@@ -1578,13 +1572,13 @@
 
   	properties="gm0cdkbebb"
 
-	martial=6
+	martial=3
 
-	diplomacy=14
+	diplomacy=7
 
-	intrigue=9
+	intrigue=4
 
-	stewardship=14
+	stewardship=9
 
 	learning=9
 
@@ -1628,7 +1622,7 @@
 
 
 
-67 = {				# Bishop Sansum
+67 = {				# Bishop Sansum (book character)
 
 	name="Sansum"
 
@@ -1644,11 +1638,11 @@
 
 	diplomacy=8
 
-	intrigue=13
+	intrigue=11
 
-	stewardship=10
+	stewardship=6
 
-	learning=13
+	learning=2
 
 	culture="romanobritish"
 
@@ -1712,7 +1706,7 @@
 
 
 
-74 = {				# Lord Decimus of Lindum, High Lord of The Wetlands
+74 = {				# Lord Decimus of Lindum, High Lord of The Wetlands (fictional)
 
 	name="Decimus"
 
@@ -1722,15 +1716,15 @@
 
   	properties="bl0eckbebb"
 
-	martial=10
+	martial=8
 
-	diplomacy=15
+	diplomacy=9
 
-	intrigue=12
+	intrigue=6
 
-	stewardship=14
+	stewardship=9
 
-	learning=9
+	learning=6
 
 	culture="romanobritish"
 
@@ -1786,7 +1780,7 @@
 
 
 
-91 = {			# Lord Brochvael Conwy
+91 = {			# Lord Brochvael Conwy (fictional)
 
 	name="Brochvael"
 
@@ -1794,13 +1788,13 @@
 
 	religion="briton_pagan"
 
-	martial=8
+	martial=7
 
-	diplomacy=12
+	diplomacy=9
 
-	intrigue=6
+	intrigue=4
 
-	stewardship=10
+	stewardship=7
 
 	learning=9
 
@@ -1848,7 +1842,7 @@
 
 
 
-93 = {			# Lord Gareth of Ambra
+93 = {			# Lord Gareth of Ambra (fictional)
 
 	name="Gareth"
 
@@ -1858,15 +1852,15 @@
 
   	properties="gi0iakbebb"
 
-	martial=10
+	martial=6
 
-	diplomacy=10
+	diplomacy=7
 
-	intrigue=6
+	intrigue=8
 
-	stewardship=12
+	stewardship=5
 
-	learning=10
+	learning=2
 
 	culture="romanobritish"
 
@@ -1914,7 +1908,7 @@
 
 
 
-94 = {			# Lord Cornelius of Corinium
+94 = {			# Lord Cornelius of Corinium (fictional)
 
 	name="Cornelius"
 
@@ -1928,15 +1922,15 @@
 
   	properties="gi0iakbebb"
 
-	martial=8
+	martial=7
 
-	diplomacy=12
+	diplomacy=5
 
-	intrigue=8
+	intrigue=6
 
-	stewardship=12
+	stewardship=3
 
-	learning=11
+	learning=7
 
 	add_trait="scholar"
 
@@ -1984,7 +1978,7 @@
 
 
 
-96 = {			# Lord Einion of Buelt
+96 = {			# Lord Einion of Buelt (fictional)
 
 	name="Einion"
 
@@ -1998,13 +1992,13 @@
 
 	martial=11
 
-	diplomacy=12
+	diplomacy=7
 
 	intrigue=6
 
-	stewardship=14
+	stewardship=3
 
-	learning=10
+	learning=5
 
 	culture="romanobritish"
 
@@ -2046,7 +2040,7 @@
 
 
 
-99 = {			# Lord Marius of Luguvallum
+99 = {			# Lord Marius of Luguvallum (fictional)
 
 	name="Marius"
 
@@ -2054,15 +2048,15 @@
 
 	religion="briton_pagan"
 
-	martial=11
+	martial=10
 
-	diplomacy=11
+	diplomacy=8
 
-	intrigue=8
+	intrigue=5
 
-	stewardship=12
+	stewardship=5
 
-	learning=10
+	learning=6
 
 	culture="romanobritish"
 
@@ -2112,7 +2106,7 @@
 
 
 
-101 = {			# Lord Cai of Cunetio
+101 = {			# Lord Cai of Cunetio (fictional)
 
 	name="Cai"
 
@@ -2124,15 +2118,15 @@
 
   	properties="km0dhkbabb"
 
-	martial=10
+	martial=5
 
-	diplomacy=12
+	diplomacy=9
 
-	intrigue=8
+	intrigue=7
 
-	stewardship=14
+	stewardship=7
 
-	learning=13
+	learning=6
 
 	culture="romanobritish"
 
@@ -2176,7 +2170,7 @@
 
 
 
-104 = {			# Lord Elfin of Causennae
+104 = {			# Lord Elfin of Causennae (fictional)
 
 	name="Elfin"		
 
@@ -2184,15 +2178,15 @@
 
 	religion="catholic"
 
-	martial=9
+	martial=3
 
-	diplomacy=12
+	diplomacy=4
 
 	intrigue=8
 
-	stewardship=13
+	stewardship=9
 
-	learning=10
+	learning=8
 
 	culture="romanobritish"
 
@@ -2234,7 +2228,7 @@
 
 
 
-108 = {			# Lord Mared of Verlucio
+108 = {			# Lord Mared of Verlucio (fictional)
 
 	name="Mared"
 
@@ -2246,15 +2240,15 @@
 
 	religion="briton_pagan"
 
-	martial=10
+	martial=7
 
-	diplomacy=10
+	diplomacy=3
 
 	intrigue=9
 
-	stewardship=11
+	stewardship=6
 
-	learning=10
+	learning=8
 
 	culture="romanobritish"
 
@@ -2300,7 +2294,7 @@
 
 
 
-123 = {			# Lady Enid, spouse of Prince Gereint
+123 = {			# Lady Enid, spouse of Prince Gereint (legendary character)
 
 	name="Enid"		
 
@@ -2418,7 +2412,7 @@
 
 
 
-125 = {			# Lord Gadric of Tripontium
+125 = {			# Lord Gadric of Tripontium (fictional)
 
 	name="Gadric"
 
@@ -2432,9 +2426,9 @@
 
 	intrigue=6
 
-	stewardship=9
+	stewardship=7
 
-	learning=10
+	learning=8
 
 	culture="romanobritish"
 
@@ -2478,7 +2472,7 @@
 
 
 
-126 = {			# Aurelius, son of Cornelius of Corinium
+126 = {			# Aurelius, son of Cornelius of Corinium (fictional)
 
 	name="Aurelius"		
 
@@ -2526,7 +2520,7 @@
 
 
 
-127 = {			# Lady Viola of Corinium
+127 = {			# Lady Viola of Corinium (fictional)
 
 	name="Viola"
 
@@ -2538,11 +2532,11 @@
 
 	martial=4
 
-	diplomacy=10
+	diplomacy=7
 
-	intrigue=9
+	intrigue=8
 
-	stewardship=9
+	stewardship=6
 
 	learning=6
 
@@ -2580,7 +2574,7 @@
 
 
 
-128 = { 		# Lord Meriadoc of Vindocladia
+128 = { 		# Lord Meriadoc of Vindocladia (fictional)
 
 	name="Meriadoc"
 
@@ -2590,13 +2584,13 @@
 
 	culture="romanobritish"
 
-	martial=9
+	martial=8
 
-	diplomacy=10
+	diplomacy=8
 
-	intrigue=8
+	intrigue=7
 
-	stewardship=8
+	stewardship=4
 
 	learning=9
 
@@ -2640,7 +2634,7 @@
 
 
 
-129 = {			# Minac of Vindocladia
+129 = {			# Minac of Vindocladia (fictional)
 
 	name="Minac"	
 
@@ -2652,11 +2646,11 @@
 
 	diplomacy=8
 
-	intrigue=8
+	intrigue=6
 
-	stewardship=8
+	stewardship=4
 
-	learning=10
+	learning=7
 
 	culture="romanobritish"
 
@@ -2692,7 +2686,7 @@
 
 
 
-151 = {			# Queen Sarlinna of Elmet
+151 = {			# Queen Sarlinna of Elmet (fictional)
 
 	name="Sarlinna"
 
@@ -2702,13 +2696,13 @@
 
 	martial=5
 
-	diplomacy=10
+	diplomacy=8
 
-	intrigue=8
+	intrigue=6
 
-	stewardship=10
+	stewardship=8
 
-	learning=10
+	learning=5
 
 	culture="romanobritish"
 
@@ -2750,7 +2744,7 @@
 
 
 
-153 = {			# High Lady Margred of The Wetlands
+153 = {			# High Lady Margred of The Wetlands (fictional)
 
 	name="Margred"
 
@@ -2762,13 +2756,13 @@
 
 	martial=3
 
-	diplomacy=8
+	diplomacy=5
 
 	intrigue=10
 
 	stewardship=8
 
-	learning=8
+	learning=6
 
 	culture="romanobritish"
 
@@ -2810,7 +2804,7 @@
 
 
 
-154 = {			# Verutius of Lindum
+154 = {			# Verutius of Lindum (fictional)
 
 	name="Verutius"
 
@@ -2818,15 +2812,15 @@
 
 	religion="pelagian"
 
-	martial=7
+	martial=4
 
 	diplomacy=8
 
-	intrigue=7
+	intrigue=5
 
-	stewardship=9
+	stewardship=6
 
-	learning=9
+	learning=8
 
 	culture="romanobritish"
 
@@ -2864,7 +2858,7 @@
 
 
 
-240 = {			# Queen Enid of Gwent
+240 = {			# Queen Enid of Gwent (book character)
 
 	name="Enid"
 
@@ -2878,13 +2872,13 @@
 
 	martial=3
 
-	diplomacy=10
+	diplomacy=7
 
-	intrigue=13
+	intrigue=10
 
-	stewardship=10
+	stewardship=7
 
-	learning=11
+	learning=8
 
 	add_trait="authoritative"
 
@@ -2924,7 +2918,7 @@
 
 
 
-245 = {			# Publius of Vectis
+245 = {			# Publius of Vectis (fictional)
 
 	name="Publius"	
 
@@ -2954,7 +2948,7 @@
 
 }
 
-247 = {			# Lady Nwylle of the Belgae
+247 = {			# Lady Nwylle of the Belgae (fictional)
 
 	name="Nwylle"
 
@@ -2966,13 +2960,13 @@
 
 	martial=4
 
-	diplomacy=10
+	diplomacy=9
 
-	intrigue=10
+	intrigue=8
 
-	stewardship=7
+	stewardship=5
 
-	learning=8
+	learning=6
 
 	culture="romanobritish"
 
@@ -3004,7 +2998,7 @@
 
 }
 
-248 = {			# Maelgore, son of King Melwas of the Belgae
+248 = {			# Maelgore, son of King Melwas of the Belgae (fictional)
 
 	name="Maelgore"	
 
@@ -3042,7 +3036,7 @@
 
 }
 
-254 = {			# Dagomarcus of Luguvallum
+254 = {			# Dagomarcus of Luguvallum (fictional)
 
 	name="Dagomarcus"
 
@@ -3052,13 +3046,13 @@
 
 	martial=10
 
-	diplomacy=8
+	diplomacy=7
 
-	intrigue=6
+	intrigue=3
 
-	stewardship=7
+	stewardship=5
 
-	learning=10
+	learning=2
 
 	culture="romanobritish"
 
@@ -3093,7 +3087,7 @@
 
 
 
-255 = {			# Lady Cornelia of Deva
+255 = {			# Lady Cornelia of Deva (fictional)
 
 	name="Cornelia"
 
@@ -3145,7 +3139,7 @@
 
 
 
-265 = {			# Lord Ganval of Durocobrivis
+265 = {			# Lord Ganval of Durocobrivis (fictional)
 
 	name="Ganval"	
 
@@ -3153,13 +3147,13 @@
 
 	martial=10
 
-	diplomacy=7
+	diplomacy=6
 
-	intrigue=8
+	intrigue=4
 
-	stewardship=10
+	stewardship=9
 
-	learning=9
+	learning=6
 
 	culture="romanobritish"
 
@@ -3199,7 +3193,7 @@
 
 }
 
-294 = {				# Gwydre ap Arthur
+294 = {				# Gwydre ap Arthur (book/legendary character)
 
 	name="Gwydre"
 
@@ -3249,7 +3243,7 @@
 
 }
 
-295 = {				# Morwenna ferch Derfel
+295 = {				# Morwenna ferch Derfel (book character)
 
 	name="Morwenna"
 
@@ -3305,7 +3299,7 @@
 
 }
 
-296 = {				# Seren ferch Derfel
+296 = {				# Seren ferch Derfel (book character)
 
 	name="Seren"
 
@@ -3349,7 +3343,7 @@
 
 }
 
-297 = {				# Dian ferch Derfel
+297 = {				# Dian ferch Derfel (book character)
 
 	name="Dian"
 
@@ -3388,7 +3382,7 @@
 }
 
 
-298 = {				# Arthur-bach ap Gwydre
+298 = {				# Arthur-bach ap Gwydre (book character)
 
 	name="Arthur"
 
@@ -3425,7 +3419,7 @@
 }
 
 
-299 = {				# Seren ferch Gwydre
+299 = {				# Seren ferch Gwydre (book character)
 
 	name="Seren"
 
@@ -3472,19 +3466,19 @@
 
 	religion="catholic"
 
-	martial=12
+	martial=10
 
-	diplomacy=15
+	diplomacy=9
 
-	intrigue=10
+	intrigue=6
 
-	stewardship=12
+	stewardship=8
 
-	learning=10
+	learning=7
 
 	culture="romanobritish"
 
-	add_trait="blood_coel_hen"
+	#add_trait="blood_coel_hen"
 
 	add_trait="brave"
 
@@ -3522,11 +3516,13 @@
 
 		give_nickname = nick_hen
 		
-		effect = {
-		
+		effect = {		
 			set_character_flag = coel_hen
 		}
 
+		create_bloodline = {
+			type = coel_hen
+		}
 	}
 	
 	380.1.1 = {
@@ -3587,7 +3583,7 @@
 
 
 
-315 = {			# Saturnina of Lindum
+315 = {			# Saturnina of Lindum (fictional)
 
 	name="Saturnina"
 
@@ -3599,13 +3595,13 @@
 
 	martial=4
 
-	diplomacy=10
+	diplomacy=6
 
 	intrigue=7
 
-	stewardship=10
+	stewardship=4
 
-	learning=10
+	learning=9
 
 	culture="romanobritish"
 
@@ -3635,7 +3631,7 @@
 
 
 
-342 = {			# Lady Senena of Isca
+342 = {			# Lady Senena of Isca  (fictional)
 
 	name="Senena"
 
@@ -3679,7 +3675,7 @@
 
 
 
-368 = {			# Lady Veneva of Ebrauc
+368 = {			# Lady Veneva of Ebrauc (fictional)
 
 	name="Veneva"
 
@@ -3729,7 +3725,7 @@
 
 
 
-670 = {			# Magistrate Nabur of Durnovaria
+670 = {			# Magistrate Nabur of Durnovaria (book character)
 
 	name="Nabur"	
 
@@ -3737,15 +3733,15 @@
 
 	properties="ub0hhkbebb"
 
-	martial=6
+	martial=4
 
-	diplomacy=9
+	diplomacy=7
 
-	intrigue=11
+	intrigue=10
 
-	stewardship=9
+	stewardship=6
 
-	learning=10
+	learning=9
 
 	culture="romanobritish"
 
@@ -3807,7 +3803,7 @@
 
 
 
-700 = {			# Lucius
+700 = {			# Lucius (fictional)
 
 	name="Lucius"
 
@@ -3835,7 +3831,7 @@
 
 	add_trait="just"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="genius"
 
@@ -3911,7 +3907,7 @@
 
 	add_trait="roman_trained"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="skilled_warrior"
 
@@ -3923,7 +3919,7 @@
 
 	add_trait = shrewd
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	410.1.1={
 
@@ -3951,7 +3947,7 @@
 
 }
 
-1000 = {			# Constantine
+1000 = {			# King Constantine of Dumnonia
 
 	name="Constantine"
 
@@ -3985,7 +3981,7 @@
 
 	add_trait="just"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="ambitious"
 
@@ -4019,7 +4015,7 @@
 
 
 
-1001 = {			# Constans
+1001 = {			# Constans, son of Constantine III
 
 	name="Constans"
 
@@ -4102,7 +4098,7 @@
 
 
 
-1002 = {			# Ambrosius Aurelianus #AAtY
+1002 = {			# Ambrosius Aurelianus (aka AAtY)
 
 	name="Ambrosius"
 
@@ -4126,7 +4122,7 @@
 
 	culture="romanobritish"
 
-	add_trait="honorable"
+	# add_trait="honorable"
 
 	add_trait="veteran"
 
@@ -4182,7 +4178,7 @@
 
 
 
-1003 = {			# Anna, mother of Uther
+1003 = {			# Anna, mother of Uther (fictional)
 
 	name="Anna"
 
@@ -4244,7 +4240,7 @@
 
 
 
-1005 = {			# Cæcilia, daughter of Ambrosius Aurelianus 
+1005 = {			# Cæcilia, daughter of Ambrosius Aurelianus  (fictional)
 
 	name="Cæcilia"
 
@@ -4293,7 +4289,7 @@
 }
 
 
-1006 = {			# Culhwch, son of Goleuddydd and Cilydd
+1006 = {			# Culhwch, son of Goleuddydd and Cilydd (book/legendary character)
 
 	name="Culhwch"
 	
@@ -4377,7 +4373,7 @@
 
 }
 
-1007 = {			# Sir Dagonet
+1007 = {			# Sir Dagonet (book/legendary character)
 
 	name="Dagonet"
 
@@ -4431,7 +4427,7 @@
 
 }
 
-1008 = {			# Sir Aglaval (i.e. Sir Aglovale)
+1008 = {			# Sir Aglaval (i.e. Sir Aglovale) (book/legendary character)
 
 	name="Aglaval"
 	
@@ -4489,7 +4485,7 @@
 
 }
 
-1009 = {			# Sir Lanval
+1009 = {			# Sir Lanval (book/legendary character)
 
 	name="Lanval"
 	
@@ -4559,7 +4555,7 @@
 
 }
 
-1011 = {			# Sir Balan
+1011 = {			# Sir Balan (book/legendary character)
 
 	name="Balan"
 	
@@ -4568,6 +4564,8 @@
 	religion="briton_pagan"
 	
 	culture = romanobritish
+	
+	add_trait = trained_warrior
 	
 	father = 99
 	
@@ -4601,7 +4599,7 @@
 
 }
 
-1012 = {			# Sir Balin
+1012 = {			# Sir Balin (book/legendary character)
 
 	name="Balin"
 	
@@ -4610,6 +4608,8 @@
 	religion="briton_pagan"
 	
 	culture = romanobritish
+	
+	add_trait = trained_warrior
 	
 	father = 99
 	
@@ -4643,13 +4643,15 @@
 
 }
 
-1013 = {			# Blaise
+1013 = {			# Blaise (book/legendary character)
 
 	name="Blaise"
 	
 	culture = romanobritish
 
 	religion="briton_pagan"
+	
+	add_trait = trained_warrior
 
 	443.7.19={
 
@@ -4677,7 +4679,7 @@
 
 }
 
-1014 = {			# St. Illtyd
+1014 = {			# St. Illtyd (partly book/legendary character)
 
 	name="Illtyd"
 	
@@ -4687,11 +4689,19 @@
 	
 	dynasty = 1075
 	
+	add_trait = trained_warrior
+	
+	add_trait = erudite
+	
+	add_trait = theologian
+	
+	add_trait = diligent
+	
 	father = 1015
 	
 	mother = 1016
 	
-	learning = 15
+	learning = 12
 
 	452.9.13={
 
@@ -4715,7 +4725,7 @@
 
 }
 
-1017 = {			# Eiddilig
+1017 = {			# Eiddilig (book/legendary character)
 
 	name="Eiddilig"
 	
@@ -4755,7 +4765,7 @@
 
 }
 
-1018 = {			# Sir Bedivere
+1018 = {			# Sir Bedivere (book/legendary character)
 
 	name="Bedwyr"
 	
@@ -4803,7 +4813,7 @@
 
 }
 
-1019 = {			# Morfans the Ugly
+1019 = {			# Morfans the Ugly (book character)
 
 	name="Morfans"
 	
@@ -4863,7 +4873,7 @@
 
 }
 
-1069 = { #Wife of AAtE, Mother of AAtY, added by Clay (Named after Tacitus' wife)
+1069 = { #Wife of AAtE, Mother of AAtY, added by Clay (Named after Tacitus' wife) (fictional)
 
 	name="Julia"
 
@@ -4920,7 +4930,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=1201
 
@@ -4956,7 +4966,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=1203
 	
@@ -4988,7 +4998,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	add_trait = trained_warrior
 
@@ -5020,7 +5030,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	add_trait = fast
 	
@@ -5030,11 +5040,11 @@
 
 	father=1513
 
-	mother=1614
+	mother=1612
 	
-	358.1.1={
+	354.1.1={
 
-		birth="365.1.1"
+		birth=yes
 
 	}
 
@@ -5094,7 +5104,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 	
 	add_trait = robust
 
@@ -5144,7 +5154,7 @@
 	}
 }
 
-1208 ={			# Chief Verica the Elder of Celemion
+1208 ={			# Chief Verica the Elder of Celemion (fictional?)
 
 	name="Verica"
 
@@ -5173,7 +5183,7 @@
 	}
 }
 
-1209 ={			# Chief Verica the Younger of Celemion
+1209 ={			# Chief Verica the Younger of Celemion (fictional?)
 
 	name="Verica"
 
@@ -5202,7 +5212,7 @@
 	}
 }
 
-1211 ={			# King Tudwal of Cynwidion
+1211 ={			# King Tudwal of Cynwidion (fictional)
 
 	name="Tudwal"
 
@@ -5231,7 +5241,7 @@
 	}
 }
 
-1212 ={			# King Elwydd of Cynwidion
+1212 ={			# King Elwydd of Cynwidion (fictional)
 
 	name="Elwydd"
 
@@ -5258,7 +5268,7 @@
 	}
 }
 
-1213 ={			# King Gyllad of Colun
+1213 ={			# King Gyllad of Colun (fictional)
 
 	name="Gyllad"
 
@@ -5287,7 +5297,7 @@
 	}
 }
 
-1214 ={			# King Elgan of Went
+1214 ={			# King Elgan of Went (fictional)
 
 	name="Elgan"
 
@@ -5360,7 +5370,7 @@
 	}
 }
 
-1220 ={			# Lord Druidan of Rhegin
+1220 ={			# Lord Druidan of Rhegin (fictional)
 
 	name="Druidan"
 
@@ -5389,7 +5399,7 @@
 	}
 }
 
-1221 ={			# Lord Gawain of Rhegin
+1221 ={			# Lord Gawain of Rhegin (fictional)
 
 	name="Gawain"
 
@@ -5416,7 +5426,7 @@
 	}
 }
 
-1222 ={			# Lord Verutius of Linnius
+1222 ={			# Lord Verutius of Linnius (fictional)
 
 	name="Veritius"
 
@@ -5459,7 +5469,7 @@
 	
 	give_nickname=nick_the_great
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	add_trait = trained_warrior
 	
@@ -5540,7 +5550,7 @@
 	}
 }
 
-1289 ={			# King Appius of Rhegin
+1289 ={			# King Appius of Rhegin (fictional)
 
 	name="Appius"
 
@@ -5567,7 +5577,7 @@
 	}
 }
 
-1290 ={			# Praetor Corineus of Segontiacia
+1290 ={			# Praetor Corineus of Segontiacia (fictional)
 
 	name="Corineus"
 
@@ -5594,7 +5604,7 @@
 	}
 }
 
-1291 ={			# King Gudovan of Grwath
+1291 ={			# King Gudovan of Grwath (fictional)
 
 	name="Gudovan"
 
@@ -5621,7 +5631,7 @@
 	}
 }
 
-1292 ={			# Lord Bleiddig of Lerion
+1292 ={			# Lord Bleiddig of Lerion (fictional)
 
 	name="Bleiddig"
 
@@ -5649,7 +5659,7 @@
 
 }
 
-1300 ={			# Caius of Lundein
+1300 ={			# Caius of Lundein (fictional)
 
 	name="Caius"
 
@@ -5677,7 +5687,7 @@
 
 }
 
-1301 ={			# Pellinore of Lundein
+1301 ={			# Pellinore of Lundein (book/legendary character)
 
 	name="Pellinore"
 
@@ -5713,7 +5723,7 @@
 
 }
 
-1302 ={			# Dyfri of the Fens
+1302 ={			# Dyfri of the Fens (fictional)
 
 	name="Dyfri"
 
@@ -5741,7 +5751,7 @@
 
 }
 
-1303 ={			# Cledwyn of the Fens
+1303 ={			# Cledwyn of the Fens (fictional)
 
 	name="Cledwyn"
 
@@ -5769,7 +5779,7 @@
 
 }
 
-1304 ={			# Mercurius of Baddon
+1304 ={			# Mercurius of Baddon (fictional)
 
 	name="Mercurius"
 
@@ -5797,7 +5807,7 @@
 
 }
 
-1305 ={			# Caius of Baddon
+1305 ={			# Caius of Baddon (fictional)
 
 	name="Caius"
 
@@ -5843,7 +5853,7 @@
 	
 	add_trait="strong"
 	
-	add_trait="towering"
+	add_trait="giant"
 
 	add_trait = skilled_warrior
 	
@@ -5877,7 +5887,7 @@
 
 	religion="catholic"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 	
 	add_trait = quick
 
@@ -5891,8 +5901,6 @@
 
 	}
 
-
-
 	424.1.1={	
 	
 		death=yes	
@@ -5901,7 +5909,7 @@
 	
 }
 
-1516 = {	
+1516 = {		# Gratianna ferch Magnus Maximus, wife of King Tudwal of Dumnonia
 	name="Gratianna"
 
 	female=yes	
@@ -6034,7 +6042,7 @@
 
 	}
 }
-1520 ={	
+1520 ={				# Madrun ferch Vortimer, wife of King Ynyrius of Gwent
 
 	name="Madrun"
 
@@ -6061,7 +6069,34 @@
 	}
 
 }
-1613 ={	
+1612 ={				# Ceindrech ferch Reiden, first wife of Magnus Maximus
+
+	name="Ceindrech"
+
+	female="yes"	
+	
+	dynasty=627
+
+	religion="briton_pagan"
+
+	culture="briton"
+
+	father=1613
+	
+	336.1.1={
+
+		birth=yes
+
+	}
+
+	354.1.1={	
+	
+		death=yes
+		
+	}
+	
+}
+1613 ={				# Father of Ceindrech
 
 	name="Reiden"
 
@@ -6084,7 +6119,7 @@
 	}
 	
 }
-1614 ={	
+1614 ={				# Elen of the Hosts
 
 	name="Elen"
 
@@ -6121,7 +6156,7 @@
 	}
 	
 }
-1615 ={	
+1615 ={			# King Eudaf Hen of Gwent
 
 	name="Eudaf"
 
@@ -6147,7 +6182,7 @@
 	}
 	
 }
-1616 ={	
+1616 ={			# King Einudd of Gwent, father of Eudaf Hen
 
 	name="Einudd"
 
@@ -6172,7 +6207,7 @@
 	}
 	
 }
-1622 ={	
+1622 ={			# Lord Ceredig of Avon (fictional)
 
 	name="Ceredig"
 
@@ -6194,7 +6229,7 @@
 		
 	}
 }
-1623 ={	
+1623 ={			# Lord Urien of Tripontium (fictional)
 
 	name="Urien"
 
@@ -6216,7 +6251,7 @@
 		
 	}
 }
-1624 ={	
+1624 ={			# OBSOLETE CHARACTER
 
 	name="Oreth"
 
@@ -6239,7 +6274,7 @@
 	}
 	
 }
-1625 ={	
+1625 ={				# Lord Minac of Durocornovium (fictional)
 
 	name="Minac"
 
@@ -6261,7 +6296,7 @@
 		
 	}
 }
-1626 ={	
+1626 ={				# Lord Lanval of Aquae Sulis (fictional)
 
 	name="Lanval"
 
@@ -6284,7 +6319,7 @@
 	}
 	
 }
-1627 ={	
+1627 ={				# OBSOLETE CHARACTER
 
 	name="Apon"
 
@@ -6387,7 +6422,7 @@
 
 }
 
-1636 ={	
+1636 ={				# Prince Erbin of Dumnonia, father of Gereint (historically, King of Dumnonia)
 
 	name="Erbin"
 
@@ -6415,7 +6450,7 @@
 
 }
 
-1638 ={	
+1638 ={			# Princess Anna ferch Vortimer of Britannia, mother of Sir Kay
 
 	name="Anna"
 
@@ -6438,7 +6473,7 @@
 
 }
 
-1646 ={	
+1646 ={			# Princess Afrella of Britannia, aka St. Afrella
 
 	name="Afrella"
 
@@ -6513,7 +6548,7 @@
 
 	religion="catholic"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=28
 
@@ -6543,7 +6578,7 @@
 
 	religion="catholic"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=1728
 
@@ -6573,7 +6608,7 @@
 
 	religion="catholic"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=1729
 
@@ -6625,7 +6660,7 @@
 
 }
 
-1735 = {			# High Lord Justinus of Glouvia
+1735 = {			# High Lord Justinus of Glouvia (fictional - fills in the generation between AAtY and Aurelius Caninus)
 
 	name="Justinus"
 
@@ -6807,7 +6842,7 @@
 }
 
 
-1764 = {			# High Lord Brochmael of Glouvia
+1764 = {			# High Lord Brochmael of Glouvia  (fictional - fills in the generation after Aurelius Caninus)
 
 	name="Brochmael"
 
@@ -6845,7 +6880,7 @@
 
 	religion="catholic"
 
-	add_trait="blood_coel_hen"
+	#add_trait="blood_coel_hen"
 
 	father=132
 
@@ -6875,7 +6910,7 @@
 
 	religion="catholic"
 
-	add_trait="blood_coel_hen"
+	#add_trait="blood_coel_hen"
 
 	father=1907
 
@@ -6928,7 +6963,7 @@
 	}
 }
 
-2345 = {				# Marcus
+2345 = {				# Marcus, usurper in Britannia
 
 	name="Marcus"
 
@@ -6941,6 +6976,8 @@
 	#father=
 
 	#mother=
+
+	add_trait = northaugustus
 
 	371.1.1 = {
 	
@@ -6961,7 +6998,7 @@
 
 
 
-2346 = {				# Gratianus
+2346 = {				# Gratianus, usurper in Britannia
 
 	name="Gratianus"
 
@@ -6974,6 +7011,8 @@
 	#father=
 
 	#mother=
+
+	add_trait = northaugustus
 
 	376.1.1 = {
 	
@@ -7300,7 +7339,7 @@
 
 }
 
-2539 ={			# King Arran of Went
+2539 ={			# King Arran of Went (fictional)
 
 	name="Arran"
 
@@ -7327,7 +7366,7 @@
 	}
 }
 
-2540 ={			# King Veritus of Colun
+2540 ={			# King Veritus of Colun (fictional)
 
 	name="Veritus"
 
@@ -7354,7 +7393,7 @@
 	}
 }
 
-3123 = {
+3123 = {		# Lord Eldoc of Bibrax (fictional)
 	
 	name = Eldoc
 	
@@ -7378,7 +7417,7 @@
 
 }
 
-3124 = {
+3124 = {		# Lord Minac of Bibrax (fictional)
 	
 	name = Minac
 	
@@ -7402,7 +7441,7 @@
 
 }
 
-3125 = {
+3125 = {		# Lord Lladarn of The Downs (fictional)
 	
 	name = Lladarn
 	
@@ -7426,7 +7465,7 @@
 
 }
 
-3126 = {
+3126 = {		# Lord Morien of The Downs (fictional)
 	
 	name = Morien
 	
@@ -7450,7 +7489,7 @@
 
 }
 
-3127 = {
+3127 = {		# Lord Morfans of Anderida Silva (fictional)
 	
 	name = Morfans
 	
@@ -7474,7 +7513,7 @@
 
 }
 
-3128 = {
+3128 = {		# Lord Valerin of Anderida Silva (fictional)
 	
 	name = Valerin
 	
@@ -7498,7 +7537,7 @@
 
 }
 
-3129 = {
+3129 = {		# Lord Elgwyn of Caer Anderida (fictional)
 	
 	name = Elgwyn
 	
@@ -7522,7 +7561,7 @@
 
 }
 
-3130 = {
+3130 = {		# Lord Tristan of Caer Anderida (fictional)
 	
 	name = Tristan
 	
@@ -7547,7 +7586,7 @@
 }
 
 
-3345 = {					# FICTIONAL
+3345 = {					# Lord Eldoc of Avon - FICTIONAL
 
 	name="Eldoc"
 	
@@ -7573,7 +7612,7 @@
 	
 }
 
-3346 = {					# FICTIONAL
+3346 = {					# Lord Gerlyd of Tripontium -  FICTIONAL
 
 	name="Gerlyd"
 	
@@ -7658,7 +7697,7 @@
 
 	culture="romanobritish"
 	
-	add_trait=blood_magnus_maximus
+	#add_trait=blood_magnus_maximus
 
 	father=805
 

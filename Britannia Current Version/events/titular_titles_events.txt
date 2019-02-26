@@ -11,7 +11,6 @@
 #
 ###################################
 #
-# 312161 - 312171	Britons
 # 314101 - 314189 	Anglo-Saxons
 # 314190 - 314200	Romans (Gaul)
 # 314201 - 314229	Franks
@@ -29,6 +28,7 @@
 # 314750 - 314774	Saxons
 # 314775 - 314799	Vasconians
 # 314800 - 314824	Danes (Scandinavia)
+# 314825 - 314849	Germania
 # 315000 - 315099 	AI Creation
 # 318000 - 318099	Franks
 # 318100 - 318199	Romans (Gaul)
@@ -51,6 +51,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_lindsey
 		NOT = { has_global_flag = lindsey_created }
 	}
@@ -111,6 +112,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_mercia
 		NOT = { has_global_flag = pegansaete_created }
 	}
@@ -172,6 +174,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_middle_angles
 		NOT = { has_global_flag = middleangles_created }
 	}
@@ -203,11 +206,13 @@ narrative_event = {
 		c_lactodorum = { de_jure_liege = d_middle_angles }
 		
 		if = {
-			limit = { has_global_flag = aelle_ruling_anglia }
+			limit = { 
+				has_global_flag = aelle_ruling_anglia
+				NOT = { has_global_flag = anglia_collapsed }
+			}
 			d_middle_angles = { de_jure_liege = k_anglia }
 		}
-		if = {
-			limit = { NOT = { has_global_flag = aelle_ruling_anglia } }
+		else = {
 			d_middle_angles = { de_jure_liege = k_mercia }
 		}
 		
@@ -248,6 +253,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_wrocensaete
 		NOT = { has_global_flag = wrocensaete_created }
 	}
@@ -302,6 +308,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_tomsaete
 		NOT = { has_global_flag = tomsaete_created }
 	}
@@ -362,6 +369,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_magonsaete
 		NOT = { has_global_flag = magonsaete_created }
 	}
@@ -412,6 +420,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_hwicce
 		NOT = { has_global_flag = hwicce_created }
 	}
@@ -471,6 +480,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cilternsaete
 		NOT = { has_global_flag = cilternsaete_created }		
 	}
@@ -486,11 +496,13 @@ narrative_event = {
 		c_durocobrivis = { de_jure_liege = d_cilternsaete }
 		
 		if = {
-			limit = { has_global_flag = aelle_ruling_anglia }
+			limit = { 
+				has_global_flag = aelle_ruling_anglia 
+				NOT = { has_global_flag = anglia_collapsed }
+			}
 			d_cilternsaete = { de_jure_liege = k_anglia }
 		}
-		if = {
-			limit = { NOT = { has_global_flag = aelle_ruling_anglia } }
+		else = {
 			d_cilternsaete = { de_jure_liege = k_mercia }
 		}
 
@@ -531,6 +543,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_mercia
 		NOT = { has_global_flag = mercia_created }
 	}
@@ -605,6 +618,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 570
 		OR = {
 			year = 590
@@ -669,6 +683,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_mercia
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
@@ -734,6 +749,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_dorset
 		NOT = { has_global_flag = dorset_created }
 	}
@@ -785,6 +801,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_somerset
 		NOT = { has_global_flag = somerset_created }
 	}
@@ -838,6 +855,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_hampshire
 		NOT = { has_global_flag = hampshire_created }
 	}
@@ -912,6 +930,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_ingvaeonic_culture_trigger = yes
 		completely_controls = c_venta
 		completely_controls = c_portus_adurni
@@ -978,6 +997,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_ingvaeonic_culture_trigger = yes
 		completely_controls = c_venta
 		completely_controls = c_portus_adurni
@@ -1044,6 +1064,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_berkshire
 		NOT = { has_global_flag = berkshire_created }
 	}
@@ -1097,6 +1118,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_wiltshire
 		NOT = { has_global_flag = wiltshire_created }
 	}
@@ -1152,6 +1174,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_devon
 		NOT = { has_global_flag = devon_created }
 	}
@@ -1204,6 +1227,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cornwall
 		NOT = { has_global_flag = cornwall_created }
 	}
@@ -1259,6 +1283,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_wessex
 		NOT = { has_global_flag = wessex_created }
 	}
@@ -1310,6 +1335,7 @@ character_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 540
 		age = 20
 		ai = yes
@@ -1388,6 +1414,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_wessex
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
@@ -1458,6 +1485,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_cantia
 		NOT = { has_global_flag = cantia_created }
 	}
@@ -1487,6 +1515,7 @@ character_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 500
 		age = 20
 		ai = yes
@@ -1558,6 +1587,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_cantia
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
@@ -1623,6 +1653,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_eastseaxe
 		NOR = { 
 			has_landed_title = k_anglia
@@ -1698,6 +1729,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_eastseaxe
 		NOT = { has_global_flag = essex_created }
 		d_eastseaxe = { de_jure_liege = k_eastseaxe }
@@ -1742,6 +1774,7 @@ character_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 525
 		age = 20
 		ai = yes
@@ -1788,6 +1821,18 @@ character_event = {
 				prestige = 400
 			}
 		}
+		modifier = {
+			factor = 12
+			NOT = {
+				culture = oldsaxon
+			}
+		}
+		modifier = {
+			factor = 3
+			NOT = {
+				completely_controls = c_londinium
+			}
+		}
 	}
 	
 	immediate = {
@@ -1822,6 +1867,10 @@ character_event = {
 				}
 			}
 		}
+		if = {
+			limit = { NOT = { has_landed_title = d_eastseaxe } }
+			add_claim = d_eastseaxe
+		}
 	}
 	
 	option = {
@@ -1839,6 +1888,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_eastseaxe
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
@@ -1909,6 +1959,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_saxon_gaul
 		NOT = { has_global_flag = saxon_gaul_created }
 	}
@@ -1938,6 +1989,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_east_anglia
 		NOT = { has_global_flag = east_anglia_created }
 	}
@@ -1985,6 +2037,7 @@ character_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 560
 		age = 20
 		ai = yes
@@ -2056,6 +2109,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_east_anglia
 		location = { is_capital = yes }
 		NOR = { 
@@ -2126,6 +2180,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_deira
 		NOT = { has_global_flag = deira_created }
 	}
@@ -2187,6 +2242,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_lancaster
 		NOT = { has_global_flag = lancaster_created }
 	}
@@ -2244,6 +2300,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_southumbria
 		NOT = { has_global_flag = southumbria_created }
 		NOT = { has_global_flag = fiveboroughs_created }
@@ -2314,6 +2371,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cumbria
 		NOT = { has_global_flag = cumbria_created }
 	}
@@ -2367,6 +2425,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bernicia
 		NOT = { has_global_flag = bernicia_created }
 	}
@@ -2422,6 +2481,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_anglelothian
 		NOT = { has_global_flag = anglelothian_created }
 	}
@@ -2477,6 +2537,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_anglegalloway
 		NOT = { has_global_flag = anglegalloway_created }
 	}
@@ -2528,6 +2589,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_ayrshire
 		NOT = { has_global_flag = ayrshire_created }
 	}
@@ -2579,6 +2641,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_northumbria
 		NOT = { has_global_flag = northumbria_created }
 	}
@@ -2633,6 +2696,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_grentbryce
 		NOT = { has_global_flag = grentbryce_created }
 	}
@@ -2709,6 +2773,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_norfolc
 		NOT = { has_global_flag = norfolc_created }
 	}
@@ -2779,6 +2844,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_southfolc
 		NOT = { has_global_flag = southfolc_created }
 	}
@@ -2847,6 +2913,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_middleseaxe
 		NOT = { has_global_flag = middleseaxe_created }
 	}
@@ -2917,6 +2984,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_eastseaxe
 		NOT = { has_global_flag = eastseaxe_created }
 	}
@@ -2986,6 +3054,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_surrey
 		NOT = { has_global_flag = surrey_created }
 	}
@@ -3065,6 +3134,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cantware
 		NOT = { has_global_flag = cantware_created }
 	}
@@ -3146,6 +3216,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_the_weald
 		NOT = { has_global_flag = weald_created }
 	}
@@ -3198,6 +3269,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		year = 580
 		age = 20
 		ai = yes
@@ -3279,6 +3351,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_northumbria
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
@@ -3331,7 +3404,7 @@ character_event = {
 	}
 }
 
-# AI CREATION OF JARLDOMS
+# AI CREATION OF TITULAR DUCHIES
 narrative_event = {		# Mercia
 	id = 315000
 	desc = "You're not supposed to see this..."
@@ -3345,6 +3418,7 @@ narrative_event = {		# Mercia
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 		
@@ -3468,6 +3542,7 @@ narrative_event = {		# Wessex
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 		
@@ -3569,6 +3644,7 @@ narrative_event = {		# Northumbria
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -3681,6 +3757,7 @@ narrative_event = {		# East Anglia, Essex, Sussex, Kent
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -3782,6 +3859,7 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -3927,6 +4005,7 @@ narrative_event = {		# Salian Franks/Soissons
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4016,6 +4095,7 @@ narrative_event = {		# Neustria/Paris
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4193,6 +4273,7 @@ narrative_event = {		# Orleans
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4315,6 +4396,7 @@ narrative_event = {		# Waskonia
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4481,6 +4563,7 @@ narrative_event = {		# Aquitaine
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4590,7 +4673,7 @@ narrative_event = {		# Aquitaine
 		name = "OK"
 	}
 }
-narrative_event = {		# Burgundy
+narrative_event = {		# Burgundy and Alemannia
 	id = 315010
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_council"
@@ -4603,6 +4686,7 @@ narrative_event = {		# Burgundy
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4772,6 +4856,28 @@ narrative_event = {		# Burgundy
 			prestige = 200
 			break = yes
 		}
+		if = {			# Besancon
+			limit = {
+				d_besancon = { has_holder = no }
+				is_landed_title_allowed = d_besancon
+				NOT = { has_global_flag = besancon_created }
+			}
+			d_besancon = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Vaud
+			limit = {
+				d_vaud = { has_holder = no }
+				is_landed_title_allowed = d_vaud
+				NOT = { has_global_flag = vaud_created }
+			}
+			d_vaud = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
 	}
 	
 	option = {
@@ -4793,6 +4899,7 @@ narrative_event = {		# Provence
 	culture_group = germanic
 	
 	trigger = {
+		is_alternate_start = no
 		is_romanized_germanic_trigger = no
 	}
 	
@@ -4877,6 +4984,115 @@ narrative_event = {		# Provence
 	}
 }
 
+narrative_event = {		# Alemannia
+	id = 315012
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = yes
+	only_playable = yes
+	only_independent = yes
+	culture_group = germanic
+	
+	trigger = {
+		is_alternate_start = no
+		is_romanized_germanic_trigger = no
+	}
+	
+	immediate = {
+		if = {			# Aargau
+			limit = {
+				d_aargau = { has_holder = no }
+				is_landed_title_allowed = d_aargau
+				NOT = { has_global_flag = aargau_created }
+			}
+			d_aargau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Alsace
+			limit = {
+				d_alsace = { has_holder = no }
+				is_landed_title_allowed = d_alsace
+				NOT = { has_global_flag = alsace_created }
+			}
+			d_alsace = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Speyergau
+			limit = {
+				d_speyergau = { has_holder = no }
+				is_landed_title_allowed = d_speyergau
+				NOT = { has_global_flag = speyergau_created }
+			}
+			d_speyergau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Wormsgau
+			limit = {
+				d_wormsgau = { has_holder = no }
+				is_landed_title_allowed = d_wormsgau
+				NOT = { has_global_flag = wormsgau_created }
+			}
+			d_wormsgau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+	}
+}
+narrative_event = {		# Celts (Bretons)
+	id = 315013
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	ai = yes
+	only_playable = yes
+	only_independent = yes
+	culture_group = celtic
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_broceliande
+	}
+	
+	immediate = {
+		if = {			# Etre Daou Vor
+			limit = {
+				d_etre_daou_vor = { has_holder = no }
+				is_landed_title_allowed = d_etre_daou_vor
+				NOT = { has_global_flag = etre_daou_vor_created }
+			}
+			d_etre_daou_vor = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Retz
+			limit = {
+				d_retz = { has_holder = no }
+				is_landed_title_allowed = d_retz
+				NOT = { has_global_flag = retz_created }
+			}
+			d_retz = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+	}
+}
+
 ### CYNERICE OF AENGLALAND ###
 
 character_event = {		# Triggered from Decision / Claim is sent to other Kings
@@ -4889,6 +5105,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 	is_triggered_only = yes
 
 	trigger = {
+		is_alternate_start = no
 		e_aengland = { has_holder = no }
 		has_global_flag = HK_aengland_claim
 		NOT = { has_character_flag = HK_aengland_claimant }
@@ -4923,7 +5140,7 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 		trigger = {
 			has_character_flag = HK_aengland_voter
 		}
-		add_trait = honorable
+		# add_trait = honorable
 		clr_character_flag = HK_aengland_voter
 		set_character_flag = HK_aengland_supporter
 		FROM = {
@@ -5276,6 +5493,14 @@ character_event = {		# Triggered from Decision / Claim is sent to other Kings
 				factor = 0
 				pays_tribute_to = FROM
 			}
+			modifier = {
+				factor = 0.75
+				FROM = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = aengland_bretwalda_bloodline
+					}
+				}
+			}
 		}
 	}
 }
@@ -5289,6 +5514,7 @@ letter_event = {			# Positive Response
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_character_flag = HK_aengland_claimant
 		FROM = { has_character_flag = HK_aengland_supporter }
 	}
@@ -5317,6 +5543,7 @@ letter_event = {			# Negative Response
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_character_flag = HK_aengland_claimant
 		FROM = { has_character_flag = HK_aengland_oppositor }
 	}
@@ -5349,10 +5576,10 @@ letter_event = {			# Negative Response
 		trigger = {
 			diplomacy = 15
 			scaled_wealth = 8.0
-			NOT = { trait = honorable }
+			# NOT = { trait = honorable }
 			FROM = {
 				ai = yes
-				NOT = { trait = honorable }
+				# NOT = { trait = honorable }
 				OR = {
 					trait = greedy
 					trait = ruthless
@@ -5508,6 +5735,7 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_character_flag = HK_aengland_claimant
 		has_global_flag = HK_aengland_claim
 		NOT = { any_playable_ruler = { has_character_flag = HK_aengland_challenged_oppositor } }
@@ -5516,11 +5744,6 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	}
 	
 	immediate = {
-		any_vassal = {
-			any_demesne_title = {
-				set_title_flag = vassal_before_gained_high_kingdom_aengland
-			}
-		}
 		set_character_flag = gained_aengland
 		primary_title = {
 			e_aengland = { 
@@ -5553,6 +5776,13 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 		}
 		clr_character_flag = HK_aengland_claimant
 		clr_global_flag = HK_aengland_claim
+		if = {
+			limit = { NOT = { has_global_flag = first_bretwalda } }
+			create_bloodline = {
+				type = aelle_bretwalda
+			}
+			set_global_flag = first_bretwalda
+		}
 	}
 		
 	option = {
@@ -5582,6 +5812,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	major = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_aengland
 		is_unfit_to_rule_aengland_trigger = yes
 		had_character_flag = {
@@ -5785,6 +6016,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 		
 		e_aengland = { destroy_landed_title = e_aengland }
 		e_aengland = { remove_claim = ROOT }
+		hidden_tooltip = { character_event = { id = 313157 } }
 	}
 		
 	option = {
@@ -5915,14 +6147,14 @@ character_event = {			# Notify support/nominal support/backing down/war
 		text = EVTDESC3121688_2
 		picture = GFX_evt_emissary
 		trigger = {
-			FROMFROM = { has_character_flag = HK_oppositor }
+			FROMFROM = { has_character_flag = HK_opponent }
 		}
 	}
 	desc = {
 		text = EVTDESC3121688_3
 		picture = GFX_evt_saxon_army
 		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_oppositor }
+			FROMFROM = { has_character_flag = HK_challenged_opponent }
 		}
 	}
 	
@@ -5971,7 +6203,9 @@ narrative_event = {
 	min_age = 15
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = offa_dyke_created }
+		e_britannia = { has_holder = no }
 		has_global_flag = wrocensaete_created
 		has_global_flag = magonsaete_created
 		has_global_flag = hwicce_created
@@ -6196,6 +6430,7 @@ narrative_event = {	# Creation of Imperium Galliarum
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_gaul
 		NOT = { has_global_flag = imperium_galliarum_created }
 	}
@@ -6316,6 +6551,7 @@ narrative_event = {	# Creation of Imperium Britannicum
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_roman_britannia
 		NOT = { has_global_flag = imperium_britannicum_created }
 	}
@@ -6423,6 +6659,7 @@ narrative_event = {	# Reconquest of Benoic
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -6517,6 +6754,7 @@ narrative_event = {	# Reconquest of Broceliande
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
@@ -6635,6 +6873,7 @@ narrative_event = {	# Reconquest of Aquitania Prima
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -6721,6 +6960,7 @@ narrative_event = {	# Reconquest of Tolosa
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -6793,6 +7033,7 @@ narrative_event = {	# Reconquest of Aquitania Secunda
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -6891,6 +7132,7 @@ narrative_event = {	# Reconquest of Septimania
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -6995,6 +7237,7 @@ narrative_event = {	# Reconquest of Aquitania Tertia
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			is_roman_ruler_trigger = yes
 			has_landed_title = e_visigoths
@@ -7146,6 +7389,7 @@ narrative_event = {	# Lugdunensis Prima reconquered
 	only_independent = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
@@ -7236,6 +7480,7 @@ narrative_event = {	# Viennensis Prima reconquered
 	only_independent = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
@@ -7323,6 +7568,7 @@ narrative_event = {	# Reconquest of Germania Secunda
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		NOT = { 
 			primary_title = {
@@ -7399,6 +7645,7 @@ narrative_event = {
 	only_independent = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
@@ -7545,6 +7792,7 @@ narrative_event = {
 	only_independent = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
@@ -7685,49 +7933,94 @@ narrative_event = {
 	}
 }
 
-# ROMAN CONQUESTS IN GERMANIA
-
-narrative_event = {	# Roman Expansion East of the Rhine  (Expanded Secunda)
-	id = 314600
-	title = "EVTNAME314600"
-	desc = "EVTDESC314600"
+narrative_event = {	# Maxima Sequanorum reconquered
+	id = 318105
+	title = "EVTNAME318105"
 	major = yes
 	hide_new = yes
 	
-	picture = "GFX_evt_roman_army_aquila"
+	desc = {
+		text = EVTDESC318105
+		trigger = { 
+			NOT = { has_global_flag = roman_provinces_gaul_restored } 
+		}
+	}
 	
-	is_triggered_only = yes
+	desc = {
+		text = EVTDESC318105_1
+		trigger = { 
+			has_global_flag = roman_provinces_gaul_restored 
+		}
+	}
 	
-	immediate = {		
-		set_global_flag = expanded_secunda
+	picture = "GFX_evt_roman_aquila_pillar"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_gaul
+			has_landed_title = e_roman_britannia
+			has_landed_title = k_gaul
+			has_landed_title = e_visigoths
+		}
+		has_global_flag = maxima_sequanorum_conquered_burgundy
+		NOT = { 
+			primary_title = {
+				title = k_burgundy
+			}
+		}
+		completely_controls_region = world_gaul_maxima_sequanorum
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_sequania = { de_jure_liege = k_gaul }
+			d_equestria = { de_jure_liege = k_gaul }
+			d_helvitioria = { de_jure_liege = k_gaul }
+			d_rauricia = { de_jure_liege = k_gaul }
+		}
+		if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			d_sequania = { de_jure_liege = k_maxima_sequanorum }
+			d_equestria = { de_jure_liege = k_maxima_sequanorum }
+			d_helvitioria = { de_jure_liege = k_maxima_sequanorum }
+			d_rauricia = { de_jure_liege = k_maxima_sequanorum }
+		}
+		clr_global_flag = maxima_sequanorum_conquered_burgundy
 	}
 	
 	option = {
-		name = "EVTOPTA314600"
+		name = "EVTOPTA318100"
 		trigger = {
 			culture_group = imperiale
 		}	
 	}
 	option = {
-		name = "EVTOPTB314600"
+		name = "EVTOPTB318100"
 		trigger = {
-			NOR = { 
+			NOT = { 
 				culture_group = imperiale
-				AND = {
-					culture_group = germanic
-					is_romanized_germanic_trigger = no
-				}
+				culture = burgundian
 			}
 		}	
 	}
 	option = {
-		name = "EVTOPTC314600"
+		name = "EVTOPTC318100"
 		trigger = {
-			culture_group = germanic
-			is_romanized_germanic_trigger = no
+			culture = burgundian
 		}	
 	}
 }
+
+# ROMAN CONQUESTS IN GERMANIA
 
 # Civitas of Frisia 
 narrative_event = {	
@@ -7742,6 +8035,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -7800,6 +8094,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -7855,6 +8150,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -7905,6 +8201,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -7966,6 +8263,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -8024,6 +8322,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		
@@ -8080,6 +8379,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		completely_controls = c_hlidbeki
@@ -8135,6 +8435,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		has_global_flag = expanded_secunda
 		completely_controls = c_luedenscheid
@@ -8180,6 +8481,62 @@ narrative_event = {
 	}
 }
 
+# Civitas of Chattia
+narrative_event = {	
+	id = 314609
+	title = "EVTNAME314609"
+	desc = "EVTDESC314609"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_riders_forest_dusk"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_fritzlar
+		completely_controls = c_perfgau
+		completely_controls = c_niderlahngau
+		independent = yes
+		NOT = { has_global_flag = hesse_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_hesse = { de_jure_liege = k_germania_tertia }
+		c_niderlahngau = { de_jure_liege = d_hesse }
+		c_oberlahngau = { de_jure_liege = d_hesse }
+		c_perfgau = { de_jure_liege = d_hesse }
+		c_wettergau = { de_jure_liege = d_hesse }
+
+		d_hesse = {
+			set_name = "Chattia"
+			adjective = "Chattian"
+		}
+		
+		set_global_flag = hesse_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
 narrative_event = {	# Creation of Germania Tertia
 	id = 314610
 	title = "EVTNAME314610"
@@ -8193,6 +8550,7 @@ narrative_event = {	# Creation of Germania Tertia
 	#only_independent = yes
 		
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_germania_tertia
 		NOT = { has_global_flag = germania_tertia_created }
 	}
@@ -8251,6 +8609,439 @@ narrative_event = {	# Creation of Germania Tertia
 		}	
 	}
 }
+
+# Civitas of Mattiacia
+narrative_event = {	
+	id = 314611
+	title = "EVTNAME314611"
+	desc = "EVTDESC314611"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_river"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_unterrheingau
+		completely_controls = c_niddagau
+		independent = yes
+		NOT = { has_global_flag = wetterau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_wetterau = { de_jure_liege = k_germania_prima }
+		c_unterrheingau = { de_jure_liege = d_wetterau }
+		c_engersgau = { de_jure_liege = d_wetterau }
+		if = {
+			limit = { has_global_flag = hesse_renamed }
+			c_wettergau = { de_jure_liege = d_hesse }
+		}
+		else = {
+			c_wettergau = { de_jure_liege = d_lahngau }
+		}
+
+		d_wetterau = {
+			set_name = "Mattiacia"
+			adjective = "Mattiacian"
+			set_preferred_capital = 1072	# Untarrheingau
+		}
+		
+		set_global_flag = wetterau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Auderiensia
+narrative_event = {	
+	id = 314612
+	title = "EVTNAME314612"
+	desc = "EVTDESC314612"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_west_maingau
+		completely_controls = c_oberrheingau
+		independent = yes
+		NOT = { has_global_flag = rheingau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_rheingau = { de_jure_liege = k_germania_prima }
+		c_west_wingarteiba = { de_jure_liege = d_rheingau }
+		c_east_maingau = { de_jure_liege = d_waldsassengau }
+
+		d_rheingau = {
+			set_name = "Auderiensia"
+			adjective = "Auderiensian"
+			set_preferred_capital = 1074	# Westmaingau
+		}
+		
+		set_global_flag = rheingau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Alisinensia
+narrative_event = {	
+	id = 314613
+	title = "EVTNAME314613"
+	desc = "EVTDESC314613"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_lobdengau
+		completely_controls = c_elsenzgau
+		completely_controls = c_brettachgau
+		independent = yes
+		NOT = { has_global_flag = elsenzgau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_elsenzgau = { de_jure_liege = k_germania_prima }
+		c_lobdengau = { de_jure_liege = d_elsenzgau }
+		c_west_jagstgau = { de_jure_liege = d_elsenzgau }
+
+		d_elsenzgau = {
+			set_name = "Alisinensia"
+			adjective = "Alisinensian"
+		}
+		
+		set_global_flag = elsenzgau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Aquensia
+narrative_event = {	
+	id = 314614
+	title = "EVTNAME314614"
+	desc = "EVTDESC314614"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_river_town"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_west_ufgau
+		completely_controls = c_east_ufgau
+		independent = yes
+		NOT = { has_global_flag = ufgau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_ufgau = { de_jure_liege = k_germania_prima }
+
+		d_ufgau = {
+			set_name = "Aquensia"
+			adjective = "Aquensian"
+			set_preferred_capital = 1077	# Westufgau
+		}
+		
+		set_global_flag = ufgau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Sumelocennensia
+narrative_event = {	
+	id = 314615
+	title = "EVTNAME314615"
+	desc = "EVTDESC314615"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_forest_light"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_nagoldgau
+		independent = yes
+		NOT = { has_global_flag = bertoldsbaar_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_bertoldsbaar = { de_jure_liege = k_germania_prima }
+
+		d_bertoldsbaar = {
+			set_name = "Sumelocennensia"
+			adjective = "Sumelocennensian"
+			set_preferred_capital = 1098	# Nagoldgau
+		}
+		
+		set_global_flag = bertoldsbaar_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Aricensia
+narrative_event = {	
+	id = 314616
+	title = "EVTNAME314616"
+	desc = "EVTDESC314616"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_town_palisade"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = roman_conquest_agri_decumates
+		completely_controls = c_nagoldgau
+		independent = yes
+		NOT = { has_global_flag = breisgau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_breisgau = { de_jure_liege = k_germania_prima }
+		c_pirihtilinbaar = { de_jure_liege = d_breisgau }
+		c_albuinsbaar = { de_jure_liege = d_breisgau }
+
+		d_breisgau = {
+			set_name = "Aricensia"
+			adjective = "Aricensian"
+			set_preferred_capital = 1097	# Pirihtilinbaar
+		}
+		
+		set_global_flag = breisgau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Curionia
+narrative_event = {	
+	id = 314617
+	title = "EVTNAME314617"
+	desc = "EVTDESC314617"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_gate"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_east_maingau
+		completely_controls = c_waldsassengau
+		completely_controls = c_taubergau
+		independent = yes
+		NOT = { has_global_flag = waldsassengau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_waldsassengau = { de_jure_liege = k_germania_prima }
+		c_east_maingau = { de_jure_liege = d_waldsassengau }
+		c_east_wingarteiba = { de_jure_liege = d_waldsassengau }
+		c_taubergau = { de_jure_liege = d_waldsassengau }
+
+		d_waldsassengau = {
+			set_name = "Curionia"
+			adjective = "Curionian"
+		}
+		
+		set_global_flag = waldsassengau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
+# Civitas of Vargionia
+narrative_event = {	
+	id = 314618
+	title = "EVTNAME314618"
+	desc = "EVTDESC314618"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		has_global_flag = expanded_secunda
+		completely_controls = c_east_jagstgau
+		completely_controls = c_kochergau
+		independent = yes
+		NOT = { has_global_flag = kochergau_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	immediate = {
+		d_kochergau = { de_jure_liege = k_germania_prima }
+		c_east_jagstgau = { de_jure_liege = d_kochergau }
+
+		d_kochergau = {
+			set_name = "Vargionia"
+			adjective = "Vargionian"
+		}
+		
+		set_global_flag = kochergau_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314601"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314601"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
+
 # ROMAN RECONQUEST OF BRITANNIA
 
 # Praefecture of Cantiacia
@@ -8266,6 +9057,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_durovernum
 		completely_controls = c_portus_dubris
@@ -8322,6 +9114,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_cantia
 		completely_controls = c_regentium
@@ -8374,6 +9167,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_londinium
 		completely_controls = c_thunreslea
@@ -8424,6 +9218,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_camulodunum
 		completely_controls = c_aldeburgh
@@ -8473,6 +9268,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_nortwic
 		completely_controls = c_thetford
@@ -8524,6 +9320,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_verulanium
 		completely_controls = c_alchester
@@ -8581,6 +9378,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_grantabrycge
 		completely_controls = c_ciniubantum
@@ -8634,6 +9432,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_maxima_cesariensis
 		NOT = { has_global_flag = maxima_cesariensis_restored }
 	}
@@ -8691,6 +9490,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_lindum
 		completely_controls = c_ad_pontem
@@ -8748,6 +9548,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ratae
 		completely_controls = c_durobrivae
@@ -8808,6 +9609,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_flavia_cesariensis
 		NOT = { has_global_flag = flavia_cesariensis_restored }
 	}
@@ -8865,6 +9667,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_calleva
 		completely_controls = c_cunetio
@@ -8914,6 +9717,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_venta
 		completely_controls = c_portus_adurni
@@ -8973,6 +9777,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_lindinis
 		completely_controls = c_durnovaria
@@ -9027,6 +9832,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_isca_dumnonia
 		completely_controls = c_artland
@@ -9076,6 +9882,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_din_tagell
 		completely_controls = c_lands_end
@@ -9127,6 +9934,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_glevum
 		completely_controls = c_corinium
@@ -9179,6 +9987,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_burrium
 		completely_controls = c_magnis
@@ -9238,6 +10047,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_moridunum
 		completely_controls = c_leucarum
@@ -9288,6 +10098,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_caer_swys
 		completely_controls = c_buelt
@@ -9344,6 +10155,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_viroconium
 		completely_controls = c_lugg_vale
@@ -9402,6 +10214,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_deganwy
 		completely_controls = c_tegeingl
@@ -9451,6 +10264,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ynys_mon
 		completely_controls = c_arfon
@@ -9497,6 +10311,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_britannia_prima
 		NOT = { has_global_flag = britannia_prima_restored }
 	}
@@ -9554,6 +10369,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_eburacum
 		completely_controls = c_petuaria
@@ -9601,6 +10417,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_iserium
 		completely_controls = c_varfedale
@@ -9663,6 +10480,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_northhibernicum
 		completely_controls = c_cornovia
@@ -9711,6 +10529,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_luguvallum
 		completely_controls = c_old_tyne
@@ -9759,6 +10578,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_eden
 		completely_controls = c_carvetia
@@ -9807,6 +10627,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_britannia_secunda
 		NOT = { has_global_flag = britannia_secunda_restored }
 	}
@@ -9864,6 +10685,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_din_eidyn
 		completely_controls = c_dunpender
@@ -9920,6 +10742,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_eskdale
 		completely_controls = c_armterid
@@ -9968,6 +10791,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_gallow
 		completely_controls = c_novantia
@@ -10015,6 +10839,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ayr
 		completely_controls = c_southayr
@@ -10063,6 +10888,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ynys_man
 		completely_controls = c_manann
@@ -10110,6 +10936,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_valentia
 		NOT = { has_global_flag = valentia_restored }
 	}
@@ -10170,6 +10997,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_altclut
 		completely_controls = c_lochearn
@@ -10220,6 +11048,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_eastcaledonia
 		completely_controls = c_angus
@@ -10268,6 +11097,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_aberdeen
 		completely_controls = c_the_mearns
@@ -10316,6 +11146,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_moray
 		completely_controls = c_inverness
@@ -10363,6 +11194,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_fotla
 		completely_controls = c_fidach
@@ -10413,6 +11245,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_cataibh
 		completely_controls = c_gallaibh
@@ -10461,6 +11294,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_westeros
 		completely_controls = c_skye
@@ -10512,6 +11346,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_skiel
 		completely_controls = c_muile
@@ -10564,6 +11399,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_dunadd
 		completely_controls = c_cantyre
@@ -10616,6 +11452,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_uist
 		completely_controls = c_leodhas
@@ -10663,6 +11500,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_insee_orc
 		completely_controls = c_rousay
@@ -10710,6 +11548,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_insee_cait
 		completely_controls = c_yell
@@ -10757,6 +11596,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_romancaledonia
 		NOT = { has_global_flag = romancaledonia_restored }
 	}
@@ -10818,6 +11658,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_laberus
 		completely_controls = c_wexford
@@ -10866,6 +11707,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		
 		completely_controls = c_cualu
@@ -10916,6 +11758,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_kildare
 		completely_controls = d_southmide
@@ -10982,6 +11825,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_luine
 		completely_controls = d_southmide
@@ -11044,6 +11888,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_connemara
 		completely_controls = c_ui_maine
@@ -11096,6 +11941,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_kilkenny
 		completely_controls = c_tipperary
@@ -11152,6 +11998,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes	
 		completely_controls = c_raithleann
 		completely_controls = c_ross
@@ -11202,6 +12049,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_limerick
 		completely_controls = c_clare
@@ -11257,6 +12105,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_connacht
 		completely_controls = c_ui_bruin
@@ -11312,10 +12161,13 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		
-		completely_controls = d_ulaid
-		completely_controls = d_ui_neill
+		
+		completely_controls = c_fermanagh
+		completely_controls = c_clogher
+		completely_controls = c_tyrone
 			
 		independent = yes
 		NOT = { has_global_flag = tyrconnell_renamed }
@@ -11365,10 +12217,11 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		
-		completely_controls = d_ulaid
-		completely_controls = d_ui_neill
+		completely_controls = c_letterkenny
+		completely_controls = c_ui_neill
 		
 		independent = yes
 		NOT = { has_global_flag = ailigh_renamed }
@@ -11416,6 +12269,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_dal_naraide
 		completely_controls = c_fir_li
@@ -11469,6 +12323,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_armagh
 		completely_controls = c_muineachain
@@ -11526,6 +12381,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_hibernia_prima
 		NOT = { has_global_flag = hibernia_prima_restored }
 	}
@@ -11536,6 +12392,7 @@ narrative_event = {
 	
 	immediate = {		
 		set_global_flag = hibernia_prima_restored
+		k_hibernia_prima = { capital_scope = { province_event = { id = 315191 days = 5500 random = 1800 } }	}	# Convert culture of capital
 	}
 	
 	option = {
@@ -11585,6 +12442,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_hibernia_secunda
 		NOT = { has_global_flag = hibernia_secunda_restored }
 	}
@@ -11595,6 +12453,7 @@ narrative_event = {
 	
 	immediate = {		
 		set_global_flag = hibernia_secunda_restored
+		k_hibernia_prima = { capital_scope = { province_event = { id = 315191 days = 5500 random = 1800 } }	}	# Convert culture of capital
 	}
 	
 	option = {
@@ -11645,6 +12504,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_kerry
 		completely_controls = c_luachra
@@ -11694,6 +12554,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_manapia
 		completely_controls = c_mag_femin
@@ -11750,6 +12611,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ui_maine
 		completely_controls = c_aidhne
@@ -11799,6 +12661,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = d_breifne
 		completely_controls = c_leitrim
@@ -12027,7 +12890,10 @@ narrative_event = {
 		d_soissons = { de_jure_liege = k_franks }
 		d_tongres = { de_jure_liege = k_franks }
 		d_aachen = { de_jure_liege = k_franks }
-		d_bracbant = { de_jure_liege = k_franks }
+		if = {
+			limit = { NOT = { has_global_flag = franconia_created } }
+			d_bracbant = { de_jure_liege = k_franks }
+		}
 		d_porcien = { de_jure_liege = k_ripuarian_franks }
 		d_lotharingen = { de_jure_liege = k_ripuarian_franks }
 		d_toul = { de_jure_liege = k_ripuarian_franks }
@@ -12386,16 +13252,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bretagne
 		OR = {
 			NOT = { has_global_flag = bretagne_created }
 			AND = {
 				has_global_flag = saxon_bretagne
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no 
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_bretagne }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -12697,6 +13570,7 @@ narrative_event = {
 	only_independent = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_frankish_culture_trigger = yes
 		NOT = { has_global_flag = burgundy_subjugated }
 		OR = {
@@ -12759,6 +13633,15 @@ narrative_event = {
 			c_albanensis = { de_jure_liege = d_geneva }
 			c_bellicensis = { de_jure_liege = d_geneva }
 			c_caputlacensis = { de_jure_liege = d_geneva }
+			c_julia_equestris = { de_jure_liege = d_geneva }
+			c_vesontio = { de_jure_liege = d_besancon }
+			c_portus_albucinus = { de_jure_liege = d_besancon }
+			c_dola = { de_jure_liege = d_besancon }
+			c_salinum = { de_jure_liege = d_besancon }
+			c_epomanduodurum = { de_jure_liege = d_besancon }
+			c_aventicum = { de_jure_liege = d_vaud }
+			c_lausanna = { de_jure_liege = d_vaud }
+			c_ausicensis = { de_jure_liege = d_vaud }
 			
 			hidden_tooltip = {
 				k_burgundy = {
@@ -12810,6 +13693,8 @@ narrative_event = {
 			d_valence = { de_jure_liege = k_burgundy }
 			d_viviers = { de_jure_liege = k_burgundy }
 			d_geneva = { de_jure_liege = k_burgundy }
+			d_besancon = { de_jure_liege = k_burgundy }
+			d_vaud = { de_jure_liege = k_burgundy }
 			set_global_flag = langres_created
 			set_global_flag = tonnerre_created
 			set_global_flag = bassigny_created
@@ -12825,6 +13710,8 @@ narrative_event = {
 			set_global_flag = valence_created
 			set_global_flag = viviers_created
 			set_global_flag = geneva_created
+			set_global_flag = besancon_created
+			set_global_flag = vaud_created
 		}
 		if = {
 			limit = { has_global_flag = western_roman_empire_fallen }
@@ -12975,7 +13862,9 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = frisia_subjugated }
 		completely_controls_region = custom_frisia
 	}
@@ -12987,13 +13876,18 @@ narrative_event = {
 	immediate = { 
 		set_global_flag = frisia_subjugated 
 		if = {
-			limit = { 
+			limit = {
+				NOT = { has_global_flag = saxony_expanded }
 				OR = {
 					NOT = { has_global_flag = hamaland_conquered_saxon }
 					has_global_flag = saxony_subjugated
 				}
 			}
-			d_hamaland = { de_jure_liege = k_frisia }
+			set_global_flag = saxony_expanded
+			if = {
+				limit = { NOT = { has_global_flag = roman_chamavia } }
+				d_hamaland = { de_jure_liege = k_frisia }
+			}
 			d_salland = { de_jure_liege = k_frisia }
 		}
 		if = {
@@ -13006,7 +13900,10 @@ narrative_event = {
 			c_wasia = { de_jure_liege = d_toxandria }
 			c_aardenburg = { de_jure_liege = d_menapia }
 		}
-		k_frisia = { de_jure_liege = e_franks }
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_frisia = { de_jure_liege = e_franks }
+		}
 	}
 	
 	option = {
@@ -13022,16 +13919,18 @@ narrative_event = {
 	major = yes
 	hide_new = yes
 	
-	picture = "GFX_evt_lord_overlooking_bridge"
+	picture = "GFX_evt_battle_gaul"
 	
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			completely_controls_region = world_hamaland_salland
 			NOT = { has_global_flag = hamaland_conquered_saxon }
 		}
 		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = saxony_subjugated }
 		completely_controls_region = world_germania_saxony
 	}
@@ -13044,13 +13943,21 @@ narrative_event = {
 		set_global_flag = saxony_subjugated
 		if = {
 			limit = { 
+				NOT = { has_global_flag = saxony_expanded }
 				has_global_flag = hamaland_conquered_saxon
 				has_global_flag = frisia_subjugated
 			}
-			d_hamaland = { de_jure_liege = k_frisia }
+			set_global_flag = saxony_expanded
+			if = {
+				limit = { NOT = { has_global_flag = roman_chamavia } }
+				d_hamaland = { de_jure_liege = k_frisia }
+			}
 			d_salland = { de_jure_liege = k_frisia }
 		}
-		k_saxony = { de_jure_liege = e_franks }
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_saxony = { de_jure_liege = e_franks }
+		}
 	}
 	
 	option = {
@@ -13058,6 +13965,187 @@ narrative_event = {
 	}
 }
 
+# Conquest of Alemannia
+narrative_event = {
+	id = 314210
+	title = "EVTNAME314210"
+	desc = "EVTDESC314210"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
+		NOT = { has_global_flag = alemannia_subjugated }
+		OR = {
+			has_character_flag = conquered_alemannia
+			completely_controls_region = custom_alemannia
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		set_global_flag = alemannia_subjugated
+		if = {
+			limit = { NOT = { has_global_flag = franconia_expanded } }
+			set_global_flag = franconia_expanded
+			if = {
+				limit = { NOT = { has_global_flag = franconia_created } }
+				d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+				d_speyergau = { de_jure_liege = k_ripuarian_franks }
+				if = {
+					limit = { NOT = { has_global_flag = rheingau_renamed } }
+					d_rheingau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = ufgau_renamed } }
+					d_ufgau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+					d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+				}
+				d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+				if = {
+					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+					d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = kochergau_renamed } }
+					d_kochergau = { de_jure_liege = k_ripuarian_franks }
+				}
+			}
+			else = {
+				d_wormsgau = { de_jure_liege = k_franconia }
+				d_speyergau = { de_jure_liege = k_franconia }
+				if = {
+					limit = { NOT = { has_global_flag = rheingau_renamed } }
+					d_rheingau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = ufgau_renamed } }
+					d_ufgau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+					d_elsenzgau = { de_jure_liege = k_franconia }
+				}
+				d_wingarteiba = { de_jure_liege = k_franconia }
+				if = {
+					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+					d_waldsassengau = { de_jure_liege = k_franconia }
+				}
+				if = {
+					limit = { NOT = { has_global_flag = kochergau_renamed } }
+					d_kochergau = { de_jure_liege = k_franconia }
+				}
+			}
+		}
+		
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_alemannia = { de_jure_liege = e_franks }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314210"
+	}
+}
+
+# Conquest of Franconia
+narrative_event = {
+	id = 314211
+	title = "EVTNAME314211"
+	desc = "EVTDESC314211"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
+		has_global_flag = franconia_created
+		completely_controls_region = custom_ripuaria
+		completely_controls_region = world_hesse
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_ripuarian_franks }
+		}
+		d_lahngau = { de_jure_liege = k_ripuarian_franks }
+		d_wetterau = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+			d_speyergau = { de_jure_liege = k_ripuarian_franks }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+			}
+			d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_ripuarian_franks }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_ripuarian_franks }
+		}
+		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { NOT = { has_global_flag = soissons_conquered } }
+			d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		}
+		else = {
+			d_bracbant = { de_jure_liege = k_franks }
+		}
+		clr_global_flag = franconia_created
+	}
+	
+	option = {
+		name = "EVTOPTA314211"
+	}
+}
 
 # Creation of the Empire of Francia
 narrative_event = {
@@ -13072,6 +14160,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_franks
 		NOT = { has_global_flag = francia_created }
 	}
@@ -13145,16 +14234,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_calz
 		OR = {
 			NOT = { has_global_flag = calz_created }
 			AND = {
 				has_global_flag = saxon_calz
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_calz }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13229,16 +14325,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_beauvais
 		OR = {
 			NOT = { has_global_flag = beauvais_created }
 			AND = {
 				has_global_flag = saxon_beauvais
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_beauvais }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13273,9 +14376,9 @@ narrative_event = {
 
 # Creation of the County of Lotharingen
 narrative_event = {
-	id = 314210
-	title = "EVTNAME314210"
-	desc = "EVTDESC314210"
+	id = 318051
+	title = "EVTNAME318051"
+	desc = "EVTDESC318051"
 	major = yes
 	hide_new = yes
 	
@@ -13284,6 +14387,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_lotharingen
 		NOT = { has_global_flag = lotharingen_created }
 	}
@@ -13305,15 +14409,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314210"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Bidgau
 narrative_event = {
-	id = 3142101
-	title = "EVTNAME3142101"
-	desc = "EVTDESC3142101"
+	id = 318052
+	title = "EVTNAME318052"
+	desc = "EVTDESC318052"
 	major = yes
 	hide_new = yes
 	
@@ -13322,6 +14426,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bidgau
 		NOT = { has_global_flag = bidgau_created }
 	}
@@ -13342,15 +14447,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142101"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Verdun
 narrative_event = {
-	id = 3142102
-	title = "EVTNAME3142102"
-	desc = "EVTDESC3142102"
+	id = 318053
+	title = "EVTNAME318053"
+	desc = "EVTDESC318053"
 	major = yes
 	hide_new = yes
 	
@@ -13359,6 +14464,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_verdun
 		NOT = { has_global_flag = verdun_created }
 	}
@@ -13378,15 +14484,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142102"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Toul
 narrative_event = {
-	id = 3142103
-	title = "EVTNAME3142103"
-	desc = "EVTDESC3142103"
+	id = 318054
+	title = "EVTNAME318054"
+	desc = "EVTDESC318054"
 	major = yes
 	hide_new = yes
 	
@@ -13395,6 +14501,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_toul
 		NOT = { has_global_flag = toul_created }
 	}
@@ -13417,15 +14524,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314210"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Rethel
 narrative_event = {
-	id = 314211
-	title = "EVTNAME314211"
-	desc = "EVTDESC314211"
+	id = 318055
+	title = "EVTNAME318055"
+	desc = "EVTDESC318055"
 	major = yes
 	hide_new = yes
 	
@@ -13434,6 +14541,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_rethel
 		NOT = { has_global_flag = rethel_created }
 	}
@@ -13455,15 +14563,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314211"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Soissons
 narrative_event = {
-	id = 3142111
-	title = "EVTNAME3142111"
-	desc = "EVTDESC3142111"
+	id = 318056
+	title = "EVTNAME318056"
+	desc = "EVTDESC318056"
 	major = yes
 	hide_new = yes
 	
@@ -13472,6 +14580,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_soissons
 		NOT = { has_global_flag = soissons_created }
 	}
@@ -13502,15 +14611,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142111"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Porcien
 narrative_event = {
-	id = 3142112
-	title = "EVTNAME3142112"
-	desc = "EVTDESC3142112"
+	id = 318057
+	title = "EVTNAME318057"
+	desc = "EVTDESC318057"
 	major = yes
 	hide_new = yes
 	
@@ -13519,6 +14628,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_porcien
 		NOT = { has_global_flag = porcien_created }
 	}
@@ -13537,13 +14647,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142112"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Lisieux/Eorldom of Lehsawinas
 narrative_event = {
-	id = 3142113
+	id = 318058
 	major = yes
 	hide_new = yes
 	
@@ -13552,44 +14662,51 @@ narrative_event = {
 	only_playable = yes
 	
 	title = {
-		text = EVTNAME3142113
+		text = EVTNAME318058
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142113_1
+		text = EVTNAME318058_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142113
+		text = EVTDESC318058
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142113_1
+		text = EVTDESC318058_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_lisieux
 		OR = {
 			NOT = { has_global_flag = lisieux_created }
 			AND = {
 				has_global_flag = saxon_lisieux
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_lisieux }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13616,13 +14733,13 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314212"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Evreux/Eorldom of Eweras
 narrative_event = {
-	id = 314212
+	id = 318059
 	major = yes
 	hide_new = yes
 	
@@ -13631,44 +14748,51 @@ narrative_event = {
 	only_playable = yes
 	
 	title = {
-		text = EVTNAME314212
+		text = EVTNAME318059
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME314212_1
+		text = EVTNAME318059_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314212
+		text = EVTDESC318059
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314212_1
+		text = EVTDESC318059_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_evreux
 		OR = {
 			NOT = { has_global_flag = evreux_created }
 			AND = {
 				has_global_flag = saxon_evreux
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_evreux }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13695,41 +14819,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314212"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Hiemois/Eorldom of Sæis
 narrative_event = {
-	id = 3142121
+	id = 318060
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_hills_woodland"
 	
 	title = {
-		text = EVTNAME3142121
+		text = EVTNAME318060
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142121_1
+		text = EVTNAME318060_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142121
+		text = EVTDESC318060
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142121_1
+		text = EVTDESC318060_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -13738,16 +14862,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_hiemois
 		OR = {
 			NOT = { has_global_flag = hiemois_created }
 			AND = {
 				has_global_flag = saxon_hiemois
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_hiemois }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13774,41 +14905,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142121"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Bayeux/Eorldom of Beocas
 narrative_event = {
-	id = 3142122
+	id = 318061
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
 	
 	title = {
-		text = EVTNAME3142122
+		text = EVTNAME318061
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142122_1
+		text = EVTNAME318061_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142122
+		text = EVTDESC318061
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142122_1
+		text = EVTDESC318061_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -13817,16 +14948,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bayeux
 		OR = {
 			NOT = { has_global_flag = bayeux_created }
 			AND = {
 				has_global_flag = saxon_bayeux
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_bayeux }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13856,41 +14994,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142122"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Cotentin/Eorldom of Constantinsland
 narrative_event = {
-	id = 3142123
+	id = 318062
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_forest_light"
 	
 	title = {
-		text = EVTNAME3142123
+		text = EVTNAME318062
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142123_1
+		text = EVTNAME318062_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142123
+		text = EVTDESC318062
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142123_1
+		text = EVTDESC318062_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -13899,16 +15037,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_normanz
 		OR = {
 			NOT = { has_global_flag = normanz_created }
 			AND = {
 				has_global_flag = saxon_cotentin
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_cotentin }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -13969,41 +15114,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142123"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Rennes/Eorldom of Readaland
 narrative_event = {
-	id = 3142124
+	id = 318063
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_fields_landscape"
 	
 	title = {
-		text = EVTNAME3142124
+		text = EVTNAME318063
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142124_1
+		text = EVTNAME318063_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142124
+		text = EVTDESC318063
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142124_1
+		text = EVTDESC318063_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14012,16 +15157,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_rennes
 		OR = {
 			NOT = { has_global_flag = rennes_created }
 			AND = {
 				has_global_flag = saxon_rennes
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_rennes }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14079,15 +15231,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142124"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Lidle Franken
 narrative_event = {
-	id = 314213
-	title = "EVTNAME314213"
-	desc = "EVTDESC314213"
+	id = 318064
+	title = "EVTNAME318064"
+	desc = "EVTDESC318064"
 	major = yes
 	hide_new = yes
 	
@@ -14096,6 +15248,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_ile_de_france
 		NOT = { has_global_flag = ile_de_france_created }
 	}
@@ -14116,15 +15269,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314213"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Meaux
 narrative_event = {
-	id = 3142131
-	title = "EVTNAME3142131"
-	desc = "EVTDESC3142131"
+	id = 318065
+	title = "EVTNAME318065"
+	desc = "EVTDESC318065"
 	major = yes
 	hide_new = yes
 	
@@ -14133,6 +15286,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_meaux
 		NOT = { has_global_flag = meaux_created }
 	}
@@ -14152,15 +15306,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142131"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Sens
 narrative_event = {
-	id = 3142132
-	title = "EVTNAME3142132"
-	desc = "EVTDESC3142132"
+	id = 318066
+	title = "EVTNAME318066"
+	desc = "EVTDESC318066"
 	major = yes
 	hide_new = yes
 	
@@ -14169,6 +15323,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_sens
 		NOT = { has_global_flag = sens_created }
 	}
@@ -14190,15 +15345,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142132"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Auxerre
 narrative_event = {
-	id = 3142133
-	title = "EVTNAME3142133"
-	desc = "EVTDESC3142133"
+	id = 318067
+	title = "EVTNAME318067"
+	desc = "EVTDESC318067"
 	major = yes
 	hide_new = yes
 	
@@ -14207,6 +15362,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_auxerre
 		NOT = { has_global_flag = auxerre_created }
 	}
@@ -14226,15 +15382,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142133"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Champagne
 narrative_event = {
-	id = 314214
-	title = "EVTNAME314214"
-	desc = "EVTDESC314214"
+	id = 318068
+	title = "EVTNAME318068"
+	desc = "EVTDESC318068"
 	major = yes
 	hide_new = yes
 	
@@ -14243,6 +15399,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_champagne
 		NOT = { has_global_flag = champagne_created }
 	}
@@ -14268,15 +15425,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314214"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Orleans
 narrative_event = {
-	id = 314215
-	title = "EVTNAME314215"
-	desc = "EVTDESC314215"
+	id = 318069
+	title = "EVTNAME318069"
+	desc = "EVTDESC318069"
 	major = yes
 	hide_new = yes
 	
@@ -14285,6 +15442,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_orleans
 		NOT = { has_global_flag = orleans_created }
 	}
@@ -14306,41 +15464,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314215"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Blois/Eorldom of Blæs
 narrative_event = {
-	id = 314216
+	id = 318070
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
 	
 	title = {
-		text = EVTNAME314216
+		text = EVTNAME318070
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME314216_1
+		text = EVTNAME318070_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314216
+		text = EVTDESC318070
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314216_1
+		text = EVTDESC318070_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14349,16 +15507,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_blois
 		OR = {
 			NOT = { has_global_flag = blois_created }
 			AND = {
 				has_global_flag = saxon_blois
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_blois }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14390,41 +15555,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314216"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Anjou/Eorldom of Angeow
 narrative_event = {
-	id = 314217
+	id = 318071
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_fields_landscape"
 	
 	title = {
-		text = EVTNAME314217
+		text = EVTNAME318071
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME314217_1
+		text = EVTNAME318071_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314217
+		text = EVTDESC318071
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC314217_1
+		text = EVTDESC318071_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14433,16 +15598,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_anjou
 		OR = {
 			NOT = { has_global_flag = anjou_created }
 			AND = {
 				has_global_flag = saxon_anjou
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_anjou }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14476,41 +15648,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314217"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Nantes/Eorldom of Nametaland
 narrative_event = {
-	id = 3142171
+	id = 318072
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_castle_river"
 	
 	title = {
-		text = EVTNAME3142171
+		text = EVTNAME318072
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142171_1
+		text = EVTNAME318072_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142171
+		text = EVTDESC318072
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142171_1
+		text = EVTDESC318072_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14519,16 +15691,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_nantes
 		OR = {
 			NOT = { has_global_flag = nantes_created }
 			AND = {
 				has_global_flag = saxon_nantes
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_nantes }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14557,41 +15736,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142171"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Celmans/Eorldom of Manig
 narrative_event = {
-	id = 3142172
+	id = 318073
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
 	
 	title = {
-		text = EVTNAME3142172
+		text = EVTNAME318073
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142172_1
+		text = EVTNAME318073_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142172
+		text = EVTDESC318073
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142172_1
+		text = EVTDESC318073_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14600,16 +15779,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_maine
 		OR = {
 			NOT = { has_global_flag = maine_created }
 			AND = {
 				has_global_flag = saxon_maine
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_maine }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14644,41 +15830,41 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA3142172"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Tours/Eorldom of Tyranaham
 narrative_event = {
-	id = 3142173
+	id = 318074
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
 	
 	title = {
-		text = EVTNAME3142173
+		text = EVTNAME318074
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	title = {
-		text = EVTNAME3142173_1
+		text = EVTNAME318074_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142173
+		text = EVTDESC318074
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 		}
 	}
 	
 	desc = {
-		text = EVTDESC3142173_1
+		text = EVTDESC318074_1
 		trigger = {
 			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
 		}
@@ -14687,16 +15873,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_tours
 		OR = {
 			NOT = { has_global_flag = tours_created }
 			AND = {
 				has_global_flag = saxon_tours
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_tours }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14726,15 +15919,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314217"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Berry
 narrative_event = {
-	id = 314218
-	title = "EVTNAME314218"
-	desc = "EVTDESC314218"
+	id = 318075
+	title = "EVTNAME318075"
+	desc = "EVTDESC318075"
 	major = yes
 	hide_new = yes
 	
@@ -14743,6 +15936,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_berry
 		NOT = { has_global_flag = berry_created }
 	}
@@ -14767,15 +15961,15 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314218"
+		name = "EVTOPTA318000"
 	}
 }
 
 # Creation of the County of Auvergne
 narrative_event = {
-	id = 314219
-	title = "EVTNAME314219"
-	desc = "EVTDESC314219"
+	id = 318076
+	title = "EVTNAME318076"
+	desc = "EVTDESC318076"
 	major = yes
 	hide_new = yes
 	
@@ -14784,6 +15978,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_auvergne
 		NOT = { has_global_flag = auvergne_created }
 	}
@@ -14805,7 +16000,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA314219"
+		name = "EVTOPTA318000"
 	}
 }
 
@@ -14848,16 +16043,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_poitou
 		OR = {
 			NOT = { has_global_flag = poitou_created }
 			AND = {
 				has_global_flag = saxon_poitou
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_poitou }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -14914,6 +16116,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_saintes
 		NOT = { has_global_flag = saintes_created }
 	}
@@ -14951,6 +16154,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_angouleme
 		NOT = { has_global_flag = angouleme_created }
 	}
@@ -14987,6 +16191,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bordeaux
 		NOT = { has_global_flag = bordeaux_created }
 	}
@@ -15027,6 +16232,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_perigord
 		NOT = { has_global_flag = perigord_created }
 	}
@@ -15066,6 +16272,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_agen
 		NOT = { has_global_flag = agen_created }
 	}
@@ -15103,6 +16310,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_limousin
 		NOT = { has_global_flag = limousin_created }
 	}
@@ -15144,6 +16352,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_quercy
 		NOT = { has_global_flag = quercy_created }
 	}
@@ -15182,6 +16391,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_rouergue
 		NOT = { has_global_flag = rouergue_created }
 	}
@@ -15220,6 +16430,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_albi
 		NOT = { has_global_flag = albi_created }
 	}
@@ -15256,6 +16467,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_gevaudan
 		NOT = { has_global_flag = gevaudan_created }
 	}
@@ -15293,6 +16505,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_velay
 		NOT = { has_global_flag = velay_created }
 	}
@@ -15329,6 +16542,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_burgundy
 		NOT = { has_global_flag = langres_created }
 	}
@@ -15367,6 +16581,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_tonnerre
 		NOT = { has_global_flag = tonnerre_created }
 	}
@@ -15401,6 +16616,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bassigny
 		NOT = { has_global_flag = bassigny_created }
 	}
@@ -15435,6 +16651,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_nevers
 		NOT = { has_global_flag = nevers_created }
 	}
@@ -15471,6 +16688,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_autun
 		NOT = { has_global_flag = autun_created }
 	}
@@ -15507,6 +16725,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_avallon
 		NOT = { has_global_flag = avallon_created }
 	}
@@ -15541,6 +16760,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_auxois
 		NOT = { has_global_flag = auxois_created }
 	}
@@ -15576,6 +16796,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_chalon
 		NOT = { has_global_flag = chalon_created }
 	}
@@ -15612,6 +16833,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_macon
 		NOT = { has_global_flag = macon_created }
 	}
@@ -15648,6 +16870,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cisjurane
 		NOT = { has_global_flag = lyon_created }
 	}
@@ -15688,6 +16911,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_toulouse
 		NOT = { has_global_flag = toulouse_created }
 	}
@@ -15731,6 +16955,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_gothia
 		NOT = { has_global_flag = gothia_created }
 	}
@@ -15782,6 +17007,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_fezensac
 		NOT = { has_global_flag = fezensac_created }
 	}
@@ -15822,6 +17048,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_comminges
 		NOT = { has_global_flag = comminges_created }
 	}
@@ -15860,6 +17087,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bigorre
 		NOT = { has_global_flag = bigorre_created }
 	}
@@ -15896,6 +17124,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_marsan
 		NOT = { has_global_flag = marsan_created }
 	}
@@ -15932,6 +17161,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bazas
 		NOT = { has_global_flag = bazas_created }
 	}
@@ -15968,6 +17198,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bearn
 		NOT = { has_global_flag = bearn_created }
 	}
@@ -16006,6 +17237,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_dax
 		NOT = { has_global_flag = dax_created }
 	}
@@ -16043,6 +17275,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_vasconia_citerior
 		NOT = { has_global_flag = vasconia_citerior_created }
 	}
@@ -16077,6 +17310,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_vienne
 		NOT = { has_global_flag = vienne_created }
 	}
@@ -16112,6 +17346,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_grenoble
 		NOT = { has_global_flag = grenoble_created }
 	}
@@ -16147,6 +17382,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_valence
 		NOT = { has_global_flag = valence_created }
 	}
@@ -16182,6 +17418,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_viviers
 		NOT = { has_global_flag = viviers_created }
 	}
@@ -16215,6 +17452,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_geneva
 		NOT = { has_global_flag = geneva_created }
 	}
@@ -16228,6 +17466,7 @@ narrative_event = {
 		c_albanensis = { de_jure_liege = d_geneva }
 		c_bellicensis = { de_jure_liege = d_geneva }
 		c_caputlacensis = { de_jure_liege = d_geneva }
+		c_julia_equestris = { de_jure_liege = d_geneva }
 		d_geneva = { de_jure_liege = k_burgundy }
 		
 		set_global_flag = geneva_created
@@ -16251,6 +17490,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_arles
 		NOT = { has_global_flag = arles_created }
 	}
@@ -16285,6 +17525,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_marseille
 		NOT = { has_global_flag = marseille_created }
 	}
@@ -16321,6 +17562,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_frejus
 		NOT = { has_global_flag = frejus_created }
 	}
@@ -16358,6 +17600,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_antibes
 		NOT = { has_global_flag = antibes_created }
 	}
@@ -16394,6 +17637,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_avignon
 		NOT = { has_global_flag = avignon_created }
 	}
@@ -16432,6 +17676,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_gap
 		NOT = { has_global_flag = gap_created }
 	}
@@ -16468,6 +17713,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_embrum
 		NOT = { has_global_flag = embrum_created }
 	}
@@ -16488,7 +17734,226 @@ narrative_event = {
 		name = "EVTOPTA318028"
 	}
 }
-			
+
+# Creation of the County of Besancon
+narrative_event = {
+	id = 318045
+	title = "EVTNAME318045"
+	desc = "EVTDESC318045"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_river_town"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_besancon
+		NOT = { has_global_flag = besancon_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_vesontio = { de_jure_liege = d_besancon }
+		c_portus_albucinus = { de_jure_liege = d_besancon }
+		c_dola = { de_jure_liege = d_besancon }
+		c_salinum = { de_jure_liege = d_besancon }
+		c_epomanduodurum = { de_jure_liege = d_besancon }
+		d_besancon = { de_jure_liege = k_burgundy }
+		
+		set_global_flag = besancon_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Vaud
+narrative_event = {
+	id = 318046
+	title = "EVTNAME318046"
+	desc = "EVTDESC318046"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_vaud
+		NOT = { has_global_flag = vaud_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_aventicum = { de_jure_liege = d_vaud }
+		c_lausanna = { de_jure_liege = d_vaud }
+		c_ausicensis = { de_jure_liege = d_vaud }
+		d_vaud = { de_jure_liege = k_burgundy }
+		
+		set_global_flag = vaud_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+	
+# Creation of the County of Aargau
+narrative_event = {
+	id = 318047
+	title = "EVTNAME318047"
+	desc = "EVTDESC318047"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_aargau
+		NOT = { has_global_flag = aargau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_vindonissa = { de_jure_liege = d_aargau }
+		c_brenodunum = { de_jure_liege = d_aargau }
+		c_turicum = { de_jure_liege = d_aargau }
+		c_augusta_raurica = { de_jure_liege = d_aargau }
+		d_aargau = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = aargau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the Duchy of Alsace
+narrative_event = {
+	id = 318048
+	title = "EVTNAME318048"
+	desc = "EVTDESC318048"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_river"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_alsace
+		NOT = { has_global_flag = alsace_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_argentoratum = { de_jure_liege = d_alsace }
+		c_rubiacum = { de_jure_liege = d_alsace }
+		c_brocomagus = { de_jure_liege = d_alsace }
+		d_alsace = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = alsace_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Speyergau
+narrative_event = {
+	id = 318049
+	title = "EVTNAME318049"
+	desc = "EVTDESC318049"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_gate"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_speyergau
+		NOT = { has_global_flag = speyergau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_nemetum = { de_jure_liege = d_speyergau }
+		c_tabernae = { de_jure_liege = d_speyergau }
+		#d_speyergau = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = speyergau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+
+# Creation of the County of Wormsgau
+narrative_event = {
+	id = 318050
+	title = "EVTNAME318050"
+	desc = "EVTDESC318050"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_roman_town_forum"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_wormsgau
+		NOT = { has_global_flag = wormsgau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_borbetomagus = { de_jure_liege = d_wormsgau }
+		c_rufiniana = { de_jure_liege = d_wormsgau }
+		c_mogontiacum = { de_jure_liege = d_wormsgau }
+		c_bingium = { de_jure_liege = d_wormsgau }
+		#d_wormsgau = { de_jure_liege = k_alemannia }
+		
+		set_global_flag = wormsgau_created
+	}
+	
+	option = {
+		name = "EVTOPTA318028"
+	}
+}
+	
 # Creation of the County of Picard/Eorldom of Ambeanas
 narrative_event = {
 	id = 314221
@@ -16528,16 +17993,23 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_picard
 		OR = {
 			NOT = { has_global_flag = picard_created }
 			AND = {
 				has_global_flag = saxon_picard
-				top_liege = { is_ingvaeonic_culture_trigger = no }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no
+					in_revolt = no
+				}
 			}
 			AND = {
 				NOT = { has_global_flag = saxon_picard }
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
 			}
 		}
 	}
@@ -16587,6 +18059,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_flandres
 		NOT = { has_global_flag = flanders_created }
 	}
@@ -16627,6 +18100,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_artois
 		NOT = { has_global_flag = artois_created }
 	}
@@ -16669,6 +18143,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_hainault
 		NOT = { has_global_flag = tournai_created }
 	}
@@ -16710,6 +18185,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cambrai
 		NOT = { has_global_flag = cambrai_created }
 	}
@@ -16750,6 +18226,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_ardennen
 		NOT = { has_global_flag = ardennen_created }
 	}
@@ -16783,6 +18260,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_tongres
 		NOT = { has_global_flag = tongres_created }
 	}
@@ -16827,6 +18305,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_aachen
 		NOT = { has_global_flag = aachen_created }
 	}
@@ -16864,6 +18343,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_bracbant
 		NOT = { has_global_flag = frankish_toxandria_created }
 	}
@@ -16879,11 +18359,11 @@ narrative_event = {
 		c_tilburg = { de_jure_liege = d_bracbant }
 		c_antwerp = { de_jure_liege = d_bracbant }
 		c_nijmegen = { de_jure_liege = d_bracbant }
-		d_bracbant = { de_jure_liege = k_ripuarian_franks }
-		if = {
-			limit = { has_global_flag = soissons_conquered }
-			d_bracbant = { de_jure_liege = k_franks }
-		}
+		#d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		#if = {
+			#limit = { has_global_flag = soissons_conquered }
+			#d_bracbant = { de_jure_liege = k_franks }
+		#}
 		
 		d_toxandria = { 
 			destroy_landed_title = THIS			
@@ -16909,6 +18389,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_cologne
 		NOT = { has_global_flag = cologne_created }
 	}
@@ -16924,7 +18405,8 @@ narrative_event = {
 		c_tricensimae = { de_jure_liege = d_cologne }
 		c_bonna = { de_jure_liege = d_cologne }
 		c_icorigium = { de_jure_liege = d_cologne }
-		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		c_confluentes = { de_jure_liege = d_cologne }
+		#d_cologne = { de_jure_liege = k_ripuarian_franks }
 		
 		d_ubia = { 
 			destroy_landed_title = THIS			
@@ -16955,6 +18437,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_zeeland
 		NOT = { has_global_flag = zeeland_created }
 	}
@@ -17029,6 +18512,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_utrecht
 		NOT = { has_global_flag = utrecht_created }
 	}
@@ -17068,6 +18552,7 @@ narrative_event = {	# Conquest of Aquitania Prima
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_visigoths
 		top_liege = { 
 			NOR = {
@@ -17130,6 +18615,7 @@ narrative_event = {	# Conquest of Tolosa
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_visigoths
 		top_liege = { 
 			NOR = {
@@ -17185,6 +18671,7 @@ narrative_event = {	# Conquest of Aquitania Secunda
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_visigoths
 		top_liege = { 
 			NOR = {
@@ -17253,6 +18740,7 @@ narrative_event = {	# Conquest of Septimania
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_visigoths
 		top_liege = { 
 			NOR = {
@@ -17313,6 +18801,7 @@ narrative_event = {	# Conquest of Aquitania Tertia
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_visigoths
 		top_liege = { 
 			NOR = {
@@ -17433,6 +18922,7 @@ narrative_event = {	# Romanized Germanic claims the Empire
 		if = {
 			limit = { has_landed_title = k_burgundy }
 			clr_global_flag = lugdunensisprima_conquered_burgundy
+			clr_global_flag = maxima_sequanorum_conquered_burgundy
 			clr_global_flag = viennensisprima_conquered_burgundy
 			clr_global_flag = northern_provence_conquered_burgundy
 			clr_global_flag = southern_provence_conquered_burgundy
@@ -17573,6 +19063,7 @@ narrative_event = {	# Conquest of Lugdunensis Prima
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_burgundy
 		NOT = { has_global_flag = burgundy_subjugated }
 		top_liege = { 
@@ -17634,6 +19125,7 @@ narrative_event = {	# Conquest of Viennensis Prima
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_burgundy
 		NOT = { has_global_flag = burgundy_subjugated }
 		top_liege = { 
@@ -17695,6 +19187,7 @@ narrative_event = {	# Conquest of Northern Provence
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		top_liege = { 
 			NOR = {
 				is_roman_ruler_trigger = yes
@@ -17804,6 +19297,7 @@ narrative_event = {	# Conquest of Southern Provence
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		top_liege = { 
 			NOR = {
 				is_roman_ruler_trigger = yes
@@ -17930,6 +19424,66 @@ narrative_event = {	# Conquest of Southern Provence
 	}
 }
 
+narrative_event = {	# Conquest of Maxima Sequanorum
+	id = 318304
+	title = "EVTNAME318304"
+	desc = EVTDESC318304
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_river_town"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_burgundy
+		NOT = { has_global_flag = burgundy_subjugated }
+		top_liege = {
+			NOR = {
+				is_roman_ruler_trigger = yes
+				has_landed_title = e_visigoths
+			}
+		}
+		NOT = { has_global_flag = maxima_sequanorum_conquered_burgundy }
+		completely_controls_region = world_gaul_maxima_sequanorum
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = maxima_sequanorum_conquered_burgundy
+		d_sequania = { de_jure_liege = k_burgundy }
+		d_equestria = { de_jure_liege = k_burgundy }
+		d_helvitioria = { de_jure_liege = k_burgundy }
+		d_rauricia = { de_jure_liege = k_burgundy }
+	}
+	
+	option = {
+		name = "EVTOPTA318300"
+		trigger = {
+			culture = burgundian
+		}	
+	}
+	option = {
+		name = "EVTOPTB318300"
+		trigger = {
+			NOT = { 
+				culture_group = imperiale
+				culture = burgundian
+			}
+		}	
+	}
+	option = {
+		name = "EVTOPTC318300"
+		trigger = {
+			culture_group = imperiale
+		}	
+	}
+}
+
 ### END BURGUNDIANS ###
 
 ### SAXONS ###
@@ -17947,6 +19501,7 @@ narrative_event = {	# Conquest of Hamaland and Salland
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		#has_landed_title = d_hamaland
 		has_landed_title = c_veluwe
 		OR = {
@@ -18042,11 +19597,15 @@ narrative_event = {	# Conquest of Hamaland and Salland
 	}
 }
 
+### END SAXONS ###
+
+### GERMANIA ###
+
 # Creation of the Empire of Germania
 narrative_event = {
-	id = 314774
-	title = "EVTNAME314774"
-	desc = "EVTDESC314774"
+	id = 314825
+	title = "EVTNAME314825"
+	desc = "EVTDESC314825"
 	picture = "GFX_evt_germansite"
 	
 	major = yes
@@ -18055,6 +19614,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_germania
 		NOT = { has_global_flag = germania_created }
 	}
@@ -18065,29 +19625,79 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = germania_created
+		
+		k_frisia = { de_jure_liege = e_germania }
+		clr_global_flag = frisia_subjugated
+		
+		k_saxony = { de_jure_liege = e_germania }
+		clr_global_flag = saxony_subjugated
+		
+		activate_title = { title = k_franconia status = yes }
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_franconia }
+		}
+		d_lahngau = { de_jure_liege = k_franconia }
+		d_wetterau = { de_jure_liege = k_franconia }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_franconia }
+			d_speyergau = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_franconia }
+			}
+			d_wingarteiba = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_franconia }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_franconia }
+		}
+		d_cologne = { de_jure_liege = k_franconia }
+		d_bracbant = { de_jure_liege = k_franconia }
+		set_global_flag = franconia_created
+		
+		k_alemannia = { de_jure_liege = e_germania }
+		clr_global_flag = alemannia_subjugated
 	}
 	
 	option = {
-		name = "EVTOPTA314774"
+		name = "EVTOPTA314825"
 		trigger = { has_landed_title = e_germania }
 		prestige = 200
 	}	
 	option = {
-		name = "EVTOPTB314774"
+		name = "EVTOPTB314825"
 		trigger = { 
 			NOT = { has_landed_title = e_germania }
 			top_liege = { has_landed_title = e_germania }
 		}
 	}
 	option = {
-		name = "EVTOPTC314774"
+		name = "EVTOPTC314825"
 		trigger = {
 			culture_group = germanic
 			NOT = { top_liege = { has_landed_title = e_germania } }
 		}
 	}
 	option = {
-		name = "EVTOPTD314774"
+		name = "EVTOPTD314825"
 		trigger = {
 			OR = {
 				is_brythonic_culture_trigger = yes
@@ -18097,7 +19707,7 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTE314774"
+		name = "EVTOPTE314825"
 		trigger = {
 			NOR = {
 				culture_group = germanic
@@ -18109,7 +19719,210 @@ narrative_event = {
 	}
 }
 
-### END SAXONS ###
+# Reconquest of Frisia
+narrative_event = {
+	id = 314826
+	title = "EVTNAME314826"
+	desc = "EVTDESC314826"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = custom_frisia
+		OR = {
+			AND = {
+				has_global_flag = hamaland_conquered_saxon
+				NOT = { has_global_flag = saxony_subjugated }
+			}
+			completely_controls_region = world_hamaland_salland
+		}
+		has_global_flag = frisia_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = frisia_subjugated 
+		k_frisia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314826"
+	}
+}
+
+# Reconquest of Saxony
+narrative_event = {
+	id = 314827
+	title = "EVTNAME314827"
+	desc = "EVTDESC314827"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_gaul"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = world_germania_saxony
+		OR = {
+			completely_controls_region = world_hamaland_salland
+			NOT = { has_global_flag = hamaland_conquered_saxon }
+		}
+		has_global_flag = saxony_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_global_flag = saxony_subjugated
+		k_saxony = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314827"
+	}
+}
+
+# Reconquest of Alemannia
+narrative_event = {
+	id = 314828
+	title = "EVTNAME314828"
+	desc = "EVTDESC314828"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = custom_swabia
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+		has_global_flag = alemannia_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = alemannia_subjugated	
+		k_alemannia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314828"
+	}
+}
+
+# Reconquest of Franconia
+narrative_event = {
+	id = 314829
+	title = "EVTNAME314829"
+	desc = "EVTDESC314829"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_visigoths"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = world_hesse
+		completely_controls_region = custom_ripuaria
+		OR = {
+			has_global_flag = franconia_expanded
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+		NOT = { has_global_flag = franconia_subjugated }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = franconia_created
+		if = {
+			limit = { NOT = { has_global_flag = hesse_renamed } }
+			d_hesse = { de_jure_liege = k_franconia }
+		}
+		d_lahngau = { de_jure_liege = k_franconia }
+		d_wetterau = { de_jure_liege = k_franconia }
+		if = {
+			limit = { has_global_flag = franconia_expanded }
+			d_wormsgau = { de_jure_liege = k_franconia }
+			d_speyergau = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = rheingau_renamed } }
+				d_rheingau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ufgau_renamed } }
+				d_ufgau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+				d_elsenzgau = { de_jure_liege = k_franconia }
+			}
+			d_wingarteiba = { de_jure_liege = k_franconia }
+			if = {
+				limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+				d_waldsassengau = { de_jure_liege = k_franconia }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = kochergau_renamed } }
+				d_kochergau = { de_jure_liege = k_franconia }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = roman_bructeria } }
+			d_brukterer = { de_jure_liege = k_franconia }
+		}
+		d_cologne = { de_jure_liege = k_franconia }
+		d_bracbant = { de_jure_liege = k_franconia }
+	}
+	
+	option = {
+		name = "EVTOPTA314829"
+	}
+}
+
+### END GERMANIA ###
 
 ### VASCONIANS ###
 
@@ -18126,6 +19939,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_basque_vasconia
 		NOT = { has_global_flag = basque_vasconia_created }
 	}
@@ -18194,6 +20008,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_aquitania
 		NOT = { has_global_flag = aquitania_created }
 	}
@@ -18260,6 +20075,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_denmark
 		NOT = { has_global_flag = denmark_created }
 	}
@@ -18307,6 +20123,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_norway
 		NOT = { has_global_flag = norway_created }
 	}
@@ -18354,6 +20171,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_geatland
 		NOT = { has_global_flag = geatland_created }
 	}
@@ -18401,6 +20219,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_sweden
 		NOT = { has_global_flag = sweden_created }
 	}
@@ -18531,6 +20350,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_broceliande
 		has_global_flag = broceliande_renamed
 	}
@@ -18602,6 +20422,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_benoic
 		has_global_flag = benoic_renamed
 	}
@@ -18664,6 +20485,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_benoic
 		has_global_flag = benoic_destroyed
 		NOT = { has_global_flag = benoic_renamed }
@@ -18727,6 +20549,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_broceliande
 		culture_group = celtic
 		is_roman_ruler_trigger = no
@@ -18781,6 +20604,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_retz
 		NOT = { has_global_flag = retz_created }
 	}
@@ -18828,6 +20652,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_etre_daou_vor
 		NOT = { has_global_flag = etre_daou_vor_created }
 	}
@@ -18875,6 +20700,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_broceliande
 		has_global_flag = benoic_destroyed
 		NOT = { has_global_flag = broceliande_renamed }
@@ -18920,9 +20746,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		k_broceliande = {
-			set_name = "Breizh"
-			adjective = "Breton"
+		if = {
+			limit = { is_alternate_start = no }		# VERY IMPORTANT: PUTTING THIS IN THE TRIGGER INSTEAD CAUSES A CRASH!
+			k_broceliande = {
+				set_name = "Breizh"
+				adjective = "Breton"
+			}
 		}
 		
 		set_global_flag = broceliande_renamed_breton
@@ -18950,9 +20779,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		k_broceliande = {
-			set_name = ""
-			adjective = ""
+		if = {
+			limit = { is_alternate_start = no }		# VERY IMPORTANT: PUTTING THIS IN THE TRIGGER INSTEAD CAUSES A CRASH!
+			k_broceliande = {
+				set_name = ""
+				adjective = ""
+			}
 		}
 		
 		clr_global_flag = broceliande_renamed_breton
@@ -18971,6 +20803,7 @@ narrative_event = {
 	only_men = yes
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = armorica_created }
 		has_landed_title = e_armorica
 	}
@@ -18980,7 +20813,10 @@ narrative_event = {
 	}
 	
 	immediate = {
+		k_benoic = { de_jure_liege = e_armorica }
+		k_broceliande = { de_jure_liege = e_armorica }
 		set_global_flag = armorica_created
+		clr_global_flag = armorica_conquered_britannia
 	}
 	
 	option = {
@@ -19041,6 +20877,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_henis_wyren
 		has_global_flag = lleyn_created
 		NOT = {
@@ -19082,6 +20919,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_henis_wyren
 		NOT = { has_global_flag = lleyn_created }
 		OR = {
@@ -19123,6 +20961,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_global_flag = lleyn_created
 	}
 	
@@ -19151,6 +20990,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_glevum
 		NOT = { has_global_flag = glevum_created }
 	}
@@ -19184,6 +21024,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_belgae
 		NOT = { has_global_flag = belgae_created }
 	}
@@ -19193,9 +21034,23 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_the_belgae = { de_jure_liege = k_belgae }
+		if = {
+			limit = { NOT = { has_global_flag = celemion_renamed } }
+			d_eastdumnonia = { de_jure_liege = k_belgae }
+		}
 		d_gradawc = { de_jure_liege = k_belgae }
-		d_eastdumnonia = { de_jure_liege = k_belgae }
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = belgae_renamed 
+					AND = {
+						has_global_flag = meonware_conquered
+						NOT = { has_global_flag = meonware_destroyed }
+					}
+				} 
+			}
+			d_the_belgae = { de_jure_liege = k_belgae }
+		}
 		set_global_flag = belgae_created
 	}
 	
@@ -19217,6 +21072,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_henis_wyren
 		NOT = { has_global_flag = henis_wyren_created }
 		NOR = {
@@ -19252,6 +21108,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_henis_wyren
 		NOT = { has_global_flag = henis_wyren_created }
 		OR = {
@@ -19287,6 +21144,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_gwynedd
 		NOT = { has_landed_title = k_henis_wyren }
 		has_global_flag = henis_wyren_created
@@ -19322,973 +21180,27 @@ narrative_event = {
 	}
 }
 
-### HIGH KINGDOM OF BRITANNIA ###
 
-character_event = {		# Triggered from Decision / Claim is sent to other Kings
-	id = 312161
-	title = "EVTNAME312161"
-	desc = "EVTDESC312161"
-	picture = GFX_evt_council
-	
-	only_playable = yes
-	min_age = 15
-	is_triggered_only = yes
-
-	trigger = {
-		e_britannia = { has_holder = no }
-		has_global_flag = HK_britannia_claim
-		NOT = { has_character_flag = HK_britannia_claimant }
-		OR = {
-			has_landed_title = k_dumnonia
-			has_landed_title = k_gwent
-			has_landed_title = k_powys
-			has_landed_title = k_siluria
-			has_landed_title = k_gwynedd
-			has_landed_title = k_icenia
-			has_landed_title = k_cantuaria
-			has_landed_title = k_belgae
-			has_landed_title = k_kernow
-			has_landed_title = k_glevum
-			has_landed_title = k_henis_wyren
-			has_landed_title = k_demetia
-			has_landed_title = k_lindum
-			has_landed_title = k_londinium
-		}
-		independent = yes
-		primary_title = { tier = KING }
-		age = 16
-		NOT = { trait = incapable }
-		NOT = {
-			any_playable_ruler = { has_character_flag = HK_oppositor }
-		}
-	}
-
-	immediate = {
-		hidden_tooltip = {
-			ROOT = {
-				set_character_flag = HK_voter
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA312161"		# Support Claimant
-		trigger = {
-			has_character_flag = HK_voter
-		}
-		add_trait = honorable
-		clr_character_flag = HK_voter
-		set_character_flag = HK_supporter
-		FROM = {
-			character_event = { id = 312162 days = 3 random = 7 tooltip = "The claimant is informed of your support." }
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0
-				NOT = { opinion = { who = FROM value =  25 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value =  50 } }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { opinion = { who = FROM value =  65 } }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value =  80 }
-			}
-			modifier = {
-				factor = 2.0
-				opinion = { who = FROM value =  90 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { num_of_vassals = 8 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { num_of_vassals = 15 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 2 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 3 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 4 }
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { scaled_wealth = 12.0 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { scaled_wealth = 16.0 }
-			}
-			modifier = {
-				factor = 3.0
-				dynasty = FROM
-			}
-			modifier = {
-				factor = 1.5
-				has_non_aggression_pact_with = FROM
-				relative_power = {
-					who = FROM
-					power = 1.25
-				}
-			}
-			modifier = {
-				factor = 3.0
-				is_allied_with = FROM
-				relative_power = {
-					who = FROM
-					power = 1.25
-				}
-			}
-			modifier = {
-				factor = 1.5
-				trait = loyal
-			}
-			modifier = {
-				factor = 0.5
-				trait = unloyal
-			}
-			modifier = {
-				factor = 0.5
-				trait = ambitious
-			}
-			modifier = {
-				factor = 2.0
-				trait = content
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { prestige = 3000 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { prestige = 4500 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { trait = just }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { trait = arbitrary }
-			}
-			modifier = {
-				factor = 0.6
-				FROM = { trait = cruel }
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { trait = weak }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { trait = strong }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { martial = 18 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { diplomacy = 18 }
-			}
-			modifier = {
-				factor = 1.25
-				culture = FROM
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { culture_group = ROOT } }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { FROM = { religion = ROOT } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { religion_group = ROOT } }
-			}
-			modifier = {
-				factor = 4.0
-				FROM = { has_character_flag = HK_challenge_winner }
-			}
-			modifier = {
-				factor = 10.0
-				pays_tribute_to = FROM
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTC312161"		# Support Claimant but remain Independent
-		trigger = {
-			has_character_flag = HK_voter
-		}
-		clr_character_flag = HK_voter
-		set_character_flag = HK_indep_supporter
-		FROM = {
-			character_event = { id = 312164 days = 4 random = 6 tooltip = "The claimant is informed of your decision." }
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0.1
-				NOT = { opinion = { who = FROM value =  0 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value =  25 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value =  50 } }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROM value =  70 }
-			}
-			modifier = {
-				factor = 2.0
-				opinion = { who = FROM value =  90 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { num_of_vassals = 8 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { num_of_vassals = 15 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 2 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 3 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { num_of_king_titles = 4 }
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { scaled_wealth = 8.0 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { scaled_wealth = 12.0 }
-			}
-			modifier = {
-				factor = 0.5
-				dynasty = FROM
-			}
-			modifier = {
-				factor = 1.5
-				trait = loyal
-			}
-			modifier = {
-				factor = 0.5
-				trait = unloyal
-			}
-			modifier = {
-				factor = 2.0
-				trait = content
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { prestige = 2500 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { prestige = 3500 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { trait = just }
-			}
-			modifier = {
-				factor = 1.25
-				FROM = { trait = arbitrary }
-			}
-			modifier = {
-				factor = 0.6
-				FROM = { trait = cruel }
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { trait = weak }
-			}
-			modifier = {
-				factor = 1.25
-				FROM = { trait = strong }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { martial = 18 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { diplomacy = 18 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { culture = FROM }
-			}
-			modifier = {
-				factor = 3.0
-				NOT = { FROM = { age = ROOT } }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { FROM = { religion = ROOT } }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { FROM = { religion_group = ROOT } }
-			}
-			modifier = {
-				factor = 6.0
-				FROM = { has_character_flag = HK_challenge_winner }
-			}
-			modifier = {
-				factor = 0
-				pays_tribute_to = FROM
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTB312161"		# Dispute Claimant
-		trigger = {
-			has_character_flag = HK_voter
-		}
-		prestige = 25
-		clr_character_flag = HK_voter
-		set_character_flag = HK_oppositor
-		FROM = {
-			character_event = { id = 312163 days = 5 random = 5 tooltip = "the claimant is informed of your refusal to support him." }
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0.5
-				opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { opinion = { who = FROM value = 0 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { opinion = { who = FROM value = -25 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROM value = -50 } }
-			}
-			modifier = {
-				factor = 100
-				NOT = { opinion = { who = FROM value = -75 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { FROM = { num_of_vassals = 8 } }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { num_of_king_titles = 2 }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { num_of_king_titles = 3 }
-			}
-			modifier = {
-				factor = 0.6
-				FROM = { num_of_king_titles = 4 }
-			}
-			modifier = {
-				factor = 0.25
-				dynasty = FROM
-			}
-			modifier = {
-				factor = 0.25
-				has_non_aggression_pact_with = FROM
-			}
-			modifier = {
-				factor = 0.1
-				is_allied_with = FROM
-			}
-			modifier = {
-				factor = 0.75
-				culture = FROM
-			}
-			modifier = {
-				factor = 0.5
-				trait = loyal
-			}
-			modifier = {
-				factor = 2.0
-				trait = unloyal
-			}
-			modifier = {
-				factor = 3.0
-				trait = ambitious
-			}
-			modifier = {
-				factor = 0.5
-				trait = content
-			}
-			modifier = {
-				factor = 2.0
-				FROM = { trait = weak }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { trait = strong }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { NOT = { diplomacy = 10 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { NOT = { martial = 10 } }
-			}
-			modifier = {
-				factor = 2.0
-				FROM = { NOT = { prestige = 3000 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { FROM = { age = ROOT } }
-			}
-			modifier = {
-				factor = 1.75
-				NOT = { culture = FROM }
-			}
-			modifier = {
-				factor = 0.75
-				FROM = { religion = ROOT }
-			}
-			modifier = {
-				factor = 2.0
-				NOT = { FROM = { religion_group = ROOT } }
-			}
-			modifier = {
-				factor = 2.5
-				AND = {
-					NOT = { FROM = { religion_group = ROOT } }
-					ROOT = { trait = zealous }
-				}
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { has_character_flag = HK_challenge_winner }
-			}
-			modifier = {
-				factor = 0
-				pays_tribute_to = FROM
-			}
-		}
-	}
-}
-
-letter_event = {			# Positive Response
-	id = 312162
-	desc = "EVTDESC312162"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_supporter }
-	}
-	
-	option = {
-		name = "EVTOPTA312162"		# Excellent
-		prestige = 20
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-	}
-}
-letter_event = {			# Negative Response
-	id = 312163
-	desc = "EVTDESC312163"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_oppositor }
-	}
-	
-	option = {					# Accept dispute and stand down
-		name = "EVTOPTA312163"
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-		prestige = -25
-		clr_character_flag = HK_britannia_claimant
-		clr_global_flag = HK_britannia_claim
-		e_britannia = { remove_claim = ROOT }
-		FROM = { clr_character_flag = HK_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_supporter }
-		ai_chance = {
-			factor = 90
-		}
-	}
-	
-	option = {					# Bribe him
-		name = "EVTOPTB312163"		
-		trigger = {
-			diplomacy = 15
-			scaled_wealth = 8.0
-			NOT = { trait = honorable }
-			FROM = {
-				ai = yes
-				NOT = { trait = honorable }
-				OR = {
-					trait = greedy
-					trait = ruthless
-					trait = ambitious
-					trait = deceitful
-					trait = craven
-					NOT = { martial = 10 }
-					intrigue = 15
-				}
-			}
-		}
-		transfer_scaled_wealth = {
-			to = FROM
-			value = 8.0
-		}
-		FROM = {
-			letter_event = { id = 63064 days = 1 tooltip = "EVTTOOLTIP63064" }
-		}
-		FROM = { clr_character_flag = HK_oppositor }
-		FROM = { set_character_flag = HK_supporter }
-		tooltip_info = diplomacy
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = { ai = no }
-			}
-			modifier = {
-				factor = 0
-				NOT = { scaled_wealth = 12.0 }
-			}
-		}
-	}
-	
-	option = {					# Declare war on oppositor
-		name = "EVTOPTC312163"
-		trigger = {
-			war = no
-		}
-		prestige = 50
-		custom_tooltip = { text = HK_declare_war }
-		FROM = { set_character_flag = HK_challenged_oppositor }
-		ROOT = { set_character_flag = HK_challenger }
-		hidden_tooltip = {
-			FROM = {
-				primary_title = {
-					reverse_war = {
-						target = ROOT
-						casus_belli = disputeBritanniaHighKingship
-					}
-				}
-			}
-		}
-		#clr_global_flag = HK_britannia_claim
-		ROOT = { clr_character_flag = HK_britannia_claimant }
-		FROM = { clr_character_flag = HK_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_supporter }
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 10 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 25 }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				prisoner = yes
-			}
-			modifier = {
-				factor = 0.75
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 20 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 40 }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				war = yes
-			}
-			modifier = {
-				factor = 0
-				NOT = {
-					OR = {
-						trait = ambitious
-						trait = brilliant_strategist
-						trait = war_hero
-						trait = proud
-						martial = 18
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				OR = {
-					trait = strong
-					trait = ambitious
-					trait = wroth
-				}
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					trait = content
-					trait = humble
-					trait = weak
-					trait = craven
-					trait = patient
-				}
-			}
-		}
-	}
-}
-letter_event = {			# Positive Response, but remains Independent
-	id = 312164
-	desc = "EVTDESC312164"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		FROM = { has_character_flag = HK_indep_supporter }
-	}
-	
-	option = {
-		name = "EVTOPTA312164"		# Excellent
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_britannia_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 312168 }
-			}
-		}
-	}
-}
-
-narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
-	id = 312165
-	title = "EVTNAME312165"
-	desc = "EVTDESC312165"
-	picture = GFX_evt_royal_court
-	only_playable = yes
+# Conquest of Caledonia
+narrative_event = {
+	id = 314470
+	title = "EVTNAME314470"
+	desc = "EVTDESC314470"
 	major = yes
+	hide_new = yes
 	
-	is_triggered_only = yes
-	
-	trigger = {
-		has_character_flag = HK_britannia_claimant
-		has_global_flag = HK_britannia_claim
-		NOT = { any_playable_ruler = { has_character_flag = HK_challenged_oppositor } }
-		NOT = { any_playable_ruler = { has_character_flag = HK_voter } }
-		NOT = { any_playable_ruler = { has_character_flag = HK_oppositor } }
-	}
-	
-	immediate = {
-		any_vassal = {
-			any_demesne_title = {
-				set_title_flag = vassal_before_gained_high_kingdom_britannia
-			}
-		}
-		primary_title = {
-			e_britannia = {
-				copy_title_laws = PREV
-				gain_title = ROOT 
-				add_law = succ_feudal_elective
-			}
-		}
-		if = {
-			limit = {
-				ROOT = {
-					character = 3
-				}
-			}
-			ROOT = {
-				add_trait = blood_pendragon
-				remove_trait = bastard
-				remove_trait = legit_bastard
-				any_child = {
-					limit = {
-						is_female = no
-					}
-					add_trait = blood_pendragon
-					any_child = {
-						limit = {
-							is_female = no
-						}
-						add_trait = blood_pendragon
-						any_child = {
-							limit = {
-								is_female = no
-							}
-							add_trait = blood_pendragon
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				ROOT = {
-					character = 1010
-				}
-			}
-			ROOT = {
-				add_trait = blood_vortigern
-				any_child = {
-					limit = {
-						is_female = no
-					}
-					add_trait = blood_vortigern
-					any_child = {
-						limit = {
-							is_female = no
-						}
-						add_trait = blood_vortigern
-						any_child = {
-							limit = {
-								is_female = no
-							}
-							add_trait = blood_vortigern
-						}
-					}
-				}
-			}
-		}
-		any_playable_ruler = { 
-			limit = {
-				OR = {
-					has_character_flag = HK_supporter
-					has_character_flag = HK_challenge_loser
-				}
-			}
-			set_defacto_liege = ROOT
-		}
-		any_playable_ruler = { clr_character_flag = HK_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_challenged_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_challenger }
-		any_playable_ruler = { clr_character_flag = HK_voter }
-		any_playable_ruler = { clr_character_flag = HK_challenge_loser }
-		any_playable_ruler = { clr_character_flag = HK_challenge_winner }
-	}
-	
-	option = {
-		name = "EVTOPTB312165"		# Gain High Kingdom of Britannia
-		trigger = {
-			has_character_flag = HK_britannia_claimant
-		}
-		clr_character_flag = HK_britannia_claimant
-		clr_global_flag = HK_britannia_claim
-	}
-		
-	option = {
-		name = "EVTOPTA312165"		# Other Supporting Kings
-		trigger = {
-			NOT = { has_character_flag = HK_britannia_claimant }
-			OR = {
-				has_character_flag = HK_supporter
-				has_character_flag = HK_indep_supporter
-			}
-		}
-		clr_character_flag = HK_supporter
-		clr_character_flag = HK_indep_supporter
-	}
-	
-	option = {
-		name = "EVTOPTC312165"		# Other Rulers
-		trigger = {
-			NOT = { has_character_flag = HK_britannia_claimant }
-			NOT = { has_character_flag = HK_supporter }
-			NOT = { has_character_flag = HK_indep_supporter }
-		}
-	}
-}
-
-character_event = {		# Unfit to Rule to Britannia or Aengland - start timer
-	id = 312170
-	title = "You're not supposed to see this..."
-	picture = GFX_evt_council
-	only_playable = yes
-	
-	hide_window = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				has_landed_title = e_britannia
-				is_unfit_to_rule_britannia_trigger = yes
-				NOT = { has_character_flag = is_unfit_to_rule_britannia }
-			}
-			AND = {
-				has_landed_title = e_aengland
-				is_unfit_to_rule_aengland_trigger = yes
-				NOT = { has_character_flag = is_unfit_to_rule_aengland }
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		if = {
-			limit = { has_landed_title = e_britannia }
-			set_character_flag = is_unfit_to_rule_britannia
-		}
-		else_if = {
-			limit = { has_landed_title = e_aengland }
-			set_character_flag = is_unfit_to_rule_aengland
-		}
-	}
-}
-
-character_event = {		# Remove flag if at any point ruler meets requirements again, or doesn't hold the title
-	id = 312171
-	title = "You're not supposed to see this..."
-	picture = GFX_evt_council
-	
-	hide_window = yes
+	picture = "GFX_evt_warriors_hills_mist"
 	
 	only_playable = yes
 	
 	trigger = {
-		OR = {
-			AND = {
-				has_character_flag = is_unfit_to_rule_britannia
-				OR = {
-					AND = {
-						has_landed_title = e_britannia
-						is_unfit_to_rule_britannia_trigger = no
-					}
-					NOT = { has_landed_title = e_britannia }
-				}
-			}
-			AND = {
-				has_character_flag = is_unfit_to_rule_aengland
-				OR = {
-					AND = {
-						has_landed_title = e_aengland
-						is_unfit_to_rule_aengland_trigger = no
-					}
-					NOT = { has_landed_title = e_aengland }
-				}
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		clr_character_flag = is_unfit_to_rule_britannia
-		clr_character_flag = is_unfit_to_rule_aengland
-	}
-}
-
-narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
-	id = 312166
-	title = "EVTNAME312166"
-	desc = "EVTDESC312166"
-	picture = GFX_evt_council
-	only_playable = yes
-	major = yes
-	
-	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_britannia
-		is_unfit_to_rule_britannia_trigger = yes
-		had_character_flag = {
-			flag = is_unfit_to_rule_britannia 
-			days = 120
-		}
+		NOT = { has_landed_title = e_alba }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_caledonia
+		completely_controls = e_alba
+		NOT = { has_global_flag = alba_conquered_britannia }
 	}
 	
 	mean_time_to_happen = {
@@ -20296,235 +21208,106 @@ narrative_event = {		# High Kingdom of Britannia Lost (Unfit to Rule)
 	}
 	
 	immediate = {
-		clr_character_flag = is_unfit_to_rule_britannia
-		hidden_tooltip = {
-			any_vassal = {
-				limit = { 
-					defacto_liege_title = { title = e_britannia } 
-					NOT = { primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia } }
-				}
-				set_character_flag = former_britannia_vassal
+		e_alba = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
 			}
-			any_vassal = {
-				limit = { 
-					defacto_liege_title = { title = e_britannia } 
-					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
-				}
-				set_character_flag = restore_vassalage_@ROOT
-			}
+			destroy_landed_title = THIS
 		}
+		clr_global_flag = alba_formed
+		set_global_flag = alba_conquered_britannia
 	}
 	
 	option = {
-		name = "EVTOPTA312166"		# Lose High Kingdom of Britannia
-		trigger = {
-			has_landed_title = e_britannia
-		}
-		any_demesne_title = {
-			limit = {
-				tier = KING
-			}
-			e_britannia = {
-				any_vassal = {
-					limit = {
-						OR = {
-							tier = BARON
-							tier = COUNT
-							tier = DUKE
-						}
-					}
-					set_defacto_liege = PREVPREV
-				}
-			}
-		}
-		prestige = -100
-		e_britannia = { destroy_landed_title = THIS }
-		e_britannia = { remove_claim = ROOT }
-	}
-	
-	option = {
-		name = "EVTOPTB312166"		# Former vassal kings
-		trigger = {
-			NOT = { has_landed_title = e_britannia }
-			has_character_flag = former_britannia_vassal
-		}
-		tooltip = {
-			set_defacto_liege = THIS
-		}
-		clr_character_flag = former_britannia_vassal
-	}
-	
-	option = {
-		name = "EVTOPTC312166"		# Other Britons
-		trigger = {
-			NOR = { 
-				has_landed_title = e_britannia 
-				has_character_flag = former_britannia_vassal
-			}
-			is_brythonic_culture_trigger = yes
-		}
-	}
-	
-	option = {
-		name = "EVTOPTD312166"		# Others
-		trigger = {
-			NOR = { 
-				has_landed_title = e_britannia
-				has_character_flag = former_britannia_vassal
-				is_brythonic_culture_trigger = yes
-			}
-		}
-	}
-	
-	after = {
-		hidden_tooltip = {
-			if = {
-				limit = { character = ROOT }
-				any_character = {
-					limit = { has_character_flag = restore_vassalage_@ROOT }
-					clr_character_flag = restore_vassalage_@ROOT
-					set_defacto_liege = THIS
-					set_defacto_liege = ROOT
-				}
-				any_title = {
-					limit = { has_title_flag = vassal_before_gained_high_kingdom_britannia }
-					clr_title_flag = vassal_before_gained_high_kingdom_britannia
-				}
-			}
-		}
+		name = "EVTOPTA314470"
 	}
 }
 
-character_event = {			# Notify other lords that High Kingdom has been claimed
-	id = 312167
-	desc = "EVTDESC312167"
-	picture = GFX_evt_council
+# Conquest of Ireland
+narrative_event = {
+	id = 314471
+	title = "EVTNAME314471"
+	desc = "EVTDESC314471"
+	major = yes
+	hide_new = yes
 	
-	is_triggered_only = yes
+	picture = "GFX_evt_ireland"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_britannia
+		NOT = { has_landed_title = e_ireland }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_ireland
+		NOT = { has_global_flag = ireland_conquered_britannia }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		e_ireland = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+			destroy_landed_title = THIS
+		}
+		clr_global_flag = ireland_formed
+		set_global_flag = ireland_conquered_britannia
+	}
 	
 	option = {
-		name = "EVTOPTA312167"
-		trigger = {
-			has_character_flag = HK_britannia_king
-		}
-		clr_character_flag = HK_britannia_king
-	}
-	option = {
-		name = "EVTOPTB312167"
-		trigger = {
-			NOT = { has_character_flag = HK_britannia_king }
-			OR = {
-				is_brythonic_culture_trigger = yes
-				AND = {
-					OR = {
-						is_romanized_germanic_trigger = yes
-						NOT = { culture_group = germanic }
-					}
-					top_liege = {
-						is_brythonic_culture_trigger = yes
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC312167"
-		trigger = {
-			NOT = { has_character_flag = HK_britannia_king }
-			culture_group = germanic
-			OR = {
-				is_romanized_germanic_trigger = no
-				top_liege = {
-					is_romanized_germanic_trigger = no
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTD312167"
-		trigger = {
-			NOR = {
-				has_character_flag = HK_britannia_king
-				is_brythonic_culture_trigger = yes
-				AND = {
-					OR = {
-						is_romanized_germanic_trigger = yes
-						NOT = { culture_group = germanic }
-					}
-					top_liege = {
-						is_brythonic_culture_trigger = yes
-					}
-				}
-				culture_group = germanic
-				OR = {
-					is_romanized_germanic_trigger = no
-					top_liege = {
-						is_romanized_germanic_trigger = no
-					}
-				}
-			}
-		}
+		name = "EVTOPTA314471"
 	}
 }
 
-character_event = {			# Notify support/nominal support/backing down/war
-	id = 312168
-	desc = {
-		text = EVTDESC312168
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_supporter }
-		}
-	}
-	desc = {
-		text = EVTDESC312168_1
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_indep_supporter }
-		}
-	}
-	desc = {
-		text = EVTDESC312168_2
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_oppositor }
-		}
-	}
-	desc = {
-		text = EVTDESC312168_3
-		picture = GFX_evt_battle_cavalry
-		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_oppositor }
-		}
+# Conquest of Armorica
+narrative_event = {
+	id = 314472
+	title = "EVTNAME314472"
+	desc = "EVTDESC314472"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_armorica"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_britannia
+		NOT = { has_landed_title = e_armorica }
+		has_global_flag = britannia_reclaimed_caratacus_legacy
+		completely_controls_region = world_gaul_lugdunensis_armorica
+		completely_controls = e_armorica
+		NOT = { has_global_flag = armorica_conquered_britannia }
 	}
 	
-	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 1
+	}
 	
-	option = {
-		name = "EVTOPTA312168"
-	}
-}
-
-character_event = {			# Notify HK Claimant war victory/defeat
-	id = 312169
-	desc = {
-		text = EVTDESC312169
-		trigger = {
-			NOT = { FROM = { has_character_flag = HK_challenge_loser } }
+	immediate = {
+		k_broceliande = { de_jure_liege = e_britannia }
+		k_benoic = { de_jure_liege = e_britannia }
+		e_armorica = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_britannia
+			}
+			destroy_landed_title = THIS
 		}
+		clr_global_flag = armorica_created
+		set_global_flag = armorica_conquered_britannia
 	}
-	desc = {
-		text = EVTDESC312169_1
-		trigger = {
-			FROM = { has_character_flag = HK_challenge_loser }
-		}
-	}
-	picture = GFX_evt_battle_cavalry
-	
-	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA312169"
+		name = "EVTOPTA314472"
 	}
 }
 
@@ -20540,6 +21323,7 @@ narrative_event = {		# Form the Brotherhood (triggered by decision)
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = e_britannia
 		NOT = { is_title_active = d_warriors_of_britain }
 	}
@@ -20567,7 +21351,7 @@ narrative_event = {		# Form the Brotherhood (triggered by decision)
 			trait = brave
 			trait = loyal
 			trait = inspiring_leader
-			trait = honorable
+			# trait = honorable
 			trait = honest
 		}
 		new_character = {
@@ -20620,6 +21404,7 @@ narrative_event = {
 	only_men = yes
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = cymru_formed }
 		has_landed_title = e_cymru
 	}
@@ -20691,6 +21476,7 @@ narrative_event = {
 	only_men = yes
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = ireland_formed }
 		has_landed_title = e_ireland
 	}
@@ -20700,7 +21486,14 @@ narrative_event = {
 	}
 	
 	immediate = {
+		k_ulaid = { de_jure_liege = e_ireland }
+		k_mide = { de_jure_liege = e_ireland }
+		k_leinster = { de_jure_liege = e_ireland }
+		k_connacht = { de_jure_liege = e_ireland }
+		k_munster = { de_jure_liege = e_ireland }
+		k_northern_ui_neill = { de_jure_liege = e_ireland }
 		set_global_flag = ireland_formed
+		clr_global_flag = ireland_conquered_britannia
 	}
 	
 	option = {
@@ -20748,6 +21541,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_northern_ui_neill
 		NOT = { has_global_flag = northern_ui_neill_created }
 	}
@@ -20802,6 +21596,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_dalriada
 		NOT = { has_global_flag = dalriada_created }
 	}
@@ -20877,6 +21672,7 @@ narrative_event = {
 	only_men = yes
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = alba_formed }
 		has_landed_title = e_alba
 	}
@@ -20887,8 +21683,21 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = alba_formed
+		clr_global_flag = alba_conquered_britannia
+		k_dalriada = { de_jure_liege = e_alba }
+		k_caledonia = { de_jure_liege = e_alba }
 		k_strathclyde = { de_jure_liege = e_alba }
 		k_lothian = { de_jure_liege = e_alba }
+		
+		# If Dalriada has not been created, integrate the area into Pictavia
+		if = {
+			limit = { NOT = { has_global_flag = dalriada_created } }	
+			d_hebrides = { de_jure_liege = k_caledonia }
+			if = {
+				limit = { NOT = { has_global_flag = argyll_renamed } }
+				d_argyll = { de_jure_liege = k_caledonia }
+			}
+		}
 	}
 	
 	option = {
@@ -20936,6 +21745,7 @@ narrative_event = {
 	only_men = yes
 	
 	trigger = {
+		is_alternate_start = no
 		NOT = { has_global_flag = hen_ogledd_formed }
 		has_landed_title = e_hen_ogledd
 	}
@@ -21016,6 +21826,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_jorvik
 		NOT = { has_global_flag = jorvik_created }
 	}
@@ -21063,6 +21874,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_fiveboroughs
 		NOT = { has_global_flag = fiveboroughs_created }
 	}
@@ -21113,6 +21925,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_southernboroughs
 		NOT = { has_global_flag = southernboroughs_created }
 	}
@@ -21154,6 +21967,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_daneanglia
 		NOT = { has_global_flag = daneanglia_created }
 	}
@@ -21195,6 +22009,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_daneessex
 		NOT = { has_global_flag = daneessex_created }
 	}
@@ -21234,6 +22049,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_danelancaster
 		NOT = { has_global_flag = danelancaster_created }
 	}
@@ -21274,6 +22090,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_waterford
 		completely_controls = c_tipperary
@@ -21326,6 +22143,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_eblana
 		completely_controls = c_mide
@@ -21378,6 +22196,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_limerick
 		completely_controls = c_ui_fidgenti
@@ -21427,6 +22246,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_ross
 		completely_controls = c_concagh
@@ -21477,6 +22297,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_ui_maine
 		completely_controls = c_uisneach
@@ -21527,6 +22348,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_connemara
 		completely_controls = c_aidhne
@@ -21585,6 +22407,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_donegal
 		completely_controls = c_ui_neill
@@ -21641,6 +22464,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_clogher
 		completely_controls = c_fir_rois
@@ -21690,6 +22514,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_dal_fiatach
 		completely_controls = c_the_mourns
@@ -21734,6 +22559,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_carraickabraghy
 		completely_controls = c_ailech
@@ -21778,6 +22604,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_wexford
 		completely_controls = c_laberus
@@ -21825,6 +22652,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		is_north_germanic_trigger = yes
 		completely_controls = c_dal_naraide
 		completely_controls = c_dal_riata
@@ -21873,6 +22701,7 @@ narrative_event = {
 	only_playable = yes
 
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_dyflin
 		NOT = { has_global_flag = kingdom_dyflin_created }
 	}
@@ -21904,6 +22733,7 @@ narrative_event = {
 	only_playable = yes
 
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = k_strangford
 		NOT = { has_global_flag = kingdom_strangford_created }
 	}
@@ -21935,6 +22765,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_dublin
 		NOT = { has_global_flag = norse_dyflin_created }
 	}
@@ -21947,6 +22778,7 @@ narrative_event = {
 		d_port_dublin = { de_jure_liege = k_dyflin }
 		c_eblana = { de_jure_liege = d_port_dublin }
 		c_wicklow = { de_jure_liege = d_port_dublin }
+		
 		
 		set_global_flag = norse_dyflin_created
 	}
@@ -21969,6 +22801,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_wexford
 		NOT = { has_global_flag = norse_wexford_created }
 	}
@@ -22001,6 +22834,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_waterford
 		NOT = { has_global_flag = norse_waterford_created }
 	}
@@ -22033,6 +22867,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_limerick
 		NOT = { has_global_flag = norse_limerick_created }
 	}
@@ -22065,6 +22900,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_cork
 		NOT = { has_global_flag = norse_cork_created }
 	}
@@ -22097,6 +22933,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_athlone
 		NOT = { has_global_flag = norse_athlone_created }
 	}
@@ -22106,7 +22943,7 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_longford = { de_jure_liege = d_port_athlone }
+		c_athlone = { de_jure_liege = d_port_athlone }
 		d_port_athlone = { de_jure_liege = k_dyflin }
 		
 		set_global_flag = norse_athlone_created
@@ -22129,6 +22966,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_eyrephort
 		NOT = { has_global_flag = norse_eyrephort_created }
 	}
@@ -22161,6 +22999,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_donegal
 		NOT = { has_global_flag = norse_donegal_created }
 	}
@@ -22193,6 +23032,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_carrick
 		NOT = { has_global_flag = norse_carrick_created }
 	}
@@ -22202,7 +23042,7 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_ailech = { de_jure_liege = d_port_carrick }
+		c_carraickabraghy = { de_jure_liege = d_port_carrick }
 		d_port_carrick = { de_jure_liege = k_strangford }
 		
 		set_global_flag = norse_carrick_created
@@ -22225,6 +23065,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_ulfreks
 		NOT = { has_global_flag = norse_ulfreksfjord_created }
 	}
@@ -22234,7 +23075,7 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_dal_naraide = { de_jure_liege = d_port_ulfreks }
+		c_larne = { de_jure_liege = d_port_ulfreks }
 		d_port_ulfreks = { de_jure_liege = k_strangford }
 		
 		set_global_flag = norse_ulfreksfjord_created
@@ -22257,6 +23098,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_carlingford
 		NOT = { has_global_flag = norse_carlingford_created }
 	}
@@ -22289,6 +23131,7 @@ narrative_event = {
 	only_playable = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_landed_title = d_port_strangford
 		NOT = { has_global_flag = norse_strangford_created }
 	}
@@ -22306,6 +23149,496 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA320031"
+	}
+}
+
+
+# Creation of the Jarldom of Ívist
+narrative_event = {	
+	id = 320033
+	title = "EVTNAME320033"
+	desc = "EVTDESC320033"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_ivist		
+		NOT = { has_global_flag = norse_ivist_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_ivist = { de_jure_liege = k_south_islands }
+		c_uist = { de_jure_liege = d_port_ivist }
+		c_leodhas = { de_jure_liege = d_port_ivist }
+		
+		set_global_flag = norse_ivist_created
+	}
+	
+	option = {
+		name = "EVTOPTA320033"
+	}
+}
+
+
+# Creation of the Jarldom of Skíð (Skye)
+narrative_event = {	
+	id = 320034
+	title = "EVTNAME320034"
+	desc = "EVTDESC320034"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_skith
+		NOT = { has_global_flag = norse_skith_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_skith = { de_jure_liege = k_south_islands }				
+		c_skye = { de_jure_liege = d_port_skith }
+		c_rum = { de_jure_liege = d_port_skith }
+		
+		set_global_flag = norse_skith_created
+	}
+	
+	option = {
+		name = "EVTOPTA320034"
+	}
+}
+
+
+
+# Creation of the Jarldom of Tyrvist
+narrative_event = {	
+	id = 320035
+	title = "EVTNAME320035"
+	desc = "EVTDESC320035"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_tyrvist
+		NOT = { has_global_flag = norse_tyrvist_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_tyrvist = { de_jure_liege = k_south_islands }				
+		c_dunmor = { de_jure_liege = d_port_tyrvist }
+		c_muile = { de_jure_liege = d_port_tyrvist }
+		
+		set_global_flag = norse_tyrvist_created
+	}
+	
+	option = {
+		name = "EVTOPTA320035"
+	}
+}
+
+# Creation of the Jarldom of Dýrey 
+narrative_event = {	
+	id = 320036
+	title = "EVTNAME320036"
+	desc = "EVTDESC320036"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_dyrey
+		NOT = { has_global_flag = norse_dyrey_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_dyrey = { de_jure_liege = k_south_islands }
+		c_jura = { de_jure_liege = d_port_dyrey }
+		c_epidion = { de_jure_liege = d_port_dyrey }
+		c_cantyre = { de_jure_liege = d_port_dyrey }
+		c_ynys_aru = { de_jure_liege = d_port_dyrey }
+		
+		set_global_flag = norse_dyrey_created
+	}
+	
+	option = {
+		name = "EVTOPTA320036"
+	}
+}
+
+# Creation of the Jarldom of Mön 
+narrative_event = {	
+	id = 320037
+	title = "EVTNAME320037"
+	desc = "EVTDESC320037"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_mon
+		NOT = { has_global_flag = norse_mon_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_mon = { de_jure_liege = k_south_islands }
+		c_ynys_man = { de_jure_liege = d_port_mon }
+		c_manann = { de_jure_liege = d_port_mon }
+		
+		set_global_flag = norse_mon_created
+	}
+	
+	option = {
+		name = "EVTOPTA320037"
+	}
+}
+
+# Creation of the Jarldom of Orkneyjar
+narrative_event = {	
+	id = 320038
+	title = "EVTNAME320038"
+	desc = "EVTDESC320038"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_orkney
+		NOT = { has_global_flag = norse_orkney_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_orkney = { de_jure_liege = k_north_islands }
+		c_insee_orc = { de_jure_liege = d_port_orkney }
+		c_rousay = { de_jure_liege = d_port_orkney }
+				
+		set_global_flag = norse_orkney_created
+	}
+	
+	option = {
+		name = "EVTOPTA320038"
+	}
+}
+
+
+# Creation of the Jarldom of Hjaltland
+narrative_event = {	
+	id = 320039
+	title = "EVTNAME320039"
+	desc = "EVTDESC320039"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_shetland
+		NOT = { has_global_flag = norse_shetland_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_shetland = { de_jure_liege = k_north_islands }
+		c_insee_cait = { de_jure_liege = d_port_shetland }
+		c_yell = { de_jure_liege = d_port_shetland }
+		
+		set_global_flag = norse_shetland_created
+	}
+	
+	option = {
+		name = "EVTOPTA320039"
+	}
+}
+
+
+# Creation of the Jarldom of Katanes
+narrative_event = {	
+	id = 320040
+	title = "EVTNAME320040"
+	desc = "EVTDESC320040"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_katanes
+		NOT = { has_global_flag = norse_katanes_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_katanes = { de_jure_liege = k_north_islands }
+		c_gallaibh = { de_jure_liege = d_port_katanes }
+		c_dornoch = { de_jure_liege = d_port_katanes }
+		c_cataibh = { de_jure_liege = d_port_katanes }
+		c_assynt = { de_jure_liege = d_port_katanes }
+				
+		set_global_flag = norse_katanes_created
+	}
+	
+	option = {
+		name = "EVTOPTA320040"
+	}
+}
+# Creation of the Jarldom of Ross
+narrative_event = {	
+	id = 320041
+	title = "EVTNAME320041"
+	desc = "EVTDESC320041"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_ross
+		NOT = { has_global_flag = norse_ross_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_ross = { de_jure_liege = k_north_islands }
+		c_inverness = { de_jure_liege = d_port_ross }
+		c_fortrose = { de_jure_liege = d_port_ross }
+		
+		set_global_flag = norse_ross_created
+	}
+	
+	option = {
+		name = "EVTOPTA320041"
+	}
+}
+# Creation of the Jarldom of Veistrois
+narrative_event = {	
+	id = 320042
+	title = "EVTNAME320042"
+	desc = "EVTDESC320042"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_veistrois
+		NOT = { has_global_flag = norse_veistrois_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_veistrois = { de_jure_liege = k_south_islands }
+		c_rois = { de_jure_liege = d_port_veistrois }
+		c_westeros = { de_jure_liege = d_port_veistrois }
+		c_inverlochy = { de_jure_liege = d_port_veistrois }
+		c_skiel = { de_jure_liege = d_port_veistrois }
+		c_ardnamurchan = { de_jure_liege = d_port_veistrois }
+		
+		set_global_flag = norse_veistrois_created
+	}
+	
+	option = {
+		name = "EVTOPTA320042"
+	}
+}
+# Creation of the Jarldom of Skotlandsfirðir
+narrative_event = {	
+	id = 320043
+	title = "EVTNAME320043"
+	desc = "EVTDESC320043"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_skotsland
+		NOT = { has_global_flag = norse_skotsland_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_skotsland = { de_jure_liege = k_south_islands }
+		c_scotia = { de_jure_liege = d_port_skotsland }
+		c_cowal = { de_jure_liege = d_port_skotsland }
+		c_dunadd = { de_jure_liege = d_port_skotsland }
+		
+		set_global_flag = norse_skotsland_created
+	}
+	
+	option = {
+		name = "EVTOPTA320043"
+	}
+}
+# Creation of the Jarldom of Leifernax
+narrative_event = {	
+	id = 320044
+	title = "EVTNAME320044"
+	desc = "EVTDESC320044"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_port_leifernax
+		NOT = { has_global_flag = norse_leifernax_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_port_leifernax  = { de_jure_liege = k_south_islands }
+		c_altclut = { de_jure_liege = d_port_leifernax }
+		c_lumonwy = { de_jure_liege = d_port_leifernax }
+		
+		set_global_flag = norse_leifernax_created
+	}
+	
+	option = {
+		name = "EVTOPTA320044"
+	}
+}
+# Creation of Kingdom of Suðreyjar
+narrative_event = {	
+	id = 320045
+	title = "EVTNAME320045"
+	desc = "EVTDESC320045"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_south_islands
+		NOT = { has_global_flag = kingdom_south_islands_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = kingdom_south_islands_created
+	}
+	
+	option = {
+		name = "EVTOPTA320045"
+	}
+}
+# Creation of Kingdom of Norðreyjar
+narrative_event = {	
+	id = 320046
+	title = "EVTNAME320046"
+	desc = "EVTDESC320046"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_danes_ship_hall"
+	
+	only_playable = yes
+
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_north_islands
+		NOT = { has_global_flag = kingdom_north_islands_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = kingdom_north_islands_created
+	}
+	
+	option = {
+		name = "EVTOPTA320046"
 	}
 }
 ### END THE DANES ###
@@ -22337,6 +23670,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = lindsey_created
 			has_global_flag = pegansaete_created
@@ -22344,6 +23678,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 			has_global_flag = middleangles_created
 			has_global_flag = grentbryce_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22436,12 +23771,14 @@ narrative_event = {	# Wrocensæte, Magonsaete, Hwicce, Cilternsaete
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = wrocensaete_created
 			has_global_flag = magonsaete_created
 			has_global_flag = hwicce_created
 			has_global_flag = cilternsaete_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22498,12 +23835,14 @@ narrative_event = {	# Dorset, Somerset, Devon, Cornwall
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = dorset_created
 			has_global_flag = somerset_created
 			has_global_flag = devon_created
 			has_global_flag = cornwall_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22557,11 +23896,13 @@ narrative_event = {	# Hampshire, Berkshire, Wiltshire
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = hampshire_created
 			has_global_flag = berkshire_created
 			has_global_flag = wiltshire_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22617,11 +23958,13 @@ narrative_event = {	# Deira, Lancaster, Southumbria/Doncaster
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = deira_created
 			has_global_flag = lancaster_created
 			has_global_flag = southumbria_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22682,6 +24025,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = cumbria_created
 			has_global_flag = bernicia_created
@@ -22689,6 +24033,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			has_global_flag = anglegalloway_created
 			has_global_flag = ayrshire_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22750,12 +24095,14 @@ narrative_event = {	# Norþfolc, Suþfolc, Middel Seaxe, East Seaxe
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = norfolc_created
 			has_global_flag = southfolc_created
 			has_global_flag = middleseaxe_created
 			has_global_flag = eastseaxe_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22819,11 +24166,13 @@ narrative_event = {	# Suþrige, Cantware, The Weald
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = surrey_created
 			has_global_flag = cantware_created
 			has_global_flag = weald_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22870,6 +24219,7 @@ narrative_event = {	# Calz, Beauvais, Lidle Franken, Meaux, Picard/Somme
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = calz_created
 			has_global_flag = beauvais_created
@@ -22877,6 +24227,7 @@ narrative_event = {	# Calz, Beauvais, Lidle Franken, Meaux, Picard/Somme
 			has_global_flag = meaux_created
 			has_global_flag = picard_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22934,6 +24285,7 @@ narrative_event = {	# Evreux, Lisieux, Hiemois, Bayeux, Cotentin
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = evreux_created
 			has_global_flag = lisieux_created
@@ -22941,6 +24293,7 @@ narrative_event = {	# Evreux, Lisieux, Hiemois, Bayeux, Cotentin
 			has_global_flag = bayeux_created
 			has_global_flag = normanz_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -22993,11 +24346,13 @@ narrative_event = {	# Rennes, Celmans/Maine, Bretland
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = rennes_created
 			has_global_flag = maine_created
 			has_global_flag = bretagne_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23051,12 +24406,14 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = rethel_created
 			has_global_flag = soissons_created
 			has_global_flag = cambrai_created
 			has_global_flag = artois_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23109,6 +24466,7 @@ narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = flanders_created
 			has_global_flag = tournai_created
@@ -23116,6 +24474,7 @@ narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
 			has_global_flag = aachen_created
 			has_global_flag = frankish_toxandria_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23185,12 +24544,14 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = bidgau_created
 			has_global_flag = lotharingen_created
 			has_global_flag = ardennen_created
 			has_global_flag = cologne_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23220,6 +24581,7 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 			c_tricensimae = { de_jure_liege = d_cologne }
 			c_bonna = { de_jure_liege = d_cologne }
 			c_icorigium = { de_jure_liege = d_cologne }
+			c_confluentes = { de_jure_liege = d_cologne }
 		}
 	}
 	
@@ -23244,12 +24606,14 @@ narrative_event = {	# Porcien, Verdun, Champagne
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = porcien_created
 			has_global_flag = verdun_created
 			has_global_flag = champagne_created
 			has_global_flag = toul_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23306,6 +24670,7 @@ narrative_event = {	# Sens, Auxerre, Orleans, Blois, Bourges
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = sens_created
 			has_global_flag = auxerre_created
@@ -23313,6 +24678,7 @@ narrative_event = {	# Sens, Auxerre, Orleans, Blois, Bourges
 			has_global_flag = blois_created
 			has_global_flag = berry_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23377,12 +24743,14 @@ narrative_event = {	# Anjou, Nantes, Tours, Theiphalia/Poitou
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = anjou_created
 			has_global_flag = nantes_created
 			has_global_flag = tours_created
 			has_global_flag = poitou_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23447,6 +24815,7 @@ narrative_event = {	# Saintes, Angouleme, Bordeaux, Perigord, Agen
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = saintes_created
 			has_global_flag = angouleme_created
@@ -23454,6 +24823,7 @@ narrative_event = {	# Saintes, Angouleme, Bordeaux, Perigord, Agen
 			has_global_flag = perigord_created
 			has_global_flag = agen_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23515,6 +24885,7 @@ narrative_event = {	# Auvergne, Limousin, Quercy, Gevaudan, Velay
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = auvergne_created
 			has_global_flag = limousin_created
@@ -23522,6 +24893,7 @@ narrative_event = {	# Auvergne, Limousin, Quercy, Gevaudan, Velay
 			has_global_flag = gevaudan_created
 			has_global_flag = velay_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23585,12 +24957,14 @@ narrative_event = {	# Rouergue, Albi, Toulouse, Gothia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = rouergue_created
 			has_global_flag = albi_created
 			has_global_flag = toulouse_created
 			has_global_flag = gothia_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23653,11 +25027,13 @@ narrative_event = {	# Langres, Tonnerre, Bassigny
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = langres_created
 			has_global_flag = tonnerre_created
 			has_global_flag = bassigny_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23701,12 +25077,14 @@ narrative_event = {	# Nevers, Autun, Avallon, Auxois
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = nevers_created
 			has_global_flag = autun_created
 			has_global_flag = avallon_created
 			has_global_flag = auxois_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23738,7 +25116,7 @@ narrative_event = {	# Nevers, Autun, Avallon, Auxois
 	}
 }
 
-narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva
+narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, Geneva, Besancon, Vaud, Aargau, Alsace, Speyergau, Wormsgau
 	id = 314295
 	desc = "You're not supposed to see this..."
 	major = no
@@ -23754,6 +25132,7 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = chalon_created
 			has_global_flag = macon_created
@@ -23763,7 +25142,14 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			has_global_flag = valence_created
 			has_global_flag = viviers_created
 			has_global_flag = geneva_created
+			has_global_flag = besancon_created
+			has_global_flag = vaud_created
+			has_global_flag = aargau_created
+			has_global_flag = alsace_created
+			has_global_flag = speyergau_created
+			has_global_flag = wormsgau_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23814,6 +25200,46 @@ narrative_event = {	# Chalon, Macon, Lyon, Vienne, Grenoble, Valence, Viviers, G
 			c_albanensis = { de_jure_liege = d_geneva }
 			c_bellicensis = { de_jure_liege = d_geneva }
 			c_caputlacensis = { de_jure_liege = d_geneva }
+			c_julia_equestris = { de_jure_liege = d_geneva }
+		}
+		if = {
+			limit = { has_global_flag = besancon_created }
+			c_vesontio = { de_jure_liege = d_besancon }
+			c_portus_albucinus = { de_jure_liege = d_besancon }
+			c_dola = { de_jure_liege = d_besancon }
+			c_salinum = { de_jure_liege = d_besancon }
+			c_epomanduodurum = { de_jure_liege = d_besancon }
+		}
+		if = {
+			limit = { has_global_flag = vaud_created }
+			c_aventicum = { de_jure_liege = d_vaud }
+			c_lausanna = { de_jure_liege = d_vaud }
+			c_ausicensis = { de_jure_liege = d_vaud }
+		}
+		if = {
+			limit = { has_global_flag = aargau_created }
+			c_vindonissa = { de_jure_liege = d_aargau }
+			c_brenodunum = { de_jure_liege = d_aargau }
+			c_turicum = { de_jure_liege = d_aargau }
+			c_augusta_raurica = { de_jure_liege = d_aargau }
+		}
+		if = {
+			limit = { has_global_flag = alsace_created }
+			c_argentoratum = { de_jure_liege = d_alsace }
+			c_rubiacum = { de_jure_liege = d_alsace }
+			c_brocomagus = { de_jure_liege = d_alsace }
+		}
+		if = {
+			limit = { has_global_flag = speyergau_created }
+			c_nemetum = { de_jure_liege = d_speyergau }
+			c_tabernae = { de_jure_liege = d_speyergau }
+		}
+		if = {
+			limit = { has_global_flag = wormsgau_created }
+			c_borbetomagus = { de_jure_liege = d_wormsgau }
+			c_rufiniana = { de_jure_liege = d_wormsgau }
+			c_mogontiacum = { de_jure_liege = d_wormsgau }
+			c_bingium = { de_jure_liege = d_wormsgau }
 		}
 	}
 	
@@ -23838,6 +25264,7 @@ narrative_event = {	# Fezensac, Comminges, Bigorre, Marsan, Bazas, Bearn, Dax, V
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = fezensac_created
 			has_global_flag = comminges_created
@@ -23848,6 +25275,7 @@ narrative_event = {	# Fezensac, Comminges, Bigorre, Marsan, Bazas, Bearn, Dax, V
 			has_global_flag = dax_created
 			has_global_flag = vasconia_citerior_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -23919,6 +25347,7 @@ narrative_event = {	# Arles, Marseille, Frejus, Antibes, Avignon, Gap, Embrum
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = arles_created
 			has_global_flag = marseille_created
@@ -23928,6 +25357,7 @@ narrative_event = {	# Arles, Marseille, Frejus, Antibes, Avignon, Gap, Embrum
 			has_global_flag = gap_created
 			has_global_flag = embrum_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -24008,11 +25438,13 @@ narrative_event = { # Zeeland, Holland, Utrecht
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = zeeland_created
 			has_global_flag = holland_created
 			has_global_flag = utrecht_created
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24063,11 +25495,13 @@ narrative_event = {	# Broceliande, Bro-Raez, Etre Daou Vor
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			NOT = { has_global_flag = broceliande_renamed }
 			has_global_flag = retz_created
 			has_global_flag = etre_daou_vor_created
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -24112,6 +25546,7 @@ narrative_event = {	# Cantuaria, Regnensia, Londinium, Atrebatia (Britannia), Be
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = ceint_renamed
 			has_global_flag = rhegin_renamed
@@ -24119,6 +25554,7 @@ narrative_event = {	# Cantuaria, Regnensia, Londinium, Atrebatia (Britannia), Be
 			has_global_flag = celemion_renamed
 			has_global_flag = belgae_renamed
 		}
+		is_alternate_start = no
 	}
 	
 	immediate = {
@@ -24182,10 +25618,12 @@ narrative_event = {	# Durotrigia, Cornubia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = durnovaria_renamed
 			has_global_flag = kernow_renamed
 		}		
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24230,11 +25668,13 @@ narrative_event = {	# Icenia, Catuvellaunia, Segontiacia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = went_renamed
 			has_global_flag = mincip_renamed
 			has_global_flag = grwath_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24305,10 +25745,12 @@ narrative_event = {	# Lindum and Corieltauvia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = lerion_renamed
 			has_global_flag = linnius_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24392,12 +25834,14 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = glevum_renamed
 			has_global_flag = gwent_renamed
 			has_global_flag = demetia_renamed
 			has_global_flag = dolforwyn_renamed
 		}	
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24461,10 +25905,12 @@ narrative_event = {	# Cornovia, Deceanglia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = pengwern_renamed
 			has_global_flag = berfeddwlad_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24514,11 +25960,13 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = dunoting_renamed
 			has_global_flag = eidyn_renamed
 			has_global_flag = aeron_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24595,11 +26043,13 @@ narrative_event = {	# Attacotia, Veniconia, Taexalia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = lennox_renamed
 			has_global_flag = fib_renamed
 			has_global_flag = cei_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24639,12 +26089,14 @@ narrative_event = {	# Caledonia, Carnocia, Creonia, Epidia
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = fotla_renamed
 			has_global_flag = skye_renamed
 			has_global_flag = fidach_renamed
 			has_global_flag = argyll_renamed
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24695,7 +26147,9 @@ narrative_event = {			# Skye (Dalriada)
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		has_global_flag = skye_created
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24728,11 +26182,13 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = jorvik_created
 			has_global_flag = fiveboroughs_created
 			has_global_flag = southernboroughs_created
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {
@@ -24800,11 +26256,13 @@ narrative_event = {	# Danish Jarldom of Ostanburh, Lundun, Agmundrnes
 	is_triggered_only = yes
 	
 	trigger = {
+		is_alternate_start = no
 		OR = {
 			has_global_flag = daneanglia_created
 			has_global_flag = daneessex_created
 			has_global_flag = danelancaster_created
 		}
+		is_alternate_start = no
 	}
 
 	immediate = {

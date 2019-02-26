@@ -221,6 +221,16 @@ laws = {
 					is_tribal = no
 				}
 			}
+			conditional_tooltip = {
+				trigger = { 
+					title = e_britannia 
+					NOT = { has_global_flag = britannia_unified_legal_code }
+				}
+				custom_tooltip = {
+					text = britannia_unify_the_legal_codes_passed
+					has_global_flag = britannia_unified_legal_code
+				}
+			}
 		}
 		potential = {
 			higher_tier_than = count
@@ -293,6 +303,16 @@ laws = {
 					is_tribal = no
 				}
 			}
+			conditional_tooltip = {
+				trigger = { 
+					title = e_britannia 
+					NOT = { has_global_flag = britannia_unified_legal_code }
+				}
+				custom_tooltip = {
+					text = britannia_unify_the_legal_codes_passed
+					has_global_flag = britannia_unified_legal_code
+				}
+			}
 		}
 		potential = {
 			higher_tier_than = count
@@ -362,6 +382,16 @@ laws = {
 				}
 				holder_scope = {
 					is_tribal = no
+				}
+			}
+			conditional_tooltip = {
+				trigger = { 
+					title = e_britannia 
+					NOT = { has_global_flag = britannia_unified_legal_code }
+				}
+				custom_tooltip = {
+					text = britannia_unify_the_legal_codes_passed
+					has_global_flag = britannia_unified_legal_code
 				}
 			}
 		}
@@ -469,41 +499,52 @@ laws = {
 					NOT = { has_law = tribal_organization_6 }
 				}
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
 			always = no
 		}			
 		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				has_law = tribal_organization_1
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_1
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			factor = 0
+			# modifier = {
+				# factor = 0
+				# has_law = tribal_organization_1
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
+			# }
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_1
+				# holder_scope = { dislike_tribal_organization = no }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -707,17 +748,28 @@ laws = {
 				AND = {
 					has_law = tribal_organization_0
 					holder_scope = { 
-						prestige = 500 
+						prestige = 250 
 						NOT = { has_character_modifier = raised_tribal_authority_timer }
 					}
 				}
 				has_law = tribal_organization_2
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -725,50 +777,50 @@ laws = {
 		}			
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_0
-				holder_scope = {
-					any_vassal = {
-						is_tribal = yes
-						dislike_tribal_organization = yes
-						NOT = {
-							opinion = {
-								who = liege
-								value = 10
-							}
-						}
-					}
-				}
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_0
+				# holder_scope = {
+					# any_vassal = {
+						# is_tribal = yes
+						# dislike_tribal_organization = yes
+						# NOT = {
+							# opinion = {
+								# who = liege
+								# value = 10
+							# }
+						# }
+					# }
+				# }
+			# }
 			modifier = {
 				factor = 0
 				has_law = tribal_organization_2
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_0
-				holder_scope = { dislike_tribal_organization = no }
+				# holder_scope = { dislike_tribal_organization = no }
 			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_2
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_2
+				# holder_scope = { dislike_tribal_organization = no }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -982,17 +1034,28 @@ laws = {
 				AND = {
 					has_law = tribal_organization_1
 					holder_scope = { 
-						prestige = 750 
+						prestige = 500 
 						NOT = { has_character_modifier = raised_tribal_authority_timer }
 					}
 				}
 				has_law = tribal_organization_3
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -1015,35 +1078,39 @@ laws = {
 						}
 					}
 				}
+				NOT = { year = 550 }
 			}
 			modifier = {
 				factor = 0
 				has_law = tribal_organization_3
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_1
-				holder_scope = { dislike_tribal_organization = no }
+				OR = {
+					holder_scope = { dislike_tribal_organization = no }
+					year = 580
+				}
 			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_3
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_3
+				# holder_scope = { dislike_tribal_organization = no }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -1257,17 +1324,28 @@ laws = {
 					has_law = tribal_organization_2
 					holder_scope = {
 						capital_scope = { TECH_LEGALISM = 1 } 
-						prestige = 1000 
+						prestige = 750 
 						NOT = { has_character_modifier = raised_tribal_authority_timer }
 					}
 				}
 				has_law = tribal_organization_4
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -1290,35 +1368,40 @@ laws = {
 						}
 					}
 				}
+				NOT = { year = 570 }
 			}
 			modifier = {
 				factor = 0
 				has_law = tribal_organization_4
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_2
-				holder_scope = { dislike_tribal_organization = no }
+				OR = {
+					holder_scope = { dislike_tribal_organization = no }
+					year = 600
+				}
 			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_4
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_4
+				# holder_scope = { dislike_tribal_organization = no }
+				# NOT = { year = 570 }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -1563,11 +1646,22 @@ laws = {
 				}
 				has_law = tribal_organization_5
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -1575,50 +1669,50 @@ laws = {
 		}
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_3
-				holder_scope = {
-					any_vassal = {
-						is_tribal = yes
-						dislike_tribal_organization = yes
-						NOT = {
-							opinion = {
-								who = liege
-								value = 10
-							}
-						}
-					}
-				}
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_3
+				# holder_scope = {
+					# any_vassal = {
+						# is_tribal = yes
+						# dislike_tribal_organization = yes
+						# NOT = {
+							# opinion = {
+								# who = liege
+								# value = 10
+							# }
+						# }
+					# }
+				# }
+			# }
 			modifier = {
 				factor = 0
 				has_law = tribal_organization_5
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_3
-				holder_scope = { dislike_tribal_organization = no }
+				# holder_scope = { dislike_tribal_organization = no }
 			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_5
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_5
+				# holder_scope = { dislike_tribal_organization = no }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -1837,11 +1931,22 @@ laws = {
 				}
 				has_law = tribal_organization_6
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -1863,36 +1968,52 @@ laws = {
 							}
 						}
 					}
+					NOR = {
+						capital_scope = { region = world_britannia }
+						capital_scope = { region = world_gaul }
+						capital_scope = { region = custom_alemannia }
+						capital_scope = { region = world_hesse }
+						year = 850
+					}
 				}
 			}
 			modifier = {
 				factor = 0
 				has_law = tribal_organization_6
-				holder_scope = {
-					NOT = {
-						any_vassal = {
-							is_tribal = yes
-							dislike_tribal_organization = yes
-							NOT = {
-								opinion = {
-									who = liege
-									value = 0
-								}
-							}
-						}
-					}
-				}
+				# holder_scope = {
+					# NOT = {
+						# any_vassal = {
+							# is_tribal = yes
+							# dislike_tribal_organization = yes
+							# NOT = {
+								# opinion = {
+									# who = liege
+									# value = 0
+								# }
+							# }
+						# }
+					# }
+				# }
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_4
-				holder_scope = { dislike_tribal_organization = no }
+				holder_scope = {					
+					OR = {
+						dislike_tribal_organization = no 
+						capital_scope = { region = world_britannia }
+						capital_scope = { region = world_gaul }
+						capital_scope = { region = custom_alemannia }
+						capital_scope = { region = world_hesse }
+						year = 850
+					}
+				}
 			}
-			modifier = {
-				factor = 0.5
-				has_law = tribal_organization_6
-				holder_scope = { dislike_tribal_organization = no }
-			}
+			# modifier = {
+				# factor = 0.5
+				# has_law = tribal_organization_6
+				# holder_scope = { dislike_tribal_organization = no }
+			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -2112,11 +2233,22 @@ laws = {
 				}
 				NOT = { has_character_modifier = raised_tribal_authority_timer }
 			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
 		}
 		potential = {
 			holder_scope = {
 				is_tribal = yes
-				higher_tier_than = count
 			}
 		}
 		revoke_allowed = {
@@ -2138,12 +2270,28 @@ laws = {
 							}
 						}
 					}
+					NOR = {
+						capital_scope = { region = world_britannia }
+						capital_scope = { region = world_gaul }
+						capital_scope = { region = custom_alemannia }
+						capital_scope = { region = world_hesse }
+						year = 900
+					}
 				}
 			}
 			modifier = {
 				factor = 2
 				has_law = tribal_organization_5
-				holder_scope = { dislike_tribal_organization = no }
+				holder_scope = { 
+					OR = {
+						dislike_tribal_organization = no
+						capital_scope = { region = world_britannia }
+						capital_scope = { region = world_gaul }
+						capital_scope = { region = custom_alemannia }
+						capital_scope = { region = world_hesse }
+						year = 900
+					}
+				}
 			}
 		}
 		ai_will_revoke = {
@@ -2281,7 +2429,7 @@ laws = {
 						text = enables_execution_voting_power_0
 					}
 					custom_tooltip = {
-						text = enables_realm_peace
+						text = enables_realm_peace						
 					}
 					hidden_tooltip = {
 						enable_council_voting_on_issue = enforce_peace
@@ -4199,7 +4347,7 @@ laws = {
 			}
 			modifier = {
 				factor = 0.75
-				holder_scope = { religion_group = zoroastrian_group }
+				holder_scope = { is_hellenic_group_religion_trigger = yes }
 			}
 			modifier = {
 				factor = 1.1
@@ -4430,7 +4578,7 @@ laws = {
 			}
 			modifier = {
 				factor = 1.35
-				holder_scope = { religion_group = zoroastrian_group }
+				holder_scope = { is_hellenic_group_religion_trigger = yes }
 			}
 			modifier = {
 				factor = 0.9

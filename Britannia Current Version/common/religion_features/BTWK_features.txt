@@ -1,0 +1,403 @@
+religion_doctrine = {
+	religion_feature_briton = {
+		picture = GFX_religion_feature_briton
+		potential = {
+			has_game_started = yes
+			religion = briton_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = briton_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_ritual_sacrifice #Redundant
+				has_selected_religion_feature = religion_animistic #Redundant
+				has_selected_religion_feature = religion_peaceful
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_land_morale }
+			custom_tooltip = { text = tooltip_religion_feature_adulthood_rite }
+			hidden_tooltip = { 
+				set_unit_modifier = { 
+					land_morale = 0.05
+					key = "ANIMISTIC_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_aztec_sacrifices }
+			custom_tooltip = { text = tooltip_religion_feature_bloodthirsty_mechanics }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_pict = {
+		picture = GFX_religion_feature_briton
+		potential = {
+			has_game_started = yes
+			religion = pict_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = pict_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_equal #Redundant
+				has_selected_religion_feature = religion_matriarchal
+				has_selected_religion_feature = religion_patriarchal
+				has_selected_religion_feature = religion_animistic #Redundant
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_land_morale }
+			custom_tooltip = { text = tooltip_religion_feature_adulthood_rite }
+			hidden_tooltip = { 
+				set_unit_modifier = { 
+					land_morale = 0.05
+					key = "ANIMISTIC_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_cognatic }
+			custom_tooltip = { text = tooltip_religion_feature_feminist }
+			hidden_tooltip = { 
+				set_allows_matrilineal_marriage = yes
+				set_feminist = yes
+				set_women_can_take_consorts = yes
+				set_men_can_take_consorts = yes
+				set_female_temple_holders = yes
+				set_male_temple_holders = yes
+				#FROM = { any_demesne_title = { add_law = status_of_women_4 } } 
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_gael = {
+		picture = GFX_religion_feature_briton
+		potential = {
+			has_game_started = yes
+			religion = gael_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = gael_pagan_reformed
+			NOR = { 
+				has_selected_religion_feature = religion_animistic #Redundant
+				has_selected_religion_feature = religion_seafaring #Redundant
+				has_selected_religion_feature = religion_peaceful
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_land_morale }
+			custom_tooltip = { text = tooltip_religion_feature_adulthood_rite }
+			hidden_tooltip = { 
+				set_unit_modifier = { 
+					land_morale = 0.05
+					key = "ANIMISTIC_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
+			custom_tooltip = { text = tooltip_religion_feature_ship_maintenance }
+			custom_tooltip = { text = tooltip_religion_feature_seafaring }
+			hidden_tooltip = {
+				set_seafaring = yes
+				set_allow_rivermovement = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_germanic = {
+		picture = GFX_religion_feature_germanic
+		potential = {
+			has_game_started = yes
+			religion = germanic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = germanic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_seafaring #Redundant
+				has_selected_religion_feature = religion_meritocratic #Redundant
+				has_selected_religion_feature = religion_peaceful
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_rivermovement }
+			custom_tooltip = { text = tooltip_religion_feature_ship_maintenance }
+			custom_tooltip = { text = tooltip_religion_feature_seafaring }
+			hidden_tooltip = {
+				set_seafaring = yes
+				set_allow_rivermovement = yes
+			}
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
+			hidden_tooltip = {
+				set_heir_designation = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_frankish = {
+		picture = GFX_religion_feature_frankish
+		potential = {
+			has_game_started = yes
+			religion = frankish_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = frankish_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_harems #Redundant
+				has_selected_religion_feature = religion_monastic
+				#has_selected_religion_feature = religion_beatification		# Doesn't work properly
+				#has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_war_levies }
+			custom_tooltip = { text = tooltip_religion_feature_harems }
+			hidden_tooltip = { 
+				set_max_consorts = 0
+				set_max_wives = 4
+				set_can_retire_to_monastery = yes
+				set_priests_can_marry = no
+				set_priests_can_inherit = no
+				set_raised_vassal_opinion_loss = no
+			}
+			custom_tooltip = { text = tooltip_religion_feature_monastic }
+			custom_tooltip = { text = tooltip_religion_feature_celibate_priests }
+			#custom_tooltip = { text = tooltip_religion_feature_beatification }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_suebic = {
+		picture = GFX_religion_feature_suebic
+		potential = {
+			has_game_started = yes
+			religion = suebic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = suebic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_meritocratic #Redundant
+				has_selected_religion_feature = religion_relentless #Redundant
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			hidden_tooltip = { 
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "RELENTLESS_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_meritocratic }
+			hidden_tooltip = {
+				set_heir_designation = yes
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_gothic = {
+		picture = GFX_religion_feature_gothic
+		potential = {
+			has_game_started = yes
+			religion = gothic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = gothic_pagan_reformed
+			NOR = {
+				#has_selected_religion_feature = religion_beatification #Redundant	- Doesn't work properly
+				has_selected_religion_feature = religion_relentless #Redundant
+				has_selected_religion_feature = religion_jizya # Redundant
+				#has_selected_religion_feature = religion_no_leader # Incompatible with ancestor worship
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			custom_tooltip = { text = tooltip_religion_feature_jizya }
+			hidden_tooltip = { 
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "RELENTLESS_RELIGION"
+				}
+				set_jizya_tax = yes
+			}
+			#custom_tooltip = { text = tooltip_religion_feature_beatification }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_alan = {
+		picture = GFX_religion_feature_alan
+		potential = {
+			has_game_started = yes
+			religion = alan_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = alan_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_relentless #Redundant
+				has_selected_religion_feature = religion_haruspicy
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_anti_attrition }
+			custom_tooltip = { text = tooltip_religion_feature_offensive }
+			hidden_tooltip = { 
+				set_ignores_defensive_attrition = yes
+				set_unit_modifier = { 
+					light_infantry_offensive = 0.1
+					heavy_infantry_offensive = 0.1
+					light_cavalry_offensive = 0.1 
+					knights_offensive = 0.1 
+					pikemen_offensive = 0.1 
+					archers_offensive = 0.1
+					horse_archers_offensive = 0.1
+					camel_cavalry_offensive = 0.1
+					war_elephants_offensive = 0.1
+					key = "RELENTLESS_RELIGION"
+				}
+			}
+			custom_tooltip = { text = tooltip_religion_feature_haruspicy }
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+	religion_feature_vasconic = {
+		picture = GFX_religion_feature_vasconic
+		potential = {
+			has_game_started = yes
+			religion = vasconic_pagan_reformed
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+		trigger = {
+			religion = vasconic_pagan_reformed
+			NOR = {
+				has_selected_religion_feature = religion_equal #Redundant
+				has_selected_religion_feature = religion_matriarchal
+				has_selected_religion_feature = religion_patriarchal
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_cognatic }
+			custom_tooltip = { text = tooltip_religion_feature_feminist }
+			custom_tooltip = { text = tooltip_religion_feature_defensive }
+			custom_tooltip = { text = tooltip_religion_feature_hard_conversion }
+			hidden_tooltip = { 
+				set_allows_matrilineal_marriage = yes
+				set_feminist = yes
+				set_women_can_take_consorts = yes
+				set_men_can_take_consorts = yes
+				set_female_temple_holders = yes
+				set_male_temple_holders = yes
+				#FROM = { any_demesne_title = { add_law = status_of_women_4 } } 
+				set_hard_to_convert = yes
+				set_unit_modifier = {
+					garrison_size = 0.3
+					levy_size = 0.2
+					
+					key = "DEF_RELIGION"
+				}
+				set_unit_home_modifier = {
+					land_morale = 0.8
+					light_infantry_defensive = 0.8
+					heavy_infantry_defensive = 0.8
+					pikemen_defensive = 0.8
+					light_cavalry_defensive = 0.8
+					knights_defensive = 0.8
+					archers_defensive = 0.8
+					horse_archers_defensive = 0.8
+					camel_cavalry_defensive = 0.8
+					war_elephants_defensive = 0.8
+					
+					garrison_size = 0.4
+					
+					key = "DEF_RELIGION_HOME_TERRITORY"
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 50
+		}
+	}
+}
+
+religion_leadership = {		
+	religion_druidic_leadership = {
+		picture = GFX_religion_feature_druidic_leadership
+		potential = {
+			has_game_started = yes
+			FROM = {
+				is_unreformed_celtic_pagan_trigger = yes
+			}
+		}
+		trigger = {
+			FROM = {
+				character = yes
+			}
+		}
+		effect = {
+			custom_tooltip = { text = tooltip_religion_feature_druidic_head }
+			hidden_tooltip = {
+				set_can_excommunicate = no
+				set_can_grant_divorce = no
+				set_can_grant_claim = no
+				set_no_head_of_religion = yes	# Temporary to make sure no head is generated
+				#set_religion_head = none
+			}
+		}
+		ai_will_do = {
+			factor = 200
+		}
+	}
+}

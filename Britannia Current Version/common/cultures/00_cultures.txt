@@ -6,11 +6,14 @@
 # Culture modifiers: modifier (applies to provinces), character_modifier, and settlement modifiers.
 # The ID of the modifier can be defined here (E.G., modifier = modifier_name or character_modifier = modifier_name), while the effect of it must be defined in static_modifiers.txt, and the localisation in localisation. For the settlement modifiers you don't need to (and can't) define the ID; it defaults to culture name + settlement type. E.G., norse_temple
 
+# nomadic_in_alt_start = yes - Will be Nomadic if the "Tribal & Nomadic" option is taken in the alt-start generation
+
 celtic = {
+	alternate_start = { NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } } }
 	graphical_cultures = { westerngfx }
 	
 	romanobritish = {
-		graphical_cultures = { celticgfx westerngfx }
+		graphical_cultures = { romanobritishgfx celticgfx westerngfx }
 		
 		color = { 0.6 0.7 0.3 }
 
@@ -125,6 +128,12 @@ celtic = {
 
 	armorican = {
 		graphical_cultures = { celticgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 580 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.75 0.75 0.75 }
 		
@@ -135,7 +144,7 @@ celtic = {
 			Erwan Fragan Everard Feldan Fychan Galahad Gawain Geoffroy_Godfrey Gregor_Gregory
 			Guy_Guy Guimarc'h Guyomarc'h Guyomarc Guimarc
 			Hoël Ilan Jacob Jehan_John Gilbert Jord_Jordan
-			Karl_Charles Kevan Klaod 
+			Charlez_Charles Kevan Klaod 
 			Lavaine Laorans_Laurence Louis Lucas Maelog Maeliaw Martin Meagon Meriadog Malaine
 			Mikael_Michael Morvan Morfans Nabur Nicholas Nominoë Podric_Patrick Peredur
 			Renan Riaged Roparz_Robert Ronan Stefen_Stephen Rivod
@@ -167,6 +176,12 @@ celtic = {
 	
 	breton = {
 		graphical_cultures = { celticgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 580 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.3 0.5 0.4 }
 		
@@ -255,11 +270,11 @@ celtic = {
 			Adda Aeddan Alan_Alan Alisander_Alexander Annun Araut Arod Arthfael Arthgal Arthuis Aliotus Ardun Artgal
 			Bedwyr Beli Bleddyn Brân Branwal Brochfael Brogmaglus Brychan Cadell Cadeyrn Cadvael Cadvan
 			Caddan Cadfan Cadog Cadwal Cadwallon Caelgyn Cai Caid Cain Caleddin Caradoc Caraled Carawain Cavan Casnar
-			Caswallon Caw Cerdoc Cerfin Cerlyn Cerwain Ceredic_Caradog Cinuit Clinoch Coel Cubricht Cynfarch Custennin_Constantine Cynan
+			Caswallon Caw Cerdoc Cerfin Cerlyn Cerwain Ceredic_Caradog Cinuit Clinoch Coel Cubricht Cynfarch Custennin_Constantine
 			Cynddylan Cynfawr Cynfelyn Cynfyn Cyngar Cynwallon Cynyr Cedwyn Ceneu Cynan Combuthreus Dynod Dafydd_David
 			Deheuwant Derella Dingat Domgal Dorfael Drystan Dyfnwal_Donald Edern Ednyfed Ednywain Edwyn_Edwin
 			Einion Eldoc Elfin Elgwyn Ellyn Elidyr Elther Elwain Elwydd Elis Elisedd Elud Elystan Emrys_Ambrose Erbin Ermid Ewyas Esca Fragan Fyrsil
-			Deiniol Dunod Dyfnwal Elfin Eochaid Ernwin Eugein Gaheris Ganval Garbanion_Germanius Gereint Gergant Gospatric Greidal Gwalchafe Gwallog Gwerstan
+			Deiniol Dunod Dyfnwal Eochaid Ernwin Eugein Gaheris Ganval Garbanion_Germanius Gereint Gergant Gospatric Greidal Gwalchafe Gwallog Gwerstan
 			Gwrast Gwriad Hyfaidd Hywel Iudgual Ithel Lludd Llywarch Llywelyn Llanval Llaennog Madog_Hugh Masgwid Meirchion Menw Mael
 			Medraut Merfyn Meuric Mor Morcant Morfyn Nasiens Neithon_Nechtan Owan Owain Pabo Padarn Peredur Rhydderch Rotri Sawyl_Samuel Seferus			
 			Rhun Teud Teudebur_Theodoric Tudwal Tysilio Urien
@@ -302,11 +317,10 @@ celtic = {
 			Cormac_Cormac Cormaic_Cormac Crimthann_Crimthann Cremthainn_Crimthann Crundmáel Cuscrach Dabíd_David Demmán Diarmait Domnall_Donald
 			Donnchad_Duncan Donchaidh_Duncan Donncuan_Duncan Duach Dúnchad_Duncan Dúngal Dúnlaing Eógan_Ewan Eachern Eochaid_Eochaid Echach_Eochaid
 			Fáelán Fáelbe Feargna Fergal Fergus_Fergus Fergusa_Fergus Feidlimid_Fedlimid Fedlimid_Fedlimid Fedelmid_Fedlimid
-			Fiachnae Fingen Finn Finnechtae Flaithbertach Flann Fogartach
-			Gabrán Gilbert
+			Fiachnae Fingen Finn Finnechtae Flaithbertach Flann Fogartach Gabrán Gilbert
 			Issa Lóeguire Loingsech Lorcán Lugaid Lugdach Lochlann Máel
 			Maghnus_Magnus Mathgamain Martan Matudán Muiredach_Murdoch Muiredaig_Murdoch Murchad 
-			"Nath Í" Niall Oengus_Angus Pátraic_Patrick Pilib_Philip Ricard_Richard Róen Roderick Seán_John
+			"Nath Í" Niall Oengus_Angus Pátraic_Patrick Pilib_Philip Ricard_Richard Róen Seán_John
 			Selbach Seoán_John Taidhg Túathal Tibraide Tigernán Toirdelbach Tomás_Thomas Ualtar_Walter:0 Uilliam_William:0
 		}
 		female_names = {
@@ -314,7 +328,7 @@ celtic = {
 			Caisséne Caitilín_Catherine Cathán Crístina_Christina
 			Deirdre Derbáil Dervogilla Eithne Eilionora_Eleanor Finnguala Gormlaith_Gormflaith Gráinne   
 			Lann Lerthan Lunete Máire_Maria Máiread Máirgred_Margaret Muire Mauda_Matilda 
-			Niala Olwen Róis Sebile Scárach Sébdann Siobán Sisuile Sláíne Vivien 
+			Niala Olwen Róis Sebile Scárach Sébdann Siobán Sisuile Sláíne 
 		}
 		
 		dynasty_title_names = yes
@@ -344,7 +358,7 @@ celtic = {
 		color = { 0.25 0.43 0.75 }
 
 		male_names = {
-			Afarnach Amlaíb Aonghus Arailt Aralt Arne Arnfinn Aodhan Áedán_Hugh Ainmure
+			Afarnach Amlaíb_Olaf Aonghus_Angus Arailt Aralt Arne Arnfinn Aodhan Áedán_Hugh Ainmure
 			Arnmod Arnvid Art Artgal_Artal Artúr_Arthur Asgaill Aslak Audun Blacaire Bróen Báetán Bård Bran
 			Cathalán Causantín Choluim Cináed Coinneach Ciomhair Coitir Colbán Colmán Corcadail Crimthann Demmán Diarmaid Donnchad Dubgall
 			Dúnchad Dúngal Domangart Eanfrid Echmarcach Egfrid Eigil Éamon Eilif Einar Erlend Erling Escoib Eystein Eysteinn Eógan Eóghan Fearghus
@@ -354,7 +368,7 @@ celtic = {
 			Ottar Ruraidh Róen Seoán Seán Sigtrig
 			Somairle Somerled Suain Suibhne Torcall Torcuil Tore Torfinn Torgeir
 			Torgils Túathal Ualtar Uhtred Uillam Ulv Áedán Éamonn_Edmund Éicnechán Énri Ìomhar
-			Íomhar Óengus Ólchobar
+			Íomhar Óengus_Angus Ólchobar
 		}
 		female_names = {
 			Affraic Aibilín Aife Aignes_Agnes Alis_Alice Astrid_Astrid Aíbinn
@@ -393,7 +407,7 @@ celtic = {
 		color = { 0.05 0.35 0.7 }
 
 		male_names = {
-			Aelpein Afarnach Ailean Alesander Alwin Aodh Aodhan Aonghas Artair Aulay Ainmure Breth Broichan Brude Cailean
+			Aelpein Afarnach Ailean Alesander Alwin Aodh Aodhan Onuist_Angus Artair Aulay Ainmure Breth Broichan Brude Cailean
 			Calum Celtran Clinoch Coinneach Constantin Deord Dòmhnall Donnach Drest Drust Elfin Esca Eòghann Eoganan Fearchar Galan Gillechrìost Guaire
 			Geirr Giolla Gofraid_Godfrey Goraidh_Godfrey Grim Grimur Grimólf Gudbrand Gyrom
 			Guirmean Guret Ìomhair Iùrnan Laise Latharn Luag Lutrin Machar Manachan Maon Morleo Murchad Niall Ròidh Roithrid Rònan Ruairidh
@@ -431,10 +445,17 @@ celtic = {
 }
 
 germanic = {
-	graphical_cultures = { saxongfx }
+	alternate_start = { NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } } }
+	graphical_cultures = { saxongfx westerngfx }
 
 	anglosaxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700 
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.65 0.15 0.1 }
 		
@@ -495,7 +516,16 @@ germanic = {
 	}
 	
 	oldfrisian = {
-		graphical_cultures = { saxongfx frankishgfx }
+		graphical_cultures = { saxongfx germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				AND = {
+					year >= 520 
+					year < 700
+				}
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.82 0.73 0.37 }
 		
@@ -539,7 +569,13 @@ germanic = {
 	}
 	
 	frisian = {
-		graphical_cultures = { saxongfx frankishgfx }
+		graphical_cultures = { saxongfx germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.75 0.69 0.33 }
 		
@@ -588,7 +624,13 @@ germanic = {
 	}
 	
 	oldfrankish = {
-		graphical_cultures = { frankishgfx westerngfx }
+		graphical_cultures = { germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 650
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.8 0.6 0.2 }
 		male_names = {
@@ -649,7 +691,16 @@ germanic = {
 	}
 	
 	frankish = {
-		graphical_cultures = { frankishgfx westerngfx }
+		graphical_cultures = { germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				AND = {
+					year >= 650
+					year < 800
+				}
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.78 0.67 0.22 }
 		male_names = {
@@ -703,7 +754,13 @@ germanic = {
 	}
 	
 	dutch = {
-		graphical_cultures = { frankishgfx westerngfx }
+		graphical_cultures = { germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.96 0.39 0.08 }
 		
@@ -749,7 +806,13 @@ germanic = {
 	}
 	
 	franconian = {
-		graphical_cultures = { frankishgfx westerngfx }
+		graphical_cultures = { germangfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.64 0.56 0.28 }
 		male_names = {
@@ -788,7 +851,10 @@ germanic = {
 	}
 	
 	ostrogoth = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { germangfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.3 0.55 0.35 }
 		
@@ -832,6 +898,13 @@ germanic = {
 	
 	oldthuringian = {
 		graphical_cultures = { germangfx saxongfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+			OR = {
+				year < 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.60 0.41 0.42 }
 		
@@ -876,6 +949,12 @@ germanic = {
 	
 	thuringian = {
 		graphical_cultures = { germangfx saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.62 0.39 0.4 }
 		
@@ -920,6 +999,12 @@ germanic = {
 	
 	oldsaxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 72 11 32 }
 		
@@ -977,12 +1062,18 @@ germanic = {
 	
 	saxon = {
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 65 13 30 }
 		
 		male_names = {
 			Abo Alfheri_Oliver Athalbero_Adalbero Athalberht_Albert Athalbrand_Alebrand Athaldag Athalgar Athalgod_Adalgot Athalolf_Adolf
-            Aelle_Alwin Athalberht_Albert Alabrand_Alebrand Aldfrithu Ásgér Arnd_Arnold Arnwald_Arnold Asig_Asig
+            Aelle_Alwin Alabrand_Alebrand Aldfrithu Ásgér Arnd_Arnold Arnwald_Arnold Asig_Asig
             Baldwini_Baldwin Balthasar_Baltasar Bandlíf Benedikt_Benedict Benno_Bernard Berd_Bernard
             Berohard_Bernard Berhtwald_Berthold Berhtravan_Bertrand Blakfin_Blacfin Blakheri_Blacheri Bruno_Bruno Burghard_Burchard
             Klous_Nicholas Kobbo Kónred_Konrad Dago_Dag Dedo Thiothard Thiotlef Thiotmári_Dietmar
@@ -1001,7 +1092,7 @@ germanic = {
             Wiktor_Victor Wensel_Vaclav Werner_Werner Wigberht Wigman Wiko_Guy Widukind_Widukind
             Wilbrand Waldheri_Walter Wolf_Ulf
 		}
-		female_names = {
+		female_names = {			
 			Athala_Adela Athalhéda_Adelaide Alof Agnes_Agnes Anna_Anna Athala Beatrix_Beatrice Berhta_Bertha
             Berhtreda Bia_Beatrice Bisina Bithild Brigida_Brigid Kristina_Christina Thiodka Elika
             Elisabeth_Elisabeth Enda Friduruna Gelana Gerberga_Gerberga Gertruth_Gertrude Gisela_Gisela
@@ -1012,7 +1103,7 @@ germanic = {
             Winka Wiltruth_Wiltrud Wolfhild_Ulfhild
 		}
 
-		from_dynasty_prefix = "af "
+		from_dynasty_prefix = "fan "
 		male_patronym = "ssunu"
 		female_patronym = "sdohtar"
 		prefix = no
@@ -1040,6 +1131,12 @@ germanic = {
 	
 	jute = {				#æ->e
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 147 115 4 }
 		
@@ -1087,6 +1184,12 @@ germanic = {
 	
 	angle = {				#æ->e
 		graphical_cultures = { saxongfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 700
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 156 49 3 }
 		
@@ -1143,7 +1246,7 @@ germanic = {
 	}
 	
 	burgundian = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { germangfx occitangfx westerngfx }
 		
 		color = { 0.67 0.54 0.7 }
 
@@ -1197,7 +1300,7 @@ germanic = {
 	}
 	
 	visigoth = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { germangfx occitangfx westerngfx }
 		
 		color = { 0.49 0.55 0.4 }
 		
@@ -1252,7 +1355,7 @@ germanic = {
 	}
 	
 	taifal = {
-		graphical_cultures = { alangfx occitangfx westerngfx }
+		graphical_cultures = { alangfx germangfx occitangfx westerngfx }
 		
 		color = { 0.56 0.52 0.45 }
 		
@@ -1289,6 +1392,12 @@ germanic = {
 	
 	dane = {
 		graphical_cultures = { norsegfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 770
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.3 0.6 0.8 }
 
@@ -1362,6 +1471,12 @@ germanic = {
 	
 	proto_norse = {
 		graphical_cultures = { norsegfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 770
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.4 0.4 0.4 }
 
@@ -1420,6 +1535,9 @@ germanic = {
 
 	norse_gael = {
 		graphical_cultures = { norsegfx celticgfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
@@ -1427,13 +1545,13 @@ germanic = {
 
 		male_names = {
 			Arngaisl Arnulfr Arnviðr Aðulfr Adalwolf Barði Baugr Bergr Biarnlaugr 
-			Ailill Ainmere Olaf Amhalgaidh Ardgar Arthur Artgal Arthur Augaire  
+			Ailill Ainmere Olaf Amhalgaidh Ardgar Arthur Artgal Augaire  
 			Biúrstæinn Bjarnheðinn Bjórr  Björnulfr Blövurr Brandulfr Brokkr Buðli 
 			Báeðán Blaðmac Bran Brandub Brian Bróen Charles Cathal Cathalán Cellach Cennéðig  Cerbal
 			Kenneth Coirpre Cölmán Cönall Cönchobar Congalach Cönn Cönstantine
-			Cormac Cormac Crimðann  Cuscrach David Demmán Diarmait Donald
+			Cormac Crimðann  Cuscrach David Demmán Diarmait Donald
 			Bóthvatr Böðmóðr Búri  Diúri Drængr Dværgr Dáinn Dómaldr Eric 
-			Duncan  Dúngal Dúnlaing Ewan Eachern Eochaid Eochaid Fergal Fergus Fedlimid Fedlimid Fedlimid
+			Duncan  Dúngal Dúnlaing Ewan Eachern Eochaid Fergal Fergus Fedlimid
 			Eitill Eiðr Eybjörn  Eyvindr Farulfr Faðir Finngarðr Finngeirr Finnulfr Fiachnae Fingen Finn Finnechtae Flaithbertach Flann Fogartach
 			Fiölvarr Folki Folkstæinn Freybjörn Fuldarr Fálki Galmi Gangráðr Gautarr Goth Geirvaldr Gerðarr Gjafarr 
 			Gnauðimaðr Gnúpa Goðgestr_Goðgestr Goðþormr Grímarr Grímr Gunther Gunnbiörn Gunnstæinn 
@@ -1441,7 +1559,7 @@ germanic = {
 			Hallgeirr Hallr Harald Harðstæinn Hávarðr Helgi Herbrandr Hermundr Hertryggr Hildi 
 			Haildibert Haildingr Hildulfr Hjalla 
 			Hjalmarr Hjálmgeirr Hjörvarðr Hloðvér Hlégestr Hlífstæinn Holmbiörn Holmgæirr Holmstæinn Raven Hrani 
-			Hrímgrímnir Roger Hrókr Hrólfr Hróði Hróðvér Roderick Hrœrir Hugleikr 
+			Hrímgrímnir Roger Hrókr Hrólfr Hróði Hróðvér Hrœrir Hugleikr 
 			Hvítkárr Hákon Hámundr Hásteinn Hægulfr Hærulfr Högni Höðskuldr Húnulfr Ingibjörn
 			Gabrán Gilbert Issa Lóeguire Loingsech Lorcán Lugaid Lugdach Lochlann Máel 
 			Ingaivald Ingulfr Ivarr Iwan Iórulfr Jórekr Játgeirr Jótgeirr Jörundr Karlsefni Kaða Klakkr Klœingr Knörr 
@@ -1478,7 +1596,6 @@ germanic = {
 			Niala Olwen Róis Sebile Scárach Sébdann Siobán Sisuile Sláíne Vivien 
 			Una Undrlaug Valdís Verðandi Visna Vár Védís Véfreyja Vígdís Vígærðr Yngvildr Yngvör 
 		}
-
 		
 		from_dynasty_prefix = "ap "
 		male_patronym = "sson"
@@ -1499,7 +1616,10 @@ germanic = {
 	}
 	
 	vandal = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { germangfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1544,7 +1664,10 @@ germanic = {
 	}
 	
 	suebic = {
-		graphical_cultures = { alangfx occitangfx westerngfx }
+		graphical_cultures = { alangfx germangfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1685,6 +1808,12 @@ germanic = {
 	
 	oldalemannic = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year < 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.42 0.53 0.37 }
 		male_names = {
@@ -1731,6 +1860,12 @@ germanic = {
 	
 	alemannic = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			OR = {
+				year >= 750
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		used_for_random = no
 		
@@ -1779,6 +1914,13 @@ germanic = {
 	
 	oldbavarian = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			#OR = {
+				#year < 750
+				#has_alternate_start_parameter = { key = culture value = full_random }
+			#}
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1825,6 +1967,13 @@ germanic = {
 	
 	bavarian = {
 		graphical_cultures = { germangfx frankishgfx westerngfx }
+		alternate_start = {
+			#OR = {
+				#year >= 750
+				#has_alternate_start_parameter = { key = culture value = full_random }
+			#}
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -1908,9 +2057,16 @@ sarmatian = {
 
 altaic = {
 	graphical_cultures = { mongolgfx }
+	alternate_start = {
+		always = no
+	}
 
 	hunnic = {
 		graphical_cultures = { mongolgfx }
+		alternate_start = {
+			always = no
+		}
+		
 		horde = yes
 		
 		used_for_random = no
@@ -1942,15 +2098,20 @@ altaic = {
 		allow_in_ruler_designer = no
 		
 		modifier = default_culture_modifier
+		nomadic_in_alt_start = yes
 	}
 	
 }
 
 imperiale = {
-	graphical_cultures = { westerngfx }
+	alternate_start = { NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } } }
+	graphical_cultures = { italiangfx westerngfx }
 
 	roman = {
-		graphical_cultures = { italiangfx southerngfx westerngfx }
+		graphical_cultures = { romangfx italiangfx southerngfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.45 0.35 0.62 }
 		
@@ -2097,7 +2258,7 @@ imperiale = {
 	}
 	
 	romanogallic = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { romanogallicgfx occitangfx westerngfx }
 		
 		color = {  0.6 0.45 0.32  }
 
@@ -2206,7 +2367,7 @@ imperiale = {
 	}
 	
 	romanoaquitanian = {			
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { romangfx occitangfx westerngfx }		# romangfx is already italiangfx + Roman clothes
 		
 		color = {  0.59 0.59 0.39  }
 
@@ -2322,9 +2483,9 @@ imperiale = {
 	}
 	
 	romanogermanic = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { romanogermanicgfx occitangfx westerngfx }
 		
-		color = { 0.62 0.56 0.18 }
+		color = { 0.60 0.58 0.20 }
 
 		dynasty_name_first = yes
 		
@@ -2377,7 +2538,10 @@ imperiale = {
 	}
 		
 	romanoscandian = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { romanoscandiangfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2431,7 +2595,10 @@ imperiale = {
 	}
 		
 	romanonumidian = {
-		graphical_cultures = { africangfx muslimgfx }
+		graphical_cultures = { romanoafricangfx berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2445,7 +2612,7 @@ imperiale = {
 			Gnaeus Guarizila Guenfan Guentan Hadrianus Iabdas_Yabdas Iaudas Ierna Ifisdaias Iider Iidir Iuba Iugmena Iulianus Iulius Iunius Iurphuthes Iutungun 
 			Jugurtha Laurentius Lucius Macarius Maccus Marcellus Marcellinus Marcus Marius Masceldelus Masgiven Masinissa_Masensen Masties Mastigas Mastinas Masuna Maximus 
 			Maximilianus Medisinissas Melchiades Messorus Metcun Nero 
-			Nuvel Patricius Peregrinus Petronius Quintus Rufus Safar Saturnius Secundus Tacfarinas_Tiqfarin Terentianus Titus Traianus Valerius Varius Victor 
+			Nuvel Ortaias Patricius Peregrinus Petronius Quintus Rufus Safar Saturnius Secundus Tacfarinas_Tiqfarin Terentianus Titus Traianus Valerius Varius Victor 
 			Victorinus_Victor Vitus Zabeas Zeno Musulamius
 		}
 		female_names = {
@@ -2474,7 +2641,10 @@ imperiale = {
 	}
 	
 	romanoafrican = {
-		graphical_cultures = { africangfx muslimgfx }
+		graphical_cultures = { romanoafricangfx berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2517,7 +2687,10 @@ imperiale = {
 	}
 	
 	romanohispanic = {
-		graphical_cultures = { southerngfx occitangfx westerngfx }
+		graphical_cultures = { romanohispanicgfx southerngfx occitangfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2579,7 +2752,10 @@ imperiale = {
 	}
 	
 	romanoillyrian = {
-		graphical_cultures = { westernslavicgfx easterngfx }
+		graphical_cultures = { romanoillyriangfx croatsouthslavicgfx westernslavicgfx easterngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2642,6 +2818,9 @@ imperiale = {
 	
 	armenian = {
 		graphical_cultures = { byzantinegfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.51 0.37 0.51 }
 		
@@ -2676,6 +2855,9 @@ imperiale = {
 	
 	greek = {
 		graphical_cultures = { byzantinegfx westerngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.65 0.43 0.65 }
 
@@ -2727,7 +2909,10 @@ imperiale = {
 	}
 	
 	romanosyrian = {
-		graphical_cultures = { arabicgfx muslimgfx }
+		graphical_cultures = { romanoafricangfx levantinegfx arabicgfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2770,7 +2955,10 @@ imperiale = {
 	}
 	
 	romanothracian = {
-		graphical_cultures = { westernslavicgfx easterngfx }
+		graphical_cultures = { romanothraciangfx serbsouthslavicgfx westernslavicgfx easterngfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -2833,10 +3021,23 @@ imperiale = {
 }
 
 romance = {
+	alternate_start = { NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } } }
 	graphical_cultures = { occitangfx westerngfx }
+	alternate_start = {
+		OR = {
+			year = 800
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
+	}
 	
 	french = {
-		graphical_cultures = { westernslavicgfx  } 
+		graphical_cultures = { frankishgfx } 
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.8 0.8 0.2 }
 		male_names = {
@@ -2877,6 +3078,12 @@ romance = {
 	}
 	occitan = {
 		graphical_cultures = { occitangfx }
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.9 0.9 0.4 }
 
@@ -2916,6 +3123,12 @@ romance = {
 	}
 	arpitan = {
 		graphical_cultures = { occitangfx }
+		alternate_start = {
+			OR = {
+				year = 800
+				has_alternate_start_parameter = { key = culture value = full_random }
+			}
+		}
 		
 		color = { 0.87 0.76 0.43 }
 
@@ -2956,6 +3169,9 @@ romance = {
 	
 	gallo_burgundian = {
 		graphical_cultures = { occitangfx westerngfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
@@ -3010,6 +3226,9 @@ romance = {
 	}
 	norman = {
 		graphical_cultures = { normangfx }
+		alternate_start = {
+			always = no
+		}
 
 		color = { 0.8 0.7 0.1 }
 		
@@ -3049,15 +3268,22 @@ romance = {
 		modifier = default_culture_modifier
 		
 		seafarer = yes
-		allow_in_ruler_designer = no	
+		allow_in_ruler_designer = no
 	}
 }
 	
 african = {
-	graphical_cultures = { africangfx westafricangfx muslimgfx }
+	alternate_start = {
+		NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } }
+		has_alternate_start_parameter = { key = culture value = full_random }
+	}
+	graphical_cultures = { berbergfx muslimgfx }
 
 	numidian = {
-		graphical_cultures = { africangfx muslimgfx }
+		graphical_cultures = { berbergfx muslimgfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		used_for_random = no
 		
@@ -3083,10 +3309,17 @@ african = {
 }
 
 israelite = {
+	alternate_start = {
+		NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } }
+		has_alternate_start_parameter = { key = culture value = full_random }
+	}
 	graphical_cultures = { easterngfx }
 
 	hebrew = {
 		graphical_cultures = { byzantinegfx }
+		alternate_start = {
+			has_alternate_start_parameter = { key = culture value = full_random }
+		}
 		
 		color = { 0.6 0.3 0.6 }
 
@@ -3117,10 +3350,17 @@ israelite = {
 }
 
 arabic = {
+	alternate_start = {
+		NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } }
+		always = no
+	}
 	graphical_cultures = { muslimgfx }
 	
 	bedouin_arabic = { 
 		graphical_cultures = { arabicgfx muslimgfx }
+		alternate_start = {
+			always = no
+		}
 		
 		used_for_random = no
 		
@@ -3183,10 +3423,13 @@ arabic = {
 }
 
 basque = {
+	alternate_start = {
+		NOT = { has_alternate_start_parameter = { key = special_culture value = animal_world } }
+	}
 	graphical_cultures = { occitangfx westerngfx }
 
 	vasconian = {
-		graphical_cultures = { occitangfx westerngfx }
+		graphical_cultures = { italiangfx trueoccitangfx occitangfx }
 		
 		color = { 0.7 0.7 0.3 }
 		

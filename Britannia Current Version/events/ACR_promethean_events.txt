@@ -3,23 +3,23 @@
 # ANCIENT RELIGIONS
 # - Promethean Events
 #
-# Event IDs ancrel.3400-3549 are reserved
+# Event IDs promethean.3400-3549 are reserved
 #
-# ancrel.3400 - 3410	various maintenance type events
-# ancrel.3411 - 3420	Rebuilding of Crotone
-# ancrel.3450 - 3549	The Unbinding Festival
-# ancrel.3550 - 3599	Holy Order Events
+# promethean.400 - 410	various events
+# promethean.411 - 420	Rebuilding of Crotone
+# promethean.450 - 3549	The Unbinding Festival
+# promethean.550 - 3599	Holy Order Events
 #
 ##################################################################
 
 # Author: Adam 'theStormWeaver/xirsoi' Chevalier
-namespace = ancrel
+namespace = promethean
 
 # First Academy has been restored!
 # narrative_event = {
-	# id = ancrel.3400
-	# title = ancrel.3400.title
-	# desc = ancrel.3400.desc
+	# id = promethean.400
+	# title = promethean.400.title
+	# desc = promethean.400.desc
 	# picture = GFX_evt_scientist
 	# border = GFX_event_narrative_frame_religion
 
@@ -27,6 +27,7 @@ namespace = ancrel
 	# is_triggered_only = yes
 
 	# option = {
+		# name = promethean.400.a
 		# trigger = {
 			# has_character_flag = acr_restorer_of_academy
 		# }
@@ -35,37 +36,44 @@ namespace = ancrel
 			# entry = CHRONICLE_FIRST_ACADEMY
 			# portrait = [Root.GetID]
 		# }
-
-		# name = ancrel.3400.a
 	# }
 
 	# option = {
+		# name = promethean.400.b
 		# trigger = {
 			# religion = promethean_pagan
 			# NOT = {
 				# has_character_flag = acr_restorer_of_academy
 			# }
 		# }
-		# name = ancrel.3400.b
 	# }
 
 	# option = {
+		# name = promethean.400.c
 		# trigger = {
 			# NOT = { religion = promethean_pagan }
 		# }
-		# name = ancrel.3400.c
+	# }
+
+	# after = {
+		# hidden_tooltip = {
+			# d_promethean_pagan = {
+				# holder_scope = { narrative_event = { id = promethean.408 days = 60 random = 21 } }
+			# }
+		# }
 	# }
 # }
 
-# Depopulated Province Converts!
+# # Depopulated Province Conversion
 # province_event = {
-	# id = ancrel.3401
+	# id = promethean.401
 	# hide_window = yes
+	
+	# lacks_dlc = "Reapers"
 
 	# trigger = {
 		# NOT = { religion = promethean_pagan }
 		# has_province_modifier = depopulated_province
-		# NOT = { has_dlc = "Reapers" }
 		# owner = {
 			# religion = promethean_pagan
 		# }
@@ -96,22 +104,22 @@ namespace = ancrel
 	# immediate = {
 		# save_event_target_as = receiver_province
 		# owner = { 
-			# character_event = { id = ancrel.3402 }
+			# character_event = { id = promethean.402 }
 		# }
 	# }
 # }
 
 # # Depopulated Province Conversion (owner)
 # character_event = {
-	# id = ancrel.3402
+	# id = promethean.402
 	# desc = {
-		# text = ancrel.3402.desc
+		# text = promethean.402.desc
 		# trigger = {
 			# NOT = { has_dlc = "Reapers" }
 		# }
 	# }
 	# desc = {
-		# text = ancrel.3402.desc.reapers
+		# text = promethean.402.desc.reapers
 		# trigger = {
 			# has_dlc = "Reapers"
 		# }
@@ -154,7 +162,7 @@ namespace = ancrel
 	# }
 
 	# option = { # move one prosperity
-		# name = ancrel.3402.b
+		# name = promethean.402.b
 		# trigger = {
 			# has_dlc = "Reapers"
 		# }
@@ -164,7 +172,7 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3402.b.tt
+			# text = promethean.402.b.tt
 			# hidden_tooltip = {
 				# event_target:donor_province = {
 					# decrease_prosperity_effect = yes
@@ -179,7 +187,7 @@ namespace = ancrel
 	# }
 
 	# option = { # move two prosperity
-		# name = ancrel.3402.c
+		# name = promethean.402.c
 		# trigger = {
 			# has_dlc = "Reapers"
 			# event_target:receiver_province = {
@@ -201,7 +209,7 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3402.c.tt
+			# text = promethean.402.c.tt
 			# hidden_tooltip = {
 				# event_target:donor_province = {
 					# decrease_prosperity_effect = yes
@@ -218,7 +226,7 @@ namespace = ancrel
 	# }
 
 	# option = { # move three prosperity
-		# name = ancrel.3402.d
+		# name = promethean.402.d
 		# trigger = {
 			# has_dlc = "Reapers"
 			# event_target:receiver_province = {
@@ -234,14 +242,12 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3402.d.tt
+			# text = promethean.402.d.tt
 			# hidden_tooltip = {
 				# event_target:donor_province = {
-					# county = {
-						# increase_depopulation_effect = yes
-						# increase_depopulation_effect = yes
-						# increase_depopulation_effect = yes
-					# }
+					# increase_depopulation_effect = yes
+					# increase_depopulation_effect = yes
+					# increase_depopulation_effect = yes
 					# remove_province_modifier = preparing_settlers
 				# }
 				# event_target:receiver_province = {
@@ -255,7 +261,7 @@ namespace = ancrel
 	# }
 
 	# option = { # request settlers from your liege
-		# name = ancrel.3402.e
+		# name = promethean.402.e
 		# trigger = {
 			# has_dlc = "Reapers"
 			# independent = no
@@ -275,13 +281,13 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3402.e.tt
+			# text = promethean.402.e.tt
 			# hidden_tooltip = {
-				# liege = { character_event = { id = ancrel.3405 days = 3 } }
+				# liege = { character_event = { id = promethean.405 days = 3 } }
 			# }
 		# }
 	# }
-	
+
 	# after = {
 		# event_target:receiver_province = {
 			# if = {
@@ -301,8 +307,8 @@ namespace = ancrel
 
 # # ask direct liege to send colonists to depopulated province (liege)
 # character_event = {
-	# id = ancrel.3405
-	# desc = ancrel.3405.desc
+	# id = promethean.405
+	# desc = promethean.405.desc
 	# picture = GFX_evt_emissary
 	# border = GFX_event_normal_frame_economy
 
@@ -319,7 +325,7 @@ namespace = ancrel
 	# }
 
 	# option = { # bump it up further
-		# name = ancrel.3405.a
+		# name = promethean.405.a
 		# trigger = {
 			# independent = no
 		# }
@@ -333,24 +339,24 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3405.a.tt
-			# liege = { character_event = { id = ancrel.3405 days = 3 } }
+			# text = promethean.405.a.tt
+			# liege = { character_event = { id = promethean.405 days = 3 } }
 		# }
 	# }
 
 	# option = { # that land is your responsibility!
-		# name = ancrel.3405.b
+		# name = promethean.405.b
 		
 		# ai_chance = {
 			# factor = 25
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3405.b.tt
+			# text = promethean.405.b.tt
 			# hidden_tooltip = {
 				# event_target:receiver_province = {
 					# owner = { 
-						# character_event = { id = ancrel.3406 days = 3 }
+						# character_event = { id = promethean.406 days = 3 }
 					# }
 				# }
 			# }
@@ -358,7 +364,7 @@ namespace = ancrel
 	# }
 
 	# option = { # send settlers (move one prosperity)
-		# name = ancrel.3405.c
+		# name = promethean.405.c
 		# trigger = {
 			# has_dlc = "Reapers"
 		# }
@@ -368,7 +374,7 @@ namespace = ancrel
 		# }
 
 		# custom_tooltip = {
-			# text = ancrel.3405.c.tt
+			# text = promethean.405.c.tt
 			# hidden_tooltip = {
 				# event_target:donor_province = {
 					# decrease_prosperity_effect = yes
@@ -376,8 +382,9 @@ namespace = ancrel
 				# event_target:receiver_province = {
 					# set_province_flag = received_one_prosperity
 					# decrease_depopulation_effect = yes
+
 					# owner = {
-						# character_event = { id = ancrel.3407 days = 3 }
+						# character_event = { id = promethean.407 days = 3 }
 					# }
 				# }
 			# }
@@ -387,8 +394,8 @@ namespace = ancrel
 
 # # liege has declined request to send settlers
 # character_event = {
-	# id = ancrel.3406
-	# desc = ancrel.3406.desc
+	# id = promethean.406
+	# desc = promethean.406.desc
 	# picture = GFX_evt_emissary
 	# border = GFX_event_normal_frame_economy
 
@@ -401,8 +408,8 @@ namespace = ancrel
 
 # # liege has fulfilled request to send settlers
 # character_event = {
-	# id = ancrel.3407
-	# desc = ancrel.3407.desc
+	# id = promethean.407
+	# desc = promethean.407.desc
 	# picture = GFX_evt_culture_change
 	# border = GFX_event_normal_frame_economy
 
@@ -417,8 +424,8 @@ namespace = ancrel
 # Promethean child comes of age and chooses which school to join
 # [on_adulthood]
 character_event = {
-	id = ancrel.3403
-	desc = ancrel.3403.desc
+	id = promethean.403
+	desc = promethean.403.desc
 	picture = GFX_evt_library
 
 	is_triggered_only = yes
@@ -430,7 +437,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3403.a
+		name = promethean.403.a
 		add_trait = stoic
 
 		ai_chance = {
@@ -446,7 +453,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = ancrel.3403.b
+		name = promethean.403.b
 		add_trait = skeptic
 
 		ai_chance = {
@@ -458,9 +465,173 @@ character_event = {
 		}
 	}
 	option = {
-		name = ancrel.3403.c
+		name = promethean.403.c
 		add_trait = epicurean
 
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0.5
+				trait = greedy
+			}
+			modifier = {
+				factor = 0.5
+				trait = gluttonous
+			}
+			modifier = {
+				factor = 0.5
+				trait = lustful
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = { # the ambitious would never choose Epicureanism
+				factor = 0
+				trait = ambitious
+			}
+		}
+	}
+}
+
+# Neoplatonist schools are flourishing with the restoration of The First Academy
+narrative_event = {
+	id = promethean.408
+	title = EVTTITLEHF23123
+	desc = promethean.408.desc
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_narrative_frame_religion
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = flag_restored_stoic_intelligentia
+	}
+
+	option = {
+		name = EVTOPTAHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_stoics 
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+				secret_religion = promethean_pagan
+				can_join_society = monastic_order_stoics
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_stoics }
+				can_join_society = monastic_order_stoics
+			}
+			join_society = monastic_order_stoics
+		}
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 1.2
+				trait = cynical
+			}
+			modifier = {
+				factor = 1.2
+				trait = just
+			}
+		}
+	}
+	option = {
+		name = EVTOPTBHF23123
+		trigger = {
+			NOR = { 
+				society_member_of = monastic_order_stoics 
+				society_member_of = monastic_order_skeptics
+				society_member_of = monastic_order_epicureans
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+				secret_religion = promethean_pagan
+			}
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.2
+				has_education_martial_trigger = yes
+			}
+			modifier = {
+				factor = 1.2
+				has_lifestyle_martial_trigger = yes
+			}
+			modifier = {
+				factor = 1.5
+				trait = imbecile
+			}
+			modifier = {
+				factor = 1.3
+				trait = inbred
+			}
+			modifier = {
+				factor = 1.1
+				trait = slow
+			}
+		}
+	}
+    ### ACR ###
+	option = { # skeptics
+		name = EVTOPTCHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_skeptics 
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+                secret_religion = promethean_pagan
+				can_join_society = monastic_order_skeptics
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_skeptics }
+				can_join_society = monastic_order_skeptics
+			}
+			join_society = monastic_order_skeptics
+		}
+		ai_chance = {
+			factor = 35
+			modifier = {
+				factor = 0.75
+				trait = ambitious
+			}
+		}
+	}
+	option = { #epicureans
+		name = EVTOPTDHF23123
+		trigger = {
+			OR = { 
+				society_member_of = monastic_order_epicureans
+				religion = roman_pagan
+				religion = roman_pagan_reformed
+				religion = promethean_pagan
+				secret_religion = roman_pagan
+				secret_religion = roman_pagan_reformed
+                secret_religion = promethean_pagan
+				can_join_society = monastic_order_epicureans
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { society_member_of = monastic_order_epicureans }
+				can_join_society = monastic_order_epicureans
+			}
+			join_society = monastic_order_epicureans
+		}
 		ai_chance = {
 			factor = 25
 			modifier = {
@@ -490,14 +661,14 @@ character_event = {
 # Promethean has decided to change their school of thought
 # [decision]
 character_event = {
-	id = ancrel.3404
-	desc = ancrel.3404.desc
+	id = promethean.404
+	desc = promethean.404.desc
 	picture = GFX_evt_library
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3403.a
+		name = promethean.403.a
 		trigger = {	NOT = {	trait = stoic } }
 
 		add_trait = stoic
@@ -515,7 +686,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = ancrel.3403.b
+		name = promethean.403.b
 		trigger = {	NOT = {	trait = skeptic } }
 
 		add_trait = skeptic
@@ -529,7 +700,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = ancrel.3403.c
+		name = promethean.403.c
 		trigger = {	NOT = {	trait = epicurean } }
 
 		add_trait = epicurean
@@ -563,15 +734,15 @@ character_event = {
 ###################################################################
 #
 # Rebuilding Crotone
-#  - ancrel.3411 - 3420 reserved
+#  - promethean.411 - 3420 reserved
 #
 ###################################################################
 
-# Rebuild Crotone
+# # Rebuild Crotone
 # character_event = {
-	# id = ancrel.3411
-	# title = ancrel.3411.title
-	# desc = ancrel.3411.desc
+	# id = promethean.411
+	# title = promethean.411.title
+	# desc = promethean.411.desc
 	# picture = GFX_persepolis_ruin
 
 	# is_triggered_only = yes
@@ -581,19 +752,20 @@ character_event = {
 	# }	
 
 	# option = {
-		# name = ancrel.3411.a # Make it the greatest academy there ever was!
+		# name = promethean.411.a # Make it the greatest academy there ever was!
 	# }
 # }
 
 # # Choose the focus of the academy
 # province_event = {
-	# id = ancrel.3412
-	# title = ancrel.3412.title
-	# desc = ancrel.3412.desc
+	# id = promethean.412
+	# title = promethean.412.title
+	# desc = promethean.412.desc
 	# picture = GFX_evt_castle_construction
+	
+	# has_global_flag = acr_crotone_building
 
 	# trigger = {
-		# has_global_flag = acr_crotone_building
 		# province_id = 337 # Consenza
 		# NOT = { has_global_flag = acr_crotone_rebuilt }
 		# had_province_flag = { flag = acr_reb_crotone_1 days = 1045 }
@@ -609,19 +781,19 @@ character_event = {
 	# }
 	
 	# option = {
-		# name = ancrel.3412.a # Art, History, and Philosophy; Culture
+		# name = promethean.412.a # Art, History, and Philosophy; Culture
 		# 337 = {
 			# add_province_modifier = { name = acr_crotone_arts duration = -1 }
 		# }
 	# }
 	# option = {
-		# name = ancrel.3412.b # Engineering & Architecture; Economic
+		# name = promethean.412.b # Engineering & Architecture; Economic
 		# 337 = {
 			# add_province_modifier = { name = acr_crotone_engineering duration = -1 }
 		# }
 	# }
 	# option = {
-		# name = ancrel.3412.c # Officer Academy; Military
+		# name = promethean.412.c # Officer Academy; Military
 		# 337 = {
 			# add_province_modifier = { name = acr_crotone_military duration = -1 }
 		# }
@@ -630,13 +802,14 @@ character_event = {
 
 # # Crotone Finished!
 # province_event = {
-	# id = ancrel.3413
-	# title = ancrel.3413.title
-	# desc = ancrel.3413.desc
+	# id = promethean.413
+	# title = promethean.413.title
+	# desc = promethean.413.desc
 	# picture = GFX_evt_roman_temple
 	
+	# has_global_flag = acr_crotone_building
+	
 	# trigger = {
-		# has_global_flag = acr_crotone_building
 		# province_id = 337 # Consenza
 		# NOT = { has_global_flag = acr_crotone_rebuilt }
 		# has_province_flag = acr_reb_crotone_1
@@ -655,7 +828,7 @@ character_event = {
 	# }
 
 	# option = {
-		# name = ancrel.3413.a
+		# name = promethean.413.a
 		# owner = {
 			# chronicle = {
 				# entry = CHRONICLE_CROTONE
@@ -667,6 +840,7 @@ character_event = {
 					# type = temple
 					# holder = PREV
 				# }
+
 				# if = {
 					# limit = {
 						# has_dlc = "Reapers"
@@ -680,7 +854,7 @@ character_event = {
 		# hidden_tooltip = {
 			# owner = {
 				# set_character_flag = acr_rebuilt_crotone
-				# narrative_event = { id = ancrel.3414 days = 7 }
+				# narrative_event = { id = promethean.414 days = 7 }
 			# }
 		# }
 	# }
@@ -688,9 +862,9 @@ character_event = {
 
 # # Crotone Complete major event
 # narrative_event = {
-	# id = ancrel.3414
-	# title = ancrel.3414.title
-	# desc = ancrel.3414.desc
+	# id = promethean.414
+	# title = promethean.414.title
+	# desc = promethean.414.desc
 	# picture = GFX_evt_roman_temple
 	# border = GFX_event_narrative_frame_religion
 	
@@ -706,7 +880,7 @@ character_event = {
 		# trigger = {
 			# religion = promethean_pagan
 		# }
-		# name = ancrel.3414.a
+		# name = promethean.414.a
 	# }
 
 	# option = {
@@ -714,47 +888,47 @@ character_event = {
 			# NOT = { religion = promethean_pagan }
 		# }
 
-		# name = ancrel.3414.b
+		# name = promethean.414.b
 	# }
 # }
 
 ###################################################################
 #
 # The Unbinding Festival
-# - ancrel.3450 - ancrel.3549 reserved
+# - promethean.450 - promethean.549 reserved
 #
 ###################################################################
 
 # Festival Planning Begins!
 character_event = {
-	id = ancrel.3450
-	desc = ancrel.3450.desc
+	id = promethean.450
+	desc = promethean.450.desc
 	picture = GFX_evt_council
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3450.a
+		name = promethean.450.a
 		hidden_tooltip = {
-			character_event = { id = ancrel.3451 days = 3 } # let the decisions begin!
+			character_event = { id = promethean.451 days = 3 } # let the decisions begin!
 		}
 	}
 }
 
 # How extravagant shall the opening ceremony be?
 character_event = {
-	id = ancrel.3451
-	desc = ancrel.3451.desc
+	id = promethean.451
+	desc = promethean.451.desc
 	picture = GFX_evt_courtiers_talking
 
 	is_triggered_only = yes
 
 	immediate = {
-		character_event = { id = ancrel.3452 days = 3 }
+		character_event = { id = promethean.452 days = 3 }
 	}
 
 	option = { # just rent out a theatre in the city
-		name = ancrel.3451.a
+		name = promethean.451.a
 		scaled_wealth = -0.05
 		prestige = 75
 
@@ -808,7 +982,7 @@ character_event = {
 	}
 
 	option = { # build one of wood in the city square
-		name = ancrel.3451.b
+		name = promethean.451.b
 		scaled_wealth = -0.10
 		prestige = 150
 
@@ -854,7 +1028,7 @@ character_event = {
 	}
 
 	option = { # build a grand stage of real stone!
-		name = ancrel.3451.c
+		name = promethean.451.c
 		scaled_wealth = -0.20
 		prestige = 300
 
@@ -902,18 +1076,18 @@ character_event = {
 
 # How much shall be spent on the festivities?
 character_event = {
-	id = ancrel.3452
-	desc = ancrel.3452.desc
+	id = promethean.452
+	desc = promethean.452.desc
 	picture = GFX_evt_courtiers_talking
 
 	is_triggered_only = yes
 
 	immediate = {
-		character_event = { id = ancrel.3453 days = 3 }
+		character_event = { id = promethean.453 days = 3 }
 	}
 
 	option = { # keep it simple
-		name = ancrel.3452.a
+		name = promethean.452.a
 		set_character_flag = unbinding_cheap_festivities
 
 		scaled_wealth = -0.05
@@ -958,7 +1132,7 @@ character_event = {
 		}
 	}
 	option = { # lets not be cheap
-		name = ancrel.3452.b
+		name = promethean.452.b
 		set_character_flag = unbinding_middle_festivities
 
 		scaled_wealth = -0.1
@@ -1003,7 +1177,7 @@ character_event = {
 		}	
 	}
 	option = { # lets make it a festival to remember!
-		name = ancrel.3452.c
+		name = promethean.452.c
 		set_character_flag = unbinding_grand_festivities
 
 		scaled_wealth = -0.2
@@ -1043,15 +1217,15 @@ character_event = {
 
 # Opening Ceremony - Who Plays Prometheus?
 character_event = {
-	id = ancrel.3453
-	desc = ancrel.3453.desc
+	id = promethean.453
+	desc = promethean.453.desc
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_normal_frame_religion
 
 	is_triggered_only = yes
 
 	option = { #play Prometheus yourself
-		name = ancrel.3453.a
+		name = promethean.453.a
 		save_event_target_as = festival_prometheus
 		prestige = 100
 
@@ -1060,7 +1234,7 @@ character_event = {
 		}
 
  		hidden_tooltip = { # inform the priest
- 			job_spiritual = { character_event = { id = ancrel.3547 } }
+ 			job_spiritual = { character_event = { id = promethean.547 } }
  		}
 
  		ai_chance = {
@@ -1095,7 +1269,7 @@ character_event = {
 	}
 
 	option = { #have your Court Priest do it
-		name = ancrel.3453.b
+		name = promethean.453.b
 		trigger = {
 			any_courtier = {
 				has_job_title = job_spiritual
@@ -1109,7 +1283,7 @@ character_event = {
 		}
 
 		hidden_tooltip = { #inform the priest
-			job_spiritual = { character_event = { id = ancrel.3548 } }
+			job_spiritual = { character_event = { id = promethean.548 } }
 		}
 
  		ai_chance = {
@@ -1142,7 +1316,7 @@ character_event = {
 	}
 
 	option = { #random pious vassal
-		name = ancrel.3453.c
+		name = promethean.453.c
 		trigger = {
 			any_vassal = {
 				piety = 500
@@ -1166,8 +1340,8 @@ character_event = {
 		}
 
  		hidden_tooltip = { # inform the characters
- 			event_target:festival_prometheus = { character_event = { id = ancrel.3548 } }
- 			job_spiritual = { character_event = { id = ancrel.3546 } }
+ 			event_target:festival_prometheus = { character_event = { id = promethean.548 } }
+ 			job_spiritual = { character_event = { id = promethean.546 } }
  		}
 
  		ai_chance = {
@@ -1192,7 +1366,7 @@ character_event = {
 	}
 
 	option = { #totally random vassal, because apparently there is a lack of piety in your realm
-		name = ancrel.3453.d
+		name = promethean.453.d
 		trigger = {
 			NOT = {
 				any_vassal = {
@@ -1216,8 +1390,8 @@ character_event = {
 		}
 
  		hidden_tooltip = { # inform the characters
- 			event_target:festival_prometheus = { character_event = { id = ancrel.3548 } }
- 			job_spiritual = { character_event = { id = ancrel.3546 } }
+ 			event_target:festival_prometheus = { character_event = { id = promethean.548 } }
+ 			job_spiritual = { character_event = { id = promethean.546 } }
  		}
 
  		ai_chance = {
@@ -1246,21 +1420,21 @@ character_event = {
 	}
 
 	after = {
- 		character_event = { id = ancrel.3454 days = 1 } # next decision
+ 		character_event = { id = promethean.454 days = 1 } # next decision
 	}
 }
 
 # Opening Ceremony - Who Plays Heracles?
 character_event = {
-	id = ancrel.3454
-	desc = ancrel.3454.desc
+	id = promethean.454
+	desc = promethean.454.desc
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_normal_frame_religion
 
 	is_triggered_only = yes
 
 	option = { #play Heracles yourself
-		name = ancrel.3454.a
+		name = promethean.454.a
 		trigger = { # you can't play Prometheus and Heracles at the same time
 			NOT = {
 				character = event_target:festival_prometheus
@@ -1274,7 +1448,7 @@ character_event = {
 		}
 		hidden_tooltip = {
 			job_marshal = { # inform the marshal
-				character_event = { id = ancrel.3544 }
+				character_event = { id = promethean.544 }
 			}
 		}
 
@@ -1310,7 +1484,7 @@ character_event = {
 	}
 
 	option = { #have your Marshal do it
-		name = ancrel.3454.b
+		name = promethean.454.b
 		trigger = {
 			any_courtier = {
 				has_job_title = job_marshal
@@ -1325,7 +1499,7 @@ character_event = {
 
 		hidden_tooltip = { # inform the marshal
 			job_marshal = {
-				character_event = { id = ancrel.3545 }
+				character_event = { id = promethean.545 }
 			}
 		}
 
@@ -1359,7 +1533,7 @@ character_event = {
 	}
 
 	option = { #random prestigous vassal
-		name = ancrel.3454.c
+		name = promethean.454.c
 		trigger = {
 			any_vassal = {
 				prestige = 500
@@ -1389,10 +1563,10 @@ character_event = {
 
 		hidden_tooltip = {
 			event_target:festival_heracles = { # inform the lucky vassal
-				character_event = { id = ancrel.3545 }
+				character_event = { id = promethean.545 }
 			}
 			job_marshal = { # inform the marshal
-				character_event = { id = ancrel.3543 }
+				character_event = { id = promethean.543 }
 			}
 		}
 
@@ -1418,7 +1592,7 @@ character_event = {
 	}
 
 	option = { #totally random vassal, because apparently there is a lack of prestige in your realm
-		name = ancrel.3454.d
+		name = promethean.454.d
 		trigger = {
 			NOT = {
 				any_vassal = {
@@ -1447,10 +1621,10 @@ character_event = {
 
 		hidden_tooltip = {
 			event_target:festival_heracles = { # inform the lucky vassal
-				character_event = { id = ancrel.3545 }
+				character_event = { id = promethean.545 }
 			}
 			job_marshal = { # inform the marshal
-				character_event = { id = ancrel.3543 }
+				character_event = { id = promethean.543 }
 			}
 		}
 
@@ -1480,13 +1654,13 @@ character_event = {
 	}
 
 	after = {
-		narrative_event = { id = ancrel.3455 days = 1 } # the opening ceremony!		
+		narrative_event = { id = promethean.455 days = 1 } # the opening ceremony!		
 	}
 }
 
 # Opening Ceremony (liege)
 narrative_event = {
-	id = ancrel.3455
+	id = promethean.455
 	title = ancrel.unbinding_prometheus
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_narrative_frame_religion
@@ -1495,13 +1669,13 @@ narrative_event = {
 		trigger = {
 			character = event_target:festival_prometheus
 		}
-		text = ancrel.3455.desc.prometheus
+		text = promethean.455.desc.prometheus
 	}
 	desc = { # the ruler is Heracles
 		trigger = {
 			character = event_target:festival_heracles
 		}
-		text = ancrel.3455.desc.heracles
+		text = promethean.455.desc.heracles
 	}
 	desc = { # the ruler is neither
 		trigger = {
@@ -1510,7 +1684,7 @@ narrative_event = {
 				character = event_target:festival_prometheus
 			}
 		}
-		text = ancrel.3455.desc.other
+		text = promethean.455.desc.other
 	}
 
 	immediate = {
@@ -1523,7 +1697,7 @@ narrative_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3455.a
+		name = promethean.455.a
 		hidden_tooltip = {
 			any_realm_character = { # regular vassals
 				limit = {
@@ -1536,7 +1710,7 @@ narrative_event = {
 						}
 					}
 				}
-				narrative_event = { id = ancrel.3456 }
+				narrative_event = { id = promethean.456 }
 			}
 			if = {
 				limit = {
@@ -1545,7 +1719,7 @@ narrative_event = {
 					}
 				}
 				event_target:festival_prometheus = { # prometheus
-					narrative_event = { id = ancrel.3457 }
+					narrative_event = { id = promethean.457 }
 				}
 			}
 			if = {
@@ -1555,7 +1729,7 @@ narrative_event = {
 					}
 				}
 				event_target:festival_heracles = { # heracles
-					narrative_event = { id = ancrel.3458 }
+					narrative_event = { id = promethean.458 }
 				}
 			}
 		}
@@ -1564,48 +1738,48 @@ narrative_event = {
 
 # Opening Ceremony (vassals)
 narrative_event = {
-	id = ancrel.3456
+	id = promethean.456
 	title = ancrel.unbinding_prometheus
-	desc = ancrel.3455.desc.other
+	desc = promethean.455.desc.other
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_narrative_frame_religion
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3456.a
+		name = promethean.456.a
 		set_character_flag = unbinding_festival_open
 	}
 }
 
 # Opening Ceremony (Prometheus)
 narrative_event = {
-	id = ancrel.3457
+	id = promethean.457
 	title = ancrel.unbinding_prometheus
-	desc = ancrel.3455.desc.prometheus
+	desc = promethean.455.desc.prometheus
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_narrative_frame_religion
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3457.a
+		name = promethean.457.a
 		set_character_flag = unbinding_festival_open
 	}
 }
 
 # Opening Ceremony (Heracles)
 narrative_event = {
-	id = ancrel.3458
+	id = promethean.458
 	title = ancrel.unbinding_prometheus
-	desc = ancrel.3455.desc.heracles
+	desc = promethean.455.desc.heracles
 	picture = GFX_evt_prometheus_bound
 	border = GFX_event_narrative_frame_religion
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3458.a
+		name = promethean.458.a
 		set_character_flag = unbinding_festival_open
 	}
 }
@@ -1618,8 +1792,8 @@ narrative_event = {
 
 # A firedancer accidentally burns down a building!
 character_event = {
-	id = ancrel.3459
-	desc = ancrel.3459.desc
+	id = promethean.459
+	desc = promethean.459.desc
 	picture = GFX_evt_burning_house
 
 	trigger = {
@@ -1652,7 +1826,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3459.a
+		name = promethean.459.a
 		capital_holding = {
 			destroy_random_building = yes
 		}
@@ -1661,8 +1835,8 @@ character_event = {
 
 # a vassal is pleased by the firedancer's performance
 character_event = {
-	id = ancrel.3460
-	desc = ancrel.3460.desc
+	id = promethean.460
+	desc = promethean.460.desc
 	picture = GFX_evt_firedancers
 
 	trigger = { 
@@ -1699,7 +1873,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3460.a
+		name = promethean.460.a
 		random_vassal = {
 			limit = {
 				prisoner = no
@@ -1715,17 +1889,17 @@ character_event = {
 
 # spouse/courtier/vassal looks attractive in the firelight (liege)
 character_event = {
-	id = ancrel.3461
-	desc = ancrel.3461.desc
+	id = promethean.461
+	desc = promethean.461.desc
 	picture = GFX_evt_couple_by_firelight
 
 	is_triggered_only = yes
 
 	option = { # make your move!
-		name = ancrel.3461.a
+		name = promethean.461.a
 		hidden_tooltip = {
 			FROM = { # replace the vanilla spurn/accept event, because it sucks
-				character_event = { id = ancrel.3492 }
+				character_event = { id = promethean.492 }
 			}
 		}
 
@@ -1763,7 +1937,7 @@ character_event = {
 	}
 
 	option = { # admire from afar
-		name = ancrel.3461.b
+		name = promethean.461.b
 		piety = 25
 
 		random_list = {
@@ -1814,7 +1988,7 @@ character_event = {
 	}
 
 	option = { # who needs sex?
-		name = ancrel.3461.c
+		name = promethean.461.c
 		piety = 100
 
 		random_vassal = {
@@ -1887,7 +2061,7 @@ character_event = {
 
 # courtier/vassal looks attractive in the firelight (c/v)
 character_event = {
-	id = ancrel.3462
+	id = promethean.462
 	hide_window = yes
 
 	min_age = 15
@@ -1912,7 +2086,7 @@ character_event = {
 		liege = {
 			set_character_flag = festival_event_happened
 			set_character_flag = festival_lover
-			character_event = { id = ancrel.3461 }
+			character_event = { id = promethean.461 }
 		}
 	}
 
@@ -1929,7 +2103,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.8
-			trait = fair
+			is_fair_trigger = yes
 		}
 		modifier = {
 			factor = 0.7
@@ -1960,7 +2134,7 @@ character_event = {
 
 # spouse looks attractive in the firelight (spouse)
 character_event = {
-	id = ancrel.3463
+	id = promethean.463
 	hide_window = yes
 
 	min_age = 15
@@ -1984,7 +2158,7 @@ character_event = {
 		spouse = {
 			set_character_flag = festival_event_happened
 			set_character_flag = festival_lover
-			character_event = { id = ancrel.3461 }
+			character_event = { id = promethean.461 }
 		}
 	}
 
@@ -2001,7 +2175,7 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.8
-			trait = fair
+			is_fair_trigger = yes
 		}
 		modifier = {
 			factor = 0.5
@@ -2032,8 +2206,8 @@ character_event = {
 
 # The character accepts or spurns the liege/spouse
 character_event = {
-	id = ancrel.3492
-	desc = ancrel.3492.desc
+	id = promethean.492
+	desc = promethean.492.desc
 	picture = GFX_evt_lovers
 
 	is_triggered_only = yes
@@ -2220,8 +2394,8 @@ character_event = {
 
 # you've been burned by firedancer oil!
 character_event = {
-	id = ancrel.3464
-	desc = ancrel.3464.desc
+	id = promethean.464
+	desc = promethean.464.desc
 	picture = GFX_evt_firedancers
 
 	trigger = { 
@@ -2258,7 +2432,7 @@ character_event = {
 	}
 
 	option = { # execute them!
-		name = ancrel.3464.a
+		name = promethean.464.a
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
 			set_character_flag = ancrel_remove_firedancers
@@ -2292,7 +2466,7 @@ character_event = {
 		}
 	}
 	option = { # imprison them!
-		name = ancrel.3464.b
+		name = promethean.464.b
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
 			set_character_flag = ancrel_remove_firedancers
@@ -2322,7 +2496,7 @@ character_event = {
 		}
 	}
 	option = { # on with the show!
-		name = ancrel.3464.c
+		name = promethean.464.c
 		prestige = -100
 
 		ai_chance = {
@@ -2345,7 +2519,7 @@ character_event = {
 
 # a vassal is burned by fire dancer oil!
 character_event = {
-	id = ancrel.3494
+	id = promethean.494
 	hide_window = yes
 
 	trigger = { 
@@ -2363,7 +2537,7 @@ character_event = {
 	immediate = {
 		set_character_flag = festival_event_happened
 		random_vassal = {
-			character_event = { id = ancrel.3465 days = 0 }
+			character_event = { id = promethean.465 days = 0 }
 		}
 	}
 
@@ -2386,8 +2560,8 @@ character_event = {
 
 # a vassal has been burned by fire dancer oil! (vassal)
 character_event = {
-	id = ancrel.3465
-	desc = ancrel.3465.desc
+	id = promethean.465
+	desc = promethean.465.desc
 	picture = GFX_evt_firedancers
 
 	is_triggered_only = yes
@@ -2397,11 +2571,11 @@ character_event = {
 	}
 
 	option = { # demand the firedancers are punished!
-		name = ancrel.3465.a
+		name = promethean.465.a
 		custom_tooltip = {
-			text = ancrel.3465.a.tt
+			text = promethean.465.a.tt
 			liege = {
-				character_event = { id = ancrel.3466 }
+				character_event = { id = promethean.466 }
 			}
 		}
 		random = {
@@ -2425,11 +2599,11 @@ character_event = {
 		}
 	}
 	option = { 	# it was an unfortunate, painful, accident. thats all
-		name = ancrel.3465.b
+		name = promethean.465.b
 		custom_tooltip = {
-			text = ancrel.3465.b.tt
+			text = promethean.465.b.tt
 			liege = {
-				character_event = { id = ancrel.3467 }
+				character_event = { id = promethean.467 }
 			}
 		}
 		random = {
@@ -2456,15 +2630,15 @@ character_event = {
 
 # a vassal is burned by firedancer oil and demands punishment! (liege)
 character_event = {
-	id = ancrel.3466
-	desc = ancrel.3466.desc
+	id = promethean.466
+	desc = promethean.466.desc
 	picture = GFX_evt_firedancers
 
 	is_triggered_only = yes
 
 	option = {
 		#kill 'em
-		name = ancrel.3466.a
+		name = promethean.466.a
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
 			set_character_flag = ancrel_remove_firedancers
@@ -2507,7 +2681,7 @@ character_event = {
 	}
 	option = {
 		#remove them from the festival
-		name = ancrel.3466.b
+		name = promethean.466.b
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
 			set_character_flag = ancrel_remove_firedancers
@@ -2549,7 +2723,7 @@ character_event = {
 	}
 	option = {
 		# it was just an accident
-		name = ancrel.3466.c
+		name = promethean.466.c
 		reverse_opinion = { modifier = ancrel_dissapointed who = FROM years = 2 }
 		random = {
 			chance = 20
@@ -2588,15 +2762,15 @@ character_event = {
 
 # a vassal is burned by firedancer oil and suggests leniency! (liege)
 character_event = {
-	id = ancrel.3467
-	desc = ancrel.3467.desc
+	id = promethean.467
+	desc = promethean.467.desc
 	picture = GFX_evt_firedancers
 
 	is_triggered_only = yes
 
 	option = {
 		#kill 'em
-		name = ancrel.3467.a
+		name = promethean.467.a
 		reverse_opinion = { modifier = ancrel_dissapointed who = FROM years = 2 }
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
@@ -2643,7 +2817,7 @@ character_event = {
 	}
 	option = {
 		#remove them from the festival
-		name = ancrel.3467.b
+		name = promethean.467.b
 		custom_tooltip = {
 			text = ancrel.remove_firedancers
 			set_character_flag = ancrel_remove_firedancers
@@ -2685,7 +2859,7 @@ character_event = {
 	}
 	option = {
 		# it was just an accident
-		name = ancrel.3467.c
+		name = promethean.467.c
 		random = {
 			chance = 20
 			add_trait = kind
@@ -2720,8 +2894,8 @@ character_event = {
 
 # actors portray the brothers making humanity, two vassals have theological argument
 character_event = {
-	id = ancrel.3470
-	desc = ancrel.3470.desc
+	id = promethean.470
+	desc = promethean.470.desc
 	picture = GFX_evt_jugglers
 
 	trigger = {
@@ -2790,7 +2964,7 @@ character_event = {
 	}
 
 	option = { # agree with the cynical vassal
-		name = ancrel.3470.a
+		name = promethean.470.a
 		event_target:cynic = {
 			add_friend = ROOT
 		}
@@ -2815,7 +2989,7 @@ character_event = {
 		}
 	}
 	option = { # diffuse the situation
-		name = ancrel.3470.b
+		name = promethean.470.b
 		trigger = {
 			diplomacy = 13
 		}
@@ -2835,7 +3009,7 @@ character_event = {
 		}
 	}
 	option = { # waffle
-		name = ancrel.3470.c
+		name = promethean.470.c
 		trigger = {
 			NOT = {
 				diplomacy = 13
@@ -2861,7 +3035,7 @@ character_event = {
 		}
 	}
 	option = { # agree with the zealous vassal
-		name = ancrel.3470.d
+		name = promethean.470.d
 		event_target:cynic = {
 			add_rival = ROOT
 		}
@@ -2889,8 +3063,8 @@ character_event = {
 
 # actors botch a performance and unintentionally blaspheme, and rioting ensues
 character_event = {
-	id = ancrel.3471
-	desc = ancrel.3471.desc
+	id = promethean.471
+	desc = promethean.471.desc
 	picture = GFX_evt_riots_byzantine
 
 	trigger = {
@@ -2925,7 +3099,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3471.a
+		name = promethean.471.a
 		capital_scope = {
 			add_province_modifier = { name = acr_blasphemous_exhibition duration = 180 }
 		}
@@ -2934,8 +3108,8 @@ character_event = {
 
 # actors do an amazing performance and peasants are pleased!
 character_event = {
-	id = ancrel.3472
-	desc = ancrel.3472.desc
+	id = promethean.472
+	desc = promethean.472.desc
 	picture = GFX_evt_peasants
 
 	trigger = {
@@ -2970,7 +3144,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3472.a
+		name = promethean.472.a
 		capital_scope = {
 			add_province_modifier = { name = acr_excellent_performance duration = 180 }
 		}
@@ -2979,8 +3153,8 @@ character_event = {
 
 # a brilliant actor distinguishes themselves, you may invite them to your court
 character_event = {
-	id = ancrel.3473
-	desc = ancrel.3473.desc
+	id = promethean.473
+	desc = promethean.473.desc
 	picture = GFX_evt_diplomat
 
 	trigger = {
@@ -3015,7 +3189,7 @@ character_event = {
 	}
 
 	option = { # welcome them into your court
-		name = ancrel.3473.a
+		name = promethean.473.a
 		create_character = {
 			dynasty = none
 			age = 23
@@ -3040,7 +3214,7 @@ character_event = {
 		}
 	}
 	option = { # no need for professional liars in my court
-		name = ancrel.3473.b
+		name = promethean.473.b
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -3057,8 +3231,8 @@ character_event = {
 
 # you are called up on stage to perform a key scene
 character_event = {
-	id = ancrel.3474
-	desc = ancrel.3474.desc
+	id = promethean.474
+	desc = promethean.474.desc
 	picture = GFX_evt_theatre
 
 	trigger = {
@@ -3085,7 +3259,7 @@ character_event = {
 	}
 
 	option = { # chicken out (bawk!)
-		name = ancrel.3474.a
+		name = promethean.474.a
 		prestige = -10
 		random_list = {
 			80 = {
@@ -3112,16 +3286,16 @@ character_event = {
 		}
 	}
 	option = { # go on stage, but stick to the lines
-		name = ancrel.3474.b
+		name = promethean.474.b
 		custom_tooltip = {
-			text = ancrel.3474.b.tt
+			text = promethean.474.b.tt
 			random_list = {
 				33 = { # good outcome
 					modifier = {
 						factor = 2
 						learning = 12
 					}
-					character_event = { id = ancrel.3475 }
+					character_event = { id = promethean.475 }
 				}
 				34 = { # neutral outcome
 					modifier = {
@@ -3129,14 +3303,14 @@ character_event = {
 						learning = 8
 						NOT = { learning = 12 }
 					}
-					character_event = { id = ancrel.3476 }
+					character_event = { id = promethean.476 }
 				}
 				33 = { # bad outcome
 					modifier = {
 						factor = 1.2
 						NOT = { learning = 8 }
 					}
-					character_event = { id = ancrel.3477 }
+					character_event = { id = promethean.477 }
 				}
 			}
 		}
@@ -3158,9 +3332,9 @@ character_event = {
 		}
 	}
 	option = { # go on stage and improvise the lines
-		name = ancrel.3474.c
+		name = promethean.474.c
 		custom_tooltip = {
-			text = ancrel.3474.c.tt
+			text = promethean.474.c.tt
 			hidden_tooltip = {
 				random_list = {
 					50 = { # good outcome
@@ -3184,7 +3358,7 @@ character_event = {
 							factor = 1.2
 							trait = gregarious
 						}
-						character_event = { id = ancrel.3478 }
+						character_event = { id = promethean.478 }
 					}
 					50 = { # bad outcome
 						modifier = {
@@ -3207,7 +3381,7 @@ character_event = {
 							factor = 1.2
 							trait = shy
 						}
-						character_event = { id = ancrel.3479 }
+						character_event = { id = promethean.479 }
 					}
 				}
 			}
@@ -3233,7 +3407,7 @@ character_event = {
 		trigger = {
 			diplomacy = 14
 		}
-		name = ancrel.3474.d
+		name = promethean.474.d
 		tooltip_info = diplomacy
 
 		ai_chance = {
@@ -3259,14 +3433,14 @@ character_event = {
 
 # stick to the lines (good outcome)
 character_event = {
-	id = ancrel.3475
-	desc = ancrel.3475.desc
+	id = promethean.475
+	desc = promethean.475.desc
 	picture = GFX_evt_theatre
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3475.a
+		name = promethean.475.a
 		prestige = 50
 		add_character_modifier = { name = acr_good_performance duration = 360 }
 	}
@@ -3274,27 +3448,27 @@ character_event = {
 
 # stick to the lines (neutral outcome)
 character_event = {
-	id = ancrel.3476
-	desc = ancrel.3476.desc
+	id = promethean.476
+	desc = promethean.476.desc
 	picture = GFX_evt_theatre
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3476.a
+		name = promethean.476.a
 	}
 }
 
 # stick to the lines (bad outcome)
 character_event = {
-	id = ancrel.3477
-	desc = ancrel.3477.desc
+	id = promethean.477
+	desc = promethean.477.desc
 	picture = GFX_evt_theatre
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3477.a
+		name = promethean.477.a
 		prestige = -50
 		add_character_modifier = { name = acr_bad_performance duration = 360 }
 	}
@@ -3302,14 +3476,14 @@ character_event = {
 
 # improvise! (bad outcome)
 character_event = {
-	id = ancrel.3478
-	desc = ancrel.3478.desc
+	id = promethean.478
+	desc = promethean.478.desc
 	picture = GFX_evt_theatre
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3478.a
+		name = promethean.478.a
 		prestige = -100
 		add_character_modifier = { name = acr_terrible_performance duration = 360 }
 	}
@@ -3317,13 +3491,13 @@ character_event = {
 
 # improvise! (good outcome)
 character_event = {
-	id = ancrel.3479
-	desc = ancrel.3479.desc
+	id = promethean.479
+	desc = promethean.479.desc
 	picture = GFX_evt_theatre
 
 	is_triggered_only = yes
 	option = {
-		name = ancrel.3479.a
+		name = promethean.479.a
 		prestige = 100
 		add_character_modifier = { name = acr_great_performance duration = 360 }
 	}
@@ -3331,8 +3505,8 @@ character_event = {
 
 # a philosopher speaks about Pandora and the Jar
 character_event = {
-	id = ancrel.3480
-	desc = ancrel.3480.desc
+	id = promethean.480
+	desc = promethean.480.desc
 	picture = GFX_evt_priests_in_forest
 
 	trigger = {
@@ -3359,7 +3533,7 @@ character_event = {
 	}
 
 	option = { # say something pious
-		name = ancrel.3480.a
+		name = promethean.480.a
 		piety = 10
 		ai_chance = {
 			factor = 50
@@ -3370,7 +3544,7 @@ character_event = {
 		}
 	}
 	option = { # say something proud
-		name = ancrel.3480.b
+		name = promethean.480.b
 		prestige = 10
 		ai_chance = {
 			factor = 50
@@ -3384,8 +3558,8 @@ character_event = {
 
 # a philosopher tells the story of Deucalion's flood, with bits of metal in the stones
 character_event = {
-	id = ancrel.3481
-	desc = ancrel.3481.desc
+	id = promethean.481
+	desc = promethean.481.desc
 	picture = GFX_evt_priests_in_forest
 
 	trigger = {
@@ -3412,15 +3586,15 @@ character_event = {
 	}
 
 	option = { # git a wee bit 'o piety
-		name = ancrel.3481.a
+		name = promethean.481.a
 		piety = 10
 	}
 }
 
 # a philosopher discusses the goal of enlightenment and oneness
 character_event = {
-	id = ancrel.3482
-	desc = ancrel.3482.desc
+	id = promethean.482
+	desc = promethean.482.desc
 	picture = GFX_evt_priests_in_forest
 
 	trigger = {
@@ -3447,7 +3621,7 @@ character_event = {
 	}
 
 	option = { # i hope to reach CHIM someday...
-		name = ancrel.3482.a
+		name = promethean.482.a
 		piety = 10
 		ai_chance = {
 			factor = 50
@@ -3462,7 +3636,7 @@ character_event = {
 		}
 	}
 	option = { # bunch of balderdash...
-		name = ancrel.3482.b
+		name = promethean.482.b
 		piety = -10
 		ai_chance = {
 			factor = 50
@@ -3472,8 +3646,8 @@ character_event = {
 
 # brilliant philosopher can join your court
 character_event = {
-	id = ancrel.3483
-	desc = ancrel.3483.desc
+	id = promethean.483
+	desc = promethean.483.desc
 	picture = GFX_evt_emissary
 
 	trigger = {
@@ -3508,7 +3682,7 @@ character_event = {
 	}
 
 	option = { # invite them to your court
-		name = ancrel.3483.a
+		name = promethean.483.a
 		create_character = {
 			dynasty = none
 			age = 26
@@ -3532,7 +3706,7 @@ character_event = {
 		}
 	}
 	option = { # i don't like having smart people in my employ :-/
-		name = ancrel.3483.b
+		name = promethean.483.b
 
 		ai_chance = {
 			factor = 10
@@ -3546,9 +3720,9 @@ character_event = {
 
 # painter creates a caricature of you
 character_event = {
-	id = ancrel.3484
-	desc = ancrel.3484.desc
-	picture = GFX_evt_juggler #placeholder
+	id = promethean.484
+	desc = promethean.484.desc
+	picture = GFX_evt_jugglers #placeholder
 
 	trigger = {
 		has_character_modifier = holding_unbinding_festival
@@ -3574,21 +3748,21 @@ character_event = {
 	}
 
 	option = { # laugh
-		name = ancrel.3484.a
+		name = promethean.484.a
 		random = {
 			chance = 20
 			add_trait = humble
 		}
 	}
 	option = { # huff
-		name = ancrel.3484.b
+		name = promethean.484.b
 		random = {
 			chance = 20
 			add_trait = proud
 		}
 	}
 	option = { # throw 'em in the klink
-		name = ancrel.3485.c
+		name = promethean.485.c
 		random_list = {
 			10 = {
 				add_trait = arbitrary
@@ -3605,8 +3779,8 @@ character_event = {
 
 # sculptor makes an amazing statue of Prometheus giving fire to humanity
 character_event = {
-	id = ancrel.3485
-	desc = ancrel.3485.desc
+	id = promethean.485
+	desc = promethean.485.desc
 	picture = GFX_evt_prometheus_statue
 
 	trigger = {
@@ -3641,7 +3815,7 @@ character_event = {
 	}
 
 	option = { # appreciate the statue
-		name = ancrel.3485.a
+		name = promethean.485.a
 
 		ai_chance = {
 			factor = 50
@@ -3664,7 +3838,7 @@ character_event = {
 		}
 	}
 	option = { # make everyone roll there eyes at you
-		name = ancrel.3485.b
+		name = promethean.485.b
 		piety = 50
 		random_vassal = {
 			limit = {
@@ -3686,7 +3860,7 @@ character_event = {
 		}
 	}
 	option = { # buy it!
-		name = ancrel.3485.c
+		name = promethean.485.c
 		wealth = -50
 		add_character_modifier = { name = acr_grand_sculpture duration = 360 }
 
@@ -3712,7 +3886,7 @@ character_event = {
 
 # a statue is about to fall on liege and vassal
 character_event = {
-	id = ancrel.3493
+	id = promethean.493
 	hide_window = yes
 
 	trigger = {
@@ -3729,7 +3903,7 @@ character_event = {
 	immediate = {
 		set_character_flag = festival_event_happened
 		random_vassal = { # ping the vassal
-			character_event = { id = ancrel.3486 }
+			character_event = { id = promethean.486 }
 		}
 	}
 
@@ -3752,32 +3926,32 @@ character_event = {
 
 # falling statue, ping off the vassal
 character_event = {
-	id = ancrel.3486
+	id = promethean.486
 	hide_window = yes
 
 	is_triggered_only = yes
 
 	immediate = {
 		liege = {
-			character_event = { id = ancrel.3487 }
+			character_event = { id = promethean.487 }
 		}
 	}
 }
 
 # a statue is about to fall on you and a vassal! (liege)
 character_event = {
-	id = ancrel.3487
-	desc = ancrel.3487.desc
+	id = promethean.487
+	desc = promethean.487.desc
 	picture = GFX_evt_falling_statue
 
 	is_triggered_only = yes
 
 	option = { # warn them and get out of the way
-		name = ancrel.3487.a
+		name = promethean.487.a
 		custom_tooltip = {
-			text = ancrel.3487.a.tt
+			text = promethean.487.a.tt
 			hidden_tooltip = {
-				FROM = { character_event = { id = ancrel.3488 } }
+				FROM = { character_event = { id = promethean.488 } }
 			}
 		}
 		random = {
@@ -3793,11 +3967,11 @@ character_event = {
 		}
 	}
 	option = { # run, like a coward
-		name = ancrel.3487.b
+		name = promethean.487.b
 		custom_tooltip = {
-			text = ancrel.3487.b.tt
+			text = promethean.487.b.tt
 			hidden_tooltip = {
-				FROM = { character_event = { id = ancrel.3489 }	}
+				FROM = { character_event = { id = promethean.489 }	}
 			}
 		}
 		random = {
@@ -3825,11 +3999,11 @@ character_event = {
 		} 
 	}
 	option = { # get all heroic and push them out of the way
-		name = ancrel.3487.c
+		name = promethean.487.c
 		custom_tooltip = {
-			text = ancrel.3487.c.tt
+			text = promethean.487.c.tt
 			hidden_tooltip = {
-				FROM = { character_event = { id = ancrel.3490 } }
+				FROM = { character_event = { id = promethean.490 } }
 			}
 		}
 		random_list = {
@@ -3874,14 +4048,14 @@ character_event = {
 
 # your liege warns of the falling statue before diving out of the way
 character_event = {
-	id = ancrel.3488
-	desc = ancrel.3488.desc
+	id = promethean.488
+	desc = promethean.488.desc
 	picture = GFX_evt_falling_statue	
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3488.a
+		name = promethean.488.a
 		random_list = {
 			5 = {
 				death = { death_reason = death_accident }
@@ -3904,14 +4078,14 @@ character_event = {
 
 # your liege flees in terror for some reason...
 character_event = {
-	id = ancrel.3489
-	desc = ancrel.3489.desc
+	id = promethean.489
+	desc = promethean.489.desc
 	picture = GFX_evt_falling_statue
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3489.a
+		name = promethean.489.a
 		random_list = {
 			20 = {
 				death = { death_reason = death_accident }
@@ -3932,22 +4106,22 @@ character_event = {
 
 # your liege throws you to safety before a statue falls on them!
 character_event = {
-	id = ancrel.3490
-	desc = ancrel.3490.desc
+	id = promethean.490
+	desc = promethean.490.desc
 	picture = GFX_evt_falling_statue
 
 	is_triggered_only = yes
 
 	option = {
-		name = ancrel.3490.a
+		name = promethean.490.a
 		add_friend = FROM
 	}
 }
 
 # artist tries something revolutionary (offensive) and does a mural of "The Sisters"
 character_event = {
-	id = ancrel.3491
-	desc = ancrel.3491.desc
+	id = promethean.491
+	desc = promethean.491.desc
 	picture = GFX_evt_favourite_poet
 
 	trigger = {
@@ -3991,8 +4165,8 @@ character_event = {
 
 # our liege must cancel the festival due to war
 character_event = {
-	id = ancrel.3541
-	desc = ancrel.3541.desc
+	id = promethean.541
+	desc = promethean.541.desc
 	picture = GFX_evt_market
 
 	is_triggered_only = yes
@@ -4004,15 +4178,12 @@ character_event = {
 
 # we are at war, we must cancel the festival!
 character_event = {
-	id = ancrel.3542
-	desc = ancrel.3542.desc
+	id = promethean.542
+	desc = promethean.542.desc
 	picture = GFX_evt_market
 
-
-	trigger = {
-		war = yes
-		has_character_flag = unbinding_festival
-	}
+	war = yes
+	has_character_flag = unbinding_festival
 
 	mean_time_to_happen = {
 		days = 1
@@ -4029,7 +4200,7 @@ character_event = {
 				limit = {
 					prisoner = no
 				}
-				character_event = { id = ancrel.3541 }
+				character_event = { id = promethean.541 }
 			}
 		}
 	}
@@ -4041,8 +4212,8 @@ character_event = {
 
 # You've been slighted in the selection of Heracles! (marshal)
 character_event = {
-	id = ancrel.3543
-	desc = ancrel.3543.desc
+	id = promethean.543
+	desc = promethean.543.desc
 	picture = GFX_evt_prometheus_bound
 
 	is_triggered_only = yes
@@ -4055,8 +4226,8 @@ character_event = {
 
 # You're liege has decided to play Heracles! (marshal)
 character_event = {
-	id = ancrel.3544
-	desc = ancrel.3544.desc
+	id = promethean.544
+	desc = promethean.544.desc
 	picture = GFX_evt_prometheus_bound
 
 	is_triggered_only = yes
@@ -4068,18 +4239,18 @@ character_event = {
 
 # You've been selected to play Heracles!
 character_event = {
-	id = ancrel.3545
+	id = promethean.545
 	desc = {
 		trigger = {
 			has_job_title = job_marshal
 		}
-		text = ancrel.3545.desc
+		text = promethean.545.desc
 	}
 	desc = {
 		trigger = {
 			NOT = { has_job_title = job_marshal }
 		}
-		text = ancrel.3545.desc_alt
+		text = promethean.545.desc_alt
 	}
 	picture = GFX_evt_prometheus_bound
 
@@ -4092,8 +4263,8 @@ character_event = {
 
 # You've been slighted in the selection of Prometheus! (chaplain)
 character_event = {
-	id = ancrel.3546
-	desc = ancrel.3546.desc
+	id = promethean.546
+	desc = promethean.546.desc
 	picture = GFX_evt_prometheus_bound
 
 	is_triggered_only = yes
@@ -4106,8 +4277,8 @@ character_event = {
 
 # You're liege has decided to play Prometheus! (chaplain)
 character_event = {
-	id = ancrel.3547
-	desc = ancrel.3547.desc
+	id = promethean.547
+	desc = promethean.547.desc
 	picture = GFX_evt_prometheus_bound
 
 	is_triggered_only = yes
@@ -4119,18 +4290,18 @@ character_event = {
 
 # You've been selected to play Prometheus!
 character_event = {
-	id = ancrel.3548
+	id = promethean.548
 	desc = {
 		trigger = {
 			has_job_title = job_spiritual
 		}
-		text = ancrel.3548.desc
+		text = promethean.548.desc
 	}
 	desc = {
 		trigger = {
 			NOT = { has_job_title = job_spiritual }
 		}
-		text = ancrel.3548.desc_alt
+		text = promethean.548.desc_alt
 	}
 	picture = GFX_evt_prometheus_bound
 
@@ -4143,8 +4314,8 @@ character_event = {
 
 # Festival is over!
 character_event = {
-	id = ancrel.3549
-	desc = ancrel.3549.desc
+	id = promethean.549
+	desc = promethean.549.desc
 	picture = GFX_evt_market
 	border = GFX_event_normal_frame_economy
 
@@ -4161,7 +4332,7 @@ character_event = {
 	}
 
 	option = {
-		name = ancrel.3549.a
+		name = promethean.549.a
 		any_vassal = {
 			limit = {
 				prisoner = no
@@ -4178,15 +4349,15 @@ character_event = {
 ###################################################################
 #
 # Promethean Holy Orders
-# - ancrel.3550 - ancrel.3599
+# - promethean.550 - promethean.599
 #
 ###################################################################
 
 # Men of Steel created!
 # narrative_event = {
-	# id = ancrel.3550
-	# title = ancrel.3550.title
-	# desc = ancrel.3550.desc
+	# id = promethean.550
+	# title = promethean.550.title
+	# desc = promethean.550.desc
 	# picture = GFX_evt_war_planning
 	# border = GFX_event_narrative_frame_war
 
@@ -4194,26 +4365,26 @@ character_event = {
 	# is_triggered_only = yes
 
 	# option = {
+		# name = promethean.550.a
 		# trigger = {
 			# has_character_flag = acr_organizer_steel
 		# }
-		# name = ancrel.3550.a
 	# }
 
 	# option = {
+		# name = promethean.550.b
 		# trigger = {
 			# religion = promethean_pagan
 			# NOT = {
 				# has_character_flag = acr_organizer_steel
 			# }
 		# }
-		# name = ancrel.3550.b
 	# }
 
 	# option = {
+		# name = promethean.550.c
 		# trigger = {
 			# NOT = { religion = promethean_pagan }
 		# }
-		# name = ancrel.3550.c
 	# }
 # }

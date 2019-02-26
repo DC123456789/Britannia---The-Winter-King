@@ -30,7 +30,7 @@ character_event = {
 				is_smart_trigger = yes
 				trait = scholar
 				trait = grey_eminence
-				trait = honorable
+				# trait = honorable
 				trait = honest
 				trait = diligent
 				trait = just
@@ -108,7 +108,7 @@ character_event = {
 				is_smart_trigger = yes
 				trait = gregarious
 				trait = brilliant_strategist
-				trait = honorable
+				# trait = honorable
 				trait = brave
 				trait = honest
 				trait = war_hero
@@ -575,19 +575,27 @@ character_event = {
 	option = {
 		name = "EVTOPTA75011"
 		FROM = {
+			show_scope_change = no
+			reverse_opinion = {
+				modifier = opinion_complaining
+				who = ROOT
+				years = 3
+			}
 			character_event = {
 				id = 75012
 				days = 1
 				random = 2
-				tooltip = "EVTTOOLTIP75012"
+			#	tooltip = "EVTTOOLTIP75012"
 			}
 		}
 		job_chancellor = {
+			show_scope_change = no
+			imprison = FROM
 			character_event = {
 				id = 75013
 				days = 1
 				random = 2
-				tooltip = "EVTTOOLTIP75013"
+			#	tooltip = "EVTTOOLTIP75013"
 			}
 		}
 		show_portrait = job_chancellor
@@ -595,19 +603,31 @@ character_event = {
 	option = {
 		name = "EVTOPTB75011"
 		job_chancellor = {
+			show_scope_change = no
+			opinion = {
+				modifier = opinion_my_saviour
+				who = FROM
+				years = 2
+			}
 			character_event = {
 				id = 75014
 				days = 1
 				random = 2
-				tooltip = "EVTTOOLTIP75014"
+			#	tooltip = "EVTTOOLTIP75014"
 			}
 		}
 		FROM = {
+			show_scope_change = no
+			opinion = {
+				modifier = opinion_betrayed
+				who = ROOT
+				years = 2
+			}
 			character_event = {
 				id = 75015
 				days = 1
 				random = 2
-				tooltip = "EVTTOOLTIP75015"
+			#	tooltip = "EVTTOOLTIP75015"
 			}
 		}
 	}
@@ -624,10 +644,12 @@ character_event = {
 	option = {
 		name = "EVTOPTA75012"
 		FROM = {
-			opinion = {
-				modifier = opinion_complaining
-				who = ROOT
-				years = 3
+			tooltip = {
+				opinion = {
+					modifier = opinion_complaining
+					who = ROOT
+					years = 3
+				}
 			}
 		}
 	}
@@ -644,7 +666,9 @@ character_event = {
 	option = {
 		name = "EVTOPTA75013"
 		FROM = {
-			reverse_imprison = ROOT
+			tooltip = {
+				reverse_imprison = ROOT
+			}
 		}
 	}
 }
@@ -659,10 +683,12 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA75014"
-		opinion = {
-			modifier = opinion_my_saviour
-			who = FROM
-			years = 2
+		tooltip = {
+			opinion = {
+				modifier = opinion_my_saviour
+				who = FROM
+				years = 2
+			}
 		}
 	}
 }
@@ -677,10 +703,12 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA75015"
-		opinion = {
-			modifier = opinion_betrayed
-			who = ROOT
-			years = 2
+		tooltip = {
+			opinion = {
+				modifier = opinion_betrayed
+				who = ROOT
+				years = 2
+			}
 		}
 	}
 }
@@ -1650,33 +1678,32 @@ character_event = {
 	option = {
 		name = "EVTOPTA75051"
 		event_target:target_heretic = {
-			any_courtier = {
-				limit = {
-					religion = PREV
-					NOT = {
-						character = ROOT
-					}
-					NOT = {
-						character = PREV
-					}
-					prisoner = no
-				}
-				opinion = {
-					modifier = opinion_burned_same_faith
-					who = ROOT
-					years = 5
-				}
-			}
+			show_scope_change = no
 			death = {
 				death_reason = death_execution_burning
 				killer = ROOT
 			}
 		}
+		any_courtier = {
+			show_scope_change = no
+			limit = {
+				religion = event_target:target_heretic
+				NOT = { character = ROOT }
+				NOT = { character = event_target:target_heretic }
+				prisoner = no
+			}
+			opinion = {
+				modifier = opinion_burned_same_faith
+				who = ROOT
+				years = 5
+			}
+		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_satisfied
 				who = ROOT
-				years = 2
+				years = 10
 			}
 			hidden_tooltip = {
 				character_event = {
@@ -1690,13 +1717,15 @@ character_event = {
 	option = {
 		name = "EVTOPTB75051"
 		event_target:target_heretic = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_grateful
 				who = ROOT
-				years = 2
+				years = 5
 			}
 		}
 		any_courtier = {
+			show_scope_change = no
 			limit = {
 				trait = zealous
 				religion = ROOT
@@ -2087,10 +2116,8 @@ character_event = {
 	option = {
 		name = "EVTOPTC75075"
 		trigger = {
-			OR = {
-				trait = kind
-				trait = honorable
-			}
+			trait = kind
+			# trait = honorable
 			NOT = { trait = cruel }
 			NOT = { trait = ruthless }
 			NOT = { trait = impaler }
@@ -2118,7 +2145,7 @@ character_event = {
 		trigger = {
 			trait = cruel
 			NOT = { trait = kind }
-			NOT = { trait = honorable }
+			# NOT = { trait = honorable }
 		}
 		if = {
 			limit = {
@@ -2263,6 +2290,7 @@ character_event = {
 	option = {
 		name = "EVTOPTB75085"
 		job_treasurer = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_dislike
 				who = ROOT
@@ -2588,6 +2616,7 @@ character_event = {
 			}
 		}
 		FROM = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_dislike
 				who = ROOT
@@ -3056,6 +3085,7 @@ character_event = {
 	option = {
 		name = "EVTOPTB75120"
 		job_marshal = {
+			show_scope_change = no
 			opinion = {
 				modifier = opinion_dislike
 				who = ROOT

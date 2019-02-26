@@ -32,10 +32,6 @@ county_conquest_can_use_gui_trigger = {
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
 			has_landed_title = k_gaul
-			AND = {				# Picts can use this CB only after 492 AD
-				culture = pictish
-				year = 492
-			}
 			trait = skilled_tactician
 			trait = brilliant_strategist
 			AND = {
@@ -86,7 +82,6 @@ county_conquest_can_use_trigger = {
 				culture_group = germanic
 				culture = oldirish	
 				culture = gaelic
-				culture = pictish
 				culture_group = imperiale
 				has_landed_title = e_gaul
 				has_landed_title = e_roman_britannia
@@ -100,12 +95,36 @@ county_conquest_can_use_trigger = {
 						culture_group = ROOT
 					}
 				}
+				AND = {
+					ROOT = {
+						OR = {
+							government = sub_roman_brythonic_government
+							is_brythonic_culture_trigger = yes
+						}
+					}
+					FROM = { 
+						government = sub_roman_brythonic_government 
+						OR = {
+							culture_group = celtic
+							culture_group = imperiale
+						}
+					}
+				}
 			}
 		}
 		NAND = {					
-			culture_group = imperiale		# Block Romans under Celts
-			top_liege = { culture_group = celtic }
-			FROM = { culture_group = celtic }
+			culture_group = imperiale		# Block Sub-Roman Brythonic Imperial rulers
+			OR = {
+				top_liege = { culture_group = celtic }
+				government = sub_roman_brythonic_government
+				top_liege = { government = sub_roman_brythonic_government }
+			}
+			FROM = { 
+				OR = {
+					culture_group = celtic
+					government = sub_roman_brythonic_government
+				}
+			}
 		}
 		NAND = {					# Prevents zealous rulers from declaring war on others of the same religion
 			ROOT = {
@@ -187,6 +206,25 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 			realm_size = 15
 		}
 		ROOT = { ai = yes }
+	}
+	
+	# Block High Tribals from using against Low Tribals correct culture provinces
+	NAND = {
+		ROOT = {
+			government = high_tribal_government
+		}
+		FROM = {
+			government = tribal_government
+			OR = {
+				culture = PREV
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					PREV = {
+						is_ingvaeonic_culture_trigger = yes
+					}
+				}
+			}
+		}
 	}
 	
 	# Block Franks against Frisians and Saxons
@@ -426,11 +464,16 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 		ROOT = { is_roman_ruler_trigger = yes }
 		location = {
 			OR = {
+				region = custom_greater_germania_prima
 				region = custom_germania_secunda
 				region = custom_germania_tertia
 			}
 			NOT = { region = custom_wre }
 			NOT = { has_global_flag = expanded_secunda }
+			NAND = {
+				region = custom_agri_decumates
+				has_global_flag = roman_conquest_agri_decumates
+			}
 		}
 	}
 	
@@ -575,19 +618,19 @@ duchy_invasion_can_use_gui_trigger = {
 			}
 			AND = {
 				age = 20
-				prestige = 1500
+				prestige = 1000
 				OR = {
 					trait = skilled_tactician
 					trait = brilliant_strategist
-					martial = 15
+					martial = 12
 					AND = {
 						OR = {
 							trait = ambitious
 							trait = inspiring_leader
 						}
-						prestige = 2000
-						diplomacy = 15
-						martial = 12
+						prestige = 1500
+						diplomacy = 12
+						martial = 10
 					}
 				}
 				prisoner = no
@@ -702,9 +745,36 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 				}
 			}
 		}
+		
+		# Block High Tribals from using against Low Tribals correct culture provinces
+		AND = {
+			ROOT = {
+				government = high_tribal_government
+			}
+			FROM = {
+				government = tribal_government
+			}
+			NOT = {
+				any_direct_de_jure_vassal_title = {
+					NOR = {
+						culture = FROM
+						AND = {
+							is_ingvaeonic_culture_trigger = yes
+							FROM = {
+								is_ingvaeonic_culture_trigger = yes
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		# Armorica protection
 		capital_scope = {
 			region = world_gaul_lugdunensis_armorica
 		}
+		
+		# Wales protection
 		capital_scope = {
 			region = world_britannia_cymry_wales
 		}
@@ -738,6 +808,52 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 				realm_size = 30
 			}
 			ROOT = { ai = yes }
+		}
+	}
+}
+
+can_use_imperial_invasion_cb_against_province_trigger = {
+	OR = {
+		region = world_ireland 
+		region = world_caledonia
+		AND = {
+			region = world_britannia_cymry_henogledd
+			NOT = { region = custom_roman_britannia }
+		}
+		AND = {
+			OR = {
+				region = custom_greater_germania_prima
+				region = custom_germania_secunda
+				region = custom_germania_tertia
+			}
+			NOT = { region = custom_wre }
+			has_global_flag = expanded_secunda
+		}
+		AND = {
+			region = custom_agri_decumates
+			has_global_flag = roman_conquest_agri_decumates
+		}
+	}
+}
+
+is_britannia_caratacus_subjugation_trigger = {							
+	ROOT = { 
+		has_landed_title = e_britannia
+		culture_group = celtic 
+	}
+	has_global_flag = britannia_reclaimed_caratacus_legacy
+	ROOT_FROM = {
+		primary_title = {
+			OR = {
+				capital_scope = {
+					OR = {
+						region = world_gaul_lugdunensis_armorica
+						region = world_ireland
+						region = world_caledonia
+					}
+				}
+				empire = { title = e_armorica }
+			}
 		}
 	}
 }

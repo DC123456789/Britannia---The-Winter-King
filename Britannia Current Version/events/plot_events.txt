@@ -3081,6 +3081,14 @@ letter_event = {
 						}
 					}
 					
+					
+					if = {
+						limit = { 
+							FROM = { is_tributary = { type = britannia_subject } }
+						}
+						PREVPREV = { set_character_flag = prompt_high_king_subject }
+					}
+					
 					usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = PREVPREV type = faction_demand }
 					
 					# Transfer foederati and client states
@@ -3099,6 +3107,16 @@ letter_event = {
 						}
 						PREVPREV = {
 							character_event = { id = 315925 } 
+						}
+					}
+					
+					# Prompt for submitting to High King
+					PREVPREV = {
+						if = {
+							limit = { 
+								has_character_flag = prompt_high_king_subject
+							}
+							character_event = { id = 302993 }
 						}
 					}
 				}
@@ -3197,6 +3215,7 @@ letter_event = {
 						has_global_flag = anglia_collapse_start
 					} 
 					NOT = { government = legion_government }
+					NOT = { government = tribal_government }
 				}
 			}
 			add_weak_pressed_claim = FROM
@@ -3510,6 +3529,7 @@ letter_event = {
 						has_landed_title = k_anglia
 						has_global_flag = anglia_collapse_start 
 					}
+					NOT = { government = tribal_government }
 				}
 			}
 			add_weak_pressed_claim = FROM
@@ -7467,7 +7487,24 @@ character_event = {
 # Archer Ambush - Initiator informs other plotter
 character_event = {
 	id = 7712
-	desc = "EVTDESC7712"
+	desc = {
+		trigger = {
+			event_target:plot_target = {
+				NOT = {
+					is_inaccessible_trigger = yes
+				}
+			}
+		}
+		text = EVTDESC7712
+	}
+	desc = {
+		trigger = {
+			event_target:plot_target = {
+				is_inaccessible_trigger = yes
+			}
+		}
+		text = EVTDESC7712_B
+	}
 	picture = GFX_evt_longbowman
 	border = GFX_event_normal_frame_intrigue
 	
@@ -20251,28 +20288,14 @@ letter_event = {
 					# limit = { has_law = succession_voting_power_0 }
 					# add_law_w_cooldown = succession_voting_power_1
 				# }
-				# custom_tooltip = {
-					# text = overthrow_text
-					# hidden_tooltip = {
-						# if = {
-							# limit = { 
-								# NOT = { has_law = succ_feudal_elective }
-								# has_law = law_voting_power_1
-								# has_law = banish_voting_power_1
-								# has_law = execution_voting_power_1
-								# has_law = revoke_title_voting_power_1
-								# has_law = grant_title_voting_power_1
-								# has_law = imprison_voting_power_1
-								# has_law = war_voting_power_1						
-							# }
-							# add_law_w_cooldown = succ_feudal_elective
-						# }
-						# if = {
-							# limit = {
-								# NOT = { has_law = succ_gavelkind }
-								# NOT = { has_law = succ_feudal_elective }
-								# NAND = {
-									# has_law = succ_feudal_elective
+				# if = {
+					# limit = { NOT = { has_law = succ_byzantine_elective } }
+					# custom_tooltip = {
+						# text = overthrow_text
+						# hidden_tooltip = {
+							# if = {
+								# limit = { 
+									# NOT = { has_law = succ_feudal_elective }
 									# has_law = law_voting_power_1
 									# has_law = banish_voting_power_1
 									# has_law = execution_voting_power_1
@@ -20281,8 +20304,25 @@ letter_event = {
 									# has_law = imprison_voting_power_1
 									# has_law = war_voting_power_1						
 								# }
+								# add_law_w_cooldown = succ_feudal_elective
 							# }
-							# add_law_w_cooldown = succ_gavelkind
+							# if = {
+								# limit = {
+									# NOT = { has_law = succ_gavelkind }
+									# NOT = { has_law = succ_feudal_elective }
+									# NAND = {
+										# has_law = succ_feudal_elective
+										# has_law = law_voting_power_1
+										# has_law = banish_voting_power_1
+										# has_law = execution_voting_power_1
+										# has_law = revoke_title_voting_power_1
+										# has_law = grant_title_voting_power_1
+										# has_law = imprison_voting_power_1
+										# has_law = war_voting_power_1						
+									# }
+								# }
+								# add_law_w_cooldown = succ_gavelkind
+							# }
 						# }
 					# }
 				# }

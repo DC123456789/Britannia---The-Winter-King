@@ -526,7 +526,7 @@ character_event = {	# Beginning of Wolftail event chain (Bounce event)
 			trait = blinded
 		}
 		martial = 20
-		c_wolftails = { has_holder = no }
+		d_wolftails = { has_holder = no }
 		NOT = { has_character_flag = given_wolftails }
 		event_target:arthur_pendragon = {
 			same_realm = ROOT
@@ -584,10 +584,10 @@ character_event = {	# Arthur grants Derfel the Wolftails
 		FROM = {
 			set_character_flag = given_wolftails
 			activate_title = {
-				title = c_wolftails
+				title = d_wolftails
 				status = yes
 			}
-			c_wolftails = { 
+			d_wolftails = { 
 				grant_title = FROM 
 			}
 			event_target:arthur_pendragon = {
@@ -692,7 +692,7 @@ character_event = {	# After 550 AD the Wolftails become a free company again
 		year = 550
 		war = no
 		in_command = no
-		c_wolftails = { holder_scope = { liege = { character = ROOT } } }
+		d_wolftails = { holder_scope = { liege = { character = ROOT } } }
 	}
 
 	mean_time_to_happen = {
@@ -700,9 +700,9 @@ character_event = {	# After 550 AD the Wolftails become a free company again
 	}
 	
 	immediate = {
-		c_wolftails = { 
+		d_wolftails = { 
 			holder_scope = {
-				c_wolftails = { set_defacto_liege = PREV }
+				d_wolftails = { set_defacto_liege = PREV }
 			}
 		}
 	}
@@ -1172,7 +1172,7 @@ character_event = {
 	}
 	
 	option = {
-		text = "EVTOPTB312131"
+		name = "EVTOPTB312131"
 		trigger = {
 			ROOT = { character = 26 }
 		}
@@ -1194,7 +1194,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = {
-		text = "EVTOPTA312132"
+		name = "EVTOPTA312132"
 		add_trait = depressed
 	}
 }
@@ -2171,6 +2171,18 @@ narrative_event = {
 			k_burgundy = { de_jure_liege = e_franks }
 		}
 		if = {
+			limit = { has_global_flag = frisia_subjugated }
+			k_frisia = { de_jure_liege = e_franks }
+		}
+		if = {
+			limit = { has_global_flag = saxony_subjugated }
+			k_saxony = { de_jure_liege = e_franks }
+		}
+		if = {
+			limit = { has_global_flag = alemannia_subjugated }
+			k_alemannia = { de_jure_liege = e_franks }
+		}
+		if = {
 			limit = { e_western_roman_empire = { has_holder = yes } }
 			e_western_roman_empire = { holder_scope = { character_event = { id = 312121 } } }
 			break = yes
@@ -2192,12 +2204,24 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	immediate = {
+		e_eastern_roman_empire = {
+			holder_scope = {
+				save_event_target_as = eastern_emperor
+			}
+		}
 		e_western_roman_empire = {
 			set_title_landless = {
 				title = THIS
 				status = no
 			}
 			holder_scope = {
+				any_artifact = {
+					limit = { artifact_type = crown_wre }
+					transfer_artifact = {
+						from = PREV
+						to = event_target:eastern_emperor
+					}
+				}
 				death = {
 					death_reason = death_murder
 				}
@@ -2330,7 +2354,6 @@ narrative_event = {
 		trigger = {
 			OR = {
 				religion_group = pagan_group
-				religion_group = zoroastrian_group
 			}
 			NOT = { trait = cynical }
 		}
@@ -2864,7 +2887,7 @@ character_event = {
 			trait = arbitrary
 			trait = cruel
 			trait = impaler
-			trait = selfish
+			#trait = selfish
 			trait = slow
 			trait = imbecile
 		}

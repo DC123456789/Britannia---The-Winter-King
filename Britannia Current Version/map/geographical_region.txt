@@ -222,7 +222,7 @@ world_gaul_lugdunensis_prima = {
 
 world_gaul_lugdunensis_secunda = {
 	duchies = {
-		d_trebes d_normannia d_baiocassia d_sagia d_sequania d_veliocassia d_lexovia d_eburovicia
+		d_trebes d_normannia d_baiocassia d_sagia d_veliocassia d_lexovia d_eburovicia
 	}
 }
 
@@ -352,15 +352,27 @@ world_gaul_narbonensis = {
 	}
 }
 
+world_gaul_germania_prima = {
+	duchies = {
+		d_tribocia d_nemetia d_vangionia d_moguntiacensia
+	}
+}
+
 world_gaul_germania_secunda = {
 	duchies = {
 		d_tungria d_toxandria d_batavia d_cananefatia d_ubia 
 	}
 }
 
+world_gaul_maxima_sequanorum = {
+	duchies = {
+		d_sequania d_equestria d_helvitioria d_rauricia
+	}
+}
+
 world_gaul_romangermania = {
 	regions = {
-		world_gaul_germania_secunda
+		world_gaul_germania_prima world_gaul_germania_secunda world_gaul_maxima_sequanorum
 	}
 }
 
@@ -444,6 +456,24 @@ world_bructeria = {
 	}
 }
 
+world_hesse = {
+	duchies = {
+		d_lahngau d_hesse d_wetterau
+	}
+}
+
+world_south_franconia = {
+	duchies = {
+		d_rheingau d_ufgau d_elsenzgau d_wingarteiba d_waldsassengau d_kochergau
+	}
+}
+
+world_northeast_swabia = {
+	duchies = {
+		d_breisgau d_bertoldsbaar
+	}
+}
+
 world_germania = {
 	duchies = {
 		# Frisia
@@ -457,7 +487,9 @@ world_germania = {
 		# Saxony
 		world_germania_saxony 
 		# Ripuarian Franks
-		world_hamaland_salland world_bructeria
+		world_hamaland_salland world_bructeria world_hesse
+		# Alemannia
+		world_south_franconia world_northeast_swabia
 	}
 }
 
@@ -601,7 +633,7 @@ custom_wre = {
 
 custom_gaul_coast = {
 	duchies = {
-		d_finis_terrae d_trebes d_normannia d_baiocassia d_lexovia d_sequania d_ambiania d_morinia d_menapia d_atrebatia
+		d_finis_terrae d_trebes d_normannia d_baiocassia d_lexovia d_ambiania d_morinia d_menapia d_atrebatia
 	}
 	counties = {
 		c_rotomagus c_uggade c_broceliande c_fanum_martis
@@ -677,7 +709,7 @@ custom_southaquitania = {
 
 custom_northwest_gaul = {
 	duchies = {
-		d_aquitania d_bellovacia d_sequania d_veliocassia d_carnutia d_ambiania
+		d_aquitania d_bellovacia d_veliocassia d_carnutia d_ambiania
 	}
 	regions = {
 		world_gaul_lugdunensis_secunda world_gaul_lugdunensis_tertia
@@ -948,24 +980,12 @@ custom_dutch_area = {
 	}
 }
 
-custom_germania_secunda = {
-	duchies = {
-		d_tungria d_toxandria d_batavia d_cananefatia d_ubia d_west_frisia d_friesland  d_hamaland d_salland d_brukterer
-	}
-}
-
-custom_germania_tertia = {
-	duchies = {
-		d_east_frisia d_emsland d_westweser d_dreinland d_grainland d_westfalia d_angria d_bremunland d_paderborn d_verden d_detmold 
-	}
-}
-
 custom_franconian_area = {
 	counties = {
 		c_cologne c_juliacum c_bonna c_icorigium c_hatterun c_deutz c_avalgowe c_aquae_granni c_dinant
 	}
 	regions = {
-		world_gaul_belgica_prima 
+		world_gaul_belgica_prima world_gaul_germania_prima world_hesse world_south_franconia
 	}
 }
 
@@ -974,7 +994,7 @@ custom_arpitan_area = {
 		d_allobrigia d_gratianopolitia d_genavensia
 	}
 	regions = {
-		world_gaul_lugdunensis_prima 
+		world_gaul_lugdunensis_prima world_gaul_maxima_sequanorum
 	}
 }
 
@@ -994,13 +1014,115 @@ custom_frankish_area = {
 	counties = {
 		# Germania Secunda
 		c_toxandria c_teudurum c_elsenburg c_tilburg c_antwerp c_nijmegen
+		# Germania Prima
+		c_confluentes
+		# Belgica Secunda
+		c_flandrensis c_ghent c_kortrijk c_tournai c_origiacum
 	}
 	duchies = {
 		d_brukterer
+		# Germania Prima
+		#d_moguntiacensia d_vangionia d_nemetia
 		# Germania Secunda
 		d_tungria d_ubia
+		# Belgica Secunda
+		d_morinia d_atrebatia d_nervia
 	}
 	regions = {
-		world_gaul_belgica_prima world_dentelinus
+		world_gaul_belgica_prima world_hesse #world_dentelinus #custom_franconia
+	}
+}
+
+custom_agri_decumates = {
+	counties = {
+		c_engersgau c_niddagau c_unterrheingau c_oberrheingau c_west_maingau c_lobdengau c_west_wingarteiba c_west_jagstgau
+	}
+	duchies = {
+		d_ufgau d_elsenzgau d_breisgau d_bertoldsbaar
+	}
+}
+
+custom_west_franconia = {
+	counties = {
+		c_mogontiacum c_bingium
+	}
+	duchies = {
+		d_vangionia d_nemetia
+	}
+}
+
+custom_franconia = {
+	regions = {
+		world_hesse world_south_franconia custom_west_franconia
+	}
+}
+
+custom_ripuaria = {
+	counties = {
+		c_confluentes c_toxandria c_teudurum c_elsenburg c_tilburg c_antwerp c_nijmegen
+	}
+	duchies = {
+		d_ubia
+	}
+	regions = {
+		world_bructeria
+	}
+}
+
+custom_swabia = {
+	counties = {
+		c_vindonissa c_brenodunum c_turicum
+	}
+	duchies = {
+		d_rauricia d_tribocia
+	}
+	regions = {
+		world_northeast_swabia
+	}
+}
+
+custom_alemannia = {
+	regions = {
+		custom_swabia world_south_franconia custom_west_franconia
+	}
+}
+
+custom_greater_germania_prima = {
+	duchies = {
+		d_rheingau d_waldsassengau d_wingarteiba d_kochergau
+	}
+	regions = {
+		world_gaul_germania_prima custom_agri_decumates
+	}
+}
+
+custom_germania_secunda = {
+	duchies = {
+		d_west_frisia d_friesland d_hamaland d_salland d_brukterer
+	}
+	regions = {
+		world_gaul_germania_secunda
+	}
+}
+
+custom_germania_tertia = {
+	counties = {
+		c_oberlahngau c_niderlahngau c_perfgau c_wettergau
+	}
+	duchies = {
+		d_hesse d_east_frisia
+	}
+	regions = {
+		world_germania_saxony_westphalia world_germania_saxony_angria
+	}
+}
+
+custom_northern_germania = {
+	regions = {
+		world_germania_saxony world_hamaland_salland
+	}
+	duchies = {
+		# Frisia
+		d_west_frisia d_friesland d_east_frisia
 	}
 }

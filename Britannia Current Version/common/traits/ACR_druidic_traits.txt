@@ -57,14 +57,7 @@
 bad_druid = {
 
 	potential = {
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-		}
+		religion_openly_celtic_or_reformed_trigger = yes
 	}
 	opposites =  {
 		druid
@@ -85,6 +78,59 @@ bad_druid = {
 	cannot_inherit = yes
 }
 
+dryad = {
+	potential = {
+		religion = britannic_pagan
+		is_theocracy = yes
+	}
+
+	opposites = {
+		bad_dryad
+	}
+
+	religious = yes
+
+	monthly_character_piety = 0.5
+	learning = 2
+	diplomacy = 2
+	fertility = 0.10
+
+	customizer = no
+
+	cannot_inherit = yes
+}
+
+bad_dryad = {
+	religious = yes
+
+	potential = {
+		OR = {
+			is_theocracy = yes
+			is_ruler = no
+		}
+	}
+
+	opposites = {
+		dryad
+	}
+
+	church_opinion = -10
+	same_opinion_if_same_religion = 25
+
+	monthly_character_piety = -1
+	learning = 2
+	diplomacy = 1
+	fertility = 0.10
+
+	customizer = no
+	random = no
+
+	female_insult = INSULT_SCARECROW
+	child_insult = INSULT_SCARECROW
+	female_insult_adj = INSULT_CORRUPT
+	child_insult_adj = INSULT_CRUMMY
+}
+
 fian = {	
 
 	potential = {
@@ -95,6 +141,7 @@ fian = {
 	}
 	martial = 2
 	learning = 1
+	combat_rating = 7
 	
 	same_religion_opinion = 5
 	
@@ -123,6 +170,7 @@ fian = {
 	
 	# martial = 2
 	# learning = 1
+	# combat_rating = 10
 	
 	# same_religion_opinion = 10
 	
@@ -144,17 +192,11 @@ fian = {
 
 # wolf = {
 	# potential = {
-		# OR = {
-			# religion = briton_pagan
-			# religion = briton_pagan_reformed
-			# religion = gael_pagan
-			# religion = gael_pagan_reformed
-			# religion = pict_pagan
-			# religion = pict_pagan_reformed
-		# }
+		# religion_openly_celtic_or_reformed_trigger = yes
 	# }
 	# martial = 2
 	# monthly_character_prestige = 0.15
+	# combat_rating = 7
 
 	# same_opinion = 20
 
@@ -164,14 +206,7 @@ fian = {
 learning_druidic_arts = {
 	
 	potential = {
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-		}
+		religion_openly_celtic_or_reformed_trigger = yes
 	}
 	
 	customizer = no
@@ -190,18 +225,11 @@ learning_druidic_arts = {
 changeling = {
 	
 	potential = {
-		OR = {
-			religion = briton_pagan
-			religion = briton_pagan_reformed
-			religion = gael_pagan
-			religion = gael_pagan_reformed
-			religion = pict_pagan
-			religion = pict_pagan_reformed
-		}
+		religion_openly_in_celtic_subgroup_trigger = yes
 	}
 	health = 3
 	
-	cached = yes # Keep a cache of all trait holders, to use with the corresponding event trigger 	
+	# cached = yes # Keep a cache of all trait holders, to use with the corresponding event trigger 	
 	
 	same_religion_opinion = 5
 	
@@ -221,6 +249,7 @@ changeling = {
 	# opposites = {
 		# atens_chosen
 		# montu
+		# morrigan
 		# crusader
 		# mujahid
 		# valhalla_bound
@@ -237,7 +266,7 @@ changeling = {
 	# }
 	
 	# martial = 2
-	# combat_rating = 1
+	# combat_rating = 10
 	
 	# church_opinion = 15
 	# same_opinion_if_same_religion = 15
@@ -251,4 +280,91 @@ changeling = {
 	# female_insult_adj = INSULT_NARROWMINDED
 	# male_compliment_adj = COMPL_RIGHTEOUS
 	# female_compliment_adj = COMPL_RIGHTEOUS
+# }
+
+# morrigan = {
+	# opposites = {
+		# atens_chosen
+		# montu
+		# lughs_own
+		# crusader
+		# mujahid
+		# valhalla_bound
+		# eagle_warrior
+		# sun_warrior
+		# ukkos_shield
+		# nyames_shield
+		# peruns_chosen
+		# romuvas_own
+		# ares_own
+		# tengri_warrior
+		# shaddai
+		# gondi_shahansha
+	# }
+	
+	# martial = 2
+	# combat_rating = 10
+	
+	# church_opinion = 15
+	# same_opinion_if_same_religion = 15
+	
+	# ai_zeal = 10
+	# customizer = no
+	
+	# male_insult = INSULT_FANATIC
+	# female_insult = INSULT_FANATIC
+	# male_insult_adj = INSULT_NARROWMINDED
+	# female_insult_adj = INSULT_NARROWMINDED
+	# male_compliment_adj = COMPL_RIGHTEOUS
+	# female_compliment_adj = COMPL_RIGHTEOUS
+# }
+
+sych = { # welsh for "dry"
+	potential = {
+		religion = britannic_pagan
+	}
+
+	random = no # only assigned via event
+
+	monthly_character_piety = -0.10
+	same_opinion = 5
+	same_religion_opinion = -5
+	church_opinion = -5
+	
+	religious = yes
+}
+
+child_of_dryad = {
+	potential = {
+		religion = britannic_pagan
+	}
+
+	random = no
+
+	monthly_character_piety = 0.10
+	same_opinion = 5
+	same_religion_opinion = 5
+	church_opinion = 5
+
+	religious = yes
+}
+
+# celtic_leader = {
+	# leader = yes
+	# random = no
+	# trait_effect_capture_commanders = 1
+	# command_modifier = {
+		# terrain = hills
+		# morale_offence = 0.2
+	# }
+# }
+
+# britannic_leader = {
+	# leader = yes
+	# random = no
+	# command_modifier = {
+		# terrain = plains
+		# terrain = farmlands
+		# cavalry = 0.2
+	# }
 # }

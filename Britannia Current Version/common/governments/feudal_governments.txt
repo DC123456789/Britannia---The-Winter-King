@@ -1,4 +1,66 @@
 feudal_governments = {
+
+	feudal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = { 
+			CASTLE 
+			FORT
+			HOSPITAL
+		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
+		accepts_liege_governments = { # Gets the wrong religion modifier instead
+			muslim_government
+			imperial_government
+		}
+		potential = {
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
+			}
+			NOT = {	religion_group = muslim	}
+			is_patrician = no
+			NOT = { has_landed_title = c_benoc_folc }
+			OR = {
+				has_global_flag = startup
+				NOR = {
+					is_government_potential = sub_roman_government 
+					is_government_potential = sub_roman_brythonic_government 
+					is_government_potential = germanic_government 
+				}
+			}
+			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
+		}
+		
+		color = { 91 133 207 }
+		
+		character_modifier = {
+			castle_vassal_tax_modifier = -0.025
+			city_vassal_tax_modifier = -0.025
+			temple_vassal_tax_modifier = -0.025
+			tribal_vassal_tax_modifier = -0.025
+			castle_vassal_max_levy = 0.05
+			city_vassal_max_levy = 0.05
+			temple_vassal_max_levy = 0.05
+			tribal_vassal_max_levy = 0.05
+			build_time_tribal_modifier = -0.33
+		}
+		
+		dukes_called_kings = yes
+		barons_need_dynasty = yes
+
+		can_build_tribal = no
+		
+		can_be_granted_kingdoms_and_empires_by_other_government = yes
+		
+		ignore_in_vassal_limit_calculation = {
+			tribal_government
+		}
+		capital_move_delay = 600
+	}
 	
 	imperial_government = {
 		preferred_holdings = { CASTLE }
@@ -20,9 +82,9 @@ feudal_governments = {
 		}
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -43,12 +105,14 @@ feudal_governments = {
 				}
 			}
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 0.45 0.35 0.62 }
 		
 		character_modifier = {
 			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+			religion_flex = -0.25
 			global_tax_modifier = -0.20
 			land_morale = 0.1
 			land_organisation = 0.1
@@ -60,6 +124,11 @@ feudal_governments = {
 			castle_vassal_min_levy = -0.08
 			city_vassal_min_levy = -0.08
 			temple_vassal_min_levy = -0.08
+			build_time_tribal_modifier = -0.33
+		}
+		
+		unit_modifier = {
+			retinuesize_perc = 0.40
 		}
 		
 		title_prefix = "imperial_"
@@ -73,6 +142,7 @@ feudal_governments = {
 		free_levies_in_offensive_war = yes
 		
 		can_grant_kingdoms_and_empires_to_other_government = yes
+		can_create_empires = no
 		
 		vassal_limit = 35
 		
@@ -107,9 +177,9 @@ feudal_governments = {
 		#}
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -129,9 +199,18 @@ feudal_governments = {
 			}
 			NOT = { is_government_potential = legion_government }
 			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 124 184 70 }
+		
+		character_modifier = {
+			build_time_tribal_modifier = -0.33
+		}
+		
+		unit_modifier = {
+			retinuesize_perc = 0.25
+		}
 		
 		dukes_called_kings = yes
 		barons_need_dynasty = no
@@ -176,9 +255,9 @@ feudal_governments = {
 		# }
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -192,12 +271,19 @@ feudal_governments = {
 			}
 			NOT = { is_government_potential = legion_government }
 			NOT = { is_government_potential = imperial_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 0.6 0.7 0.3 }
 		
 		character_modifier = {
 			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+			religion_flex = -0.25
+			build_time_tribal_modifier = -0.33
+		}
+		
+		unit_modifier = {
+			retinuesize_perc = 0.25
 		}
 		
 		title_prefix = "subroman_"
@@ -243,9 +329,9 @@ feudal_governments = {
 		# }
 
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			NOT = {	religion_group = muslim	}
 			is_patrician = no
@@ -263,6 +349,7 @@ feudal_governments = {
 				}
 			}
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 			OR = {
 				NOT = { is_government_potential = imperial_government }
 				trait = foederate
@@ -273,6 +360,24 @@ feudal_governments = {
 		
 		character_modifier = {
 			culture_flex = -0.25		# Note: doesn't actually work, is actually implemented by hidden province modifiers
+			religion_flex = -0.25
+			castle_vassal_tax_modifier = -0.025
+			city_vassal_tax_modifier = -0.025
+			temple_vassal_tax_modifier = -0.025
+			tribal_vassal_tax_modifier = -0.025
+			castle_vassal_max_levy = 0.05
+			city_vassal_max_levy = 0.05
+			temple_vassal_max_levy = 0.05
+			tribal_vassal_max_levy = 0.05
+			castle_vassal_min_levy = 0.025
+			city_vassal_min_levy = 0.025
+			temple_vassal_min_levy = 0.025
+			tribal_vassal_min_levy = 0.025
+			build_time_tribal_modifier = -0.33
+		}
+		
+		unit_modifier = {
+			retinuesize_perc = 0.25
 		}
 		
 		dukes_called_kings = yes
@@ -308,9 +413,9 @@ feudal_governments = {
 			imperial_government
 		}
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			primary_title = {
 				is_roman_legion_title_trigger = yes
@@ -333,54 +438,92 @@ feudal_governments = {
 		
 		capital_move_delay = 120
 	}
-
-	feudal_government = {
+	
+	order_government = {
 		preferred_holdings = { CASTLE }
-		allowed_holdings = { 
-			CASTLE 
+		allowed_holdings = {
+			CASTLE
+			TRIBAL
 			FORT
 			HOSPITAL
 		}
-		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
-			TRIBAL
-		}
-		accepts_liege_governments = { # Gets the wrong religion modifier instead
-			muslim_government
+		accepts_liege_governments = {
+			feudal_government
+			sub_roman_government
+			sub_roman_brythonic_government
+			germanic_government
 			imperial_government
+			muslim_government
+			theocracy_government
 		}
+		free_revoke_on_governments = {
+			order_government
+		}
+		free_revoke_on_tiers = {
+			BARON
+		}
+
+		forced_contract = {
+			order_government
+		}
+
+		frame_suffix = "_order"
+		title_prefix = "order_"
+
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
-			}
-			NOT = {	religion_group = muslim	}
-			is_patrician = no
-			NOT = { has_landed_title = c_benoc_folc }
 			OR = {
-				has_global_flag = startup
-				NOR = {
-					is_government_potential = sub_roman_government 
-					is_government_potential = sub_roman_brythonic_government 
-					is_government_potential = germanic_government 
+				holy_order = yes
+				AND = {
+					any_liege = {
+						holy_order = yes
+						religion = ROOT
+					}
+					ai = yes
+					NAND = { 
+						is_government_potential = merchant_republic_government 
+						OR = {
+							tier = DUKE
+							is_patrician = yes
+						}
+						any_demesne_province = {
+							any_province_holding = {
+								OR = {
+									AND = {
+										tier = BARON
+										holding_type = family_palace
+									}
+									AND = {
+										NOT = {
+											tier = BARON
+										}
+										holding_type = city
+									}
+								}
+							}
+						}
+					}
 				}
 			}
-			NOT = { is_government_potential = imperial_government }
-			NOT = { is_government_potential = legion_government }
 		}
+
+		color = { 169 169 169 }
 		
-		color = { 91 133 207 }
-		
+		character_modifier = {
+			build_time_tribal_modifier = -0.33
+		}
+
+		have_gender_laws = no
+		can_create_kingdoms = no
+		can_create_empires = no
+		can_imprison_without_reason = no
+		can_revoke_without_reason = no
 		dukes_called_kings = yes
 		barons_need_dynasty = yes
-
-		can_build_tribal = no
-		
-		can_be_granted_kingdoms_and_empires_by_other_government = yes
-		
-		ignore_in_vassal_limit_calculation = {
-			tribal_government
-		}
-		capital_move_delay = 600
+		can_usurp_kingdoms_and_empires = no
+		can_grant_kingdoms_and_empires_to_other_government = no
+		can_be_granted_kingdoms_and_empires_by_other_government = no
+		can_inherit = no
+		free_retract_vassalage = yes
 	}
 	
 	muslim_government = {
@@ -403,16 +546,21 @@ feudal_governments = {
 		}
 		frame_suffix = "_iqta"
 		potential = {
-			NAND = {
-				controls_religion = yes
-				has_theocratic_religion_head_trigger = yes
+			OR = {
+				controls_religion = no
+				has_theocratic_religion_head_trigger = no
 			}
 			religion_group = muslim
 			is_patrician = no
 			NOT = { is_government_potential = legion_government }
+			NOT = { is_government_potential = order_government }
 		}
 		
 		color = { 10 138 57 }
+		
+		character_modifier = {
+			build_time_tribal_modifier = -0.33
+		}
 		
 		uses_decadence = yes
 		uses_piety_for_law_change = yes

@@ -1,138 +1,102 @@
-decisions = {
-	celebrate_bema = {
-		only_playable = yes
-		ai_check_interval = 2
-		potential = {
-			NOT = { is_inaccessible_trigger = yes }
-			is_adult = yes
-			prisoner = no
-			religion = manichean
-			NOT = { has_character_modifier = held_bema_timer }
-			NOT = {	has_character_flag = holding_bema }
-		}
-		allow = {
-			war = no
-			custom_tooltip = {
-				text = UNOCCUPIED_DEMESNE_TITLE
-				hidden_tooltip = {
-					any_demesne_title = {
-						NOT = { higher_tier_than = count }
-						is_occupied = no
-					}
-				}
-			}
-			month = 1
-			NOT = { month = 3 }
-			wealth = 50
-			prisoner = no
-			NOT = { is_inaccessible_trigger = yes }
-			custom_tooltip = {
-				text = is_not_busy_trigger_tooltip
-				hidden_tooltip = { NOT = { has_character_flag = do_not_disturb } }
-			}
-		}
-		effect = {
-			wealth = -50
-			set_character_flag = holding_bema
-			set_character_flag = recent_minor_decision
-			set_character_flag = do_not_disturb
-			hidden_tooltip = { character_event = { id = 39818 days = 150 } } # Safety catch flag clearing
-			hidden_tooltip = { 
-				character_event = { id = 39812 } 
-			}
-			if = {
-				limit = {
-					has_dlc = "Reapers"
-				}
-				custom_tooltip = {
-					text = capital_prospers_custom_tooltip
-					hidden_tooltip = {
-						capital_scope = {
-							change_variable = { which = prosperity_value value = 8 }
-						}
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			
-			modifier = {
-				factor = 0
-				NOT = {
-					wealth = 300
-				}
-			}
-			modifier = {
-				factor = 0
-				trait = shy
-			}
-			modifier = {
-				factor = 0
-				NOT = { diplomacy = 10 }
-			}	
-			modifier = {
-				factor = 0
-				has_character_flag = recent_minor_decision
-				NOT = {
-					had_character_flag = {
-						flag = recent_minor_decision
-						days = 730
-					}
-				}
-			}
-		}
-	}
-	
+decisions = {	
 	create_arian_papacy = {
 		only_independent = yes
 		
 		is_high_prio = yes
+		ai_check_interval = 36
 	
 		potential = {
 			is_playable = yes
-			religion = arian
-			NOT = { has_global_flag = arian_papacy_created }
-			d_arian_papacy = {
-				has_holder = no
+			religion_group = christian
+			NOT = {
+				religion_head = {
+					always = yes
+				}
 			}
-			has_dlc = "Sons of Abraham"
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		
 		allow = {
 			independent = yes
 			higher_tier_than = DUKE
-			piety = 1000
-			completely_controls = c_poitou
-			completely_controls = c_lutetia 
-			completely_controls = c_lugdunum
+			religion_authority = 0.2
+			realm_size = 150
+			piety = 750
+			OR = {
+				any_realm_title = {
+					is_holy_site = ROOT
+				}
+				piety = 1200
+			}
+			custom_tooltip = {
+				text = at_least_25_ROOT_religion_provinces_tooltip
+				any_realm_province = {
+					religion = ROOT
+					count = 25
+				}
+			}
 		}
 		
 		effect = {
-			activate_title = { title = d_arian_papacy status = yes }
-			hidden_tooltip = {
-				create_random_priest = {
-					random_traits = yes
-				}
-				new_character = {
-					d_arian_papacy = {
-						grant_title = PREV
-					}
-					wealth = 500
-					opinion = {
-						who = ROOT
-						modifier = opinion_creator_of_rel_heal
-					}
-					set_defacto_liege = PREV
-				}
-				
-				religion_authority = {
-					modifier = papacy_instituted
-					years = 20
+			if = {
+				limit = { religion = pelagian }
+				d_pelagian = {
+					activate_title = { title = d_pelagian status = yes }
+					save_event_target_as = new_rel_head_title
 				}
 			}
-			piety = 1000
-			set_global_flag = arian_papacy_created
+			else_if = {
+				limit = { religion = priscillian }
+				d_priscillian = {
+					activate_title = { title = d_priscillian status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = nestorian }
+				d_nestorian = {
+					activate_title = { title = d_nestorian status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = arian }
+				d_arian_papacy = {
+					activate_title = { title = d_arian_papacy status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			else_if = {
+				limit = { religion = gnostic }
+				d_gnostic = {
+					activate_title = { title = d_gnostic status = yes }
+					save_event_target_as = new_rel_head_title
+				}
+			}
+			hidden_tooltip = {
+				ROOT = {
+					create_random_priest = {
+						random_traits = yes
+					}
+					new_character = {
+						grant_title = event_target:new_rel_head_title
+						wealth = 500
+						opinion = {
+							who = ROOT
+							modifier = opinion_creator_of_rel_heal
+						}
+						set_defacto_liege = PREV
+					}
+					
+					religion_authority = {
+						modifier = papacy_instituted
+						years = 20
+					}
+				}
+			}
+			piety = 200
 			hidden_tooltip = {
 				narrative_event = { id = 39100 }
 			}
@@ -150,14 +114,11 @@ decisions = {
 	claim_briton_archdruid_successor = {
 		only_rulers = yes	
 		is_high_prio = yes
+		ai_check_interval = 6
 	
 		potential = {
 			religion = briton_pagan_reformed
 			has_global_flag = no_briton_archdruid_successor
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_briton_pagan }
 			is_landed = yes
 			d_briton_pagan = {
@@ -168,6 +129,10 @@ decisions = {
 		}
 		
 		allow = {
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 			piety = 100
 		}
 		
@@ -195,10 +160,6 @@ decisions = {
 		potential = {
 			religion = briton_pagan_reformed
 			has_global_flag = no_briton_archdruid
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_briton_pagan }
 			is_landed = yes
 			d_briton_pagan = {
@@ -207,6 +168,10 @@ decisions = {
 		}
 		
 		allow = {
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 			piety = 300
 			learning = 15
 			age = 30
@@ -228,14 +193,11 @@ decisions = {
 	claim_pict_archdruid_successor = {
 		only_rulers = yes		
 		is_high_prio = yes
+		ai_check_interval = 6
 	
 		potential = {
 			religion = pict_pagan_reformed
 			has_global_flag = no_pict_archdruid_successor
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_pict_pagan }
 			is_landed = yes
 			d_pict_pagan = {
@@ -247,6 +209,10 @@ decisions = {
 		
 		allow = {
 			piety = 100
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 		}
 		
 		effect = {
@@ -273,10 +239,6 @@ decisions = {
 		potential = {
 			religion = pict_pagan_reformed
 			has_global_flag = no_pict_archdruid
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_pict_pagan }
 			is_landed = yes
 			d_pict_pagan = {
@@ -285,6 +247,10 @@ decisions = {
 		}
 		
 		allow = {
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 			piety = 300
 			learning = 15
 			age = 30
@@ -306,14 +272,11 @@ decisions = {
 	claim_gael_archdruid_successor = {
 		only_rulers = yes		
 		is_high_prio = yes
+		ai_check_interval = 6
 	
 		potential = {
 			religion = gael_pagan_reformed
 			has_global_flag = no_gael_archdruid_successor
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_gael_pagan }
 			is_landed = yes
 			d_gael_pagan = {
@@ -324,6 +287,10 @@ decisions = {
 		}
 		
 		allow = {
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 			piety = 100
 		}
 		
@@ -351,10 +318,6 @@ decisions = {
 		potential = {
 			religion = gael_pagan_reformed
 			has_global_flag = no_gael_archdruid
-			OR = {
-				trait = druid
-				trait = archdruid
-			}
 			NOT = { has_landed_title = d_gael_pagan }
 			is_landed = yes
 			d_gael_pagan = {
@@ -363,6 +326,10 @@ decisions = {
 		}
 		
 		allow = {
+			OR = {
+				trait = druid
+				trait = archdruid
+			}
 			piety = 300
 			learning = 15
 			age = 30
@@ -384,11 +351,10 @@ decisions = {
 	restore_old_gods = {
 		only_rulers = yes
 		is_high_prio = yes
+		ai_check_interval = 36
 	
 		potential = {
-			age = 16
 			religion = briton_pagan	
-			NOT = { trait = incapable }
 			NOT = {
 				AND = {
 					has_character_flag = abandoned_restore_quest
@@ -404,27 +370,42 @@ decisions = {
 				}
 			}
 			NOT = { has_character_flag = restoring_old_gods }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}			
 		
 		allow = {
+			is_adult = yes
 			prisoner = no
 			piety = 300
 			NOT = { trait = content }
 			NOT = { trait = tolerant }
 			NOT = { trait = imbecile }
-			OR = {
+			NOT = { trait = incapable }
+			conditional_tooltip = {
+				trigger = {
+					NOT = { has_character_flag = merlin_of_avalon }
+				}
 				NOT = { trait = cynical }
-				custom_tooltip = {
-					text = is_merlin_tooltip
+			}
+			conditional_tooltip = {
+				trigger = {
 					has_character_flag = merlin_of_avalon
 				}
-			}
-			OR = {
-				has_focus = focus_theology
-				custom_tooltip = {
-					text = restore_old_gods_foci_tooltip
-					NOT = { has_dlc = "Way of Life" }
+				OR = {
+					NOT = { trait = cynical }
+					custom_tooltip = {
+						text = is_merlin_tooltip
+						has_character_flag = merlin_of_avalon
+					}
 				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_dlc = "Way of Life"
+				}
+				has_focus = focus_theology
 			}
 		}
 		
@@ -432,7 +413,7 @@ decisions = {
 			factor = 1
 
 			modifier = {
-				factor = 0.02				# Slow it down
+				factor = 0.6				# Slow it down
 			}
 			modifier = {
 				factor = 3.0
@@ -536,6 +517,9 @@ decisions = {
 			is_playable = yes
 			religion = manichean
 			NOT = { has_global_flag = manicheanism_rising }
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
 		}
 		
 		allow = {

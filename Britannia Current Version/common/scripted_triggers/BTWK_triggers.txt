@@ -219,53 +219,77 @@ is_roman_culture_trigger = {
 	}
 }
 
+is_romanogallic_area_trigger = {
+	region = world_gaul
+	OR = {
+		NOR = { 
+			region = world_gaul_romangermania 
+			region = world_gaul_aquitania_tertia
+		}
+		region = world_gaul_maxima_sequanorum
+	}
+}
+
+is_romanobritish_area_trigger = {
+	OR = {
+		region = world_britannia
+		region = world_caledonia
+		region = world_ireland 
+	}
+}
+
+is_romanogermanic_area_trigger = {
+	OR = {
+		region = world_gaul_romangermania 
+		region = world_germania 
+	}
+	NOT = { region = world_gaul_maxima_sequanorum }
+	NAND = {
+		region = world_germania_jutland
+		has_global_flag = jutland_conquered_norse
+	}
+	NAND = {
+		region = world_germania_angeln
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoscandian_area_trigger = {
+	region = custom_scandinavia 
+	OR = {
+		NOT = { region = world_germania_jutland }
+		has_global_flag = jutland_conquered_norse
+	}
+	OR = {
+		NOT = { region = world_germania_angeln }
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoaquitanian_area_trigger = {
+	region = world_gaul_aquitania_tertia
+}
+
 is_local_roman_culture_trigger = {
 	OR = {
 		AND = {
-			region = world_gaul
-			NOR = { 
-				region = world_gaul_romangermania 
-				region = world_gaul_aquitania_tertia
-			}
+			is_romanogallic_area_trigger = yes
 			culture = romanogallic
 		}
 		AND = { 
-			OR = {
-				region = world_britannia
-				region = world_caledonia
-				region = world_ireland 
-			}
+			is_romanobritish_area_trigger = yes
 			culture = romanobritish
 		}
 		AND = { 
-			OR = {
-				region = world_gaul_romangermania 
-				region = world_germania 
-			}
-			NAND = {
-				region = world_germania_jutland
-				has_global_flag = jutland_conquered_norse
-			}
-			NAND = {
-				region = world_germania_angeln
-				has_global_flag = angeln_conquered_norse
-			}
+			is_romanogermanic_area_trigger = yes
 			culture = romanogermanic
 		}
 		AND = { 
-			region = custom_scandinavia 
-			OR = {
-				NOT = { region = world_germania_jutland }
-				has_global_flag = jutland_conquered_norse
-			}
-			OR = {
-				NOT = { region = world_germania_angeln }
-				has_global_flag = angeln_conquered_norse
-			}
+			is_romanoscandian_area_trigger = yes
 			culture = romanoscandian
 		}
 		AND = { 
-			region = world_gaul_aquitania_tertia
+			is_romanoaquitanian_area_trigger = yes
 			culture = romanoaquitanian
 		}
 	}
@@ -373,12 +397,27 @@ is_frankish_culture_trigger = {
 	}
 }
 
+is_alemannic_culture_trigger = {
+	OR = {
+		culture = oldalemannic
+		culture = alemannic
+	}
+}
+
 is_roman_pagan_culture_trigger = {
 	OR = {
 		culture_group = imperiale
 		culture_group = romance
 	}	
 }	
+
+is_gallo_romance_culture_trigger = {
+	OR = {
+		culture = french
+		culture = occitan
+		culture = arpitan
+	}
+}
 
 cannot_create_roman_title_trigger = {
 	OR = {
@@ -421,6 +460,42 @@ can_create_roman_province_gaul_trigger = {
 	custom_tooltip = {
 		text = roman_provinces_gaul_restored_tooltip
 		has_global_flag = roman_provinces_gaul_restored
+	}
+	conditional_tooltip = {
+		trigger = {
+			top_liege = { 
+				OR = {
+					has_landed_title = e_franks 
+					has_landed_title = e_germania 
+					primary_title = {
+						tier = KING
+						OR = {
+							empire = { title = e_franks }
+							empire = { title = e_germania }
+						}
+					}
+				}
+			}
+		}
+		top_liege = { 
+			NOR = {
+				has_landed_title = e_franks 
+				has_landed_title = e_germania 
+				primary_title = {
+					tier = KING
+					OR = {
+						empire = { title = e_franks }
+						empire = { title = e_germania }
+					}
+				}
+			}
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			NOT = { num_of_count_titles_in_realm = 8 }
+		}
+		num_of_count_titles_in_realm = 8
 	}
 }
 
@@ -467,6 +542,10 @@ is_germanic_controlled_trigger = {
 				culture = french
 				culture = occitan
 				culture = arpitan
+				primary_title = {
+					tier = KING
+					empire = { title = e_franks }
+				}
 				liege_before_war = { 
 					OR = {
 						AND = {
@@ -476,6 +555,10 @@ is_germanic_controlled_trigger = {
 						culture = french
 						culture = occitan
 						culture = arpitan
+						primary_title = {
+							tier = KING
+							empire = { title = e_franks }
+						}
 					}
 				}
 			}
@@ -494,27 +577,55 @@ is_celtic_controlled_trigger = {
 
 is_celtic_pagan_trigger = {
 	OR = {
-		religion = briton_pagan
+		religion_openly_briton_or_reformed_trigger = yes
+		religion_openly_pict_or_reformed_trigger = yes
+		religion_openly_gael_or_reformed_trigger = yes
+	}
+}
+
+is_reformed_celtic_pagan_trigger = {
+	OR = {
 		religion = briton_pagan_reformed
-		religion = pict_pagan
 		religion = pict_pagan_reformed
-		religion = gael_pagan
 		religion = gael_pagan_reformed
+	}
+}
+
+is_unreformed_celtic_pagan_trigger = {
+	OR = {
+		religion = briton_pagan
+		religion = pict_pagan
+		religion = gael_pagan
 	}
 }
 
 is_germanic_pagan_trigger = {
 	OR = {
-		religion = norse_pagan
+		religion_openly_norse_or_reformed_trigger = yes
+		religion_openly_germanic_or_reformed_trigger = yes
+		religion_openly_frankish_or_reformed_trigger = yes
+		religion_openly_suebic_or_reformed_trigger = yes
+		religion_openly_gothic_or_reformed_trigger = yes
+	}
+}
+
+is_reformed_germanic_pagan_trigger = {
+	OR = {
 		religion = norse_pagan_reformed
-		religion = germanic_pagan
 		religion = germanic_pagan_reformed
-		religion = frankish_pagan
 		religion = frankish_pagan_reformed
-		religion = suebic_pagan
 		religion = suebic_pagan_reformed
-		religion = gothic_pagan
 		religion = gothic_pagan_reformed
+	}
+}
+
+is_unreformed_germanic_pagan_trigger = {
+	OR = {
+		religion = norse_pagan
+		religion = germanic_pagan
+		religion = frankish_pagan
+		religion = suebic_pagan
+		religion = gothic_pagan
 	}
 }
 
@@ -538,18 +649,62 @@ is_roman_pagan_or_reformed_trigger = {
 	OR = {
 		religion = roman_pagan
 		religion = roman_pagan_reformed
-		religion = sol_invictus
+		# religion = sol_invictus
+	}
+}
+
+is_hellenic_group_religion_trigger = {
+	OR = {
+		religion = roman_pagan
+		religion = roman_pagan_reformed
+		# religion = sol_invictus
+		religion = titan_pagan
+		religion = promethean_pagan
+	}
+}
+
+is_secretly_hellenic_group_religion_trigger = {
+	OR = {
+		secret_religion = roman_pagan
+		secret_religion = roman_pagan_reformed
+		# secret_religion = sol_invictus
+		secret_religion = titan_pagan
+		secret_religion = promethean_pagan
+	}
+}
+
+true_religion_hellenic_group_trigger = {
+	OR = {
+		true_religion = roman_pagan
+		true_religion = roman_pagan_reformed
+		# true_religion = sol_invictus
+		true_religion = titan_pagan
+		true_religion = promethean_pagan
 	}
 }
 
 has_theocratic_religion_head_trigger = {
 	OR = {
+		AND = {
+			OR = {
+				religion = alan_pagan_reformed
+				religion = tengri_pagan_reformed
+				religion = vasconic_pagan_reformed
+			}
+			has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+		}
+		AND = {
+			has_religion_features = yes
+			religion_group = pagan_group
+			is_reformed_religion = yes
+			NOR = { 
+				has_religion_feature = religion_temporal_head 
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
 		religion_group = christian
 		religion_group = gnostic_group
-		religion = sol_invictus
-		religion = alan_pagan_reformed
-		religion = tengri_pagan_reformed
-		religion = vasconic_pagan_reformed
+		# religion = sol_invictus
 	}
 }
 
@@ -636,12 +791,14 @@ is_romanized_or_germanic_government_trigger = {
 }
 
 is_wrong_pagan_religion_trigger = {
+	NOT = { has_religion_feature = religion_proselytizing }
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
 			NOR = {
 				religion = briton_pagan 
 				religion = briton_pagan_reformed
+				religion = britannic_pagan
 			}
 		}
 		AND = {
@@ -720,12 +877,14 @@ is_wrong_pagan_religion_trigger = {
 }
 
 is_wrong_secret_pagan_religion_trigger = {
+	NOT = { secret_religion_scope = { has_religion_feature = religion_proselytizing } }
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
 			NOR = {
 				secret_religion = briton_pagan 
 				secret_religion = briton_pagan_reformed
+				secret_religion = britannic_pagan
 			}
 		}
 		AND = {
@@ -823,7 +982,7 @@ is_same_default_pagan_religion_as_ROOT = {
 		}
 		AND = {
 			is_ingvaeonic_culture_trigger = yes
-			ROOT = { is_brythonic_culture_trigger = yes }
+			ROOT = { is_ingvaeonic_culture_trigger = yes }
 		}
 		AND = {
 			is_istvaeonic_culture_trigger = yes
@@ -1112,10 +1271,8 @@ is_unfit_to_rule_britannia_trigger = {
 		trait = eunuch
 		is_female = yes
 		NOR = {
-			culture = briton
-			culture = romanobritish
-			culture = cumbrian
-			culture = armorican
+			is_brythonic_culture_trigger = yes
+			culture_group = imperiale
 		}
 	}
 	NOT = { has_character_flag = vortigern }
@@ -1130,12 +1287,324 @@ is_unfit_to_rule_aengland_trigger = {
 		NOT = { diplomacy = 8 }
 		NOT = { stewardship = 5 }
 		trait = imbecile
-		trait = idiot
+		trait = dull
 		trait = slow
 		trait = dwarf
 		trait = eunuch
 		trait = weak
 		is_female = yes
 		is_ingvaeonic_culture_trigger = no
+	}
+	NOT = { has_character_flag = anglo_saxons_return_leader }
+}
+
+is_defending_against_tributary_war = {
+	OR = {
+		any_war = {
+			using_cb = tributary_cb
+		}
+		any_war = {
+			using_cb = tributary_permanent_cb
+		}
+		any_war = {
+			using_cb = tributary_nomad_cb
+		}
+		any_war = {
+			using_cb = tributary_client_state_cb
+		}
+		any_war = {
+			using_cb = tributary_britannia_subject_cb
+		}
+	}
+}
+
+has_feudal_elective_succession_law = {
+	OR = {
+		has_law = succ_feudal_elective
+		has_law = succ_germanic_elective
+	}
+}
+
+is_germanic_king_or_emperor_trigger = {
+	OR = {
+		real_tier = KING
+		real_tier = EMPEROR
+		AND = {
+			real_tier = DUKE
+			independent = yes
+		}
+	}
+}
+
+# In ruler scope
+are_coronations_active_trigger = {
+	capital_scope = {
+		TECH_MAJESTY = 5
+	}
+}
+
+is_papal_investiture_allowed_catholics_trigger = {
+	year = 750
+}
+
+has_augustus_trait = {
+	OR = {
+		trait = augustus
+		trait = northaugustus
+		trait = northaugustus_offmap
+	}
+}
+
+is_islam_active_trigger = {
+	always = no
+}
+
+has_christian_religious_head_title_trigger = {
+	OR = { 
+		has_landed_title = k_nuncio_britanniae
+		has_landed_title = d_pelagian 
+		has_landed_title = d_priscillian 
+		has_landed_title = d_nestorian 
+		has_landed_title = d_arian_papacy 
+		has_landed_title = d_gnostic
+	}
+}
+
+is_christian_religious_head_title_claimant_trigger = {
+	OR = { 
+		any_claim = { title = k_nuncio_britanniae } #Antipope
+		any_claim = { title = d_pelagian } #Antipope
+		any_claim = { title = d_priscillian } #Antipope
+		any_claim = { title = d_nestorian } #Antipope
+		any_claim = { title = d_arian_papacy } #Antipope
+		any_claim = { title = d_gnostic } #Antipope
+	}
+}
+
+are_dejure_changes_allowed_trigger = {
+	conditional_tooltip = {
+		trigger = { is_alternate_start = yes }
+		is_alternate_start = no
+	}
+}
+
+is_potential_britannia_subject_trigger = {
+	# Any independent Brythonic or Imperial ruler in lower Britannia gets asked
+	OR = {
+		primary_title = {
+			capital_scope = {
+				region = world_britannia
+				NOT = { region = world_britannia_cymry_henogledd }
+			}
+			OR = {
+				lower_tier_than = DUKE
+				empire = {
+					NOR = {
+						title = e_aengland
+						title = e_danes
+					}
+				}
+			}
+		}
+		any_demesne_title = {
+			tier = KING
+			capital_scope = {
+				region = world_britannia
+				NOT = { region = world_britannia_cymry_henogledd }
+			}
+			empire = {
+				NOR = {
+					title = e_aengland
+					title = e_danes
+				}
+			}
+		}
+	}
+	is_landed = yes
+	independent = yes
+	OR = {
+		culture_group = celtic
+		culture_group = imperiale
+	}
+	#age = 15
+	#NOT = { trait = incapable }
+	NOT = { has_character_flag = HK_britannia_claimant }
+	NOT = { has_character_flag = HK_challenge_loser }	
+}
+
+is_at_war_hostile_with_ROOT_trigger = {
+	OR = {		# Is not just looting
+		any_war = {
+			OR = {
+				any_attacker = { character = ROOT }
+				any_defender = { character = ROOT }
+				any_attacker = {
+					ROOT = {
+						any_liege = {
+							character = PREVPREV
+						}
+					}
+				}
+				any_defender = {
+					ROOT = {
+						any_liege = {
+							character = PREVPREV
+						}
+					}
+				}
+			}
+		}
+		any_liege = {
+			any_war = {
+				OR = {
+					any_attacker = { character = ROOT }
+					any_defender = { character = ROOT }
+					any_attacker = {
+						ROOT = {
+							any_liege = {
+								character = PREVPREV
+							}
+						}
+					}
+					any_defender = {
+						ROOT = {
+							any_liege = {
+								character = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+is_briton_caer_tier_1_province = {
+	OR = {
+		province_id = 20 	# Glevum
+		province_id = 37 	# Eburacum
+		province_id = 38	# Lindum
+		province_id = 32	# Viroconium
+		province_id = 42	# Luguvallum
+		#Altclut but not right now
+		province_id = 36 	# Deva
+		province_id = 47	# Londinium
+		province_id = 4		# Aquae Sulis
+		province_id = 153 	# Venta Icenorum
+		province_id = 49	# Camulodunum
+		province_id = 45	# Durovernum
+		province_id = 356	# Regentium
+		province_id = 2		# Lindinis
+		province_id = 1		# Durnovaria
+		province_id = 17	# Din Tagell
+		province_id = 24	# Isca Siluria
+		province_id = 12	# Isca Dumnonia
+		province_id = 70	# Ayr
+		province_id = 6		# Venta
+		province_id = 15	# Portus Adurni
+		province_id = 21 	# Burrium
+		#Avalon but not right now
+		province_id = 11	# Corinium
+		province_id = 7		# Calleva
+		province_id = 348	# Letocetum
+		province_id = 72	# Din Eidyn
+		province_id = 56	# Corstopitum
+		province_id = 68	# Din Guardi
+		province_id = 161	# Din Rheged
+		province_id = 148	# Mamucium
+		province_id = 28	# Caer Swys
+		province_id = 9		# Durovobrivis
+		province_id = 785	# Verulanium
+		province_id = 360	# Arfon
+		#province_id = 106	# Avona
+		province_id = 336	# Sorviodunum
+		province_id = 39 	# Legiolum
+		province_id = 33	# Ratae
+		province_id = 108	# Iserium
+		province_id = 158	# Petuaria
+		province_id = 23	# Lactodorum 
+		province_id = 52	# Moridunum
+	}
+}
+
+is_briton_caer_tier_2_province = {
+	OR = {
+		province_id = 20 	# Glevum
+		province_id = 37 	# Eburacum
+		province_id = 38	# Lindum
+		province_id = 32	# Viroconium
+		province_id = 42	# Luguvallum
+		#Altclut but not right now
+		province_id = 36 	# Deva
+		province_id = 47	# Londinium
+		province_id = 153 	# Venta Icenorum
+		province_id = 49	# Camulodunum
+		province_id = 45	# Durovernum
+		province_id = 356	# Regentium
+		province_id = 1		# Durnovaria
+		province_id = 17	# Din Tagell
+		province_id = 24	# Isca Siluria
+		province_id = 12	# Isca Dumnonia
+		province_id = 70	# Ayr
+		province_id = 6		# Venta
+		province_id = 21 	# Burrium
+		province_id = 11	# Corinium
+		province_id = 7		# Calleva
+		province_id = 785	# Verulanium
+		province_id = 72	# Din Eidyn
+		province_id = 161	# Din Rheged
+		province_id = 39 	# Legiolum
+		province_id = 33	# Ratae
+		province_id = 108	# Iserium
+		province_id = 23	# Lactodorum 
+	}
+}
+
+is_briton_caer_tier_2_point_5_province = {
+	OR = {
+		province_id = 20 	# Glevum
+		province_id = 37 	# Eburacum
+		province_id = 38	# Lindum
+		province_id = 32	# Viroconium
+		province_id = 42	# Luguvallum
+		#Altclut but not right now
+		province_id = 36 	# Deva
+		province_id = 47	# Londinium
+		province_id = 49	# Camulodunum
+		province_id = 45	# Durovernum
+		province_id = 1		# Durnovaria
+		province_id = 24	# Isca Siluria
+		#Avalon but not right now
+		province_id = 11	# Corinium
+		province_id = 72	# Din Eidyn
+		province_id = 33	# Ratae
+	}
+}
+
+is_briton_caer_tier_3_province = {
+	OR = {
+		province_id = 20 	# Glevum
+		province_id = 37 	# Eburacum
+		province_id = 38	# Lindum
+		province_id = 32	# Viroconium
+		province_id = 42	# Luguvallum
+		#Altclut but not right now
+		#province_id = 36 	# Deva
+		province_id = 47	# Londinium
+		#Aquae Sulis but not right now
+		province_id = 11	# Corinium
+	}
+}
+
+ROOT_can_declare_war_against_province_trigger = {
+	owner = {
+		top_liege = {
+			NOR = { 
+				character = ROOT
+				reverse_has_truce = ROOT
+				has_non_aggression_pact_with = ROOT
+				is_allied_with = ROOT
+			}
+		}
 	}
 }

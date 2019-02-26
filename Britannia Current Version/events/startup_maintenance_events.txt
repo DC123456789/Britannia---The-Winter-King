@@ -67,6 +67,11 @@ character_event = {			# STARTUP Event (called by character 666)
 #				modifier = roman_pagan_authority
 #			}
 #		}
+		briton_pagan = {
+			religion_authority = {
+				modifier = lost_faith_in_the_old_gods
+			}
+		}
 		any_playable_ruler = {			### DEFAULT LAWS ###
 			any_demesne_title = {
 				limit = {
@@ -447,14 +452,22 @@ character_event = {
 				}
 				recalc_succession = yes
 			}
-		}			
+		}	
+		
+		# If High King of Britannia before first reform, disband the title
+		if = {
+			limit = { 
+				has_landed_title = e_britannia
+				NOT = { has_global_flag = britannia_formalized_high_kingship }
+			}
+			character_event = { id = 314480 }
+		}
 	}
 		
 	option = {			# Celtic Pagan
 		name = "EVTOPTA31203121"
 		trigger = {
-			religion_group = pagan_group
-			culture_group = celtic
+			is_celtic_pagan_trigger = yes
 		}
 	}
 	option = {			# Christian
@@ -466,14 +479,13 @@ character_event = {
 	option = {			# Germanic
 		name = "EVTOPTC31203121"
 		trigger = {
-			religion_group = pagan_group
-			culture_group = germanic
+			is_germanic_pagan_trigger = yes
 		}
 	}
 	option = {			# Imperial
 		name = "EVTOPTD31203121"
 		trigger = {
-			religion_group = zoroastrian_group
+			is_hellenic_group_religion_trigger = yes
 		}
 	}
 }
@@ -701,6 +713,18 @@ character_event = {
 				limit = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
 				clr_title_flag = vassal_before_gained_high_kingdom_aengland
 			}
+			
+			# Remove Return of the Saxons event troops			
+			character_event = { id = 313157 }
+		}
+		
+		if = {						# Revoke High Kingship of Britannia
+			limit = {
+				NOT = { ROOT = { has_character_flag = gained_britannia } }
+				NOT = { has_global_flag = britannia_formalized_high_kingship }
+				FROM = { title = e_britannia }
+			}
+			character_event = { id = 314481 }
 		}
 		
 		ROOT = {
@@ -819,7 +843,7 @@ character_event = {
 							is_landless_normal_title_trigger = yes
 						}
 					}
-					has_trait = forbid_inheritance
+					trait = forbid_inheritance
 				}
 				remove_trait = forbid_inheritance
 			}	
@@ -835,6 +859,14 @@ character_event = {
 			}
 			ROOT = {
 				character_event = { id = 315935 days = 10 random = 20 }
+			}
+		}
+		
+		# Pass on Decaying Realm modifier
+		if = {
+			limit = { FROM = { title = k_maxima_cesariensis } }
+			ROOT = { 
+				character_event = { id = history.1014 } 
 			}
 		}
 	}
@@ -922,14 +954,14 @@ character_event = {	# Mercenary Captains
 			}
 			change_martial = 2
 		}
-		if = {			# Swords of Sussex
+		if = {
 			limit = {
 				ai = yes
 				NOT = { martial = 10 }
 			}
 			change_martial = 2
 		}
-		if = {			# Swords of Sussex
+		if = {
 			limit = {
 				ai = yes
 				NOT = { martial = 10 }
@@ -959,15 +991,14 @@ character_event = {	# Mercenary Captains
 		if = {			# Military Education
 			limit = {
 				ai = yes
-				NOT = {
-					OR = {
-						trait = misguided_warrior
-						trait = tough_soldier
-						trait = skilled_tactician
-						trait = brilliant_strategist
-					}
+				NOR = {
+					trait = misguided_warrior
+					trait = tough_soldier
+					trait = skilled_tactician
+					trait = brilliant_strategist
 				}
 			}
+			remove_education_effect = yes
 			random_list = {
 				10 = { add_trait = misguided_warrior }
 				60 = { add_trait = tough_soldier }
@@ -1834,17 +1865,14 @@ character_event = {
 		if = {
 			limit = { culture_group = imperiale }
 			add_trait = imperial_group_trait
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { culture = romanobritish }
 			add_trait = romanobritish_culture_trait
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { culture_group = romance }
 			add_trait = romance_group_trait
-			break = yes
 		}
 	}
 }
@@ -1892,7 +1920,7 @@ character_event = {
 }
 
 
-# Assign correct government and succession law to tribal revolters
+# Assign correct government and succession law to revolters (post-revolt)
 character_event = {
 	id = 319005
 	desc = "You're not supposed to see this..."
@@ -1903,28 +1931,45 @@ character_event = {
 	
 	immediate = {
 		if = {
-			limit = { 
-				government = tribal_government
+			limit = {
 				has_character_flag = set_to_high_tribal_government
 			}
 			set_government_type = high_tribal_government
+			clr_character_flag = set_to_high_tribal_government
 		}
-		clr_character_flag = set_to_high_tribal_government
+		else_if = {
+			limit = {
+				has_character_flag = set_to_sub_roman_government
+			}
+			set_government_type = sub_roman_government
+			clr_character_flag = set_to_sub_roman_government
+		}
+		else_if = {
+			limit = { 
+				has_character_flag = set_to_sub_roman_brythonic_government
+			}
+			set_government_type = sub_roman_brythonic_government
+			clr_character_flag = set_to_sub_roman_brythonic_government
+		}
+		else_if = {
+			limit = { 
+				has_character_flag = set_to_germanic_government
+			}
+			set_government_type = germanic_government
+			clr_character_flag = set_to_germanic_government
+		}
 		if = {
 			limit = { has_law = succ_open_elective }
 			if = {
 				limit = { 
 					is_tribal = yes
 				}
-				set_character_flag = here_set_succ
 				primary_title = {
 					add_law = succ_elective_gavelkind
 					succession = elective_gavelkind
 				}
-				recalc_succession = yes
-				break = yes
 			}
-			if = {
+			else_if = {
 				limit = { 
 					OR = {
 						government = sub_roman_government
@@ -1936,13 +1981,14 @@ character_event = {
 					add_law = succ_primogeniture
 					succession = primogeniture
 				}
-				recalc_succession = yes
-				break = yes
 			}
-			primary_title = {
-				add_law = succ_gavelkind
-				succession = gavelkind
+			else = {
+				primary_title = {
+					add_law = succ_gavelkind
+					succession = gavelkind
+				}
 			}
+			recalc_succession = yes
 		}
 	}
 }
@@ -2148,6 +2194,8 @@ character_event = {
 				region = custom_scandinavia
 			}
 			NOT = { region = world_bructeria }
+			NOT = { region = world_hesse }
+			NOT = { region = custom_alemannia }
 		}
 		NOT = { has_character_flag = bad_nontribal_marked }
 		has_global_flag = debug
@@ -2199,7 +2247,7 @@ character_event = {
 	}
 }
 
-# Gavelkind hotfix
+# Tribal succession hotfix
 character_event = {
 	id = 312998
 	desc = "You're not supposed to see this..."
@@ -2208,23 +2256,23 @@ character_event = {
 	hide_window = yes
 	
 	is_triggered_only = yes
-	only_rulers = yes
+	only_playable = yes
 	
 	trigger = {
 		is_ruler = yes
-		primary_title = {
-			OR = {
-				has_law = succ_gavelkind
-				has_law = succ_elective_gavelkind
+		is_tribal = yes
+		OR = {
+			current_heir = {
+				is_ruler = no
 			}
-			higher_tier_than = count
-		}
-		current_heir = {
-			is_landed = no
-			NOT = {
-				capital_holding = {
-					current_heir = {
-						character = PREVPREV
+			any_close_relative = {
+				is_ruler = no
+				any_heir_title = {
+					ROOT = {
+						any_demesne_title = {
+							tier = COUNT
+							title = PREVPREV
+						}
 					}
 				}
 			}
@@ -2232,19 +2280,52 @@ character_event = {
 	}
 	
 	immediate = {
-		current_heir = {
-			set_character_flag = gavelkind_fix
-		}
-		any_demesne_title = {
-			limit = { tier = count }
-			location = {
-				set_province_flag = gavelkind_fix_province
+		if = {
+			limit = { government = tribal_government }
+			current_heir = {
+				if = {
+					limit = { is_ruler = no }
+					set_character_flag = set_to_tribal_government
+				}
+			}
+			any_close_relative = {
+				limit = {
+					is_ruler = no
+					any_heir_title = {
+						ROOT = {
+							any_demesne_title = {
+								tier = COUNT
+								title = PREVPREV
+							}
+						}
+					}
+				}
+				set_character_flag = set_to_tribal_government
 			}
 		}
-	}
-	
-	option = {
-		name = "OK"
+		else_if = {
+			limit = { government = high_tribal_government }
+			current_heir = {
+				if = {
+					limit = { is_ruler = no }
+					set_character_flag = set_to_high_tribal_government
+				}
+			}
+			any_close_relative = {
+				limit = {
+					is_ruler = no
+					any_heir_title = {
+						ROOT = {
+							any_demesne_title = {
+								tier = COUNT
+								title = PREVPREV
+							}
+						}
+					}
+				}
+				set_character_flag = set_to_high_tribal_government
+			}
+		}
 	}
 }
 
@@ -2258,24 +2339,65 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		has_character_flag = gavelkind_fix
+		OR = {
+			has_character_flag = set_to_tribal_government
+			has_character_flag = set_to_high_tribal_government
+		}
 	}
 
 	immediate = {
-		any_independent_ruler = {
-			any_realm_province = {
-				limit = { has_province_flag = gavelkind_fix_province }
-				county = {
-					grant_title = ROOT
+		if = {
+			limit = { has_character_flag = set_to_tribal_government }
+			clr_character_flag = set_to_tribal_government
+			set_government_type = tribal_government
+		}
+		if = {
+			limit = { has_character_flag = set_to_high_tribal_government }
+			clr_character_flag = set_to_high_tribal_government
+			set_government_type = high_tribal_government
+		}
+	}
+}
+
+# Deal with AI granting titles to mercenaries
+character_event = {
+	id = 319099
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"	
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		FROMFROM = {
+			mercenary = yes
+		}
+	}
+	
+	immediate = {
+		FROM = { save_event_target_as = fromfrom_liege }
+		FROMFROM = {
+			save_event_target_as = original_merc_leader
+			create_random_soldier = {
+				dynasty = culture
+				religion = PREV
+				culture = PREV
+				age = 24
+				random_traits = yes
+			}
+			new_character = {
+				event_target:original_merc_leader = {
+					any_demesne_title = {
+						limit = { mercenary = yes }
+						grant_title = PREVPREV
+					}
+					set_defacto_liege = event_target:fromfrom_liege
+					event_target:fromfrom_liege = { save_event_target_as = target_to_switch_government_to }
+					set_government_to_target_effect = yes
 				}
-				clr_province_flag = gavelkind_fix_province
+				set_defacto_liege = event_target:fromfrom_liege
 			}
 		}
-		clr_character_flag = gavelkind_fix
-	}
-
-	option = {
-		name = "OK"
 	}
 }
 
@@ -2507,6 +2629,130 @@ character_event = {
 					80 = { }										# Keep Gallic portraits
 					10 = { set_graphical_culture = romanobritish }	# Celtic portraits
 					10 = { set_graphical_culture = roman }			# Italian portraits
+				}
+			}
+		}
+	}
+}
+
+
+### PICTISH SUCCESSION CLAIMANT EVENTS ###
+# on_adulthood the female-line niblings and grandchildren of a Pictish Tanistry ruler will gain a weak non-inheritable claim
+character_event = { 
+	id = 319040
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_title = {
+			has_law = succ_pictish_tanistry
+			NOT = { ROOT = { has_claim = PREV } }
+			any_previous_holder = {
+				ROOT = {
+					mother_even_if_dead = {
+						OR = {
+							any_sibling_even_if_dead = {
+								character = PREVPREVPREV
+							}
+							mother_even_if_dead = {
+								character = PREVPREVPREV
+							}
+							father_even_if_dead = {
+								character = PREVPREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		any_title = {
+			limit = {
+				has_law = succ_pictish_tanistry
+				NOT = { ROOT = { has_claim = PREV } }
+				any_previous_holder = {
+					ROOT = {
+						mother_even_if_dead = {
+							OR = {
+								any_sibling_even_if_dead = {
+									character = PREVPREVPREV
+								}
+								mother_even_if_dead = {
+									character = PREVPREVPREV
+								}
+								father_even_if_dead = {
+									character = PREVPREVPREV
+								}
+							}
+						}
+					}
+				}
+			}
+			add_weak_claim = ROOT
+		}
+	}
+}
+
+# on_new_holder the female-line niblings and grandchildren of a Pictish Tanistry ruler will gain weak non-inheritable claims
+character_event = { 
+	id = 319041
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			has_law = succ_pictish_tanistry
+		}
+		ROOT = {
+			OR = {
+				any_sibling_even_if_dead = {
+					is_female = yes
+					any_child = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+				}
+				any_child_even_if_dead = {
+					is_female = yes
+					any_child = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}					
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		ROOT = {
+			any_sibling_even_if_dead = {
+				limit = { is_female = yes }				
+				any_child = {
+					limit = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+					FROM = { add_weak_claim = PREV }
+				}
+			}
+			any_child_even_if_dead = {
+				limit = { is_female = yes }				
+				any_child = {
+					limit = {
+						is_adult = yes
+						NOT = { has_claim = FROM }
+					}
+					FROM = { add_weak_claim = PREV }
 				}
 			}
 		}
