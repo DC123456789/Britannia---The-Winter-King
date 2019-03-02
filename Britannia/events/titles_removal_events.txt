@@ -2034,7 +2034,7 @@ narrative_event = {
 		name = "EVTOPTB414121"
 	}
 }
-# Jarldom of Cantware
+# Jarldom of East Cantware
 narrative_event = {
 	id = 414122
 	title = "EVTNAME414122"
@@ -2043,7 +2043,7 @@ narrative_event = {
 	hide_from = yes
 	
 	
-	picture = "GFX_evt_valley_river_crossing"
+	picture = "GFX_evt_coastal_town"
 	
 	only_playable = yes
 	min_age = 20
@@ -2064,7 +2064,64 @@ narrative_event = {
 		c_thanet = {
 			is_germanic_controlled_trigger = no
 		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_durovernum = { de_jure_liege = d_cantuaria }
+		if = {
+			limit = { has_global_flag = ceint_renamed }
+			c_portus_dubris = { de_jure_liege = d_cantuaria }
+			c_portus_lemanis = { de_jure_liege = d_cantuaria }
+			c_thanet = { de_jure_liege = d_cantuaria }
+		}
+		else = {
+			c_portus_dubris = { de_jure_liege = d_dubris }
+			c_portus_lemanis = { de_jure_liege = d_dubris }
+			c_thanet = { de_jure_liege = d_dubris }
+		}
+		d_cantware = { destroy_landed_title = d_cantware }
+		clr_global_flag = cantware_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414122"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414122"
+	}
+}
+# Jarldom of West Cantware
+narrative_event = {
+	id = 414124
+	title = "EVTNAME414124"
+	desc = "EVTDESC414124"
+	major = yes
+	hide_from = yes	
+	
+	picture = "GFX_evt_valley_river_crossing"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = westcantware_created
 		c_aylesford = {
+			is_germanic_controlled_trigger = no
+		}
+		c_noviomagus_cantiacorum = {
 			is_germanic_controlled_trigger = no
 		}
 	}
@@ -2074,23 +2131,16 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_durovernum = { de_jure_liege = d_cantuaria }
 		c_aylesford = { de_jure_liege = d_cantuaria }
-		c_thanet = { de_jure_liege = d_cantuaria }
 		if = {
 			limit = { has_global_flag = ceint_renamed }
-			c_portus_dubris = { de_jure_liege = d_cantuaria }
-			c_portus_lemanis = { de_jure_liege = d_cantuaria }
-			c_thanet = { de_jure_liege = d_cantuaria }
+			c_noviomagus_cantiacorum = { de_jure_liege = d_cantuaria }
 		}
-		if = {
-			limit = { NOT = { has_global_flag = ceint_renamed } }
-			c_portus_dubris = { de_jure_liege = d_dubris }
-			c_portus_lemanis = { de_jure_liege = d_dubris }
-			c_thanet = { de_jure_liege = d_dubris }
+		else = {
+			c_noviomagus_cantiacorum = { de_jure_liege = d_lundein }
 		}
-		d_cantware = { destroy_landed_title = d_cantware }
-		clr_global_flag = cantware_created
+		d_westcantware = { destroy_landed_title = d_westcantware }
+		clr_global_flag = westcantware_created
 	}
 	
 	option = {
@@ -8190,6 +8240,7 @@ narrative_event = {
 		}
 		has_global_flag = ceint_renamed
 		NOT = { has_global_flag = cantware_created }
+		NOT = { has_global_flag = westcantware_created }
 	}
 	
 	mean_time_to_happen = {
@@ -8200,6 +8251,7 @@ narrative_event = {
 		c_portus_dubris = { de_jure_liege = d_dubris }
 		c_portus_lemanis = { de_jure_liege = d_dubris }
 		c_thanet = { de_jure_liege = d_dubris }
+		c_noviomagus_cantiacorum = { de_jure_liege = d_lundein }
 		if = {
 			limit = { NOT = { has_global_flag = weald_created } }
 			c_hastings = { de_jure_liege = d_dubris }

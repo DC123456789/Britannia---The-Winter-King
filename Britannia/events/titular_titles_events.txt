@@ -1497,6 +1497,7 @@ narrative_event = {
 	immediate = {
 		d_surrey = { de_jure_liege = k_cantia }
 		d_cantware = { de_jure_liege = k_cantia }
+		d_westcantware = { de_jure_liege = k_cantia }
 		set_global_flag = cantia_created
 	}
 	
@@ -3121,7 +3122,7 @@ narrative_event = {
 		name = "EVTOPTA314121"
 	}
 }
-# Creation of the Jarldom of Cantware
+# Creation of the Jarldom of East Cantware
 narrative_event = {
 	id = 314122
 	title = "EVTNAME314122"
@@ -3129,7 +3130,7 @@ narrative_event = {
 	major = yes
 	hide_new = yes
 	
-	picture = "GFX_evt_valley_river_crossing"
+	picture = "GFX_evt_coastal_town"
 	
 	only_playable = yes
 	
@@ -3147,7 +3148,6 @@ narrative_event = {
 		c_durovernum = { de_jure_liege = d_cantware }
 		c_portus_dubris = { de_jure_liege = d_cantware }
 		c_portus_lemanis = { de_jure_liege = d_cantware }
-		c_aylesford = { de_jure_liege = d_cantware }
 		c_thanet = { de_jure_liege = d_cantware }
 		
 		if = {
@@ -3201,6 +3201,85 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314122"
+	}
+}
+# Creation of the Jarldom of West Cantware
+narrative_event = {
+	id = 314124
+	title = "EVTNAME314124"
+	desc = "EVTDESC314124"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_river_crossing"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_westcantware
+		NOT = { has_global_flag = westcantware_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_aylesford = { de_jure_liege = d_westcantware }
+		c_noviomagus_cantiacorum = { de_jure_liege = d_westcantware }
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = cantia_created }
+			}
+			d_westcantware = { de_jure_liege = k_sussex }		
+		}
+		if = {
+			limit = { has_global_flag = cantia_created }
+			d_westcantware = { de_jure_liege = k_cantia }		
+		}
+		
+		set_global_flag = westcantware_created
+		
+		if = {						# Creation by Bretwalda of Aenglaland
+			limit = {
+				ROOT = {
+					has_landed_title = e_aengland
+					ai = yes
+					any_vassal = { has_landed_title = k_sussex }
+				}
+				NOT = { has_global_flag = cantia_created }
+			}
+			k_sussex = {
+				holder_scope = {
+					d_westcantware = {
+						grant_title = PREV
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					has_landed_title = e_aengland
+					ai = yes
+					any_vassal = { has_landed_title = k_cantia }
+				}
+				has_global_flag = cantia_created
+			}
+			k_cantia = {
+				holder_scope = {
+					d_westcantware = {
+						grant_title = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314124"
 	}
 }
 # Creation of the Jarldom of The Weald
@@ -3818,13 +3897,24 @@ narrative_event = {		# East Anglia, Essex, Sussex, Kent
 			prestige = 200
 			break = yes
 		}
-		if = {			# Cantware
+		if = {			# East Cantware
 			limit = {
 				d_cantware = { has_holder = no } 
 				is_landed_title_allowed = d_cantware
 				NOT = { has_global_flag = cantware_created }
 			}
 			d_cantware = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# West Cantware
+			limit = {
+				d_westcantware = { has_holder = no } 
+				is_landed_title_allowed = d_westcantware
+				NOT = { has_global_flag = westcantware_created }
+			}
+			d_westcantware = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -9064,6 +9154,7 @@ narrative_event = {
 		completely_controls = c_portus_dubris
 		independent = yes
 		NOT = { has_global_flag = cantware_created }
+		NOT = { has_global_flag = westcantware_created }
 		NOT = { has_global_flag = ceint_renamed }
 	}
 	
@@ -9076,6 +9167,7 @@ narrative_event = {
 		c_portus_dubris = { de_jure_liege = d_cantuaria }
 		c_portus_lemanis = { de_jure_liege = d_cantuaria }
 		c_thanet = { de_jure_liege = d_cantuaria }
+		c_noviomagus_cantiacorum = { de_jure_liege = d_cantuaria }
 		if = {
 			limit = { NOT = { has_global_flag = weald_created } }
 			c_hastings = { de_jure_liege = d_cantuaria }
@@ -24151,7 +24243,7 @@ narrative_event = {	# Norþfolc, Suþfolc, Middel Seaxe, East Seaxe
 		name = "OK"
 	}
 }
-narrative_event = {	# Suþrige, Cantware, The Weald
+narrative_event = {	# Suþrige, East Cantware, West Cantware, The Weald
 	id = 314277
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24171,6 +24263,7 @@ narrative_event = {	# Suþrige, Cantware, The Weald
 		OR = {
 			has_global_flag = surrey_created
 			has_global_flag = cantware_created
+			has_global_flag = westcantware_created
 			has_global_flag = weald_created
 		}
 		is_alternate_start = no
@@ -24188,8 +24281,12 @@ narrative_event = {	# Suþrige, Cantware, The Weald
 			c_durovernum = { de_jure_liege = d_cantware }
 			c_portus_dubris = { de_jure_liege = d_cantware }
 			c_portus_lemanis = { de_jure_liege = d_cantware }
-			c_aylesford = { de_jure_liege = d_cantware }
 			c_thanet = { de_jure_liege = d_cantware }
+		}
+		if = {
+			limit = { has_global_flag = westcantware_created }
+			c_aylesford = { de_jure_liege = d_westcantware }
+			c_noviomagus_cantiacorum = { de_jure_liege = d_westcantware }
 		}
 		if = {
 			limit = { has_global_flag = weald_created }
@@ -25571,6 +25668,7 @@ narrative_event = {	# Cantuaria, Regnensia, Londinium, Atrebatia (Britannia), Be
 				limit = { NOT = { has_global_flag = weald_created } }
 				c_hastings = { de_jure_liege = d_cantuaria }
 			}
+			c_noviomagus_cantiacorum = { de_jure_liege = d_cantuaria }
 		}
 		if = {
 			limit = {
