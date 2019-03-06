@@ -67,6 +67,7 @@ narrative_event = {
 			}
 			c_lindum = { de_jure_liege = d_lindsey }
 			c_caistor = { de_jure_liege = d_lindsey }
+			c_ad_abum = { de_jure_liege = d_lindsey }
 			c_banovallum = { de_jure_liege = d_lindsey }
 			c_luda = { de_jure_liege = d_lindsey }
 		}		
@@ -9589,11 +9590,10 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_lindum
-		completely_controls = c_ad_pontem
-		completely_controls = c_trent_hills
+		completely_controls = c_causennae
+		completely_controls = c_banovallum
 		independent = yes
 		NOT = { has_global_flag = lindsey_created }
-		NOT = { has_global_flag = pegansaete_created }
 		NOT = { has_global_flag = linnius_renamed }
 	}
 	
@@ -9606,13 +9606,24 @@ narrative_event = {
 		d_lindum = {
 			set_name = "Lindum"
 		}
-		c_segelocum = { de_jure_liege = d_lindum }
-		c_scarsdale = { de_jure_liege = d_lindum }
-		c_trent_hills = { de_jure_liege = d_lindum }
 		if = {
-			limit = { NOT = { has_global_flag = middleangles_created } }
-			c_ad_pontem = { de_jure_liege = d_lindum }
+			limit = { 
+				NOR = { 
+					has_global_flag = middleangles_created 
+					has_global_flag = fiveboroughs_created
+				} 
+			}
 			c_causennae = { de_jure_liege = d_lindum }
+		}
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = grentbryce_created 
+					has_global_flag = fiveboroughs_created
+				} 
+			}
+			c_the_fens = { de_jure_liege = d_lindum }
+			c_holland = { de_jure_liege = d_lindum }
 		}
 		
 		set_global_flag = linnius_renamed
@@ -9647,10 +9658,11 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ratae
-		completely_controls = c_causennae
-		completely_controls = c_tripontium
+		completely_controls = c_segelocum
+		completely_controls = c_trent_hills
 		independent = yes
 		NOT = { has_global_flag = middleangles_created }
+		NOT = { has_global_flag = pegansaete_created }
 		NOT = { has_global_flag = lerion_renamed }
 	}
 	
@@ -9664,6 +9676,9 @@ narrative_event = {
 			set_name = "Corieltauvia"
 			adjective = "Corieltauvian"
 		}
+		c_trent_hills = { de_jure_liege = d_lerion }
+		c_scarsdale = { de_jure_liege = d_lerion }
+		c_segelocum = { de_jure_liege = d_lerion }
 		if = {
 			limit = { NOT = { has_global_flag = tomsaete_created } }
 			c_repton = { de_jure_liege = d_lerion }
@@ -9672,11 +9687,6 @@ narrative_event = {
 		if = {
 			limit = { NOT = { has_global_flag = hwicce_created } }
 			c_tripontium = { de_jure_liege = d_lerion }
-		}
-		if = {
-			limit = { NOT = { has_global_flag = grentbryce_created } }
-			c_the_fens = { de_jure_liege = d_lerion }
-			c_holland = { de_jure_liege = d_lerion }
 		}
 		
 		set_global_flag = lerion_renamed
@@ -21990,6 +22000,7 @@ narrative_event = {
 		c_holland = { de_jure_liege = d_fiveboroughs }
 		c_lindum = { de_jure_liege = d_fiveboroughs }
 		c_caistor = { de_jure_liege = d_fiveboroughs }
+		c_ad_abum = { de_jure_liege = d_fiveboroughs }
 		c_causennae = { de_jure_liege = d_fiveboroughs }
 		c_banovallum = { de_jure_liege = d_fiveboroughs }
 		c_luda = { de_jure_liege = d_fiveboroughs }
@@ -23790,6 +23801,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 			}
 			c_lindum = { de_jure_liege = d_lindsey }
 			c_caistor = { de_jure_liege = d_lindsey }
+			c_ad_abum = { de_jure_liege = d_lindsey }
 			c_banovallum = { de_jure_liege = d_lindsey }
 			c_luda = { de_jure_liege = d_lindsey }
 		}
@@ -25898,14 +25910,6 @@ narrative_event = {	# Lindum and Corieltauvia
 			}
 			if = {
 				limit = { 
-					NOT = { has_global_flag = grentbryce_created } 
-					NOT = { has_global_flag = fiveboroughs_created }
-				}
-				c_holland = { de_jure_liege = d_lerion }
-				c_the_fens = { de_jure_liege = d_lerion }
-			}
-			if = {
-				limit = { 
 					NOT = { has_global_flag = tomsaete_created }
 				}
 				c_manduessedum = { de_jure_liege = d_lerion }
@@ -25922,20 +25926,18 @@ narrative_event = {	# Lindum and Corieltauvia
 			limit = { has_global_flag = linnius_renamed }
 			if = {
 				limit = { 
-					NOT = { has_global_flag = pegansaete_created } 
-					NOT = { has_global_flag = fiveboroughs_created }
-				}
-				c_segelocum = { de_jure_liege = d_lindum }
-				c_scarsdale = { de_jure_liege = d_lindum }
-				c_trent_hills = { de_jure_liege = d_lindum }
-			}
-			if = {
-				limit = { 
 					NOT = { has_global_flag = middleangles_created } 
 					NOT = { has_global_flag = southernboroughs_created }
 				}
-				c_ad_pontem = { de_jure_liege = d_lindum }
 				c_causennae = { de_jure_liege = d_lindum }
+			}
+			if = {
+				limit = { 
+					NOT = { has_global_flag = grentbryce_created } 
+					NOT = { has_global_flag = fiveboroughs_created }
+				}
+				c_holland = { de_jure_liege = d_lerion }
+				c_the_fens = { de_jure_liege = d_lerion }
 			}
 		}
 	}
@@ -26346,6 +26348,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_repton = { de_jure_liege = d_fiveboroughs }
 			c_ratae = { de_jure_liege = d_fiveboroughs }
 			c_caistor = { de_jure_liege = d_fiveboroughs }
+			c_ad_abum = { de_jure_liege = d_fiveboroughs }
 			c_ad_pontem = { de_jure_liege = d_fiveboroughs }
 			c_segelocum = { de_jure_liege = d_fiveboroughs }
 			c_scarsdale = { de_jure_liege = d_fiveboroughs }
