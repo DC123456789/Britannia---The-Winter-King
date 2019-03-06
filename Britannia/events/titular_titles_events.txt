@@ -2717,6 +2717,7 @@ narrative_event = {
 			}
 			c_durobrivae = { de_jure_liege = d_grentbryce }
 			c_the_fens = { de_jure_liege = d_grentbryce }
+			c_holland = { de_jure_liege = d_grentbryce }
 		}
 		d_grwath = { destroy_landed_title = d_grwath }
 		set_global_flag = grentbryce_created
@@ -9383,7 +9384,6 @@ narrative_event = {
 			set_name = "Icenia"
 			adjective = "Icenian"
 		}
-		c_the_fens = { de_jure_liege = d_cantabrigia }
 		c_ely = { de_jure_liege = d_cantabrigia }
 		
 		set_global_flag = went_renamed
@@ -9419,7 +9419,7 @@ narrative_event = {
 		is_roman_ruler_trigger = yes
 		completely_controls = c_verulanium
 		completely_controls = c_alchester
-		completely_controls = c_lactodorum
+		completely_controls = c_durocobrivis
 		independent = yes
 		NOT = { has_global_flag = cilternsaete_created }
 		NOT = { has_global_flag = mincip_renamed }
@@ -9437,7 +9437,6 @@ narrative_event = {
 		}
 		if = {
 			limit = { NOT = { has_global_flag = middleangles_created } }
-			c_lactodorum = { de_jure_liege = d_mincip }
 			c_brinavae = { de_jure_liege = d_mincip }
 		}
 		c_alchester = { de_jure_liege = d_mincip }
@@ -9479,6 +9478,7 @@ narrative_event = {
 		completely_controls = c_ciniubantum
 		independent = yes
 		NOT = { has_global_flag = grentbryce_created }
+		NOT = { has_global_flag = middleangles_created }
 		NOT = { has_global_flag = grwath_renamed }
 	}
 	
@@ -9493,10 +9493,11 @@ narrative_event = {
 			adjective = "Segontiacian"
 		}
 		c_holme_fen = { de_jure_liege = d_grwath }
-		if = {
-			limit = { NOT = { has_global_flag = middleangles_created } }
-			c_ciniubantum = { de_jure_liege = d_grwath }
-		}
+		c_ciniubantum = { de_jure_liege = d_grwath }
+		c_bannaventa = { de_jure_liege = d_grwath }
+		c_gwash = { de_jure_liege = d_grwath }
+		c_durobrivae = { de_jure_liege = d_grwath }
+		c_lactodorum = { de_jure_liege = d_grwath }
 		
 		set_global_flag = grwath_renamed
 	}
@@ -9646,7 +9647,7 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ratae
-		completely_controls = c_durobrivae
+		completely_controls = c_causennae
 		completely_controls = c_tripontium
 		independent = yes
 		NOT = { has_global_flag = middleangles_created }
@@ -9672,8 +9673,11 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = hwicce_created } }
 			c_tripontium = { de_jure_liege = d_lerion }
 		}
-		c_bannaventa = { de_jure_liege = d_lerion }
-		c_durobrivae = { de_jure_liege = d_lerion }
+		if = {
+			limit = { NOT = { has_global_flag = grentbryce_created } }
+			c_the_fens = { de_jure_liege = d_lerion }
+			c_holland = { de_jure_liege = d_lerion }
+		}
 		
 		set_global_flag = lerion_renamed
 	}
@@ -21983,6 +21987,7 @@ narrative_event = {
 		c_ad_pontem = { de_jure_liege = d_fiveboroughs }
 		c_durobrivae = { de_jure_liege = d_fiveboroughs }
 		c_the_fens = { de_jure_liege = d_fiveboroughs }
+		c_holland = { de_jure_liege = d_fiveboroughs }
 		c_lindum = { de_jure_liege = d_fiveboroughs }
 		c_caistor = { de_jure_liege = d_fiveboroughs }
 		c_causennae = { de_jure_liege = d_fiveboroughs }
@@ -23843,6 +23848,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 				NOT = { has_global_flag = fiveboroughs_created }
 			}
 			c_the_fens = { de_jure_liege = d_grentbryce }
+			c_holland = { de_jure_liege = d_grentbryce }
 			c_ely = { de_jure_liege = d_grentbryce }
 		}
 	}
@@ -25795,10 +25801,6 @@ narrative_event = {	# Icenia, Catuvellaunia, Segontiacia
 				NOT = { has_global_flag = grentbryce_created }
 			}
 			if = {
-				limit = { NOT = { has_global_flag = fiveboroughs_created } }
-				c_the_fens = { de_jure_liege = d_cantabrigia }
-			}
-			if = {
 				limit = { NOT = { has_global_flag = southernboroughs_created } }
 				c_ely = { de_jure_liege = d_cantabrigia }
 			}
@@ -25807,7 +25809,6 @@ narrative_event = {	# Icenia, Catuvellaunia, Segontiacia
 			limit = { has_global_flag = mincip_renamed }
 			if = {
 				limit = { NOT = { has_global_flag = middleangles_created } }
-				c_lactodorum = { de_jure_liege = d_mincip }
 				c_brinavae = { de_jure_liege = d_mincip }
 			}
 			if = {
@@ -25826,12 +25827,24 @@ narrative_event = {	# Icenia, Catuvellaunia, Segontiacia
 		}
 		if = {
 			limit = {
-				has_global_flag = grwath_renamed
-				NOT = { has_global_flag = grentbryce_created }
+				has_global_flag = grwath_renamed				
 			}
 			if = {
-				limit = { NOT = { has_global_flag = southernboroughs_created } }
-				c_holme_fen = { de_jure_liege = d_grwath }
+				limit = { NOT = { has_global_flag = grentbryce_created } }
+				if = {
+					limit = { NOT = { has_global_flag = southernboroughs_created } }
+					c_holme_fen = { de_jure_liege = d_grwath }
+					c_durobrivae = { de_jure_liege = d_grwath }
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = middleangles_created } }	
+				if = {
+					limit = { NOT = { has_global_flag = southernboroughs_created } }
+					c_bannaventa = { de_jure_liege = d_grwath }
+					c_gwash = { de_jure_liege = d_grwath }
+				}
+				c_lactodorum = { de_jure_liege = d_grwath }				
 			}
 		}
 	}
@@ -25885,6 +25898,14 @@ narrative_event = {	# Lindum and Corieltauvia
 			}
 			if = {
 				limit = { 
+					NOT = { has_global_flag = grentbryce_created } 
+					NOT = { has_global_flag = fiveboroughs_created }
+				}
+				c_holland = { de_jure_liege = d_lerion }
+				c_the_fens = { de_jure_liege = d_lerion }
+			}
+			if = {
+				limit = { 
 					NOT = { has_global_flag = tomsaete_created }
 				}
 				c_manduessedum = { de_jure_liege = d_lerion }
@@ -25895,12 +25916,6 @@ narrative_event = {	# Lindum and Corieltauvia
 					NOT = { has_global_flag = southernboroughs_created }
 				}
 				c_tripontium = { de_jure_liege = d_lerion }
-			}
-			if = {
-				limit = { 
-					NOT = { has_global_flag = hwicce_created } 
-				}
-				c_bannaventa = { de_jure_liege = d_lerion }
 			}
 		}
 		if = {
@@ -26321,6 +26336,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_margidunum = { de_jure_liege = d_fiveboroughs }
 			c_durobrivae = { de_jure_liege = d_fiveboroughs }
 			c_the_fens = { de_jure_liege = d_fiveboroughs }
+			c_holland = { de_jure_liege = d_fiveboroughs }
 			c_lindum = { de_jure_liege = d_fiveboroughs }
 			c_causennae = { de_jure_liege = d_fiveboroughs }
 			c_banovallum = { de_jure_liege = d_fiveboroughs }
