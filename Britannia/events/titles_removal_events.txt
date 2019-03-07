@@ -121,14 +121,19 @@ narrative_event = {
 		}
 		if = {
 			limit = { NOT = { has_global_flag = lerion_renamed } }
-			c_segelocum = { de_jure_liege = d_elmet }
-			c_scarsdale = { de_jure_liege = d_elmet }
 			c_trent_hills = { de_jure_liege = d_the_peak }
 		}
 		else = {
-			c_segelocum = { de_jure_liege = d_lerion }
-			c_scarsdale = { de_jure_liege = d_lerion }
 			c_trent_hills = { de_jure_liege = d_lerion }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = linnius_renamed } }
+			c_segelocum = { de_jure_liege = d_elmet }
+			c_scarsdale = { de_jure_liege = d_elmet }
+		}
+		else = {
+			c_segelocum = { de_jure_liege = d_lindum }
+			c_scarsdale = { de_jure_liege = d_lindum }
 		}
 		d_mercia = { destroy_landed_title = d_mercia }
 		clr_global_flag = pegansaete_created
@@ -174,6 +179,9 @@ narrative_event = {
 		c_margidunum = {
 			is_germanic_controlled_trigger = no
 		}
+		c_vernemetum = {
+			is_germanic_controlled_trigger = no
+		}
 		c_gwash = {
 			is_germanic_controlled_trigger = no
 		}
@@ -199,18 +207,11 @@ narrative_event = {
 	}
 	
 	immediate = {
-		if = {
-			limit = { NOT = { has_global_flag = linnius_renamed } }
-			c_causennae = { de_jure_liege = d_lerion }
-		}
-		if = {
-			limit = { has_global_flag = linnius_renamed }
-			c_ad_pontem = { de_jure_liege = d_lindum }
-			c_causennae = { de_jure_liege = d_lindum }
-		}
+		c_causennae = { de_jure_liege = d_lerion }
 		c_ad_pontem = { de_jure_liege = d_lerion }
+		c_margidunum = { de_jure_liege = d_lindum }
 		c_ratae = { de_jure_liege = d_lerion }
-		c_margidunum = { de_jure_liege = d_lerion }
+		c_vernemetum = { de_jure_liege = d_lerion }
 		c_brinavae = { de_jure_liege = d_eastgwent }	
 		if = {
 			limit = { NOT = { has_global_flag = grwath_renamed } }
@@ -286,6 +287,7 @@ narrative_event = {
 	immediate = {
 		c_viroconium = { de_jure_liege = d_eastpowys }
 		c_hibernicum = { de_jure_liege = d_argoed }
+		c_whitchurch = { de_jure_liege = d_eastpowys }
 		if = {
 			limit = { NOT = { has_global_flag = pengwern_renamed } }
 			c_deva = { de_jure_liege = d_deceanglia }
@@ -348,6 +350,9 @@ narrative_event = {
 		c_letocetum = {
 			is_germanic_controlled_trigger = no
 		}
+		c_uxacona = {
+			is_germanic_controlled_trigger = no
+		}
 		c_manduessedum = {
 			is_germanic_controlled_trigger = no
 		}
@@ -372,11 +377,13 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = pengwern_renamed } }
 			c_arden_forest = { de_jure_liege = d_luitcoyt }
 			c_letocetum = { de_jure_liege = d_luitcoyt }
+			c_uxacona = { de_jure_liege = d_luitcoyt }
 		}
 		if = {
 			limit = { has_global_flag = pengwern_renamed }
 			c_arden_forest = { de_jure_liege = d_eastpowys }
 			c_letocetum = { de_jure_liege = d_eastpowys }
+			c_uxacona = { de_jure_liege = d_eastpowys }
 		}
 		d_tomsaete = { destroy_landed_title = THIS }
 		clr_global_flag = tomsaete_created
@@ -1310,16 +1317,23 @@ narrative_event = {
 		if = {
 			limit = { NOT = { has_global_flag = dunoting_renamed } }
 			c_legiolium = { de_jure_liege = d_elmet }
-			c_ioredale = { de_jure_liege = d_elmet }
-			c_danu = { de_jure_liege = d_elmet }
 			c_cambodunum = { de_jure_liege = d_the_peak }
 		}
-		if = {
-			limit = { has_global_flag = dunoting_renamed }
+		else = {
 			c_legiolium = { de_jure_liege = d_dunoting }
 			c_cambodunum = { de_jure_liege = d_dunoting }
-			c_ioredale = { de_jure_liege = d_dunoting }
-			c_danu = { de_jure_liege = d_dunoting }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = jorvik_created } }
+			if = {
+				limit = { NOT = { has_global_flag = linnius_renamed } }
+				c_ioredale = { de_jure_liege = d_elmet }
+				c_danu = { de_jure_liege = d_elmet }
+			}
+			else = {
+				c_ioredale = { de_jure_liege = d_lindum }
+				c_danu = { de_jure_liege = d_lindum }
+			}
 		}
 		
 		d_southumbria = { destroy_landed_title = d_southumbria }
@@ -1723,14 +1737,13 @@ narrative_event = {
 			c_durobrivae = { de_jure_liege = d_grwath }
 		}
 		if = {
-			limit = { NOT = { has_global_flag = linnius_renamed } }
+			limit = { NOT = { has_global_flag = lerion_renamed } }
 			c_holland = { de_jure_liege = d_durobrivae }
 			c_the_fens = { de_jure_liege = d_durobrivae }
 		}
-		if = {
-			limit = { has_global_flag = linnius_renamed }
-			c_holland = { de_jure_liege = d_lindum }
-			c_the_fens = { de_jure_liege = d_lindum }
+		else = {
+			c_holland = { de_jure_liege = d_lerion }
+			c_the_fens = { de_jure_liege = d_lerion }
 		}
 		d_grentbryce = { destroy_landed_title = d_grentbryce }
 		clr_global_flag = grentbryce_created
@@ -8815,7 +8828,6 @@ narrative_event = {
 		}
 		has_global_flag = went_renamed
 		NOT = { has_global_flag = norfolc_created }
-		NOT = { has_global_flag = grentbryce_created }
 	}
 	
 	mean_time_to_happen = {
@@ -8828,8 +8840,10 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_ely = { de_jure_liege = d_durobrivae }
-		c_godmundceaster = { de_jure_liege = d_grwath }
+		if = {
+			limit = { NOT = { has_global_flag = grentbryce_created } }
+			c_ely = { de_jure_liege = d_durobrivae }
+		}
 		
 		clr_global_flag = went_renamed
 	}
@@ -8997,7 +9011,7 @@ narrative_event = {
 		c_lindum = {
 			is_celtic_controlled_trigger = yes
 		}
-		c_causennae = {
+		c_segelocum = {
 			is_celtic_controlled_trigger = yes
 		}
 		c_banovallum = {
@@ -9018,13 +9032,24 @@ narrative_event = {
 			adjective = ""
 		}
 		if = {
-			limit = { NOT = { has_global_flag = middleangles_created } }
-			c_causennae = { de_jure_liege = d_lerion }
+			limit = { 
+				NOR = { 
+					has_global_flag = pegansaete_created 
+					has_global_flag = fiveboroughs_created 
+				} 
+			}
+			c_segelocum = { de_jure_liege = d_elmet }
+			c_scarsdale = { de_jure_liege = d_elmet }
 		}
 		if = {
-			limit = { NOT = { has_global_flag = grentbryce_created } }
-			c_holland = { de_jure_liege = d_durobrivae }
-			c_the_fens = { de_jure_liege = d_durobrivae }
+			limit = { 
+				NOR = { 
+					has_global_flag = southumbria_created 
+					has_global_flag = jorvik_created 
+				} 
+				c_ioredale = { de_jure_liege = d_elmet }
+				c_danu = { de_jure_liege = d_elmet }
+			}
 		}
 		
 		clr_global_flag = linnius_renamed
@@ -9063,7 +9088,7 @@ narrative_event = {
 		c_ratae = {
 			is_celtic_controlled_trigger = yes
 		}
-		c_segelocum = {
+		c_causennae = {
 			is_celtic_controlled_trigger = yes
 		}
 		c_trent_hills = {
@@ -9084,9 +9109,15 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_trent_hills = { de_jure_liege = d_the_peak }
-		c_segelocum = { de_jure_liege = d_elmet }
-		c_scarsdale = { de_jure_liege = d_elmet }
+		if = {
+			limit = { NOT = { has_global_flag = grentbryce_created } }
+			c_holland = { de_jure_liege = d_durobrivae }
+			c_the_fens = { de_jure_liege = d_durobrivae }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = pegansaete_created } }
+			c_trent_hills = { de_jure_liege = d_the_peak }
+		}
 		if = {
 			limit = { NOT = { has_global_flag = tomsaete_created } }
 			c_repton = { de_jure_liege = d_luitcoyt }
@@ -9427,6 +9458,7 @@ narrative_event = {
 		c_deva = { de_jure_liege = d_deceanglia }
 		c_maelor = { de_jure_liege = d_deceanglia }
 		c_letocetum = { de_jure_liege = d_luitcoyt }
+		c_uxacona = { de_jure_liege = d_luitcoyt }
 		c_manduessedum = { de_jure_liege = d_luitcoyt }
 		c_arden_forest = { de_jure_liege = d_luitcoyt }
 		c_dovedale = { de_jure_liege = d_the_peak }
@@ -9667,11 +9699,10 @@ narrative_event = {
 		d_dunoting = {
 			set_name = ""
 			adjective = ""
+			set_preferred_capital = 130		# Dunoting
 		}
 		c_iserium = { de_jure_liege = d_ebrauc }
-		c_legiolium = { de_jure_liege = d_elmet }			
-		c_ioredale = { de_jure_liege = d_elmet }
-		c_danu = { de_jure_liege = d_elmet }
+		c_legiolium = { de_jure_liege = d_elmet }
 		c_cambodunum = { de_jure_liege = d_the_peak }
 		if = {
 			limit = { NOT = { has_global_flag = pegansaete_created } }

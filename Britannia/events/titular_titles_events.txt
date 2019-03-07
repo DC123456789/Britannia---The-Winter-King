@@ -192,6 +192,7 @@ narrative_event = {
 			c_ratae = { de_jure_liege = d_middle_angles }
 			c_ad_pontem = { de_jure_liege = d_middle_angles }
 			c_margidunum = { de_jure_liege = d_middle_angles }
+			c_vernemetum = { de_jure_liege = d_middle_angles }
 			c_causennae = { de_jure_liege = d_middle_angles }
 		}
 		if = {
@@ -269,6 +270,7 @@ narrative_event = {
 		c_maelor = { de_jure_liege = d_wrocensaete }
 		c_tegeingl = { de_jure_liege = d_wrocensaete }
 		c_hibernicum = { de_jure_liege = d_wrocensaete }
+		c_whitchurch = { de_jure_liege = d_wrocensaete }
 		
 		d_wrocensaete = { de_jure_liege = k_mercia }
 		
@@ -328,6 +330,7 @@ narrative_event = {
 		
 		c_arden_forest = { de_jure_liege = d_tomsaete }
 		c_letocetum = { de_jure_liege = d_tomsaete }
+		c_uxacona = { de_jure_liege = d_tomsaete }
 		c_manduessedum = { de_jure_liege = d_tomsaete }
 		
 		d_tomsaete = { de_jure_liege = k_mercia }
@@ -9371,7 +9374,6 @@ narrative_event = {
 		completely_controls = c_thetford
 		independent = yes
 		NOT = { has_global_flag = norfolc_created }
-		NOT = { has_global_flag = grentbryce_created }
 		NOT = { has_global_flag = went_renamed }
 	}
 	
@@ -9385,7 +9387,10 @@ narrative_event = {
 			set_name = "Icenia"
 			adjective = "Icenian"
 		}
-		c_ely = { de_jure_liege = d_cantabrigia }
+		if = {
+			limit = { NOT = { has_global_flag = grentbryce_created } }
+			c_ely = { de_jure_liege = d_cantabrigia }
+		}
 		
 		set_global_flag = went_renamed
 	}
@@ -9590,7 +9595,7 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_lindum
-		completely_controls = c_causennae
+		completely_controls = c_segelocum
 		completely_controls = c_banovallum
 		independent = yes
 		NOT = { has_global_flag = lindsey_created }
@@ -9608,22 +9613,23 @@ narrative_event = {
 		}
 		if = {
 			limit = { 
-				NOR = { 
-					has_global_flag = middleangles_created 
+				NOR = {
+					has_global_flag = pegansaete_created
 					has_global_flag = fiveboroughs_created
-				} 
+				}
 			}
-			c_causennae = { de_jure_liege = d_lindum }
+			c_segelocum = { de_jure_liege = d_lindum }
+			c_scarsdale = { de_jure_liege = d_lindum }
 		}
 		if = {
 			limit = { 
 				NOR = { 
-					has_global_flag = grentbryce_created 
-					has_global_flag = fiveboroughs_created
+					has_global_flag = southumbria_created 
+					has_global_flag = jorvik_created
 				} 
 			}
-			c_the_fens = { de_jure_liege = d_lindum }
-			c_holland = { de_jure_liege = d_lindum }
+			c_ioredale = { de_jure_liege = d_lindum }
+			c_danu = { de_jure_liege = d_lindum }
 		}
 		
 		set_global_flag = linnius_renamed
@@ -9658,11 +9664,10 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ratae
-		completely_controls = c_segelocum
+		completely_controls = c_causennae
 		completely_controls = c_trent_hills
 		independent = yes
 		NOT = { has_global_flag = middleangles_created }
-		NOT = { has_global_flag = pegansaete_created }
 		NOT = { has_global_flag = lerion_renamed }
 	}
 	
@@ -9676,9 +9681,25 @@ narrative_event = {
 			set_name = "Corieltauvia"
 			adjective = "Corieltauvian"
 		}
-		c_trent_hills = { de_jure_liege = d_lerion }
-		c_scarsdale = { de_jure_liege = d_lerion }
-		c_segelocum = { de_jure_liege = d_lerion }
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = pegansaete_created 
+					has_global_flag = fiveboroughs_created
+				} 
+			}
+			c_trent_hills = { de_jure_liege = d_lerion }
+		}
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = grentbryce_created 
+					has_global_flag = fiveboroughs_created
+				} 
+			}
+			c_the_fens = { de_jure_liege = d_lerion }
+			c_holland = { de_jure_liege = d_lerion }
+		}
 		if = {
 			limit = { NOT = { has_global_flag = tomsaete_created } }
 			c_repton = { de_jure_liege = d_lerion }
@@ -10291,6 +10312,7 @@ narrative_event = {
 		c_deva = { de_jure_liege = d_eastpowys }
 		c_maelor = { de_jure_liege = d_eastpowys }
 		c_letocetum = { de_jure_liege = d_eastpowys }
+		c_uxacona = { de_jure_liege = d_eastpowys }
 		c_arden_forest = { de_jure_liege = d_eastpowys }
 		c_dovedale = { de_jure_liege = d_eastpowys }
 		
@@ -10546,15 +10568,11 @@ narrative_event = {
 		d_dunoting = {
 			set_name = "Brigantia"
 			adjective = "Brigantian"
+			set_preferred_capital = 108		# Iserium
 		}
 		c_iserium = { de_jure_liege = d_dunoting }
 		c_legiolium = { de_jure_liege = d_dunoting }
 		c_cambodunum = { de_jure_liege = d_dunoting }
-		if = {
-			limit = { NOT = { has_global_flag = southumbria_created } }
-			c_ioredale = { de_jure_liege = d_dunoting }
-			c_danu = { de_jure_liege = d_dunoting }
-		}
 		if = {
 			limit = { NOT = { has_global_flag = pegansaete_created } }
 			c_aquae_arnemetiae = { de_jure_liege = d_dunoting }
@@ -21993,8 +22011,9 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_margidunum = { de_jure_liege = d_fiveboroughs }
+		c_vernemetum = { de_jure_liege = d_fiveboroughs }
 		c_ad_pontem = { de_jure_liege = d_fiveboroughs }
+		c_margidunum = { de_jure_liege = d_fiveboroughs }
 		c_durobrivae = { de_jure_liege = d_fiveboroughs }
 		c_the_fens = { de_jure_liege = d_fiveboroughs }
 		c_holland = { de_jure_liege = d_fiveboroughs }
@@ -23820,6 +23839,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 			limit = { has_global_flag = tomsaete_created }
 			c_arden_forest = { de_jure_liege = d_tomsaete }
 			c_letocetum = { de_jure_liege = d_tomsaete }
+			c_uxacona = { de_jure_liege = d_tomsaete }
 			c_manduessedum = { de_jure_liege = d_tomsaete }
 			if = {
 				limit = { NOT = { has_global_flag = fiveboroughs_created } }
@@ -23833,6 +23853,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 				c_ratae = { de_jure_liege = d_middle_angles }
 				c_ad_pontem = { de_jure_liege = d_middle_angles }
 				c_margidunum = { de_jure_liege = d_middle_angles }
+				c_vernemetum = { de_jure_liege = d_middle_angles }
 				c_causennae = { de_jure_liege = d_middle_angles }
 			}
 			if = {
@@ -23903,6 +23924,7 @@ narrative_event = {	# Wrocensæte, Magonsaete, Hwicce, Cilternsaete
 			c_maelor = { de_jure_liege = d_wrocensaete }
 			c_tegeingl = { de_jure_liege = d_wrocensaete }
 			c_hibernicum = { de_jure_liege = d_wrocensaete }
+			c_whitchurch = { de_jure_liege = d_wrocensaete }
 		}
 		if = {
 			limit = { has_global_flag = magonsaete_created }
@@ -25894,11 +25916,17 @@ narrative_event = {	# Lindum and Corieltauvia
 			limit = { has_global_flag = lerion_renamed }
 			if = {
 				limit = { 
+					NOT = { has_global_flag = grentbryce_created } 
+					NOT = { has_global_flag = fiveboroughs_created }
+				}
+				c_holland = { de_jure_liege = d_lerion }
+				c_the_fens = { de_jure_liege = d_lerion }
+			}
+			if = {
+				limit = { 
 					NOT = { has_global_flag = pegansaete_created } 
 					NOT = { has_global_flag = fiveboroughs_created }
 				}
-				c_segelocum = { de_jure_liege = d_lerion }
-				c_scarsdale = { de_jure_liege = d_lerion }
 				c_trent_hills = { de_jure_liege = d_lerion }
 			}
 			if = {
@@ -25926,18 +25954,19 @@ narrative_event = {	# Lindum and Corieltauvia
 			limit = { has_global_flag = linnius_renamed }
 			if = {
 				limit = { 
-					NOT = { has_global_flag = middleangles_created } 
-					NOT = { has_global_flag = southernboroughs_created }
-				}
-				c_causennae = { de_jure_liege = d_lindum }
-			}
-			if = {
-				limit = { 
-					NOT = { has_global_flag = grentbryce_created } 
+					NOT = { has_global_flag = pegansaete_created } 
 					NOT = { has_global_flag = fiveboroughs_created }
 				}
-				c_holland = { de_jure_liege = d_lerion }
-				c_the_fens = { de_jure_liege = d_lerion }
+				c_segelocum = { de_jure_liege = d_lindum }
+				c_scarsdale = { de_jure_liege = d_lindum }
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = southumbria_created }
+					NOT = { has_global_flag = jorvik_created }
+				}
+				c_ioredale = { de_jure_liege = d_lindum }
+				c_danu = { de_jure_liege = d_lindum }
 			}
 		}
 	}
@@ -26056,6 +26085,7 @@ narrative_event = {	# Cornovia, Deceanglia
 			if = {
 				limit = { NOT = { has_global_flag = tomsaete_created } }
 				c_letocetum = { de_jure_liege = d_eastpowys }
+				c_uxacona = { de_jure_liege = d_eastpowys }
 				c_arden_forest = { de_jure_liege = d_eastpowys }
 			}
 		}
@@ -26106,8 +26136,6 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 					NOT = { has_global_flag = jorvik_created }
 				}
 				c_legiolium = { de_jure_liege = d_dunoting }
-				c_ioredale = { de_jure_liege = d_dunoting }
-				c_danu = { de_jure_liege = d_dunoting }
 			}
 			if = {
 				limit = {
@@ -26335,7 +26363,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 		}
 		if = {
 			limit = { has_global_flag = fiveboroughs_created }
-			c_margidunum = { de_jure_liege = d_fiveboroughs }
+			c_vernemetum = { de_jure_liege = d_fiveboroughs }
 			c_durobrivae = { de_jure_liege = d_fiveboroughs }
 			c_the_fens = { de_jure_liege = d_fiveboroughs }
 			c_holland = { de_jure_liege = d_fiveboroughs }
@@ -26350,6 +26378,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_caistor = { de_jure_liege = d_fiveboroughs }
 			c_ad_abum = { de_jure_liege = d_fiveboroughs }
 			c_ad_pontem = { de_jure_liege = d_fiveboroughs }
+			c_margidunum = { de_jure_liege = d_fiveboroughs }
 			c_segelocum = { de_jure_liege = d_fiveboroughs }
 			c_scarsdale = { de_jure_liege = d_fiveboroughs }
 		}
