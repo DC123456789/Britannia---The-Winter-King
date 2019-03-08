@@ -1167,6 +1167,29 @@ britannia_revoke_last_reform_effect = {
 	}
 }
 
+convert_to_proper_subroman_government_effect = {
+	if = {
+		limit = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				AND = {
+					OR = {
+						culture_group = imperiale
+						is_romanized_germanic_trigger = yes
+					}
+					capital_scope = {
+						region = world_britannia
+					}
+				}
+			}
+		}
+		set_government_type = sub_roman_brythonic_government
+	}
+	else = {
+		set_government_type = sub_roman_government
+	}
+}
+
 destroy_random_nonspecial_building_effect = {
 	custom_tooltip = {
 		text = destroy_random_nonspecial_building_tooltip
