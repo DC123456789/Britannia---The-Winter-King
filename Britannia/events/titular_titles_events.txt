@@ -9726,6 +9726,77 @@ narrative_event = {
 		}	
 	}
 }
+# Praefecture of Deva
+narrative_event = {	
+	id = 3145140
+	title = "EVTNAME3145140"
+	desc = "EVTDESC3145140"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_roman_ruler_trigger = yes
+		completely_controls = c_deva
+		completely_controls = c_letocetum
+		completely_controls = c_aquae_arnemetiae
+		independent = yes
+		NOT = { has_global_flag = wrocensaete_created }
+		NOT = { has_global_flag = tomsaete_created }
+		NOT = { has_global_flag = luitcoyt_renamed }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_luitcoyt = { de_jure_liege = k_flavia_cesariensis }
+		d_luitcoyt = {
+			set_name = "Deva"
+			adjective = "Devan"
+			set_preferred_capital = 36	# Deva
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_global_flag = pegansaete_created
+				} 
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_global_flag = fiveboroughs_created
+					} 
+				}
+				c_aquae_arnemetiae = { de_jure_liege = d_luitcoyt }
+			}
+			c_dovedale = { de_jure_liege = d_luitcoyt }
+		}
+		c_hibernicum = { de_jure_liege = d_luitcoyt }
+		c_deva = { de_jure_liege = d_luitcoyt }
+		c_whitchurch = { de_jure_liege = d_luitcoyt }
+		
+		set_global_flag = lerion_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA314514"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+	option = {
+		name = "EVTOPTB314514"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+}
 # Restoration of Flavia Cæsariensis
 narrative_event = {	
 	id = 314515
@@ -10289,8 +10360,6 @@ narrative_event = {
 		is_roman_ruler_trigger = yes
 		completely_controls = c_viroconium
 		completely_controls = c_lugg_vale
-		completely_controls = c_letocetum
-		completely_controls = c_deva
 		independent = yes
 		NOT = { has_global_flag = wrocensaete_created }
 		NOT = { has_global_flag = magonsaete_created }
@@ -10309,12 +10378,8 @@ narrative_event = {
 			set_name = "Cornovia"
 			adjective = "Cornovian"
 		}
-		c_deva = { de_jure_liege = d_eastpowys }
 		c_maelor = { de_jure_liege = d_eastpowys }
-		c_letocetum = { de_jure_liege = d_eastpowys }
-		c_uxacona = { de_jure_liege = d_eastpowys }
 		c_arden_forest = { de_jure_liege = d_eastpowys }
-		c_dovedale = { de_jure_liege = d_eastpowys }
 		
 		set_global_flag = pengwern_renamed
 	}
@@ -10573,10 +10638,6 @@ narrative_event = {
 		c_iserium = { de_jure_liege = d_dunoting }
 		c_legiolium = { de_jure_liege = d_dunoting }
 		c_cambodunum = { de_jure_liege = d_dunoting }
-		if = {
-			limit = { NOT = { has_global_flag = pegansaete_created } }
-			c_aquae_arnemetiae = { de_jure_liege = d_dunoting }
-		}
 		
 		set_global_flag = dunoting_renamed
 	}
@@ -11907,8 +11968,6 @@ narrative_event = {
 			set_name = "Caucia"
 			adjective = "Caucian"
 		}
-			
-				
 		
 		c_kildare = { de_jure_liege = d_southmide }	
 		c_wicklow = { de_jure_liege = d_southmide }
@@ -11917,12 +11976,7 @@ narrative_event = {
 		c_eblana = { de_jure_liege = d_southmide }
 		c_loegaire = { de_jure_liege = d_southmide }
 		c_fir_tulach = { de_jure_liege = d_southmide }
-		
-		
-		
-		
-		
-		
+				
 		set_global_flag = uisneach_renamed
 	}
 	
@@ -11972,10 +12026,8 @@ narrative_event = {
 			set_name = "Eblania"
 			adjective = "Eblanian"
 		}
-		c_mide = { de_jure_liege = d_northmide }	
-		
-		c_uisneach = { de_jure_liege = d_northmide }
-		
+		c_mide = { de_jure_liege = d_northmide }		
+		c_uisneach = { de_jure_liege = d_northmide }		
 		c_tethbae = { de_jure_liege = d_northmide }	
 		c_longford = { de_jure_liege = d_northmide }
 		c_athlone = { de_jure_liege = d_northmide }	
@@ -11984,7 +12036,6 @@ narrative_event = {
 		c_luine = { de_jure_liege = d_northmide }	
 		c_mora = { de_jure_liege = d_northmide }
 		c_louth = { de_jure_liege = d_northmide }
-		
 		
 		set_global_flag = brega_renamed
 	}
@@ -12033,8 +12084,6 @@ narrative_event = {
 			set_name = "Auteinia"
 			adjective = "Auteinian"
 		}
-				
-		
 		c_tir_soghain = { de_jure_liege = d_westconnacht }	
 		c_nuadat = { de_jure_liege = d_westconnacht }	
 		
@@ -12143,10 +12192,7 @@ narrative_event = {
 		d_ui_liathain = {
 			set_name = "Ivernia"
 			adjective = "Ivernian"
-		}	
-		
-		
-		
+		}
 		set_global_flag = desmond_renamed
 	}
 	
@@ -12290,8 +12336,6 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
-		
-		
 		completely_controls = c_fermanagh
 		completely_controls = c_clogher
 		completely_controls = c_tyrone
@@ -12346,10 +12390,8 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
-		
 		completely_controls = c_letterkenny
 		completely_controls = c_ui_neill
-		
 		independent = yes
 		NOT = { has_global_flag = ailigh_renamed }
 	}
@@ -12401,7 +12443,6 @@ narrative_event = {
 		completely_controls = c_dal_naraide
 		completely_controls = c_fir_li
 		completely_controls = c_ui_tuirtri
-		
 		independent = yes
 		NOT = { has_global_flag = antrim_renamed }
 	}
@@ -12792,7 +12833,6 @@ narrative_event = {
 		is_roman_ruler_trigger = yes
 		completely_controls = d_breifne
 		completely_controls = c_leitrim
-		
 		independent = yes
 		NOT = { has_global_flag = breifne_renamed }
 	}
@@ -25887,7 +25927,7 @@ narrative_event = {	# Icenia, Catuvellaunia, Segontiacia
 		name = "OK"
 	}
 }
-narrative_event = {	# Lindum and Corieltauvia
+narrative_event = {	# Lindum, Corieltauvia, and Deva
 	id = 314353
 	desc = "You're not supposed to see this..."
 	major = no
@@ -25907,6 +25947,7 @@ narrative_event = {	# Lindum and Corieltauvia
 		OR = {
 			has_global_flag = lerion_renamed
 			has_global_flag = linnius_renamed
+			has_global_flag = luitcoyt_renamed
 		}
 		is_alternate_start = no
 	}
@@ -25967,6 +26008,33 @@ narrative_event = {	# Lindum and Corieltauvia
 				}
 				c_ioredale = { de_jure_liege = d_lindum }
 				c_danu = { de_jure_liege = d_lindum }
+			}
+		}
+		if = {
+			limit = { has_global_flag = luitcoyt_renamed }
+			if = {
+				limit = { 
+					NOT = {
+						has_global_flag = pegansaete_created
+					} 
+				}
+				if = {
+					limit = { 
+						NOT = {
+							has_global_flag = fiveboroughs_created
+						} 
+					}
+					c_aquae_arnemetiae = { de_jure_liege = d_luitcoyt }
+				}
+				c_dovedale = { de_jure_liege = d_luitcoyt }
+			}
+			if = {
+				limit = {
+					NOT = { has_global_flag = wrocensaete_created }
+				}
+				c_hibernicum = { de_jure_liege = d_luitcoyt }
+				c_deva = { de_jure_liege = d_luitcoyt }
+				c_whitchurch = { de_jure_liege = d_luitcoyt }
 			}
 		}
 	}
@@ -26075,17 +26143,10 @@ narrative_event = {	# Cornovia, Deceanglia
 			limit = { has_global_flag = pengwern_renamed }
 			if = {
 				limit = { NOT = { has_global_flag = wrocensaete_created } }
-				c_deva = { de_jure_liege = d_eastpowys }
 				c_maelor = { de_jure_liege = d_eastpowys }
 			}
 			if = {
-				limit = { NOT = { has_global_flag = pegansaete_created } }
-				c_dovedale = { de_jure_liege = d_eastpowys }
-			}
-			if = {
 				limit = { NOT = { has_global_flag = tomsaete_created } }
-				c_letocetum = { de_jure_liege = d_eastpowys }
-				c_uxacona = { de_jure_liege = d_eastpowys }
 				c_arden_forest = { de_jure_liege = d_eastpowys }
 			}
 		}
@@ -26150,13 +26211,6 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 					NOT = { has_global_flag = jorvik_created }
 				}
 				c_iserium = { de_jure_liege = d_dunoting }
-			}
-			if = {
-				limit = { 
-					NOT = { has_global_flag = pegansaete_created } 
-					NOT = { has_global_flag = fiveboroughs_created }
-				}
-				c_aquae_arnemetiae = { de_jure_liege = d_dunoting }
 			}
 		}
 		if = {

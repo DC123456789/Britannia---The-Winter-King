@@ -104,20 +104,13 @@ narrative_event = {
 	
 	immediate = {
 		if = {
-			limit = { NOT = { has_global_flag = dunoting_renamed } }
+			limit = { NOT = { has_global_flag = luitcoyt_renamed } }
 			c_aquae_arnemetiae = { de_jure_liege = d_the_peak }
-		}
-		if = {
-			limit = { has_global_flag = dunoting_renamed }
-			c_aquae_arnemetiae = { de_jure_liege = d_dunoting }
-		}
-		if = {
-			limit = { NOT = { has_global_flag = pengwern_renamed } }
 			c_dovedale = { de_jure_liege = d_the_peak }
 		}
-		if = {
-			limit = { has_global_flag = pengwern_renamed }
-			c_dovedale = { de_jure_liege = d_eastpowys }
+		else = {
+			c_aquae_arnemetiae = { de_jure_liege = d_luitcoyt }
+			c_dovedale = { de_jure_liege = d_luitcoyt }
 		}
 		if = {
 			limit = { NOT = { has_global_flag = lerion_renamed } }
@@ -278,6 +271,9 @@ narrative_event = {
 		c_hibernicum = {
 			is_germanic_controlled_trigger = no
 		}
+		c_whitchurch = {
+			is_germanic_controlled_trigger = no
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -286,16 +282,22 @@ narrative_event = {
 	
 	immediate = {
 		c_viroconium = { de_jure_liege = d_eastpowys }
-		c_hibernicum = { de_jure_liege = d_argoed }
-		c_whitchurch = { de_jure_liege = d_eastpowys }
 		if = {
-			limit = { NOT = { has_global_flag = pengwern_renamed } }
+			limit = { NOT = { has_global_flag = luitcoyt_renamed } }
+			c_hibernicum = { de_jure_liege = d_argoed }
 			c_deva = { de_jure_liege = d_deceanglia }
-			c_maelor = { de_jure_liege = d_deceanglia }
+			c_whitchurch = { de_jure_liege = d_eastpowys }
+		}
+		else = {
+			c_hibernicum = { de_jure_liege = d_luitcoyt }
+			c_deva = { de_jure_liege = d_luitcoyt }
+			c_whitchurch = { de_jure_liege = d_luitcoyt }
 		}
 		if = {
-			limit = { has_global_flag = pengwern_renamed }
-			c_deva = { de_jure_liege = d_eastpowys }
+			limit = { NOT = { has_global_flag = pengwern_renamed } }
+			c_maelor = { de_jure_liege = d_deceanglia }
+		}
+		else = {
 			c_maelor = { de_jure_liege = d_eastpowys }
 		}
 		if = {
@@ -376,15 +378,13 @@ narrative_event = {
 		if = {
 			limit = { NOT = { has_global_flag = pengwern_renamed } }
 			c_arden_forest = { de_jure_liege = d_luitcoyt }
-			c_letocetum = { de_jure_liege = d_luitcoyt }
-			c_uxacona = { de_jure_liege = d_luitcoyt }
 		}
 		if = {
 			limit = { has_global_flag = pengwern_renamed }
 			c_arden_forest = { de_jure_liege = d_eastpowys }
-			c_letocetum = { de_jure_liege = d_eastpowys }
-			c_uxacona = { de_jure_liege = d_eastpowys }
 		}
+		c_letocetum = { de_jure_liege = d_luitcoyt }
+		c_uxacona = { de_jure_liege = d_luitcoyt }
 		d_tomsaete = { destroy_landed_title = THIS }
 		clr_global_flag = tomsaete_created
 	}
@@ -9145,6 +9145,84 @@ narrative_event = {
 	}
 }
 
+# Praefecture of Deva
+narrative_event = {
+	id = 4145140
+	title = "EVTNAME4145140"
+	desc = "EVTDESC4145140"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_traveller_hills"
+	
+	only_playable = yes		
+	min_age = 20
+	max_age = 30	
+	
+	trigger = {
+		is_alternate_start = no
+		c_deva = {
+			is_celtic_controlled_trigger = yes
+		}
+		c_letocetum = {
+			is_celtic_controlled_trigger = yes
+		}
+		c_aquae_arnemetiae = {
+			is_celtic_controlled_trigger = yes
+		}
+		has_global_flag = luitcoyt_renamed
+		NOT = { has_global_flag = wrocensaete_created }
+		NOT = { has_global_flag = tomsaete_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_luitcoyt = { de_jure_liege = k_powys }
+		d_luitcoyt = {
+			set_name = ""
+			adjective = ""
+			set_preferred_capital = 348		# Letocetum
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_global_flag = pegansaete_created
+				} 
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_global_flag = fiveboroughs_created
+					} 
+				}
+				c_aquae_arnemetiae = { de_jure_liege = d_the_peak }
+			}
+			c_dovedale = { de_jure_liege = d_the_peak }
+		}
+		c_hibernicum = { de_jure_liege = d_argoed }
+		c_deva = { de_jure_liege = d_deceanglia }
+		c_whitchurch = { de_jure_liege = d_eastpowys }
+		
+		clr_global_flag = luitcoyt_renamed
+	}
+	
+	option = {
+		name = "EVTOPTA414514"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414514"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+}
+
 # Praefecture of Dobunnia
 narrative_event = {
 	id = 414516
@@ -9432,12 +9510,6 @@ narrative_event = {
 		c_lugg_vale = {
 			is_celtic_controlled_trigger = yes
 		}
-		c_letocetum = {
-			is_celtic_controlled_trigger = yes
-		}
-		c_deva = {
-			is_celtic_controlled_trigger = yes
-		}
 		NOT = { has_global_flag = wrocensaete_created }
 		NOT = { has_global_flag = magonsaete_created }
 		NOT = { has_global_flag = pegansaete_created }
@@ -9455,13 +9527,9 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_deva = { de_jure_liege = d_deceanglia }
 		c_maelor = { de_jure_liege = d_deceanglia }
-		c_letocetum = { de_jure_liege = d_luitcoyt }
-		c_uxacona = { de_jure_liege = d_luitcoyt }
 		c_manduessedum = { de_jure_liege = d_luitcoyt }
 		c_arden_forest = { de_jure_liege = d_luitcoyt }
-		c_dovedale = { de_jure_liege = d_the_peak }
 		
 		clr_global_flag = pengwern_renamed
 	}
@@ -9704,10 +9772,6 @@ narrative_event = {
 		c_iserium = { de_jure_liege = d_ebrauc }
 		c_legiolium = { de_jure_liege = d_elmet }
 		c_cambodunum = { de_jure_liege = d_the_peak }
-		if = {
-			limit = { NOT = { has_global_flag = pegansaete_created } }
-			c_aquae_arnemetiae = { de_jure_liege = d_the_peak }
-		}
 		
 		clr_global_flag = dunoting_renamed
 	}
