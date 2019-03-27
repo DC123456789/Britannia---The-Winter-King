@@ -71,6 +71,31 @@ county_conquest_can_use_gui_trigger = {
 			FROM = { has_character_modifier = friendly_with_romans }
 		}
 	}
+	# Irish realms in Britannia can only use it to grow up to a size of 5 provinces
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { 
+				is_gaelic_culture_trigger = yes 
+				top_liege = {
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+			}
+			FROM = {
+				culture_group = celtic
+			}
+		}
+		NOT = { 
+			ROOT = {
+				top_liege = {
+					num_of_count_titles_in_realm = 5
+				} 
+			}
+		}
+	}
 }
 
 county_conquest_can_use_trigger = {
@@ -272,25 +297,6 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 		}
 	}
 	
-	# Briton protection against Lleyn
-	NAND = {
-		ROOT = {
-			is_gaelic_culture_trigger = yes
-			realm = {
-				title = k_henis_wyren
-			}
-		}
-		OR = {
-			title = c_cardigan
-			title = c_gwynedd
-			title = c_rhufoniog
-			title = c_caer_gei
-			title = c_deva
-			title = c_tegeingl
-			title = c_maelor
-		}
-	}
-	
 	# Caledonian Conquest Block
 	NAND = {
 		ROOT = {
@@ -359,25 +365,7 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 			}
 			realm_size = 20
 		}
-	}		
-	
-	# Protection against Demetia
-	NAND = {
-		ROOT = {
-			is_gaelic_culture_trigger = yes
-			realm = {
-				title = k_demetia
-			}
-		}
-		OR = {
-			title = c_nidum	
-			title = c_isca_siluria	
-			title = c_gobannium	
-			title = c_cardigan	
-			title = c_buelt	
-			title = c_maelienydd
-		}
-	}		
+	}
 	
 	# Mercian Protection
 	NAND = {
