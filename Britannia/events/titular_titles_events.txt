@@ -2390,7 +2390,6 @@ narrative_event = {
 		c_kirby_thore = { de_jure_liege = d_cumbria }
 		c_armterid = { de_jure_liege = d_cumbria }
 		d_cumbria = { de_jure_liege = k_northumbria }
-		d_eastrheged = { destroy_landed_title = d_eastrheged }
 		d_westrheged = { destroy_landed_title = d_westrheged }
 		set_global_flag = cumbria_created
 		
@@ -2450,9 +2449,12 @@ narrative_event = {
 			c_ashgill = { de_jure_liege = d_bernicia }
 		}
 		d_bernicia = { de_jure_liege = k_northumbria }
-		d_north_angles = { gain_title = ROOT }
+		#d_north_angles = { gain_title = ROOT }
 		d_north_angles = { de_jure_liege = k_northumbria }
 		set_global_flag = bernicia_created
+		
+		d_eastrheged = { destroy_landed_title = d_eastrheged }
+		d_bryneich = { destroy_landed_title = d_bryneich }
 		
 		if = {						# Creation by Bretwalda of Aenglaland
 			limit = {
@@ -2499,15 +2501,14 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_lothian = { de_jure_liege = d_anglelothian }
+		c_abercorn = { de_jure_liege = d_anglelothian }
 		c_din_eidyn = { de_jure_liege = d_anglelothian }
 		c_teviotdale = { de_jure_liege = d_anglelothian }
 		c_dunpender = { de_jure_liege = d_anglelothian }
-		c_iuddeu = { de_jure_liege = d_fotla }
+		d_manaw = { de_jure_liege = k_strathclyde }
 		d_anglelothian = { de_jure_liege = k_northumbria }		
 		k_lothian = { destroy_landed_title = k_lothian }
 		d_eidyn = { destroy_landed_title = d_eidyn }
-		d_manaw = { destroy_landed_title = d_manaw }
 		set_global_flag = anglelothian_created
 		
 		if = {						# Creation by Bretwalda of Aenglaland
@@ -2610,6 +2611,7 @@ narrative_event = {
 		c_ayr = { de_jure_liege = d_ayrshire }
 		c_southayr = { de_jure_liege = d_ayrshire }
 		c_lochduin = { de_jure_liege = d_ayrshire }
+		c_lothian = { de_jure_liege = d_ayrshire }
 		d_ayrshire = { de_jure_liege = k_northumbria }	
 		d_aeron = { destroy_landed_title = THIS }
 		set_global_flag = ayrshire_created
@@ -10896,7 +10898,11 @@ narrative_event = {
 			adjective = "Votadinian"
 		}
 		
-		c_lothian = { de_jure_liege = d_eidyn }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_lothian = { de_jure_liege = d_eidyn }
+		}
+		c_abercorn = { de_jure_liege = d_eidyn }
 		c_bernicia = { de_jure_liege = d_eidyn }
 		c_liddesdale = { de_jure_liege = d_eidyn }
 		c_medcaut = { de_jure_liege = d_eidyn }
@@ -24242,11 +24248,10 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 		}
 		if = {
 			limit = { has_global_flag = anglelothian_created }
-			c_lothian = { de_jure_liege = d_anglelothian }
+			c_abercorn = { de_jure_liege = d_anglelothian }
 			c_din_eidyn = { de_jure_liege = d_anglelothian }
 			c_teviotdale = { de_jure_liege = d_anglelothian }
 			c_dunpender = { de_jure_liege = d_anglelothian }
-			c_iuddeu = { de_jure_liege = d_fotla }
 		}
 		if = {
 			limit = { has_global_flag = anglegalloway_created }
@@ -24259,6 +24264,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			c_ayr = { de_jure_liege = d_ayrshire }
 			c_southayr = { de_jure_liege = d_ayrshire }
 			c_lochduin = { de_jure_liege = d_ayrshire }
+			c_lothian = { de_jure_liege = d_ayrshire }
 		}
 	}
 	
@@ -26225,8 +26231,12 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 		if = {
 			limit = { has_global_flag = eidyn_renamed }
 			if = {
-				limit = { NOT = { has_global_flag = southumbria_created } }
+				limit = { NOT = { has_global_flag = ayrshire_created } }
 				c_lothian = { de_jure_liege = d_eidyn }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = anglelothian_created } }
+				c_abercorn = { de_jure_liege = d_eidyn }
 				c_teviotdale = { de_jure_liege = d_eidyn }
 			}
 			if = {
