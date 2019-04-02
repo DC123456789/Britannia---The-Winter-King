@@ -44,8 +44,23 @@ family_palace = {
 
 tribal = {
 	trigger = {
+		FROM = { NOT = { government = order_government } }
 		hidden_tooltip = {
-			FROM = { ai = no }		# For now
+			OR = {
+				FROM = { ai = no }		# For now
+				ROOT = { 
+					NOT = {
+						any_province_holding = {
+							OR = {
+								holding_type = castle
+								holding_type = city
+								holding_type = temple
+								holding_type = tribal
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
