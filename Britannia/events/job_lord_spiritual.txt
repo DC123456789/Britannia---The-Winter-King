@@ -78,23 +78,6 @@ character_event = {
 	mean_time_to_happen = {
 		months = 1200
 		modifier = {
-			factor = 0.85
-			liege = {
-				any_owned_bloodline = {
-					has_bloodline_flag = bloodline_better_inquisition
-					bloodline_is_active_for = PREV
-				}
-			}
-		}
-		modifier = {
-			factor = 0.85
-			#If chaplain is also your relative.
-			any_owned_bloodline = {
-				has_bloodline_flag = bloodline_better_inquisition
-				bloodline_is_active_for = PREV
-			}
-		}
-		modifier = {
 			factor = 0.75
 			has_religion_feature = religion_proselytizing
 		}
@@ -236,25 +219,48 @@ character_event = {
 			# }
 		# }
 		modifier = {
+			factor = 0.85
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_better_inquisition
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 0.85
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
 			factor = 0.75
 			NOT = {
+				liege = {
+					any_owned_bloodline = {
+						has_bloodline_flag = inquisitional_bloodline
+						bloodline_is_active_for = PREV
+					}
+				}
+			}
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = inquisitional_saintly_bloodline
+					founder = {
+						religion = ROOT
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0.66
+			liege = {
 				any_owned_bloodline = {
 					has_bloodline_flag = inquisitional_bloodline
 					bloodline_is_active_for = PREV
 				}
-			}
-	    	any_owned_bloodline = {
-    			has_bloodline_flag = inquisitional_saintly_bloodline
-    			founder = {
-    				religion = ROOT
-    			}
-    		}
-		}
-		modifier = {
-			factor = 0.66
-			any_owned_bloodline = {
-				has_bloodline_flag = inquisitional_bloodline
-				bloodline_is_active_for = PREV
 			}
 		}
 		
@@ -265,6 +271,22 @@ character_event = {
     			# has_bloodline_flag = bloodline_faster_hindu
     		# }
 		# }
+
+		# Effect of wonder upgrades
+		modifier = {
+			factor = 0.8
+			liege = {
+				any_realm_wonder_upgrade = {
+					has_wonder_upgrade_flag = religion_conversion_faster
+					is_active = yes
+					wonder = {
+						original_wonder_owner = {
+							religion_group = PREVPREVPREV
+						}
+					}
+				}
+			}
+		}
 		modifier = {
 			factor = 1.5
 			NOT = { diplomacy = 4 }
