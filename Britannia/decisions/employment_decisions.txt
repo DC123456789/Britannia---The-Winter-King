@@ -25,14 +25,13 @@ decisions = {
 				female = no
 			}
 			new_character = {
-				change_learning = 4
-				change_diplomacy = 4
-				change_intrigue = 2
+				change_learning = 3
+				change_diplomacy = 2
 				if = {
 					limit = {
 						NOT = { learning = 8 }
 					}
-					change_learning = 4
+					change_learning = 3
 				}
 				random_list = {
 					10 = { add_trait = loyal }
@@ -48,6 +47,28 @@ decisions = {
 						add_trait = diligent
 					}
 					40 = { add_trait = mystic }
+				}
+				
+				#If we have a wonder upgrade with "inpires_learning" flag, the priest will be better
+				if = {
+					limit = { ROOT = { realm_wonder_or_upgrade_has_flag_inspires_learning_trigger = yes } }
+					random_list = { 
+						15 = { add_trait = scholar change_learning = 1 }
+						10 = { add_trait = scholar change_learning = 2 }
+						 5 = { add_trait = scholar change_learning = 3 }
+						10 = { add_trait = erudite }
+						10 = { add_trait = physician }
+						10 = { add_trait = scholarly_theologian }
+						10 = { add_trait = mastermind_theologian }
+					}
+					random_list = {
+						50 = {  } # Nothing
+						10 = { add_trait = genius }
+						10 = { add_trait = chaste }
+						10 = { add_trait = poet }
+						10 = { add_trait = proud }
+						10 = { add_trait = humble }
+					}
 				}
 				if = {
 					limit = { religion = manichean }

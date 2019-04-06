@@ -924,7 +924,7 @@ NCharacter = {
 	CHILDHOOD_AUTO_EDUCATION_FOCUS_AGE = 14,		-- Children automatically get education focus at this age.
 	MERCHANT_REPUBLIC_MAX_PATRICIANS = 5,			-- The amount of merchant republic patrician families that the game will keep active.
 	
-	TREASURY_CHANCE_TO_DISAPPEAR_STANDARD = 0.05,	-- Chances that artifacts disappear on inheritance
+	TREASURY_CHANCE_TO_DISAPPEAR_STANDARD = 0.00,	-- Chances that artifacts disappear on inheritance
 	TREASURY_CHANCE_TO_DISAPPEAR_NO_HEIR = 0.5,		-- Chances that artifacts disappear on inheritance when the dying character doesn't have an heir
 },
 
@@ -1138,7 +1138,10 @@ NEconomy = {
 	SILK_ROAD_TP_BUILD_COST_MOT = 0.333,			-- Build cost modifier for non-Merchant republic Trade Posts
 	TRADE_ROUTE_SIEGE_MULTIPLIER = 0.9,				-- Sieges multiply the value of trade routes by this amount downstream
 	TRADE_ROUTE_OCCUPATION_MULTIPLIER = 0.75,		-- Occupied provinces multiply the value of trade routes by this amount downstream. If sieged as well, the lowest of this and TRADE_ROUTE_SIEGE_MULTIPLIER is used
-	FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 1		-- If set to 1 then fort holdings are consumed by the construction of another holding in the province while giving a discount to the construction cost in return.
+	FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 1,		-- If set to 1 then fort holdings are consumed by the construction of another holding in the province while giving a discount to the construction cost in return.
+	WONDER_ABORT_FIRST_STAGE_RETURN_FACTOR = 0.0,	-- Factor for the amount the owner of a wonder gets when they abort the first stage of a wonder construction
+	WONDER_STACKING_PENALTY = 0.4,					-- Additional cost for each consecutive wonder construction
+	WONDER_STACKING_PENALTY_SAME_TYPE = 0.8			-- Extra penalty for construction wonders of the same type
 },
 
 NDecadence = {
@@ -1548,7 +1551,6 @@ NDisease = {
 	
 	INFECTION_CHANCE_MOST_LIKELY_PERCENTAGE = 0.1,		-- How many provinces are considered when picking which ones get infected, as a percentage of how many provinces are infectable
 														-- For example, if you have an outbreak province that is 45 provinces big, and has 30 provinces adjacent to those, only the 7 (30 * 0.25, rounded down) most likely provinces  would be considered
-														
 	INFECTION_CHANCE_COASTAL_SEAS_ARE_COUNTED = 0,		-- Exclude coastal seas from the number of infected provinces (they still get infected but don't change the number of "real" provinces that get infected each tick)
 	
 	INFECTION_ONLY_AFFECTS_ADJACENT_PROVINCES = 1,		-- if true, will make provinces adjacent to a province that just got infected target for the infection in the same tick
@@ -1710,6 +1712,9 @@ NAI =
 	STATECRAFT_THREAT_THRESHOLD = 50.0,						-- If threat from realm is greater or equal to threshold then Chancellor will be assigned to Statecraft job
 	ADMINISTER_REALM_REALM_SIZE_THRESHOLD = 200,			-- If Empire and realm size is greater or equal to threshold then Steward will be assigned to Administer Realm job
 	NOMAD_ORGANIZE_ARMY_THRESHOLD = 0.75,					-- If Nomad manpower growth from Train Warriors job is greater or equal to threshold then Marshal will be assigned to Organize Army job
+	
+	AI_WONDER_INCOME_THRESHOLD = 40.0,						-- The AI will not consider building a wonder unless it has more monthly income than this
+	AI_WONDER_RESUME_THRESHOLD = 200.0						-- The AI will not resume halted wonder constructions unless over this current wealth
 },
 
 NFrontend = 
@@ -1879,6 +1884,13 @@ NLearningScenario =
 	DEATH_EVENT = 107350,
 	INCAPABLE_EVENT = 107360,
 	CAN_EDUCATE_HEIR_EVENT = 107334
+},
+
+NWonders =
+{
+	MIN_LOOTABLE_STAGE = 2, -- The stage set here will be lootable but looting will automagically stop at after it has been looted and no looting will be possible below this stage
+	CONVERTER_IGNORE_HISTORICAL_WONDERS = 1, -- If set to one then the historical wonders will not be transfered through the EU4 converter even if they have finished the final stage of construction.
+	NON_CONCLAVE_COST_MULTIPLIER = 0.6 -- Without the Conclave tax laws the independent rulers will have significantly less income.
 }
 
 }

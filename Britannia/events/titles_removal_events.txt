@@ -1178,6 +1178,9 @@ narrative_event = {
 		c_iserium = {
 			is_germanic_controlled_trigger = no
 		}
+		c_cataractonium = {
+			is_germanic_controlled_trigger = no
+		}
 		c_derventio = {
 			is_germanic_controlled_trigger = no
 		}
@@ -1199,10 +1202,12 @@ narrative_event = {
 		if = {
 			limit = { NOT = { has_global_flag = dunoting_renamed } }
 			c_iserium = { de_jure_liege = d_ebrauc }
+			c_cataractonium = { de_jure_liege = d_ebrauc }
 		}
 		if = {
 			limit = { has_global_flag = dunoting_renamed }
 			c_iserium = { de_jure_liege = d_dunoting }
+			c_cataractonium = { de_jure_liege = d_dunoting }
 		}
 		
 		d_deira = { destroy_landed_title = d_deira }
@@ -1310,6 +1315,9 @@ narrative_event = {
 		c_varfedale = {
 			is_germanic_controlled_trigger = no
 		}
+		c_virosidum = {
+			is_germanic_controlled_trigger = no
+		}
 		c_cambodunum = {
 			is_germanic_controlled_trigger = no
 		}
@@ -1321,6 +1329,7 @@ narrative_event = {
 	
 	immediate = {
 		c_varfedale = { de_jure_liege = d_dunoting }
+		c_virosidum = { de_jure_liege = d_dunoting }
 		c_danu = { de_jure_liege = d_elmet }
 		if = {
 			limit = { NOT = { has_global_flag = dunoting_renamed } }
@@ -1385,6 +1394,9 @@ narrative_event = {
 		c_eden = {
 			is_germanic_controlled_trigger = no
 		}
+		c_bravoniacum = { 
+			is_germanic_controlled_trigger = no
+		}
 		c_kirby_thore = {
 			is_germanic_controlled_trigger = no
 		}
@@ -1400,6 +1412,7 @@ narrative_event = {
 	immediate = {
 		c_carvetia = { de_jure_liege = d_westrheged }
 		c_eden = { de_jure_liege = d_westrheged }
+		c_bravoniacum = { de_jure_liege = d_westrheged }
 		c_kirby_thore = { de_jure_liege = d_westrheged }
 		c_armterid = { de_jure_liege = d_novant }
 		d_cumbria = { destroy_landed_title = d_cumbria }
@@ -1455,6 +1468,9 @@ narrative_event = {
 		c_ashgill = {
 			is_germanic_controlled_trigger = no
 		}
+		c_vinovia = {
+			is_germanic_controlled_trigger = no
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -1476,7 +1492,11 @@ narrative_event = {
 		}
 		c_old_tyne = { de_jure_liege = d_eastrheged }
 		c_luguvallum = { de_jure_liege = d_eastrheged }
-		c_ashgill = { de_jure_liege = d_eastrheged }
+		c_vinovia = { de_jure_liege = d_eastrheged }
+		if = {
+			limit = { NOT = { has_global_flag = jorvik_created } }
+			c_ashgill = { de_jure_liege = d_eastrheged }
+		}
 		d_bernicia = { destroy_landed_title = d_bernicia }
 		clr_global_flag = bernicia_created
 	}
@@ -1513,13 +1533,16 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_global_flag = anglelothian_created
-		c_lothian = {
+		c_abercorn = {
 			is_germanic_controlled_trigger = no
 		}
 		c_din_eidyn = {
 			is_germanic_controlled_trigger = no
 		}
 		c_teviotdale = {
+			is_germanic_controlled_trigger = no
+		}
+		c_carbantorigum = {
 			is_germanic_controlled_trigger = no
 		}
 		c_dunpender = {
@@ -1534,15 +1557,17 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { has_global_flag = eidyn_renamed } }
-			c_lothian = { de_jure_liege = d_manaw }
+			c_abercorn = { de_jure_liege = d_manaw }
 			c_teviotdale = { de_jure_liege = d_aeron }
+			c_carbantorigum = { de_jure_liege = d_aeron }
 		}
 		if = {
 			limit = { has_global_flag = eidyn_renamed }
-			c_lothian = { de_jure_liege = d_eidyn }
+			c_abercorn = { de_jure_liege = d_eidyn }
 			c_teviotdale = { de_jure_liege = d_eidyn }
+			c_carbantorigum = { de_jure_liege = d_eidyn }
 		}
-		c_iuddeu = { de_jure_liege = d_manaw }
+		d_manaw = { de_jure_liege = k_lothian }
 		c_din_eidyn = { de_jure_liege = d_eidyn }
 		c_dunpender = { de_jure_liege = d_eidyn }
 		d_anglelothian = { destroy_landed_title = d_anglelothian }
@@ -1635,6 +1660,9 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_global_flag = ayrshire_created
+		c_lothian = {
+			is_germanic_controlled_trigger = no 
+		}
 		c_ayr = {
 			is_germanic_controlled_trigger = no
 		}
@@ -1655,9 +1683,15 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = aeron_renamed } }
 			c_ayr = { de_jure_liege = d_lennox }
 		}
-		if = {
-			limit = { has_global_flag = aeron_renamed }
+		else = {
 			c_ayr = { de_jure_liege = d_aeron }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = eidyn_renamed } }
+			c_lothian = { de_jure_liege = d_manaw }
+		}
+		else = {
+			c_lothian = { de_jure_liege = d_eidyn }
 		}
 		c_southayr = { de_jure_liege = d_aeron }
 		c_lochduin = { de_jure_liege = d_aeron }
@@ -9778,9 +9812,10 @@ narrative_event = {
 		d_dunoting = {
 			set_name = ""
 			adjective = ""
-			set_preferred_capital = 130		# Dunoting
+			set_preferred_capital = 1116		# Lys Dunaut
 		}
 		c_iserium = { de_jure_liege = d_ebrauc }
+		c_cataractonium = { de_jure_liege = d_ebrauc }
 		c_legiolium = { de_jure_liege = d_elmet }
 		c_cambodunum = { de_jure_liege = d_the_peak }
 		
@@ -10007,11 +10042,16 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_lothian = { de_jure_liege = d_manaw }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_lothian = { de_jure_liege = d_manaw }
+		}
+		c_abercorn = { de_jure_liege = d_manaw }
 		c_bernicia = { de_jure_liege = d_bryneich }
 		c_liddesdale = { de_jure_liege = d_bryneich }
 		c_medcaut = { de_jure_liege = d_bryneich }
 		c_teviotdale = { de_jure_liege = d_aeron }
+		c_carbantorigum = { de_jure_liege = d_aeron }
 		
 		clr_global_flag = eidyn_renamed
 	}

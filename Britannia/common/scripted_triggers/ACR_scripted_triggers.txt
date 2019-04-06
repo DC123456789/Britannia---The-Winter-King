@@ -89,7 +89,7 @@ is_celtic_clergy_trigger = {
 }
 
 # evaluates to true if the currently scoped character has
-# placated the arch-dryad recently
+# placated the archdryad recently
 archdryad_non_interference_trigger = {
 	AND = {
 		has_character_flag = archdryad_noninterference
@@ -98,7 +98,7 @@ archdryad_non_interference_trigger = {
 }
 
 # evaluates to true if the currently scoped character has
-# submitted to the arch-dryad's demands recently
+# submitted to the archdryad's demands recently
 archdryad_submission_trigger = {
 	AND = {
 		has_character_flag = acr_submit_to_arch_dryad
@@ -132,6 +132,21 @@ is_ancient_religion_trigger = {
 		# religion = egyptian_pagan
 		# religion = aten_pagan
 	}
+}
+
+is_organized_religion_trigger = {
+	OR = {
+		NOT = { religion_group = pagan_group }
+		is_reformed_religion = yes
+		religion = britannic_pagan
+		#religion = aten_pagan
+		religion = promethean_pagan
+	}
+}
+
+is_organized_pagan_religion_trigger = {
+	religion_group = pagan_group
+	is_organized_religion_trigger = yes
 }
 
 supernatural_events_trigger = {

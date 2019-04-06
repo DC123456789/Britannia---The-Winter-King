@@ -2203,6 +2203,7 @@ narrative_event = {
 			c_eburacum = { de_jure_liege = d_deira }
 			c_petuaria = { de_jure_liege = d_deira }
 			c_iserium = { de_jure_liege = d_deira }
+			c_cataractonium = { de_jure_liege = d_deira }
 			c_derventio = { de_jure_liege = d_deira }
 			c_delgovicia = { de_jure_liege = d_deira }
 			c_dictium = { de_jure_liege = d_deira }
@@ -2294,7 +2295,7 @@ narrative_event = {
 		name = "EVTOPTA314112"
 	}
 }
-# Creation of the Jarldom of Southumbria/Doncaster
+# Creation of the Jarldom of Southumbria/Elmetsaete
 narrative_event = {
 	id = 3141124
 	title = "EVTNAME3141124"
@@ -2323,15 +2324,10 @@ narrative_event = {
 				NOT = { has_global_flag = jorvik_created }
 			}
 			c_varfedale = { de_jure_liege = d_southumbria }
+			c_virosidum = { de_jure_liege = d_southumbria }
 			c_legiolium = { de_jure_liege = d_southumbria }
 			c_ioredale = { de_jure_liege = d_southumbria }
 			c_danu = { de_jure_liege = d_southumbria }
-		}
-	
-		if = {
-			limit = {
-				NOT = { has_global_flag = danelancaster_created }
-			}
 			c_cambodunum = { de_jure_liege = d_southumbria }
 		}
 		
@@ -2390,10 +2386,10 @@ narrative_event = {
 	immediate = {
 		c_carvetia = { de_jure_liege = d_cumbria }
 		c_eden = { de_jure_liege = d_cumbria }
+		c_bravoniacum = { de_jure_liege = d_cumbria }
 		c_kirby_thore = { de_jure_liege = d_cumbria }
 		c_armterid = { de_jure_liege = d_cumbria }
 		d_cumbria = { de_jure_liege = k_northumbria }
-		d_eastrheged = { destroy_landed_title = d_eastrheged }
 		d_westrheged = { destroy_landed_title = d_westrheged }
 		set_global_flag = cumbria_created
 		
@@ -2447,11 +2443,18 @@ narrative_event = {
 		c_medcaut = { de_jure_liege = d_bernicia }
 		c_liddesdale = { de_jure_liege = d_bernicia }
 		c_luguvallum = { de_jure_liege = d_bernicia }
-		c_ashgill = { de_jure_liege = d_bernicia }
+		c_vinovia = { de_jure_liege = d_bernicia }
+		if = {
+			limit = { NOT = { has_global_flag = jorvik_created } }
+			c_ashgill = { de_jure_liege = d_bernicia }
+		}
 		d_bernicia = { de_jure_liege = k_northumbria }
-		d_north_angles = { gain_title = ROOT }
+		#d_north_angles = { gain_title = ROOT }
 		d_north_angles = { de_jure_liege = k_northumbria }
 		set_global_flag = bernicia_created
+		
+		d_eastrheged = { destroy_landed_title = d_eastrheged }
+		d_bryneich = { destroy_landed_title = d_bryneich }
 		
 		if = {						# Creation by Bretwalda of Aenglaland
 			limit = {
@@ -2498,15 +2501,15 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_lothian = { de_jure_liege = d_anglelothian }
+		c_abercorn = { de_jure_liege = d_anglelothian }
 		c_din_eidyn = { de_jure_liege = d_anglelothian }
 		c_teviotdale = { de_jure_liege = d_anglelothian }
+		c_carbantorigum = { de_jure_liege = d_anglelothian }
 		c_dunpender = { de_jure_liege = d_anglelothian }
-		c_iuddeu = { de_jure_liege = d_fotla }
+		d_manaw = { de_jure_liege = k_strathclyde }
 		d_anglelothian = { de_jure_liege = k_northumbria }		
 		k_lothian = { destroy_landed_title = k_lothian }
 		d_eidyn = { destroy_landed_title = d_eidyn }
-		d_manaw = { destroy_landed_title = d_manaw }
 		set_global_flag = anglelothian_created
 		
 		if = {						# Creation by Bretwalda of Aenglaland
@@ -2609,6 +2612,7 @@ narrative_event = {
 		c_ayr = { de_jure_liege = d_ayrshire }
 		c_southayr = { de_jure_liege = d_ayrshire }
 		c_lochduin = { de_jure_liege = d_ayrshire }
+		c_lothian = { de_jure_liege = d_ayrshire }
 		d_ayrshire = { de_jure_liege = k_northumbria }	
 		d_aeron = { destroy_landed_title = THIS }
 		set_global_flag = ayrshire_created
@@ -10635,6 +10639,7 @@ narrative_event = {
 			set_preferred_capital = 108		# Iserium
 		}
 		c_iserium = { de_jure_liege = d_dunoting }
+		c_cataractonium = { de_jure_liege = d_dunoting }
 		c_legiolium = { de_jure_liege = d_dunoting }
 		c_cambodunum = { de_jure_liege = d_dunoting }
 		
@@ -10894,11 +10899,16 @@ narrative_event = {
 			adjective = "Votadinian"
 		}
 		
-		c_lothian = { de_jure_liege = d_eidyn }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_lothian = { de_jure_liege = d_eidyn }
+		}
+		c_abercorn = { de_jure_liege = d_eidyn }
 		c_bernicia = { de_jure_liege = d_eidyn }
 		c_liddesdale = { de_jure_liege = d_eidyn }
 		c_medcaut = { de_jure_liege = d_eidyn }
 		c_teviotdale = { de_jure_liege = d_eidyn }
+		c_carbantorigum = { de_jure_liege = d_eidyn }
 		
 		set_global_flag = eidyn_renamed
 	}
@@ -22005,13 +22015,17 @@ narrative_event = {
 		c_eburacum = { de_jure_liege = d_jorvik }
 		c_petuaria = { de_jure_liege = d_jorvik }
 		c_iserium = { de_jure_liege = d_jorvik }
+		c_cataractonium = { de_jure_liege = d_jorvik }
 		c_delgovicia = { de_jure_liege = d_jorvik }
 		c_dictium = { de_jure_liege = d_jorvik }
 		c_varfedale = { de_jure_liege = d_jorvik }
+		c_virosidum = { de_jure_liege = d_jorvik }
+		c_cambodunum = { de_jure_liege = d_jorvik }
 		c_legiolium = { de_jure_liege = d_jorvik }
 		c_derventio = { de_jure_liege = d_jorvik }
 		c_ioredale = { de_jure_liege = d_jorvik }
 		c_danu = { de_jure_liege = d_jorvik }
+		c_ashgill = { de_jure_liege = d_jorvik }
 		
 		d_jorvik = { de_jure_liege = k_jorvik }
 		k_jorvik = { de_jure_liege = e_danes }
@@ -22233,7 +22247,6 @@ narrative_event = {
 		c_pompocalia = { de_jure_liege = d_danelancaster }
 		c_coccium = { de_jure_liege = d_danelancaster }
 		c_cornovia = { de_jure_liege = d_danelancaster }
-		c_cambodunum = { de_jure_liege = d_danelancaster }
 		
 		d_danelancaster = { de_jure_liege = k_jorvik }
 		k_jorvik = { de_jure_liege = e_danes }
@@ -24153,6 +24166,7 @@ narrative_event = {	# Deira, Lancaster, Southumbria/Doncaster
 			c_eburacum = { de_jure_liege = d_deira }
 			c_petuaria = { de_jure_liege = d_deira }
 			c_iserium = { de_jure_liege = d_deira }
+			c_cataractonium = { de_jure_liege = d_deira }
 			c_derventio = { de_jure_liege = d_deira }
 			c_delgovicia = { de_jure_liege = d_deira }
 			c_dictium = { de_jure_liege = d_deira }
@@ -24172,12 +24186,10 @@ narrative_event = {	# Deira, Lancaster, Southumbria/Doncaster
 			if = {
 				limit = { NOT = { has_global_flag = jorvik_created } }
 				c_varfedale = { de_jure_liege = d_southumbria }
+				c_virosidum = { de_jure_liege = d_southumbria }
 				c_legiolium = { de_jure_liege = d_southumbria }
 				c_ioredale = { de_jure_liege = d_southumbria }
 				c_danu = { de_jure_liege = d_southumbria }
-			}
-			if = {
-				limit = { NOT = { has_global_flag = danelancaster_created } }
 				c_cambodunum = { de_jure_liege = d_southumbria }
 			}
 		}
@@ -24219,6 +24231,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			limit = { has_global_flag = cumbria_created }
 			c_carvetia = { de_jure_liege = d_cumbria }
 			c_eden = { de_jure_liege = d_cumbria }
+			c_bravoniacum = { de_jure_liege = d_cumbria }
 			c_kirby_thore = { de_jure_liege = d_cumbria }
 			c_armterid = { de_jure_liege = d_cumbria }
 		}
@@ -24229,15 +24242,19 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			c_medcaut = { de_jure_liege = d_bernicia }
 			c_liddesdale = { de_jure_liege = d_bernicia }
 			c_luguvallum = { de_jure_liege = d_bernicia }
-			c_ashgill = { de_jure_liege = d_bernicia }
+			c_vinovia = { de_jure_liege = d_bernicia }
+			if = {
+				limit = { NOT = { has_global_flag = jorvik_created } }
+				c_ashgill = { de_jure_liege = d_bernicia }
+			}
 		}
 		if = {
 			limit = { has_global_flag = anglelothian_created }
-			c_lothian = { de_jure_liege = d_anglelothian }
+			c_abercorn = { de_jure_liege = d_anglelothian }
 			c_din_eidyn = { de_jure_liege = d_anglelothian }
 			c_teviotdale = { de_jure_liege = d_anglelothian }
+			c_carbantorigum = { de_jure_liege = d_anglelothian }
 			c_dunpender = { de_jure_liege = d_anglelothian }
-			c_iuddeu = { de_jure_liege = d_fotla }
 		}
 		if = {
 			limit = { has_global_flag = anglegalloway_created }
@@ -24250,6 +24267,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			c_ayr = { de_jure_liege = d_ayrshire }
 			c_southayr = { de_jure_liege = d_ayrshire }
 			c_lochduin = { de_jure_liege = d_ayrshire }
+			c_lothian = { de_jure_liege = d_ayrshire }
 		}
 	}
 	
@@ -26202,12 +26220,6 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 					NOT = { has_global_flag = jorvik_created }
 				}
 				c_legiolium = { de_jure_liege = d_dunoting }
-			}
-			if = {
-				limit = {
-					NOT = { has_global_flag = southumbria_created }
-					NOT = { has_global_flag = danelancaster_created }
-				}
 				c_cambodunum = { de_jure_liege = d_dunoting }
 			}
 			if = {
@@ -26216,14 +26228,20 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 					NOT = { has_global_flag = jorvik_created }
 				}
 				c_iserium = { de_jure_liege = d_dunoting }
+				c_cataractonium = { de_jure_liege = d_dunoting }
 			}
 		}
 		if = {
 			limit = { has_global_flag = eidyn_renamed }
 			if = {
-				limit = { NOT = { has_global_flag = southumbria_created } }
+				limit = { NOT = { has_global_flag = ayrshire_created } }
 				c_lothian = { de_jure_liege = d_eidyn }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = anglelothian_created } }
+				c_abercorn = { de_jure_liege = d_eidyn }
 				c_teviotdale = { de_jure_liege = d_eidyn }
+				c_carbantorigum = { de_jure_liege = d_eidyn }
 			}
 			if = {
 				limit = { NOT = { has_global_flag = southumbria_created } }
@@ -26412,7 +26430,10 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_eburacum = { de_jure_liege = d_jorvik }
 			c_petuaria = { de_jure_liege = d_jorvik }
 			c_iserium = { de_jure_liege = d_jorvik }
+			c_cataractonium = { de_jure_liege = d_jorvik }
 			c_varfedale = { de_jure_liege = d_jorvik }
+			c_virosidum = { de_jure_liege = d_jorvik }
+			c_cambodunum = { de_jure_liege = d_jorvik }
 			c_legiolium = { de_jure_liege = d_jorvik }
 			c_derventio = { de_jure_liege = d_jorvik }
 			c_ioredale = { de_jure_liege = d_jorvik }
@@ -26511,7 +26532,6 @@ narrative_event = {	# Danish Jarldom of Ostanburh, Lundun, Agmundrnes
 			c_pompocalia = { de_jure_liege = d_danelancaster }
 			c_coccium = { de_jure_liege = d_danelancaster }
 			c_cornovia = { de_jure_liege = d_danelancaster }
-			c_cambodunum = { de_jure_liege = d_danelancaster }
 		}
 	}
 	
