@@ -1631,8 +1631,20 @@ narrative_event = {
 		c_gallow = { de_jure_liege = d_galloway }
 		c_novantia = { de_jure_liege = d_galloway }
 		c_eskdale = { de_jure_liege = d_novant }
-		c_nithsdale = { de_jure_liege = d_aeron }
-		c_annandale = { de_jure_liege = d_aeron }
+		if = {
+			limit = { has_global_flag = galwyddel_renamed }
+			c_nithsdale = { de_jure_liege = d_galloway }
+		}
+		else = {
+			c_nithsdale = { de_jure_liege = d_aeron }
+		}
+		if = {
+			limit = { has_global_flag = guendoleu_renamed }
+			c_annandale = { de_jure_liege = d_novant }
+		}
+		else = {
+			c_annandale = { de_jure_liege = d_aeron }
+		}
 		d_anglegalloway = { destroy_landed_title = THIS }
 		clr_global_flag = anglegalloway_created
 	}
@@ -1677,6 +1689,12 @@ narrative_event = {
 		c_southayr = {
 			is_germanic_controlled_trigger = no
 		}
+		c_govan = {
+			is_germanic_controlled_trigger = no
+		}
+		c_cunninghame = {
+			is_germanic_controlled_trigger = no
+		}
 		c_lochduin = {
 			is_germanic_controlled_trigger = no
 		}
@@ -1689,20 +1707,24 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { has_global_flag = aeron_renamed } }
-			c_ayr = { de_jure_liege = d_lennox }
-		}
-		else = {
-			c_ayr = { de_jure_liege = d_aeron }
-		}
-		if = {
-			limit = { NOT = { has_global_flag = eidyn_renamed } }
+			c_govan = { de_jure_liege = d_aeron }
 			c_lothian = { de_jure_liege = d_manaw }
 		}
 		else = {
-			c_lothian = { de_jure_liege = d_eidyn }
+			c_ayr = { de_jure_liege = d_aeron }
+			c_lothian = { de_jure_liege = d_aeron }
+		}
+		if = {
+			limit = { has_global_flag = galwyddel_renamed }
+			c_southayr = { de_jure_liege = d_galloway }
+		}
+		else = {
+			c_southayr = { de_jure_liege = d_aeron }
 		}
 		c_southayr = { de_jure_liege = d_aeron }
 		c_lochduin = { de_jure_liege = d_aeron }
+		c_cunninghame = { de_jure_liege = d_aeron }
+		c_ayr = { de_jure_liege = d_lennox }
 		d_ayrshire = { destroy_landed_title = THIS }
 		clr_global_flag = ayrshire_created
 	}
@@ -10050,10 +10072,6 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		if = {
-			limit = { NOT = { has_global_flag = ayrshire_created } }
-			c_lothian = { de_jure_liege = d_manaw }
-		}
 		c_abercorn = { de_jure_liege = d_manaw }
 		c_bernicia = { de_jure_liege = d_bryneich }
 		c_liddesdale = { de_jure_liege = d_bryneich }
@@ -10101,7 +10119,7 @@ narrative_event = {
 		c_armterid = {
 			is_celtic_controlled_trigger = yes
 		}
-		NOT = { has_global_flag = cumbria_created }
+		NOT = { has_global_flag = anglegalloway_created }
 		has_global_flag = guendoleu_renamed
 	}
 	
@@ -10115,6 +10133,7 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
+		c_annandale = { de_jure_liege = d_aeron }
 		
 		clr_global_flag = guendoleu_renamed
 	}
@@ -10156,6 +10175,7 @@ narrative_event = {
 		c_novantia = {
 			is_celtic_controlled_trigger = yes
 		}
+		NOT = { has_global_flag = anglegalloway_created }
 		has_global_flag = galwyddel_renamed
 	}
 	
@@ -10168,6 +10188,11 @@ narrative_event = {
 		d_galloway = {
 			set_name = ""
 			adjective = ""
+		}
+		c_nithsdale = { de_jure_liege = d_aeron }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_southayr = { de_jure_liege = d_aeron }
 		}
 		
 		clr_global_flag = galwyddel_renamed
@@ -10207,9 +10232,10 @@ narrative_event = {
 		c_ayr = {
 			is_celtic_controlled_trigger = yes
 		}
-		c_southayr = {
+		c_govan = {
 			is_celtic_controlled_trigger = yes
 		}
+		NOT = { has_global_flag = ayrshire_created }
 		has_global_flag = aeron_renamed
 	}
 	
@@ -10223,7 +10249,11 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_ayr = { de_jure_liege = d_lennox }
+		c_govan = { de_jure_liege = d_lennox }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_lothian = { de_jure_liege = d_manaw }
+		}
 		
 		clr_global_flag = aeron_renamed
 	}

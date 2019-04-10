@@ -2613,6 +2613,8 @@ narrative_event = {
 	immediate = {
 		c_ayr = { de_jure_liege = d_ayrshire }
 		c_southayr = { de_jure_liege = d_ayrshire }
+		c_cunninghame = { de_jure_liege = d_ayrshire }
+		c_govan = { de_jure_liege = d_ayrshire }
 		c_lochduin = { de_jure_liege = d_ayrshire }
 		c_lothian = { de_jure_liege = d_ayrshire }
 		d_ayrshire = { de_jure_liege = k_northumbria }	
@@ -10901,10 +10903,6 @@ narrative_event = {
 			adjective = "Votadinian"
 		}
 		
-		if = {
-			limit = { NOT = { has_global_flag = ayrshire_created } }
-			c_lothian = { de_jure_liege = d_eidyn }
-		}
 		c_abercorn = { de_jure_liege = d_eidyn }
 		c_bernicia = { de_jure_liege = d_eidyn }
 		c_liddesdale = { de_jure_liege = d_eidyn }
@@ -10946,7 +10944,7 @@ narrative_event = {
 		completely_controls = c_eskdale
 		completely_controls = c_armterid
 		independent = yes
-		NOT = { has_global_flag = cumbria_created }
+		NOT = { has_global_flag = anglegalloway_created }
 		NOT = { has_global_flag = guendoleu_renamed }
 	}
 	
@@ -10960,6 +10958,7 @@ narrative_event = {
 			set_name = "Selgovia"
 			adjective = "Selgovian"
 		}
+		c_annandale = { de_jure_liege = d_novant }
 		
 		set_global_flag = guendoleu_renamed
 	}
@@ -10996,6 +10995,7 @@ narrative_event = {
 		completely_controls = c_novantia
 		independent = yes
 		NOT = { has_global_flag = galwyddel_renamed }
+		NOT = { has_global_flag = anglegalloway_created }
 	}
 	
 	mean_time_to_happen = {
@@ -11007,6 +11007,11 @@ narrative_event = {
 		d_galloway = {
 			set_name = "Novantia"
 			adjective = "Novantian"
+		}
+		c_nithsdale = { de_jure_liege = d_galloway }
+		if = {
+			limit = { NOT = { has_global_flag = ayrshire_created } }
+			c_southayr = { de_jure_liege = d_galloway }
 		}
 		
 		set_global_flag = galwyddel_renamed
@@ -11041,9 +11046,10 @@ narrative_event = {
 		is_alternate_start = no
 		is_roman_ruler_trigger = yes
 		completely_controls = c_ayr
-		completely_controls = c_southayr
+		completely_controls = c_govan
 		independent = yes
 		NOT = { has_global_flag = aeron_renamed }
+		NOT = { has_global_flag = ayrshire_created }
 	}
 	
 	mean_time_to_happen = {
@@ -11056,7 +11062,8 @@ narrative_event = {
 			set_name = "Damnonia"
 			adjective = "Damnonian"
 		}
-		c_ayr = { de_jure_liege = d_aeron }
+		c_govan = { de_jure_liege = d_aeron }
+		c_lothian = { de_jure_liege = d_aeron }
 		
 		set_global_flag = aeron_renamed
 	}
@@ -24270,6 +24277,8 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			limit = { has_global_flag = ayrshire_created }
 			c_ayr = { de_jure_liege = d_ayrshire }
 			c_southayr = { de_jure_liege = d_ayrshire }
+			c_cunninghame = { de_jure_liege = d_ayrshire }
+			c_govan = { de_jure_liege = d_ayrshire }
 			c_lochduin = { de_jure_liege = d_ayrshire }
 			c_lothian = { de_jure_liege = d_ayrshire }
 		}
@@ -26190,7 +26199,7 @@ narrative_event = {	# Cornovia, Deceanglia
 		name = "OK"
 	}
 }
-narrative_event = {	# Brigantia, Votadinia, Damnonia
+narrative_event = {	# Brigantia, Selgovia, Votadinia, Damnonia
 	id = 314356
 	desc = "You're not supposed to see this..."
 	major = no
@@ -26210,6 +26219,8 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 		OR = {
 			has_global_flag = dunoting_renamed
 			has_global_flag = eidyn_renamed
+			has_global_flag = guendoleu_renamed
+			has_global_flag = galwyddel_renamed
 			has_global_flag = aeron_renamed
 		}
 		is_alternate_start = no
@@ -26238,9 +26249,20 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 		if = {
 			limit = { has_global_flag = eidyn_renamed }
 			if = {
-				limit = { NOT = { has_global_flag = ayrshire_created } }
-				c_lothian = { de_jure_liege = d_eidyn }
+				limit = { NOT = { has_global_flag = anglelothian_created } }
+				c_abercorn = { de_jure_liege = d_eidyn }
+				c_teviotdale = { de_jure_liege = d_eidyn }
+				c_carbantorigum = { de_jure_liege = d_eidyn }
 			}
+			if = {
+				limit = { NOT = { has_global_flag = southumbria_created } }
+				c_bernicia = { de_jure_liege = d_eidyn }
+				c_liddesdale = { de_jure_liege = d_eidyn }
+				c_medcaut = { de_jure_liege = d_eidyn }
+			}
+		}
+		if = {
+			limit = { has_global_flag = eidyn_renamed }
 			if = {
 				limit = { NOT = { has_global_flag = anglelothian_created } }
 				c_abercorn = { de_jure_liege = d_eidyn }
@@ -26255,8 +26277,30 @@ narrative_event = {	# Brigantia, Votadinia, Damnonia
 			}
 		}
 		if = {
+			limit = { has_global_flag = guendoleu_renamed }
+			if = {
+				limit = { NOT = { has_global_flag = anglegalloway_created } }
+				c_annandale = { de_jure_liege = d_novant }
+			}
+		}
+		if = {
+			limit = { has_global_flag = galwyddel_renamed }
+			if = {
+				limit = { NOT = { has_global_flag = anglegalloway_created } }
+				c_nithsdale = { de_jure_liege = d_galloway }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = ayrshire_created } }
+				c_southayr = { de_jure_liege = d_galloway }
+			}
+		}
+		if = {
 			limit = { has_global_flag = aeron_renamed }
-			c_ayr = { de_jure_liege = d_aeron }
+			if = {
+				limit = { NOT = { has_global_flag = ayrshire_created } }
+				c_govan = { de_jure_liege = d_aeron }
+				c_lothian = { de_jure_liege = d_aeron }
+			}
 		}
 	}
 	
