@@ -640,7 +640,7 @@ narrative_event = {
 		c_durnovaria = {
 			is_germanic_controlled_trigger = no
 		}
-		c_lindinis = {
+		c_dunum = {
 			is_germanic_controlled_trigger = no
 		}
 		c_vindocladia = {
@@ -654,7 +654,7 @@ narrative_event = {
 	
 	immediate = {
 		c_durnovaria = { de_jure_liege = d_centdumnonia }
-		c_lindinis = { de_jure_liege = d_centdumnonia }
+		c_dunum = { de_jure_liege = d_centdumnonia }
 		c_vindocladia = { de_jure_liege = d_centdumnonia }
 		d_dorset = { destroy_landed_title = d_dorset }
 		clr_global_flag = dorset_created
@@ -703,6 +703,9 @@ narrative_event = {
 		c_tone = {
 			is_germanic_controlled_trigger = no
 		}
+		c_lindinis = {
+			is_germanic_controlled_trigger = no
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -715,6 +718,7 @@ narrative_event = {
 			c_avalon = { de_jure_liege = d_avalon }
 			c_combe = { de_jure_liege = d_avalon }
 			c_tone = { de_jure_liege = d_avalon }
+			c_lindinis = { de_jure_liege = d_avalon }
 			c_abona = { de_jure_liege = d_baddon }
 		}
 		if = {
@@ -722,6 +726,7 @@ narrative_event = {
 			c_avalon = { de_jure_liege = d_centdumnonia }
 			c_combe = { de_jure_liege = d_centdumnonia }
 			c_tone = { de_jure_liege = d_centdumnonia }
+			c_lindinis = { de_jure_liege = d_centdumnonia }
 			c_abona = { de_jure_liege = d_centdumnonia }
 		}
 		d_somerset = { destroy_landed_title = d_somerset }
@@ -780,6 +785,9 @@ narrative_event = {
 				c_vindomis = {
 					is_germanic_controlled_trigger = no
 				}
+				c_calleva = {
+					is_germanic_controlled_trigger = no
+				}
 			}
 		}
 	}
@@ -809,6 +817,7 @@ narrative_event = {
 			c_portus_adurni = { de_jure_liege = d_the_belgae }
 			c_vindomis = { de_jure_liege = d_the_belgae }
 			c_venta = { de_jure_liege = d_the_belgae }
+			c_calleva = { de_jure_liege = d_eastdumnonia }
 		}
 		d_hampshire = { destroy_landed_title = d_hampshire }
 		clr_global_flag = hampshire_created
@@ -845,14 +854,23 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_global_flag = berkshire_created
-		c_calleva = {
-			is_germanic_controlled_trigger = no
-		}
 		c_hen_vicus = {
 			is_germanic_controlled_trigger = no
 		}
 		c_spinae = {
 			is_germanic_controlled_trigger = no
+		}
+		c_alaunodunum = {
+			is_germanic_controlled_trigger = no
+		}
+		OR = {
+			NAND = {
+				has_global_flag = meonware_conquered
+				NOT = { has_global_flag = meonware_destroyed }
+			}
+			c_calleva = {
+				is_germanic_controlled_trigger = no
+			}
 		}
 	}
 	
@@ -861,9 +879,16 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_calleva = { de_jure_liege = d_eastdumnonia }
 		c_hen_vicus = { de_jure_liege = d_eastdumnonia }
 		c_spinae = { de_jure_liege = d_eastdumnonia }
+		c_alaunodunum = { de_jure_liege = d_eastdumnonia }
+		if = {
+			limit = { 
+				has_global_flag = meonware_conquered
+				NOT = { has_global_flag = meonware_destroyed }
+			}
+			c_calleva = { de_jure_liege = d_eastdumnonia }
+		}
 
 		d_berkshire = { destroy_landed_title = d_berkshire }
 		clr_global_flag = berkshire_created
@@ -1000,6 +1025,18 @@ narrative_event = {
 			set_name = "The Belgae"
 			adjective = "Belgic"
 			de_jure_liege = k_dumnonia
+		}
+		if = {
+			limit = { 
+				has_global_flag = hampshire_created
+			}
+			c_calleva = { de_jure_liege = d_hampshire }
+		}
+		else_if = {
+			limit = { 
+				has_global_flag = berkshire_created
+			}
+			c_calleva = { de_jure_liege = d_eastdumnonia }
 		}
 		clr_global_flag = meonware_conquered
 	}
@@ -8691,6 +8728,7 @@ narrative_event = {
 		c_avalon = { de_jure_liege = d_avalon }
 		c_combe = { de_jure_liege = d_avalon }
 		c_tone = { de_jure_liege = d_avalon }
+		c_lindinis = { de_jure_liege = d_avalon }
 		c_abona = { de_jure_liege = d_baddon }
 		
 		clr_global_flag = durnovaria_renamed
