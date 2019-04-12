@@ -25,6 +25,7 @@
 # 313179 - 313179   Conquest of Magnis
 # 313180 - 313192	Revolts for New Kingdoms
 # 313197 - 313199	Dynasties and Family Branches
+# 313300 - 313309	East Angle Invasions
 
 ### ANGLIAN INVASIONS ###
 
@@ -409,7 +410,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 490 - 495 AD (all previous provinces if not conquered, Margidunum, Latimer)
+# Anglian Invasions 490 - 495 AD (all previous provinces if not conquered, Vernemetum, Latimer)
 narrative_event = {
 	id = 313002
 	title = "EVTNAME313002"
@@ -446,7 +447,7 @@ narrative_event = {
 			c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
 			c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
 			c_gwash = { can_conquer_anglosaxon_trigger = yes }
-			c_margidunum = { can_conquer_anglosaxon_trigger = yes }
+			c_vernemetum = { can_conquer_anglosaxon_trigger = yes }
 		}
 		ai = yes
 		top_liege = { ai = yes }
@@ -580,11 +581,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_margidunum = {
+				c_vernemetum = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_margidunum = {
+			c_vernemetum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -686,7 +687,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 496 - 500 AD, Ratae, Magiovinium, Lactodorum (with checks for Margidunum and Latimer) 
+# Anglian Invasions 496 - 500 AD, Ratae, Magiovinium, Lactodorum (with checks for Vernemetum and Latimer) 
 narrative_event = {
 	id = 313003
 	title = "EVTNAME313003"
@@ -771,11 +772,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_margidunum = {
+				c_vernemetum = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_margidunum = {
+			c_vernemetum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -1014,7 +1015,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 506 - 509 AD, Brinavae and Aelia Castra (with checks for Ad Pontem and Bannaventa)
+# Anglian Invasions 506 - 509 AD, Brinavae, Aelia Castra, and Margidunum (with checks for Ad Pontem and Bannaventa)
 narrative_event = {
 	id = 313005
 	title = "EVTNAME313005"
@@ -1047,6 +1048,7 @@ narrative_event = {
 		OR = {
 			c_bannaventa = { can_conquer_anglosaxon_trigger = yes }
 			c_ad_pontem = { can_conquer_anglosaxon_trigger = yes }
+			c_margidunum = { can_conquer_anglosaxon_trigger = yes }
 			c_brinavae = { can_conquer_anglosaxon_trigger = yes }
 			c_alchester = { can_conquer_anglosaxon_trigger = yes }
 		}
@@ -1078,6 +1080,10 @@ narrative_event = {
 			factor = 1.5
 			c_alchester = { has_truce_with_owner_trigger = yes }
 		}
+		modifier = {
+			factor = 1.5
+			c_margidunum = { has_truce_with_owner_trigger = yes }
+		}
 	}
 	
 	immediate = { set_global_flag = anglian_invasion_506 }
@@ -1108,6 +1114,19 @@ narrative_event = {
 				}
 			}
 			c_ad_pontem = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_margidunum = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_margidunum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -2125,14 +2144,14 @@ province_event = {
 				d_bernicia = {
 					add_claim = PREV
 				}
-				c_bernicia = {
-					add_claim = PREV
-				}
-				c_old_tyne = {
-					add_claim = PREV
-				}
-				c_medcaut = {
-					add_claim = PREV
+				any_province = {
+					limit = { 
+						region = custom_bernicia 
+						any_neighbor_province = { is_land = no }
+					}
+					county = {
+						add_claim = PREVPREV
+					}
 				}
 				character_event = { id = 313007 }
 				character_event = { id = 313016 }
@@ -2179,14 +2198,14 @@ province_event = {
 					d_bernicia = {
 						add_claim = PREV
 					}
-					c_bernicia = {
-						add_claim = PREV
-					}
-					c_old_tyne = {
-						add_claim = PREV
-					}
-					c_medcaut = {
-						add_claim = PREV
+					any_province = {
+						limit = { 
+							region = custom_bernicia 
+							any_neighbor_province = { is_land = no }
+						}
+						county = {
+							add_claim = PREVPREV
+						}
 					}
 					character_event = { id = 313007 }
 					wealth = 100
@@ -2554,7 +2573,8 @@ province_event = {
 	picture = "GFX_evt_warships"
 	
 	trigger = {
-		province_id = 41	# Old Tyne
+		region = custom_bernicia 
+		any_neighbor_province = { is_land = no }
 		year = 559
 		NOT = { year = 590 }
 		has_global_flag = anglian_north_invasion_547
@@ -2633,17 +2653,14 @@ province_event = {
 				gain_title = PREV
 			}
 			set_government_type = high_tribal_government
-			d_bernicia = {
-				add_claim = PREV
-			}
-			c_bernicia = {
-				add_claim = PREV
-			}
-			c_old_tyne = {
-				add_claim = PREV
-			}
-			c_medcaut = {
-				add_claim = PREV
+			any_province = {
+				limit = { 
+					region = custom_bernicia 
+					any_neighbor_province = { is_land = no }
+				}
+				county = {
+					add_claim = PREVPREV
+				}
 			}
 			character_event = { id = 313011 }
 			character_event = { id = 313014 }
@@ -2738,23 +2755,13 @@ character_event = {
 					is_land = no
 				}
 			}
+			preferred_limit = {
+				any_neighbor_province = {
+					is_land = no
+				}
+			}
 			county = {
 				declare_conquest_war = yes
-			}
-		}
-		if = {
-			limit = { war = no }
-			random_province = {	
-				limit = {
-					region = custom_bernicia
-					ROOT_can_declare_war_against_province_trigger = yes
-					any_neighbor_province = {
-						owner = { top_liege = { character = ROOT } }
-					}
-				}
-				county = {
-					declare_conquest_war = yes
-				}
 			}
 		}
 		if = {
@@ -2845,66 +2852,35 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		set_global_flag = north_angles_second_wave
-		if = {
-			limit = {
-				c_old_tyne = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
+		set_global_flag = north_angles_second_wave		
+		random_province = {
+			limit = { 
+				region = custom_bernicia 
+				any_neighbor_province = { is_land = no }
+				owner = {
+					top_liege = { is_ingvaeonic_culture_trigger = no }
 				}
 			}
-			c_old_tyne = { 
-				owner = {
-					top_liege = {
-						c_old_tyne = {
-							reverse_war = {
-								target = d_north_angles
-								casus_belli = claim
-							}
-						}
-					}
-				}
+			preferred_limit = {
+				province_id = 68	# Din Guardi/Bebbanburg
+			}
+			preferred_limit = {
+				province_id = 41	# Pons Aelius/Newcastle-upon-Tyne
+			}
+			preferred_limit = {
+				province_id = 144	# Din Gefron/Yeavering
+			}
+			county = {
+				save_event_target_as = target_county
 			}
 		}
-		if = {
-			limit = {
-				c_bernicia = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			c_bernicia = { 
-				owner = {
-					top_liege = {
-						c_bernicia = { 
-							reverse_war = {
-								target = d_north_angles
-								casus_belli = claim
-							}
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				c_medcaut = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-				has_global_flag = anglian_north_invasion_559
-			}
-			c_medcaut = { 
-				owner = {
-					top_liege = {
-						c_medcaut = { 
-							reverse_war = {
-								target = d_north_angles
-								casus_belli = claim
-							}
+		event_target:target_county = { 
+			owner = {
+				top_liege = {
+					event_target:target_county = {
+						reverse_war = {
+							target = d_north_angles
+							casus_belli = claim
 						}
 					}
 				}
@@ -3161,6 +3137,11 @@ character_event = {
 			limit = { has_landed_title = d_angles }
 			d_angles = { unsafe_destroy_landed_title = d_angles }
 			activate_title = { title = d_angles status = no }
+			if = {
+				limit = { is_landed = no }
+				clr_global_flag = east_angle_invasion_norfolk
+				clr_global_flag = east_angle_invasion_suffolk
+			}
 		}
 		if = {
 			limit = { has_landed_title = d_west_saxons }
@@ -4530,129 +4511,43 @@ narrative_event = {
 		ai_chance = {
 			factor = 100
 		}
-		if = {
+		random_province = {
 			limit = {
-				6 = { # Venta
+				region = custom_meonware
+				owner = {
+					top_liege = {
+						is_ingvaeonic_culture_trigger = no
+					}
+				}
+				any_neighbor_province = {
 					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_venta = {
-					location = {
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									character = ROOT
-									is_liege_or_above = ROOT
-								}
-							}
+						OR = {
+							character = ROOT
+							is_liege_or_above = ROOT
 						}
 					}
 				}
 			}
-			ROOT = {
-				set_character_flag = meonware_invader 
+			preferred_limit = {
+				province_id = 6		# Venta/Winchester
 			}
-			6 = {
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			show_scope_change = no
+			duchy = {
 				show_scope_change = no
-				duchy = {
+				ROOT = {
 					show_scope_change = no
-					ROOT = {
-						show_scope_change = no
-						unsafe_war = {
-							casus_belli = duchy_invasion_event
-							target = PREVPREV
-							thirdparty_title = PREVPREV
-							tier = DUKE
-						}
+					unsafe_war = {
+						casus_belli = duchy_invasion_event
+						target = PREVPREV
+						thirdparty_title = PREVPREV
+						tier = DUKE
 					}
 				}
 			}
 		}
-		else_if = {
-			limit = {
-				361 = { # Vindomis
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_vindomis = {
-					location = {
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									character = ROOT
-									is_liege_or_above = ROOT
-								}
-							}
-						}
-					}
-				}
-			}
-			ROOT = {
-				set_character_flag = meonware_invader 
-			}
-			361 = {
-				show_scope_change = no
-				duchy = {
-					show_scope_change = no
-					ROOT = {
-						show_scope_change = no
-						unsafe_war = {
-							casus_belli = duchy_invasion_event
-							target = PREVPREV
-							thirdparty_title = PREVPREV
-							tier = DUKE
-						}
-					}
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				15 = { # Portus Adurni
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_portus_adurni = {
-					location = {
-						any_neighbor_province = {
-							owner = {
-								OR = {
-									character = ROOT
-									is_liege_or_above = ROOT
-								}
-							}
-						}
-					}
-				}
-			}
-			ROOT = {
-				set_character_flag = meonware_invader 
-			}
-			15 = {
-				show_scope_change = no
-				duchy = {
-					show_scope_change = no
-					ROOT = {
-						show_scope_change = no
-						unsafe_war = {
-							casus_belli = duchy_invasion_event
-							target = PREVPREV
-							thirdparty_title = PREVPREV
-							tier = DUKE
-						}
-					}
-				}
-			}
-		}		
 		create_character = {
 			random_traits = yes
 			dynasty = random
@@ -4742,10 +4637,8 @@ character_event = {
 	
 	trigger = {
 		has_landed_title = k_sussex
-		OR = {
-			has_landed_title = c_venta
-			has_landed_title = c_portus_adurni
-			has_landed_title = c_vindomis
+		any_demesne_title = {
+			location = { region = custom_meonware }
 		}
 		num_of_count_titles = 2
 		completely_controls = d_the_belgae
@@ -4910,42 +4803,17 @@ province_event = {
 	
 	desc = {
 		text = EVTDESC313021
-		trigger = {		
-			OR = {
-				c_clausentum = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+		trigger = {
+			any_province = {
+				OR = {
+					region = custom_hampshire
+					region = custom_dorset
 				}
-				c_vectis = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+				any_neighbor_province = {
+					is_land = no
 				}
-				c_portus_adurni = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_vindocladia = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_durnovaria = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+				owner = {
+					top_liege = { is_ingvaeonic_culture_trigger = no }
 				}
 			}
 		}
@@ -4953,30 +4821,19 @@ province_event = {
 	
 	desc = {
 		text = EVTDESC313021_1
-		trigger = {		
-			c_clausentum = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_vectis = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_portus_adurni = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_vindocladia = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_durnovaria = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
+		trigger = {
+			NOT = {
+				any_province = {
+					OR = {
+						region = custom_hampshire
+						region = custom_dorset
+					}
+					any_neighbor_province = {
+						is_land = no
+					}
+					owner = {
+						top_liege = { is_ingvaeonic_culture_trigger = no }
+					}
 				}
 			}
 		}
@@ -4984,17 +4841,10 @@ province_event = {
 	
 	trigger = {
 		OR = {
-			province_id = 335	# Clausentum
-			province_id = 10	# Vectis
-			province_id = 15	# Portus Adurni
-			province_id = 16	# Vindocladia
-			province_id = 1		# Durnovaria
+			region = custom_hampshire
+			region = custom_dorset
 			AND = {
-				OR = {
-					province_id = 7		# Calleva
-					province_id = 338	# Spinae
-					province_id = 337	# Hen Vicus
-				}
+				region = custom_berkshire
 				any_neighbor_province = {
 					owner = {
 						top_liege = {
@@ -5003,6 +4853,9 @@ province_event = {
 					}
 				}
 			}
+		}
+		any_neighbor_province = {		# Thames or ocean
+			is_land = no
 		}
 		NOT = { 
 			holder_scope = 	{
@@ -5144,22 +4997,88 @@ character_event = {
 
 	option = {
 		name = "OK"
-		if = {
+		random_province = {
 			limit = {
-				c_clausentum = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
+				OR = {
+					region = custom_hampshire
+					region = custom_dorset
+					AND = {
+						region = custom_berkshire
+						any_neighbor_province = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
+							}
+						}
+					}
+				}
+				any_neighbor_province = {		# Thames or ocean
+					is_land = no
+				}
+				NOT = { 
+					holder_scope = 	{
+						top_liege = { 
+							is_ingvaeonic_culture_trigger = yes
+						}
 					}
 				}
 			}
-			ROOT = { 
-				add_claim = c_clausentum 
-				add_claim = c_vectis
+			preferred_limit = {
+				province_id = 335	# Clausentum
 			}
-			c_clausentum = { 
-				owner = {
-					top_liege = {
-						c_clausentum = { 
+			preferred_limit = {
+				region = custom_hampshire
+			}
+			preferred_limit = {
+				province_id = 16	# Vindocladia
+			}
+			preferred_limit = {
+				region = custom_dorset
+			}
+			preferred_limit = {
+				region = custom_berkshire
+			}
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			if = {
+				limit = { region = custom_hampshire }
+				any_province = {
+					limit = {
+						region = custom_hampshire
+						any_neighbor_province = {
+							is_land = no
+						}
+					}
+					county = { add_claim = ROOT }
+				}
+				set_global_flag = west_saxon_invasion_hampshire
+			}
+			else_if = {
+				limit = { region = custom_dorset }
+				any_province = {
+					limit = {
+						region = custom_dorset
+					}
+					county = { add_claim = ROOT }
+				}
+				set_global_flag = west_saxon_invasion_dorset
+			}
+			else_if = {
+				limit = { region = custom_berkshire }
+				any_province = {
+					limit = {
+						region = custom_berkshire
+					}
+					county = { add_claim = ROOT }
+				}
+				set_global_flag = west_saxon_invasion_berkshire
+			}
+			owner = {
+				top_liege = {
+					event_target:target_province = {
+						county = {
 							reverse_war = {
 								target = d_west_saxons
 								casus_belli = claim
@@ -5167,268 +5086,10 @@ character_event = {
 						}
 					}
 				}
-				location = { set_province_flag = west_saxon_invasion_province }
 			}
-			set_global_flag = west_saxon_invasion_hampshire
-			character_event = { id = 3130221 }	# Spawn Troops
+			set_province_flag = west_saxon_invasion_province
 		}
-		if = {
-			limit = {
-				war = no
-				c_vectis = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_clausentum 
-				add_claim = c_vectis
-			}
-			c_vectis = { 
-				owner = {
-					top_liege = {
-						c_vectis = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_hampshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_portus_adurni = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_clausentum 
-				add_claim = c_portus_adurni 
-				add_claim = c_vindomis 
-				add_claim = c_venta 
-			}
-			c_portus_adurni = { 
-				owner = {
-					top_liege = {
-						c_portus_adurni = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_hampshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_vindomis = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_clausentum 
-				add_claim = c_portus_adurni
-				add_claim = c_vindomis 				
-				add_claim = c_venta 
-			}
-			c_vindomis = { 
-				owner = {
-					top_liege = {
-						c_vindomis = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_hampshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_vindocladia = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_vindocladia 
-				add_claim = c_durnovaria 
-				add_claim = c_lindinis		
-			}
-			c_vindocladia = { 
-				owner = {
-					top_liege = {
-						c_vindocladia = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_dorset
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_durnovaria = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_vindocladia 
-				add_claim = c_durnovaria 
-				add_claim = c_lindinis			
-			}
-			c_durnovaria = { 
-				owner = {
-					top_liege = {
-						c_durnovaria = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_dorset
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = { war = no }
-			character_event = { id = 3130220 }	# Move on to Thames Valley Invasion
-		}
-	}
-}
-character_event = {
-	id = 3130220
-	desc = "You're not supposed to see this..."
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "OK"
-		if = {
-			limit = {
-				c_calleva = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_calleva 
-				add_claim = c_spinae 
-				add_claim = c_hen_vicus
-				add_claim = c_cunetio				
-			}
-			c_calleva = { 
-				owner = {
-					top_liege = {
-						c_calleva = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_berkshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_spinae = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_calleva 
-				add_claim = c_spinae 
-				add_claim = c_hen_vicus
-				add_claim = c_cunetio				
-			}
-			c_spinae = { 
-				owner = {
-					top_liege = {
-						c_spinae = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_berkshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_hen_vicus = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_calleva 
-				add_claim = c_spinae 
-				add_claim = c_hen_vicus
-				add_claim = c_cunetio				
-			}
-			c_hen_vicus = { 
-				owner = {
-					top_liege = {
-						c_hen_vicus = { 
-							reverse_war = {
-								target = d_west_saxons
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = west_saxon_invasion_province }
-			}
-			set_global_flag = west_saxon_invasion_berkshire
-			character_event = { id = 3130221 }	# Spawn Troops
-		}
+		character_event = { id = 3130221 }	# Spawn Troops
 	}
 }
 character_event = {			# Spawn troops
@@ -5439,233 +5100,231 @@ character_event = {			# Spawn troops
 
 	option = {
 		name = "OK"
-		any_independent_ruler = {
-			any_realm_province = {
-				limit = { has_province_flag = west_saxon_invasion_province }
-				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						earmark = west_saxon_army_534 
-						troops = {
-							light_infantry = { 600 600 }
-							heavy_infantry = { 900 900 }
-							pikemen = { 300 300 }
-							archers = { 200 200 }
-						}
-						attrition = 0.5
+		random_province = {
+			limit = { has_province_flag = west_saxon_invasion_province }
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					earmark = west_saxon_army_534 
+					troops = {
+						light_infantry = { 600 600 }
+						heavy_infantry = { 900 900 }
+						pikemen = { 300 300 }
+						archers = { 200 200 }
 					}
-					if = {
-						limit = {
-							PREV = {
-								owner = {
-									top_liege = { tier = emperor }
-								}
-							}
-						}
-						spawn_unit = {
-							province = PREV
-							home = PREV
-							owner = ROOT
-							earmark = west_saxon_army_534 
-							troops = {
-								light_infantry = { 900 900 }
-								pikemen = { 900 900 }
-								archers = { 300 300 }
-								heavy_infantry = { 1100 1100 }
-							}
-							disband_on_peace = yes
-							attrition = 0.25
-						}
-					}
-					if = {
-						limit = { has_global_flag = west_saxon_invasion_552 }
-						spawn_unit = {
-							province = PREV
-							home = PREV
-							owner = ROOT
-							earmark = west_saxon_army_534 
-							troops = {
-								light_infantry = { 1100 1100 }
-								pikemen = { 800 800 }
-								heavy_infantry = { 1000 1000 }
-								archers = { 600 600 }
-							}
-							attrition = 0.25
-						}
-					}
+					attrition = 0.5
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					religion = germanic_pagan
-					culture = oldsaxon
-					female = no
-					employer = d_west_saxons
-					age = 26
-					attributes = {
-						martial = 13
-						stewardship = 11
-						diplomacy = 10
-					}
-					trait = brilliant_strategist
-					trait = veteran
-					trait = brave
-					trait = loyal
-					#trait = ruthless
-				}
-				new_character = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						earmark = west_saxon_army_534 
-						owner = ROOT
-						troops = {
-							light_infantry = { 450 450 }
-							pikemen = { 850 850 }
-							heavy_infantry = { 750 750 }
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { tier = emperor }
+							}
 						}
-						attrition = 0.75
 					}
 					spawn_unit = {
 						province = PREV
 						home = PREV
-						earmark = west_saxon_army_534 
 						owner = ROOT
+						earmark = west_saxon_army_534 
 						troops = {
-							light_infantry = { 450 450 }
-							pikemen = { 850 850 }
-							heavy_infantry = { 750 750 }
+							light_infantry = { 900 900 }
+							pikemen = { 900 900 }
+							archers = { 300 300 }
+							heavy_infantry = { 1100 1100 }
 						}
-						attrition = 0.75
 						disband_on_peace = yes
+						attrition = 0.25
 					}
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					religion = germanic_pagan
-					culture = oldsaxon
-					female = no
-					employer = d_west_saxons
-					age = 35
-					attributes = {
-						martial = 11
-						diplomacy = 10
-						stewardship = 10
-					}
-					trait = brilliant_strategist
-					trait = veteran
-					trait = brave
-					trait = loyal
-				}
-				new_character = {
+				if = {
+					limit = { has_global_flag = west_saxon_invasion_552 }
 					spawn_unit = {
 						province = PREV
 						home = PREV
-						earmark = west_saxon_army_534 
 						owner = ROOT
+						earmark = west_saxon_army_534 
 						troops = {
-							light_infantry = { 600 600 }
+							light_infantry = { 1100 1100 }
 							pikemen = { 800 800 }
-							heavy_infantry = { 900 900 }
-							archers = { 500 500 }
+							heavy_infantry = { 1000 1000 }
+							archers = { 600 600 }
 						}
-						attrition = 0.75
+						attrition = 0.25
 					}
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = oldsaxon
-					employer = d_west_saxons
-					age = 19
-					attributes = {
-						learning = 8
-						diplomacy = 6
-						stewardship = 12
-					}
-					trait = thrifty_clerk
-					trait = fair
-					trait = gregarious
-					trait = kind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				employer = d_west_saxons
+				age = 26
+				attributes = {
+					martial = 13
+					stewardship = 11
+					diplomacy = 10
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = oldsaxon
-					employer = d_west_saxons
-					age = 16
-					attributes = {
-						learning = 12
-						diplomacy = 9
-						stewardship = 10
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+				#trait = ruthless
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = west_saxon_army_534 
+					owner = ROOT
+					troops = {
+						light_infantry = { 450 450 }
+						pikemen = { 850 850 }
+						heavy_infantry = { 750 750 }
 					}
-					trait = naive_appeaser
-					trait = temperate
-					trait = quick
-					trait = trusting
+					attrition = 0.75
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = oldsaxon
-					employer = d_west_saxons
-					age = 23
-					attributes = {
-						learning = 7
-						diplomacy = 11
-						stewardship = 10
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = west_saxon_army_534 
+					owner = ROOT
+					troops = {
+						light_infantry = { 450 450 }
+						pikemen = { 850 850 }
+						heavy_infantry = { 750 750 }
 					}
-					trait = naive_appeaser
-					#trait = familyperson
-					trait = lustful
-					trait = trusting
+					attrition = 0.75
+					disband_on_peace = yes
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = no
-					religion = germanic_pagan
-					culture = oldsaxon
-					employer = d_west_saxons
-					age = 40
-					attributes = {
-						learning = 11
-						diplomacy = 11
-						stewardship = 11
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				employer = d_west_saxons
+				age = 35
+				attributes = {
+					martial = 11
+					diplomacy = 10
+					stewardship = 10
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = west_saxon_army_534 
+					owner = ROOT
+					troops = {
+						light_infantry = { 600 600 }
+						pikemen = { 800 800 }
+						heavy_infantry = { 900 900 }
+						archers = { 500 500 }
 					}
-					trait = charismatic_negotiator
-					trait = gregarious
-					#trait = authoritative
-					trait = temperate
-					trait = loyal
+					attrition = 0.75
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = oldsaxon
-					employer = d_west_saxons
-					age = 20
-					attributes = {
-						learning = 11
-						intrigue = 12
-					}
-					trait = intricate_webweaver
-					trait = deceitful
-					trait = mystic
-					trait = quick
-					trait = ambitious
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_west_saxons
+				age = 19
+				attributes = {
+					learning = 8
+					diplomacy = 6
+					stewardship = 12
 				}
+				trait = thrifty_clerk
+				trait = fair
+				trait = gregarious
+				trait = kind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_west_saxons
+				age = 16
+				attributes = {
+					learning = 12
+					diplomacy = 9
+					stewardship = 10
+				}
+				trait = naive_appeaser
+				trait = temperate
+				trait = quick
+				trait = trusting
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_west_saxons
+				age = 23
+				attributes = {
+					learning = 7
+					diplomacy = 11
+					stewardship = 10
+				}
+				trait = naive_appeaser
+				#trait = familyperson
+				trait = lustful
+				trait = trusting
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = no
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_west_saxons
+				age = 40
+				attributes = {
+					learning = 11
+					diplomacy = 11
+					stewardship = 11
+				}
+				trait = charismatic_negotiator
+				trait = gregarious
+				#trait = authoritative
+				trait = temperate
+				trait = loyal
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = oldsaxon
+				employer = d_west_saxons
+				age = 20
+				attributes = {
+					learning = 11
+					intrigue = 12
+				}
+				trait = intricate_webweaver
+				trait = deceitful
+				trait = mystic
+				trait = quick
+				trait = ambitious
 			}
 		}
 	}
@@ -5836,45 +5495,26 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		# Try a non-Meonware province first
-		if = {
+		random_province = {
 			limit = {
+				region = custom_hampshire
+				ROOT_can_declare_war_against_province_trigger = yes
+				any_neighbor_province = {
+					owner = { top_liege = { character = ROOT } }
+				}
+			}
+			# Try a non-Meonware province first
+			preferred_limit = {
 				OR = {
-					has_global_flag = west_saxon_invasion_hampshire
-					has_global_flag = west_saxon_invasion_dorset
-				}
-			}
-			random_province = {
-				limit = {
-					region = custom_hampshire
 					NOT = { region = custom_meonware }
-					ROOT_can_declare_war_against_province_trigger = yes
-					any_neighbor_province = {
-						owner = { top_liege = { character = ROOT } }
+					NOR = {
+						has_global_flag = west_saxon_invasion_hampshire
+						has_global_flag = west_saxon_invasion_dorset
 					}
 				}
-				county = {
-					declare_conquest_war = yes
-				}
 			}
-		}
-		if = {
-			limit = {
-				ROOT = {
-					war = no
-				}
-			}
-			random_province = {
-				limit = {
-					region = custom_hampshire
-					ROOT_can_declare_war_against_province_trigger = yes
-					any_neighbor_province = {
-						owner = { top_liege = { character = ROOT } }
-					}
-				}
-				county = {
-					declare_conquest_war = yes
-				}
+			county = {
+				declare_conquest_war = yes
 			}
 		}
 		if = {
@@ -5948,10 +5588,6 @@ character_event = {
 				NOT = { year = 575 }
 				has_global_flag = west_saxon_invasion_552
 			}
-		}
-		OR = {
-			completely_controls = c_vindocladia
-			completely_controls = c_durnovaria
 		}
 		any_realm_province = {
 			any_neighbor_province = {
@@ -6167,42 +5803,17 @@ province_event = {
 	
 	desc = {
 		text = EVTDESC313025
-		trigger = {		
-			OR = {
-				c_clausentum = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+		trigger = {
+			any_province = {
+				OR = {
+					region = custom_hampshire
+					region = custom_dorset
 				}
-				c_vectis = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+				any_neighbor_province = {
+					is_land = no
 				}
-				c_portus_adurni = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_vindocladia = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				c_durnovaria = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
+				owner = {
+					top_liege = { is_ingvaeonic_culture_trigger = no }
 				}
 			}
 		}
@@ -6210,30 +5821,19 @@ province_event = {
 	
 	desc = {
 		text = EVTDESC313025_1
-		trigger = {		
-			c_clausentum = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_vectis = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_portus_adurni = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_vindocladia = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
-				}
-			}
-			c_durnovaria = {
-				owner = {
-					top_liege = { is_ingvaeonic_culture_trigger = yes }
+		trigger = {
+			NOT = {
+				any_province = {
+					OR = {
+						region = custom_hampshire
+						region = custom_dorset
+					}
+					any_neighbor_province = {
+						is_land = no
+					}
+					owner = {
+						top_liege = { is_ingvaeonic_culture_trigger = no }
+					}
 				}
 			}
 		}
@@ -6241,17 +5841,10 @@ province_event = {
 	
 	trigger = {
 		OR = {
-			province_id = 335	# Clausentum
-			province_id = 10	# Vectis
-			province_id = 15	# Portus Adurni
-			province_id = 16	# Vindocladia
-			province_id = 1		# Durnovaria
+			region = custom_hampshire
+			region = custom_dorset
 			AND = {
-				OR = {
-					province_id = 7		# Calleva
-					province_id = 338	# Spinae
-					province_id = 337	# Hen Vicus
-				}
+				region = custom_berkshire
 				any_neighbor_province = {
 					owner = {
 						top_liege = {
@@ -6260,6 +5853,9 @@ province_event = {
 					}
 				}
 			}
+		}
+		any_neighbor_province = {		# Thames or ocean
+			is_land = no
 		}
 		NOT = { 
 			holder_scope = 	{
@@ -6574,7 +6170,13 @@ province_event = {
 	picture = "GFX_evt_anglosaxons_ashore"
 	
 	trigger = {
-		province_id = 153	# Nortwic
+		OR = {
+			region = custom_norfolk
+			region = custom_suffolk
+		}
+		any_neighbor_province = {
+			is_land = no
+		}
 		year = 450
 		NOT = { year = 475 }
 		NOT = { has_global_flag = anglian_east_invasion_450 }
@@ -6651,21 +6253,6 @@ province_event = {
 				gain_title = PREV
 			}
 			set_government_type = high_tribal_government
-			d_norfolc = {
-				add_claim = PREV
-			}
-			c_nortwic = {
-				add_claim = PREV
-			}
-			c_elmham = {
-				add_claim = PREV
-			}
-			c_thetford = {
-				add_claim = PREV
-			}
-			c_swaffham = {
-				add_claim = PREV
-			}
 			character_event = { id = 313301 }
 			wealth = 200
 			prestige = 500
@@ -6729,18 +6316,58 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		if = {
+		random_province = {
 			limit = {
-				c_nortwic = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
+				OR = {
+					region = custom_norfolk
+					region = custom_suffolk
+				}
+				any_neighbor_province = {
+					is_land = no
+				}
+				NOT = { 
+					holder_scope = 	{
+						top_liege = { 
+							is_ingvaeonic_culture_trigger = yes
+						}
 					}
 				}
 			}
-			c_nortwic = { 
-				owner = {
-					top_liege = {
-						c_nortwic = { 
+			preferred_limit = {
+				province_id = 153	# Nortwic
+			}
+			preferred_limit = {
+				region = custom_norfolk
+			}
+			preferred_limit = {
+				province_id = 137	# Sitomagus
+			}
+			preferred_limit = {
+				region = custom_suffolk
+			}
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			if = {
+				limit = { region = custom_norfolk }
+				any_province = {
+					limit = { region = custom_norfolk }
+					county = { add_claim = ROOT }
+				}
+				set_global_flag = east_angle_invasion_norfolk
+			}
+			else_if = {
+				limit = { region = custom_suffolk }
+				any_province = {
+					limit = { region = custom_suffolk }
+					county = { add_claim = ROOT }
+				}
+				set_global_flag = east_angle_invasion_suffolk
+			}
+			owner = {
+				top_liege = {
+					event_target:target_province = { 
+						county = {
 							reverse_war = {
 								target = d_angles
 								casus_belli = claim
@@ -6749,8 +6376,6 @@ character_event = {
 					}
 				}
 			}
-		}
-		FROM = {
 			ROOT = {
 				spawn_unit = {
 					province = PREV
@@ -6945,11 +6570,18 @@ province_event = {
 	picture = "GFX_evt_winter_village_crow"
 	
 	trigger = {
-		province_id = 153	# Nortwic
+		d_angles = {
+			holder_scope = {
+				capital_scope = {
+					province = PREVPREVPREV
+				}
+			}
+		}
 		has_global_flag = anglian_east_invasion_450
 		NOT = { has_province_flag = anglian_invasion }
 		NOT = { culture = angle }
 		owner = { culture = angle }
+		NOT = { has_global_flag = east_anglian_invasion_settlers }
 	}
 	
 	mean_time_to_happen = {
@@ -6958,6 +6590,7 @@ province_event = {
 	
 	immediate = {
 		set_province_flag = anglian_invasion
+		set_global_flag = east_anglian_invasion_settlers
 	}
 	
 	option = {
@@ -6996,7 +6629,13 @@ province_event = {
 	picture = "GFX_evt_warships"
 	
 	trigger = {
-		province_id = 153	# Nortwic
+		OR = {
+			region = custom_norfolk
+			region = custom_suffolk
+		}
+		any_neighbor_province = {
+			is_land = no
+		}
 		year = 469
 		NOT = { year = 495 }
 		has_global_flag = anglian_east_invasion_450
@@ -7075,21 +6714,6 @@ province_event = {
 				gain_title = PREV
 			}
 			set_government_type = high_tribal_government
-			d_norfolc = {
-				add_claim = PREV
-			}
-			c_nortwic = {
-				add_claim = PREV
-			}
-			c_elmham = {
-				add_claim = PREV
-			}
-			c_thetford = {
-				add_claim = PREV
-			}
-			c_swaffham = {
-				add_claim = PREV
-			}
 			character_event = { id = 313307 }
 			wealth = 200
 			prestige = 500
@@ -7133,7 +6757,7 @@ character_event = {
 	min_age = 15
 	capable_only = yes
 	prisoner = no
-	
+		
 	trigger = {
 		ai = yes
 		has_global_flag = anglian_east_invasion_469
@@ -7148,32 +6772,19 @@ character_event = {
 		war = no
 		prestige = 75
 		wealth = 75
-		NOT = {
-			OR = {
-				has_landed_title = c_nortwic
-				any_vassal = {
-					has_landed_title = c_nortwic
-				}
-				c_nortwic = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = yes
-						}
+		any_realm_province = {
+			any_neighbor_province = {
+				OR = {
+					AND = {
+						region = custom_norfolk
+						has_global_flag = east_angle_invasion_norfolk
+					}
+					AND = {
+						region = custom_suffolk
+						has_global_flag = east_angle_invasion_suffolk
 					}
 				}
-			}
-			OR = {
-				has_landed_title = c_elmham
-				any_vassal = {
-					has_landed_title = c_elmham
-				}
-				c_elmham = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = yes
-						}
-					}
-				}
+				ROOT_can_declare_war_against_province_trigger = yes
 			}
 		}
 	}
@@ -7184,28 +6795,29 @@ character_event = {
 		
 	option = {
 		name = "OK"
-		if = {
+		random_province = {
 			limit = {
-				c_elmham = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
+				OR = {
+					AND = {
+						region = custom_norfolk
+						has_global_flag = east_angle_invasion_norfolk
+					}
+					AND = {
+						region = custom_suffolk
+						has_global_flag = east_angle_invasion_suffolk
 					}
 				}
-			}
-			c_elmham = { 
-				declare_conquest_war = yes
-			}
-		}
-		if = {
-			limit = {
-				c_nortwic = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
+				ROOT_can_declare_war_against_province_trigger = yes
+				any_neighbor_province = {
+					owner = { top_liege = { character = ROOT } }
 				}
 			}
-			c_nortwic = {
-				add_claim = ROOT
+			preferred_limit = {
+				any_neighbor_province = {
+					is_land = no
+				}
+			}
+			county = {
 				declare_conquest_war = yes
 			}
 		}
@@ -7231,57 +6843,7 @@ character_event = {
 		}
 	}
 }
-# Maintain effort
-character_event = {
-	id = 313305
-	desc = "You're not supposed to see this..."
-	
-	only_rulers = yes
-	only_men = yes
-	min_age = 15
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		ai = yes
-		has_global_flag = anglian_east_invasion_450
-		OR = {
-			has_landed_title = d_angles
-			AND = {
-				has_character_flag = anglia_invader
-				d_angles = { has_holder = no }
-			}
-		}
-		war = no
-		independent = yes
-		is_ingvaeonic_culture_trigger = yes
-		NOT = { year = 490 }
-		any_realm_province = {
-			any_neighbor_province = {
-				region = custom_norfolk
-				ROOT_can_declare_war_against_province_trigger = yes
-			}
-		}			
-	}
-	
-	mean_time_to_happen = {
-		months = 6
-	}
-		
-	option = {
-		name = "OK"
-		if = {
-			limit = {
-				c_elmham = {
-					ROOT_can_declare_war_against_province_trigger = yes
-				}
-			}
-			c_elmham = {
-				declare_conquest_war = yes
-			}
-		}
-	}
-}
+
 # Disband Forces
 character_event = {
 	id = 313306
@@ -7339,20 +6901,56 @@ character_event = {
 	option = {
 		name = "OK"
 		set_global_flag = east_angles_second_wave
-		if = {
+		random_province = {
 			limit = {
-				c_elmham = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
+				OR = {
+					region = custom_norfolk
+					region = custom_suffolk
+				}
+				any_neighbor_province = {
+					is_land = no
+				}
+				NOT = { 
+					holder_scope = 	{
+						top_liege = { 
+							is_ingvaeonic_culture_trigger = yes
 						}
 					}
 				}
 			}
-			c_elmham = { 
-				owner = {
-					top_liege = {
-						c_elmham = {
+			preferred_limit = {
+				province_id = 153	# Nortwic
+			}
+			preferred_limit = {
+				region = custom_norfolk
+			}
+			preferred_limit = {
+				province_id = 137	# Sitomagus
+			}
+			preferred_limit = {
+				region = custom_suffolk
+			}
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			if = {
+				limit = { region = custom_norfolk }
+				any_province = {
+					limit = { region = custom_norfolk }
+					county = { add_claim = ROOT }
+				}
+			}
+			else_if = {
+				limit = { region = custom_suffolk }
+				any_province = {
+					limit = { region = custom_suffolk }
+					county = { add_claim = ROOT }
+				}
+			}
+			owner = {
+				top_liege = {
+					event_target:target_province = { 
+						county = {
 							reverse_war = {
 								target = d_angles
 								casus_belli = claim
@@ -7361,31 +6959,6 @@ character_event = {
 					}
 				}
 			}
-		}
-		if = {
-			limit = {
-				c_nortwic = {
-					owner = {
-						top_liege = {
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			c_nortwic = { 
-				owner = {
-					top_liege = {
-						c_nortwic = { 
-							reverse_war = {
-								target = d_angles
-								casus_belli = claim
-							}
-						}
-					}
-				}
-			}
-		}
-		FROM = {
 			ROOT = {
 				spawn_unit = {
 					province = 153
@@ -7572,10 +7145,19 @@ character_event = {
 		ai = yes
 		age = 20
 		has_landed_title = d_angles
-		has_landed_title = c_nortwic
+		OR = {
+			AND = {
+				has_landed_title = c_nortwic
+				NOT = { has_landed_title = d_norfolc }
+				NOT = { has_global_flag = norfolc_created }
+			}
+			AND = {
+				has_landed_title = c_aldeburgh
+				NOT = { has_landed_title = d_southfolc }
+				NOT = { has_global_flag = southfolc_created }
+			}
+		}
 		num_of_count_titles = 2
-		NOT = { has_landed_title = d_norfolc }
-		NOT = { has_global_flag = norfolc_created }
 	}
 	
 	mean_time_to_happen = {
@@ -7584,7 +7166,14 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		d_norfolc = { gain_title = ROOT }
+		if = {
+			limit = { has_landed_title = c_nortwic }
+			d_norfolc = { gain_title = ROOT }
+		}
+		else_if = {
+			limit = { has_landed_title = c_aldeburgh }
+			d_southfolc = { gain_title = ROOT }
+		}
 		disband_event_forces = east_angles_army_450
 		disband_event_forces = east_angles_army_469
 	}
@@ -7756,396 +7345,117 @@ character_event = {
 
 	option = {
 		name = "OK"
-		if = {
+		random_province = {
 			limit = {
-				c_ratae = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			any_province = {
-				limit = { region = custom_middleanglia }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			c_ratae = { 
-				owner = {
-					top_liege = {
-						c_ratae = { 
-							reverse_war = {
-								target = d_iclingas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = iclingas_invasion_province }
-			}
-			set_global_flag = iclingas_invasion_middle_anglia
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				any_province = {
+				OR = {
 					region = custom_middleanglia
-					any_neighbor_province = {
-						province_id = 33		# Ratae
-					}
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-			}
-			any_province = {
-				limit = { region = custom_middleanglia }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			random_province = { 
-				limit = {
-					region = custom_middleanglia
-					any_neighbor_province = {
-						province_id = 33		# Ratae
-					}
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-				county = {
-					owner = {
-						top_liege = {
-							PREVPREV = { 
-								reverse_war = {
-									target = d_iclingas
-									casus_belli = claim
-								}
-							}
-						}
-					}
-				}
-				set_province_flag = iclingas_invasion_province
-			}
-			set_global_flag = iclingas_invasion_middle_anglia
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				any_province = {
-					region = custom_middleanglia
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-			}
-			any_province = {
-				limit = { region = custom_middleanglia }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			random_province = { 
-				limit = {
-					region = custom_middleanglia
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-				county = {
-					owner = {
-						top_liege = {
-							PREVPREV = { 
-								reverse_war = {
-									target = d_iclingas
-									casus_belli = claim
-								}
-							}
-						}
-					}
-				}
-				set_province_flag = iclingas_invasion_province
-			}
-			set_global_flag = iclingas_invasion_middle_anglia
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = { war = no }
-			character_event = { id = 313052 }	# Move on to Tomsaete
-		}
-	}
-}
-character_event = {
-	id = 313052
-	desc = "You're not supposed to see this..."
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "OK"
-		if = {
-			limit = {
-				war = no
-				c_letocetum = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			any_province = {
-				limit = { region = custom_tomsaete }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			c_letocetum = { 
-				owner = {
-					top_liege = {
-						c_letocetum = { 
-							reverse_war = {
-								target = d_iclingas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = iclingas_invasion_province }
-			}
-			set_global_flag = iclingas_invasion_tomsaete
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				any_province = {
 					region = custom_tomsaete
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-			}
-			any_province = {
-				limit = { region = custom_tomsaete }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			random_province = { 
-				limit = {
-					region = custom_tomsaete
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-				county = {
-					owner = {
-						top_liege = {
-							PREVPREV = { 
-								reverse_war = {
-									target = d_iclingas
-									casus_belli = claim
-								}
-							}
-						}
-					}
-				}
-				set_province_flag = iclingas_invasion_province
-			}
-			set_global_flag = iclingas_invasion_tomsaete
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {		# Move on to Pegansaete
-			limit = {
-				war = no
-				any_province = {
 					region = custom_pegansaete
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
+					region = custom_grentbryce
+				}
+				any_neighbor_province = {
+					OR = {
+						province_id = 312	# Metaris Æstuarium
 						owner = {
 							top_liege = { is_ingvaeonic_culture_trigger = yes }
 						}
 					}
 				}
+				NOT = { 
+					holder_scope = 	{
+						top_liege = { 
+							is_ingvaeonic_culture_trigger = yes
+						}
+					}
+				}
 			}
-			any_province = {
+			preferred_limit = {
+				province_id = 33	# Ratae
+			}
+			preferred_limit = {
+				region = custom_middleanglia
+				any_neighbor_province = {
+					province_id = 33		# Ratae
+				}
+			}
+			preferred_limit = {
+				region = custom_middleanglia
+			}
+			preferred_limit = {
+				province_id = 348	# Letocetum
+			}
+			preferred_limit = {
+				region = custom_tomsaete
+			}
+			preferred_limit = {
+				region = custom_pegansaete
+			}
+			preferred_limit = {
+				region = custom_grentbryce
+			}
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			if = {
+				limit = { region = custom_middleanglia }
+				any_province = {
+					limit = { region = custom_middleanglia }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				set_global_flag = iclingas_invasion_middle_anglia
+			}
+			else_if = {
+				limit = { region = custom_tomsaete }
+				any_province = {
+					limit = { region = custom_tomsaete }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				set_global_flag = iclingas_invasion_tomsaete
+			}
+			else_if = {
 				limit = { region = custom_pegansaete }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			random_province = { 
-				limit = {
-					region = custom_pegansaete
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
-					}
-				}
-				county = {
-					owner = {
-						top_liege = {
-							PREVPREV = { 
-								reverse_war = {
-									target = d_iclingas
-									casus_belli = claim
-								}
-							}
-						}
-					}
-				}
-				set_province_flag = iclingas_invasion_province
-			}
-			set_global_flag = iclingas_invasion_pegansaete
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = { war = no }
-			character_event = { id = 313053 }	# Move on to Grentbryce
-		}
-	}
-}
-character_event = {
-	id = 313053
-	desc = "You're not supposed to see this..."
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "OK"
-		if = {	
-			limit = {
 				any_province = {
-					region = custom_grentbryce
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
+					limit = { region = custom_pegansaete }
+					county = {
+						add_claim = ROOT
 					}
 				}
+				set_global_flag = iclingas_invasion_pegansaete
 			}
-			any_province = {
+			else_if = {
 				limit = { region = custom_grentbryce }
-				county = {
-					add_claim = ROOT
-				}
-			}
-			random_province = { 
-				limit = {
-					region = custom_grentbryce
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					any_neighbor_province = {
-						owner = {
-							top_liege = { is_ingvaeonic_culture_trigger = yes }
-						}
+				any_province = {
+					limit = { region = custom_grentbryce }
+					county = {
+						add_claim = ROOT
 					}
 				}
-				county = {
-					owner = {
-						top_liege = {
-							PREVPREV = { 
-								reverse_war = {
-									target = d_iclingas
-									casus_belli = claim
-								}
-							}
-						}
-					}
-				}
-				set_province_flag = iclingas_invasion_province
+				set_global_flag = iclingas_invasion_grentbryce
 			}
-			set_global_flag = iclingas_invasion_grentbryce
-			character_event = { id = 313054 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_the_fens = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_godmundceaster 
-				add_claim = c_the_fens 
-				add_claim = c_grantabrycge 
-			}
-			c_the_fens = { 
+			county = { 
 				owner = {
 					top_liege = {
-						c_the_fens = { 
-							reverse_war = {
-								target = d_iclingas
-								casus_belli = claim
+						event_target:target_province = {
+							county = {
+								reverse_war = {
+									target = d_iclingas
+									casus_belli = claim
+								}
 							}
 						}
 					}
 				}
-				location = { set_province_flag = iclingas_invasion_province }
 			}
-			set_global_flag = iclingas_invasion_grentbryce
+			set_province_flag = iclingas_invasion_province
 			character_event = { id = 313054 }	# Spawn Troops
 		}
 	}
 }
+
 character_event = {			# Spawn troops
 	id = 313054
 	desc = "You're not supposed to see this..."
@@ -10654,9 +9964,8 @@ province_event = {
 	trigger = {
 		OR = {
 			region = custom_hwicce
-			province_id = 340	# Ariconium
-			province_id = 23	# Lactodorum
 			region = custom_cilternsaete
+			province_id = 263	# Brinavae
 		}
 		any_neighbor_province = {
 			owner = {
@@ -10797,436 +10106,92 @@ character_event = {
 
 	option = {
 		name = "OK"
-		if = {
+		random_province = {
 			limit = {
-				c_glevum = {
+				OR = {
+					region = custom_hwicce
+					region = custom_cilternsaete
+					province_id = 263	# Brinavae
+				}
+				any_neighbor_province = {
 					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
+						top_liege = { is_ingvaeonic_culture_trigger = yes }
 					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
+				}
+				NOT = { 
+					holder_scope = 	{
+						top_liege = { 
+							is_ingvaeonic_culture_trigger = yes
 						}
 					}
 				}
 			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
+			preferred_limit = {
+				province_id = 20	# Glevum
 			}
-			c_glevum = { 
+			preferred_limit = {
+				province_id = 11	# Corinium
+			}
+			preferred_limit = {
+				province_id = 4		# Aquae Sulis
+			}
+			preferred_limit = {
+				region = custom_hwicce
+			}
+			preferred_limit = {
+				region = custom_cilternsaete
+			}
+			save_event_target_as = target_province
+		}
+		event_target:target_province = {
+			if = {
+				limit = { region = custom_hwicce }
+				any_province = {
+					limit = { region = custom_hwicce }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				set_global_flag = hwiccas_invasion_hwicce
+			}
+			else_if = {
+				limit = { 
+					OR = {
+						region = custom_cilternsaete 
+						province_id = 263	# Brinavae
+					}
+				}
+				any_province = {
+					limit = { region = custom_cilternsaete }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				if = {
+					limit = { province_id = 263	# Brinavae }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				set_global_flag = hwiccas_invasion_cilternsaete
+			}
+			county = { 
 				owner = {
 					top_liege = {
-						c_glevum = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
+						event_target:target_province = {
+							county = {
+								reverse_war = {
+									target = d_hwiccas
+									casus_belli = claim
+								}
 							}
 						}
 					}
 				}
-				location = { set_province_flag = hwiccas_invasion_province }
 			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
+			set_province_flag = hwiccas_invasion_province
 		}
-		if = {
-			limit = {
-				war = no
-				c_corinium = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-			}
-			c_corinium = { 
-				owner = {
-					top_liege = {
-						c_corinium = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_aquae_sulis = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-			}
-			c_aquae_sulis = { 
-				owner = {
-					top_liege = {
-						c_aquae_sulis = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_wychwood = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-				add_claim = c_wychwood
-			}
-			c_wychwood = { 
-				owner = {
-					top_liege = {
-						c_wychwood = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_avona = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-			}
-			c_avona = { 
-				owner = {
-					top_liege = {
-						c_avona = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_tripontium = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-				add_claim = c_tripontium
-			}
-			c_tripontium = { 
-				owner = {
-					top_liege = {
-						c_tripontium = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_ariconium = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_glevum 
-				add_claim = c_aquae_sulis
-				add_claim = c_corinium
-				add_claim = c_avona
-				add_claim = c_ariconium
-			}
-			c_ariconium = { 
-				owner = {
-					top_liege = {
-						c_ariconium = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_hwicce
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = { war = no }
-			character_event = { id = 313062 }	# Move on to Cilternsaete
-		}
-	}
-}
-character_event = {
-	id = 313062
-	desc = "You're not supposed to see this..."
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "OK"
-		if = {
-			limit = {
-				c_alchester = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_alchester
-				add_claim = c_magiovinium	 
-				add_claim = c_chiltern_hills 
-			}
-			c_alchester = { 
-				owner = {
-					top_liege = {
-						c_alchester = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_cilternsaete
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_lactodorum = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_alchester 
-				add_claim = c_lactodorum 
-				add_claim = c_magiovinium	 
-				add_claim = c_chiltern_hills 
-			}
-			c_lactodorum = { 
-				owner = {
-					top_liege = {
-						c_lactodorum = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_cilternsaete
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_magiovinium = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_alchester
-				add_claim = c_magiovinium	 
-				add_claim = c_chiltern_hills 
-			}
-			c_magiovinium = { 
-				owner = {
-					top_liege = {
-						c_magiovinium = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_cilternsaete
-			character_event = { id = 313063 }	# Spawn Troops
-		}
-		if = {
-			limit = {
-				war = no
-				c_chiltern_hills = {
-					owner = {
-						top_liege = { is_ingvaeonic_culture_trigger = no }
-					}
-					location = {
-						any_neighbor_province = {
-							owner = {
-								top_liege = { is_ingvaeonic_culture_trigger = yes }
-							}
-						}
-					}
-				}
-			}
-			ROOT = { 
-				add_claim = c_alchester
-				add_claim = c_magiovinium	 
-				add_claim = c_chiltern_hills 
-			}
-			c_chiltern_hills = { 
-				owner = {
-					top_liege = {
-						c_chiltern_hills = { 
-							reverse_war = {
-								target = d_hwiccas
-								casus_belli = claim
-							}
-						}
-					}
-				}
-				location = { set_province_flag = hwiccas_invasion_province }
-			}
-			set_global_flag = hwiccas_invasion_cilternsaete
-			character_event = { id = 313063 }	# Spawn Troops
-		}
+		character_event = { id = 313063 }	# Spawn Troops
 	}
 }
 character_event = {			# Spawn troops
@@ -11764,9 +10729,8 @@ province_event = {
 	trigger = {
 		OR = {
 			region = custom_hwicce
-			province_id = 340	# Ariconium
-			province_id = 23	# Lactodorum
 			region = custom_cilternsaete
+			province_id = 263	# Brinavae
 		}
 		any_neighbor_province = {
 			owner = {
@@ -11810,11 +10774,9 @@ province_event = {
 	
 
 	immediate = {
-		any_independent_ruler = {
-			any_realm_province = {
-				limit = { has_province_flag = hwiccas_invasion_province }
-				clr_province_flag = hwiccas_invasion_province
-			}
+		any_province = {
+			limit = { has_province_flag = hwiccas_invasion_province }
+			clr_province_flag = hwiccas_invasion_province
 		}
 		create_character = {
 			random_traits = no
@@ -12372,7 +11334,7 @@ narrative_event = {
 			clr_character_flag = lindsey_vassal
 		}
 		set_defacto_liege = THIS
-		138 = {
+		1106 = {
 			remove_province_modifier = anglosaxon_settlement
 		}
 		create_character = {
@@ -12392,7 +11354,7 @@ narrative_event = {
 		}
 		new_character = {
 			spawn_unit = {
-				province = 138 # Caistor
+				province = 1106 # Ad Anum
 				troops =
 				{
 					light_infantry = { 700 700 }
@@ -12525,7 +11487,7 @@ character_event = {
 		}
 		new_character = {
 			spawn_unit = {
-				province = 138 # Caistor
+				province = 1106 # Ad Abum
 				troops =
 				{
 					light_infantry = { 1000 1000 }
@@ -12825,7 +11787,7 @@ character_event = {
 			remove_trait = foederate
 		}
 		d_lindsey = { grant_title = ROOT }
-		138 = {
+		1106 = {
 			remove_province_modifier = anglosaxon_settlement
 		}
 	}
@@ -13371,13 +12333,13 @@ character_event = {
 		}
 		if = {
 			limit = {
-				c_portus_dubris = {
+				c_durovernum = {
 					holder_scope = {
 						same_realm = FROM
 					}
 				}
 			}
-			c_portus_dubris = {
+			c_durovernum = {
 				grant_title = ROOT
 			}
 		}
@@ -13553,7 +12515,7 @@ character_event = {
 				attrition = 1
 			}
 		}
-		c_portus_dubris = {
+		c_durovernum = {
 			reverse_war = {
 				target = ROOT
 				casus_belli = county_conquest
@@ -14604,6 +13566,7 @@ character_event = {
 	title = "EVTNAME313091"
 	desc = "EVTDESC313091"
 	picture = "GFX_evt_storm_brewing"
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -14658,6 +13621,7 @@ character_event = {
 	id = 313093
 	desc = "EVTDESC313093"
 	picture = "GFX_evt_saxon_army_banners"
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -16451,10 +15415,12 @@ character_event = {
 		is_ingvaeonic_culture_trigger = yes
 		NOT = { tier = KING }
 		OR = { 
-			has_landed_title = d_dorset
 			has_landed_title = d_hampshire
-			has_landed_title = d_devon
+			has_landed_title = d_berkshire
+			has_landed_title = d_wiltshire
 			has_landed_title = d_somerset
+			has_landed_title = d_dorset
+			has_landed_title = d_devon
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_wessex }
@@ -16556,6 +15522,7 @@ character_event = {
 			has_landed_title = d_deira
 			has_landed_title = d_cumbria
 			has_landed_title = d_lancaster
+			has_landed_title = d_southumbria
 		}
 		num_of_count_titles = 2
 		NOT = { has_character_flag = revolt_for_northumbria }
