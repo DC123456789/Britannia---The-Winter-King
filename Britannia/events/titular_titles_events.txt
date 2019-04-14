@@ -14,7 +14,7 @@
 # 314101 - 314189 	Anglo-Saxons
 # 314190 - 314200	Romans (Gaul)
 # 314201 - 314229	Franks
-# 314230 - 314235 	Anglo-Saxons
+# 314230 - 314239 	Anglo-Saxons
 # 314240 - 314259	Franks
 # 314260 - 314269	Frisians
 # 314270 - 314368	Re-Checks (to be consolidated)
@@ -1616,7 +1616,7 @@ character_event = {
 		location = { is_capital = yes }
 		NOT = { realm_size = 40 }
 		NOT = { num_of_king_titles = 2 }
-		NOT = { is_title_active = c_saxon_black_guard }
+		NOT = { is_title_active = d_saxon_black_guard }
 	}
 	
 	mean_time_to_happen = {
@@ -1624,7 +1624,7 @@ character_event = {
 	}
 	
 	immediate = {
-		activate_title = { title = c_saxon_black_guard status = yes }
+		activate_title = { title = d_saxon_black_guard status = yes }
 		create_character = {
 			random_traits = no
 			dynasty = random
@@ -1646,12 +1646,12 @@ character_event = {
 			trait = proud
 		}
 		new_character = {
-			c_saxon_black_guard = { 
+			d_saxon_black_guard = { 
 				gain_title = PREV
 			}
 			set_defacto_liege = ROOT
 		}
-		c_saxon_black_guard = { 
+		d_saxon_black_guard = { 
 			holder_scope = {
 				set_defacto_liege = ROOT
 			}
@@ -1661,6 +1661,69 @@ character_event = {
 	option = {
 		name = "EVTOPTA3142341"
 		k_cantia = { holder_scope = { prestige = 50 } }
+	}
+}
+# Swords of Sussex
+character_event = {
+	id = 3142342
+	desc = "EVTDESC3142342"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_sussex
+		location = { is_capital = yes }
+		NOT = { realm_size = 40 }
+		NOT = { num_of_king_titles = 2 }
+		NOT = { is_title_active = d_swords_of_sussex }
+	}
+	
+	mean_time_to_happen = {
+		days = 15
+	}
+	
+	immediate = {
+		activate_title = { title = d_swords_of_sussex status = yes }
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = ROOT
+			culture = ROOT
+			employer = k_sussex
+			female = no
+			age = 32
+			attributes = {
+				martial = 10
+				diplomacy = 8
+				stewardship = 5
+			}
+			trait = skilled_tactician
+			trait = veteran
+			trait = patient
+			trait = loyal
+			trait = rough_terrain_leader
+			trait = wroth
+		}
+		new_character = {
+			d_swords_of_sussex = { 
+				gain_title = PREV
+			}
+			set_defacto_liege = ROOT
+		}
+		d_swords_of_sussex = { 
+			holder_scope = {
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3142342"
+		k_sussex = { holder_scope = { prestige = 50 } }
 	}
 }
 
@@ -2142,6 +2205,12 @@ character_event = {
 			any_vassal = {
 				has_landed_title = d_east_angles 
 			}
+		}
+		d_east_angles = { 
+			OR = {
+				has_holder = no 
+				holder_scope = { independent = yes }
+			}			
 		}
 	}
 	

@@ -916,7 +916,7 @@ character_event = {	# Mercenary Captains
 		mercenary = yes
 		OR = {
 			NOT = { has_character_flag = mercenary_captain }
-			had_character_flag = { flag = mercenary_captain days = 180 }
+			had_character_flag = { flag = mercenary_captain days = 90 }
 			AND = {
 				independent = no
 				liege = {
@@ -1037,221 +1037,541 @@ character_event = {	# Mercenary Captains
 			}
 		}
 		
-		if = {			# Spears of Mercia
+		# Set correct liege if appropriate
+		if = {
 			limit = {
-				AND = {
-					has_landed_title = d_spears_of_mercia
-					independent = no
-					ai = yes
-					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_mercia }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_mercia }
-							}
-						}
-						liege = {
-							NOT = { culture_group = germanic }
-						}
-					}
-				}
+				ai = yes
 			}
-			d_spears_of_mercia = { destroy_landed_title = d_spears_of_mercia }
-		}
-		if = {			# Spears of Bernicia
-			limit = {
-				AND = {
-					has_landed_title = d_spears_of_bernicia
-					independent = no
-					ai = yes
-					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_northumbria }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_northumbria }
-							}
-						}
-						liege = {
-							NOT = { culture_group = germanic }
-						}
-					}
-				}
-			}
-			d_spears_of_bernicia = { destroy_landed_title = d_spears_of_bernicia }
-		}
-		if = {			# Swords of Sussex
-			limit = {
-				AND = {
-					has_landed_title = d_swords_of_sussex
-					independent = no
-					ai = yes
-					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_sussex }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_sussex }
-							}
-						}
-						liege = {
-							NOT = { culture_group = germanic }
-						}
-					}
-				}
-			}
-			d_swords_of_sussex = { destroy_landed_title = d_swords_of_sussex }
-		}
-		if = {			# Saxon Black Guard
-			limit = {
-				AND = {
-					has_landed_title = c_saxon_black_guard
-					independent = no
-					ai = yes
-					liege = {
-						NOT = { culture_group = germanic }
-					}
-				}
-			}
-			c_saxon_black_guard = { destroy_landed_title = c_saxon_black_guard }
-		}
-		if = {			# Warriors of Britain
-			limit = {
-				AND = {
+			if = {			# Warriors of Britain
+				limit = {
 					has_landed_title = d_warriors_of_britain
 					independent = no
-					ai = yes
 					liege = {
 						NOT = { culture_group = celtic }
 					}
 				}
+				d_warriors_of_britain = { save_event_target_as = mercenary_title }
+				save_event_target_as = proper_mercenary_liege
+				set_character_flag = reset_liege
 			}
-			d_warriors_of_britain = { destroy_landed_title = d_warriors_of_britain }
-		}
-		if = {			# Spears of Gwynedd
-			limit = {
-				AND = {
-					has_landed_title = c_spears_of_gwynedd
-					independent = no
-					ai = yes
+			else_if = {			# Spears of Gwynedd
+				limit = {
+					has_landed_title = d_spears_of_gwynedd
 					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_gwynedd }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_gwynedd }
-							}
+						AND = {
+							independent = yes
+							k_gwynedd = { has_holder = yes }
 						}
-						liege = {
-							NOT = { culture_group = celtic }
+						NOT = {
+							any_liege = {
+								has_landed_title = k_gwynedd
+							}
 						}
 					}
 				}
+				d_spears_of_gwynedd = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_gwynedd = { has_holder = yes } }
+					k_gwynedd = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
 			}
-			c_spears_of_gwynedd = { destroy_landed_title = c_spears_of_gwynedd }
-		}
-		if = {			# Spears of Leinster
-			limit = {
-				AND = {
+			else_if = {			# Spears of Mercia
+				limit = {
+					has_landed_title = d_spears_of_mercia
+					OR = {
+						AND = {
+							independent = yes
+							k_mercia = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_mercia
+							}
+						}
+					}
+				}
+				d_spears_of_mercia = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_mercia = { has_holder = yes } }
+					k_mercia = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Spears of Bernicia
+				limit = {
+					has_landed_title = d_spears_of_bernicia
+					OR = {
+						AND = {
+							independent = yes
+							k_northumbria = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_northumbria
+							}
+						}
+					}
+				}
+				d_spears_of_bernicia = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_northumbria = { has_holder = yes } }
+					k_northumbria = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Swords of Sussex
+				limit = {
+					has_landed_title = d_swords_of_sussex
+					OR = {
+						AND = {
+							independent = yes
+							k_sussex = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_sussex
+							}
+						}
+					}
+				}
+				d_swords_of_sussex = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_sussex = { has_holder = yes } }
+					k_sussex = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Jutish Guard
+				limit = {
+					has_landed_title = d_saxon_black_guard
+					OR = {
+						AND = {
+							independent = yes
+							k_cantia = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_cantia
+							}
+						}
+					}
+				}
+				d_saxon_black_guard = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_cantia = { has_holder = yes } }
+					k_cantia = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Middle/East Angles
+				limit = {
+					has_landed_title = d_east_angles
+					OR = {
+						AND = {
+							independent = yes
+							OR = {
+								k_anglia = { has_holder = yes }
+								k_east_anglia = { has_holder = yes }
+							}
+						}
+						NOT = {
+							any_liege = {
+								OR = {
+									has_landed_title = k_anglia
+									has_landed_title = k_east_anglia
+								}
+							}
+						}
+					}
+				}
+				d_east_angles = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_east_anglia = { has_holder = yes } }
+					k_east_anglia = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_anglia = { has_holder = yes } }
+					k_anglia = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Swords of Wessex
+				limit = {
+					has_landed_title = d_swords_of_wessex
+					OR = {
+						AND = {
+							independent = yes
+							k_wessex = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_wessex
+							}
+						}
+					}
+				}
+				d_swords_of_wessex = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_wessex = { has_holder = yes } }
+					k_wessex = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Swords of Essex
+				limit = {
+					has_landed_title = d_swords_of_essex
+					OR = {
+						AND = {
+							independent = yes
+							k_eastseaxe = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_eastseaxe
+							}
+						}
+					}
+				}
+				d_swords_of_essex = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_eastseaxe = { has_holder = yes } }
+					k_eastseaxe = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Merovingian Guard
+				limit = {
+					has_landed_title = d_merovingian_guard
+					NOT = { has_global_flag = merovingian_guard_converted }
+					OR = {
+						AND = {
+							independent = yes
+							OR = {
+								e_franks = { has_holder = yes }
+								k_franks = { has_holder = yes }
+								k_ripuarian_franks = { has_holder = yes }
+								k_neustria = { has_holder = yes }
+								k_orleans = { has_holder = yes }
+								k_aquitaine = { has_holder = yes }
+								k_burgundy = { 
+									has_holder = yes 
+									holder_scope = { is_frankish_culture_trigger = yes }
+								}
+							}
+						}
+						NOT = {
+							any_liege = {
+								OR = {
+									has_landed_title = e_franks
+									has_landed_title = k_franks
+									has_landed_title = k_ripuarian_franks
+									has_landed_title = k_neustria
+									has_landed_title = k_orleans
+									has_landed_title = k_aquitaine
+									AND = {
+										has_landed_title = k_burgundy
+										is_frankish_culture_trigger = yes
+									}
+								}
+							}
+						}
+					}
+				}
+				d_merovingian_guard = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { e_franks = { has_holder = yes } }
+					e_franks = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_franks = { has_holder = yes } }
+					k_franks = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_ripuarian_franks = { has_holder = yes } }
+					k_ripuarian_franks = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_neustria = { has_holder = yes } }
+					k_neustria = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_orleans = { has_holder = yes } }
+					k_orleans = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = { k_aquitaine = { has_holder = yes } }
+					k_aquitaine = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
+					limit = {
+						k_burgundy = { 
+							has_holder = yes 
+							holder_scope = { is_frankish_culture_trigger = yes }
+						}
+					}
+					k_burgundy = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Swords of Septimania
+				limit = {
+					has_landed_title = d_swords_of_septimania
+					OR = {
+						AND = {
+							independent = yes
+							k_visigoths = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_visigoths
+							}
+						}
+					}
+				}
+				d_swords_of_septimania = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_visigoths = { has_holder = yes } }
+					k_visigoths = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Spears of Leinster
+				limit = {
 					has_landed_title = d_spears_of_leinster
-					independent = no
-					ai = yes
 					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_leinster }
-								NOT = { has_landed_title = e_ireland }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_leinster }
-								NOT = { has_landed_title = e_ireland }
-							}
+						AND = {
+							independent = yes
+							k_leinster = { has_holder = yes }
 						}
-						liege = {
-							NOT = { culture_group = celtic }
+						NOT = {
+							any_liege = {
+								has_landed_title = k_leinster
+							}
 						}
 					}
 				}
+				d_spears_of_leinster = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_leinster = { has_holder = yes } }
+					k_leinster = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
 			}
-			d_spears_of_leinster = { destroy_landed_title = d_spears_of_leinster }
-		}
-		if = {			# Kerns of Connacht
-			limit = {
-				AND = {
+			else_if = {			# Black Shields
+				limit = {
+					has_landed_title = d_black_shields
+					OR = {
+						AND = {
+							independent = yes
+							k_demetia = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_demetia
+							}
+						}
+					}
+				}
+				d_black_shields = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_demetia = { has_holder = yes } }
+					k_demetia = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Kerns of Connacht
+				limit = {
 					has_landed_title = d_kerns_of_connacht
-					independent = no
-					ai = yes
 					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_connacht }
-								NOT = { has_landed_title = e_ireland }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_connacht }
-								NOT = { has_landed_title = e_ireland }
-							}
+						AND = {
+							independent = yes
+							k_connacht = { has_holder = yes }
 						}
-						liege = {
-							NOT = { culture_group = celtic }
+						NOT = {
+							any_liege = {
+								has_landed_title = k_connacht
+							}
 						}
 					}
 				}
+				d_kerns_of_connacht = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_connacht = { has_holder = yes } }
+					k_connacht = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
 			}
-			d_kerns_of_connacht = { destroy_landed_title = d_kerns_of_connacht }
-		}
-		if = {			# Ystrad Clud Archers
-			limit = {
-				AND = {
-					has_landed_title = c_ystradcludiansagittarii
-					independent = no
-					ai = yes
+			else_if = {			# Ystrad Clud Archers
+				limit = {
+					has_landed_title = d_ystradcludiansagittarii
 					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_strathclyde }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_strathclyde }
-							}
+						AND = {
+							independent = yes
+							k_strathclyde = { has_holder = yes }
 						}
-						liege = {
-							NOT = { culture_group = celtic }
+						NOT = {
+							any_liege = {
+								has_landed_title = k_strathclyde
+							}
 						}
 					}
 				}
+				d_ystradcludiansagittarii = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_strathclyde = { has_holder = yes } }
+					k_strathclyde = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
 			}
-			c_ystradcludiansagittarii = { destroy_landed_title = c_ystradcludiansagittarii }
-		}
-		if = {			# Sails of Dalriada
-			limit = {
-				AND = {
+			else_if = {			# Burgundian Guard
+				limit = {
+					has_landed_title = d_burgundian_guard
+					OR = {
+						AND = {
+							independent = yes
+							k_burgundy = { has_holder = yes }
+						}
+						NOT = {
+							any_liege = {
+								has_landed_title = k_burgundy
+							}
+						}
+					}
+				}
+				d_burgundian_guard = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_burgundy = { has_holder = yes } }
+					k_burgundy = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Ostrogothic Guard
+				limit = {
+					has_landed_title = d_ostrogothic_guard
+					OR = {
+						AND = {
+							independent = yes
+							OR = {
+								k_praetorian_prefecture_of_gaul = { has_holder = yes }
+								k_ostrogoths = { has_holder = yes }
+							}
+						}
+						NOT = {
+							any_liege = {
+								OR = {
+									has_landed_title = k_praetorian_prefecture_of_gaul
+									has_landed_title = k_ostrogoths
+								}
+							}
+						}
+					}
+				}
+				d_ostrogothic_guard = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_praetorian_prefecture_of_gaul = { has_holder = yes } }
+					k_praetorian_prefecture_of_gaul = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
+			}
+			else_if = {			# Sails of Dalriada
+				limit = {
 					has_landed_title = d_sails_of_dalriada
-					independent = no
-					ai = yes
 					OR = {
-						AND ={
-							liege = {
-								NOT = { has_landed_title = k_dalriada }
-								NOT = { has_landed_title = e_alba }
-							}
-							top_liege = {
-								NOT = { has_landed_title = k_dalriada }
-								NOT = { has_landed_title = e_alba }
-							}
+						AND = {
+							independent = yes
+							k_dalriada = { has_holder = yes }
 						}
-						liege = {
-							NOT = { culture_group = celtic }
+						NOT = {
+							any_liege = {
+								has_landed_title = k_dalriada
+							}
 						}
 					}
 				}
+				d_sails_of_dalriada = { save_event_target_as = mercenary_title }
+				if = {
+					limit = { k_dalriada = { has_holder = yes } }
+					k_dalriada = { save_event_target_as = proper_mercenary_liege }
+				}
+				else {
+					save_event_target_as = proper_mercenary_liege
+				}
+				set_character_flag = reset_liege
 			}
-			d_sails_of_dalriada = { destroy_landed_title = d_sails_of_dalriada }
+		}
+		if = {
+			limit = { has_character_flag = reset_liege }
+			clr_character_flag = reset_liege
+			if = {
+				limit = { is_landed = yes }					
+				create_random_soldier = {
+					random_traits = yes
+					dynasty = random
+					religion = PREV
+					culture = PREV
+					female = no
+					age = 25
+				}
+				new_character = {
+					event_target:mercenary_title = { 
+						gain_title = PREV
+					}
+					save_event_target_as = proper_mercenary_liege
+					set_defacto_liege = event_target:proper_mercenary_liege
+				}
+			}
+			else {
+				set_defacto_liege = event_target:proper_mercenary_liege
+			}
 		}
 		
 		set_character_flag = mercenary_captain
