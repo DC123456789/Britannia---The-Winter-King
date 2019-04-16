@@ -3363,11 +3363,12 @@ narrative_event = {
 					set_character_flag = viking_invader
 					set_father = PREV
 					e_danes = {
+						set_title_landless = { title = THIS status = yes }
 						gain_title = PREV
 						gender_succ = agnatic
 						#succession_w_cooldown = seniority
 					}
-					k_danelagen = {
+					k_jorvik = {
 						gain_title = PREV
 						gender_succ = agnatic
 						#succession_w_cooldown = seniority
@@ -3379,14 +3380,14 @@ narrative_event = {
 					c_eburacum = {
 						add_claim = PREV
 					}
-					c_iserium = {
+					c_delgovicia = {
 						add_claim = PREV
 					}
 					c_petuaria = {
 						add_claim = PREV
 					}
 					character_event = { id = 321681 }
-					wealth = 1500
+					wealth = 500
 					prestige = 1650
 				}
 				create_character = {			# Ivar the Boneless
@@ -3476,44 +3477,9 @@ character_event = {
 	option = {
 		name = "OK"
 		37 = {			# Eburacum
-			if = {
-				limit = {
-					has_empty_holding = yes
-				}
-				build_holding = {
-					type = castle 
-					holder = ROOT
-				}
-				ROOT = {
-					any_demesne_title = {
-						limit = { tier = baron }
-						refill_holding_levy = yes
-					}
-				}
-			}
-			if = {
-				limit = { ROOT = { is_landed = no } }
-				random_province_holding = {
-					limit = { 
-						is_capital = no
-					}
-					if = {
-						limit = {
-							NOT = { holding_type = castle }
-						}
-						convert_to = CASTLE
-					}
-					c_daner = {
-						holder_scope = {
-							gain_title = PREVPREV
-						}
-					}
-					refill_holding_levy = yes
-				}
-			}
 			duchy = {
 				ROOT = {
-					war = {
+					unsafe_war = {
 						casus_belli = viking_invasion_britannia
 						target = PREVPREV # The top liege of the owner
 						thirdparty_title = PREV # The de jure kingdom
@@ -3897,6 +3863,36 @@ character_event = {
 #			c_mjoll = { destroy_landed_title = c_mjoll }
 #			activate_title = { title = c_mjoll status = no }
 #		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+
+# Make e_danes a normal title again
+character_event = {
+	id = 321691
+	desc = "You're not supposed to see this..."	
+	only_rulers = yes	
+	hide_window = yes
+	
+	trigger = {
+		has_landed_title = e_danes
+		e_danes = { is_landless_type_title = yes }
+		OR = {
+			war = no
+			is_landed = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		e_danes = { set_title_landless = { title = THIS status = no } }
 	}
 	
 	option = {

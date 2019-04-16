@@ -454,14 +454,31 @@ character_event = {
 			}
 		}	
 		
-		# If High King of Britannia before first reform, disband the title
+		
 		if = {
 			limit = { 
 				has_landed_title = e_britannia
-				NOT = { has_global_flag = britannia_formalized_high_kingship }
 			}
-			character_event = { id = 314480 }
+			if = {		# If High King of Britannia before first reform, disband the title
+				limit = { 
+					NOT = { has_global_flag = britannia_formalized_high_kingship }
+				}
+				character_event = { id = 314480 }
+			}
+			else_if = {	# If before Empower the High Council reform, convert all King-tier vassals into tributaries
+				limit = {
+					NOT = { has_global_flag = britannia_empowered_high_council }
+					NOT = { 
+						any_demesne_title = {
+							tier = EMPEROR
+							NOT = { title = e_britannia }
+						}
+					}
+				}
+				character_event = { id = 314483 }
+			}
 		}
+		
 	}
 		
 	option = {			# Celtic Pagan
@@ -718,13 +735,35 @@ character_event = {
 			character_event = { id = 313157 }
 		}
 		
-		if = {						# Revoke High Kingship of Britannia
+		if = {				# Revoke High Kingship of Britannia				
 			limit = {
-				NOT = { ROOT = { has_character_flag = gained_britannia } }
-				NOT = { has_global_flag = britannia_formalized_high_kingship }
+				NOT = { ROOT = { has_character_flag = gained_britannia } }	
+				NOT = { has_global_flag = britannia_formalized_high_kingship }		
 				FROM = { title = e_britannia }
 			}
 			character_event = { id = 314481 }
+		}
+		
+		if = {				# Remove King-level vassals if Empower the High Council event has not been triggered			
+			limit = {
+				NOT = { has_global_flag = britannia_empowered_high_council }			
+				FROM = { title = e_britannia }
+				ROOT = {
+					any_demesne_title = { 
+						OR = {
+							NOT = { tier = EMPEROR }
+							title = e_britannia
+						}
+					}
+				}
+			}
+			ROOT = { character_event = { id = 314483 } }	
+			
+			# Make previous holder a Subject Kingdom
+			FROMFROM = { 
+				set_defacto_liege = THIS 
+				make_britannia_subject_of_ROOT_effect = yes
+			}
 		}
 		
 		ROOT = {

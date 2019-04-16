@@ -1751,12 +1751,17 @@ narrative_event = {
 					character = 5
 					father_even_if_dead = { character = 1 }
 				}
-				current_heir = {
-					NOR = {
-						character = 1
-						character = 3
-						character = 5
-						father_even_if_dead = { character = 1 }
+				NOT = {		# Checks if the heir to Dumnonia is Mordred Jr. or any of Uther's children
+					any_character = {
+						OR = {
+							character = 1
+							character = 3
+							character = 5
+							father_even_if_dead = { character = 1 }
+						}
+						any_heir_title = {
+							title = k_dumnonia
+						}
 					}
 				}
 			}

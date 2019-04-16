@@ -1846,6 +1846,56 @@ narrative_event = {
 	}
 }
 	
+# King-level vassals are converted to Subject Kingdom tributaries on succession if the Empower the High Council reform has not been taken
+character_event = {
+	id = 314483
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		#set_character_flag = got_event_314483
+		
+		# any_vassal = {
+			# set_character_flag = event_314483_target_@ROOT
+			# if = {
+				# limit = { tier = DUKE }
+				# set_character_flag = event_314483_vassal_duke
+				# set_character_flag = event_314483_vassal_duke_@ROOT
+				# ROOT = { 
+					# set_character_flag = has_event_314483_vassal_duke
+					# set_character_flag = liege_event_314483_vassal_duke_@PREV 
+				# }
+			# }
+			# if = {
+				# limit = { tier = KING }
+				# set_character_flag = event_314483_vassal_king
+				# set_character_flag = event_314483_vassal_king_@ROOT
+				# ROOT = { 
+					# set_character_flag = has_event_314483_vassal_king
+					# set_character_flag = liege_event_314483_vassal_king_@PREV 
+				# }
+			# }
+			# if = {
+				# limit = { tier = EMPEROR }
+				# set_character_flag = event_314483_vassal_emperor
+				# set_character_flag = event_314483_vassal_emperor_@ROOT
+				# ROOT = { 
+					# set_character_flag = has_event_314483_vassal_emperor
+					# set_character_flag = liege_event_314483_vassal_emperor_@PREV 
+				# }
+			# }
+		# }
+		any_vassal = {
+			limit = { tier = KING }
+			#set_character_flag = event_314483_target
+			set_defacto_liege = THIS
+			make_britannia_subject_of_ROOT_effect = yes
+		}
+	}
+}
 
 character_event = {			# Notify other lords that High Kingdom has been claimed
 	id = 312167
