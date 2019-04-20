@@ -1684,12 +1684,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_bernicia
 		capital_scope = {
@@ -1713,9 +1713,9 @@ character_event = {
 					spawn_unit = {
 						province = PREVPREV
 						troops = {
-							light_infantry = { 400 400 }
-							heavy_infantry = { 350 350 }
-							pikemen = { 250 250 }
+							light_infantry = { 500 500 }
+							heavy_infantry = { 450 450 }
+							pikemen = { 350 350 }
 							archers = { 150 150 }
 						}
 						attrition = 0.5
@@ -1725,9 +1725,9 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV
 							troops = {
-								light_infantry = { 500 500 }
-								heavy_infantry = { 350 350 }
-								pikemen = { 350 350 }
+								light_infantry = { 550 550 }
+								heavy_infantry = { 450 450 }
+								pikemen = { 400 400 }
 								archers = { 200 200 }
 							}
 							attrition = 0.5
@@ -1767,7 +1767,7 @@ character_event = {
 				}
 			}
 			c_old_tyne = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -1794,7 +1794,7 @@ character_event = {
 				}
 			}
 			c_medcaut = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -1833,7 +1833,7 @@ character_event = {
 					}
 				}
 				county = {
-					reverse_war = {
+					reverse_unsafe_war = {
 						target = ROOT
 						casus_belli = county_conquest
 					}
@@ -2318,8 +2318,8 @@ character_event = {
 					owner = ROOT
 					earmark = north_angles_army_547 
 					troops = {
-						light_infantry = { 600 600 }
-						heavy_infantry = { 500 500 }
+						light_infantry = { 650 650 }
+						heavy_infantry = { 550 550 }
 					}
 					attrition = 1
 				}
@@ -2352,7 +2352,7 @@ character_event = {
 					owner = ROOT
 					troops = {
 						light_infantry = { 900 900 }
-						pikemen = { 700 700 }
+						pikemen = { 750 750 }
 						heavy_infantry = { 600 600 }
 						archers = { 200 200 }
 					}
@@ -2364,7 +2364,7 @@ character_event = {
 					earmark = north_angles_army_547 
 					owner = ROOT
 					troops = {
-						light_infantry = { 500 500 }
+						light_infantry = { 600 600 }
 						heavy_infantry = { 300 300 }
 					}
 					attrition = 0.75
@@ -2400,7 +2400,7 @@ character_event = {
 					owner = ROOT
 					troops = {
 						light_infantry = { 800 800 }
-						pikemen = { 700 700 }
+						pikemen = { 750 750 }
 						heavy_infantry = { 600 600 }
 						archers = { 500 500 }
 					}
@@ -2710,6 +2710,13 @@ character_event = {
 		ai = yes
 		#has_global_flag = anglian_north_invasion_547
 		year = 545
+		OR = {
+			NOT = { year = 570 }
+			AND = {
+				has_global_flag = anglian_north_invasion_559
+				NOT = { year = 585 }
+			}
+		}
 		independent = yes
 		NOT = { trait = foederate }
 		OR = {
@@ -2720,7 +2727,7 @@ character_event = {
 			}
 		}
 		war = no
-		prestige = 75
+		#prestige = 25
 		wealth = 25
 		any_realm_province = {
 			any_neighbor_province = {
@@ -3905,12 +3912,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_deira
 		capital_scope = {
@@ -3997,7 +4004,7 @@ character_event = {
 				}
 			}
 			c_delgovicia = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -4036,7 +4043,7 @@ character_event = {
 					}
 				}
 				county = {
-					reverse_war = {
+					reverse_unsafe_war = {
 						target = ROOT
 						casus_belli = county_conquest
 					}
@@ -10168,7 +10175,9 @@ character_event = {
 					}
 				}
 				if = {
-					limit = { province_id = 263	# Brinavae }
+					limit = { 
+						province_id = 263	# Brinavae 
+					}
 					county = {
 						add_claim = ROOT
 					}
@@ -11116,25 +11125,25 @@ character_event = {
 			modifier = {
 				factor = 1.5
 				top_liege = {
-					realm_size = 2
+					NOT = { num_of_count_titles_in_realm = 3 }
 				}
 			}
 			modifier = {
 				factor = 0.8
 				top_liege = {
-					realm_size = 5
+					num_of_count_titles_in_realm = 5
 				}
 			}
 			modifier = {
 				factor = 0.5
 				top_liege = {
-					realm_size = 10
+					num_of_count_titles_in_realm = 8
 				}
 			}
 			modifier = {
 				factor = 0.1
 				top_liege = {
-					realm_size = 20
+					num_of_count_titles_in_realm = 12
 				}
 			}
 		}
@@ -11462,12 +11471,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_lindsey
 		create_character = {
@@ -11490,16 +11499,16 @@ character_event = {
 				province = 1106 # Ad Abum
 				troops =
 				{
-					light_infantry = { 1000 1000 }
-					heavy_infantry = { 600 600 }
-					pikemen = { 500 500 }
-					archers = { 200 200 }
+					light_infantry = { 1100 1100 }
+					heavy_infantry = { 750 750 }
+					pikemen = { 600 600 }
+					archers = { 250 250 }
 				}
 				attrition = 1
 			}
 		}
 		c_lindum = {
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = county_conquest
 			}
@@ -11772,7 +11781,13 @@ character_event = {
 			clr_character_flag = ceint_proper_liege
 			clr_character_flag = bernicia_proper_liege
 			clr_character_flag = deira_proper_liege
-		}			
+		}
+		if = {
+			limit = { is_tributary = { type = foederati } }
+			suzerain = {
+				remove_tributary = ROOT
+			}
+		}
 	}
 	
 	option = {
@@ -11906,7 +11921,10 @@ character_event = {
 		}
 		event_target:proper_liege = {
 			reverse_imprison = ROOT
-			make_tributary = { who = ROOT tributary_type = foederati }
+			if = {
+				limit = { NOT = { is_tributary = { type = foederati } } }
+				make_tributary = { who = ROOT tributary_type = foederati }
+			}
 		}
 	}
 }
@@ -11942,6 +11960,12 @@ character_event = {
 			limit = { trait = foederate }
 			remove_trait = foederate
 		}
+		if = {
+			limit = { is_tributary = { type = foederati } }
+			suzerain = {
+				remove_tributary = ROOT
+			}
+		}		
 	}
 }
 
@@ -12480,12 +12504,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_cantia
 		create_character = {
@@ -12516,7 +12540,7 @@ character_event = {
 			}
 		}
 		c_durovernum = {
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = county_conquest
 			}
