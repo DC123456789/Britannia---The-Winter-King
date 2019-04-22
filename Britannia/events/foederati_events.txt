@@ -664,6 +664,45 @@ character_event = {
 	}
 }
 
+# Foederati of vassals get transferred to top liege
+character_event = {
+	id = foederati.22
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_saxon_army"
+	only_playable = yes
+	
+	hide_window = yes
+	
+	#is_triggered_only = yes
+	
+	trigger = {
+		is_tributary = { type = foederati }
+		suzerain = { independent = no }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_suzerain = {
+			save_event_target_as = former_suzerain
+			remove_tributary = ROOT
+			character_event = { id = foederati.8 }
+		}
+		event_target:former_suzerain = {
+			top_liege = {
+				make_tributary = { who = ROOT tributary_type = foederati }
+				character_event = { id = foederati.5 }
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
 ### FOEDERATI REVOCATION EVENTS ###
 
 # Foederate suzerain demands submission
