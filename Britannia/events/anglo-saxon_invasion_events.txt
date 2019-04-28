@@ -1190,7 +1190,7 @@ narrative_event = {
 
 ### NORTH ANGLIAN/NORTHUMBRIAN INVASIONS ###
 	
-## BERNICIAN REVOLT
+## BERNICIAN REVOLT/RISE OF BERNICIA
 
 # Angles of Bernicia give ultimatum
 character_event = {
@@ -1565,8 +1565,8 @@ character_event = {
 						province = PREVPREV 
 						troops = {
 							light_infantry = { 800 800 }
-							heavy_infantry = { 500 500 }
-							pikemen = { 350 350 }
+							heavy_infantry = { 650 650 }
+							pikemen = { 450 450 }
 							archers = { 200 200 }
 						}
 						attrition = 1
@@ -1576,8 +1576,8 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV 
 							troops = {
-								light_infantry = { 400 400 }
-								heavy_infantry = { 300 300 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 450 450 }
 								pikemen = { 250 250 }
 								archers = { 150 150 }
 							}
@@ -1587,6 +1587,7 @@ character_event = {
 				}
 			}
 		}
+		set_character_flag = bernicia_invader
 	}
 	option = {
 		trigger = {
@@ -1684,12 +1685,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_bernicia
 		capital_scope = {
@@ -1713,9 +1714,9 @@ character_event = {
 					spawn_unit = {
 						province = PREVPREV
 						troops = {
-							light_infantry = { 400 400 }
-							heavy_infantry = { 350 350 }
-							pikemen = { 250 250 }
+							light_infantry = { 550 550 }
+							heavy_infantry = { 450 450 }
+							pikemen = { 450 450 }
 							archers = { 150 150 }
 						}
 						attrition = 0.5
@@ -1725,9 +1726,9 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV
 							troops = {
-								light_infantry = { 500 500 }
-								heavy_infantry = { 350 350 }
-								pikemen = { 350 350 }
+								light_infantry = { 650 650 }
+								heavy_infantry = { 550 550 }
+								pikemen = { 450 450 }
 								archers = { 200 200 }
 							}
 							attrition = 0.5
@@ -1737,7 +1738,7 @@ character_event = {
 						province = PREVPREV
 						troops = {
 							light_infantry = { 600 600 }
-							heavy_infantry = { 500 500 }
+							heavy_infantry = { 550 550 }
 							pikemen = { 350 350 }
 							archers = { 350 350 }
 						}
@@ -1767,7 +1768,7 @@ character_event = {
 				}
 			}
 			c_old_tyne = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -1794,7 +1795,7 @@ character_event = {
 				}
 			}
 			c_medcaut = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -1833,7 +1834,7 @@ character_event = {
 					}
 				}
 				county = {
-					reverse_war = {
+					reverse_unsafe_war = {
 						target = ROOT
 						casus_belli = county_conquest
 					}
@@ -2318,8 +2319,8 @@ character_event = {
 					owner = ROOT
 					earmark = north_angles_army_547 
 					troops = {
-						light_infantry = { 600 600 }
-						heavy_infantry = { 500 500 }
+						light_infantry = { 650 650 }
+						heavy_infantry = { 550 550 }
 					}
 					attrition = 1
 				}
@@ -2352,7 +2353,7 @@ character_event = {
 					owner = ROOT
 					troops = {
 						light_infantry = { 900 900 }
-						pikemen = { 700 700 }
+						pikemen = { 750 750 }
 						heavy_infantry = { 600 600 }
 						archers = { 200 200 }
 					}
@@ -2364,7 +2365,7 @@ character_event = {
 					earmark = north_angles_army_547 
 					owner = ROOT
 					troops = {
-						light_infantry = { 500 500 }
+						light_infantry = { 600 600 }
 						heavy_infantry = { 300 300 }
 					}
 					attrition = 0.75
@@ -2400,7 +2401,7 @@ character_event = {
 					owner = ROOT
 					troops = {
 						light_infantry = { 800 800 }
-						pikemen = { 700 700 }
+						pikemen = { 750 750 }
 						heavy_infantry = { 600 600 }
 						archers = { 500 500 }
 					}
@@ -2695,7 +2696,7 @@ province_event = {
 		}
 	}
 }
-# Maintain effort
+# Maintain effort - Bernicia
 character_event = {
 	id = 313009
 	desc = "You're not supposed to see this..."
@@ -2710,6 +2711,13 @@ character_event = {
 		ai = yes
 		#has_global_flag = anglian_north_invasion_547
 		year = 545
+		OR = {
+			NOT = { year = 570 }
+			AND = {
+				has_global_flag = anglian_north_invasion_559
+				NOT = { year = 585 }
+			}
+		}
 		independent = yes
 		NOT = { trait = foederate }
 		OR = {
@@ -2720,7 +2728,7 @@ character_event = {
 			}
 		}
 		war = no
-		prestige = 75
+		#prestige = 25
 		wealth = 25
 		any_realm_province = {
 			any_neighbor_province = {
@@ -2775,7 +2783,7 @@ character_event = {
 						troops = {
 							light_infantry = { 600 600 }
 							pikemen = { 450 450 }
-							heavy_infantry = { 450 450 }
+							heavy_infantry = { 550 550 }
 							archers = { 500 500 }
 						}
 						attrition = 0.5
@@ -2785,9 +2793,9 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 500 500 }
+							light_infantry = { 750 750 }
 							pikemen = { 450 450 }
-							heavy_infantry = { 350 350 }
+							heavy_infantry = { 550 550 }
 							archers = { 450 450 }
 						}
 						attrition = 0.5
@@ -3799,8 +3807,8 @@ character_event = {
 						province = PREVPREV 
 						troops = {
 							light_infantry = { 600 600 }
-							heavy_infantry = { 250 250 }
-							pikemen = { 250 250 }
+							heavy_infantry = { 450 450 }
+							pikemen = { 350 350 }
 							archers = { 100 100 }
 						}
 						attrition = 1
@@ -3905,12 +3913,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_deira
 		capital_scope = {
@@ -3919,8 +3927,9 @@ character_event = {
 					province = PREV
 					troops = {
 						light_infantry = { 800 800 }
-						heavy_infantry = { 500 500 }
+						heavy_infantry = { 650 650 }
 						pikemen = { 500 500 }
+						archers = { 200 200 }
 					}
 					attrition = 1
 				}
@@ -3943,9 +3952,9 @@ character_event = {
 					spawn_unit = {
 						province = PREVPREV
 						troops = {
-							light_infantry = { 350 750 }
-							heavy_infantry = { 300 300 }
-							pikemen = { 250 250 }
+							light_infantry = { 550 550 }
+							heavy_infantry = { 350 350 }
+							pikemen = { 350 350 }
 							archers = { 150 150 }
 						}
 						attrition = 0.5
@@ -3955,10 +3964,10 @@ character_event = {
 						spawn_unit = {
 							province = PREVPREV
 							troops = {
-								light_infantry = { 400 400 }
-								heavy_infantry = { 300 300 }
+								light_infantry = { 500 500 }
+								heavy_infantry = { 350 350 }
 								pikemen = { 300 300 }
-								archers = { 100 100 }
+								archers = { 150 150 }
 							}
 							attrition = 0.5
 						}
@@ -3968,7 +3977,7 @@ character_event = {
 						troops = {
 							light_infantry = { 650 650 }
 							heavy_infantry = { 550 550 }
-							pikemen = { 350 350 }
+							pikemen = { 400 400 }
 							archers = { 350 350 }
 						}
 						attrition = 0.5
@@ -3997,7 +4006,7 @@ character_event = {
 				}
 			}
 			c_delgovicia = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = county_conquest
 				}
@@ -4036,7 +4045,7 @@ character_event = {
 					}
 				}
 				county = {
-					reverse_war = {
+					reverse_unsafe_war = {
 						target = ROOT
 						casus_belli = county_conquest
 					}
@@ -4901,11 +4910,11 @@ province_event = {
 			female = no
 			age = 32
 			attributes = {
-				martial = 10
-				diplomacy = 10
-				stewardship = 12
-				intrigue = 10
-				learning = 8
+				martial = 7
+				diplomacy = 5
+				stewardship = 8
+				intrigue = 9
+				learning = 6
 			}
 			trait = brilliant_strategist
 			trait = skilled_warrior
@@ -5530,10 +5539,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 400 400 }
-							archers = { 500 500 }
+							light_infantry = { 150 150 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 200 200 }
+							archers = { 250 250 }
 						}
 						attrition = 0.5
 					}
@@ -5542,10 +5551,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 1200 1200 }
+							light_infantry = { 1300 1300 }
+							pikemen = { 500 500 }
 							heavy_infantry = { 800 800 }
-							archers = { 500 500 }
+							archers = { 650 650 }
 						}
 						disband_on_peace = yes
 						attrition = 0.5
@@ -5628,10 +5637,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 400 400 }
-							archers = { 500 500 }
+							light_infantry = { 150 150 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 200 200 }
+							archers = { 250 250 }
 						}
 						attrition = 0.5
 					}
@@ -5640,10 +5649,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 1200 1200 }
+							light_infantry = { 1300 1300 }
+							pikemen = { 500 500 }
 							heavy_infantry = { 800 800 }
-							archers = { 500 500 }
+							archers = { 650 650 }
 						}
 						disband_on_peace = yes
 						attrition = 0.5
@@ -5765,10 +5774,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 400 400 }
-							archers = { 500 500 }
+							light_infantry = { 150 150 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 200 200 }
+							archers = { 250 250 }
 						}
 						attrition = 0.5
 					}
@@ -5777,13 +5786,29 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 1200 1200 }
-							heavy_infantry = { 800 800 }
-							archers = { 500 500 }
+							light_infantry = { 750 750 }
+							pikemen = { 250 250 }
+							heavy_infantry = { 400 400 }
+							archers = { 325 325 }
 						}
 						disband_on_peace = yes
 						attrition = 0.5
+					}
+					if = {
+						limit = { NOT = { has_global_flag = west_saxon_invasion_hampshire } }
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 750 750 }
+								pikemen = { 500 500 }
+								heavy_infantry = { 400 400 }
+								archers = { 325 325 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -6747,7 +6772,7 @@ province_event = {
 		}
 	}
 }
-# Maintain effort
+# Maintain effort - Norfolk/Suffolk
 character_event = {
 	id = 313304
 	desc = "You're not supposed to see this..."
@@ -10168,7 +10193,9 @@ character_event = {
 					}
 				}
 				if = {
-					limit = { province_id = 263	# Brinavae }
+					limit = { 
+						province_id = 263	# Brinavae 
+					}
 					county = {
 						add_claim = ROOT
 					}
@@ -10213,9 +10240,9 @@ character_event = {			# Spawn troops
 						earmark = hwiccas_army_577
 						troops = {
 								archers = { 200 200 }
-								light_infantry = { 550 550 }
-								pikemen = { 500 500 }
-								heavy_infantry = { 750 750 }
+								light_infantry = { 650 650 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 550 550 }
 						}
 						attrition = 0.5
 					}
@@ -10249,10 +10276,10 @@ character_event = {			# Spawn troops
 							owner = ROOT
 							earmark = hwiccas_army_577 
 							troops = {
-								light_infantry = { 700 700 }
-								pikemen = { 1100 1100 }
-								heavy_infantry = { 1000 1000 }
-								archers = { 700 700 }
+								light_infantry = { 1100 1100 }
+								pikemen = { 900 900 }
+								heavy_infantry = { 900 900 }
+								archers = { 550 550 }
 							}
 							attrition = 0.25
 						}
@@ -10284,10 +10311,10 @@ character_event = {			# Spawn troops
 						earmark = hwiccas_army_577 
 						owner = ROOT
 						troops = {
-							archers = { 200 200 }
-							light_infantry = { 800 800 }
-							pikemen = { 1300 1300 }
-							heavy_infantry = { 1000 1000 }
+							archers = { 350 350 }
+							light_infantry = { 900 900 }
+							pikemen = { 700 700 }
+							heavy_infantry = { 750 750 }
 						}
 						attrition = 0.75
 					}
@@ -10317,10 +10344,10 @@ character_event = {			# Spawn troops
 						earmark = hwiccas_army_577 
 						owner = ROOT
 						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 700 700 }
-							heavy_infantry = { 1000 1000 }
-							archers = { 500 500 }
+							light_infantry = { 800 800 }
+							pikemen = { 650 650 }
+							heavy_infantry = { 750 750 }
+							archers = { 450 450 }
 						}
 						attrition = 0.75
 					}
@@ -10587,10 +10614,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 300 300 }
-							heavy_infantry = { 250 250 }
-							archers = { 250 250 }
+							light_infantry = { 350 350 }
+							pikemen = { 250 250 }
+							heavy_infantry = { 200 200 }
+							archers = { 150 150 }
 						}
 						attrition = 0.5
 					}
@@ -10599,15 +10626,15 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 800 800 }
-							pikemen = { 600 600 }
-							heavy_infantry = { 550 550 }
-							archers = { 500 500 }
+							light_infantry = { 700 700 }
+							pikemen = { 550 550 }
+							heavy_infantry = { 450 450 }
+							archers = { 350 350 }
 						}
 						disband_on_peace = yes
 						attrition = 0.5
 					}
-					wealth = 100
+					wealth = 30
 				}
 			}
 		}
@@ -10689,10 +10716,10 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 300 300 }
-							heavy_infantry = { 250 250 }
-							archers = { 250 250 }
+							light_infantry = { 350 350 }
+							pikemen = { 250 250 }
+							heavy_infantry = { 200 200 }
+							archers = { 150 150 }
 						}
 						attrition = 0.5
 					}
@@ -10701,15 +10728,15 @@ character_event = {
 						home = PREV
 						owner = ROOT
 						troops = {
-							light_infantry = { 800 800 }
-							pikemen = { 600 600 }
-							heavy_infantry = { 550 550 }
-							archers = { 500 500 }
+							light_infantry = { 700 700 }
+							pikemen = { 550 550 }
+							heavy_infantry = { 450 450 }
+							archers = { 350 350 }
 						}
 						disband_on_peace = yes
 						attrition = 0.5
 					}
-					wealth = 100
+					wealth = 30
 				}
 			}
 		}
@@ -11116,25 +11143,25 @@ character_event = {
 			modifier = {
 				factor = 1.5
 				top_liege = {
-					realm_size = 2
+					NOT = { num_of_count_titles_in_realm = 3 }
 				}
 			}
 			modifier = {
 				factor = 0.8
 				top_liege = {
-					realm_size = 5
+					num_of_count_titles_in_realm = 5
 				}
 			}
 			modifier = {
 				factor = 0.5
 				top_liege = {
-					realm_size = 10
+					num_of_count_titles_in_realm = 8
 				}
 			}
 			modifier = {
 				factor = 0.1
 				top_liege = {
-					realm_size = 20
+					num_of_count_titles_in_realm = 12
 				}
 			}
 		}
@@ -11357,12 +11384,13 @@ narrative_event = {
 				province = 1106 # Ad Anum
 				troops =
 				{
-					light_infantry = { 700 700 }
-					heavy_infantry = { 550 550 }
-					pikemen = { 400 400 }
-					archers = { 300 300 }
+					light_infantry = { 1400 1400 }
+					heavy_infantry = { 950 950 }
+					pikemen = { 850 850 }
+					archers = { 550 550 }
 				}
 				attrition = 0.5
+				maintenance_multiplier = 0.5
 			}
 		}
 	}
@@ -11462,12 +11490,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_lindsey
 		create_character = {
@@ -11490,16 +11518,16 @@ character_event = {
 				province = 1106 # Ad Abum
 				troops =
 				{
-					light_infantry = { 1000 1000 }
-					heavy_infantry = { 600 600 }
-					pikemen = { 500 500 }
-					archers = { 200 200 }
+					light_infantry = { 1100 1100 }
+					heavy_infantry = { 850 850 }
+					pikemen = { 700 700 }
+					archers = { 350 350 }
 				}
 				attrition = 1
 			}
 		}
 		c_lindum = {
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = county_conquest
 			}
@@ -11772,7 +11800,13 @@ character_event = {
 			clr_character_flag = ceint_proper_liege
 			clr_character_flag = bernicia_proper_liege
 			clr_character_flag = deira_proper_liege
-		}			
+		}
+		if = {
+			limit = { is_tributary = { type = foederati } }
+			suzerain = {
+				remove_tributary = ROOT
+			}
+		}
 	}
 	
 	option = {
@@ -11826,6 +11860,7 @@ character_event = {
 			limit = { has_province_modifier = anglosaxon_settlement }
 			remove_province_modifier = anglosaxon_settlement
 		}
+		set_character_flag = bernicia_invader
 	}
 	
 	option = {
@@ -11906,7 +11941,10 @@ character_event = {
 		}
 		event_target:proper_liege = {
 			reverse_imprison = ROOT
-			make_tributary = { who = ROOT tributary_type = foederati }
+			if = {
+				limit = { NOT = { is_tributary = { type = foederati } } }
+				make_tributary = { who = ROOT tributary_type = foederati }
+			}
 		}
 	}
 }
@@ -11921,7 +11959,26 @@ character_event = {
 	
 	is_triggered_only = yes
 	
-	immediate = {
+	option = {
+		name = "EVTOPTA313040"
+		prestige = 50
+		if = {
+			limit = { trait = foederate }
+			remove_trait = foederate
+		}
+		if = {
+			limit = { is_tributary = { type = foederati } }
+			suzerain = {
+				remove_tributary = ROOT
+			}
+		}
+		if = {
+			limit = { has_character_flag = foederate_revolt_bernicia }
+			set_character_flag = bernicia_invader
+		}
+	}
+	
+	after = {
 		clr_character_flag = foederate_revolt
 		clr_character_flag = foederate_revolt_lindsey
 		clr_character_flag = foederate_revolt_cantia
@@ -11933,15 +11990,6 @@ character_event = {
 			clr_character_flag = bernicia_proper_liege
 			clr_character_flag = deira_proper_liege
 		}			
-	}
-	
-	option = {
-		name = "EVTOPTA313040"
-		prestige = 50
-		if = {
-			limit = { trait = foederate }
-			remove_trait = foederate
-		}
 	}
 }
 
@@ -12480,12 +12528,12 @@ character_event = {
 			limit = { independent = no }
 			set_defacto_liege = THIS
 		}
-		if = {
-			limit = { independent = yes }
-			suzerain = {
-				remove_tributary = ROOT
-			}
-		}
+		# if = {
+			# limit = { independent = yes }
+			# suzerain = {
+				# remove_tributary = ROOT
+			# }
+		# }
 		set_character_flag = foederate_revolt
 		set_character_flag = foederate_revolt_cantia
 		create_character = {
@@ -12516,7 +12564,7 @@ character_event = {
 			}
 		}
 		c_durovernum = {
-			reverse_war = {
+			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = county_conquest
 			}
@@ -15749,7 +15797,7 @@ character_event = {
 	immediate = {
 		ROOT = {
 			top_liege = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = bid_for_independence
 				}
@@ -15848,7 +15896,7 @@ character_event = {
 	immediate = {
 		ROOT = {
 			top_liege = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = bid_for_independence
 				}
@@ -15886,6 +15934,7 @@ character_event = {
 							heavy_infantry = { 450 450 }
 							archers = { 250 250 }
 						}
+						disband_on_peace = yes
 						attrition = 0.5
 					}
 				}
@@ -15967,7 +16016,7 @@ character_event = {
 	immediate = {
 		ROOT = {
 			top_liege = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = bid_for_independence
 				}
@@ -16059,7 +16108,7 @@ character_event = {
 	immediate = {
 		ROOT = {
 			top_liege = {
-				reverse_war = {
+				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = bid_for_independence
 				}
