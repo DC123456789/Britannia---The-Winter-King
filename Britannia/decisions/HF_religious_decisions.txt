@@ -2311,20 +2311,19 @@ settlement_decisions = {
 				}
 				AND = { 
 					holding_type = temple #Irminsul 
-					location = { province = 862 }
+					location = { 
+						OR = {
+							province = 862 
+							province = 1068 
+						}
+					}
 				}
 			}
 			location = { 
 				OR = { 
 					has_province_flag = flag_great_pillar_norse_irminsul
-					has_province_flag = flag_great_pillar_briton
-					has_province_flag = flag_great_pillar_pict
-					has_province_flag = flag_great_pillar_gael
 					has_province_flag = flag_great_pillar_norse
-					has_province_flag = flag_great_pillar_germanic
-					has_province_flag = flag_great_pillar_frankish
-					has_province_flag = flag_great_pillar_suebic
-					has_province_flag = flag_great_pillar_gothic
+					has_province_flag = flag_great_pillar_celtic
 					has_province_flag = flag_great_pillar_alan
 					has_province_flag = flag_great_pillar_tengri
 					has_province_flag = flag_great_pillar_vasconic
@@ -2359,7 +2358,7 @@ settlement_decisions = {
 						clr_province_flag = flag_great_pillar_norse_irminsul
 					}
 					any_realm_character = {
-						limit = { religion = norse_pagan }
+						limit = { is_unreformed_germanic_pagan_trigger = yes }
 						character_event = { id = HF.23477 }
 					}
 				}
@@ -2369,15 +2368,39 @@ settlement_decisions = {
 						years = 10
 					}
 				}
+				germanic_pagan = {
+					religion_authority = {
+						modifier = destroyed_great_pillar
+						years = 10
+					}
+				}
+				frankish_pagan = {
+					religion_authority = {
+						modifier = destroyed_great_pillar
+						years = 10
+					}
+				}
+				suebic_pagan = {
+					religion_authority = {
+						modifier = destroyed_great_pillar
+						years = 10
+					}
+				}
+				gothic_pagan = {
+					religion_authority = {
+						modifier = destroyed_great_pillar
+						years = 10
+					}
+				}
 			}
 			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_briton } }
+				limit = { location = { has_province_flag = flag_great_pillar_celtic } }
 				hidden_tooltip = {
 					location = {
-						clr_province_flag = flag_great_pillar_briton
+						clr_province_flag = flag_great_pillar_celtic
 					}
 					any_realm_character = {
-						limit = { religion = briton_pagan }
+						limit = { is_unreformed_celtic_pagan_trigger = yes }
 						character_event = { id = HF.23477 }
 					}
 				}
@@ -2387,37 +2410,7 @@ settlement_decisions = {
 						years = 10
 					}
 				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_pict } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_pict
-					}
-					any_realm_character = {
-						limit = { religion = pict_pagan }
-						character_event = { id = HF.23477 }
-					}
-				}
 				pict_pagan = {
-					religion_authority = {
-						modifier = destroyed_great_pillar
-						years = 10
-					}
-				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_gael } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_gael
-					}
-					any_realm_character = {
-						limit = { religion = gael_pagan }
-						character_event = { id = HF.23477 }
-					}
-				}
-				gael_pagan = {
 					religion_authority = {
 						modifier = destroyed_great_pillar
 						years = 10
@@ -2431,7 +2424,7 @@ settlement_decisions = {
 						clr_province_flag = flag_great_pillar_norse
 					}
 					any_realm_character = {
-						limit = { religion = norse_pagan }
+						limit = { is_unreformed_germanic_pagan_trigger = yes }
 						character_event = { id = HF.23477 }
 					}
 				}
@@ -2441,34 +2434,10 @@ settlement_decisions = {
 						years = 10
 					}
 				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_germanic } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_germanic
-					}
-					any_realm_character = {
-						limit = { religion = germanic_pagan }
-						character_event = { id = HF.23477 }
-					}
-				}
 				germanic_pagan = {
 					religion_authority = {
 						modifier = destroyed_great_pillar
 						years = 10
-					}
-				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_frankish } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_frankish
-					}
-					any_realm_character = {
-						limit = { religion = frankish_pagan }
-						character_event = { id = HF.23477 }
 					}
 				}
 				frankish_pagan = {
@@ -2477,34 +2446,10 @@ settlement_decisions = {
 						years = 10
 					}
 				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_suebic } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_suebic
-					}
-					any_realm_character = {
-						limit = { religion = suebic_pagan }
-						character_event = { id = HF.23477 }
-					}
-				}
 				suebic_pagan = {
 					religion_authority = {
 						modifier = destroyed_great_pillar
 						years = 10
-					}
-				}
-			}
-			if = {
-				limit = { location = { has_province_flag = flag_great_pillar_gothic } }
-				hidden_tooltip = {
-					location = {
-						clr_province_flag = flag_great_pillar_gothic
-					}
-					any_realm_character = {
-						limit = { religion = gothic_pagan }
-						character_event = { id = HF.23477 }
 					}
 				}
 				gothic_pagan = {

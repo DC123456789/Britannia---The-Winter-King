@@ -13667,18 +13667,41 @@ character_event = {
 		is_alternate_start = no 
 		NOT = { year = 774 }
 		has_landed_title = c_nithersi
-		is_unreformed_germanic_pagan_trigger = yes #Could be ruler-designed.
+		#is_unreformed_germanic_pagan_trigger = yes #Could be ruler-designed.
 	}
 	immediate = { 
-		862 = { 
-			set_province_flag = flag_great_pillar_norse_irminsul
+		if = {
+			limit = { is_unreformed_germanic_pagan_trigger = yes }
+			862 = { 
+				set_province_flag = flag_great_pillar_norse_irminsul
+			}
+			b_nithersichurch = { 
+				add_building = tp_great_pillar_norse
+			}
+			religion_authority = {
+				modifier = built_great_pillar
+				years = 50
+			}
 		}
-		b_nithersichurch = { 
-			add_building = tp_great_pillar_norse
-		}
-		religion_authority = {
-			modifier = built_great_pillar
-			years = 50
+		c_fritzlar = {
+			holder_scope = {
+				if = {
+					limit = { 
+						is_unreformed_germanic_pagan_trigger = yes 
+						NOT = { year = 724 }
+					}
+					1068 = { 
+						set_province_flag = flag_great_pillar_norse_irminsul
+					}
+					b_fritzlartemple = { 
+						add_building = tp_great_pillar_norse
+					}
+					religion_authority = {
+						modifier = built_great_pillar
+						years = 50
+					}
+				}
+			}
 		}
 	}
 }
