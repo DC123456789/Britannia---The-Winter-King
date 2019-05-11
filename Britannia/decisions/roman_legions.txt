@@ -785,4 +785,89 @@ decisions = {
 			factor = 1
 		}
 	}
+	create_classis_britannica = {
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 12
+		
+		potential = {
+			is_roman_emperor_trigger = yes
+			NOT = { has_earmarked_regiments = classis_britannica }
+			d_classis_britannica = { has_holder = no }
+			OR = {
+				completely_controls = c_gesoriacum
+				completely_controls = c_portus_dubris
+			}
+			NOT = { has_character_flag = classis_britannica_raised }
+		}
+		allow = {
+			OR = {
+				completely_controls_region = custom_britannia_coast
+				completely_controls_region = custom_gaul_coast
+			}
+			wealth = 500
+			prestige = 3000
+			is_adult = yes	
+		}
+		effect = {
+			set_character_flag = classis_britannica_raised
+			wealth = -500
+			custom_tooltip = {
+				text = restore_classis_britannica_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 315871 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}	
+	reform_classis_britannica = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			#is_roman_emperor_trigger = yes
+			d_classis_britannica = {
+				holder_scope = {
+					liege = {
+						character = ROOT
+					}
+				}
+			}
+			NOT = { has_earmarked_regiments = classis_britannica }
+		}
+		allow = {
+			OR = {
+				completely_controls = c_gesoriacum
+				completely_controls = c_portus_dubris
+			}
+			wealth = 250
+			prestige = 300
+			is_adult = yes	
+		}
+		effect = {
+			wealth = -250
+			if = {
+				limit = { completely_controls = c_gesoriacum }
+				88 = {		# Gesoriacum/Bononia
+					ROOT = {
+						spawn_classis_britannica = yes
+					}
+				}
+			}
+			else = {
+				46 = {		# Portus Dubris
+					ROOT = {
+						spawn_classis_britannica = yes
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }	

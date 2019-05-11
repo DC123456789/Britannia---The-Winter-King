@@ -4286,6 +4286,19 @@ spawn_legio_VI_gallicana = {
 		earmark = legio_six_gallicana
 	}
 }
+spawn_classis_britannica = {
+	spawn_unit = {
+		province = PREV
+		troops = {
+			galleys = { 60 60 }
+		}
+		#attrition = 1.0
+		reinforces = yes
+		maintenance_multiplier = 0.85
+		reinforce_rate_multiplier = 1.25
+		earmark = classis_britannica
+	}
+}
 
 ROOT_rebel_spawn_held_legion_at_capital = {
 	if = {
@@ -4418,6 +4431,19 @@ ROOT_rebel_spawn_held_legion_at_capital = {
 			}
 		}
 	}
+	if = {
+		limit = { 
+			has_landed_title = d_classis_britannica 
+			ROOT = { liege_before_war = { has_earmarked_regiments = classis_britannica } }
+		}
+		ROOT = {
+			capital_scope = {
+				ROOT = {
+					spawn_classis_britannica = yes
+				}
+			}
+		}
+	}
 }
 
 disband_held_rebel_legion_from_ROOT = {
@@ -4513,6 +4539,15 @@ disband_held_rebel_legion_from_ROOT = {
 			}
 			ROOT = {
 				disband_event_forces = legio_six_gallicana
+			}
+		}
+		if = {
+			limit = { 
+				has_landed_title = d_classis_britannica 
+				ROOT = { has_earmarked_regiments = classis_britannica }
+			}
+			ROOT = {
+				disband_event_forces = classis_britannica
 			}
 		}
 	}
@@ -4687,6 +4722,23 @@ ROOT_respawn_held_rebel_legion = {
 			capital_scope = {
 				ROOT = {
 					spawn_legio_VI_gallicana = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_landed_title = d_classis_britannica 
+			any_playable_ruler = { has_earmarked_regiments = classis_britannica }
+		}
+		any_playable_ruler = {
+			limit = { has_earmarked_regiments = classis_britannica }
+			disband_event_forces = classis_britannica
+		}
+		event_target:former_rebel = {
+			capital_scope = {
+				ROOT = {
+					spawn_classis_britannica = yes
 				}
 			}
 		}

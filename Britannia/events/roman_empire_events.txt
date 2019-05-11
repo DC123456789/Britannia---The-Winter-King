@@ -4244,6 +4244,94 @@ narrative_event = {
 	}
 }
 
+# Creation of the Legio XII Victrix
+narrative_event = {
+	id = 315871
+	title = "EVTNAME315871"
+	desc = "EVTDESC315871"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_roman_ship"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA315871
+		trigger = {
+			has_character_flag = classis_britannica_raised
+		}
+		clr_character_flag = classis_britannica_raised
+		d_classis_britannica = {
+			if = {
+				limit = { completely_controls = c_gesoriacum }
+				88 = {		# Gesoriacum/Bononia
+					ROOT = {
+						spawn_classis_britannica = yes
+					}
+				}
+			}
+			else = {
+				46 = {		# Portus Dubris
+					ROOT = {
+						spawn_classis_britannica = yes
+					}
+				}
+			}
+			activate_title = {
+				title = d_classis_britannica
+				status = yes
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				employer = ROOT
+				religion = ROOT
+				culture = romanogallic
+				female = no
+				age = 29
+				attributes = {
+					martial = 7
+					diplomacy = 5
+				}
+				trait = skilled_tactician
+				trait = skilled_warrior
+				trait = veteran
+				trait = roman_trained
+			}
+			new_character = {
+				d_classis_britannica = {
+					gain_title = PREV
+					gender_succ = agnatic
+					succession_w_cooldown = open_elective
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA315868"
+		trigger = {
+			OR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = classis_britannica_raised }
+		}	
+	}
+	
+	option = {
+		name = "EVTOPTB315868"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = { has_character_flag = classis_britannica_raised }
+		}	
+	}
+}
+
 # Legion destroyed
 character_event = {
 	id = 315900
@@ -4331,6 +4419,16 @@ character_event = {
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_six_gallicana }
 					NOT = { completely_controls = c_mogontiacum }
+				}
+			}
+			AND = {
+				has_landed_title = d_classis_britannica
+				liege = { 
+					NOT = { has_earmarked_regiments = classis_britannica }
+					NOR = { 
+						completely_controls = c_gesoriacum 
+						completely_controls = c_portus_dubris
+					}
 				}
 			}
 		}
@@ -4428,6 +4526,16 @@ narrative_event = {
 				liege = { 
 					NOT = { has_earmarked_regiments = legio_six_gallicana }
 					NOT = { completely_controls = c_mogontiacum }
+				}
+			}
+			AND = {
+				has_landed_title = d_classis_britannica
+				liege = { 
+					NOT = { has_earmarked_regiments = classis_britannica }
+					NOR = { 
+						completely_controls = c_gesoriacum 
+						completely_controls = c_portus_dubris
+					}
 				}
 			}
 		}
@@ -5791,6 +5899,34 @@ character_event = {
 							capital_scope = {
 								ROOT = {
 									spawn_legio_VI_gallicana = yes
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						has_landed_title = d_classis_britannica 
+					}
+					if = {
+						limit = { event_target:previous_ruler = { has_earmarked_regiments = classis_britannica } }
+						event_target:previous_ruler = {
+							capital_scope = {
+								ROOT = {
+									spawn_classis_britannica = yes
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = { 
+							ROOT = { has_character_flag = check_rebel_leader_for_legions }
+							event_target:previous_rebel_leader = { has_earmarked_regiments = classis_britannica } 
+						}
+						event_target:previous_rebel_leader = {
+							capital_scope = {
+								ROOT = {
+									spawn_classis_britannica = yes
 								}
 							}
 						}
