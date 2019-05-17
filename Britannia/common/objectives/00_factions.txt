@@ -4168,14 +4168,14 @@ faction_independence = {
 					}
 				}
 			}
-			NOT = {
-				AND = {
-					has_landed_title = e_aengland
-					ROOT = {
-						is_ingvaeonic_culture_trigger = yes
-					}
-				}
-			}
+			# NOT = {
+				# AND = {
+					# has_landed_title = e_aengland
+					# ROOT = {
+						# is_ingvaeonic_culture_trigger = yes
+					# }
+				# }
+			# }
 
 			# Not allowed to start factions like this if our capital borders the liege's capital
 			OR = {
@@ -5759,7 +5759,7 @@ faction_claimant = {
 	
 	# Target scope
 	allow = {
-		NOT = { title = e_britannia }
+		#NOT = { title = e_britannia }
 		NOT = { title = e_aengland }
 		OR = {
 			is_primary_holder_title = yes
@@ -5771,19 +5771,21 @@ faction_claimant = {
 			NOT = { is_vassal_or_below = FROM }
 			
 			OR = {
-				is_female = no
-				AND = {
-					NOT = { religion_group = muslim } 
-					NOT = { ROOT = { succ_law_title = { has_law = agnatic_succession } } }
-					NOT = { has_religion_feature = religion_patriarchal }
+				OR = {
+					is_female = no
+					AND = {
+						NOT = { religion_group = muslim } 
+						NOT = { ROOT = { succ_law_title = { has_law = agnatic_succession } } }
+						NOT = { has_religion_feature = religion_patriarchal }
+					}
 				}
-			}
-			OR = {
-				is_female = yes
-				AND = {
-					NOT = { religion_group = muslim } 
-					NOT = { ROOT = { succ_law_title = { has_law = enatic_succession } } }
-					NOT = { has_religion_feature = religion_matriarchal }
+				OR = {
+					is_female = yes
+					AND = {
+						NOT = { religion_group = muslim } 
+						NOT = { ROOT = { succ_law_title = { has_law = enatic_succession } } }
+						NOT = { has_religion_feature = religion_matriarchal }
+					}
 				}
 			}
 			

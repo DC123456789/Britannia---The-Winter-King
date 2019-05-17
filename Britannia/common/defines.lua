@@ -1141,7 +1141,13 @@ NEconomy = {
 	FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 1,		-- If set to 1 then fort holdings are consumed by the construction of another holding in the province while giving a discount to the construction cost in return.
 	WONDER_ABORT_FIRST_STAGE_RETURN_FACTOR = 0.0,	-- Factor for the amount the owner of a wonder gets when they abort the first stage of a wonder construction
 	WONDER_STACKING_PENALTY = 0.4,					-- Additional cost for each consecutive wonder construction
-	WONDER_STACKING_PENALTY_SAME_TYPE = 0.8			-- Extra penalty for construction wonders of the same type
+	WONDER_STACKING_PENALTY_SAME_TYPE = 0.8,			-- Extra penalty for construction wonders of the same type
+	BASE_COURT_LIMIT_COUNT = 16, 					-- Base amount of unlanded characters and councillors allowed to reside in your court before you need to pay upkeep.
+	BASE_COURT_LIMIT_DUKE = 20,
+	BASE_COURT_LIMIT_KING = 25,
+	BASE_COURT_LIMIT_EMPEROR = 30,
+	OVERSIZED_COURT_UPKEEP_COST = 0.045,			-- Amount of ducats paid per month for the upkeep of each courtier above the court limit.
+	OVERSIZED_COURT_PRESTIGE_GAIN = 0.027,			-- Amount of prestige gained per month for each courtier above the court limit.
 },
 
 NDecadence = {
@@ -1861,7 +1867,6 @@ NLearningScenario =
 	AFTER_REVOLT_EVENT = 107250,
 	FABRICATE_CLAIM_PROVINCE = 849,
 	FABRICATE_CLAIM_EVENT = 913,
-	HAS_CLAIM_EVENT = 107300,
 	WAR_EVENT = 107301,
 	SIEGE_EVENT = 107306,
 	CAN_PEACE_EVENT = 107310,
@@ -1888,7 +1893,7 @@ NLearningScenario =
 
 NWonders =
 {
-	MIN_LOOTABLE_STAGE = 2, -- The stage set here will be lootable but looting will automagically stop at after it has been looted and no looting will be possible below this stage
+	MIN_LOOTABLE_STAGE = 2, -- The stage set here will be lootable, but looting will automagically stop at after it has been looted and no looting will be possible below this stage
 	CONVERTER_IGNORE_HISTORICAL_WONDERS = 1, -- If set to one then the historical wonders will not be transfered through the EU4 converter even if they have finished the final stage of construction.
 	NON_CONCLAVE_COST_MULTIPLIER = 0.6 -- Without the Conclave tax laws the independent rulers will have significantly less income.
 }
