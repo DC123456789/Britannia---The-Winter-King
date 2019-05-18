@@ -59,6 +59,7 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 		
+		job_event_mtth_modifier_intrigue_score = yes
 		modifier = {
 			factor = 1.1
 			NOT = { opinion = { who = liege value = -100 } }
@@ -90,38 +91,6 @@ character_event = {
 		modifier = {
 			factor = 0.95
 			opinion = { who = liege value = 100 }
-		}	
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 13
 		}
 	}
 	
@@ -187,6 +156,15 @@ character_event = {
 					death = {
 						death_reason = death_murder
 						killer = ROOT
+					}
+					FROM = {
+						liege = {
+							opinion = {
+								who = ROOT
+								modifier = opinion_dishonorable
+								months = 60
+							}
+						}
 					}
 				}
 				50 = {
@@ -331,39 +309,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 120
-		
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 10
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 11
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 12
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 13
-		}
+		job_event_mtth_modifier_inverted_intrigue_score = yes
 	}
 	
 	immediate = {
@@ -389,7 +335,7 @@ character_event = {
 	option = {
 		name = "EVTOPTA902"
 		trigger = {
-			NOT = { martial = 5 }
+			NOT = { combat_rating = 5 }
 		}
 		random_list = {
 			25 = { character_event = { id = 20310 tooltip = "EVTTOOLTIP20310" } }
@@ -407,10 +353,10 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTA902"
-		tooltip_info = martial
+		tooltip_info = combat_rating
 		trigger = {
-			martial = 5
-			NOT = { martial = 10 }
+			combat_rating = 5
+			NOT = { combat_rating = 10 }
 		}
 		random_list = {
 			35 = { character_event = { id = 20310 tooltip = "EVTTOOLTIP20310" } }
@@ -428,9 +374,9 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTA902"
-		tooltip_info = martial
+		tooltip_info = combat_rating
 		trigger = {
-			martial = 10
+			combat_rating = 10
 		}
 		random_list = {
 			50 = { character_event = { id = 20310 tooltip = "EVTTOOLTIP20310" } }
@@ -566,43 +512,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 110
-		
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 13
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 16
-		}
+		job_event_mtth_modifier_intrigue_score = yes
 	}
 	
 	immediate = {
@@ -1311,43 +1221,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 110
-		
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 13
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 16
-		}
+		job_event_mtth_modifier_intrigue_score = yes
 	}
 	
 	immediate = {
@@ -1847,6 +1721,8 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 180
+		job_event_mtth_modifier_intrigue_score = yes
+		job_event_mtth_modifier_learning_score = yes
 		
 		modifier = {
 			factor = 0.5
@@ -1898,90 +1774,6 @@ character_event = {
 		modifier = {
 			factor = 0.95
 			opinion = { who = liege value = 100 }
-		}	
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.85
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.85
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.85
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.85
-			intrigue = 13
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 14
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 15
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 17
-		}
-		modifier = {
-			factor = 0.95
-			intrigue = 19
-		}
-		modifier = {
-			factor = 0.95
-			intrigue = 21
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.85
-			learning = 10
-		}
-		modifier = {
-			factor = 0.85
-			learning = 12
-		}
-		modifier = {
-			factor = 0.85
-			learning = 14
-		}
-		modifier = {
-			factor = 0.85
-			learning = 15
-		}
-		modifier = {
-			factor = 0.9
-			learning = 16
-		}
-		modifier = {
-			factor = 0.9
-			learning = 17
 		}
 	}
 
@@ -2063,39 +1855,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 360
-		
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 10
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 11
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 12
-		}
-		modifier = {
-			factor = 1.25
-			intrigue = 13
-		}
+		job_event_mtth_modifier_inverted_intrigue_score = yes
 	}
 
 	option = {
@@ -2237,59 +1997,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 240
-		
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.85
-			intrigue = 13
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 14
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 15
-		}
-		modifier = {
-			factor = 0.9
-			intrigue = 17
-		}
-		modifier = {
-			factor = 0.95
-			intrigue = 19
-		}
-		modifier = {
-			factor = 0.95
-			intrigue = 21
-		}
+		job_event_mtth_modifier_intrigue_score = yes
 		modifier = {
 			factor = 1.1
 			NOT = { opinion = { who = liege value = -100 } }
@@ -2852,39 +2560,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 240
-		
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { intrigue = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 10
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 11
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 12
-		}
-		modifier = {
-			factor = 0.75
-			intrigue = 13
-		}
+		job_event_mtth_modifier_intrigue_score = yes
 	}
 	
 	option = {
