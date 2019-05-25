@@ -499,6 +499,12 @@ narrative_event = {
 		c_chiltern_hills = { de_jure_liege = d_cilternsaete }
 		c_magiovinium = { de_jure_liege = d_cilternsaete }
 		c_durocobrivis = { de_jure_liege = d_cilternsaete }
+		if = {
+			limit = {
+				NOT = { has_global_flag = southernboroughs_created }
+			}
+			c_durocobrivis = { de_jure_liege = d_cilternsaete }
+		}
 		
 		if = {
 			limit = { 
@@ -2399,7 +2405,7 @@ narrative_event = {
 		is_alternate_start = no
 		has_landed_title = d_southumbria
 		NOT = { has_global_flag = southumbria_created }
-		NOT = { has_global_flag = fiveboroughs_created }
+		NOT = { has_global_flag = jorvik_created }
 	}
 	
 	mean_time_to_happen = {
@@ -2809,15 +2815,20 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_godmundceaster = { de_jure_liege = d_grentbryce }
-		c_holme_fen = { de_jure_liege = d_grentbryce }
-		c_grantabrycge = { de_jure_liege = d_grentbryce }
-		c_ely = { de_jure_liege = d_grentbryce }
+		if = {
+			limit = { 
+				NOT = { has_global_flag = southernboroughs_created }
+			}
+			c_godmundceaster = { de_jure_liege = d_grentbryce }
+			c_holme_fen = { de_jure_liege = d_grentbryce }
+			c_grantabrycge = { de_jure_liege = d_grentbryce }
+			c_ely = { de_jure_liege = d_grentbryce }
+			c_durobrivae = { de_jure_liege = d_grentbryce }
+		}
 		if = {
 			limit = { 
 				NOT = { has_global_flag = fiveboroughs_created }
 			}
-			c_durobrivae = { de_jure_liege = d_grentbryce }
 			c_the_fens = { de_jure_liege = d_grentbryce }
 			c_holland = { de_jure_liege = d_grentbryce }
 		}
@@ -2887,10 +2898,13 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_nortwic = { de_jure_liege = d_norfolc }
-		c_elmham = { de_jure_liege = d_norfolc }
-		c_thetford = { de_jure_liege = d_norfolc }
-		c_swaffham = { de_jure_liege = d_norfolc }
+		if = {
+			limit = { NOT = { has_global_flag = daneanglia_created } }
+			c_nortwic = { de_jure_liege = d_norfolc }
+			c_elmham = { de_jure_liege = d_norfolc }
+			c_thetford = { de_jure_liege = d_norfolc }
+			c_swaffham = { de_jure_liege = d_norfolc }
+		}
 		
 		d_cantabrigia = { destroy_landed_title = d_cantabrigia }
 		set_global_flag = norfolc_created
@@ -2958,10 +2972,13 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_beodericsworth = { de_jure_liege = d_southfolc }
-		c_aldeburgh = { de_jure_liege = d_southfolc }
-		c_gippelwich = { de_jure_liege = d_southfolc }
-		c_ixworth = { de_jure_liege = d_southfolc }
+		if = {
+			limit = { NOT = { has_global_flag = daneanglia_created } }
+			c_beodericsworth = { de_jure_liege = d_southfolc }
+			c_aldeburgh = { de_jure_liege = d_southfolc }
+			c_gippelwich = { de_jure_liege = d_southfolc }
+			c_ixworth = { de_jure_liege = d_southfolc }
+		}
 		set_global_flag = southfolc_created
 		
 		if = {						# Creation by Bretwalda of Aenglaland
@@ -3027,9 +3044,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_londinium = { de_jure_liege = d_middleseaxe }
-		c_chester_forest = { de_jure_liege = d_middleseaxe }
-		c_verulanium = { de_jure_liege = d_middleseaxe }
+		if = {
+			limit = { NOT = { has_global_flag = daneessex_created } }
+			c_londinium = { de_jure_liege = d_middleseaxe }
+			c_chester_forest = { de_jure_liege = d_middleseaxe }
+			c_verulanium = { de_jure_liege = d_middleseaxe }
+		}
 		
 		d_lundein = { destroy_landed_title = THIS }
 		d_mincip = { destroy_landed_title = THIS }
@@ -3098,10 +3118,13 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_camulodunum = { de_jure_liege = d_eastseaxe }
-		c_dunmow = { de_jure_liege = d_eastseaxe }
-		c_thunreslea = { de_jure_liege = d_eastseaxe }
-		c_lukintune = { de_jure_liege = d_eastseaxe }
+		if = {
+			limit = { NOT = { has_global_flag = daneessex_created } }
+			c_camulodunum = { de_jure_liege = d_eastseaxe }
+			c_dunmow = { de_jure_liege = d_eastseaxe }
+			c_thunreslea = { de_jure_liege = d_eastseaxe }
+			c_lukintune = { de_jure_liege = d_eastseaxe }
+		}
 		
 		d_trinovantia = { destroy_landed_title = d_trinovantia }
 		set_global_flag = eastseaxe_created
@@ -22141,7 +22164,7 @@ narrative_event = {
 		name = "EVTOPTA320000"
 	}
 }
-# Creation of the Jarldom of the Five Burhs
+# Creation of the Jarldom of the Five Boroughs
 narrative_event = {
 	id = 320001
 	title = "EVTNAME320001"
@@ -22167,7 +22190,6 @@ narrative_event = {
 		c_vernemetum = { de_jure_liege = d_fiveboroughs }
 		c_ad_pontem = { de_jure_liege = d_fiveboroughs }
 		c_margidunum = { de_jure_liege = d_fiveboroughs }
-		c_durobrivae = { de_jure_liege = d_fiveboroughs }
 		c_the_fens = { de_jure_liege = d_fiveboroughs }
 		c_holland = { de_jure_liege = d_fiveboroughs }
 		c_lindum = { de_jure_liege = d_fiveboroughs }
@@ -22195,7 +22217,7 @@ narrative_event = {
 		name = "EVTOPTA320001"
 	}
 }
-# Creation of the Jarldom of Southburh
+# Creation of the Jarldom of the Southern Boroughs
 narrative_event = {
 	id = 320002
 	title = "EVTNAME320002"
@@ -22223,6 +22245,7 @@ narrative_event = {
 		c_grantabrycge = { de_jure_liege = d_southernboroughs }
 		c_ely = { de_jure_liege = d_southernboroughs }
 		c_gwash = { de_jure_liege = d_southernboroughs }
+		c_durobrivae = { de_jure_liege = d_southernboroughs }
 		c_bannaventa = { de_jure_liege = d_southernboroughs }
 		c_ciniubantum = { de_jure_liege = d_southernboroughs }
 		c_durocobrivis = { de_jure_liege = d_southernboroughs }
@@ -22237,7 +22260,7 @@ narrative_event = {
 		name = "EVTOPTA320002"
 	}
 }
-# Creation of the Jarldom of ?stanburh
+# Creation of the Jarldom of Ostanborg
 narrative_event = {
 	id = 320003
 	title = "EVTNAME320003"
@@ -22320,7 +22343,7 @@ narrative_event = {
 		name = "EVTOPTA320004"
 	}
 }
-# Creation of the Jarldom of Danish Lancaster
+# Creation of the Jarldom of Agmundrnes
 narrative_event = {
 	id = 320005
 	title = "EVTNAME320005"
@@ -26582,7 +26605,6 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 		if = {
 			limit = { has_global_flag = fiveboroughs_created }
 			c_vernemetum = { de_jure_liege = d_fiveboroughs }
-			c_durobrivae = { de_jure_liege = d_fiveboroughs }
 			c_the_fens = { de_jure_liege = d_fiveboroughs }
 			c_holland = { de_jure_liege = d_fiveboroughs }
 			c_lindum = { de_jure_liege = d_fiveboroughs }
@@ -26608,6 +26630,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_ely = { de_jure_liege = d_southernboroughs }
 			c_bannaventa = { de_jure_liege = d_southernboroughs }
 			c_gwash = { de_jure_liege = d_southernboroughs }
+			c_durobrivae = { de_jure_liege = d_southernboroughs }
 			c_ciniubantum = { de_jure_liege = d_southernboroughs }
 			c_durocobrivis = { de_jure_liege = d_southernboroughs }
 		}
