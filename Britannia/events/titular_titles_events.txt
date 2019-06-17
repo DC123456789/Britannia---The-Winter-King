@@ -4254,22 +4254,33 @@ narrative_event = {		# Salian Franks/Soissons
 		}
 		if = {			# Doornik
 			limit = {
-				d_hainault = { has_holder = no } 
-				is_landed_title_allowed = d_hainault
+				d_tournai = { has_holder = no } 
+				is_landed_title_allowed = d_tournai
 				NOT = { has_global_flag = hainault_created }
 			}
-			d_hainault = { grant_title = ROOT }
+			d_tournai = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
 		}
-		if = {			# Kamerijk
+		if = {			# Cambrai
 			limit = {
 				d_cambrai = { has_holder = no } 
 				is_landed_title_allowed = d_cambrai
 				NOT = { has_global_flag = cambrai_created }
 			}
 			d_cambrai = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Hainaut
+			limit = {
+				d_hainaut = { has_holder = no } 
+				is_landed_title_allowed = d_hainaut
+				NOT = { has_global_flag = hainaut_created }
+			}
+			d_hainaut = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -18443,7 +18454,7 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = d_hainault
+		has_landed_title = d_tournai
 		NOT = { has_global_flag = tournai_created }
 	}
 	
@@ -18452,13 +18463,13 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_tournai = { de_jure_liege = d_hainault }
-		c_kortrijk = { de_jure_liege = d_hainault }
-		c_origiacum = { de_jure_liege = d_hainault }
-		c_pons_scaldis = { de_jure_liege = d_hainault }
-		c_tamasiacum = { de_jure_liege = d_hainault }
-		c_landen = { de_jure_liege = d_hainault }
-		d_hainault = { de_jure_liege = k_franks }
+		c_tournai = { de_jure_liege = d_tournai }
+		c_kortrijk = { de_jure_liege = d_tournai }
+		c_origiacum = { de_jure_liege = d_tournai }
+		c_pons_scaldis = { de_jure_liege = d_tournai }
+		c_tamasiacum = { de_jure_liege = d_tournai }
+		c_landen = { de_jure_liege = d_tournai }
+		d_tournai = { de_jure_liege = k_franks }
 			
 		d_menapia = { 
 			destroy_landed_title = THIS			
@@ -18495,14 +18506,16 @@ narrative_event = {
 	
 	immediate = {
 		c_camaracum = { de_jure_liege = d_cambrai }
-		c_malboden = { de_jure_liege = d_cambrai }
-		c_namur = { de_jure_liege = d_cambrai }
 		c_helena = { de_jure_liege = d_cambrai }
 		c_austrebantum = { de_jure_liege = d_cambrai }
-		c_vodgoriacum = { de_jure_liege = d_cambrai }
-		c_mons = { de_jure_liege = d_cambrai }
 		d_cambrai = { de_jure_liege = k_franks }
 		
+		if = {
+			limit = { has_global_flag = hainaut_created }
+			d_nervia = { 
+				destroy_landed_title = THIS
+			}
+		}
 		d_nervia = { 
 			destroy_landed_title = THIS			
 		}
@@ -18720,6 +18733,49 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314240"
+	}
+}
+# Creation of the County of Hainaut
+narrative_event = {
+	id = 314241
+	title = "EVTNAME314241"
+	desc = "EVTDESC314241"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_summer_tree"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_hainaut
+		NOT = { has_global_flag = hainaut_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_malboden = { de_jure_liege = d_hainaut }
+		c_namur = { de_jure_liege = d_hainaut }
+		c_vodgoriacum = { de_jure_liege = d_hainaut }
+		c_mons = { de_jure_liege = d_hainaut }
+		d_hainaut = { de_jure_liege = k_franks }
+		
+		if = {
+			limit = { has_global_flag = cambrai_created }
+			d_nervia = { 
+				destroy_landed_title = THIS			
+			}
+		}
+		
+		set_global_flag = hainaut_created
+	}
+	
+	option = {
+		name = "EVTOPTA314225"
 	}
 }
 
@@ -24737,7 +24793,7 @@ narrative_event = {	# Rennes, Celmans/Maine, Bretland
 		name = "OK"
 	}
 }
-narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
+narrative_event = {	# Vermandois, Soissons, Cambrai, Hainaut, Artois/Artevatenland
 	id = 314283
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24758,6 +24814,7 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 			has_global_flag = rethel_created
 			has_global_flag = soissons_created
 			has_global_flag = cambrai_created
+			has_global_flag = hainaut_created
 			has_global_flag = artois_created
 		}
 		is_alternate_start = no
@@ -24779,12 +24836,15 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 		if = {
 			limit = { has_global_flag = cambrai_created }
 			c_camaracum = { de_jure_liege = d_cambrai }
-			c_malboden = { de_jure_liege = d_cambrai }
-			c_namur = { de_jure_liege = d_cambrai }
 			c_helena = { de_jure_liege = d_cambrai }
 			c_austrebantum = { de_jure_liege = d_cambrai }
-			c_vodgoriacum = { de_jure_liege = d_cambrai }
-			c_mons = { de_jure_liege = d_cambrai }
+		}
+		if = {
+			limit = { has_global_flag = hainaut_created }
+			c_malboden = { de_jure_liege = d_hainaut }
+			c_namur = { de_jure_liege = d_hainaut }
+			c_vodgoriacum = { de_jure_liege = d_hainaut }
+			c_mons = { de_jure_liege = d_hainaut }
 		}
 		if = {
 			limit = { has_global_flag = artois_created }
@@ -24841,12 +24901,12 @@ narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
 		}
 		if = {
 			limit = { has_global_flag = tournai_created }
-			c_tournai = { de_jure_liege = d_hainault }
-			c_kortrijk = { de_jure_liege = d_hainault }
-			c_origiacum = { de_jure_liege = d_hainault }
-			c_pons_scaldis = { de_jure_liege = d_hainault }
-			c_tamasiacum = { de_jure_liege = d_hainault }
-			c_landen = { de_jure_liege = d_hainault }
+			c_tournai = { de_jure_liege = d_tournai }
+			c_kortrijk = { de_jure_liege = d_tournai }
+			c_origiacum = { de_jure_liege = d_tournai }
+			c_pons_scaldis = { de_jure_liege = d_tournai }
+			c_tamasiacum = { de_jure_liege = d_tournai }
+			c_landen = { de_jure_liege = d_tournai }
 		}
 		if = {
 			limit = { has_global_flag = tongres_created }
