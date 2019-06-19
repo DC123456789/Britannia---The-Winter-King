@@ -4119,11 +4119,11 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 		}
 		if = {			# Toxandria
 			limit = {
-				d_bracbant = { has_holder = no } 
-				is_landed_title_allowed = d_bracbant
-				NOT = { has_global_flag = bracbant_created }
+				d_frankish_toxandria = { has_holder = no } 
+				is_landed_title_allowed = d_frankish_toxandria
+				NOT = { has_global_flag = frankish_toxandria_created }
 			}
-			d_bracbant = { grant_title = ROOT }
+			d_frankish_toxandria = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -4267,9 +4267,20 @@ narrative_event = {		# Salian Franks/Soissons
 			limit = {
 				d_tournai = { has_holder = no } 
 				is_landed_title_allowed = d_tournai
-				NOT = { has_global_flag = hainault_created }
+				NOT = { has_global_flag = tournai_created }
 			}
 			d_tournai = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Brabant
+			limit = {
+				d_brabant = { has_holder = no } 
+				is_landed_title_allowed = d_brabant
+				NOT = { has_global_flag = brabant_created }
+			}
+			d_brabant = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -13214,7 +13225,7 @@ narrative_event = {
 		d_ardennen = { de_jure_liege = k_franks }
 		if = {
 			limit = { NOT = { has_global_flag = franconia_created } }
-			d_bracbant = { de_jure_liege = k_franks }
+			d_frankish_toxandria = { de_jure_liege = k_franks }
 		}
 		d_porcien = { de_jure_liege = k_ripuarian_franks }
 		d_lotharingen = { de_jure_liege = k_ripuarian_franks }
@@ -14456,10 +14467,10 @@ narrative_event = {
 		d_cologne = { de_jure_liege = k_ripuarian_franks }
 		if = {
 			limit = { NOT = { has_global_flag = soissons_conquered } }
-			d_bracbant = { de_jure_liege = k_ripuarian_franks }
+			d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
 		}
 		else = {
-			d_bracbant = { de_jure_liege = k_franks }
+			d_frankish_toxandria = { de_jure_liege = k_franks }
 		}
 		clr_global_flag = franconia_created
 	}
@@ -18478,9 +18489,6 @@ narrative_event = {
 		c_tournai = { de_jure_liege = d_tournai }
 		c_kortrijk = { de_jure_liege = d_tournai }
 		c_origiacum = { de_jure_liege = d_tournai }
-		c_pons_scaldis = { de_jure_liege = d_tournai }
-		c_tamasiacum = { de_jure_liege = d_tournai }
-		c_landen = { de_jure_liege = d_tournai }
 		d_tournai = { de_jure_liege = k_franks }
 			
 		d_menapia = { 
@@ -18669,7 +18677,7 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = d_bracbant
+		has_landed_title = d_frankish_toxandria
 		NOT = { has_global_flag = frankish_toxandria_created }
 	}
 	
@@ -18678,16 +18686,16 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_toxandria = { de_jure_liege = d_bracbant }
-		c_teudurum = { de_jure_liege = d_bracbant }
-		c_elsenburg = { de_jure_liege = d_bracbant }
-		c_tilburg = { de_jure_liege = d_bracbant }
-		c_antwerp = { de_jure_liege = d_bracbant }
-		c_nijmegen = { de_jure_liege = d_bracbant }
-		#d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		c_toxandria = { de_jure_liege = d_frankish_toxandria }
+		c_teudurum = { de_jure_liege = d_frankish_toxandria }
+		c_elsenburg = { de_jure_liege = d_frankish_toxandria }
+		c_tilburg = { de_jure_liege = d_frankish_toxandria }
+		c_antwerp = { de_jure_liege = d_frankish_toxandria }
+		c_nijmegen = { de_jure_liege = d_frankish_toxandria }
+		#d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
 		#if = {
 			#limit = { has_global_flag = soissons_conquered }
-			#d_bracbant = { de_jure_liege = k_franks }
+			#d_frankish_toxandria = { de_jure_liege = k_franks }
 		#}
 		
 		d_toxandria = { 
@@ -18824,6 +18832,41 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314227"
+	}
+}
+# Creation of the County of Brabant
+narrative_event = {
+	id = 314243
+	title = "EVTNAME314243"
+	desc = "EVTDESC314243"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_brabant
+		NOT = { has_global_flag = brabant_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_pons_scaldis = { de_jure_liege = d_brabant }
+		c_tamasiacum = { de_jure_liege = d_brabant }
+		c_landen = { de_jure_liege = d_brabant }
+		d_brabant = { de_jure_liege = k_franks }
+		
+		set_global_flag = brabant_created
+	}
+	
+	option = {
+		name = "EVTOPTA314224"
 	}
 }
 
@@ -20077,7 +20120,7 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_franconia }
 		}
 		d_cologne = { de_jure_liege = k_franconia }
-		d_bracbant = { de_jure_liege = k_franconia }
+		d_frankish_toxandria = { de_jure_liege = k_franconia }
 		set_global_flag = franconia_created
 		
 		k_alemannia = { de_jure_liege = e_germania }
@@ -20321,7 +20364,7 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_franconia }
 		}
 		d_cologne = { de_jure_liege = k_franconia }
-		d_bracbant = { de_jure_liege = k_franconia }
+		d_frankish_toxandria = { de_jure_liege = k_franconia }
 	}
 	
 	option = {
@@ -24907,7 +24950,7 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Hainaut, Artois/Artevatenla
 		name = "OK"
 	}
 }
-narrative_event = { # Flanders, Tournai, Tongres, Luihgowe, Ardennen, Toxandria
+narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, Toxandria
 	id = 314284
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24927,6 +24970,7 @@ narrative_event = { # Flanders, Tournai, Tongres, Luihgowe, Ardennen, Toxandria
 		OR = {
 			has_global_flag = flanders_created
 			has_global_flag = tournai_created
+			has_global_flag = brabant_created
 			has_global_flag = tongres_created
 			has_global_flag = aachen_created
 			has_global_flag = ardennen_created
@@ -24953,9 +24997,12 @@ narrative_event = { # Flanders, Tournai, Tongres, Luihgowe, Ardennen, Toxandria
 			c_tournai = { de_jure_liege = d_tournai }
 			c_kortrijk = { de_jure_liege = d_tournai }
 			c_origiacum = { de_jure_liege = d_tournai }
-			c_pons_scaldis = { de_jure_liege = d_tournai }
-			c_tamasiacum = { de_jure_liege = d_tournai }
-			c_landen = { de_jure_liege = d_tournai }
+		}
+		if = {
+			limit = { has_global_flag = brabant_created }
+			c_pons_scaldis = { de_jure_liege = d_brabant }
+			c_tamasiacum = { de_jure_liege = d_brabant }
+			c_landen = { de_jure_liege = d_brabant }
 		}
 		if = {
 			limit = { has_global_flag = tongres_created }
@@ -24977,12 +25024,12 @@ narrative_event = { # Flanders, Tournai, Tongres, Luihgowe, Ardennen, Toxandria
 		}
 		if = {
 			limit = { has_global_flag = frankish_toxandria_created }
-			c_toxandria = { de_jure_liege = d_bracbant }
-			c_teudurum = { de_jure_liege = d_bracbant }
-			c_elsenburg = { de_jure_liege = d_bracbant }
-			c_tilburg = { de_jure_liege = d_bracbant }
-			c_antwerp = { de_jure_liege = d_bracbant }
-			c_nijmegen = { de_jure_liege = d_bracbant }
+			c_toxandria = { de_jure_liege = d_frankish_toxandria }
+			c_teudurum = { de_jure_liege = d_frankish_toxandria }
+			c_elsenburg = { de_jure_liege = d_frankish_toxandria }
+			c_tilburg = { de_jure_liege = d_frankish_toxandria }
+			c_antwerp = { de_jure_liege = d_frankish_toxandria }
+			c_nijmegen = { de_jure_liege = d_frankish_toxandria }
 		}
 	}
 	
