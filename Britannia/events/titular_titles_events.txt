@@ -4128,6 +4128,17 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 			prestige = 200
 			break = yes
 		}
+		if = {			# Maasgau
+			limit = {
+				d_maasgau = { has_holder = no } 
+				is_landed_title_allowed = d_maasgau
+				NOT = { has_global_flag = maasgau_created }
+			}
+			d_maasgau = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
 		if = {			# Keulen
 			limit = {
 				d_cologne = { has_holder = no } 
@@ -14465,6 +14476,7 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_ripuarian_franks }
 		}
 		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		d_maasgau = { de_jure_liege = k_ripuarian_franks }
 		if = {
 			limit = { NOT = { has_global_flag = soissons_conquered } }
 			d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
@@ -18687,11 +18699,9 @@ narrative_event = {
 	
 	immediate = {
 		c_toxandria = { de_jure_liege = d_frankish_toxandria }
-		c_teudurum = { de_jure_liege = d_frankish_toxandria }
 		c_elsenburg = { de_jure_liege = d_frankish_toxandria }
 		c_tilburg = { de_jure_liege = d_frankish_toxandria }
 		c_antwerp = { de_jure_liege = d_frankish_toxandria }
-		c_nijmegen = { de_jure_liege = d_frankish_toxandria }
 		#d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
 		#if = {
 			#limit = { has_global_flag = soissons_conquered }
@@ -18735,8 +18745,6 @@ narrative_event = {
 		c_cologne = { de_jure_liege = d_cologne }
 		c_juliacum = { de_jure_liege = d_cologne }
 		c_tolbiacum = { de_jure_liege = d_cologne }
-		c_novaesium = { de_jure_liege = d_cologne }
-		c_tricensimae = { de_jure_liege = d_cologne }
 		c_bonna = { de_jure_liege = d_cologne }
 		c_icorigium = { de_jure_liege = d_cologne }
 		c_confluentes = { de_jure_liege = d_cologne }
@@ -18869,6 +18877,41 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314224"
+	}
+}
+# Creation of the County of Maasgau
+narrative_event = {
+	id = 314244
+	title = "EVTNAME314244"
+	desc = "EVTDESC314244"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_maasgau
+		NOT = { has_global_flag = maasgau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_teudurum = { de_jure_liege = d_maasgau }
+		c_nijmegen = { de_jure_liege = d_maasgau }
+		c_novaesium = { de_jure_liege = d_maasgau }
+		c_tricensimae = { de_jure_liege = d_maasgau }
+		
+		set_global_flag = maasgau_created
+	}
+	
+	option = {
+		name = "EVTOPTA314229"
 	}
 }
 
@@ -20123,6 +20166,7 @@ narrative_event = {
 		}
 		d_cologne = { de_jure_liege = k_franconia }
 		d_frankish_toxandria = { de_jure_liege = k_franconia }
+		d_maasgau = { de_jure_liege = k_franconia }
 		set_global_flag = franconia_created
 		
 		k_alemannia = { de_jure_liege = e_germania }
@@ -20367,6 +20411,7 @@ narrative_event = {
 		}
 		d_cologne = { de_jure_liege = k_franconia }
 		d_frankish_toxandria = { de_jure_liege = k_franconia }
+		d_maasgau = { de_jure_liege = k_franconia }
 	}
 	
 	option = {
@@ -24952,7 +24997,7 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Hainaut, Artois/Artevatenla
 		name = "OK"
 	}
 }
-narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, Toxandria
+narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, Toxandria, Maasgau
 	id = 314284
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24977,6 +25022,7 @@ narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, T
 			has_global_flag = aachen_created
 			has_global_flag = ardennen_created
 			has_global_flag = frankish_toxandria_created
+			has_global_flag = maasgau_created
 		}
 		is_alternate_start = no
 	}
@@ -25028,11 +25074,16 @@ narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, T
 		if = {
 			limit = { has_global_flag = frankish_toxandria_created }
 			c_toxandria = { de_jure_liege = d_frankish_toxandria }
-			c_teudurum = { de_jure_liege = d_frankish_toxandria }
 			c_elsenburg = { de_jure_liege = d_frankish_toxandria }
 			c_tilburg = { de_jure_liege = d_frankish_toxandria }
 			c_antwerp = { de_jure_liege = d_frankish_toxandria }
-			c_nijmegen = { de_jure_liege = d_frankish_toxandria }
+		}
+		if = {
+			limit = { has_global_flag = maasgau_created }
+			c_teudurum = { de_jure_liege = d_maasgau }
+			c_nijmegen = { de_jure_liege = d_maasgau }
+			c_novaesium = { de_jure_liege = d_maasgau }
+			c_tricensimae = { de_jure_liege = d_maasgau }
 		}
 	}
 	
@@ -25091,8 +25142,6 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 			c_cologne = { de_jure_liege = d_cologne }
 			c_juliacum = { de_jure_liege = d_cologne }
 			c_tolbiacum = { de_jure_liege = d_cologne }
-			c_novaesium = { de_jure_liege = d_cologne }
-			c_tricensimae = { de_jure_liege = d_cologne }
 			c_bonna = { de_jure_liege = d_cologne }
 			c_icorigium = { de_jure_liege = d_cologne }
 			c_confluentes = { de_jure_liege = d_cologne }
