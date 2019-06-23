@@ -4095,7 +4095,7 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 			prestige = 200
 			break = yes
 		}
-		if = {			# Aken
+		if = {			# Luihgowe
 			limit = {
 				d_aachen = { has_holder = no } 
 				is_landed_title_allowed = d_aachen
@@ -4106,13 +4106,35 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 			prestige = 200
 			break = yes
 		}
+		if = {			# Ardennen
+			limit = {
+				d_ardennen = { has_holder = no } 
+				is_landed_title_allowed = d_ardennen
+				NOT = { has_global_flag = ardennen_created }
+			}
+			d_ardennen = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
 		if = {			# Toxandria
 			limit = {
-				d_bracbant = { has_holder = no } 
-				is_landed_title_allowed = d_bracbant
-				NOT = { has_global_flag = bracbant_created }
+				d_frankish_toxandria = { has_holder = no } 
+				is_landed_title_allowed = d_frankish_toxandria
+				NOT = { has_global_flag = frankish_toxandria_created }
 			}
-			d_bracbant = { grant_title = ROOT }
+			d_frankish_toxandria = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Maasgau
+			limit = {
+				d_maasgau = { has_holder = no } 
+				is_landed_title_allowed = d_maasgau
+				NOT = { has_global_flag = maasgau_created }
+			}
+			d_maasgau = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -4130,11 +4152,11 @@ narrative_event = {		# Ripuarian Franks/Austrasia
 		}
 		if = {			# Woëvre
 			limit = {
-				d_ardennen = { has_holder = no } 
-				is_landed_title_allowed = d_ardennen
-				NOT = { has_global_flag = ardennen_created }
+				d_woevre = { has_holder = no } 
+				is_landed_title_allowed = d_woevre
+				NOT = { has_global_flag = woevre_created }
 			}
-			d_ardennen = { grant_title = ROOT }
+			d_woevre = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -4254,22 +4276,44 @@ narrative_event = {		# Salian Franks/Soissons
 		}
 		if = {			# Doornik
 			limit = {
-				d_hainault = { has_holder = no } 
-				is_landed_title_allowed = d_hainault
-				NOT = { has_global_flag = hainault_created }
+				d_tournai = { has_holder = no } 
+				is_landed_title_allowed = d_tournai
+				NOT = { has_global_flag = tournai_created }
 			}
-			d_hainault = { grant_title = ROOT }
+			d_tournai = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
 		}
-		if = {			# Kamerijk
+		if = {			# Brabant
+			limit = {
+				d_brabant = { has_holder = no } 
+				is_landed_title_allowed = d_brabant
+				NOT = { has_global_flag = brabant_created }
+			}
+			d_brabant = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Cambrai
 			limit = {
 				d_cambrai = { has_holder = no } 
 				is_landed_title_allowed = d_cambrai
 				NOT = { has_global_flag = cambrai_created }
 			}
 			d_cambrai = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Hainaut
+			limit = {
+				d_hainaut = { has_holder = no } 
+				is_landed_title_allowed = d_hainaut
+				NOT = { has_global_flag = hainaut_created }
+			}
+			d_hainaut = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -13152,7 +13196,7 @@ narrative_event = {
 		c_soissons = { de_jure_liege = d_soissons }
 		c_otmus = { de_jure_liege = d_soissons }
 		c_basilia = { de_jure_liege = d_porcien }
-		c_arduenna = { de_jure_liege = d_porcien }
+		c_moyen = { de_jure_liege = d_porcien }
 		c_vungus = { de_jure_liege = d_porcien }
 		c_caesaromagus = { de_jure_liege = d_beauvais }
 		c_meruacum = { de_jure_liege = d_beauvais }
@@ -13189,9 +13233,10 @@ narrative_event = {
 		d_soissons = { de_jure_liege = k_franks }
 		d_tongres = { de_jure_liege = k_franks }
 		d_aachen = { de_jure_liege = k_franks }
+		d_ardennen = { de_jure_liege = k_franks }
 		if = {
 			limit = { NOT = { has_global_flag = franconia_created } }
-			d_bracbant = { de_jure_liege = k_franks }
+			d_frankish_toxandria = { de_jure_liege = k_franks }
 		}
 		d_porcien = { de_jure_liege = k_ripuarian_franks }
 		d_lotharingen = { de_jure_liege = k_ripuarian_franks }
@@ -14431,12 +14476,13 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_ripuarian_franks }
 		}
 		d_cologne = { de_jure_liege = k_ripuarian_franks }
+		d_maasgau = { de_jure_liege = k_ripuarian_franks }
 		if = {
 			limit = { NOT = { has_global_flag = soissons_conquered } }
-			d_bracbant = { de_jure_liege = k_ripuarian_franks }
+			d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
 		}
 		else = {
-			d_bracbant = { de_jure_liege = k_franks }
+			d_frankish_toxandria = { de_jure_liege = k_franks }
 		}
 		clr_global_flag = franconia_created
 	}
@@ -14938,7 +14984,7 @@ narrative_event = {
 	
 	immediate = {
 		c_basilia = { de_jure_liege = d_porcien }
-		c_arduenna = { de_jure_liege = d_porcien }
+		c_moyen = { de_jure_liege = d_porcien }
 		c_vungus = { de_jure_liege = d_porcien }
 		d_porcien = { de_jure_liege = k_ripuarian_franks }
 		
@@ -18443,7 +18489,7 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = d_hainault
+		has_landed_title = d_tournai
 		NOT = { has_global_flag = tournai_created }
 	}
 	
@@ -18452,13 +18498,10 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_tournai = { de_jure_liege = d_hainault }
-		c_kortrijk = { de_jure_liege = d_hainault }
-		c_origiacum = { de_jure_liege = d_hainault }
-		c_mons = { de_jure_liege = d_hainault }
-		c_landen = { de_jure_liege = d_hainault }
-		c_pons_scaldis = { de_jure_liege = d_hainault }
-		d_hainault = { de_jure_liege = k_franks }
+		c_tournai = { de_jure_liege = d_tournai }
+		c_kortrijk = { de_jure_liege = d_tournai }
+		c_origiacum = { de_jure_liege = d_tournai }
+		d_tournai = { de_jure_liege = k_franks }
 			
 		d_menapia = { 
 			destroy_landed_title = THIS			
@@ -18495,12 +18538,16 @@ narrative_event = {
 	
 	immediate = {
 		c_camaracum = { de_jure_liege = d_cambrai }
-		c_malboden = { de_jure_liege = d_cambrai }
-		c_namur = { de_jure_liege = d_cambrai }
 		c_helena = { de_jure_liege = d_cambrai }
-		c_vodgoriacum = { de_jure_liege = d_cambrai }
+		c_austrebantum = { de_jure_liege = d_cambrai }
 		d_cambrai = { de_jure_liege = k_franks }
 		
+		if = {
+			limit = { has_global_flag = hainaut_created }
+			d_nervia = { 
+				destroy_landed_title = THIS
+			}
+		}
 		d_nervia = { 
 			destroy_landed_title = THIS			
 		}
@@ -18526,8 +18573,8 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = d_ardennen
-		NOT = { has_global_flag = ardennen_created }
+		has_landed_title = d_woevre
+		NOT = { has_global_flag = woevre_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18535,11 +18582,11 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_meduantum = { de_jure_liege = d_ardennen }
-		c_orolaunum = { de_jure_liege = d_ardennen }
-		d_ardennen = { de_jure_liege = k_ripuarian_franks }
+		c_meduantum = { de_jure_liege = d_woevre }
+		c_orolaunum = { de_jure_liege = d_woevre }
+		d_woevre = { de_jure_liege = k_ripuarian_franks }
 		
-		set_global_flag = ardennen_created
+		set_global_flag = woevre_created
 	}
 	
 	option = {
@@ -18571,9 +18618,8 @@ narrative_event = {
 	immediate = {
 		c_leuven = { de_jure_liege = d_tongres }
 		c_tongeren = { de_jure_liege = d_tongres }
-		c_herstal = { de_jure_liege = d_tongres }
 		c_leodicum = { de_jure_liege = d_tongres }
-		c_hoium = { de_jure_liege = d_tongres }
+		c_herstal = { de_jure_liege = d_tongres }
 		d_tongres = { de_jure_liege = k_ripuarian_franks }
 		if = {
 			limit = { has_global_flag = soissons_conquered }
@@ -18591,7 +18637,7 @@ narrative_event = {
 		name = "EVTOPTA314227"
 	}
 }
-# Creation of the County of Aken
+# Creation of the County of Luihgowe
 narrative_event = {
 	id = 314228
 	title = "EVTNAME314228"
@@ -18615,7 +18661,7 @@ narrative_event = {
 	
 	immediate = {
 		c_aquae_granni = { de_jure_liege = d_aachen }
-		c_dinant = { de_jure_liege = d_aachen }
+		c_tectis = { de_jure_liege = d_aachen }
 		d_aachen = { de_jure_liege = k_ripuarian_franks }
 		if = {
 			limit = { has_global_flag = soissons_conquered }
@@ -18643,7 +18689,7 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = d_bracbant
+		has_landed_title = d_frankish_toxandria
 		NOT = { has_global_flag = frankish_toxandria_created }
 	}
 	
@@ -18652,16 +18698,14 @@ narrative_event = {
 	}
 	
 	immediate = {
-		c_toxandria = { de_jure_liege = d_bracbant }
-		c_teudurum = { de_jure_liege = d_bracbant }
-		c_elsenburg = { de_jure_liege = d_bracbant }
-		c_tilburg = { de_jure_liege = d_bracbant }
-		c_antwerp = { de_jure_liege = d_bracbant }
-		c_nijmegen = { de_jure_liege = d_bracbant }
-		#d_bracbant = { de_jure_liege = k_ripuarian_franks }
+		c_toxandria = { de_jure_liege = d_frankish_toxandria }
+		c_elsenburg = { de_jure_liege = d_frankish_toxandria }
+		c_tilburg = { de_jure_liege = d_frankish_toxandria }
+		c_antwerp = { de_jure_liege = d_frankish_toxandria }
+		#d_frankish_toxandria = { de_jure_liege = k_ripuarian_franks }
 		#if = {
 			#limit = { has_global_flag = soissons_conquered }
-			#d_bracbant = { de_jure_liege = k_franks }
+			#d_frankish_toxandria = { de_jure_liege = k_franks }
 		#}
 		
 		d_toxandria = { 
@@ -18700,8 +18744,7 @@ narrative_event = {
 	immediate = {
 		c_cologne = { de_jure_liege = d_cologne }
 		c_juliacum = { de_jure_liege = d_cologne }
-		c_novaesium = { de_jure_liege = d_cologne }
-		c_tricensimae = { de_jure_liege = d_cologne }
+		c_tolbiacum = { de_jure_liege = d_cologne }
 		c_bonna = { de_jure_liege = d_cologne }
 		c_icorigium = { de_jure_liege = d_cologne }
 		c_confluentes = { de_jure_liege = d_cologne }
@@ -18716,6 +18759,159 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314240"
+	}
+}
+# Creation of the County of Hainaut
+narrative_event = {
+	id = 314241
+	title = "EVTNAME314241"
+	desc = "EVTDESC314241"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_summer_tree"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_hainaut
+		NOT = { has_global_flag = hainaut_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_malboden = { de_jure_liege = d_hainaut }
+		c_namur = { de_jure_liege = d_hainaut }
+		c_vodgoriacum = { de_jure_liege = d_hainaut }
+		c_mons = { de_jure_liege = d_hainaut }
+		d_hainaut = { de_jure_liege = k_franks }
+		
+		if = {
+			limit = { has_global_flag = cambrai_created }
+			d_nervia = { 
+				destroy_landed_title = THIS			
+			}
+		}
+		
+		set_global_flag = hainaut_created
+	}
+	
+	option = {
+		name = "EVTOPTA314225"
+	}
+}
+# Creation of the County of Ardennes
+narrative_event = {
+	id = 314242
+	title = "EVTNAME314242"
+	desc = "EVTDESC314242"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_sheep_herds"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_ardennen
+		NOT = { has_global_flag = ardennen_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_arduenna = { de_jure_liege = d_ardennen }
+		c_hoium = { de_jure_liege = d_ardennen }
+		c_dinant = { de_jure_liege = d_ardennen }
+		d_ardennen = { de_jure_liege = k_ripuarian_franks }
+		if = {
+			limit = { has_global_flag = soissons_conquered }
+			d_ardennen = { de_jure_liege = k_franks }
+		}
+		
+		set_global_flag = ardennen_created
+	}
+	
+	option = {
+		name = "EVTOPTA314227"
+	}
+}
+# Creation of the County of Brabant
+narrative_event = {
+	id = 314243
+	title = "EVTNAME314243"
+	desc = "EVTDESC314243"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_brabant
+		NOT = { has_global_flag = brabant_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_pons_scaldis = { de_jure_liege = d_brabant }
+		c_brussels = { de_jure_liege = d_brabant }
+		c_tamasiacum = { de_jure_liege = d_brabant }
+		c_landen = { de_jure_liege = d_brabant }
+		d_brabant = { de_jure_liege = k_franks }
+		
+		set_global_flag = brabant_created
+	}
+	
+	option = {
+		name = "EVTOPTA314224"
+	}
+}
+# Creation of the County of Maasgau
+narrative_event = {
+	id = 314244
+	title = "EVTNAME314244"
+	desc = "EVTDESC314244"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_maasgau
+		NOT = { has_global_flag = maasgau_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_teudurum = { de_jure_liege = d_maasgau }
+		c_nijmegen = { de_jure_liege = d_maasgau }
+		c_novaesium = { de_jure_liege = d_maasgau }
+		c_tricensimae = { de_jure_liege = d_maasgau }
+		
+		set_global_flag = maasgau_created
+	}
+	
+	option = {
+		name = "EVTOPTA314229"
 	}
 }
 
@@ -19969,7 +20165,8 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_franconia }
 		}
 		d_cologne = { de_jure_liege = k_franconia }
-		d_bracbant = { de_jure_liege = k_franconia }
+		d_frankish_toxandria = { de_jure_liege = k_franconia }
+		d_maasgau = { de_jure_liege = k_franconia }
 		set_global_flag = franconia_created
 		
 		k_alemannia = { de_jure_liege = e_germania }
@@ -20213,7 +20410,8 @@ narrative_event = {
 			d_brukterer = { de_jure_liege = k_franconia }
 		}
 		d_cologne = { de_jure_liege = k_franconia }
-		d_bracbant = { de_jure_liege = k_franconia }
+		d_frankish_toxandria = { de_jure_liege = k_franconia }
+		d_maasgau = { de_jure_liege = k_franconia }
 	}
 	
 	option = {
@@ -24733,7 +24931,7 @@ narrative_event = {	# Rennes, Celmans/Maine, Bretland
 		name = "OK"
 	}
 }
-narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
+narrative_event = {	# Vermandois, Soissons, Cambrai, Hainaut, Artois/Artevatenland
 	id = 314283
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24754,6 +24952,7 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 			has_global_flag = rethel_created
 			has_global_flag = soissons_created
 			has_global_flag = cambrai_created
+			has_global_flag = hainaut_created
 			has_global_flag = artois_created
 		}
 		is_alternate_start = no
@@ -24775,10 +24974,15 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 		if = {
 			limit = { has_global_flag = cambrai_created }
 			c_camaracum = { de_jure_liege = d_cambrai }
-			c_malboden = { de_jure_liege = d_cambrai }
-			c_namur = { de_jure_liege = d_cambrai }
 			c_helena = { de_jure_liege = d_cambrai }
-			c_vodgoriacum = { de_jure_liege = d_cambrai }
+			c_austrebantum = { de_jure_liege = d_cambrai }
+		}
+		if = {
+			limit = { has_global_flag = hainaut_created }
+			c_malboden = { de_jure_liege = d_hainaut }
+			c_namur = { de_jure_liege = d_hainaut }
+			c_vodgoriacum = { de_jure_liege = d_hainaut }
+			c_mons = { de_jure_liege = d_hainaut }
 		}
 		if = {
 			limit = { has_global_flag = artois_created }
@@ -24793,7 +24997,7 @@ narrative_event = {	# Vermandois, Soissons, Cambrai, Artois/Artevatenland
 		name = "OK"
 	}
 }
-narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
+narrative_event = { # Flanders, Tournai, Brabant, Tongres, Luihgowe, Ardennen, Toxandria, Maasgau
 	id = 314284
 	desc = "You're not supposed to see this..."
 	major = no
@@ -24813,9 +25017,12 @@ narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
 		OR = {
 			has_global_flag = flanders_created
 			has_global_flag = tournai_created
+			has_global_flag = brabant_created
 			has_global_flag = tongres_created
 			has_global_flag = aachen_created
+			has_global_flag = ardennen_created
 			has_global_flag = frankish_toxandria_created
+			has_global_flag = maasgau_created
 		}
 		is_alternate_start = no
 	}
@@ -24835,34 +25042,48 @@ narrative_event = { # Flanders, Tournai, Tongres, Aachen/Aken, Toxandria
 		}
 		if = {
 			limit = { has_global_flag = tournai_created }
-			c_tournai = { de_jure_liege = d_hainault }
-			c_kortrijk = { de_jure_liege = d_hainault }
-			c_origiacum = { de_jure_liege = d_hainault }
-			c_mons = { de_jure_liege = d_hainault }
-			c_landen = { de_jure_liege = d_hainault }
-			c_pons_scaldis = { de_jure_liege = d_hainault }
+			c_tournai = { de_jure_liege = d_tournai }
+			c_kortrijk = { de_jure_liege = d_tournai }
+			c_origiacum = { de_jure_liege = d_tournai }
+		}
+		if = {
+			limit = { has_global_flag = brabant_created }
+			c_pons_scaldis = { de_jure_liege = d_brabant }
+			c_brussels = { de_jure_liege = d_brabant }
+			c_tamasiacum = { de_jure_liege = d_brabant }
+			c_landen = { de_jure_liege = d_brabant }
 		}
 		if = {
 			limit = { has_global_flag = tongres_created }
 			c_leuven = { de_jure_liege = d_tongres }
 			c_tongeren = { de_jure_liege = d_tongres }
-			c_herstal = { de_jure_liege = d_tongres }
 			c_leodicum = { de_jure_liege = d_tongres }
-			c_hoium = { de_jure_liege = d_tongres }
+			c_herstal = { de_jure_liege = d_tongres }
 		}
 		if = {
 			limit = { has_global_flag = aachen_created }
 			c_aquae_granni = { de_jure_liege = d_aachen }
-			c_dinant = { de_jure_liege = d_aachen }
+			c_tectis = { de_jure_liege = d_aachen }
+		}
+		if = {
+			limit = { has_global_flag = ardennen_created }
+			c_arduenna = { de_jure_liege = d_ardennen }
+			c_hoium = { de_jure_liege = d_ardennen }
+			c_dinant = { de_jure_liege = d_ardennen }
 		}
 		if = {
 			limit = { has_global_flag = frankish_toxandria_created }
-			c_toxandria = { de_jure_liege = d_bracbant }
-			c_teudurum = { de_jure_liege = d_bracbant }
-			c_elsenburg = { de_jure_liege = d_bracbant }
-			c_tilburg = { de_jure_liege = d_bracbant }
-			c_antwerp = { de_jure_liege = d_bracbant }
-			c_nijmegen = { de_jure_liege = d_bracbant }
+			c_toxandria = { de_jure_liege = d_frankish_toxandria }
+			c_elsenburg = { de_jure_liege = d_frankish_toxandria }
+			c_tilburg = { de_jure_liege = d_frankish_toxandria }
+			c_antwerp = { de_jure_liege = d_frankish_toxandria }
+		}
+		if = {
+			limit = { has_global_flag = maasgau_created }
+			c_teudurum = { de_jure_liege = d_maasgau }
+			c_nijmegen = { de_jure_liege = d_maasgau }
+			c_novaesium = { de_jure_liege = d_maasgau }
+			c_tricensimae = { de_jure_liege = d_maasgau }
 		}
 	}
 	
@@ -24891,7 +25112,7 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 		OR = {
 			has_global_flag = bidgau_created
 			has_global_flag = lotharingen_created
-			has_global_flag = ardennen_created
+			has_global_flag = woevre_created
 			has_global_flag = cologne_created
 		}
 		is_alternate_start = no
@@ -24912,16 +25133,15 @@ narrative_event = {	# Bidgau, Mosan/Metz, Woëvre, Cologne/Kollon
 			c_saravus = { de_jure_liege = d_lotharingen }
 		}
 		if = {
-			limit = { has_global_flag = ardennen_created }
-			c_meduantum = { de_jure_liege = d_ardennen }
-			c_orolaunum = { de_jure_liege = d_ardennen }
+			limit = { has_global_flag = woevre_created }
+			c_meduantum = { de_jure_liege = d_woevre }
+			c_orolaunum = { de_jure_liege = d_woevre }
 		}
 		if = {
 			limit = { has_global_flag = cologne_created }
 			c_cologne = { de_jure_liege = d_cologne }
 			c_juliacum = { de_jure_liege = d_cologne }
-			c_novaesium = { de_jure_liege = d_cologne }
-			c_tricensimae = { de_jure_liege = d_cologne }
+			c_tolbiacum = { de_jure_liege = d_cologne }
 			c_bonna = { de_jure_liege = d_cologne }
 			c_icorigium = { de_jure_liege = d_cologne }
 			c_confluentes = { de_jure_liege = d_cologne }
@@ -24968,7 +25188,7 @@ narrative_event = {	# Porcien, Verdun, Champagne
 		if = {
 			limit = { has_global_flag = porcien_created }
 			c_basilia = { de_jure_liege = d_porcien }
-			c_arduenna = { de_jure_liege = d_porcien }
+			c_moyen = { de_jure_liege = d_porcien }
 			c_vungus = { de_jure_liege = d_porcien }
 		}
 		if = {

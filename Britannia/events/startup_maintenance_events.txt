@@ -808,14 +808,19 @@ character_event = {
 				ROOT = {
 					NOR = { 
 						has_character_flag = arthur
-						has_landed_title = c_null 
+						has_landed_title = d_null 
 					}
 				}
-				FROM = { title = c_arthur_company }
+				FROM = { title = d_arthur_company }
 			}
 
-			c_arthur_company = {
-				destroy_landless_count_level_title_effect = yes
+			d_arthur_company = {
+				#destroy_landless_count_level_title_effect = yes
+				unsafe_destroy_landed_title = THIS
+				activate_title = {
+					title = THIS
+					status = no
+				}
 			}
 		}
 		
@@ -2831,7 +2836,7 @@ character_event = {
 	
 }
 
-#### C_NULL MAINTENANCE EVENTS #####
+#### D_NULL MAINTENANCE EVENTS #####
 character_event = {		# Death of holder - create a new immortal incapable character
 	id = 319020
 	desc = "You're not supposed to see this..."
@@ -2842,7 +2847,7 @@ character_event = {		# Death of holder - create a new immortal incapable charact
 	is_triggered_only = yes
 	
 	trigger = {
-		has_landed_title = c_null
+		has_landed_title = d_null
 	}
 	
 	immediate = {
@@ -2873,7 +2878,7 @@ character_event = {		# Death of holder - create a new immortal incapable charact
 	}
 }
 
-character_event = {		# If the holder of c_null acquires a title they shouldn't have, or someone who shouldn't have the title acquires it
+character_event = {		# If the holder of d_null acquires a title they shouldn't have, or someone who shouldn't have the title acquires it
 	id = 319021
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_love_court"
@@ -2883,12 +2888,12 @@ character_event = {		# If the holder of c_null acquires a title they shouldn't h
 	is_triggered_only = yes
 	
 	trigger = {
-		has_landed_title = c_null
+		has_landed_title = d_null
 		OR = {
 			NOT = { trait = special_char_trait }
 			any_demesne_title = {
 				NOR = {
-					title = c_null
+					title = d_null
 					has_title_flag = disabled_county_title
 				}
 			}
@@ -2913,7 +2918,7 @@ character_event = {		# If the holder of c_null acquires a title they shouldn't h
 				any_demesne_title = {
 					limit = {
 						OR = {
-							title = c_null
+							title = d_null
 							has_title_flag = disabled_county_title
 						}
 					}
@@ -2933,7 +2938,7 @@ character_event = {		# If the holder of c_null acquires a title they shouldn't h
 		any_demesne_title = {
 			limit = {
 				NOR = {
-					title = c_null
+					title = d_null
 					has_title_flag = disabled_county_title
 				}
 			}
