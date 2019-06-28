@@ -15,6 +15,663 @@
 # Author: Adam 'theStormWeaver/xirsoi' Chevalier
 namespace = promethean
 
+###################################################################
+#
+# Prosperity Events
+#  - promethean.100 - 199 reserved
+#
+###################################################################
+
+# # Province prospers after a long period of grain subsidies
+# province_event = {
+	# id = promethean.100
+	# desc = promethean.100.desc
+	# picture = GFX_evt_market
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+	
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 20 }
+			# }
+		# }
+	# }
+# }
+
+# # better roads improve trade
+# # [on_yearly_pulse]
+# province_event = {
+	# id = promethean.101
+	# desc = promethean.101.desc
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# has_province_modifier = acr_infrastructure_investment
+		# OR = {
+			# had_province_flag = { flag = acr_infrastructure_event days = 45 }
+			# NOT = { has_province_flag = acr_infrastructure_investment }
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+				# set_province_flag = acr_infrastructure_investment
+			# }
+		# }
+	# }
+# }
+
+# # roads allow better patrols, reducing banditry
+# province_event = {
+	# id = promethean.102
+	# desc = promethean.102.desc
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# has_province_modifier = acr_infrastructure_investment
+		# OR = {
+			# had_province_flag = { flag = acr_infrastructure_event days = 45 }
+			# NOT = { has_province_flag = acr_infrastructure_investment }
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+				# set_province_flag = acr_infrastructure_investment
+			# }
+		# }
+	# }
+
+	
+# }
+
+# # dams increase arable land
+# province_event = {
+	# id = promethean.103
+	# desc = promethean.103.desc
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# has_province_modifier = acr_infrastructure_investment
+		# OR = {
+			# had_province_flag = { flag = acr_infrastructure_event days = 45 }
+			# NOT = { has_province_flag = acr_infrastructure_investment }
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+				# set_province_flag = acr_infrastructure_investment
+			# }
+		# }
+	# }
+# }
+
+# # irrigation increases arable land
+# province_event = {
+	# id = promethean.104
+	# desc = promethean.104.desc
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# has_province_modifier = acr_infrastructure_investment
+		# OR = {
+			# had_province_flag = { flag = acr_infrastructure_event days = 45 }
+			# NOT = { has_province_flag = acr_infrastructure_investment }
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+				# set_province_flag = acr_infrastructure_investment
+			# }
+		# }
+	# }
+# }
+
+# # bridges improve travel and trade
+# province_event = {
+	# id = promethean.105
+	# desc = promethean.105.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# has_province_modifier = acr_infrastructure_investment
+		# OR = {
+			# had_province_flag = { flag = acr_infrastructure_event days = 45 }
+			# NOT = { has_province_flag = acr_infrastructure_event }
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+				# set_province_flag = acr_infrastructure_investment
+			# }
+		# }
+	# }
+# }
+
+# # leaving event ids promethean.106-109 for more infrastructure events
+
+# # small group of settlers arrive from neighboring province
+# province_event = {
+	# id = promethean.110
+	# desc = promethean.110.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_neighbor_province = {
+			# save_event_target_as = origin
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+			# }
+		# }
+	# }
+# }
+
+# # influx of foreigners in the province
+# province_event = {
+	# id = promethean.111
+	# desc = promethean.111.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+			# any_province = {
+				# distance = { where = PREV distance > 1000 }
+				# distance = { where = PREV distance < 10000 }
+				# NOT = {
+					# culture = PREV
+				# }
+			# }
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_province = {
+			# limit = {
+				# ROOT = {
+					# location = {
+						# distance = { where = PREVPREV distance > 1000 }
+						# distance = { where = PREVPREV distance < 10000 }
+						# NOT = {
+							# culture = PREVPREV
+						# }
+					# }
+				# }
+			# }
+			# save_event_target_as = origin
+		# }
+	# }
+
+	# option = {
+		# name = promethean.111.a
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+			# }
+		# }
+		# add_foreign_influence_moderate_effect = yes
+	# }
+
+	# option = {
+		# name = promethean.111.a
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 10 }
+			# }
+		# }
+		# location = {
+			# add_province_modifier = { name = acr_cultural_friction days = 365 }
+		# }
+	# }
+
+	# option = {
+		# name = promethean.111.b
+	# }
+# }
+
+# # friction between locals and immigrants
+# province_event = {
+	# id = promethean.112
+	# desc = promethean.112.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+			# check_variable = { which = "foreign_influence" value > 10 }
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_neighbor_province = {
+			# save_event_target_as = origin
+		# }
+	# }
+
+	# option = { # suck it up, buttercup
+		# name = promethean.112.a
+		# add_province_modifier = { name = acr_cultural_friction duration = 365 }
+	# }
+
+	# option = { # kick out some of the foreigners
+		# name = promethean.112.b
+		# custom_tooltip = {
+			# text = province_declines_custom_tooltip
+			# change_variable = { which = prosperity_value value = -10 }
+		# }
+		# subtract_foreign_influence_moderate_effect = yes
+	# }
+
+	# option = {
+		# name = promethean.112.c
+		# tooltip_info = diplomacy
+		# subtract_foreign_influence_minor_effect = yes
+	# }
+
+	# weight_multiplier = {
+		# days = 14
+
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 20 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 30 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 40 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 50 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 60 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 70 } }
+		# }	
+	# }
+# }
+
+# # friction between locals and immigrants 2: electric boogaloo
+# # i don't remember what was supposed to happen in this event, disabled for now
+# province_event = {
+	# id = promethean.113
+	# desc = promethean.113.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# always = no
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+			# check_variable = { which = "foreign_influence" value > 10 }
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_neighbor_province = {
+			# save_event_target_as = origin
+		# }
+	# }
+
+	# option = { # suck it up, buttercup
+		# name = promethean.113.a
+		# add_province_modifier = { name = acr_cultural_friction duration = 365 }
+	# }
+
+	# option = { # kick out the foreigners
+		# name = promethean.113.b
+		# custom_tooltip = {
+			# text = province_declines_custom_tooltip
+			# change_variable = { which = prosperity_value value = -10 }
+		# }
+		# add_foreign_influence_moderate_effect = yes
+	# }
+
+	# weight_multiplier = {
+		# days = 14
+
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 20 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 30 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 40 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 50 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 60 } }
+		# }
+		# modifier = {
+			# factor = 1.1
+			# location = { check_variable = { which = "foreign_influence" value > 70 } }
+		# }	
+	# }
+# }
+
+# # extended family arrive from regional province
+# province_event = {
+	# id = promethean.114
+	# desc = promethean.114.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+			# any_province = {
+				# distance = { where = PREV distance > 500 }
+				# distance = { where = PREV distance < 2000 }
+			# }
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_province = {
+			# limit = {
+				# ROOT = {
+					# location = {
+						# distance = { where = PREVPREV distance > 500 }
+						# distance = { where = PREVPREV distance < 2000 }
+					# }
+				# }
+			# }
+			# save_event_target_as = origin
+		# }
+	# }
+
+	# option = {
+		# name = OK
+		# custom_tooltip = {
+			# text = province_prospers_custom_tooltip
+			# hidden_tooltip = {
+				# change_variable = { which = prosperity_value value = 5 }
+			# }
+		# }
+		# add_foreign_influence_minor_effect = yes
+	# }
+# }
+
+# # minor noble asks to settle in province
+# province_event = {
+	# id = promethean.115
+	# desc = promethean.115.desc
+	# picture = GFX_evt_culture_change
+	# border = GFX_event_normal_frame_economy
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+			# OR = {
+				# had_province_flag = { flag = acr_settlement_event days = 60 }
+				# NOT = { has_province_flag = acr_settlement_event }
+			# }
+			# has_empty_holding = yes
+		# }
+	# }
+
+	# immediate = {
+		# location = {
+			# set_province_flag = acr_settlement_event
+		# }
+		# random_province = {
+			# limit = {
+				# ROOT = {
+					# NOT = { culture = PREV }
+				# }
+			# }
+			# save_event_target_as = origin
+		# }
+		# create_random_steward = {
+			# dynasty = random
+			# culture = event_target:origin
+			# religion = event_target:origin
+			# female = no
+			# age = 36
+		# }
+		# new_character = {
+			# save_event_target_as = foreign_noble
+		# }
+		# create_random_diplomat = {
+			# dynasty = random
+			# culture = event_target:origin
+			# religion = event_target:origin
+			# female = yes
+			# age = 32
+		# }
+		# new_character = {
+			# add_spouse = event_target:foreign_noble
+		# }
+	# }
+
+	# option = {
+		# name = promethean.115.a
+		# custom_tooltip = {
+			# text = province_prospers_major_custom_tooltip
+			# hidden_tooltip = {
+				# location = { change_variable = { which = prosperity_value value = 20 } }
+			# }
+		# }
+		# add_foreign_influence_major_effect = yes
+		# location = {
+			# show_scope_change = no
+			# build_holding = { type = castle holder = event_target:foreign_noble }
+			# owner = {
+				# show_scope_change = no
+				# event_target:foreign_noble = {
+					# set_defacto_liege = PREV
+					# hidden_tooltip = {
+						# wealth = 300
+					# }
+				# }
+			# }
+		# }
+	# }
+
+	# option = {
+		# name = promethean.115.b
+		# custom_tooltip = {
+			# text = promethean.115.tt
+			# event_target:foreign_noble = {
+				# spouse = {
+					# show_scope_change = no
+					# death = { death_reason = death_vanished }
+				# }
+				# death = { death_reason = death_vanished }
+			# }
+		# }
+	# }
+# }
+
+# # province is too populous for open settlement(prosperity 2),
+# # or is controlled by a non-Promethean character
+# province_event = {
+	# id = promethean.116
+	# desc = {
+		# trigger = {
+			# location = {
+				# OR = {
+					# has_province_modifier = prosperity_modifier_2
+					# has_province_modifier = prosperity_modifier_3
+				# }
+			# }
+		# }
+		# text = promethean.116.prosperous
+	# }
+	# desc = {
+		# trigger = {
+			# owner = {
+				# NOT = { religion = promethean_pagan }
+			# }
+		# }
+		# text = promethean.116.infidel
+	# }
+	# border = GFX_event_normal_frame_economy
+	# picture = GFX_evt_culture_change
+
+	# is_triggered_only = yes
+
+	# trigger = {
+		# location = {
+			# has_province_modifier = acr_open_settlement
+		# }
+		# OR = {
+			# location = {
+				# OR = {
+					# has_province_modifier = prosperity_modifier_2
+					# has_province_modifier = prosperity_modifier_3
+				# }
+			# }
+			# owner = {
+				# NOT = { religion = promethean_pagan }
+			# }
+		# }
+	# }
+
+	# weight_multiplier = {
+		# days = 1
+	# }
+
+	# option = {
+		# name = OK
+		# location = {
+			# show_scope_change = no
+			# remove_province_modifier = acr_open_settlement
+			# remove_province_modifier = acr_foreign_influence
+			# set_variable = { which = "foreign_influence" value = 0 }
+		# }
+	# }
+# }
+
+###################################################################
+#
+# Misc Events
+#  - promethean.400 - 410 reserved
+#
+###################################################################
+
 # First Academy has been restored!
 # narrative_event = {
 	# id = promethean.400
@@ -440,6 +1097,13 @@ character_event = {
 		name = promethean.403.a
 		add_trait = stoic
 
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_stoics
+		}
+
 		ai_chance = {
 			factor = 40
 			modifier = {
@@ -456,6 +1120,13 @@ character_event = {
 		name = promethean.403.b
 		add_trait = skeptic
 
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_skeptics
+		}
+
 		ai_chance = {
 			factor = 35
 			modifier = {
@@ -467,6 +1138,13 @@ character_event = {
 	option = {
 		name = promethean.403.c
 		add_trait = epicurean
+
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_epicureans
+		}
 
 		ai_chance = {
 			factor = 25
@@ -507,6 +1185,275 @@ narrative_event = {
 
 	immediate = {
 		set_global_flag = flag_restored_stoic_intelligentia
+		hidden_tooltip = {
+			create_random_priest = {
+				random_traits = yes
+				random_traits = yes
+				dynasty = none
+				religion = ROOT
+				culture = ROOT
+				attributes = {
+					learning = 10
+				}
+				female = no
+				age = 32
+			}
+			new_character = {
+				join_society = monastic_order_skeptics
+				set_society_grandmaster = yes # Set character as Grand Master
+				add_society_currency_massive_effect = yes
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 16
+				}
+				new_character = { join_society = monastic_order_skeptics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 18
+				}
+				new_character = { join_society = monastic_order_skeptics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 20
+				}
+				new_character = { join_society = monastic_order_skeptics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 25
+				}
+				new_character = { join_society = monastic_order_skeptics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 26
+				}
+				new_character = { join_society = monastic_order_skeptics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 28
+				}
+				new_character = { join_society = monastic_order_skeptics }
+			}
+			create_random_priest = {
+				random_traits = yes
+				random_traits = yes
+				dynasty = none
+				religion = ROOT
+				culture = ROOT
+				attributes = {
+					learning = 10
+				}
+				female = no
+				age = 32
+			}
+			new_character = {
+				join_society = monastic_order_epicureans
+				set_society_grandmaster = yes # Set character as Grand Master
+				add_society_currency_massive_effect = yes
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 16
+				}
+				new_character = { join_society = monastic_order_epicureans }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 18
+				}
+				new_character = { join_society = monastic_order_epicureans }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 20
+				}
+				new_character = { join_society = monastic_order_epicureans }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 25
+				}
+				new_character = { join_society = monastic_order_epicureans }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 26
+				}
+				new_character = { join_society = monastic_order_epicureans }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 28
+				}
+				new_character = { join_society = monastic_order_epicureans }
+			}
+			create_random_priest = {
+				random_traits = yes
+				random_traits = yes
+				dynasty = none
+				religion = ROOT
+				culture = ROOT
+				attributes = {
+					learning = 10
+				}
+				female = no
+				age = 32
+			}
+			new_character = {
+				join_society = monastic_order_stoics
+				set_society_grandmaster = yes # Set character as Grand Master
+				add_society_currency_massive_effect = yes
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 16
+				}
+				new_character = { join_society = monastic_order_stoics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 18
+				}
+				new_character = { join_society = monastic_order_stoics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 20
+				}
+				new_character = { join_society = monastic_order_stoics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 25
+				}
+				new_character = { join_society = monastic_order_stoics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 26
+				}
+				new_character = { join_society = monastic_order_stoics }
+				create_random_priest = {
+					random_traits = yes
+					dynasty = random
+					religion = ROOT
+					culture = ROOT
+					attributes = {
+						learning = 10
+					}
+					female = no
+					age = 28
+				}
+				new_character = { join_society = monastic_order_stoics }
+			}
+		}
 	}
 
 	option = {
@@ -673,6 +1620,13 @@ character_event = {
 
 		add_trait = stoic
 
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_stoics
+		}
+
 		ai_chance = {
 			factor = 40
 			modifier = {
@@ -691,6 +1645,13 @@ character_event = {
 
 		add_trait = skeptic
 
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_skeptics
+		}
+
 		ai_chance = {
 			factor = 35
 			modifier = {
@@ -704,6 +1665,13 @@ character_event = {
 		trigger = {	NOT = {	trait = epicurean } }
 
 		add_trait = epicurean
+
+		if = {
+			limit = {
+				has_global_flag = flag_restored_stoic_intelligentia
+			}
+			join_society = monastic_order_epicureans
+		}
 
 		ai_chance = {
 			factor = 25

@@ -351,6 +351,16 @@ decisions = {
 			# set_character_flag = acr_restorer_of_academy
 			# hidden_tooltip = {
 				# narrative_event = { id = promethean.400 }
+				# any_player = {
+					# limit = {
+						# OR = {
+							# religion_openly_in_hellenic_subgroup_trigger = yes
+							# culture = roman
+							# is_within_diplo_range = ROOT
+						# }
+					# }
+					# narrative_event = { id = promethean.408 days = 10 }
+				# }
 			# }
 		# }
 		# ai_will_do = {
@@ -1049,6 +1059,311 @@ targetted_decisions = {
 			# factor = 1
 			# modifier = {
 				# factor = 0.1
+			# }
+		# }
+	# }
+	
+	# stimulate_growth = {
+		# ai_target_filter = owned
+		# filter = owned
+
+		# from_potential = {
+			# religion = promethean_pagan
+		# }
+
+		# potential = {
+			# location = {
+				# NOR = {
+					# has_province_modifier = prosperity_modifier_3
+					# has_province_modifier = acr_stimulate_growth
+				# }
+			# }
+		# }
+
+		# effect = {
+			# location = { add_province_modifier = { name = acr_stimulate_growth duration = 1825 } }
+			# hidden_tooltip = {
+				# location = { province_event = { id = promethean.100 days = 1825 } }
+			# }
+		# }
+
+		# ai_will_do = {
+			# factor = 1
+			# modifier = {
+				# factor = 0.01
+			# }
+			# modifier = {
+				# factor = 0
+				# OR = {
+					# FROM = {
+						# monthly_income <= 0
+						# wealth < 100
+					# }
+				# }
+			# }
+			# modifier = {
+				# factor = 2
+				# location = { has_province_modifier = depopulated_1 }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = { has_province_modifier = depopulated_2 }
+			# }
+			# modifier = {
+				# factor = 10
+				# location = { has_province_modifier = depopulated_3 }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { culture = FROM } }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { religion = FROM } }
+			# }
+		# }
+	# }
+
+	# sponsor_local_festival = {
+		# ai_target_filter = owned
+		# filter = owned
+
+		# from_potential = {
+			# religion = promethean_pagan
+			# wealth > 10
+		# }
+
+		# potential = {
+			# location = {
+				# NOR = {
+					# has_province_modifier = prosperity_modifier_3
+					# has_province_modifier = acr_local_festival
+				# }
+			# }
+		# }
+
+		# effect = {
+			# location = { add_province_modifier = { name = acr_local_festival duration = 180 } }
+			# custom_tooltip = {
+				# text = province_prospers_custom_tooltip
+				# hidden_tooltip = {
+					# location = {
+						# change_variable = { which = prosperity_value value = 5 }
+					# }
+				# }
+			# }
+			# FROM = { wealth = -10 }
+		# }
+
+		# ai_will_do = {
+			# factor = 1
+			# modifier = {
+				# factor = 0.01
+			# }
+			# modifier = {
+				# factor = 0
+				# OR = {
+					# FROM = {
+						# monthly_income <= 0
+						# wealth < 100
+					# }
+				# }
+			# }
+			# modifier = {
+				# factor = 2
+				# location = { has_province_modifier = depopulated_1 }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = { has_province_modifier = depopulated_2 }
+			# }
+			# modifier = {
+				# factor = 10
+				# location = { has_province_modifier = depopulated_3 }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { culture = FROM } }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { religion = FROM } }
+			# }
+		# }
+	# }
+
+	# infrastructure_projects = {
+		# ai_target_filter = owned
+		# filter = owned
+
+		# from_potential = {
+			# religion = promethean_pagan
+			# wealth > 100
+		# }
+
+		# potential = {
+			# location = {
+				# NOR = {
+					# has_province_modifier = prosperity_modifier_3
+					# has_province_modifier = acr_infrastructure_investment
+				# }
+			# }
+		# }
+
+		# effect = {
+			# custom_tooltip = {
+				# text = infrastructure_projects_tt
+				# location = { add_province_modifier = { name = acr_infrastructure_investment duration = 7300 } }
+			# }
+			# FROM = {
+				# wealth = -100
+			# }
+		# }
+
+		# ai_will_do = {
+			# factor = 1
+			# modifier = {
+				# factor = 0.01
+			# }
+			# modifier = {
+				# factor = 0
+				# OR = {
+					# FROM = {
+						# monthly_income <= 0
+						# wealth < 200
+					# }
+				# }
+			# }
+			# modifier = {
+				# factor = 2
+				# location = { has_province_modifier = depopulated_1 }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = { has_province_modifier = depopulated_2 }
+			# }
+			# modifier = {
+				# factor = 10
+				# location = { has_province_modifier = depopulated_3 }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { culture = FROM } }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { religion = FROM } }
+			# }
+		# }
+	# }
+
+	# invite_settlement = {
+		# ai_target_filter = owned
+		# filter = owned
+
+		# from_potential = {
+			# religion = promethean_pagan
+		# }
+
+		# potential = {
+			# location = {
+				# NOR = {
+					# has_province_modifier = prosperity_modifier_3
+					# has_province_modifier = acr_open_settlement
+				# }
+			# }
+		# }
+
+		# effect = {
+			# location = {
+				# add_province_modifier = { name = acr_open_settlement days = -1 }
+			# }
+		# }
+
+		# ai_will_do = {
+			# factor = 1
+			# modifier = {
+				# factor = 0.01
+			# }
+			# modifier = {
+				# factor = 0
+				# location = {
+					# revolt_risk >= 0.05
+				# }
+			# }
+			# modifier = {
+				# factor = 2
+				# location = { has_province_modifier = depopulated_1 }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = { has_province_modifier = depopulated_2 }
+			# }
+			# modifier = {
+				# factor = 10
+				# location = { has_province_modifier = depopulated_3 }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { culture = FROM } }
+			# }
+			# modifier = {
+				# factor = 0.1
+				# location = { NOT = { religion = FROM } }
+			# }
+		# }
+	# }
+
+	# restrict_settlement = {
+		# ai_target_filter = owned
+		# filter = owned
+
+		# from_potential = {
+			# always = yes
+		# }
+
+		# potential = {
+			# location = { has_province_modifier = acr_open_settlement }
+		# }
+
+		# effect = {
+			# location = { remove_province_modifier = acr_open_settlement }
+		# }
+
+		# ai_will_do = {
+			# factor = 1
+
+			# modifier = {
+				# factor = 0.01
+				# # slow down there buddy
+			# }
+			# modifier = {
+				# factor = 50
+				# location = { revolt_risk >= 0.05 }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = {
+					# is_depopulated_trigger = no
+				# }
+			# }
+			# modifier = {
+				# factor = 2
+				# location = {
+					# has_province_modifier = prosperity_modifier_1
+				# }
+			# }
+			# modifier = {
+				# factor = 5
+				# location = {
+					# has_province_modifier = prosperity_modifier_2
+				# }
+			# }
+			# modifier = {
+				# factor = 100
+				# location = {
+					# has_province_modifier = prosperity_modifier_3
+				# }
 			# }
 		# }
 	# }

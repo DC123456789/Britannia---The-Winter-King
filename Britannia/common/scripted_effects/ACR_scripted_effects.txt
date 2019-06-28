@@ -33,8 +33,9 @@ banish_to_monastery_effect = {
 	}
 }
 
-# reduces prosperity by 2 levels, adding depopulation if necessary
+# reduces prosperity by 3 levels, adding depopulation if necessary
 devestate_province_effect = {
+	decrease_prosperity_effect = yes
 	decrease_prosperity_effect = yes
 	decrease_prosperity_effect = yes
 }
@@ -956,6 +957,105 @@ give_random_tier_1_artifact_to_prev_effect = {
 		transfer_artifact = {
 			from = PREV
 			to = PREVPREV
+		}
+	}
+}
+
+add_foreign_influence_minor_effect = {
+	custom_tooltip = {
+		text = foreign_influence_grows_minor_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = 5 }
+			if = {
+				limit = {
+					NOT = {
+						has_province_modifier = acr_foreign_influence
+					}
+				}
+				add_province_modifier = { name = acr_foreign_influence duration = -1 }
+			}
+		}
+	}
+}
+
+add_foreign_influence_moderate_effect = {
+	custom_tooltip = {
+		text = foreign_influence_grows_moderate_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = 10 }
+			if = {
+				limit = {
+					NOT = {
+						has_province_modifier = acr_foreign_influence
+					}
+				}
+				add_province_modifier = { name = acr_foreign_influence duration = -1 }
+			}
+		}
+	}
+}
+
+add_foreign_influence_major_effect = {
+	custom_tooltip = {
+		text = foreign_influence_grows_major_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = 20 }
+			if = {
+				limit = {
+					NOT = {
+						has_province_modifier = acr_foreign_influence
+					}
+				}
+				add_province_modifier = { name = acr_foreign_influence duration = -1 }
+			}
+		}
+	}
+}
+
+subtract_foreign_influence_minor_effect = {
+	custom_tooltip = {
+		text = foreign_influence_declines_minor_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = -5 }
+			if = {
+				limit = {
+					NOT = { check_variable = { which = foreign_influence value = 1 } }
+				}
+				remove_province_modifier = acr_foreign_influence
+				set_variable = { which = foreign_influence value = 0 }
+			}
+		}
+	}
+}
+
+subtract_foreign_influence_moderate_effect = {
+	custom_tooltip = {
+		text = foreign_influence_declines_moderate_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = -10 }
+			if = {
+				limit = {
+					NOT = { check_variable = { which = foreign_influence value = 1 } }
+				}
+				remove_province_modifier = acr_foreign_influence
+				set_variable = { which = foreign_influence value = 0 }
+			}
+		}
+	}
+}
+
+subtract_foreign_influence_major_effect = {
+	custom_tooltip = {
+		text = foreign_influence_declines_major_custom_tooltip
+		hidden_tooltip = {
+			change_variable = { which = foreign_influence value = -20 }
+			if = {
+				limit = {
+					NOT = { check_variable = { which = foreign_influence value = 1 } }
+				}
+				remove_province_modifier = acr_foreign_influence
+				set_variable = { which = foreign_influence value = 0 }
+			}
 		}
 	}
 }
