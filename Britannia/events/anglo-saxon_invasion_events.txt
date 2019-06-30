@@ -2776,30 +2776,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 600 600 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 550 550 }
-							archers = { 500 500 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 750 750 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 550 550 }
+								archers = { 450 450 }
+							}
+							attrition = 0.5
+							disband_on_peace = yes
+						}						
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 750 750 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 550 550 }
-							archers = { 450 450 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}					
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 600 600 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 550 550 }
+								archers = { 500 500 }
+							}
+							attrition = 0.5
 						}
-						attrition = 0.5
-						disband_on_peace = yes
 					}
 					wealth = 50
 				}
@@ -4313,41 +4345,79 @@ character_event = {
 			}
 		}
 		if = {
-			limit = {
-				ROOT = {
-					war = yes
-				}
-			}
+			limit = { ROOT = { war = yes } }
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							pikemen = { 350 350 }
-							heavy_infantry = { 350 350 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
-					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							pikemen = { 550 550 }
-							heavy_infantry = { 450 450 }
-							archers = { 300 300 }
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 550 550 }
+								heavy_infantry = { 450 450 }
+								archers = { 300 300 }
+							}
+							attrition = 0.5
+							disband_on_peace = yes
 						}
-						attrition = 0.5
-						disband_on_peace = yes
 					}
 					if = {
-						limit = {
-							NOT = { num_of_count_titles_in_realm = 4 }
-							any_war = { defender = { num_of_count_titles_in_realm = 10 } }
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}	
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								pikemen = { 350 350 }
+								heavy_infantry = { 350 350 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
 						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 5000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}	
 						spawn_unit = {
 							province = PREV
 							home = PREV
@@ -5126,23 +5196,34 @@ character_event = {			# Spawn troops
 					attrition = 0.5
 				}
 				if = {
-					limit = {
-						PREV = {
-							owner = {
-								top_liege = { tier = emperor }
-							}
-						}
-					}
+					limit = { PREV = { owner = { top_liege = { realm_levies = 7500 } } } }
 					spawn_unit = {
 						province = PREV
 						home = PREV
 						owner = ROOT
 						earmark = west_saxon_army_534 
 						troops = {
-							light_infantry = { 900 900 }
-							pikemen = { 900 900 }
-							archers = { 300 300 }
-							heavy_infantry = { 1100 1100 }
+							light_infantry = { 450 450 }
+							pikemen = { 450 450 }
+							archers = { 150 150 }
+							heavy_infantry = { 500 500 }
+						}
+						disband_on_peace = yes
+						attrition = 0.25
+					}
+				}
+				if = {
+					limit = { PREV = { owner = { top_liege = { realm_levies = 9000 } } } }
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						earmark = west_saxon_army_534 
+						troops = {
+							light_infantry = { 450 450 }
+							pikemen = { 450 450 }
+							archers = { 150 150 }
+							heavy_infantry = { 500 500 }
 						}
 						disband_on_peace = yes
 						attrition = 0.25
@@ -5191,11 +5272,26 @@ character_event = {			# Spawn troops
 					earmark = west_saxon_army_534 
 					owner = ROOT
 					troops = {
-						light_infantry = { 450 450 }
-						pikemen = { 850 850 }
-						heavy_infantry = { 750 750 }
+						light_infantry = { 250 250 }
+						pikemen = { 450 450 }
+						heavy_infantry = { 400 400 }
 					}
 					attrition = 0.75
+				}
+				if = {
+					limit = { PREV = { owner = { top_liege = { realm_levies = 3500 } } } }
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						earmark = west_saxon_army_534 
+						owner = ROOT
+						troops = {
+							light_infantry = { 200 200 }
+							pikemen = { 400 400 }
+							heavy_infantry = { 350 350 }
+						}
+						attrition = 0.75
+					}
 				}
 				spawn_unit = {
 					province = PREV
@@ -5203,12 +5299,28 @@ character_event = {			# Spawn troops
 					earmark = west_saxon_army_534 
 					owner = ROOT
 					troops = {
-						light_infantry = { 450 450 }
-						pikemen = { 850 850 }
-						heavy_infantry = { 750 750 }
+						light_infantry = { 250 250 }
+						pikemen = { 450 450 }
+						heavy_infantry = { 400 400 }
 					}
 					attrition = 0.75
 					disband_on_peace = yes
+				}
+				if = {
+					limit = { PREV = { owner = { top_liege = { realm_levies = 4500 } } } }
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						earmark = west_saxon_army_534 
+						owner = ROOT
+						troops = {
+							light_infantry = { 200 200 }
+							pikemen = { 400 400 }
+							heavy_infantry = { 350 350 }
+						}
+						attrition = 0.75
+						disband_on_peace = yes
+					}
 				}
 			}
 			create_character = {
@@ -5236,12 +5348,28 @@ character_event = {			# Spawn troops
 					earmark = west_saxon_army_534 
 					owner = ROOT
 					troops = {
-						light_infantry = { 600 600 }
-						pikemen = { 800 800 }
-						heavy_infantry = { 900 900 }
-						archers = { 500 500 }
+						light_infantry = { 300 300 }
+						pikemen = { 400 400 }
+						heavy_infantry = { 450 450 }
+						archers = { 250 250 }
 					}
 					attrition = 0.75
+				}
+				if = {
+					limit = { PREV = { owner = { top_liege = { realm_levies = 6000 } } } }
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						earmark = west_saxon_army_534 
+						owner = ROOT
+						troops = {
+							light_infantry = { 300 300 }
+							pikemen = { 400 400 }
+							heavy_infantry = { 450 450 }
+							archers = { 250 250 }
+						}
+						attrition = 0.75
+					}
 				}
 			}
 			create_character = {
@@ -5534,30 +5662,62 @@ character_event = {
 			}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 150 150 }
-							pikemen = { 350 350 }
-							heavy_infantry = { 200 200 }
-							archers = { 250 250 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 1000 1000 }
+								pikemen = { 500 500 }
+								heavy_infantry = { 800 800 }
+								archers = { 650 650 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 1300 1300 }
-							pikemen = { 500 500 }
-							heavy_infantry = { 800 800 }
-							archers = { 650 650 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}	
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 250 250 }
+								pikemen = { 350 350 }
+								heavy_infantry = { 200 200 }
+								archers = { 250 250 }
+							}
+							attrition = 0.5
 						}
-						disband_on_peace = yes
-						attrition = 0.5
 					}
 				}
 			}
@@ -5632,30 +5792,62 @@ character_event = {
 			}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 150 150 }
-							pikemen = { 350 350 }
-							heavy_infantry = { 200 200 }
-							archers = { 250 250 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 1000 1000 }
+								pikemen = { 500 500 }
+								heavy_infantry = { 800 800 }
+								archers = { 650 650 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 1300 1300 }
-							pikemen = { 500 500 }
-							heavy_infantry = { 800 800 }
-							archers = { 650 650 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}	
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 250 250 }
+								pikemen = { 350 350 }
+								heavy_infantry = { 200 200 }
+								archers = { 250 250 }
+							}
+							attrition = 0.5
 						}
-						disband_on_peace = yes
-						attrition = 0.5
 					}
 				}
 			}
@@ -5769,44 +5961,76 @@ character_event = {
 			}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 150 150 }
-							pikemen = { 350 350 }
-							heavy_infantry = { 200 200 }
-							archers = { 250 250 }
-						}
-						attrition = 0.5
-					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 750 750 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 400 400 }
-							archers = { 325 325 }
-						}
-						disband_on_peace = yes
-						attrition = 0.5
-					}
 					if = {
-						limit = { NOT = { has_global_flag = west_saxon_invasion_hampshire } }
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
+						}
 						spawn_unit = {
 							province = PREV
 							home = PREV
 							owner = ROOT
 							troops = {
-								light_infantry = { 750 750 }
-								pikemen = { 500 500 }
-								heavy_infantry = { 400 400 }
-								archers = { 325 325 }
+								light_infantry = { 650 650 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 350 350 }
+								archers = { 300 300 }
 							}
 							disband_on_peace = yes
+							attrition = 0.5
+						}
+						if = {
+							limit = { NOT = { has_global_flag = west_saxon_invasion_hampshire } }
+							spawn_unit = {
+								province = PREV
+								home = PREV
+								owner = ROOT
+								troops = {
+									light_infantry = { 650 650 }
+									pikemen = { 350 350 }
+									heavy_infantry = { 350 350 }
+									archers = { 300 300 }
+								}
+								disband_on_peace = yes
+								attrition = 0.5
+							}
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}	
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 250 250 }
+								pikemen = { 350 350 }
+								heavy_infantry = { 200 200 }
+								archers = { 250 250 }
+							}
 							attrition = 0.5
 						}
 					}
@@ -6853,16 +7077,64 @@ character_event = {
 				}
 			}
 			ROOT = {
-				spawn_unit = {
-					province = 153
-					home = 153
-					owner = ROOT
-					troops = {
-						pikemen = { 500 500 }
-						heavy_infantry = { 750 750 }
-						archers = { 150 150 }
+				capital_scope = {
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 350 350 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 150 150 }
+								archers = { 50 50 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					attrition = 1
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 450 450 }
+								pikemen = { 500 500 }
+								heavy_infantry = { 400 400 }
+								archers = { 150 150 }
+							}
+							attrition = 0.5
+						}
+					}
 				}
 			}
 		}
@@ -7869,30 +8141,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -7991,30 +8295,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -8126,30 +8462,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -8234,30 +8602,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -8342,30 +8742,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -8455,30 +8887,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 400 400 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 200 200 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 450 450 }
-							heavy_infantry = { 600 600 }
-							archers = { 400 400 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
 					}
 				}
 			}
@@ -10239,31 +10703,41 @@ character_event = {			# Spawn troops
 						owner = ROOT
 						earmark = hwiccas_army_577
 						troops = {
-								archers = { 200 200 }
-								light_infantry = { 650 650 }
-								pikemen = { 450 450 }
-								heavy_infantry = { 550 550 }
+							archers = { 200 200 }
+							light_infantry = { 650 650 }
+							pikemen = { 450 450 }
+							heavy_infantry = { 550 550 }
 						}
 						attrition = 0.5
 					}
 					if = {
-						limit = {
-							PREV = {
-								owner = {
-									top_liege = { tier = emperor }
-								}
-							}
-						}
+						limit = { PREV = { owner = { top_liege = { realm_levies = 7000 } } } }
 						spawn_unit = {
 							province = PREV
 							home = PREV
 							owner = ROOT
 							earmark = hwiccas_army_577 
 							troops = {
-								archers = { 300 300 }
-								light_infantry = { 1500 1500 }
-								pikemen = { 500 500 }
-								heavy_infantry = { 1200 1200 }
+								archers = { 350 350 }
+								light_infantry = { 650 650 }
+								pikemen = { 300 300 }
+								heavy_infantry = { 400 400 }
+							}
+							attrition = 0.25
+						}
+					}
+					if = {
+						limit = { PREV = { owner = { top_liege = { realm_levies = 9000 } } } }
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							earmark = hwiccas_army_577 
+							troops = {
+								archers = { 350 350 }
+								light_infantry = { 650 650 }
+								pikemen = { 300 300 }
+								heavy_infantry = { 400 400 }
 							}
 							attrition = 0.25
 						}
@@ -10311,12 +10785,28 @@ character_event = {			# Spawn troops
 						earmark = hwiccas_army_577 
 						owner = ROOT
 						troops = {
-							archers = { 350 350 }
-							light_infantry = { 900 900 }
-							pikemen = { 700 700 }
-							heavy_infantry = { 750 750 }
+							archers = { 250 250 }
+							light_infantry = { 550 550 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 450 450 }
 						}
 						attrition = 0.75
+					}
+					if = {
+						limit = { PREV = { owner = { top_liege = { realm_levies = 3500 } } } }
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							earmark = hwiccas_army_577 
+							owner = ROOT
+							troops = {
+								archers = { 250 250 }
+								light_infantry = { 500 500 }
+								pikemen = { 350 350 }
+								heavy_infantry = { 400 400 }
+							}
+							attrition = 0.75
+						}
 					}
 				}
 				create_character = {
@@ -10344,12 +10834,28 @@ character_event = {			# Spawn troops
 						earmark = hwiccas_army_577 
 						owner = ROOT
 						troops = {
-							light_infantry = { 800 800 }
-							pikemen = { 650 650 }
-							heavy_infantry = { 750 750 }
-							archers = { 450 450 }
+							light_infantry = { 600 550 }
+							pikemen = { 350 350 }
+							heavy_infantry = { 500 500 }
+							archers = { 300 300 }
 						}
 						attrition = 0.75
+					}
+					if = {
+						limit = { PREV = { owner = { top_liege = { realm_levies = 5000 } } } }
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							earmark = hwiccas_army_577 
+							owner = ROOT
+							troops = {
+								light_infantry = { 600 600 }
+								pikemen = { 200 200 }
+								heavy_infantry = { 450 450 }
+								archers = { 250 250 }
+							}
+							attrition = 0.75
+						}
 					}
 				}
 				create_character = {
@@ -10609,30 +11115,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 350 350 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 150 150 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 550 550 }
+								heavy_infantry = { 450 450 }
+								archers = { 350 350 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 550 550 }
-							heavy_infantry = { 450 450 }
-							archers = { 350 350 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 350 350 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 150 150 }
+							}
+							attrition = 0.5
+						}
 					}
 					wealth = 30
 				}
@@ -10711,30 +11249,62 @@ character_event = {
 			limit = { war = yes	}
 			capital_scope = {
 				ROOT = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 350 350 }
-							pikemen = { 250 250 }
-							heavy_infantry = { 200 200 }
-							archers = { 150 150 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
 						}
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 550 550 }
+								heavy_infantry = { 450 450 }
+								archers = { 350 350 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
 					}
-					spawn_unit = {
-						province = PREV
-						home = PREV
-						owner = ROOT
-						troops = {
-							light_infantry = { 700 700 }
-							pikemen = { 550 550 }
-							heavy_infantry = { 450 450 }
-							archers = { 350 350 }
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
 						}
-						disband_on_peace = yes
-						attrition = 0.5
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 350 350 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 150 150 }
+							}
+							attrition = 0.5
+						}
 					}
 					wealth = 30
 				}
