@@ -2480,7 +2480,7 @@ take_vassal_tribal = {
 			vassalize_under_ROOT_tribal_effect = yes
 		}
 		ROOT = {
-			participation_scaled_prestige = 100
+			participation_scaled_prestige = 75
 		}
 		any_attacker = {
 			limit = {
@@ -6139,7 +6139,25 @@ raid_cb = {					# Raid (war for money)
 			prestige = 100 
 			NOT = { has_character_modifier = raider_timer }
 		}
-		FROM = { scaled_wealth = 2 }
+		FROM = { 
+			conditional_tooltip = {
+				trigger = { government = tribal_government }
+				scaled_wealth = 4
+			}
+			conditional_tooltip = {
+				trigger = { government = high_tribal_government }
+				scaled_wealth = 2.5
+			}
+			conditional_tooltip = {
+				trigger = { 
+					NOR = {
+						government = tribal_government
+						government = high_tribal_government 
+					}
+				}
+				scaled_wealth = 1.5
+			}
+		}
 	}
 
 	can_use = {
@@ -6235,20 +6253,20 @@ raid_cb = {					# Raid (war for money)
 				limit = { government = tribal_government }
 				transfer_scaled_wealth = {
 					to = ROOT
-					value = 9
+					value = 7
 				}
 			}
 			else_if = {
 				limit = { government = high_tribal_government }
 				transfer_scaled_wealth = {
 					to = ROOT
-					value = 7
+					value = 5
 				}
 			}
 			else = {
 				transfer_scaled_wealth = {
 					to = ROOT
-					value = 2.5
+					value = 2
 				}
 			}
 		}
