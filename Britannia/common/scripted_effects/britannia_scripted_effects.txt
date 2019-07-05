@@ -4139,6 +4139,36 @@ set_proper_pagan_religions_effect = {
 	}
 }
 
+flag_theocracy_titles_effect = {
+	if = {
+		limit = { is_theocracy = yes }
+		set_character_flag = is_theocracy
+		if = {
+			limit = { independent = no }
+			liege = { save_event_target_as = archdruid_liege }
+		}
+		any_demesne_title = {
+			set_title_flag = archdruid_title_@PREV
+		}
+	}
+}
+
+# Used in conjunction with the above
+restore_theocracy_titles_effect = {
+	if = {
+		limit = { has_character_flag = is_theocracy }
+		clr_character_flag = is_theocracy
+		any_title = {
+			limit = { has_title_flag = archdruid_title_@PREV }
+			clr_title_flag = archdruid_title_@PREV
+			grant_title = PREV
+		}
+		event_target:archdruid_liege = {
+			set_defacto_vassal = PREV
+		}
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {
