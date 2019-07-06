@@ -1208,8 +1208,8 @@ NNomad = {
 
 NMilitary = {
 	MORALE_COLLAPSE_THRESHOLD = 0.20,				-- Threshold before unit runs away
-	MORALELOSS_FACTOR = 6,							-- Affects the morale loss rate in combats(higher gives bigger losses)
-	ATTACK_TO_DAMAGE_MULT = 0.03,					-- Attack value of troops is multiplied by this when doing damage
+	MORALELOSS_FACTOR = 5,							-- Affects the morale loss rate in combats(higher gives bigger losses)
+	ATTACK_TO_DAMAGE_MULT = 0.025,					-- Attack value of troops is multiplied by this when doing damage
 	MIN_COMBAT_DAYS = 2,							-- Minimum number of days in combat
 	NUMBER_OF_RETREAT_DAYS = 2,						-- Number of days before you retreat successfully
 	NUMBER_OF_TROOPS_PER_GALLEY = 100,				-- Number of men each galley can hold
