@@ -686,7 +686,7 @@ plot_decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.2 # Slow it down a bit
+				factor = 0.5 # Slow it down a bit
 			}
 			
 			modifier = {
@@ -716,6 +716,7 @@ plot_decisions = {
 						defender = { character = PREV }
 						NOT = { attacker = { religion_group = ROOT } }
 					}
+					NOT = { government = tribal_government }
 				}
 				NOT = { has_character_flag = anglia_collapse_leader }
 				NOT = { liege = { government = tribal_government } }
@@ -729,6 +730,7 @@ plot_decisions = {
 						attacker = { character = PREV }
 						NOT = { defender = { religion_group = ROOT } }
 					}
+					NOT = { government = tribal_government }
 				}
 				NOT = { has_character_flag = anglia_collapse_leader }
 				NOT = { liege = { government = tribal_government } }
@@ -759,13 +761,14 @@ plot_decisions = {
 							}
 						}
 					}
+					NOT = { government = tribal_government }
 				}
 				NOT = { has_character_flag = anglia_collapse_faction }
 				NOT = { liege = { government = tribal_government } }
 			}
 			
 			modifier = {
-				factor = 0.25
+				factor = 0.5
 				NOT = { 
 					faction_power = 
 					{
@@ -776,7 +779,18 @@ plot_decisions = {
 			}
 			
 			modifier = {
-				factor = 0.5
+				factor = 0.75
+				NOT = { 
+					faction_power = 
+					{
+						faction = faction_independence
+						power = 0.75
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
 				NOT = { 
 					faction_power = 
 					{
@@ -787,11 +801,38 @@ plot_decisions = {
 			}
 			
 			modifier = {
-				factor = 2.0
+				factor = 1.5
+				faction_power = 
+				{
+					faction = faction_independence
+					power = 1.25
+				}
+			}
+			
+			modifier = {
+				factor = 1.5
 				faction_power = 
 				{
 					faction = faction_independence
 					power = 1.5
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				faction_power = 
+				{
+					faction = faction_independence
+					power = 1.75
+				}
+			}
+			
+			modifier = {
+				factor = 5
+				faction_power = 
+				{
+					faction = faction_independence
+					power = 2
 				}
 			}
 			
@@ -801,7 +842,7 @@ plot_decisions = {
 			}
 			
 			modifier = {
-				factor = 2
+				factor = 1.5
 				liege = { government = tribal_government }
 			}
 			
@@ -1127,8 +1168,28 @@ plot_decisions = {
 					faction_power = 
 					{
 						faction = faction_overthrow
-						power = 0.5
+						power = 0.66
 					}
+				}
+			}
+			
+			modifier = {
+				factor = 0.5
+				NOT = { 
+					faction_power = 
+					{
+						faction = faction_overthrow
+						power = 0.85
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2.0
+				faction_power = 
+				{
+					faction = faction_overthrow
+					power = 1.5
 				}
 			}
 			
