@@ -1549,6 +1549,14 @@ county_conquest = {
 	
 	on_add = {
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+		hidden_tooltip = {
+			ROOT = {
+				add_character_modifier = {
+					name = conquest_timer 
+					duration = 730
+				}
+			}
+		}
 	}
 	
 	on_success_title = {
@@ -3383,6 +3391,14 @@ duchy_invasion = {
 			clr_character_flag = duchy_invasion_target
 		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+		hidden_tooltip = {
+			ROOT = {
+				add_character_modifier = {
+					name = conquest_timer 
+					duration = 730
+				}
+			}
+		}
 	}
 	
 	on_success = {
@@ -5278,13 +5294,21 @@ depose_high_king_britannia_cb = {
 		factor = 1
 		
 		modifier = {
-			factor = 1.5
+			factor = 3
+			always = yes
 		}
 
 		modifier = {
-			factor = 4
+			factor = 2
 			ROOT = {
 				trait = greedy
+			}
+		}
+
+		modifier = {
+			factor = 3
+			ROOT = {
+				trait = ambitious
 			}
 		}
 		
@@ -5961,6 +5985,13 @@ claim_high_king_britannia_cb = {
 	
 	ai_will_do = { 
 		factor = 10
+
+		modifier = {
+			factor = 3
+			ROOT = {
+				trait = ambitious
+			}
+		}
 	}
 }
 disputeAenglandHighKingship = {
