@@ -1548,6 +1548,7 @@ county_conquest = {
 	}
 	
 	on_add = {
+		ROOT = { prestige = -75 }
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 		hidden_tooltip = {
 			ROOT = {
@@ -3335,49 +3336,37 @@ duchy_invasion = {
 	}
 	
 	can_use_title = {
-		OR = {
-			AND = {
-				ROOT = {
-					has_character_flag = duchy_invader
-				}
-				FROM = { 
-					has_character_flag = duchy_invasion_target
+		any_direct_de_jure_vassal_title = {
+			holder_scope = {
+				OR = {
+					character = FROM
+					is_liege_or_above = FROM
 				}
 			}
-			AND = {
+			OR = {
+				location = {
+					any_neighbor_province = {
+						has_owner = yes
+						owner = {
+							OR = {
+								character = ROOT
+								is_liege_or_above = ROOT
+							}
+						}
+						can_declare_conquest_war_on_province_trigger = yes
+					}
+				}
 				any_direct_de_jure_vassal_title = {
 					holder_scope = {
 						OR = {
-							character = FROM
-							is_liege_or_above = FROM
-						}
-					}
-					OR = {
-						location = {
-							any_neighbor_province = {
-								has_owner = yes
-								owner = {
-									OR = {
-										character = ROOT
-										is_liege_or_above = ROOT
-									}
-								}
-								can_declare_conquest_war_on_province_trigger = yes
-							}
-						}
-						any_direct_de_jure_vassal_title = {
-							holder_scope = {
-								OR = {
-									character = ROOT
-									is_liege_or_above = ROOT
-								}
-							}
+							character = ROOT
+							is_liege_or_above = ROOT
 						}
 					}
 				}
-				duchy_invasion_can_use_title_minus_neighbour_condition_trigger = yes
 			}
 		}
+		duchy_invasion_can_use_title_minus_neighbour_condition_trigger = yes
 	}
 	
 	is_valid = {
@@ -3385,10 +3374,7 @@ duchy_invasion = {
 	
 	on_add = {
 		ROOT = {
-			clr_character_flag = duchy_invader
-		}
-		FROM = {
-			clr_character_flag = duchy_invasion_target
+			prestige = -100
 		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 		hidden_tooltip = {
@@ -3404,7 +3390,7 @@ duchy_invasion = {
 	on_success = {
 		ROOT = {
 			show_scope_change = no
-			participation_scaled_prestige = 200
+			participation_scaled_prestige = 100
 		}
 		any_attacker = {
 			limit = {

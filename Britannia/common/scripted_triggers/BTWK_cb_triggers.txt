@@ -35,6 +35,7 @@ county_conquest_can_use_gui_trigger = {
 				has_character_modifier = conqueror					
 			}
 		}
+		prestige = 500
 		OR = { 
 			culture_group = germanic
 			culture = oldirish	
@@ -636,48 +637,37 @@ duchy_invasion_can_use_gui_trigger = {
 				has_character_modifier = conqueror					
 			}
 		}
-		OR = {
-			hidden_tooltip = {
+		prestige = 1000
+		conditional_tooltip = {
+			trigger = {
+				independent = no
+			}
+			age = 20
+			prestige = 1000
+			OR = {
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				martial = 12
 				AND = {
-					ROOT = {
-						has_character_flag = duchy_invader
+					OR = {
+						trait = ambitious
+						trait = inspiring_leader
 					}
-					FROM = { 
-						has_character_flag = duchy_invasion_target
-					}
+					prestige = 1500
+					diplomacy = 12
+					martial = 10
 				}
 			}
-			AND = {
-				age = 20
-				prestige = 1000
-				OR = {
-					trait = skilled_tactician
-					trait = brilliant_strategist
-					martial = 12
-					AND = {
-						OR = {
-							trait = ambitious
-							trait = inspiring_leader
-						}
-						prestige = 1500
-						diplomacy = 12
-						martial = 10
-					}
-				}
-				prisoner = no
-				NOR = { 
-					trait = content
-					trait = incapable
-					trait = slow
-					trait = imbecile
-					trait = weak
-				}
+			prisoner = no
+			NOR = { 
+				trait = content
+				trait = incapable
+				trait = slow
+				trait = imbecile
+				trait = weak
 			}
 		}
-		OR = {
-			higher_tier_than = DUKE
-			num_of_count_titles_in_realm = 8
-		}
+		higher_tier_than = COUNT
 	}
 	conditional_tooltip = {
 		trigger = {
@@ -701,14 +691,6 @@ duchy_invasion_can_use_gui_trigger = {
 
 duchy_invasion_can_use_trigger = {
 	OR = {
-		AND = {
-			ROOT = {
-				has_character_flag = duchy_invader
-			}
-			FROM = { 
-				has_character_flag = duchy_invasion_target
-			}
-		}
 		AND = {
 			ROOT = {
 				NOT = { culture = FROM }
