@@ -83,13 +83,68 @@ decisions = {
 		allow = {
 			war = yes
 			prestige = 600
+			custom_tooltip = {
+				text = raise_tribal_units_tooltip
+				NOR = {
+					has_character_modifier = tribal_modifier_-4
+					has_character_modifier = tribal_modifier_-5
+					has_character_modifier = tribal_modifier_-6
+					has_character_modifier = tribal_modifier_-7
+					has_character_modifier = tribal_modifier_-8
+					has_character_modifier = tribal_modifier_-9
+					has_character_modifier = tribal_modifier_-10
+					has_character_modifier = tribal_modifier_-11
+					has_character_modifier = tribal_modifier_-12
+					has_character_modifier = tribal_modifier_-13
+					has_character_modifier = tribal_modifier_-14
+					has_character_modifier = tribal_modifier_-15
+				}
+			}
+			conditional_tooltip = {
+				trigger = { has_character_modifier = tribal_unit_timer }
+				NOT = { has_character_modifier = tribal_unit_timer }
+			}
 		}
 		effect = {
-			export_to_variable = {
-				which = ruler_prestige
-				value = prestige
+			hidden_effect = {
+				export_to_variable = {
+					which = ruler_prestige
+					value = prestige
+				}
+				log = "[Root.GetTitledName] raised a Tribal Army while having a prestige of [Root.ruler_prestige.GetValue]"
+				if = {
+					limit = { NOT = { prestige = 1000 } }
+					add_character_modifier = {
+						name = tribal_unit_timer
+						days = 365
+						hidden = yes
+					}
+				}
+				else_if = {
+					limit = { NOT = { prestige = 2000 } }
+					add_character_modifier = {
+						name = tribal_unit_timer
+						days = 180
+						hidden = yes
+					}
+				}
+				else_if = {
+					limit = { NOT = { prestige = 3000 } }
+					add_character_modifier = {
+						name = tribal_unit_timer
+						days = 90
+						hidden = yes
+					}
+				}
+				else_if = {
+					limit = { NOT = { prestige = 4000 } }
+					add_character_modifier = {
+						name = tribal_unit_timer
+						days = 30
+						hidden = yes
+					}
+				}
 			}
-			log = "[Root.GetTitledName] raised a Tribal Army while having a prestige of [Root.ruler_prestige.GetValue]"
 			# if = {
 				# limit = {
 					# OR = {
@@ -129,9 +184,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 100 100 }
-									light_infantry = { 300 300 }
-									heavy_infantry = { 50 50 }
+									archers = { 110 110 }
+									light_infantry = { 330 330 }
+									heavy_infantry = { 75 75 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -149,9 +204,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 120 120 }
-									light_infantry = { 370 370 }
-									heavy_infantry = { 60 60 }
+									archers = { 130 130 }
+									light_infantry = { 400 400 }
+									heavy_infantry = { 90 90 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -169,9 +224,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 140 140 }
-									light_infantry = { 430 430 }
-									heavy_infantry = { 80 80 }
+									archers = { 155 155 }
+									light_infantry = { 470 470 }
+									heavy_infantry = { 115 115 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -189,9 +244,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 170 170 }
-									light_infantry = { 530 530 }
-									heavy_infantry = { 100 100 }
+									archers = { 190 190 }
+									light_infantry = { 580 580 }
+									heavy_infantry = { 140 140 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -209,9 +264,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 200 200 }
-									light_infantry = { 600 600 }
-									heavy_infantry = { 150 150 }
+									archers = { 230 230 }
+									light_infantry = { 670 670 }
+									heavy_infantry = { 190 190 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -228,9 +283,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 250 250 }
-									light_infantry = { 720 720 }
-									heavy_infantry = { 180 180 }
+									archers = { 280 280 }
+									light_infantry = { 800 800 }
+									heavy_infantry = { 230 230 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -250,9 +305,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 50 50 }
-									light_infantry = { 150 150 }
-									heavy_infantry = { 25 25 }
+									archers = { 60 60 }
+									light_infantry = { 165 165 }
+									heavy_infantry = { 35 35 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -270,9 +325,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 60 60 }
-									light_infantry = { 185 185 }
-									heavy_infantry = { 30 30 }
+									archers = { 70 70 }
+									light_infantry = { 200 200 }
+									heavy_infantry = { 40 40 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -290,9 +345,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 70 70 }
-									light_infantry = { 215 215 }
-									heavy_infantry = { 40 40 }
+									archers = { 85 85 }
+									light_infantry = { 235 235 }
+									heavy_infantry = { 55 55 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -310,9 +365,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 85 85 }
-									light_infantry = { 265 265 }
-									heavy_infantry = { 50 50 }
+									archers = { 100 100 }
+									light_infantry = { 290 290 }
+									heavy_infantry = { 70 70 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -330,9 +385,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 100 100 }
-									light_infantry = { 300 300 }
-									heavy_infantry = { 75 75 }
+									archers = { 130 130 }
+									light_infantry = { 350 350 }
+									heavy_infantry = { 90 90 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -349,9 +404,9 @@ decisions = {
 								province = PREV
 								home = PREV
 								troops = {
-									archers = { 125 125 }
-									light_infantry = { 360 360 }
-									heavy_infantry = { 90 90 }
+									archers = { 160 160 }
+									light_infantry = { 450 450 }
+									heavy_infantry = { 120 120 }
 								}
 								attrition = 1.0
 								disband_on_peace = yes
@@ -361,7 +416,7 @@ decisions = {
 					}
 				}
 			}
-			prestige = -300
+			prestige = -200
 		}
 		ai_will_do = {
 			factor = 0 # decisions with the "is_mercenary" will not be calculated from the script
