@@ -3215,6 +3215,7 @@ character_event = {
 				clr_global_flag = iclingas_invasion_pegansaete
 				clr_global_flag = iclingas_invasion_tomsaete
 				clr_global_flag = iclingas_invasion_grentbryce
+				clr_global_flag = iclingas_invasion_wixna
 				clr_global_flag = iclingas_invasion_wrocensaete
 				clr_global_flag = iclingas_invasion_magonsaete
 				clr_global_flag = iclingas_invasion_cilternsaete
@@ -7509,6 +7510,7 @@ province_event = {
 			region = custom_tomsaete
 			region = custom_middleanglia
 			region = custom_grentbryce
+			region = custom_wixna
 		}
 		any_neighbor_province = {
 			OR = {
@@ -7665,6 +7667,7 @@ character_event = {
 					region = custom_tomsaete
 					region = custom_pegansaete
 					region = custom_grentbryce
+					region = custom_wixna
 				}
 				any_neighbor_province = {
 					OR = {
@@ -7705,6 +7708,9 @@ character_event = {
 			}
 			preferred_limit = {
 				region = custom_grentbryce
+			}
+			preferred_limit = {
+				region = custom_wixna
 			}
 			save_event_target_as = target_province
 		}
@@ -7748,6 +7754,16 @@ character_event = {
 					}
 				}
 				set_global_flag = iclingas_invasion_grentbryce
+			}
+			else_if = {
+				limit = { region = custom_wixna }
+				any_province = {
+					limit = { region = custom_wixna }
+					county = {
+						add_claim = ROOT
+					}
+				}
+				set_global_flag = iclingas_invasion_wixna
 			}
 			county = { 
 				owner = {
@@ -8392,6 +8408,7 @@ character_event = {
 			has_global_flag = iclingas_invasion_pegansaete
 			has_global_flag = iclingas_invasion_tomsaete
 			has_global_flag = iclingas_invasion_grentbryce
+			has_global_flag = iclingas_invasion_wixna
 			has_global_flag = iclingas_invasion_cilternsaete
 			has_global_flag = iclingas_invasion_hwicce
 		}
@@ -8432,27 +8449,32 @@ character_event = {
 		modifier = {
 			factor = 5
 			has_global_flag = iclingas_invasion_pegansaete
-			NOT = { completely_controls = d_mercia }
+			NOT = { completely_controls_region = custom_pegansaete }
 		}
 		modifier = {
 			factor = 5
 			has_global_flag = iclingas_invasion_tomsaete
-			NOT = { completely_controls = d_tomsaete }
+			NOT = { completely_controls_region = custom_tomsaete }
 		}
 		modifier = {
 			factor = 5
 			has_global_flag = iclingas_invasion_grentbryce
-			NOT = { completely_controls = d_grentbryce }
+			NOT = { completely_controls_region = custom_grentbryce }
+		}
+		modifier = {
+			factor = 5
+			has_global_flag = iclingas_invasion_wixna
+			NOT = { completely_controls_region = custom_wixna }
 		}
 		modifier = {
 			factor = 5
 			has_global_flag = iclingas_invasion_cilternsaete
-			NOT = { completely_controls = d_cilternsaete }
+			NOT = { completely_controls_region = custom_cilternsaete }
 		}
 		modifier = {
 			factor = 5
 			has_global_flag = iclingas_invasion_hwicce
-			NOT = { completely_controls = d_hwicce }
+			NOT = { completely_controls_region = custom_hwicce }
 		}
 		modifier = {
 			factor = 0.5
@@ -8605,6 +8627,146 @@ character_event = {
 		random_province = {
 			limit = {
 				region = custom_grentbryce
+				ROOT_can_declare_war_against_province_trigger = yes
+				any_neighbor_province = {
+					owner = { top_liege = { character = ROOT } }
+				}
+			}
+			county = {
+				declare_conquest_war = yes
+			}
+		}
+		if = {
+			limit = { war = yes	}
+			capital_scope = {
+				ROOT = {
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 7500 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -1000
+										}
+									}
+								}
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 700 700 }
+								pikemen = { 450 450 }
+								heavy_infantry = { 600 600 }
+								archers = { 400 400 }
+							}
+							disband_on_peace = yes
+							attrition = 0.5
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								NOT = { realm_levies = 6000 }
+								any_war = {
+									attacker = { character = ROOT }
+									defender = { 
+										realm_levy_diff = {
+											who = ROOT
+											value = -500
+										}
+									}
+								}
+							}
+						}
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							troops = {
+								light_infantry = { 400 400 }
+								pikemen = { 250 250 }
+								heavy_infantry = { 200 200 }
+								archers = { 200 200 }
+							}
+							attrition = 0.5
+						}
+					}
+				}
+			}
+			wealth = 70
+		}
+	}
+}
+# Maintain effort - Wixna
+character_event = {
+	id = 3130566
+	desc = "You're not supposed to see this..."
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		ai = yes
+		#has_global_flag = iclingas_invasion_560
+		has_global_flag = iclingas_invasion_wixna
+		OR = {
+			has_landed_title = d_iclingas
+			AND = {
+				has_character_flag = mercia_invader
+				d_iclingas = { has_holder = no }
+			}
+			AND = {
+				has_claim = k_mercia
+				event_target:mercia_claimant = {
+					character = ROOT
+				}
+				NOT = { has_global_flag = mercia_created }
+			}
+		}
+		independent = yes
+		is_ingvaeonic_culture_trigger = yes
+		war = no
+		OR = {
+			NOT = { year = 595 }
+			AND = {
+				NOT = { year = 615 }
+				has_global_flag = iclingas_invasion_580
+			}
+		}
+		any_realm_province = {
+			any_neighbor_province = {
+				region = custom_wixna
+				ROOT_can_declare_war_against_province_trigger = yes
+			}
+		}			
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+		modifier = {
+			factor = 2
+			realm_size = 4
+		}
+		modifier = {
+			factor = 2
+			realm_size = 6
+		}
+	}
+		
+	option = {
+		name = "OK"
+		random_province = {
+			limit = {
+				region = custom_wixna
 				ROOT_can_declare_war_against_province_trigger = yes
 				any_neighbor_province = {
 					owner = { top_liege = { character = ROOT } }
@@ -8837,6 +8999,7 @@ character_event = {
 		#has_global_flag = iclingas_invasion_560
 		OR = {
 			has_global_flag = iclingas_invasion_grentbryce
+			has_global_flag = iclingas_invasion_wixna
 			has_global_flag = iclingas_invasion_magonsaete
 			has_global_flag = iclingas_invasion_wrocensaete
 			has_global_flag = iclingas_invasion_cilternsaete
@@ -8875,10 +9038,10 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 12
-		modifier = {
-			factor = 5
-			NOT = { completely_controls = d_grentbryce }
-		}
+		# modifier = {
+			# factor = 5
+			# NOT = { completely_controls = d_grentbryce }
+		# }
 		modifier = {
 			factor = 0.5
 			realm_size = 6
@@ -8983,6 +9146,7 @@ province_event = {
 			region = custom_tomsaete
 			region = custom_middleanglia
 			region = custom_grentbryce
+			region = custom_wixna
 		}
 		any_neighbor_province = {
 			OR = {
@@ -9531,9 +9695,8 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_middle_anglia
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9543,9 +9706,8 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_tomsaete
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9555,9 +9717,8 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_pegansaete
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9567,9 +9728,19 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_grentbryce
-			break = yes
 		}
-		if = {
+		else_if = {
+			limit = {
+				ROOT = {
+					any_demesne_title = {
+						tier = COUNT
+						region = custom_wixna
+					}
+				}
+			}
+			set_global_flag = iclingas_invasion_wixna
+		}
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9579,9 +9750,8 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_wrocensaete
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9591,21 +9761,19 @@ narrative_event = {
 				}
 			}
 			set_global_flag = iclingas_invasion_magonsaete
-			break = yes
 		}
-		if = {
-			limit = {
-				ROOT = {
-					any_demesne_title = {
-						tier = COUNT
-						region = custom_cilternsaete
-					}
-				}
-			}
-			set_global_flag = iclingas_invasion_cilternsaete
-			break = yes
-		}
-		if = {
+		# else_if = {
+			# limit = {
+				# ROOT = {
+					# any_demesne_title = {
+						# tier = COUNT
+						# region = custom_cilternsaete
+					# }
+				# }
+			# }
+			# set_global_flag = iclingas_invasion_cilternsaete
+		# }
+		else_if = {
 			limit = {
 				ROOT = {
 					any_demesne_title = {
@@ -9786,6 +9954,10 @@ narrative_event = {
 					AND = {
 						region = custom_grentbryce
 						has_global_flag = iclingas_invasion_grentbryce
+					}
+					AND = {
+						region = custom_wixna
+						has_global_flag = iclingas_invasion_wixna
 					}
 					AND = {
 						region = custom_wrocensaete
@@ -10078,6 +10250,18 @@ narrative_event = {
 				ROOT = {
 					any_demesne_title = {
 						tier = COUNT
+						region = custom_wixna
+					}
+				}
+			}
+			set_global_flag = iclingas_invasion_wixna
+			break = yes
+		}
+		if = {
+			limit = {
+				ROOT = {
+					any_demesne_title = {
+						tier = COUNT
 						region = custom_wrocensaete
 					}
 				}
@@ -10097,18 +10281,18 @@ narrative_event = {
 			set_global_flag = iclingas_invasion_magonsaete
 			break = yes
 		}
-		if = {
-			limit = {
-				ROOT = {
-					any_demesne_title = {
-						tier = COUNT
-						region = custom_cilternsaete
-					}
-				}
-			}
-			set_global_flag = iclingas_invasion_cilternsaete
-			break = yes
-		}
+		# if = {
+			# limit = {
+				# ROOT = {
+					# any_demesne_title = {
+						# tier = COUNT
+						# region = custom_cilternsaete
+					# }
+				# }
+			# }
+			# set_global_flag = iclingas_invasion_cilternsaete
+			# break = yes
+		# }
 		if = {
 			limit = {
 				ROOT = {
@@ -10260,6 +10444,10 @@ narrative_event = {
 					AND = {
 						region = custom_grentbryce
 						has_global_flag = iclingas_invasion_grentbryce
+					}
+					AND = {
+						region = custom_wixna
+						has_global_flag = iclingas_invasion_wixna
 					}
 					AND = {
 						region = custom_wrocensaete
@@ -10414,6 +10602,7 @@ character_event = {
 			clr_global_flag = iclingas_invasion_tomsaete
 			clr_global_flag = iclingas_invasion_pegansaete
 			clr_global_flag = iclingas_invasion_grentbryce
+			clr_global_flag = iclingas_invasion_wixna
 			clr_global_flag = iclingas_invasion_wrocensaete
 			clr_global_flag = iclingas_invasion_magonsaete
 			clr_global_flag = iclingas_invasion_cilternsaete
@@ -13406,7 +13595,7 @@ narrative_event = {
 		#		set_character_flag = anglia_collapse_target
 		#	}
 		#}
-		d_cilternsaete = { de_jure_liege = k_mercia }
+		d_cilternsaete = { de_jure_liege = k_wessex }
 		d_middle_angles = { de_jure_liege = k_mercia }
 	}
 	
@@ -13536,7 +13725,7 @@ narrative_event = {
 		#		set_character_flag = anglia_collapse_target
 		#	}
 		#}
-		d_cilternsaete = { de_jure_liege = k_mercia }
+		d_cilternsaete = { de_jure_liege = k_wessex }
 		d_middle_angles = { de_jure_liege = k_mercia }
 	}
 	
@@ -13842,8 +14031,9 @@ narrative_event = {
 		d_eastseaxe = { de_jure_liege = k_eastseaxe }
 		d_middleseaxe = { de_jure_liege = k_eastseaxe }
 		d_grentbryce = { de_jure_liege = k_mercia }
+		d_wixna = { de_jure_liege = k_mercia }
 		d_middle_angles = { de_jure_liege = k_mercia }
-		d_cilternsaete = { de_jure_liege = k_mercia }
+		d_cilternsaete = { de_jure_liege = k_wessex }
 		d_norfolc = { de_jure_liege = k_east_anglia }
 		d_southfolc = { de_jure_liege = k_east_anglia }
 		

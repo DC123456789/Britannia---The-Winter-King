@@ -201,7 +201,6 @@ narrative_event = {
 			}
 			c_gwash = { de_jure_liege = d_middle_angles }
 			c_bannaventa = { de_jure_liege = d_middle_angles }
-			c_ciniubantum = { de_jure_liege = d_middle_angles }
 			c_lactodorum = { de_jure_liege = d_middle_angles }
 		}
 		
@@ -497,15 +496,8 @@ narrative_event = {
 		c_alchester = { de_jure_liege = d_cilternsaete }
 		c_bensington = { de_jure_liege = d_mincip }
 		c_chiltern_hills = { de_jure_liege = d_cilternsaete }
-		c_magiovinium = { de_jure_liege = d_cilternsaete }
 		c_aylesbury = { de_jure_liege = d_cilternsaete }
 		c_durocobrivis = { de_jure_liege = d_cilternsaete }
-		if = {
-			limit = {
-				NOT = { has_global_flag = southernboroughs_created }
-			}
-			c_durocobrivis = { de_jure_liege = d_cilternsaete }
-		}
 		
 		if = {
 			limit = { 
@@ -515,7 +507,7 @@ narrative_event = {
 			d_cilternsaete = { de_jure_liege = k_anglia }
 		}
 		else = {
-			d_cilternsaete = { de_jure_liege = k_mercia }
+			d_cilternsaete = { de_jure_liege = k_wessex }
 		}
 
 		set_global_flag = cilternsaete_created
@@ -525,10 +517,10 @@ narrative_event = {
 				ROOT = {
 					has_landed_title = e_aengland
 					ai = yes
-					any_vassal = { has_landed_title = k_mercia }
+					any_vassal = { has_landed_title = k_wessex }
 				}
 			}
-			k_mercia = {
+			k_wessex = {
 				holder_scope = {
 					d_cilternsaete = {
 						grant_title = PREV
@@ -1770,8 +1762,9 @@ narrative_event = {
 		d_eastseaxe = { de_jure_liege = k_eastseaxe }
 		d_middleseaxe = { de_jure_liege = k_eastseaxe }
 		d_grentbryce = { de_jure_liege = k_mercia }
+		d_wixna = { de_jure_liege = k_mercia }
 		d_middle_angles = { de_jure_liege = k_mercia }
-		d_cilternsaete = { de_jure_liege = k_mercia }
+		d_cilternsaete = { de_jure_liege = k_wessex }
 		d_norfolc = { de_jure_liege = k_east_anglia }
 		d_southfolc = { de_jure_liege = k_east_anglia }
 
@@ -2825,7 +2818,6 @@ narrative_event = {
 			limit = { 
 				NOT = { has_global_flag = southernboroughs_created }
 			}
-			c_godmundceaster = { de_jure_liege = d_grentbryce }
 			c_holme_fen = { de_jure_liege = d_grentbryce }
 			c_grantabrycge = { de_jure_liege = d_grentbryce }
 			c_ely = { de_jure_liege = d_grentbryce }
@@ -2838,7 +2830,7 @@ narrative_event = {
 			c_the_fens = { de_jure_liege = d_grentbryce }
 			c_holland = { de_jure_liege = d_grentbryce }
 		}
-		d_grwath = { destroy_landed_title = d_grwath }
+		d_durobrivae = { destroy_landed_title = d_durobrivae }
 		set_global_flag = grentbryce_created
 		
 		if = {						# Creation by Bretwalda of Aenglaland
@@ -2870,6 +2862,82 @@ narrative_event = {
 			k_mercia = {
 				holder_scope = {
 					d_grentbryce = {
+						grant_title = PREV
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314116"
+	}
+}
+# Creation of the Jarldom of Wixnas
+narrative_event = {
+	id = 3141160
+	title = "EVTNAME3141160"
+	desc = "EVTDESC3141160"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_wixna
+		NOT = { has_global_flag = wixna_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { 
+				NOT = { has_global_flag = southernboroughs_created }
+			}
+			c_godmundceaster = { de_jure_liege = d_wixna }
+			c_vicanus = { de_jure_liege = d_wixna }
+			c_ciniubantum = { de_jure_liege = d_wixna }
+			c_durocobrivis = { de_jure_liege = d_wixna }
+		}
+		c_magiovinium = { de_jure_liege = d_wixna }
+		d_grwath = { destroy_landed_title = d_grwath }
+		set_global_flag = wixna_created
+		
+		if = {						# Creation by Bretwalda of Aenglaland
+			limit = {
+				ROOT = {
+					has_landed_title = e_aengland
+					ai = yes
+					any_vassal = { has_landed_title = k_anglia }
+				}
+				d_wixna = { de_jure_liege = k_anglia }
+			}
+			k_anglia = {
+				holder_scope = {
+					d_wixna = {
+						grant_title = PREV
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					has_landed_title = e_aengland
+					ai = yes
+					any_vassal = { has_landed_title = k_mercia }
+				}
+				d_wixna = { de_jure_liege  = k_mercia }
+			}
+			k_mercia = {
+				holder_scope = {
+					d_wixna = {
 						grant_title = PREV
 					}
 				}
@@ -3717,17 +3785,6 @@ narrative_event = {		# Mercia
 			prestige = 200
 			break = yes
 		}
-		if = {			# Cilternsaete
-			limit = {
-				d_cilternsaete = { has_holder = no } 
-				is_landed_title_allowed = d_cilternsaete
-				NOT = { has_global_flag = cilternsaete_created }
-			}
-			d_cilternsaete = { grant_title = ROOT }
-			wealth = -20
-			prestige = 200
-			break = yes
-		}
 		if = {			# Grentbryce
 			limit = {
 				d_grentbryce = { has_holder = no } 
@@ -3735,6 +3792,17 @@ narrative_event = {		# Mercia
 				NOT = { has_global_flag = grentbryce_created }
 			}
 			d_grentbryce = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Wixnas
+			limit = {
+				d_wixna = { has_holder = no } 
+				is_landed_title_allowed = d_wixna
+				NOT = { has_global_flag = wixna_created }
+			}
+			d_wixna = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -3837,6 +3905,17 @@ narrative_event = {		# Wessex
 				NOT = { has_global_flag = cornwall_created }
 			}
 			d_cornwall = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Cilternsaete
+			limit = {
+				d_cilternsaete = { has_holder = no } 
+				is_landed_title_allowed = d_cilternsaete
+				NOT = { has_global_flag = cilternsaete_created }
+			}
+			d_cilternsaete = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -9611,9 +9690,12 @@ narrative_event = {
 		c_chiltern_hills = { de_jure_liege = d_mincip }
 		c_alchester = { de_jure_liege = d_mincip }
 		c_bensington = { de_jure_liege = d_mincip }
-		c_magiovinium = { de_jure_liege = d_mincip }
 		c_aylesbury = { de_jure_liege = d_mincip }
-		c_durocobrivis = { de_jure_liege = d_mincip }
+		if = {
+			limit = { NOT = { has_global_flag = wixna_created } }
+			c_magiovinium = { de_jure_liege = d_mincip }
+			c_durocobrivis = { de_jure_liege = d_mincip }
+		}
 		
 		set_global_flag = mincip_renamed
 	}
@@ -9650,6 +9732,7 @@ narrative_event = {
 		completely_controls = c_ciniubantum
 		independent = yes
 		NOT = { has_global_flag = grentbryce_created }
+		NOT = { has_global_flag = wixna_created }
 		NOT = { has_global_flag = middleangles_created }
 		NOT = { has_global_flag = grwath_renamed }
 	}
@@ -9665,7 +9748,6 @@ narrative_event = {
 			adjective = "Segontiacian"
 		}
 		c_holme_fen = { de_jure_liege = d_grwath }
-		c_ciniubantum = { de_jure_liege = d_grwath }
 		c_bannaventa = { de_jure_liege = d_grwath }
 		c_gwash = { de_jure_liege = d_grwath }
 		c_durobrivae = { de_jure_liege = d_grwath }
@@ -22265,6 +22347,7 @@ narrative_event = {
 		c_godmundceaster = { de_jure_liege = d_southernboroughs }
 		c_holme_fen = { de_jure_liege = d_southernboroughs }
 		c_grantabrycge = { de_jure_liege = d_southernboroughs }
+		c_vicanus = { de_jure_liege = d_southernboroughs }
 		c_ely = { de_jure_liege = d_southernboroughs }
 		c_gwash = { de_jure_liege = d_southernboroughs }
 		c_durobrivae = { de_jure_liege = d_southernboroughs }
@@ -24009,6 +24092,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 			has_global_flag = tomsaete_created
 			has_global_flag = middleangles_created
 			has_global_flag = grentbryce_created
+			has_global_flag = wixna_created
 		}
 		is_alternate_start = no
 	}
@@ -24061,7 +24145,6 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 				limit = { NOT = { has_global_flag = southernboroughs_created } }
 				c_bannaventa = { de_jure_liege = d_middle_angles }
 				c_gwash = { de_jure_liege = d_middle_angles }
-				c_ciniubantum = { de_jure_liege = d_middle_angles }
 				c_lactodorum = { de_jure_liege = d_middle_angles }
 			}
 		}
@@ -24070,7 +24153,6 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 				has_global_flag = grentbryce_created
 				NOT = { has_global_flag = southernboroughs_created }
 			}
-			c_godmundceaster = { de_jure_liege = d_grentbryce }
 			c_holme_fen = { de_jure_liege = d_grentbryce }
 			c_grantabrycge = { de_jure_liege = d_grentbryce }
 			c_durobrivae = { de_jure_liege = d_grentbryce }
@@ -24083,6 +24165,19 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 			c_the_fens = { de_jure_liege = d_grentbryce }
 			c_holland = { de_jure_liege = d_grentbryce }
 			c_ely = { de_jure_liege = d_grentbryce }
+		}		
+		if = {
+			limit = { has_global_flag = wixna_created }
+			if = {
+				limit = { 
+					NOT = { has_global_flag = southernboroughs_created }
+				}
+				c_godmundceaster = { de_jure_liege = d_wixna }
+				c_vicanus = { de_jure_liege = d_wixna }
+				c_ciniubantum = { de_jure_liege = d_wixna }
+				c_durocobrivis = { de_jure_liege = d_wixna }
+			}
+			c_magiovinium = { de_jure_liege = d_wixna }
 		}
 	}
 	
@@ -24148,9 +24243,7 @@ narrative_event = {	# Wrocensæte, Magonsaete, Hwicce, Cilternsaete
 			c_alchester = { de_jure_liege = d_cilternsaete }
 			c_bensington = { de_jure_liege = d_cilternsaete }
 			c_chiltern_hills = { de_jure_liege = d_cilternsaete }
-			c_magiovinium = { de_jure_liege = d_cilternsaete }
 			c_aylesbury = { de_jure_liege = d_cilternsaete }
-			c_durocobrivis = { de_jure_liege = d_cilternsaete }
 		}
 	}
 	
@@ -26675,6 +26768,7 @@ narrative_event = {	# Danish Jarldom of Jorvik, Five Boroughs, Southern Boroughs
 			c_godmundceaster = { de_jure_liege = d_southernboroughs }
 			c_holme_fen = { de_jure_liege = d_southernboroughs }
 			c_grantabrycge = { de_jure_liege = d_southernboroughs }
+			c_vicanus = { de_jure_liege = d_southernboroughs }
 			c_ely = { de_jure_liege = d_southernboroughs }
 			c_bannaventa = { de_jure_liege = d_southernboroughs }
 			c_lactodorum = { de_jure_liege = d_southernboroughs }
