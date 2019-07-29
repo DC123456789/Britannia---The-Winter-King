@@ -204,7 +204,7 @@ narrative_event = {
 			c_bannaventa = { de_jure_liege = d_middle_angles }
 			c_lactodorum = { de_jure_liege = d_middle_angles }
 		}
-		
+		c_brinavae = { de_jure_liege = d_middle_angles }
 		
 		if = {
 			limit = { 
@@ -327,10 +327,10 @@ narrative_event = {
 			c_repton = { de_jure_liege = d_tomsaete }
 		}
 		
-		c_arden_forest = { de_jure_liege = d_tomsaete }
 		c_letocetum = { de_jure_liege = d_tomsaete }
 		c_uxacona = { de_jure_liege = d_tomsaete }
 		c_manduessedum = { de_jure_liege = d_tomsaete }
+		c_tripontium = { de_jure_liege = d_tomsaete }
 		
 		d_tomsaete = { de_jure_liege = k_mercia }
 		
@@ -386,6 +386,8 @@ narrative_event = {
 		c_lugg_vale = { de_jure_liege = d_magonsaete }
 		c_pengwern = { de_jure_liege = d_magonsaete }
 		c_trefyclawdd = { de_jure_liege = d_magonsaete }
+		c_ariconium = { de_jure_liege = d_magonsaete }
+		c_ergyng = { de_jure_liege = d_magonsaete }
 		d_magonsaete = { de_jure_liege = k_mercia }
 		set_global_flag = magonsaete_created
 		
@@ -436,11 +438,11 @@ narrative_event = {
 	immediate = {
 		c_glevum = { de_jure_liege = d_hwicce }
 		c_avona = { de_jure_liege = d_hwicce }
+		c_alcester = { de_jure_liege = d_hwicce }
 		c_aquae_sulis = { de_jure_liege = d_hwicce }
 		c_corinium = { de_jure_liege = d_hwicce }
-		c_ariconium = { de_jure_liege = d_hwicce }
-		c_tripontium = { de_jure_liege = d_hwicce }
 		c_wychwood = { de_jure_liege = d_hwicce }
+		c_arden_forest = { de_jure_liege = d_hwicce }
 		
 		d_centgwent = { destroy_landed_title = THIS }
 		d_corinium = { destroy_landed_title = THIS }
@@ -1762,12 +1764,12 @@ narrative_event = {
 	immediate = {
 		d_eastseaxe = { de_jure_liege = k_eastseaxe }
 		d_middleseaxe = { de_jure_liege = k_eastseaxe }
-		d_grentbryce = { de_jure_liege = k_mercia }
 		d_wixna = { de_jure_liege = k_mercia }
 		d_middle_angles = { de_jure_liege = k_mercia }
 		d_cilternsaete = { de_jure_liege = k_wessex }
 		d_norfolc = { de_jure_liege = k_east_anglia }
 		d_southfolc = { de_jure_liege = k_east_anglia }
+		d_grentbryce = { de_jure_liege = k_east_anglia }
 
 		k_east_anglia = { 
 			activate_title = { title = THIS status = yes }
@@ -2855,11 +2857,11 @@ narrative_event = {
 				ROOT = {
 					has_landed_title = e_aengland
 					ai = yes
-					any_vassal = { has_landed_title = k_mercia }
+					any_vassal = { has_landed_title = k_east_anglia }
 				}
-				d_grentbryce = { de_jure_liege  = k_mercia }
+				d_grentbryce = { de_jure_liege = k_east_anglia }
 			}
-			k_mercia = {
+			k_east_anglia = {
 				holder_scope = {
 					d_grentbryce = {
 						grant_title = PREV
@@ -6563,7 +6565,7 @@ narrative_event = {
 		e_britannia = { has_holder = no }
 		has_global_flag = wrocensaete_created
 		has_global_flag = magonsaete_created
-		has_global_flag = hwicce_created
+		#has_global_flag = hwicce_created
 		OR = {
 			has_landed_title = c_viroconium
 			has_landed_title = c_trefyclawdd
@@ -6592,6 +6594,12 @@ narrative_event = {
 				}
 			}
 			c_ariconium = {
+				holder_scope = {
+					is_ingvaeonic_culture_trigger = yes
+					top_liege = { is_ingvaeonic_culture_trigger = yes }
+				}
+			}
+			c_ergyng = {
 				holder_scope = {
 					is_ingvaeonic_culture_trigger = yes
 					top_liege = { is_ingvaeonic_culture_trigger = yes }
@@ -6640,7 +6648,7 @@ narrative_event = {
 				AND = {
 					d_wrocensaete = { has_holder = yes }
 					d_magonsaete = { has_holder = yes }
-					d_hwicce = { has_holder = yes }
+					#d_hwicce = { has_holder = yes }
 				}
 			}
 		}
@@ -9955,9 +9963,6 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = tomsaete_created } }
 			c_repton = { de_jure_liege = d_lerion }
 			c_manduessedum = { de_jure_liege = d_lerion }
-		}
-		if = {
-			limit = { NOT = { has_global_flag = hwicce_created } }
 			c_tripontium = { de_jure_liege = d_lerion }
 		}
 		
@@ -10410,6 +10415,7 @@ narrative_event = {
 		c_corinium = { de_jure_liege = d_centgwent }
 		c_durocornovium = { de_jure_liege = d_centgwent }
 		c_aquae_sulis = { de_jure_liege = d_centgwent }
+		c_arden_forest = { de_jure_liege = d_centgwent }
 		
 		set_global_flag = glevum_renamed
 	}
@@ -10465,12 +10471,10 @@ narrative_event = {
 		c_cicucium = { de_jure_liege = d_gwent }
 		c_talgarth = { de_jure_liege = d_gwent }
 		if = {
-			limit = { NOT = { has_global_flag = hwicce_created } }
-			c_ariconium = { de_jure_liege = d_gwent }
-		}
-		if = {
 			limit = { NOT = { has_global_flag = magonsaete_created } }
 			c_magnis = { de_jure_liege = d_gwent }
+			c_ariconium = { de_jure_liege = d_gwent }
+			c_ergyng = { de_jure_liege = d_gwent }
 		}
 		
 		set_global_flag = gwent_renamed
@@ -10634,7 +10638,6 @@ narrative_event = {
 			adjective = "Cornovian"
 		}
 		c_maelor = { de_jure_liege = d_eastpowys }
-		c_arden_forest = { de_jure_liege = d_eastpowys }
 		
 		set_global_flag = pengwern_renamed
 	}
@@ -24126,10 +24129,10 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 		}
 		if = {
 			limit = { has_global_flag = tomsaete_created }
-			c_arden_forest = { de_jure_liege = d_tomsaete }
 			c_letocetum = { de_jure_liege = d_tomsaete }
 			c_uxacona = { de_jure_liege = d_tomsaete }
 			c_manduessedum = { de_jure_liege = d_tomsaete }
+			c_tripontium = { de_jure_liege = d_tomsaete }
 			if = {
 				limit = { NOT = { has_global_flag = fiveboroughs_created } }
 				c_repton = { de_jure_liege = d_tomsaete }
@@ -24152,6 +24155,7 @@ narrative_event = {	# Lindsey, Pegansaete, Tomsaete, Middle Anglia, Grentbryce
 				c_gwash = { de_jure_liege = d_middle_angles }
 				c_lactodorum = { de_jure_liege = d_middle_angles }
 			}
+			c_brinavae = { de_jure_liege = d_middle_angles }
 		}
 		if = {
 			limit = {
@@ -24231,16 +24235,18 @@ narrative_event = {	# Wrocensæte, Magonsaete, Hwicce, Cilternsaete
 			c_lugg_vale = { de_jure_liege = d_magonsaete }
 			c_pengwern = { de_jure_liege = d_magonsaete }
 			c_trefyclawdd = { de_jure_liege = d_magonsaete }
+			c_ariconium = { de_jure_liege = d_magonsaete }
+			c_ergyng = { de_jure_liege = d_magonsaete }
 		}
 		if = {
 			limit = { has_global_flag = hwicce_created }
 			c_glevum = { de_jure_liege = d_hwicce }
 			c_avona = { de_jure_liege = d_hwicce }
+			c_alcester = { de_jure_liege = d_hwicce }
 			c_aquae_sulis = { de_jure_liege = d_hwicce }
 			c_corinium = { de_jure_liege = d_hwicce }
-			c_ariconium = { de_jure_liege = d_hwicce }
-			c_tripontium = { de_jure_liege = d_hwicce }
 			c_wychwood = { de_jure_liege = d_hwicce }
+			c_arden_forest = { de_jure_liege = d_hwicce }
 		}
 		if = {
 			limit = { has_global_flag = cilternsaete_created }
@@ -26299,12 +26305,6 @@ narrative_event = {	# Lindum, Corieltauvia, and Deva
 					NOT = { has_global_flag = tomsaete_created }
 				}
 				c_manduessedum = { de_jure_liege = d_lerion }
-			}
-			if = {
-				limit = { 
-					NOT = { has_global_flag = middleangles_created } 
-					NOT = { has_global_flag = southernboroughs_created }
-				}
 				c_tripontium = { de_jure_liege = d_lerion }
 			}
 		}
@@ -26395,6 +26395,7 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 			c_corinium = { de_jure_liege = d_centgwent }
 			c_durocornovium = { de_jure_liege = d_centgwent }
 			c_aquae_sulis = { de_jure_liege = d_centgwent }
+			c_arden_forest = { de_jure_liege = d_centgwent }
 		}
 		if = {
 			limit = { has_global_flag = gwent_renamed }
@@ -26404,12 +26405,10 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 			c_cicucium = { de_jure_liege = d_gwent }
 			c_talgarth = { de_jure_liege = d_gwent }
 			if = {
-				limit = { NOT = { has_global_flag = hwicce_created } }
-				c_ariconium = { de_jure_liege = d_gwent }
-			}
-			if = {
 				limit = { NOT = { has_global_flag = magonsaete_created } }
 				c_magnis = { de_jure_liege = d_gwent }
+				c_ariconium = { de_jure_liege = d_gwent }
+				c_ergyng = { de_jure_liege = d_gwent }
 			}
 		}
 		if = {
@@ -26464,10 +26463,6 @@ narrative_event = {	# Cornovia, Deceanglia
 			if = {
 				limit = { NOT = { has_global_flag = wrocensaete_created } }
 				c_maelor = { de_jure_liege = d_eastpowys }
-			}
-			if = {
-				limit = { NOT = { has_global_flag = tomsaete_created } }
-				c_arden_forest = { de_jure_liege = d_eastpowys }
 			}
 		}
 		if = {
