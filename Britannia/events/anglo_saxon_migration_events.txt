@@ -407,662 +407,21 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		if = {			# Prefer Ratae
+		random_province = {
 			limit = {
-				33 = {
-					NOT = { has_province_flag = angles_invading_province }
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			33 = {
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
+				region = world_britannia
+				NOT = { region = world_britannia_cymry_wales }
+				NOT = { region = world_britannia_cymry_cornwall_proper }
+				NOT = { has_province_flag = angles_invading_province }
+				OR = {
+					AND = {
+						ROOT = { NOT = { has_character_flag = failed_all_invasions } }
 						owner = {
 							top_liege = {
 								is_ingvaeonic_culture_trigger = no
 							}
 						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-					}
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}
-		if = {			# Go for any Middle Anglia province
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_middleanglia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			random_province = {
-				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_middleanglia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-					}
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}
-		if = {			# Go for any Tomsaete province
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_tomsaete
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			random_province = {
-				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_tomsaete
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-					}
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}	
-		if = {			# Go for provinces in Wixnas or Pegansaete
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					OR = {
-						region = custom_wixna
-						region = custom_pegansaete
-					}
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			random_province = {
-				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					OR = {
-						region = custom_wixna
-						region = custom_pegansaete
-					}
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = yes
-									}
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-					}
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}
-		if = {			# Go for anywhere in Mercia
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_mercia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								OR = {
-									owner = {
-										top_liege = {
-											is_ingvaeonic_culture_trigger = yes
-										}
-									}
-									province_id = 295		# Eastern Coast
-									province_id = 312
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			random_province = {
-				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_mercia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								OR = {
-									owner = {
-										top_liege = {
-											is_ingvaeonic_culture_trigger = yes
-										}
-									}
-									province_id = 295		# Eastern Coast
-									province_id = 312
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-						break = yes
-					}
-					ROOT = { character_event = { id = 301410 } }
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}
-		if = {			# Go for anywhere in East Anglia
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_eastanglia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								OR = {
-									owner = {
-										top_liege = {
-											is_ingvaeonic_culture_trigger = yes
-										}
-									}
-									province_id = 295		# Eastern Coast
-									province_id = 312
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-			}
-			random_province = {
-				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = custom_eastanglia
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								OR = {
-									owner = {
-										top_liege = {
-											is_ingvaeonic_culture_trigger = yes
-										}
-									}
-									province_id = 295		# Eastern Coast
-									province_id = 312
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
-							is_ingvaeonic_culture_trigger = no
-						}
-					}
-				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
-				if = {
-					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = yes
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								character_event = { id = 301403 }
-							}
-						}
-						break = yes
-					}
-					ROOT = { character_event = { id = 301410 } }
-					break = yes
-				}
-				owner = {
-					character_event = { id = 301417 }
-				}
-				break = yes
-			}
-		}
-		if = {			# Just go for anywhere in Britannia
-			limit = {
-				any_province = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = world_britannia
-					NOT = { region = world_britannia_cymry_wales }
-					NOT = { region = world_britannia_cymry_cornwall_proper }
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
+						OR = {
 							any_neighbor_province = {
 								OR = {
 									owner = {
@@ -1078,14 +437,18 @@ character_event = {
 									province_id = 312
 								}
 							}
+							is_province_at_fens_edge_trigger = yes
 						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
+					}
+					AND = {
+						holder_scope = {
+							NOT = { has_character_flag = refused_angles_settlement }
+							higher_tier_than = COUNT
+							num_of_count_titles = 2
+							is_ingvaeonic_culture_trigger = yes
+						}
+						OR = {
+							province_id = 33		# Ratae
 							any_neighbor_province = {
 								owner = {
 									top_liege = {
@@ -1093,66 +456,56 @@ character_event = {
 									}
 								}
 							}
-							is_ingvaeonic_culture_trigger = no
+						}
+						is_ingvaeonic_culture_trigger = no
+					}
+				}
+			}
+			preferred_limit = {			# Prefer Ratae
+				province_id = 33
+			}
+			preferred_limit = {
+				region = custom_middleanglia
+				any_neighbor_province = {
+					owner = {
+						top_liege = {
+							is_ingvaeonic_culture_trigger = yes
 						}
 					}
 				}
 			}
-			random_province = {
+			preferred_limit = {
+				region = custom_tomsaete
+			}
+			preferred_limit = {
+				OR = {
+					region = custom_wixna
+					region = custom_pegansaete
+				}
+			}
+			preferred_limit = {
+				region = custom_mercia
+			}
+			preferred_limit = {
+				region = custom_eastanglia
+			}
+			save_event_target_as = angles_province
+			set_province_flag = angles_invading_province
+			if = {
 				limit = {
-					NOT = { has_province_flag = angles_invading_province }
-					region = world_britannia
-					NOT = { region = world_britannia_cymry_wales }
-					NOT = { region = world_britannia_cymry_cornwall_proper }
-					OR = {
-						AND = {
-							ROOT = { NOT = { has_character_flag = failed_all_invasions } }
-							owner = {
-								top_liege = {
-									is_ingvaeonic_culture_trigger = no
-								}
-							}
-							any_neighbor_province = {
-								OR = {
-									owner = {
-										top_liege = {
-											is_ingvaeonic_culture_trigger = yes
-										}
-									}
-									province_id = 294		# Eastern or Southern Coast
-									province_id = 295		
-									province_id = 303
-									province_id = 304
-									province_id = 310
-									province_id = 312
-								}
-							}
-						}
-						AND = {
-							holder_scope = {
-								NOT = { has_character_flag = refused_angles_settlement }
-								higher_tier_than = COUNT
-								num_of_count_titles = 2
-								is_ingvaeonic_culture_trigger = yes
-							}
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										is_ingvaeonic_culture_trigger = no
-									}
-								}
-							}
+					owner = {
+						top_liege = {
 							is_ingvaeonic_culture_trigger = no
 						}
 					}
 				}
-				save_event_target_as = angles_province
-				set_province_flag = angles_invading_province
 				if = {
 					limit = {
-						owner = {
-							top_liege = {
-								is_ingvaeonic_culture_trigger = no
+						any_neighbor_province = {
+							owner = {
+								top_liege = {
+									is_ingvaeonic_culture_trigger = yes
+								}
 							}
 						}
 					}
@@ -1166,21 +519,23 @@ character_event = {
 						}
 						owner = {
 							top_liege = {
-								character_event = { id = 301403 }
+								character_event = { id = 301403 }		# Spawn on neighbouring Anglo-Saxon controlled province
 							}
 						}
-						break = yes
 					}
-					ROOT = { character_event = { id = 301410 } }
-					break = yes
 				}
+				else = {
+					ROOT = { character_event = { id = 301410 } }		# Coastal invasion event troops (spawn on province)
+				}
+			}
+			else = {
 				owner = {
 					character_event = { id = 301417 }
 				}
-				break = yes
 			}
-			character_event = { id = 301420 }		# Give up and disperse
+			break = yes
 		}
+		character_event = { id = 301420 }		# Give up and disperse
 	}
 }
 

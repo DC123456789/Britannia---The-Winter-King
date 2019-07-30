@@ -7512,13 +7512,13 @@ province_event = {
 			region = custom_grentbryce
 			region = custom_wixna
 		}
-		any_neighbor_province = {
-			OR = {
+		OR = {
+			any_neighbor_province = {
 				owner = {
 					top_liege = { is_ingvaeonic_culture_trigger = yes }
 				}
-				province_id = 312	# Metaris Æstuarium
 			}
+			is_province_at_fens_edge_trigger = yes
 		}
 		year = 570
 		NOT = { year = 590 }
@@ -7669,13 +7669,13 @@ character_event = {
 					region = custom_grentbryce
 					region = custom_wixna
 				}
-				any_neighbor_province = {
-					OR = {
-						province_id = 312	# Metaris Æstuarium
+				OR = {
+					any_neighbor_province = {
 						owner = {
 							top_liege = { is_ingvaeonic_culture_trigger = yes }
 						}
 					}
+					is_province_at_fens_edge_trigger = yes
 				}
 				NOT = { 
 					holder_scope = 	{
@@ -9148,13 +9148,13 @@ province_event = {
 			region = custom_grentbryce
 			region = custom_wixna
 		}
-		any_neighbor_province = {
-			OR = {
+		OR = {
+			any_neighbor_province = {
 				owner = {
 					top_liege = { is_ingvaeonic_culture_trigger = yes }
 				}
-				province_id = 312	# Metaris Æstuarium
 			}
+			is_province_at_fens_edge_trigger = yes
 		}
 		NOT = { 
 			holder_scope = 	{
@@ -10659,6 +10659,8 @@ province_event = {
 		OR = {
 			region = custom_hwicce
 			region = custom_cilternsaete
+			province_id = 1144 		# Brinavae
+			province_id = 337		# Dorcic
 		}
 		any_neighbor_province = {
 			owner = {
@@ -10804,6 +10806,8 @@ character_event = {
 				OR = {
 					region = custom_hwicce
 					region = custom_cilternsaete
+					province_id = 1144 		# Brinavae
+					province_id = 337		# Dorcic
 				}
 				any_neighbor_province = {
 					owner = {
@@ -10831,18 +10835,33 @@ character_event = {
 				region = custom_hwicce
 			}
 			preferred_limit = {
+				province_id = 1144 		# Brinavae
+			}
+			preferred_limit = {
+				province_id = 337		# Dorcic
+			}
+			preferred_limit = {
 				region = custom_cilternsaete
 			}
 			save_event_target_as = target_province
 		}
 		event_target:target_province = {
 			if = {
-				limit = { region = custom_hwicce }
+				limit = { 
+					OR = {
+						region = custom_hwicce 
+						province_id = 1144 		# Brinavae
+						province_id = 337		# Dorcic
+					}
+				}
 				any_province = {
 					limit = { region = custom_hwicce }
 					county = {
 						add_claim = ROOT
 					}
+				}
+				county = {			# In case of Brinavae or Dorcic
+					add_claim = ROOT
 				}
 				set_global_flag = hwiccas_invasion_hwicce
 			}
@@ -11519,6 +11538,8 @@ province_event = {
 		OR = {
 			region = custom_hwicce
 			region = custom_cilternsaete
+			province_id = 1144 		# Brinavae
+			province_id = 337		# Dorcic
 		}
 		any_neighbor_province = {
 			owner = {

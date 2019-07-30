@@ -348,6 +348,9 @@ narrative_event = {
 		c_uxacona = {
 			is_germanic_controlled_trigger = no
 		}
+		c_stour = {
+			is_germanic_controlled_trigger = no
+		}
 		c_manduessedum = {
 			is_germanic_controlled_trigger = no
 		}
@@ -374,6 +377,13 @@ narrative_event = {
 		}
 		c_letocetum = { de_jure_liege = d_luitcoyt }
 		c_uxacona = { de_jure_liege = d_luitcoyt }
+		if = {
+			limit = { NOT = { has_global_flag = pengwern_renamed } }
+			c_stour = { de_jure_liege = d_luitcoyt }
+		}
+		else = {
+			c_stour = { de_jure_liege = d_eastpowys }
+		}
 		d_tomsaete = { destroy_landed_title = THIS }
 		clr_global_flag = tomsaete_created
 	}
@@ -9921,8 +9931,6 @@ narrative_event = {
 		}
 		NOT = { has_global_flag = wrocensaete_created }
 		NOT = { has_global_flag = magonsaete_created }
-		NOT = { has_global_flag = pegansaete_created }
-		NOT = { has_global_flag = tomsaete_created }
 		has_global_flag = pengwern_renamed
 	}
 	
@@ -9937,7 +9945,10 @@ narrative_event = {
 			adjective = ""
 		}
 		c_maelor = { de_jure_liege = d_deceanglia }
-		c_manduessedum = { de_jure_liege = d_luitcoyt }
+		if = {
+			limit = { NOT = { has_global_flag = tomsaete_renamed } }
+			c_stour = { de_jure_liege = d_luitcoyt }
+		}
 		
 		clr_global_flag = pengwern_renamed
 	}
