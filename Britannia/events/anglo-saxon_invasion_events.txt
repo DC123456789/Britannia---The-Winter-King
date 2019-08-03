@@ -29,7 +29,7 @@
 
 ### ANGLIAN INVASIONS ###
 
-# Anglian Invasions 480 - 484 AD, Causennae, Ciniubantum, and Durocobrivis
+# Anglian Invasions 480 - 484 AD, Gwash, Durovigutum, and Verulanium
 narrative_event = {
 	id = 313000
 	title = "EVTNAME313000"
@@ -59,9 +59,9 @@ narrative_event = {
 			}
 		}
 		OR = {
-			c_causennae = { can_conquer_anglosaxon_trigger = yes }
-			c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
-			c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
+			c_gwash = { can_conquer_anglosaxon_trigger = yes }
+			c_godmundceaster = { can_conquer_anglosaxon_trigger = yes }
+			c_verulanium = { can_conquer_anglosaxon_trigger = yes }
 		}
 		top_liege = { ai = yes }
 		is_ingvaeonic_culture_trigger = yes
@@ -91,15 +91,15 @@ narrative_event = {
 		}
 		modifier = {
 			factor = 1.5
-			c_causennae = { has_truce_with_owner_trigger = yes }
+			c_gwash = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_ciniubantum = { has_truce_with_owner_trigger = yes }
+			c_godmundceaster = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_durocobrivis = { has_truce_with_owner_trigger = yes }
+			c_verulanium = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -113,11 +113,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_causennae = {
+				c_gwash = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_causennae = {
+			c_gwash = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -126,11 +126,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_ciniubantum = {
+				c_godmundceaster = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_ciniubantum = {
+			c_godmundceaster = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -139,11 +139,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_durocobrivis = {
+				c_verulanium = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_durocobrivis = {
+			c_verulanium = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -169,9 +169,9 @@ narrative_event = {
 				province = 48 # Thunreslea
 				troops =
 				{
-					light_infantry = { 550 550 }
+					light_infantry = { 400 400 }
 					heavy_infantry = { 250 250 }
-					pikemen = { 300 300 }
+					pikemen = { 250 250 }
 					archers = { 100 100 }
 				}
 				attrition = 0.5
@@ -180,10 +180,10 @@ narrative_event = {
 				province = 48 # Thunreslea
 				troops =
 				{
-					light_infantry = { 600 600 }
-					heavy_infantry = { 350 350 }
-					pikemen = { 450 450 }
-					archers = { 300 300 }
+					light_infantry = { 300 300 }
+					heavy_infantry = { 200 200 }
+					pikemen = { 250 250 }
+					archers = { 150 150 }
 				}
 				attrition = 0.25
 				disband_on_peace = yes
@@ -192,10 +192,10 @@ narrative_event = {
 				province = 48 # Thunreslea
 				troops =
 				{
-					light_infantry = { 500 500 }
-					heavy_infantry = { 650 650 }
-					pikemen = { 450 450 }
-					archers = { 500 500 }
+					light_infantry = { 400 400 }
+					heavy_infantry = { 350 350 }
+					pikemen = { 350 350 }
+					archers = { 200 200 }
 				}
 				attrition = 0.25
 				disband_on_peace = yes
@@ -229,7 +229,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 485 - 489 AD, Gwash and Verulanium
+# Anglian Invasions 485 - 489 AD, Sleaford and Latimer (with checks for Verulanium)
 narrative_event = {
 	id = 313001
 	title = "EVTNAME313001"
@@ -261,7 +261,8 @@ narrative_event = {
 		}
 		OR = {
 			c_verulanium = { can_conquer_anglosaxon_trigger = yes }
-			c_gwash = { can_conquer_anglosaxon_trigger = yes }
+			c_chiltern_hills = { can_conquer_anglosaxon_trigger = yes }
+			c_holland = { can_conquer_anglosaxon_trigger = yes }
 		}
 		is_ingvaeonic_culture_trigger = yes
 		OR = {
@@ -293,7 +294,11 @@ narrative_event = {
 		}
 		modifier = {
 			factor = 1.5
-			c_gwash = { has_truce_with_owner_trigger = yes }
+			c_chiltern_hills = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_holland = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -320,12 +325,24 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_gwash = {
+				c_chiltern_hills = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			add_claim = c_gwash
-			c_gwash = {
+			c_chiltern_hills = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_holland = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_holland = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -359,8 +376,8 @@ narrative_event = {
 			spawn_unit = {
 				province = 48 # Thunreslea
 				troops = {
-					light_infantry = { 300 300 }
-					heavy_infantry = { 250 250 }
+					light_infantry = { 200 200 }
+					heavy_infantry = { 150 150 }
 					pikemen = { 200 200 }
 					archers = { 100 100 }
 				}
@@ -410,7 +427,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 490 - 495 AD (all previous provinces if not conquered, Vernemetum, Latimer)
+# Anglian Invasions 490 - 495 AD (all previous provinces if not conquered, Vernemetum, Ciniubantum, Durocobrivis)
 narrative_event = {
 	id = 313002
 	title = "EVTNAME313002"
@@ -441,13 +458,14 @@ narrative_event = {
 			}
 		}
 		OR = {
-			c_chiltern_hills = { can_conquer_anglosaxon_trigger = yes }
-			c_causennae = { can_conquer_anglosaxon_trigger = yes }
-			c_verulanium = { can_conquer_anglosaxon_trigger = yes }
-			c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
-			c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
-			c_gwash = { can_conquer_anglosaxon_trigger = yes }
 			c_vernemetum = { can_conquer_anglosaxon_trigger = yes }
+			c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
+			c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
+			c_chiltern_hills = { can_conquer_anglosaxon_trigger = yes }
+			c_holland = { can_conquer_anglosaxon_trigger = yes }
+			c_verulanium = { can_conquer_anglosaxon_trigger = yes }
+			c_gwash = { can_conquer_anglosaxon_trigger = yes }
+			c_godmundceaster = { can_conquer_anglosaxon_trigger = yes }
 		}
 		ai = yes
 		top_liege = { ai = yes }
@@ -476,20 +494,24 @@ narrative_event = {
 		modifier = {			# If one of the previous conquests failed
 			factor = 0.5
 			OR = {
-				c_causennae = { can_conquer_anglosaxon_trigger = yes }
+				c_holland = { can_conquer_anglosaxon_trigger = yes }
+				c_chiltern_hills = { can_conquer_anglosaxon_trigger = yes }
 				c_verulanium = { can_conquer_anglosaxon_trigger = yes }
-				c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
-				c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
 				c_gwash = { can_conquer_anglosaxon_trigger = yes }
+				c_godmundceaster = { can_conquer_anglosaxon_trigger = yes }
 			}
 		}
 		modifier = {
 			factor = 1.5
-			c_margidunum = { has_truce_with_owner_trigger = yes }
+			c_vernemetum = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_chiltern_hills = { has_truce_with_owner_trigger = yes }
+			c_ciniubantum = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_durocobrivis = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -503,11 +525,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_causennae = {
+				c_gwash = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_causennae = {
+			c_gwash = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -516,24 +538,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_ciniubantum = {
+				c_godmundceaster = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_ciniubantum = {
-				reverse_war = {
-					target = ROOT
-					casus_belli = county_conquest
-				}
-			}
-		}
-		if = {
-			limit = {
-				c_durocobrivis = {
-					can_conquer_anglosaxon_trigger = yes
-				}
-			}
-			c_durocobrivis = {
+			c_godmundceaster = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -555,11 +564,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_gwash = {
+				c_chiltern_hills = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_gwash = {
+			c_chiltern_hills = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -568,11 +577,37 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_chiltern_hills = {
+				c_holland = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_chiltern_hills = {
+			c_holland = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_durocobrivis = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_durocobrivis = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_ciniubantum = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_ciniubantum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -595,8 +630,8 @@ narrative_event = {
 		spawn_unit = {
 			province = 48 # Thunreslea
 			troops = {	
-				light_infantry = { 250 250 }
-				heavy_infantry = { 150 150 }
+				light_infantry = { 200 200 }
+				heavy_infantry = { 100 100 }
 				pikemen = { 75 75 }
 			}
 			attrition = 1
@@ -604,22 +639,22 @@ narrative_event = {
 		spawn_unit = {
 			province = 48 # Thunreslea
 			troops = {	
-				light_infantry = { 300 300 }
-				heavy_infantry = { 350 350 }
-				pikemen = { 150 150 }
-				archers = { 100 100 }
+				light_infantry = { 200 200 }
+				heavy_infantry = { 250 250 }
+				pikemen = { 100 100 }
+				archers = { 75 75 }
 			}
 			attrition = 1
 			disband_on_peace = yes
 		}
 		if = {
 			limit = {
-				NAND = {
-					completely_controls = c_causennae
-					completely_controls = c_gwash
-					completely_controls = c_durocobrivis
+				NAND = {			# Previous conquest war failed
 					completely_controls = c_verulanium
-					completely_controls = c_ciniubantum
+					completely_controls = c_holland
+					completely_controls = c_chiltern_hills
+					completely_controls = c_gwash
+					completely_controls = c_godmundceaster
 				}
 			}
 			create_character = {
@@ -640,17 +675,17 @@ narrative_event = {
 				spawn_unit = {
 					province = 48 # Thunreslea
 					troops = {	
-						light_infantry = { 550 550 }
+						light_infantry = { 450 450 }
 						heavy_infantry = { 350 350 }
-						pikemen = { 250 250 }
+						pikemen = { 200 200 }
 					}
 					attrition = 1
 				}
 				spawn_unit = {
 					province = 48 # Thunreslea
 					troops = {	
-						light_infantry = { 650 650 }
-						heavy_infantry = { 450 450 }
+						light_infantry = { 600 600 }
+						heavy_infantry = { 400 400 }
 						pikemen = { 200 200 }
 						archers = { 150 150 }
 					}
@@ -687,7 +722,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 496 - 500 AD, Ratae, Magiovinium, Lactodorum (with checks for Vernemetum and Latimer) 
+# Anglian Invasions 496 - 500 AD, Causennae and Regiam (with checks for Vernemetum, Ciniubantum, Durocobrivis 
 narrative_event = {
 	id = 313003
 	title = "EVTNAME313003"
@@ -718,11 +753,11 @@ narrative_event = {
 			}
 		}
 		OR = {
-			c_lactodorum = { can_conquer_anglosaxon_trigger = yes }
-			c_magiovinium = { can_conquer_anglosaxon_trigger = yes }
-			c_margidunum = { can_conquer_anglosaxon_trigger = yes }
-			c_chiltern_hills = { can_conquer_anglosaxon_trigger = yes }
-			c_ratae = { can_conquer_anglosaxon_trigger = yes }
+			c_causennae = { can_conquer_anglosaxon_trigger = yes }
+			c_bensington = { can_conquer_anglosaxon_trigger = yes }
+			c_vernemetum = { can_conquer_anglosaxon_trigger = yes }
+			c_ciniubantum = { can_conquer_anglosaxon_trigger = yes }
+			c_durocobrivis = { can_conquer_anglosaxon_trigger = yes }
 		}
 		ai = yes
 		top_liege = { ai = yes }
@@ -750,15 +785,23 @@ narrative_event = {
 		}
 		modifier = {
 			factor = 1.5
-			c_margidunum = { has_truce_with_owner_trigger = yes }
+			c_vernemetum = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_lactodorum = { has_truce_with_owner_trigger = yes }
+			c_ciniubantum = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_magiovinium = { has_truce_with_owner_trigger = yes }
+			c_durocobrivis = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_causennae = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_bensington = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -769,6 +812,32 @@ narrative_event = {
 		trigger = {
 			ai = yes
 			has_landed_title = k_anglia
+		}
+		if = {
+			limit = {
+				c_durocobrivis = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_durocobrivis = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_ciniubantum = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_ciniubantum = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -785,11 +854,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_ratae = {
+				c_causennae = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_ratae = {
+			c_causennae = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -798,37 +867,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_lactodorum = {
+				c_bensington = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_lactodorum = {
-				reverse_war = {
-					target = ROOT
-					casus_belli = county_conquest
-				}
-			}
-		}
-		if = {
-			limit = {
-				c_chiltern_hills = {
-					can_conquer_anglosaxon_trigger = yes
-				}
-			}
-			c_chiltern_hills = {
-				reverse_war = {
-					target = ROOT
-					casus_belli = county_conquest
-				}
-			}
-		}
-		if = {
-			limit = {
-				c_magiovinium = {
-					can_conquer_anglosaxon_trigger = yes
-				}
-			}
-			c_magiovinium = {
+			c_bensington = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -861,7 +904,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 501 - 505 AD, Bannaventa and Ad Pontem (with checks for Ratae and Magiovinium)
+# Anglian Invasions 501 - 505 AD, Bannaventa, Ratae, and Magiovinium (with checks for Causennae and Regiam)
 narrative_event = {
 	id = 313004
 	title = "EVTNAME313004"
@@ -892,10 +935,11 @@ narrative_event = {
 			}
 		}
 		OR = {
+			c_causennae = { can_conquer_anglosaxon_trigger = yes }
+			c_bensington = { can_conquer_anglosaxon_trigger = yes }
 			c_bannaventa = { can_conquer_anglosaxon_trigger = yes }
-			c_ad_pontem = { can_conquer_anglosaxon_trigger = yes }
-			c_magiovinium = { can_conquer_anglosaxon_trigger = yes }
 			c_ratae = { can_conquer_anglosaxon_trigger = yes }
+			c_magiovinium = { can_conquer_anglosaxon_trigger = yes }
 		}
 		ai = yes
 		top_liege = { ai = yes }
@@ -919,11 +963,23 @@ narrative_event = {
 		}
 		modifier = {
 			factor = 1.5
+			c_causennae = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_bensington = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
 			c_bannaventa = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_ad_pontem = { has_truce_with_owner_trigger = yes }
+			c_ratae = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_magiovinium = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -934,6 +990,32 @@ narrative_event = {
 		trigger = {
 			ai = yes
 			has_landed_title = k_anglia
+		}
+		if = {
+			limit = {
+				c_causennae = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_causennae = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_bensington = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_bensington = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -955,19 +1037,6 @@ narrative_event = {
 				}
 			}
 			c_bannaventa = {
-				reverse_war = {
-					target = ROOT
-					casus_belli = county_conquest
-				}
-			}
-		}
-		if = {
-			limit = {
-				c_ad_pontem = {
-					can_conquer_anglosaxon_trigger = yes
-				}
-			}
-			c_ad_pontem = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -1015,7 +1084,7 @@ narrative_event = {
 		}
 	}
 }
-# Anglian Invasions 506 - 509 AD, Bensington, Aelia Castra, and Margidunum (with checks for Ad Pontem and Bannaventa)
+# Anglian Invasions 506 - 509 AD, Castrum Ecclesiae, Ad Pontem, and Lactodorum (with checks for Bannaventa, Ratae, and Magiovinium)
 narrative_event = {
 	id = 313005
 	title = "EVTNAME313005"
@@ -1047,10 +1116,11 @@ narrative_event = {
 		}
 		OR = {
 			c_bannaventa = { can_conquer_anglosaxon_trigger = yes }
+			c_ratae = { can_conquer_anglosaxon_trigger = yes }
+			c_magiovinium = { can_conquer_anglosaxon_trigger = yes }
 			c_ad_pontem = { can_conquer_anglosaxon_trigger = yes }
-			c_margidunum = { can_conquer_anglosaxon_trigger = yes }
-			c_bensington = { can_conquer_anglosaxon_trigger = yes }
-			c_alchester = { can_conquer_anglosaxon_trigger = yes }
+			c_aylesbury = { can_conquer_anglosaxon_trigger = yes }
+			c_lactodorum = { can_conquer_anglosaxon_trigger = yes }
 		}
 		ai = yes
 		top_liege = { ai = yes }
@@ -1074,15 +1144,27 @@ narrative_event = {
 		}
 		modifier = {
 			factor = 1.5
-			c_bensington = { has_truce_with_owner_trigger = yes }
+			c_bannaventa = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_alchester = { has_truce_with_owner_trigger = yes }
+			c_ratae = { has_truce_with_owner_trigger = yes }
 		}
 		modifier = {
 			factor = 1.5
-			c_margidunum = { has_truce_with_owner_trigger = yes }
+			c_magiovinium = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_ad_pontem = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_aylesbury = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_lactodorum = { has_truce_with_owner_trigger = yes }
 		}
 	}
 	
@@ -1096,11 +1178,37 @@ narrative_event = {
 		}
 		if = {
 			limit = {
+				c_ratae = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_ratae = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
 				c_bannaventa = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
 			c_bannaventa = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_magiovinium = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_magiovinium = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -1122,11 +1230,11 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_margidunum = {
+				c_aylesbury = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_margidunum = {
+			c_aylesbury = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -1135,11 +1243,165 @@ narrative_event = {
 		}
 		if = {
 			limit = {
-				c_bensington = {
+				c_lactodorum = {
 					can_conquer_anglosaxon_trigger = yes
 				}
 			}
-			c_bensington = {
+			c_lactodorum = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTA313005"	# Other Saxons
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+			NOT = { has_landed_title = k_anglia }
+		}
+	}
+	option = {
+		name = "EVTOPTB313005"	# Britons
+		trigger = {
+			OR = {
+				culture = briton
+				culture = romanobritish
+				culture = cumbrian
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTC313005"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			NOT = { culture = briton }
+			NOT = { culture = romanobritish }
+			NOT = { culture = cumbrian }
+		}
+	}
+}
+# Anglian Invasions 510 - 514 AD, Aelia Castra and Margidunum (with checks for Castrum Ecclesiae, Ad Pontem, and Lactodorum)
+narrative_event = {
+	id = 3130050
+	title = "EVTNAME3130050"
+	desc = "EVTDESC3130050"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		year = 510
+		war = no
+		had_global_flag = { flag = anglian_invasion_506 days = 730 }
+		has_landed_title = k_anglia
+		48 = {	# Thunreslea
+			owner = {
+				realm = {								
+					OR = { 
+						title = e_aengland
+						title = k_anglia
+					}
+				}
+			}
+		}
+		OR = {
+			c_ad_pontem = { can_conquer_anglosaxon_trigger = yes }
+			c_aylesbury = { can_conquer_anglosaxon_trigger = yes }
+			c_lactodorum = { can_conquer_anglosaxon_trigger = yes }
+			c_alchester = { can_conquer_anglosaxon_trigger = yes }
+			c_margidunum = { can_conquer_anglosaxon_trigger = yes }
+		}
+		ai = yes
+		top_liege = { ai = yes }
+		is_ingvaeonic_culture_trigger = yes
+		NOT = { has_global_flag = anglian_invasion_510 }
+	}
+	
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.5
+			year = 512
+		}
+		modifier = {
+			factor = 0.5
+			year = 513
+		}
+		modifier = {
+			factor = 0.5
+			year = 514
+		}
+		modifier = {
+			factor = 1.5
+			c_ad_pontem = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_aylesbury = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_lactodorum = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_alchester = { has_truce_with_owner_trigger = yes }
+		}
+		modifier = {
+			factor = 1.5
+			c_margidunum = { has_truce_with_owner_trigger = yes }
+		}
+	}
+	
+	immediate = { set_global_flag = anglian_invasion_510 }
+	
+	option = {
+		name = "OK"
+		trigger = {
+			ai = yes
+			has_landed_title = k_anglia
+		}
+		if = {
+			limit = {
+				c_ad_pontem = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_ad_pontem = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_aylesbury = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_aylesbury = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_lactodorum = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_lactodorum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest
@@ -1153,6 +1415,19 @@ narrative_event = {
 				}
 			}
 			c_alchester = {
+				reverse_war = {
+					target = ROOT
+					casus_belli = county_conquest
+				}
+			}
+		}
+		if = {
+			limit = {
+				c_margidunum = {
+					can_conquer_anglosaxon_trigger = yes
+				}
+			}
+			c_margidunum = {
 				reverse_war = {
 					target = ROOT
 					casus_belli = county_conquest

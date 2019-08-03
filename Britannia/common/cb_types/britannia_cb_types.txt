@@ -1703,10 +1703,8 @@ county_conquest = {
 				primary_title = { title = k_anglia }
 			}
 			NOT = { year = 520 }
-			OR = {
-				title = c_calleva
-				title = c_spinae
-				title = c_hen_vicus
+			location = {
+				region = custom_berkshire
 			}
 		}
 		modifier = {
@@ -1724,11 +1722,8 @@ county_conquest = {
 				NOT = { has_landed_title = k_sussex }
 			}
 			NOT = { year = 540 }
-			OR = {
-				title = c_vindomis
-				title = c_venta
-				title = c_portus_adurni
-				title = c_ambra
+			location = {
+				region = custom_hampshire
 			}
 		}
 		modifier = {
@@ -1754,10 +1749,8 @@ county_conquest = {
 				is_ingvaeonic_culture_trigger = yes
 				primary_title = { title = k_sussex }
 			}
-			OR = {
-				title = c_venta
-				title = c_portus_adurni
-				title = c_vindomis
+			location = {
+				region = custom_meonware
 			}
 			NOT = { year = 520 }
 		}
@@ -1772,17 +1765,12 @@ county_conquest = {
 					}
 				}
 			}
-			OR = {
-				title = c_clausentum
-				title = c_vectis
-				title = c_ambra
-				title = c_venta
-				title = c_portus_adurni
-				title = c_vindomis
-				title = c_cunetio
-				title = c_hen_vicus
-				title = c_spinae
-				title = c_calleva
+			location = {
+				OR = {
+					region = custom_hampshire
+					region = custom_berkshire
+					region = custom_wiltshire
+				}
 			}
 		}
 		modifier = {
@@ -1811,7 +1799,10 @@ county_conquest = {
 				year = 540
 				ROOT = { completely_controls_region = custom_middleanglia }
 			}
-			location = { region = world_britannia_lloegyr_guenet }
+			location = { 
+				region = world_britannia_lloegyr_guenet
+				NOT = { region = custom_middleanglia }
+			}
 		}
 		modifier = {
 			factor = 5
@@ -1822,6 +1813,7 @@ county_conquest = {
 			NOT = { year = 530 }
 			OR = {
 				region = custom_middleanglia
+				region = custom_wixna
 				region = custom_cilternsaete
 			}
 		}
@@ -9784,6 +9776,7 @@ tributary_britannia_subject_cb = {
 	can_ask_to_join_war = no
 	display_on_map = no
 	allowed_to_target_tributaries = no
+	allow_distant = yes
 	
 	defender_unoccupied_warscore = yes
 	
@@ -10025,7 +10018,11 @@ tributary_britannia_subject_cb = {
 	}
 
 	ai_will_do = {
-		factor = 100
+		factor = 1
+		
+		modifier = {
+			factor = 1000 # High prio CB
+		}
 	}
 }
 
