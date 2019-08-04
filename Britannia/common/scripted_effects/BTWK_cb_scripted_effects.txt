@@ -140,6 +140,115 @@ county_conquest_on_reverse_demand_title_effect = {
 		}
 	}
 }
+depose_high_king_britannia_cb_on_success_effect = {
+	FROM = {
+		prestige = -500
+	}
+
+	ROOT = {
+		prestige = 100
+		participation_scaled_prestige = 100
+	}
+	any_attacker = {
+		limit = { NOT = { character = ROOT } }
+		hidden_tooltip = { participation_scaled_prestige = 150 }
+	}
+	if = {
+		limit = { NOT = { has_global_flag = britannia_formalized_high_kingship } }
+		custom_tooltip = {
+			text = depose_high_king_britannia_cb_succ_tip
+		}
+		hidden_tooltip = {
+			FROM = { character_event = { id = 312166 } }
+			ROOT = {
+				if = {
+					limit = {
+						is_tributary = yes
+						suzerain = {
+							OR = {
+								character = FROM
+								any_liege = {
+									character = FROM
+								}
+							}
+						}
+					}
+					suzerain = {
+						remove_tributary = PREV
+					}
+				}
+				any_vassal = {
+					limit = {
+						is_tributary = yes
+						suzerain = {
+							OR = {
+								character = FROM
+								any_liege = {
+									character = FROM
+								}
+							}
+						}
+					}
+					suzerain = {
+						remove_tributary = PREV
+					}
+				}
+			}
+		}
+	}
+	else = {		# Standard depose liege effect
+		FROM = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				any_demesne_title = { # All titles
+					limit = {
+						OR = {
+							tier = king
+							tier = emperor
+						}
+	#					is_titular = no
+						NOT = { has_law = crown_authority_0 }
+					}
+					if = {
+						limit = { has_law = crown_authority_1 }
+						add_law = crown_authority_0
+					}
+					if = {
+						limit = { has_law = crown_authority_2 }
+						add_law = crown_authority_1
+					}
+					if = {
+						limit = { has_law = crown_authority_3 }
+						add_law = crown_authority_2
+					}
+					if = {
+						limit = { has_law = crown_authority_4 }
+						add_law = crown_authority_3
+					}
+				}
+			}
+			
+			primary_title = { set_title_flag = former_primary_title }
+			if = {
+				limit = { NOT = { government = tribal_government } }
+				abdicate = yes
+			}
+		}
+		
+		# Transfer foederati
+		hidden_tooltip = {
+			any_title = { 
+				limit = { 
+					has_title_flag = former_primary_title 
+					higher_tier_than = COUNT
+				}
+				holder_scope = { 
+					character_event = { id = foederati.21 } 
+				}
+			}
+		}
+	}
+}
 
 usurp_all_top_level_titles_to_ROOT_effect = {
 	if = {
