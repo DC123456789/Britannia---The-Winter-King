@@ -540,6 +540,50 @@ cannot_be_created_by_romans_trigger = {
 	}
 }
 
+briton_king_roman_province_creation_block_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			NOR = {
+				is_roman_emperor_trigger = yes
+				top_liege = { is_roman_emperor_trigger = yes }
+				any_demesne_title = {
+					has_title_flag = roman_province
+				}
+				top_liege = {
+					any_demesne_title = {
+						has_title_flag = roman_province
+					}
+				}
+				has_global_flag = offa_dyke_created
+			}
+		}
+		top_liege = {
+			custom_tooltip = {
+				text = briton_king_roman_province_creation_block_trigger_tooltip
+				hidden_tooltip = {
+					NOT = {
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							OR = {
+								title = e_britannia
+								title = e_cymru
+								title = e_hen_ogledd
+								empire = {
+									OR = {
+										title = e_britannia
+										title = e_cymru
+										title = e_hen_ogledd
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 is_germanic_controlled_trigger = {
 	holder_scope = {
 		top_liege = { 
