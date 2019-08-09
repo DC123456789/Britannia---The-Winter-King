@@ -2050,7 +2050,7 @@ county_conquest_condition_placeholder = {
 		factor = 0
 	}	
 }
-county_conquest_anglosaxon = {
+county_conquest_anglosaxon = {		# Cheaper than the county_conquest_anglosaxon_dejure cb
 	name = CB_NAME_COUNTY_CONQUEST
 	war_name = WAR_NAME_COUNTY_CONQUEST
 	sprite = 7
@@ -2156,16 +2156,39 @@ county_conquest_anglosaxon = {
 	can_use_title = {
 		tier = COUNT
 		region = world_britannia
-		# Is not in the de jure kingdom of FROM
-		NOT = {
-			kingdom = {
-				FROM = {
-					OR = {
-						has_landed_title = PREV
-						AND = {
-							lower_tier_than = KING
-							primary_title = {
-								kingdom = { title = PREVPREV }
+		OR = {
+			# Is not in the de jure kingdom of FROM
+			NOT = {
+				kingdom = {
+					FROM = {
+						OR = {
+							has_landed_title = PREV
+							AND = {
+								lower_tier_than = KING
+								primary_title = {
+									kingdom = { title = PREVPREV }
+								}
+							}
+						}
+					}
+				}
+			}
+			# Neighbours the PRIMARY kingdom of ROOT, and FROM is not too small
+			AND = {
+				ROOT = { higher_tier_than = DUKE }
+				FROM = { num_of_count_titles_in_realm = 10 }
+				location = {
+					any_neighbor_province = {
+						kingdom = {
+							ROOT = {
+								has_landed_title = PREV
+								OR = {
+									primary_title = { title = PREVPREV }
+									AND = {
+										has_landed_title = e_aengland
+										PREV = { has_title_flag = aengland_primary_kingdom }
+									}
+								}
 							}
 						}
 					}
@@ -2486,15 +2509,41 @@ county_conquest_anglosaxon_dejure = {
 	can_use_title = {
 		tier = COUNT
 		region = world_britannia
-		# Is in the de jure kingdom of FROM
-		kingdom = {
-			FROM = {
-				OR = {
-					has_landed_title = PREV
-					AND = {
-						lower_tier_than = KING
-						primary_title = {
-							kingdom = { title = PREVPREV }
+		# Inverse of the county_conquest_anglosaxon requirements
+		NOR = {
+			# Is not in the de jure kingdom of FROM
+			NOT = {
+				kingdom = {
+					FROM = {
+						OR = {
+							has_landed_title = PREV
+							AND = {
+								lower_tier_than = KING
+								primary_title = {
+									kingdom = { title = PREVPREV }
+								}
+							}
+						}
+					}
+				}
+			}
+			# Neighbours the PRIMARY kingdom of ROOT, and FROM is not too small
+			AND = {
+				ROOT = { higher_tier_than = DUKE }
+				FROM = { num_of_count_titles_in_realm = 10 }
+				location = {
+					any_neighbor_province = {
+						kingdom = {
+							ROOT = {
+								has_landed_title = PREV
+								OR = {
+									primary_title = { title = PREVPREV }
+									AND = {
+										has_landed_title = e_aengland
+										PREV = { has_title_flag = aengland_primary_kingdom }
+									}
+								}
+							}
 						}
 					}
 				}
@@ -7250,16 +7299,29 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 		else = {
 			ROOT = { prestige = -750 }
 		}
+		if = {
+			limit = { FROM = { FROM_anglosaxon_king_tier_subjugation_trigger = yes } }
+			scaled_wealth = {
+				value = -2.0
+				max = -400
+				min = -200
+			}
+		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 	
 	can_use_gui = {
-		FROM = {
-			conditional_tooltip = {
-				trigger = { 
-					FROM_anglosaxon_king_tier_subjugation_trigger = yes
+		conditional_tooltip = {
+			trigger = { 
+				FROM = { FROM_anglosaxon_king_tier_subjugation_trigger = yes }
+			}
+			FROM = { NOT = { num_of_count_titles_in_realm = 6 } }
+			ROOT = { 
+				scaled_wealth = {
+					value = 2.0
+					min = 200
+					max = 400
 				}
-				NOT = { num_of_count_titles_in_realm = 6 }
 			}
 		}
 		ROOT = {
