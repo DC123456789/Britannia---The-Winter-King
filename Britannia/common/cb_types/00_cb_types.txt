@@ -7152,9 +7152,9 @@ pagan_subjugation = {
 	}
 
 	on_success = {
-		if = {
-			limit = { religion_group = pagan_group }
-			ROOT = {
+		ROOT = {
+			if = {
+				limit = { religion_group = pagan_group }
 				piety = 50
 			}
 		}
@@ -7190,7 +7190,10 @@ pagan_subjugation = {
 
 	on_fail = {
 		FROM = {
-			piety = 50
+			if = {
+				limit = { religion_group = pagan_group }
+				piety = 50
+			}
 		}
 		FROM = {
 			participation_scaled_prestige = 50
@@ -7200,20 +7203,29 @@ pagan_subjugation = {
 			hidden_tooltip = { participation_scaled_prestige = 50 }
 		}
 		ROOT = {
-			piety = -100
+			if = {
+				limit = { religion_group = pagan_group }
+				piety = -100
+			}
 		}
 	}
 	
 	on_reverse_demand = {
 		ROOT = {
-			piety = -200
+			if = {
+				limit = { religion_group = pagan_group }
+				piety = -200
+			}
 			transfer_scaled_wealth = {
 				to = FROM
 				value = 2.0
 			}
 		}
 		FROM = {
-			piety = 50
+			if = {
+				limit = { religion_group = pagan_group }
+				piety = 50
+			}
 		}
 		FROM = {
 			if = {
