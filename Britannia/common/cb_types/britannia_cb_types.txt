@@ -9035,16 +9035,16 @@ anglosaxon_subjugation = {
 			prestige = -100
 		}
 		
-		if = {		# If they hold >= 3 provinces outside the target region, or they hold < 3 provinces in the target region, only vassalizes the provinces in the region
-			limit = {
+		if = {			# If they hold >= 3 provinces outside the target region, or they hold <= 2 provinces in the target region (and they hold >= 4 provinces in total),	
+			limit = {	# or they hold a non-target king or higher tier title, only vassalizes the provinces in the region
 				ROOT = {
 					OR = {
 						AND = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_eastanglia_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_eastanglia
 					}
-					has_character_flag = anglosaxon_subjugation_k_eastanglia
 				}
 				FROM = {
 					OR = {
@@ -9052,10 +9052,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_eastanglia }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_eastanglia
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_eastanglia
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_eastanglia
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9080,8 +9093,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_essex_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_eastseaxe
 					}
-					has_character_flag = anglosaxon_subjugation_k_eastseaxe
 				}
 				FROM = {
 					OR = {
@@ -9089,10 +9102,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_essex }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_essex
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_essex
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_eastseaxe
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9117,8 +9143,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_sussex_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_sussex
 					}
-					has_character_flag = anglosaxon_subjugation_k_sussex
 				}
 				FROM = {
 					OR = {
@@ -9126,10 +9152,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_sussex }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_sussex
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_sussex
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_sussex
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9154,8 +9193,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_cantia_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_cantia
 					}
-					has_character_flag = anglosaxon_subjugation_k_cantia
 				}
 				FROM = {
 					OR = {
@@ -9163,10 +9202,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_cantia }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_cantia
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_cantia
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_cantia
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9191,8 +9243,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_wessex_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_wessex
 					}
-					has_character_flag = anglosaxon_subjugation_k_wessex
 				}
 				FROM = {
 					OR = {
@@ -9200,10 +9252,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_wessex }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_wessex
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_wessex
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_wessex
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9228,8 +9293,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_mercia_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_mercia
 					}
-					has_character_flag = anglosaxon_subjugation_k_mercia
 				}
 				FROM = {
 					OR = {
@@ -9237,10 +9302,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_mercia }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_mercia
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_mercia
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_mercia
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9265,8 +9343,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_northumbria_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_northumbria
 					}
-					has_character_flag = anglosaxon_subjugation_k_northumbria
 				}
 				FROM = {
 					OR = {
@@ -9274,10 +9352,23 @@ anglosaxon_subjugation = {
 							count = 3
 							NOT = { region = custom_northumbria }
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								region = custom_northumbria
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									region = custom_northumbria
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_northumbria
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
+								}
 							}
 						}
 					}
@@ -9302,8 +9393,8 @@ anglosaxon_subjugation = {
 							has_anglosaxon_subjugation_flag_trigger = no
 							is_primary_anglosaxon_kingdom_anglia_trigger = yes
 						}
+						has_character_flag = anglosaxon_subjugation_k_anglia
 					}
-					has_character_flag = anglosaxon_subjugation_k_anglia
 				}
 				FROM = {
 					OR = {
@@ -9314,12 +9405,25 @@ anglosaxon_subjugation = {
 								region = custom_essex
 							}
 						}
-						NOT = {
-							any_realm_province = {
-								count = 3
-								OR = {
-									region = custom_eastanglia
-									region = custom_essex
+						AND = {
+							NOT = {
+								any_realm_province = {
+									count = 3
+									OR = {
+										region = custom_eastanglia
+										region = custom_essex
+									}
+								}
+							}
+							num_of_count_titles_in_realm = 4
+						}
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							NOR = {
+								title = k_anglia
+								AND = {
+									title = e_aengland
+									NOT = { has_global_flag = aengland_united }
 								}
 							}
 						}
@@ -9358,6 +9462,10 @@ anglosaxon_subjugation = {
 			hidden_tooltip = {
 				ROOT = { character_event = { id = foederati.21 } }
 			}			
+		}
+		
+		FROM = {
+			character_event = { id = 313178 } # Check Anglo-Saxon Subjugation flags
 		}
 	}
 
