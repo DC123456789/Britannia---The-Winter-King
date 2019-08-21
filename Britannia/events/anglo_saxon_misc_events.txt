@@ -1,0 +1,685 @@
+###################################
+#
+# Anglo Saxon Misc Events
+#
+# Id 320400 - 320599
+#
+###################################
+#
+# 320400 - 320409	Dynasties and Family Branches
+# 320410 - 320429	CB events
+# 320430 - 320449	Anglo-Saxon Liberation Revolts
+
+### DYNASTIES and FAMILY BRANCHES ###
+character_event = {			# House of West Seaxe
+	id = 320400
+	title = "EVTNAME320400"
+	desc = "EVTDESC320400"
+	major = yes
+	hide_new = yes
+
+	picture = "GFX_evt_castle_hill"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOR = { 
+			has_global_flag = wessex_house
+			had_global_flag = { flag = wessex_created days = 60 }
+			dynasty = 816
+			num_of_king_titles = 2
+		}
+		has_landed_title = k_wessex
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = wessex_house
+		ROOT = {
+			dynasty = 333
+			any_child = {
+				dynasty = 333
+				any_child = {
+					dynasty = 333
+					any_child = {
+						dynasty = 333
+						any_child = {
+							dynasty = 333
+						}
+					}
+				}
+			}
+			father_even_if_dead = {
+				any_child = {
+					limit = {
+						is_ruler = no
+						opinion = { who = ROOT value = 60 }
+						reverse_opinion = { who = ROOT value = 40 }
+					}
+					dynasty = 333
+					any_child = {
+						limit = { is_ruler = no }
+						dynasty = 333
+						any_child = {
+							limit = { is_ruler = no }
+							dynasty = 333
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320400"
+		trigger = {
+			dynasty = 333
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320400"
+		trigger = {
+			NOT = { dynasty = 333 }
+		}
+	}
+}
+character_event = {			# House of Mercia
+	id = 320401
+	title = "EVTNAME320401"
+	desc = "EVTDESC320401"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_hill"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOR = { 
+			has_global_flag = mercia_house
+			dynasty = 819
+			had_global_flag = { flag = mercia_created days = 60 }
+			num_of_king_titles = 2
+		}
+		has_landed_title = k_mercia
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = mercia_house
+		ROOT = {
+			dynasty = 334
+			any_child = {
+				dynasty = 334
+				any_child = {
+					dynasty = 334
+					any_child = {
+						dynasty = 334
+						any_child = {
+							dynasty = 334
+						}
+					}
+				}
+			}
+			father_even_if_dead = {
+				any_child = {
+					limit = {
+						is_ruler = no
+						opinion = { who = ROOT value = 60 }
+						reverse_opinion = { who = ROOT value = 40 }
+					}
+					dynasty = 334
+					any_child = {
+						limit = { is_ruler = no }
+						dynasty = 334
+						any_child = {
+							limit = { is_ruler = no }
+							dynasty = 334
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320401"
+		trigger = {
+			dynasty = 334
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320401"
+		trigger = {
+			NOT = { dynasty = 334 }
+		}
+	}
+}
+character_event = {			# House of East Seaxe
+	id = 320402
+	title = "EVTNAME320402"
+	desc = "EVTDESC320402"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_hill"
+	
+	only_rulers = yes
+	only_men = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = k_eastseaxe
+		NOR = { 
+			has_global_flag = essex_house
+			dynasty = 812
+			had_global_flag = { flag = essex_created days = 60 }
+			num_of_king_titles = 2
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = essex_house
+		ROOT = {
+			dynasty = 338
+			any_child = {
+				dynasty = 338
+				any_child = {
+					dynasty = 338
+					any_child = {
+						dynasty = 338
+						any_child = {
+							dynasty = 338
+						}
+					}
+				}
+			}
+			father_even_if_dead = {
+				any_child = {
+					limit = {
+						is_ruler = no
+						opinion = { who = ROOT value = 60 }
+						reverse_opinion = { who = ROOT value = 40 }
+						NOT = { character = 10 }
+					}
+					dynasty = 338
+					any_child = {
+						limit = { is_ruler = no }
+						dynasty = 338
+						any_child = {
+							limit = { is_ruler = no }
+							dynasty = 338
+						}
+					}
+				}
+			}			
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320402"
+		trigger = {
+			dynasty = 338
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320402"
+		trigger = {
+			NOT = { dynasty = 338 }
+		}
+	}
+}
+
+### CB EVENTS ###
+character_event = {		# Bounce event 320411 to various relevant title holders when called
+	id = 320410
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		ROOT = { 
+			character_event = { id = 320411 }
+			any_liege = {
+				character_event = { id = 320411 } 
+			}
+		}
+		FROMFROM = {
+			character_event = { id = 320411 }
+			any_liege = {
+				character_event = { id = 320411 } 
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+character_event = {		# Clear Anglo-Saxon Subjugation flags when appropriate
+	id = 320411
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		war = no
+		OR = {
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_eastseaxe
+				OR = {
+					AND = {
+						has_global_flag = aelle_ruling_anglia
+						NOT = { has_global_flag = anglia_collapsed }
+					}
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_essex } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_sussex
+				OR = {
+					AND = {
+						has_global_flag = aelle_ruling_anglia
+						NOT = { has_global_flag = anglia_collapsed }
+					}
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_sussex } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_cantia
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_cantia } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_wessex
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_wessex } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_mercia
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_mercia } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_northumbria
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_northumbria } }
+				}
+			}
+			AND = {
+				has_character_flag = anglosaxon_subjugation_k_anglia
+				OR = {
+					NOT = { has_global_flag = aelle_ruling_anglia }
+					has_global_flag = anglia_collapsed
+					is_landed = no
+					NOT = {
+						any_realm_province = {
+							OR = {
+								region = custom_eastanglia
+								region = custom_essex
+							}
+						} 
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_eastseaxe
+				OR = {
+					AND = {
+						has_global_flag = aelle_ruling_anglia
+						NOT = { has_global_flag = anglia_collapsed }
+					}
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_essex } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_eastseaxe
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_sussex
+				OR = {
+					AND = {
+						has_global_flag = aelle_ruling_anglia
+						NOT = { has_global_flag = anglia_collapsed }
+					}
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_sussex } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_sussex
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_cantia
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_cantia } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_cantia
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_wessex
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_wessex } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_wessex
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_mercia
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_mercia } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_mercia
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_northumbria
+				OR = {
+					is_landed = no
+					NOT = { any_realm_province = { region = custom_northumbria } }
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_northumbria
+		}
+		else_if = {
+			limit = {
+				has_character_flag = anglosaxon_subjugation_k_anglia
+				OR = {
+					NOT = { has_global_flag = aelle_ruling_anglia }
+					has_global_flag = anglia_collapsed
+					is_landed = no
+					NOT = {
+						any_realm_province = {
+							OR = {
+								region = custom_eastanglia
+								region = custom_essex
+							}
+						} 
+					}
+				}
+			}
+			clr_character_flag = anglosaxon_subjugation_k_anglia
+		}		
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+### LIBERATION REVOLT EVENTS ###
+province_event = {		# Assign revolt risk to Anglo-Saxon provinces not controlled by their de jure liege
+	id = 320430
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	trigger = {
+		is_ingvaeonic_culture_trigger = yes
+		is_in_british_isles_trigger = yes
+		owner = { 
+			culture_group = germanic 
+			top_liege = { 
+				culture_group = germanic 
+				is_romanized_germanic_trigger = no
+				num_of_count_titles_in_realm = 8
+				NOR = {
+					AND = {
+						lower_tier_than = KING
+						capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+					}
+					AND = {
+						tier = KING
+						any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+						OR = {
+							NOT = { num_of_king_titles = 2 }
+							capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+							AND = {
+								capital_scope = { 
+									kingdom = { 
+										OR = {
+											has_holder = no
+											holder_scope = { NOT = { character = PREVPREVPREV } }
+										}
+									} 
+								}
+								primary_title = {
+									ROOT = { kingdom = { title = PREVPREV } }
+								}
+							}
+						}
+					}
+					AND = {
+						tier = EMPEROR
+						any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+						OR = {
+							num_of_king_titles = 1
+							capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+							AND = {
+								has_landed_title = e_aengland
+								ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+							}
+						}
+					}
+				}
+			}
+		}
+		NOR = { 
+			has_province_modifier = province_not_dejure_liege 
+			has_global_flag = aengland_united
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}	
+	
+	immediate = {
+		add_province_modifier = {
+			name = province_not_dejure_liege
+			duration = -1
+		}
+	}
+}
+
+province_event = {		# Remove revolt risk from Anglo-Saxon provinces when not controlled by their de jure liege, or conquered by non-Germanics
+	id = 320431
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	trigger = {
+		has_province_modifier = province_not_dejure_liege 
+		OR = {
+			is_ingvaeonic_culture_trigger = no
+			has_global_flag = aengland_united
+			NOT = {
+				owner = {
+					culture_group = germanic 
+					top_liege = { 
+						culture_group = germanic 
+						is_romanized_germanic_trigger = no
+						num_of_count_titles_in_realm = 8
+						NOR = {
+							AND = {
+								lower_tier_than = KING
+								capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+							}
+							AND = {
+								tier = KING
+								any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+								OR = {
+									NOT = { num_of_king_titles = 2 }
+									capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+									AND = {
+										capital_scope = { 
+											kingdom = { 
+												OR = {
+													has_holder = no
+													holder_scope = { NOT = { character = PREVPREVPREV } }
+												}
+											} 
+										}
+										primary_title = {
+											ROOT = { kingdom = { title = PREVPREV } }
+										}
+									}
+								}
+							}
+							AND = {
+								tier = EMPEROR
+								any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+								OR = {
+									num_of_king_titles = 1
+									capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+									AND = {
+										has_landed_title = e_aengland
+										ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}	
+	
+	immediate = {
+		remove_province_modifier = province_not_dejure_liege
+	}
+}
+
+character_event = {		# Bounce event 320433 for 1-day delay (avoids issues with de jure weirdness)
+	id = 320432
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_province = {
+			province_event = { id = 320433 days = 1 }
+		}
+	}
+}
+
+province_event = {		# Assign revolt risk modifier to all provinces at start
+	id = 320433
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_province = {
+			limit = {
+				is_ingvaeonic_culture_trigger = yes
+				is_in_british_isles_trigger = yes
+			}
+			province_event = { id = 320430 }
+		}
+	}
+}
+
+character_event = {		# Check for revolt risk modifier every time a title changes hands
+	id = 320434
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		top_liege = {
+			any_realm_province = {
+				if = {
+					limit = { NOT = { has_province_modifier = province_not_dejure_liege } }
+					province_event = { id = 320430 }
+				}
+				else = {
+					province_event = { id = 320431 }
+				}
+			}
+		}
+		FROMFROM = {
+			top_liege = {
+				if = {
+					limit = { NOT = { ROOT = { top_liege = { character = PREVPREV } } } }
+					any_realm_province = {
+						if = {
+							limit = { NOT = { has_province_modifier = province_not_dejure_liege } }
+							province_event = { id = 320430 }
+						}
+						else = {
+							province_event = { id = 320431 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
