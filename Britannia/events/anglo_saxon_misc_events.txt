@@ -504,13 +504,39 @@ province_event = {		# Assign revolt risk to Anglo-Saxon provinces not controlled
 					}
 					AND = {
 						tier = EMPEROR
-						any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
 						OR = {
-							num_of_king_titles = 1
-							capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
 							AND = {
-								has_landed_title = e_aengland
-								ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+								any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+								OR = {
+									num_of_king_titles = 1
+									capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+									AND = {
+										has_landed_title = e_aengland
+										ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+									}
+								}
+							}
+							AND = {
+								any_vassal = {
+									any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }	
+									OR = {
+										NOT = { num_of_king_titles = 2 }
+										capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+										AND = {
+											capital_scope = { 
+												kingdom = { 
+													OR = {
+														has_holder = no
+														holder_scope = { NOT = { character = PREVPREVPREV } }
+													}
+												} 
+											}
+											primary_title = {
+												ROOT = { kingdom = { title = PREVPREV } }
+											}
+										}
+									}								
+								}
 							}
 						}
 					}
@@ -584,11 +610,38 @@ province_event = {		# Remove revolt risk from Anglo-Saxon provinces when not con
 								tier = EMPEROR
 								any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
 								OR = {
-									num_of_king_titles = 1
-									capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
 									AND = {
-										has_landed_title = e_aengland
-										ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+										any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+										OR = {
+											num_of_king_titles = 1
+											capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+											AND = {
+												has_landed_title = e_aengland
+												ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+											}
+										}
+									}
+									AND = {
+										any_vassal = {
+											any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }	
+											OR = {
+												NOT = { num_of_king_titles = 2 }
+												capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+												AND = {
+													capital_scope = { 
+														kingdom = { 
+															OR = {
+																has_holder = no
+																holder_scope = { NOT = { character = PREVPREVPREV } }
+															}
+														} 
+													}
+													primary_title = {
+														ROOT = { kingdom = { title = PREVPREV } }
+													}
+												}
+											}								
+										}
 									}
 								}
 							}
@@ -682,4 +735,17 @@ character_event = {		# Check for revolt risk modifier every time a title changes
 			}
 		}
 	}
+}
+
+letter_event = {		# Notify king of liberation revolt in other kingdom			
+	id = 320440
+	desc = "EVTDESC320440"
+	
+	is_triggered_only = yes
+	
+	ai = no
+	
+	option = {
+		name = "EVTOPTA8037"
+	}	
 }

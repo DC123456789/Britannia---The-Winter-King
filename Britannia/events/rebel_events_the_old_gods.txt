@@ -97,14 +97,27 @@ province_event = {
 					culture = romanobritish
 				}
 			}
-			kingdom = {
-				OR = {
-					has_holder = yes
-					NOT = { culture = ROOT }
-					NOT = { 
-						# The de jure kingdom must have had an appropriate holder in the past
-						any_previous_holder = {
-							ROOT = {
+			NOT = {
+				kingdom = {
+					OR = {
+						has_holder = no
+						AND = {
+							empire = { title = e_aengland }
+							ROOT = { has_province_modifier = province_not_dejure_liege }
+							holder_scope = { is_ingvaeonic_culture_trigger = yes }
+						}
+					}	
+					OR = {
+						culture = ROOT
+						AND = {
+							is_ingvaeonic_culture_trigger = yes
+							ROOT = { is_ingvaeonic_culture_trigger = yes }
+						}
+					}
+					# The de jure kingdom must have had an appropriate holder in the past
+					any_previous_holder = {
+						ROOT = {
+							OR = {
 								owner = {
 									top_liege = {
 										NOT = { dynasty = PREVPREVPREV }
@@ -114,6 +127,7 @@ province_event = {
 										}
 									}
 								}
+								has_province_modifier = province_not_dejure_liege
 							}
 						}
 					}
@@ -848,19 +862,35 @@ province_event = {
 		}
 		
 		kingdom = {
-			has_holder = no
-			culture = ROOT
+			OR = {
+				has_holder = no
+				AND = {
+					empire = { title = e_aengland }
+					ROOT = { has_province_modifier = province_not_dejure_liege }
+					holder_scope = { is_ingvaeonic_culture_trigger = yes }
+				}
+			}	
+			OR = {
+				culture = ROOT
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					ROOT = { is_ingvaeonic_culture_trigger = yes }
+				}
+			}
 			# The de jure kingdom must have had an appropriate holder in the past
 			any_previous_holder = {
 				ROOT = {
-					owner = {
-						top_liege = {
-							NOT = { dynasty = PREVPREVPREV }
-							OR = {
-								is_nomadic = no
-								NOT = { culture_group = ROOT }
+					OR = {
+						owner = {
+							top_liege = {
+								NOT = { dynasty = PREVPREVPREV }
+								OR = {
+									is_nomadic = no
+									NOT = { culture_group = ROOT }
+								}
 							}
 						}
+						has_province_modifier = province_not_dejure_liege
 					}
 				}
 			}
@@ -959,6 +989,41 @@ province_event = {
 			
 			spawn_nationalist_army_effect = yes
 			
+			# In an Anglo-Saxon liberation revolt, the more counties you control of the target Kingdom, the larger the revolt
+			if = {
+				limit = { 
+					ROOT = { has_province_modifier = province_not_dejure_liege } 
+				}
+				ROOT = { kingdom = { save_event_target_as = target_kingdom } }
+				if = {
+					limit = {
+						num_of_realm_counties = {
+							value = 13
+							title = event_target:target_kingdom
+						}
+					}
+					spawn_nationalist_army_effect = yes
+				}
+				if = {
+					limit = {
+						num_of_realm_counties = {
+							value = 21
+							title = event_target:target_kingdom
+						}
+					}
+					spawn_nationalist_army_effect = yes
+				}
+				if = {
+					limit = {
+						num_of_realm_counties = {
+							value = 32
+							title = event_target:target_kingdom
+						}
+					}
+					spawn_nationalist_army_effect = yes
+				}
+			}
+			
 			if = {
 				limit = {
 					has_game_rule = {
@@ -1017,12 +1082,46 @@ province_event = {
 			}
 			
 			set_proper_rebel_government_effect = yes
+			
+			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 			if = {
 				limit = { 
-					is_tribal = yes
-					ROOT = { owner = { top_liege = { is_tribal = yes } } } 
+					ROOT = { num_of_empty_holdings = 3 } 
 				}
 				any_army = { troops = -0.25 }
+			}
+			else_if = {
+				limit = { 
+					ROOT = { num_of_empty_holdings = 2 } 
+				}
+				any_army = { troops = -0.15 }
+			}
+				
+			
+			# Notify king you're revolting for, if relevant	
+			ROOT = {
+				kingdom = {
+					if = {
+						limit = {
+							has_holder = yes
+							NOT = { 
+								holder_scope = {
+									ROOT = {
+										owner = {
+											top_liege = {
+												OR = {
+													character = PREVPREVPREV
+													any_vassal = { character = PREVPREVPREVPREV }
+												}
+											}
+										}
+									}
+								}
+							}
+							holder_scope = { letter_event = { id = 320440 } }
+						}
+					}
+				}
 			}
 		}
 		
@@ -1077,16 +1176,16 @@ character_event = {
 	immediate = {
 		FROM = {
 			location = {
-				if = {
-					limit = {
-						NOT = { culture = ROOT }
-						kingdom = { culture = ROOT }
-					}
-					random = {
-						chance = 20
-						culture = ROOT
-					}
-				}
+				#if = {
+					#limit = {
+						#NOT = { culture = ROOT }
+						#kingdom = { culture = ROOT }
+					#}
+					#random = {
+						#chance = 20
+						#culture = ROOT
+					#}
+				#}
 				if = {
 					limit = {
 						culture = ROOT
@@ -1673,14 +1772,27 @@ province_event = {
 					culture = romanobritish
 				}
 			}
-			kingdom = {
-				OR = {
-					has_holder = yes
-					NOT = { culture = ROOT }
-					NOT = { 
-						# The de jure kingdom must have had an appropriate holder in the past
-						any_previous_holder = {
-							ROOT = {
+			NOT = {
+				kingdom = {
+					OR = {
+						has_holder = no
+						AND = {
+							empire = { title = e_aengland }
+							ROOT = { has_province_modifier = province_not_dejure_liege }
+							holder_scope = { is_ingvaeonic_culture_trigger = yes }
+						}
+					}	
+					OR = {
+						culture = ROOT
+						AND = {
+							is_ingvaeonic_culture_trigger = yes
+							ROOT = { is_ingvaeonic_culture_trigger = yes }
+						}
+					}
+					# The de jure kingdom must have had an appropriate holder in the past
+					any_previous_holder = {
+						ROOT = {
+							OR = {
 								owner = {
 									top_liege = {
 										NOT = { dynasty = PREVPREVPREV }
@@ -1690,6 +1802,7 @@ province_event = {
 										}
 									}
 								}
+								has_province_modifier = province_not_dejure_liege
 							}
 						}
 					}

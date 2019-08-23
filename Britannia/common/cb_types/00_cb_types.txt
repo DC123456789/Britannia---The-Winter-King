@@ -7663,11 +7663,35 @@ liberation_revolt = {
 
 	can_use_title = {
 		tier = king
-		has_holder = no
+		OR = {
+			has_holder = no
+			AND = {			# Anglo-Saxon liberation revolt - allowed to revolt to another Anglo-Saxon kingdom, or force the current king out if he is FROM
+				empire = { title = e_aengland }
+				holder_scope = { 
+					OR = {
+						is_ingvaeonic_culture_trigger = yes 
+						character = FROM
+						top_liege = { character = FROM }
+					}
+				}
+			}
+		}
 	}
 
 	is_valid_title = {
-		has_holder = no
+		OR = {
+			has_holder = no
+			AND = {			# Anglo-Saxon liberation revolt - allowed to revolt to another Anglo-Saxon kingdom, or force the current king out if he is FROM
+				empire = { title = e_aengland }
+				holder_scope = { 
+					OR = {
+						is_ingvaeonic_culture_trigger = yes 
+						character = FROM
+						top_liege = { character = FROM }
+					}
+				}
+			}
+		}
 	}
 
 	on_add = {
@@ -7675,47 +7699,101 @@ liberation_revolt = {
 	}
 	
 	on_success = {
+	}
+
+	on_success_title = {
 		ROOT = {
-			britannia_flag_proper_post_revolt_government_effect = yes
 			prestige = 1000
-			occupy_minors_of_occupied_settlements = FROM
-			gain_all_occupied_titles = FROM
 			give_nickname = nick_the_liberator
-			character_event = { id = 319005 days = 1 }
 		}
 		FROM = {
 			prestige = -500
 		}
-	}
-
-	on_success_title = {
-		custom_tooltip = {  
-			text = liberation_revolt_succ_tip
-			hidden_tooltip = {
-				ROOT = {
-					vassalize_or_take_under_title = {
-						title = PREV
-						enemy = FROM
+		if = {
+			limit = {
+				OR = {
+					has_holder = no 
+					holder_scope = {
+						character = FROM
+						top_liege = { character = FROM }
 					}
-					if = {
-						limit = {
-							num_of_count_titles = 5
-							PREV = { 
-								OR = {
-									has_holder = no 
-									holder_scope = {
-										character = FROM
+				}
+			}
+			ROOT = {
+				britannia_flag_proper_post_revolt_government_effect = yes
+				occupy_minors_of_occupied_settlements = FROM
+				gain_all_occupied_titles = FROM
+				character_event = { id = 319005 days = 1 }
+			}
+			custom_tooltip = {  
+				text = liberation_revolt_succ_tip
+				hidden_tooltip = {
+					ROOT = {
+						vassalize_or_take_under_title = {
+							title = PREV
+							enemy = FROM
+						}
+						if = {
+							limit = {
+								num_of_count_titles = 5
+								PREV = { 
+									OR = {
+										has_holder = no 
+										holder_scope = {
+											character = FROM
+										}
 									}
 								}
 							}
+							usurp_title = PREV
 						}
-						usurp_title = PREV
+						reverse_opinion = {
+							modifier = opinion_usurped_title
+							who = FROM
+						}
+						PREV = { grant_title = ROOT }
 					}
-					reverse_opinion = {
-						modifier = opinion_usurped_title
-						who = FROM
+				}
+			}
+		}
+		else = {			# Anglo-Saxon liberation revolt
+			custom_tooltip = {  
+				text = anglosaxon_liberation_revolt_succ_tip
+				hidden_tooltip = {
+					ROOT = {				# ROOT takes over the kingdom first and then all vassals are transferred to the holder, so that ROOT gets any usurped titles
+						create_title = {
+							tier = KING
+							landless = yes
+							temporary = no
+							custom_created = yes
+							holder = ROOT
+							name = "LIBERATED_KINGDOM"
+							base_title = PREV
+						}
+						vassalize_or_take_under_title = {
+							title = PREV
+							enemy = FROM
+						}
 					}
-					PREV = { grant_title = ROOT }
+					holder_scope = {
+						ROOT = {
+							any_vassal = {
+								limit = { primary_title = { defacto_liege_title = { tier = KING } } }
+								set_defacto_liege = PREVPREV
+							}
+							any_demesne_title = {
+								limit = { tier = KING }
+								activate_title = { title = THIS active = no }
+								destroy_landed_title = THIS
+							}
+							set_defacto_liege = PREV
+							opinion = {
+								modifier = opinion_fought_for_claimant
+								who = PREV
+								years = 20
+							}
+						}
+					}
 				}
 			}
 		}
