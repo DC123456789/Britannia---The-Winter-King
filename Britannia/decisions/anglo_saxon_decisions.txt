@@ -673,3 +673,353 @@ targetted_decisions = {
 		}
 	}
 }
+
+title_decisions = {
+	integrate_duchy = {
+		only_playable = yes
+		is_high_prio = yes
+		filter = all
+		ai_target_filter = realm_owned
+		ai_check_interval = 48
+
+		from_potential = {
+			is_ruler = yes
+			higher_tier_than = DUKE
+			primary_title = { 
+				OR = { 
+					title = e_aengland
+					empire = { title = e_aengland }
+				}
+			}
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+			NOT = { has_global_flag = aengland_united }
+		}
+
+		potential = {
+			tier = DUKE
+			empire = { title = e_aengland }
+			is_titular = no
+			OR = {
+				AND = {
+					k_east_anglia = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_eastanglia }
+						title = d_middle_angles
+						title = d_wixna
+						title = d_lindsey
+					}
+					NOT = { de_jure_liege = k_east_anglia }
+				}
+				AND = {
+					k_eastseaxe = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_essex }
+						title = d_surrey
+						title = d_westcantware
+						title = d_cilternsaete
+						title = d_berkshire
+					}
+					NOT = { de_jure_liege = k_eastseaxe }
+				}
+				AND = {
+					k_cantia = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_cantia }
+						title = d_eastseaxe
+						title = d_middleseaxe
+						title = d_the_weald
+					}
+					NOT = { de_jure_liege = k_cantia }
+				}
+				AND = {
+					k_sussex = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_sussex }
+						title = d_surrey
+						title = d_hampshire
+						title = d_berkshire
+						title = d_wiltshire
+					}
+					NOT = { de_jure_liege = k_sussex }
+				}
+				AND = {
+					k_wessex = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_wessex }
+						title = d_surrey
+						title = d_the_weald
+						title = d_hwicce
+						title = d_middlesex
+					}
+					NOT = { de_jure_liege = k_wessex }
+				}
+				AND = {
+					k_mercia = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_mercia }
+						title = d_lindsey
+						title = d_grentbryce
+						title = d_cilternsaete
+						title = d_middleseaxe
+					}
+					NOT = { de_jure_liege = k_mercia }
+				}
+				AND = {
+					k_northumbria = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_northumbria }
+						title = d_mercia
+						title = d_wrocensaete
+					}
+					NOT = { de_jure_liege = k_northumbria }
+				}
+				AND = {
+					k_anglia = { is_primary_anglosaxon_title_of_FROM_trigger = yes }
+					OR = {
+						capital_scope = { region = custom_essex }
+						capital_scope = { region = custom_eastanglia }
+						title = d_middle_angles
+						title = d_lindsey
+						title = d_cilternsaete
+					}
+					NOT = { de_jure_liege = k_anglia }
+				}
+			}
+		}
+
+		allow = {
+			FROM = { 
+				is_tribal = no
+				prestige = 3000
+				piety = 300
+				wealth = 250
+				completely_controls = ROOT
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_east_anglia = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_eastanglia
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = eastanglia_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_eastseaxe = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_eastseaxe
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = eastseaxe_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_cantia = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_cantia
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = cantia_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_sussex = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_sussex
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = sussex_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_wessex = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_wessex
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = wessex_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_mercia = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_mercia
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = mercia_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_northumbria = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_northumbria
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = northumbria_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						ROOT = { k_anglia = { is_primary_anglosaxon_title_of_FROM_trigger = yes } }
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_anglia
+						hidden_tooltip = {
+							ROOT = {
+								check_variable = {
+									which = anglia_integration_score
+									value = 40
+								}
+							}
+						}
+					}
+				}
+			}
+			ROOT = {
+				OR = {
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_adjacent_to_primary_kingdom
+						hidden_tooltip = {
+							any_direct_de_jure_vassal_title = {
+								tier = COUNT
+								location = {
+									any_neighbor_province = {
+										kingdom = {
+											FROM = {
+												primary_title = {
+													OR = {
+														title = PREVPREV
+														AND = {
+															title = e_aengland
+															PREV = { has_title_flag = aengland_primary_kingdom }
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					custom_tooltip = {
+						text = integrate_duchy_tooltip_is_de_jure_capital_of_primary_kingdom
+						hidden_tooltip = {
+							FROM = {
+								OR = {
+									AND = {
+										tier = KING
+										primary_title = { capital_scope = { duchy = { title = ROOT } } }
+									}
+									AND = {
+										tier = EMPEROR
+										any_demesne_title = {
+											has_title_flag = aengland_primary_kingdom
+											capital_scope = { duchy = { title = ROOT } }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			FROM = {
+				prestige = 100
+				piety = -150
+				wealth = -250
+				if = {
+					limit = {
+						tier = KING
+					}
+					primary_title = {
+						show_scope_change = no
+						ROOT = { 
+							show_scope_change = no
+							de_jure_liege = PREV 
+						} 
+					}
+				}
+				else = {
+					any_demesne_title = {
+						limit = {
+							has_title_flag = aengland_primary_kingdom
+						}
+						show_scope_change = no
+						ROOT = { 
+							show_scope_change = no
+							de_jure_liege = PREV 
+						} 
+					}
+				}
+			}
+			# Rename The Weald to Sussex if integrated into another kingdom (or vice versa)
+			if = {
+				limit = {
+					title = d_the_weald
+				}
+				if = {
+					limit = { de_jure_liege = k_sussex }
+					set_name = ""
+					adjective = ""
+				}
+				else = {
+					set_name = k_sussex
+					adjective = k_sussex_adj
+				}
+			}
+		}
+	}
+}
