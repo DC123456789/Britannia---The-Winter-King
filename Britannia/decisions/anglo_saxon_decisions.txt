@@ -786,6 +786,18 @@ title_decisions = {
 					NOT = { de_jure_liege = k_anglia }
 				}
 			}
+			# Controls at least one province in the duchy
+			any_direct_de_jure_vassal_title = {
+				tier = COUNT
+				holder_scope = {
+					OR = {
+						character = FROM
+						any_liege = {
+							character = FROM
+						}
+					}
+				}
+			}
 		}
 
 		allow = {
@@ -972,10 +984,30 @@ title_decisions = {
 						}
 					}
 				}
+				NOT = {
+					dejure_liege_title = {
+						holder_scope = {
+							OR = {
+								character = FROM
+								any_vassal = {
+									character = FROM
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
 		effect = {
+			ROOT = {
+				dejure_liege_title = {
+					if = {
+						limit = { has_holder = yes }
+						holder_scope = { set_character_flag = former_kingdom_holder }
+					}
+				}
+			}
 			FROM = {
 				prestige = 100
 				piety = -150
@@ -1004,6 +1036,9 @@ title_decisions = {
 						} 
 					}
 				}
+				hidden_effect = {
+					character_event = { id = 320452 }
+				}
 			}
 			# Rename The Weald to Sussex if integrated into another kingdom (or vice versa)
 			if = {
@@ -1020,6 +1055,10 @@ title_decisions = {
 					adjective = k_sussex_adj
 				}
 			}
+		}
+		
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }

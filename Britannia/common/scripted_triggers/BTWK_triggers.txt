@@ -1916,3 +1916,32 @@ is_primary_anglosaxon_title_of_FROM_trigger = {
 		}
 	}
 }
+
+# In the scope of the kingdom the duchy is integrating to
+# Uses the duchy_to_integrate event_target to save the target
+kingdom_holder_is_integrating_event_target_duchy_trigger = {
+	holder_scope = {
+		OR = {
+			primary_title = { 
+				title = PREVPREV
+			}
+			AND = {
+				has_landed_title = e_aengland
+				PREV = { has_title_flag = aengland_primary_title }
+			}										
+		}
+	}
+	NOT = {
+		event_target:duchy_to_integrate = {
+			dejure_liege_title = {
+				has_holder = yes
+				holder_scope = {
+					OR = {
+						has_landed_title = PREVPREVPREV
+						any_vassal = { has_landed_title = PREVPREVPREVPREV }
+					}
+				}
+			}
+		}
+	}
+}
