@@ -640,6 +640,177 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	integrate_duchy_placeholder_notification = {
+		ai = no
+		only_playable = yes
+		is_high_prio = yes
+
+		potential = {
+			is_ruler = yes
+			higher_tier_than = DUKE
+			primary_title = { 
+				OR = { 
+					title = e_aengland
+					empire = { title = e_aengland }
+				}
+			}
+			culture_group = germanic
+			is_romanized_germanic_trigger = no
+			NOT = { has_global_flag = aengland_united }
+			OR = {
+				AND = {
+					k_east_anglia = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_east_anglia }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_eastanglia }
+									title = d_middle_angles
+									title = d_wixna
+									title = d_lindsey
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_eastseaxe = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_eastseaxe }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_essex }
+									title = d_surrey
+									title = d_westcantware
+									title = d_cilternsaete
+									title = d_berkshire
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_cantia = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_cantia }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_cantia }
+									title = d_eastseaxe
+									title = d_middleseaxe
+									title = d_the_weald
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_sussex = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_sussex }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_sussex }
+									title = d_surrey
+									title = d_hampshire
+									title = d_berkshire
+									title = d_wiltshire
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_wessex = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_wessex }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_wessex }
+									title = d_surrey
+									title = d_the_weald
+									title = d_hwicce
+									title = d_middlesex
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_mercia = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_mercia }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_mercia }
+									title = d_lindsey
+									title = d_grentbryce
+									title = d_cilternsaete
+									title = d_middleseaxe
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_northumbria = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_northumbria }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_northumbria }
+									title = d_mercia
+									title = d_wrocensaete
+								}
+							}
+						}
+					}
+				}
+				AND = {
+					k_anglia = { is_primary_anglosaxon_title_of_ROOT_trigger = yes }
+					e_aengland = {
+						any_direct_de_jure_vassal_title = {		# Kingdoms
+							NOT = { title = k_anglia }
+							any_direct_de_jure_vassal_title = {		# Duchies
+								OR = {
+									capital_scope = { region = custom_essex }
+									capital_scope = { region = custom_eastanglia }
+									title = d_middle_angles
+									title = d_lindsey
+									title = d_cilternsaete
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			is_tribal = no
+			prestige = 3000
+			piety = 300
+			wealth = 250
+			custom_tooltip = {
+				text = integrate_duchy_placeholder_notification_tooltip
+				hidden_tooltip = {
+					always = no
+				}
+			}
+		}
+		effect = {
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
 
 targetted_decisions = {
