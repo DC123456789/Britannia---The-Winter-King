@@ -10004,6 +10004,43 @@ tributary_cb = {
 						}
 					}
 				}
+				
+				# Not if supposed to use Anglo-Saxon tributary cbs
+				NOR = {			
+					ROOT = { 
+						can_use_cb = {
+							target = FROM
+							casus_belli = tributary_anglosaxon_cb
+							only_check_triggers = yes
+						}
+					}
+					AND = {				
+						primary_title = {
+							capital_scope = {
+								region = world_britannia
+							}
+							OR = {
+								lower_tier_than = DUKE
+								title = e_aengland
+								empire = { title = e_aengland }
+							}
+						}
+						is_ingvaeonic_culture_trigger = yes
+						FROM = {
+							primary_title = {
+								capital_scope = {
+									region = world_britannia
+								}
+								OR = {
+									lower_tier_than = DUKE
+									title = e_aengland
+									empire = { title = e_aengland }
+								}
+							}
+							is_ingvaeonic_culture_trigger = yes
+						}
+					}
+				}
 			}
 		}
 	}
@@ -10442,6 +10479,7 @@ free_tributary_cb = {
 						is_tributary = { type = foederati }
 						is_tributary = { type = client_state }
 						is_tributary = { type = roman_province }
+						is_tributary = { type = anglosaxon_tributary }
 						AND = {
 							OR = {
 								has_global_flag = britannia_formalized_high_kingship
@@ -10839,6 +10877,18 @@ free_tributary_cb = {
 		modifier = {
 			factor = 2
 			ROOT = { is_tributary = { type = britannia_subject } }
+		}
+		
+		modifier = {
+			factor = 2
+			ROOT = { is_tributary = { type = anglosaxon_tributary } }
+		}
+		
+		# Anglo-Saxons like to revolt at the beginning of a new reign
+		modifier = {
+			factor = 2
+			ROOT = { is_tributary = { type = anglosaxon_tributary } }
+			FROM = { NOT = { ruled_years = 3 } }
 		}
 	}
 }

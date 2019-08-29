@@ -2643,6 +2643,41 @@ tributary_permanent_cb = { # New8
 					only_check_triggers = yes
 				}
 			}
+				
+			# Not if supposed to use Anglo-Saxon tributary cbs
+			NOR = {	
+				can_use_cb = {
+					target = FROM
+					casus_belli = tributary_anglosaxon_cb
+					only_check_triggers = yes
+				}
+				AND = {				
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+						OR = {
+							lower_tier_than = DUKE
+							title = e_aengland
+							empire = { title = e_aengland }
+						}
+					}
+					is_ingvaeonic_culture_trigger = yes
+					FROM = {
+						primary_title = {
+							capital_scope = {
+								region = world_britannia
+							}
+							OR = {
+								lower_tier_than = DUKE
+								title = e_aengland
+								empire = { title = e_aengland }
+							}
+						}
+						is_ingvaeonic_culture_trigger = yes
+					}
+				}
+			}
 		}
 		FROM = {
 			is_nomadic = no
@@ -2716,20 +2751,7 @@ tributary_permanent_cb = { # New8
 		
 		# The defender is not in any tributary war
 		FROM = {
-			NOR = {
-				any_war = {
-					using_cb = tributary_cb
-				}
-				any_war = {
-					using_cb = tributary_permanent_cb
-				}
-				any_war = {
-					using_cb = tributary_nomad_cb
-				}
-				any_war = {
-					using_cb = tributary_client_state_cb
-				}
-			}
+			is_defending_against_tributary_war = no
 		}
 	}
 

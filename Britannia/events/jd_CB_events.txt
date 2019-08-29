@@ -959,6 +959,24 @@ letter_event = {
 							}
 						}
 					}
+					surrender_tributary_anglosaxon_cb = {
+						event_target:tribute_war_suzerain = {
+							show_scope_change = no
+							make_tributary = {
+								who = event_target:tribute_war_target
+								tributary_type = anglosaxon_tributary
+							}
+							hidden_effect = {
+								any_war = {
+									limit = {
+										using_cb = tributary_anglosaxon_cb
+										defender = { character = event_target:tribute_war_target }
+									}
+									end_war = invalid
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1120,12 +1138,31 @@ letter_event = {
 					}
 				}
 			}
+			surrender_tributary_anglosaxon_cb = {
+				event_target:tribute_war_suzerain = {
+					show_scope_change = no
+					make_tributary = {
+						who = event_target:tribute_war_target
+						tributary_type = anglosaxon_tributary
+					}
+					hidden_effect = {
+						any_war = {
+							limit = {
+								using_cb = tributary_anglosaxon_cb
+								defender = { character = event_target:tribute_war_target }
+							}
+							end_war = invalid
+						}
+					}
+				}
+			}
 		}
 		clr_character_flag = surrender_tributary_permanent_cb
 		clr_character_flag = surrender_tributary_nomad_cb
 		clr_character_flag = surrender_tributary_cb
 		clr_character_flag = surrender_tributary_client_state_cb
 		clr_character_flag = surrender_tributary_britannia_subject_cb
+		clr_character_flag = surrender_tributary_anglosaxon_cb
 	}
 }
 #Your surrender was declined
@@ -1141,5 +1178,7 @@ letter_event = {
 		clr_character_flag = surrender_tributary_nomad_cb
 		clr_character_flag = surrender_tributary_cb
 		clr_character_flag = surrender_tributary_client_state_cb
+		clr_character_flag = surrender_tributary_britannia_subject_cb
+		clr_character_flag = surrender_tributary_anglosaxon_cb
 	}
 }
