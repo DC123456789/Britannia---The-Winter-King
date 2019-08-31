@@ -495,6 +495,14 @@ character_event = {
 			}
 		}
 		
+		# Disband Aengland if before Establishing Supremacy
+		if = {
+			limit = { 
+				has_landed_title = e_aengland
+				NOT = { has_global_flag = aengland_declared_supremacy }
+			}
+			character_event = { id = 320201 }
+		}
 	}
 		
 	option = {			# Celtic Pagan
@@ -556,204 +564,13 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		if = {						# Collapse Cynerice of Aenglaland
+		if = {				# Revoke Cynerice of Aenglaland
 			limit = {
 				NOT = { ROOT = { has_character_flag = gained_aengland } }
+				NOT = { has_global_flag = aengland_declared_supremacy }	
 				FROM = { title = e_aengland }
-			}
-			
-			any_title = {
-				limit = { has_title_flag = aengland_primary_kingdom }
-				clr_title_flag = aengland_primary_kingdom
-			}
-			
-			# Flag all vassals to be kept after fall of Aengland
-			any_vassal = {
-				limit = { 
-					defacto_liege_title = { title = e_aengland } 
-					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
-				}
-				set_character_flag = restore_vassalage_@ROOT
-			}
-			
-			if = {						# Jarldoms of Anglia
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_anglia }
-					}
-				}
-				k_anglia = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_anglia
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of East Anglia
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_east_anglia }
-					}
-				}
-				k_east_anglia = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_east_anglia
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of Mercia
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_mercia }
-					}
-				}
-				k_mercia = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_mercia
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of West Seaxe
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_wessex }
-					}
-				}
-				k_wessex = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_wessex
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of Northumbria
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_northumbria }
-					}
-				}
-				k_northumbria = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_northumbria
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of Cantia
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_cantia }
-					}
-				}
-				k_cantia = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_cantia
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of East Seaxe
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_eastseaxe }
-					}
-				}
-				k_eastseaxe = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_eastseaxe
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			if = {						# Jarldoms of South Seaxe
-				limit = {
-					e_aengland = {
-						any_vassal = { has_landed_title = k_sussex }
-					}
-				}
-				k_sussex = {
-					e_aengland = {
-						any_vassal = {
-							limit = {
-								tier = DUKE
-								de_jure_liege_or_above = k_sussex
-							}
-							set_defacto_liege = PREVPREVPREV
-						}
-					}
-				}
-			}
-			
-			any_demesne_title = {
-				limit = {
-					tier = KING
-				}
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							OR = {
-								tier = BARON
-								tier = COUNT
-							}
-						}
-						set_defacto_liege = PREVPREV
-					}
-				}
-			}
-			
-			e_aengland = { destroy_landed_title = e_aengland }
-						
-			# Revassalize all accidentally independent vassals
-			any_character = {
-				limit = { has_character_flag = restore_vassalage_@ROOT }
-				clr_character_flag = restore_vassalage_@ROOT
-				set_defacto_liege = THIS
-				set_defacto_liege = ROOT
-			}
-			any_title = {
-				limit = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
-				clr_title_flag = vassal_before_gained_high_kingdom_aengland
-			}
-			
-			# Remove Return of the Saxons event troops			
-			character_event = { id = 313157 }
+			}		
+			character_event = { id = 320202 }
 		}
 		
 		if = {				# Revoke High Kingship of Britannia				
@@ -762,7 +579,7 @@ character_event = {
 				NOT = { has_global_flag = britannia_formalized_high_kingship }		
 				FROM = { title = e_britannia }
 			}
-			character_event = { id = 314481 }
+			character_event = { id = 314483 }
 		}
 		
 		if = {				# Remove King-level vassals if Empower the High Council event has not been triggered			

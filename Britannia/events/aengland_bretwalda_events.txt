@@ -9,653 +9,15 @@
 
 ### CYNERICE OF AENGLALAND ###
 
-character_event = {		# Triggered from Decision / Claim is sent to other Kings
+narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	id = 320200
 	title = "EVTNAME320200"
 	desc = "EVTDESC320200"
-	picture = GFX_evt_council
-	only_playable = yes
-	
-	is_triggered_only = yes
-
-	trigger = {
-		is_alternate_start = no
-		e_aengland = { has_holder = no }
-		has_global_flag = HK_aengland_claim
-		NOT = { has_character_flag = HK_aengland_claimant }
-		OR = {
-			has_landed_title = k_anglia
-			has_landed_title = k_east_anglia
-			has_landed_title = k_cantia
-			has_landed_title = k_mercia
-			has_landed_title = k_wessex
-			has_landed_title = k_northumbria
-			has_landed_title = k_sussex
-			has_landed_title = k_eastseaxe
-		}
-		independent = yes
-		primary_title = { tier = KING }
-		NOT = { trait = incapable }
-		NOT = {
-			any_playable_ruler = { has_character_flag = HK_aengland_oppositor }
-		}
-	}
-
-	immediate = {
-		hidden_tooltip = {
-			ROOT = {
-				set_character_flag = HK_aengland_voter
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA320200"		# Support Claimant
-		trigger = {
-			has_character_flag = HK_aengland_voter
-		}
-		# add_trait = honorable
-		clr_character_flag = HK_aengland_voter
-		set_character_flag = HK_aengland_supporter
-		FROM = {
-			character_event = { id = 320201 days = 6 tooltip = "The claimant is informed of your support." }
-		}
-		ai_chance = {
-			factor = 15
-			modifier = {
-				factor = 10
-				NOT = { age = 16 }
-			}
-			modifier = {
-				factor = 0
-				NOT = { opinion = { who = FROM value =  0 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value =  25 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { opinion = { who = FROM value =  50 } }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value =  60 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value =  70 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value =  80 }
-			}
-			modifier = {
-				factor = 2.0
-				opinion = { who = FROM value =  90 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { num_of_vassals = 8 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { num_of_vassals = 15 }
-			}
-			modifier = {
-				factor = 3
-				FROM = { 
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 25
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 60
-						}
-					} 
-				}
-			}
-			modifier = {
-				factor = 3
-				FROM = {					
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 35
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 80
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 3
-				FROM = {					
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 45
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 100
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { scaled_wealth = 8.0 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { scaled_wealth = 12.0 }
-			}
-			modifier = {
-				factor = 3.0
-				dynasty = FROM
-			}
-			modifier = {
-				factor = 1.5
-				has_non_aggression_pact_with = FROM
-				relative_power = {
-					who = FROM
-					power = 1.25
-				}
-			}
-			modifier = {
-				factor = 3.0
-				is_allied_with = FROM
-				relative_power = {
-					who = FROM
-					power = 1.25
-				}
-			}
-			modifier = {
-				factor = 1.5
-				trait = loyal
-			}
-			modifier = {
-				factor = 0.5
-				trait = unloyal
-			}
-			modifier = {
-				factor = 0.5
-				trait = ambitious
-			}
-			modifier = {
-				factor = 2.0
-				trait = content
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { prestige = 2500 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { prestige = 3500 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { trait = just }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { trait = arbitrary }
-			}
-			modifier = {
-				factor = 0.6
-				FROM = { trait = cruel }
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { trait = weak }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { trait = strong }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { martial = 18 }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { diplomacy = 18 }
-			}
-			modifier = {
-				factor = 1.25
-				culture = FROM
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { FROM = { religion = ROOT } }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { FROM = { religion_group = ROOT } }
-			}
-			modifier = {
-				factor = 4.0
-				FROM = { has_character_flag = HK_aengland_challenge_winner }
-			}
-			modifier = {
-				factor = 10.0
-				pays_tribute_to = FROM
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTB320200"		# Dispute Claimant
-		trigger = {
-			has_character_flag = HK_aengland_voter
-		}
-		prestige = 25
-		clr_character_flag = HK_aengland_voter
-		set_character_flag = HK_aengland_oppositor
-		FROM = {
-			character_event = { id = 320202 days = 7 tooltip = "The claimant is informed of your refusal to support him." }
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0.5
-				opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { opinion = { who = FROM value = 0 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { opinion = { who = FROM value = -25 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROM value = -50 } }
-			}
-			modifier = {
-				factor = 100
-				NOT = { opinion = { who = FROM value = -75 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { FROM = { num_of_vassals = 8 } }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { 
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 25
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 60
-						}
-					} 
-				}
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { 
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 35
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 80
-						}
-					} 
-				}
-			}
-			modifier = {
-				factor = 0.6
-				FROM = { 
-					OR = {
-						AND = {
-							is_tribal = yes
-							realm_size = 45
-						}
-						AND = {
-							is_tribal = no
-							realm_size = 100
-						}
-					} 
-				}
-			}
-			modifier = {
-				factor = 0.25
-				dynasty = FROM
-			}
-			modifier = {
-				factor = 0.25
-				has_non_aggression_pact_with = FROM
-			}
-			modifier = {
-				factor = 0.1
-				is_allied_with = FROM
-			}
-			modifier = {
-				factor = 0.75
-				culture = FROM
-			}
-			modifier = {
-				factor = 0.5
-				trait = loyal
-			}
-			modifier = {
-				factor = 2.0
-				trait = unloyal
-			}
-			modifier = {
-				factor = 3.0
-				trait = ambitious
-			}
-			modifier = {
-				factor = 0.5
-				trait = content
-			}
-			modifier = {
-				factor = 2.0
-				FROM = { trait = weak }
-			}
-			modifier = {
-				factor = 0.7
-				FROM = { trait = strong }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { NOT = { diplomacy = 10 } }
-			}
-			modifier = {
-				factor = 1.5
-				FROM = { NOT = { martial = 10 } }
-			}
-			modifier = {
-				factor = 2.0
-				FROM = { NOT = { prestige = 3000 } }
-			}
-			modifier = {
-				factor = 0.75
-				FROM = { religion = ROOT }
-			}
-			modifier = {
-				factor = 2.0
-				NOT = { FROM = { religion_group = ROOT } }
-			}
-			modifier = {
-				factor = 2.5
-				AND = {
-					NOT = { FROM = { religion_group = ROOT } }
-					ROOT = { trait = zealous }
-				}
-			}
-			modifier = {
-				factor = 0.5
-				FROM = { has_character_flag = HK_aengland_challenge_winner }
-			}
-			modifier = {
-				factor = 0
-				pays_tribute_to = FROM
-			}
-			modifier = {
-				factor = 0.75
-				FROM = { 
-					any_owned_bloodline = {
-						has_bloodline_flag = aengland_bretwalda_bloodline
-					}
-				}
-			}
-		}
-	}
-}
-
-letter_event = {			# Positive Response
-	id = 320201
-	desc = "EVTDESC320201"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		is_alternate_start = no
-		has_character_flag = HK_aengland_claimant
-		FROM = { has_character_flag = HK_aengland_supporter }
-	}
-	
-	option = {
-		name = "EVTOPTA320201"		# Excellent
-		prestige = 20
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_aengland_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 320206 }
-			}
-		}
-	}
-}
-letter_event = {			# Negative Response
-	id = 320202
-	desc = "EVTDESC320202"
-	picture = GFX_evt_letter
-	
-	only_playable = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		is_alternate_start = no
-		has_character_flag = HK_aengland_claimant
-		FROM = { has_character_flag = HK_aengland_oppositor }
-	}
-	
-	option = {					# Accept dispute and stand down
-		name = "EVTOPTA320202"
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_aengland_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 320206 }
-			}
-		}
-		prestige = -25
-		clr_character_flag = HK_aengland_claimant
-		clr_global_flag = HK_aengland_claim
-		e_aengland = { remove_claim = ROOT }
-		FROM = { clr_character_flag = HK_aengland_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_aengland_supporter }
-		ai_chance = {
-			factor = 90
-		}
-	}
-	
-	option = {					# Bribe him
-		name = "EVTOPTB312163"		
-		trigger = {
-			diplomacy = 15
-			scaled_wealth = 8.0
-			# NOT = { trait = honorable }
-			FROM = {
-				ai = yes
-				# NOT = { trait = honorable }
-				OR = {
-					trait = greedy
-					trait = ruthless
-					trait = ambitious
-					trait = deceitful
-					trait = craven
-					NOT = { martial = 10 }
-					intrigue = 15
-				}
-			}
-		}
-		transfer_scaled_wealth = {
-			to = FROM
-			value = 8.0
-		}
-		FROM = {
-			letter_event = { id = 63064 tooltip = "EVTTOOLTIP63064" }
-		}
-		FROM = { clr_character_flag = HK_aengland_oppositor }
-		FROM = { set_character_flag = HK_aengland_supporter }
-		tooltip_info = diplomacy
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_aengland_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 320206 }
-			}
-		}
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0
-				FROM = { ai = no }
-			}
-			modifier = {
-				factor = 0
-				NOT = { scaled_wealth = 12.0 }
-			}
-		}
-	}
-	
-	option = {					# Declare war on oppositor
-		name = "EVTOPTC320202"
-		prestige = 50
-		custom_tooltip = { text = HK_aengland_declare_war }
-		FROM = { set_character_flag = HK_aengland_challenged_oppositor }
-		ROOT = { set_character_flag = HK_aengland_challenger }
-		hidden_tooltip = {
-			FROM = {
-				primary_title = {
-					reverse_war = {
-						target = ROOT
-						casus_belli = disputeAenglandHighKingship
-					}
-				}
-			}
-		}
-		#clr_global_flag = HK_aengland_claim
-		ROOT = { clr_character_flag = HK_aengland_claimant }
-		FROM = { clr_character_flag = HK_aengland_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_aengland_supporter }
-		hidden_tooltip = {
-			any_playable_ruler = {
-				limit = {
-					is_HK_aengland_relevant_trigger = yes
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-				}
-				character_event = { id = 320206 }
-			}
-		}
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0 
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 10 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 25 }
-					}
-				} 
-			}
-			modifier = {
-				factor = 0
-				prisoner = yes
-			}
-			modifier = {
-				factor = 0.75
-				OR = {
-					AND = {
-						is_tribal = yes
-						NOT = { realm_size = 20 }
-					}
-					AND = {
-						is_tribal = no
-						NOT = { realm_size = 40 }
-					}
-				} 
-			}
-			modifier = {
-				factor = 0
-				war = yes
-			}
-			modifier = {
-				factor = 0
-				NOT = {
-					OR = {
-						trait = ambitious
-						trait = brilliant_strategist
-						trait = war_hero
-						trait = proud
-						martial = 18
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				OR = {
-					trait = strong
-					trait = ambitious
-					trait = wroth
-				}
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					trait = content
-					trait = humble
-					trait = weak
-					trait = craven
-					trait = patient
-				}
-			}
-		}
-	}
-}
-
-narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
-	id = 320203
-	title = "EVTNAME320203"
-	desc = "EVTDESC320203"
 	picture = GFX_evt_royal_court
 	only_playable = yes
 	major = yes
 	
 	is_triggered_only = yes
-	
-	trigger = {
-		is_alternate_start = no
-		has_character_flag = HK_aengland_claimant
-		has_global_flag = HK_aengland_claim
-		NOT = { any_playable_ruler = { has_character_flag = HK_aengland_challenged_oppositor } }
-		NOT = { any_playable_ruler = { has_character_flag = HK_aengland_voter } }
-		NOT = { any_playable_ruler = { has_character_flag = HK_aengland_oppositor } }
-	}
 	
 	immediate = {
 		set_character_flag = gained_aengland
@@ -671,30 +33,13 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 			}
 		}
 		clr_character_flag = gained_aengland
-		any_playable_ruler = { 
-			limit = {
-				OR = {
-					has_character_flag = HK_aengland_supporter
-					has_character_flag = HK_aengland_challenge_loser
-				}
-			}
-			set_defacto_liege = ROOT
-		}
-		any_playable_ruler = { clr_character_flag = HK_aengland_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_aengland_challenged_oppositor }
-		any_playable_ruler = { clr_character_flag = HK_aengland_challenger }
-		any_playable_ruler = { clr_character_flag = HK_aengland_voter }
-		any_playable_ruler = { clr_character_flag = HK_aengland_challenge_loser }
-		any_playable_ruler = { clr_character_flag = HK_aengland_challenge_winner }
 	}
 	
 	option = {
-		name = "EVTOPTB320203"		# Gain Cynerice of Aenglaland
+		name = "EVTOPTA320200"		# Gain Cynerice of Aenglaland
 		trigger = {
-			has_character_flag = HK_aengland_claimant
+			character = ROOT
 		}
-		clr_character_flag = HK_aengland_claimant
-		clr_global_flag = HK_aengland_claim
 		if = {
 			limit = { NOT = { has_global_flag = first_bretwalda } }
 			create_bloodline = {
@@ -705,19 +50,367 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 	}
 		
 	option = {
-		name = "EVTOPTA320203"		# Other Supporting Kings
+		name = "EVTOPTB320200"		# Vassal or Subject King
 		trigger = {
-			NOT = { has_character_flag = HK_aengland_claimant }
-			has_character_flag = HK_aengland_supporter
+			NOT = { character = ROOT }
+			OR = {
+				top_liege = { character = ROOT }
+				is_tributary = {
+					type = anglosaxon_tributary 
+					suzerain = ROOT 
+				}
+			}
 		}
 		clr_character_flag = HK_aengland_supporter
 	}
 	
 	option = {
-		name = "EVTOPTC320203"		# Other Rulers
+		name = "EVTOPTC320200"		# Rival Kings
 		trigger = {
-			NOT = { has_character_flag = HK_aengland_claimant }
-			NOT = { has_character_flag = HK_aengland_supporter }
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = {
+					type = anglosaxon_tributary 
+					suzerain = ROOT 
+				}
+			}
+			independent = yes
+			is_ingvaeonic_culture_trigger = yes
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+				OR = {
+					lower_tier_than = DUKE
+					title = e_aengland
+					empire = { title = e_aengland }
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320200"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = {
+					type = anglosaxon_tributary 
+					suzerain = ROOT 
+				}
+				AND = {
+					independent = yes
+					is_ingvaeonic_culture_trigger = yes
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+						OR = {
+							lower_tier_than = DUKE
+							title = e_aengland
+							empire = { title = e_aengland }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Bretwaldaship is lost on death before the Declare Supremacy Decision is taken
+narrative_event = {
+	id = 320201
+	title = EVTNAME320201	
+	desc = EVTDESC320201
+	picture = GFX_evt_council
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		any_title = {
+			limit = { has_title_flag = aengland_primary_kingdom }
+			clr_title_flag = aengland_primary_kingdom
+		}
+		
+		any_vassal = {
+			limit = { 
+				defacto_liege_title = { title = e_aengland }
+			}
+			set_character_flag = restore_vassalage_@ROOT
+		}
+		e_aengland = { destroy_landed_title = THIS }
+		e_aengland = { remove_claim = ROOT }
+		# This ensures that all actual vassals of ROOT are kept when Aengland is destroyed
+		any_character = {
+			limit = { has_character_flag = restore_vassalage_@ROOT }
+			clr_character_flag = restore_vassalage_@ROOT
+			set_defacto_liege = THIS
+			if = {
+				limit = { 
+					ROOT = { higher_tier_than = PREV }
+				}
+				set_defacto_liege = ROOT
+			}
+			else = {
+				ROOT = {
+					current_heir = {
+						set_defacto_vassal = PREVPREV
+					}
+				}
+			}
+		}
+		
+		ROOT = {
+			current_heir = {
+				save_event_target_as = bretwalda_heir
+			}
+		}
+		
+		# Remove Return of the Saxons event troops			
+		character_event = { id = 313157 }
+	}
+	
+	option = {			# Bretwalda (or heir)
+		name = "EVTOPTA320201"
+		trigger = {
+			character = ROOT
+		}
+		tooltip = {
+			e_aengland = { 
+				show_scope_change = no
+				destroy_landed_title = THIS 
+			}
+		}
+	}
+	
+	option = {			# Other Anglo-Saxons
+		name = "EVTOPTB320201"
+		trigger = {
+			NOT = { character = ROOT }
+			is_ingvaeonic_culture_trigger = yes
+			NOT = {
+				top_liege = { 
+					primary_title = {
+						tier = EMPEROR 
+						NOT = { title = e_aengland }
+					} 
+				}
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+	
+	option = {			# Britons
+		name = "EVTOPTC320201"
+		trigger = {
+			NOT = { character = ROOT }	
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+	
+	option = {			# Others
+		name = "EVTOPTD320201"
+		trigger = {
+			NOR = {
+				character = ROOT
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					NOT = {
+						top_liege = { 
+							primary_title = {
+								tier = EMPEROR 
+								NOT = { title = e_aengland }
+							} 
+						}
+					}
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+				AND = {	
+					OR = {
+						is_brythonic_culture_trigger = yes
+						culture_group = imperiale
+					}
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Bretwaldaship is lost if title gets new holder before the Declare Supremacy Decision is taken
+narrative_event = {
+	id = 320202
+	title = EVTNAME320202	
+	desc = EVTDESC320202
+	picture = GFX_evt_council
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		ROOT = { character_event = { id = 320203 days = 1 } }
+		
+		any_vassal = {
+			limit = { 
+				defacto_liege_title = { title = e_aengland }
+			}
+			set_character_flag = restore_vassalage_@ROOT
+		}
+		e_aengland = { destroy_landed_title = THIS }
+		e_aengland = { remove_claim = ROOT }
+		
+		# This ensures that all actual vassals of ROOT are kept when Aengland is destroyed
+		any_character = {
+			limit = { has_character_flag = restore_vassalage_@ROOT }
+			clr_character_flag = restore_vassalage_@ROOT
+			set_defacto_liege = THIS
+			set_defacto_liege = ROOT
+		}
+	}
+	
+	option = {			# New Ruler
+		name = "EVTOPTA320202"
+		trigger = {
+			character = ROOT
+			NOT = { character = FROMFROMFROM }
+		}
+		tooltip = {
+			e_aengland = { 
+				show_scope_change = no
+				destroy_landed_title = THIS 
+			}
+		}
+	}
+	
+	option = {			# Old High King
+		name = "EVTOPTB320202"
+		trigger = {
+			character = FROMFROMFROM
+		}
+		tooltip = {
+			e_aengland = { 
+				show_scope_change = no
+				destroy_landed_title = THIS 
+			}
+		}
+	}
+	
+	option = {			# Other Anglo-Saxons
+		name = "EVTOPTC320202"
+		trigger = {
+			NOT = { character = ROOT }
+			NOT = { character = FROMFROMFROM }
+			is_ingvaeonic_culture_trigger = yes
+			NOT = {
+				top_liege = { 
+					primary_title = {
+						tier = EMPEROR 
+						NOT = { title = e_aengland }
+					} 
+				}
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}			
+		}
+	}
+	
+	option = {			# Britons
+		name = "EVTOPTD320202"
+		trigger = {
+			NOT = { character = ROOT }	
+			NOT = { character = FROMFROMFROM }
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			primary_title = {
+				capital_scope = {
+					region = world_britannia
+				}
+			}
+		}
+	}
+	
+	option = {			# Others
+		name = "EVTOPTE320202"
+		trigger = {
+			NOR = {
+				character = ROOT
+				character = FROMFROMFROM
+				AND = {
+					is_ingvaeonic_culture_trigger = yes
+					NOT = {
+						top_liege = { 
+							primary_title = {
+								tier = EMPEROR 
+								NOT = { title = e_aengland }
+							} 
+						}
+					}
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+				AND = {	
+					OR = {
+						is_brythonic_culture_trigger = yes
+						culture_group = imperiale
+					}
+					primary_title = {
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Notify new ruler
+narrative_event = {
+	id = 320203
+	title = EVTNAME320202	
+	desc = EVTDESC320203
+	picture = GFX_evt_council
+	
+	is_triggered_only = yes
+	
+	option = {			# New Ruler
+		name = "EVTOPTA320203"
+		tooltip = {
+			e_aengland = { 
+				show_scope_change = no
+				destroy_landed_title = THIS 
+			}
 		}
 	}
 }
@@ -746,22 +439,6 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	
 	immediate = {
 		clr_character_flag = is_unfit_to_rule_aengland
-		hidden_tooltip = {
-			any_vassal = {
-				limit = { 
-					defacto_liege_title = { title = e_aengland } 
-					NOT = { primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland } }
-				}
-				set_character_flag = former_aengland_vassal
-			}
-			any_vassal = {
-				limit = { 
-					defacto_liege_title = { title = e_aengland } 
-					primary_title = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
-				}
-				set_character_flag = restore_vassalage_@ROOT
-			}
-		}
 	}
 	
 	option = {
@@ -769,170 +446,23 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 		trigger = {
 			has_landed_title = e_aengland
 		}
-		if = {						# Jarldoms of Anglia
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_anglia }
-				}
-			}
-			k_anglia = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_anglia
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of East Anglia
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_east_anglia }
-				}
-			}
-			k_east_anglia = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_east_anglia
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of Mercia
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_mercia }
-				}
-			}
-			k_mercia = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_mercia
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of West Seaxe
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_wessex }
-				}
-			}
-			k_wessex = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_wessex
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of Northumbria
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_northumbria }
-				}
-			}
-			k_northumbria = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_northumbria
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of Cantia
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_cantia }
-				}
-			}
-			k_cantia = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_cantia
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of East Seaxe
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_eastseaxe }
-				}
-			}
-			k_eastseaxe = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_eastseaxe
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
-		if = {						# Jarldoms of South Seaxe
-			limit = {
-				e_aengland = {
-					any_vassal = { has_landed_title = k_sussex }
-				}
-			}
-			k_sussex = {
-				e_aengland = {
-					any_vassal = {
-						limit = {
-							tier = DUKE
-							de_jure_liege_or_above = k_sussex
-						}
-						set_defacto_liege = PREVPREVPREV
-					}
-				}
-			}
-		}
 		
-		any_demesne_title = {
-			limit = {
-				tier = KING
-			}
-			e_aengland = {
-				any_vassal = {
-					limit = {
-						OR = {
-							tier = BARON
-							tier = COUNT
-						}
-					}
-					set_defacto_liege = PREVPREV
+		hidden_tooltip = {
+			# Flag all vassals to be kept after fall of Aengland
+			any_vassal = {
+				limit = { 
+					defacto_liege_title = { title = e_aengland }
 				}
+				set_character_flag = restore_vassalage_@ROOT
 			}
-		}
-		any_title = {
-			limit = { has_title_flag = aengland_primary_kingdom }
-			clr_title_flag = aengland_primary_kingdom
+			
+			e_aengland = { destroy_landed_title = e_aengland }
+			e_aengland = { remove_claim = ROOT }
+			
+			any_title = {
+				limit = { has_title_flag = aengland_primary_kingdom }
+				clr_title_flag = aengland_primary_kingdom
+			}			
 		}
 		
 		prestige = -100
@@ -968,146 +498,296 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 					set_defacto_liege = THIS
 					set_defacto_liege = ROOT
 				}
-				any_title = {
-					limit = { has_title_flag = vassal_before_gained_high_kingdom_aengland }
-					clr_title_flag = vassal_before_gained_high_kingdom_aengland
-				}
 			}
 		}
 	}
 }
 
-
-character_event = {			# Notify other lords that Aengland has been claimed
-	id = 320205
-	desc = "EVTDESC320205"
-	picture = GFX_evt_council
+# on_yearly_pulse aengland_hegemony_score counter
+character_event = {
+	id = 320905
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
 	
 	is_triggered_only = yes
 	
-	option = {
-		name = "EVTOPTA320205"
-		trigger = {
-			has_character_flag = HK_aengland_king
-		}
-		clr_character_flag = HK_aengland_king
-	}
-	option = {
-		name = "EVTOPTB320205"
-		trigger = {
-			NOT = { has_character_flag = HK_aengland_king }
-			culture_group = germanic
-			OR = {
-				is_romanized_germanic_trigger = no
-				top_liege = {
-					is_romanized_germanic_trigger = no
-				}
+	trigger = {
+		OR = {
+			holds_anglo_saxon_kingdom_trigger = yes
+			check_variable = { 
+				which = aengland_hegemony_score
+				value = 0.01
 			}
 		}
 	}
-	option = {
-		name = "EVTOPTC320205"
-		trigger = {
-			NOT = { has_character_flag = HK_aengland_king }
-			OR = {
-				is_brythonic_culture_trigger = yes
-				AND = {
-					OR = {
-						is_romanized_germanic_trigger = yes
-						NOT = { culture_group = germanic }
-					}
-					top_liege = {
-						is_brythonic_culture_trigger = yes
+	
+	immediate = {
+		if = {
+			limit = { holds_anglo_saxon_kingdom_trigger = yes }
+			# Calculate number of Anglo-Saxon provinces controlled
+			export_to_variable = {
+				which = num_provinces_controlled
+				value = num_of_count_titles_in_realm
+			}
+			any_independent_ruler = {
+				limit = { 
+					NOT = { character = ROOT } 
+					is_tributary = {
+						type = anglosaxon_tributary 
+						suzerain = ROOT 
 					}
 				}
+				export_to_variable = {
+					which = num_provinces_controlled
+					value = num_of_count_titles_in_realm
+				}
+				ROOT = {
+					change_variable = {
+						which = num_provinces_controlled
+						which = PREV
+					}
+				}
+			}
+			# Calculate total number of Anglo-Saxon provinces
+			set_variable = {
+				which = num_anglo_saxon_provinces
+				value = 0
+			}
+			any_province = {
+				limit = { 
+					region = world_britannia 
+					owner = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
+				}
+				ROOT = {
+					change_variable = {
+						which = num_anglo_saxon_provinces
+						value = 1
+					}
+				}
+			}
+			set_variable = {
+				which = fraction_anglo_saxon_provinces_controlled
+				which = num_provinces_controlled
+			}
+			divide_variable = {
+				which = fraction_anglo_saxon_provinces_controlled
+				which = num_anglo_saxon_provinces
+			}
+			# Check if controls >= 25 provinces and >= 50% of Anglo-Saxon provinces
+			if = {
+				limit = {
+					check_variable = { 
+						which = num_provinces_controlled
+						value = 25
+					}
+					check_variable = { 
+						which = fraction_anglo_saxon_provinces_controlled
+						value = 0.5
+					}					
+				}
+				# Add score based on proportion of Anglo-Saxon provinces controlled
+				set_variable = {
+					which = score_anglo_saxon_provinces_controlled
+					which = fraction_anglo_saxon_provinces_controlled
+				}
+				multiply_variable = {
+					which = score_anglo_saxon_provinces_controlled
+					value = 10
+				}
+				# Bloodline effects
+				if = {
+					limit = { 
+						any_owned_bloodline = {
+							has_bloodline_flag = aengland_bretwalda_bloodline
+						}
+					}
+					multiply_variable = {
+						which = score_anglo_saxon_provinces_controlled
+						value = 1.15
+					}
+				}
+				change_variable = {
+					which = aengland_hegemony_score
+					which = score_anglo_saxon_provinces_controlled
+				}
+				# Calculate and add score based on proportion of Britannia controlled
+				export_to_variable = {
+					which = num_total_provinces_controlled
+					value = num_of_count_titles_in_realm
+				}
+				any_independent_ruler = {
+					limit = { 
+						NOT = { character = ROOT } 
+						is_tributary = {
+							suzerain = ROOT 
+						}
+					}
+					export_to_variable = {
+						which = num_total_provinces_controlled
+						value = num_of_count_titles_in_realm
+					}
+					ROOT = {
+						change_variable = {
+							which = num_total_provinces_controlled
+							which = PREV
+						}
+					}
+				}
+				set_variable = {
+					which = fraction_num_total_provinces_controlled
+					which = num_total_provinces_controlled
+				}
+				divide_variable = {
+					which = fraction_num_total_provinces_controlled
+					which = global_num_provinces_in_britannia
+				}
+				set_variable = {
+					which = score_num_total_provinces_controlled
+					which = fraction_num_total_provinces_controlled
+				}
+				multiply_variable = {
+					which = score_num_total_provinces_controlled
+					value = 20
+				}
+				# Bloodline effects
+				if = {
+					limit = { 
+						any_owned_bloodline = {
+							has_bloodline_flag = aengland_bretwalda_bloodline
+						}
+					}
+					multiply_variable = {
+						which = score_num_total_provinces_controlled
+						value = 1.15
+					}
+				}
+				change_variable = {
+					which = aengland_hegemony_score
+					which = score_num_total_provinces_controlled
+				}
+			}
+			else = {
+				subtract_variable = {
+					which = aengland_hegemony_score
+					value = 3
+				}
+			}
+		}
+		else = {
+			subtract_variable = {
+				which = aengland_hegemony_score
+				value = 3
+			}
+		}
+		
+		# Make sure score is non-negative
+		if = {
+			limit = {
+				NOT = { 
+					check_variable = { 
+						which = aengland_hegemony_score
+						value = 0
+					}
+				}
+			}
+			set_variable = { 
+				which = aengland_hegemony_score
+				value = 0
 			}
 		}
 	}
+	
 	option = {
-		name = "EVTOPTD320205"
-		trigger = {
-			NOR = {
-				has_character_flag = HK_aengland_king
-				is_brythonic_culture_trigger = yes
-				AND = {
-					OR = {
-						is_romanized_germanic_trigger = yes
-						NOT = { culture_group = germanic }
-					}
-					top_liege = {
-						is_brythonic_culture_trigger = yes
-					}
-				}
-				culture_group = germanic
-				OR = {
-					is_romanized_germanic_trigger = no
-					top_liege = {
-						is_romanized_germanic_trigger = no
-					}
-				}
-			}
-		}
+		name = "OK"
 	}
 }
 
-character_event = {			# Notify support/nominal support/backing down/war
-	id = 320206
-	desc = {
-		text = EVTDESC320206
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_supporter }
-		}
-	}
-	desc = {
-		text = EVTDESC320206_1
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_indep_supporter }
-		}
-	}
-	desc = {
-		text = EVTDESC320206_2
-		picture = GFX_evt_emissary
-		trigger = {
-			FROMFROM = { has_character_flag = HK_opponent }
-		}
-	}
-	desc = {
-		text = EVTDESC320206_3
-		picture = GFX_evt_saxon_army
-		trigger = {
-			FROMFROM = { has_character_flag = HK_challenged_opponent }
-		}
-	}
+# on_new_holder aengland_hegemony_score initialization
+character_event = {
+	id = 320906
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		holds_anglo_saxon_kingdom_trigger = yes
+		NOT = {
+			check_variable = { 
+				which = aengland_hegemony_score
+				value = 0.01
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			which = aengland_hegemony_score
+			value = 0
+		}
+	}
+	
 	option = {
-		name = "EVTOPTA320206"
+		name = "OK"
 	}
 }
 
-character_event = {			# Notify HK Claimant war victory/defeat
-	id = 320207
-	desc = {
-		text = EVTDESC320207
-		trigger = {
-			NOT = { FROM = { has_character_flag = HK_challenge_loser } }
-		}
-	}
-	desc = {
-		text = EVTDESC320207_1
-		trigger = {
-			FROM = { has_character_flag = HK_challenge_loser }
-		}
-	}
-	picture = GFX_evt_saxon_army
+# on_startup aengland_hegemony_score initialization
+character_event = {
+	id = 320907
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		holds_anglo_saxon_kingdom_trigger = yes
+		NOT = {
+			check_variable = { 
+				which = aengland_hegemony_score
+				value = 0.01
+			}
+		}
+	}
+	
+	immediate = {
+		set_variable = {
+			which = aengland_hegemony_score
+			value = 0
+		}
+		
+		# Calculate number of provinces in Britannia on startup
+		if = {
+			limit = {
+				NOT = {
+					check_variable = { 
+						which = global_num_provinces_in_britannia
+						value = 0.01
+					}
+				}
+			}
+			set_variable = {
+				which = global_num_provinces_in_britannia
+				value = 0
+			}				
+			any_province = {
+				limit = { region = world_britannia }
+				change_variable = {
+					which = global_num_provinces_in_britannia
+					value = 1
+				}
+			}
+		}
+	}
+	
 	option = {
-		name = "EVTOPTA320207"
+		name = "OK"
 	}
 }
 

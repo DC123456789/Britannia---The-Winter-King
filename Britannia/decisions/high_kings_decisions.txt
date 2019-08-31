@@ -407,7 +407,7 @@ decisions = {
 			NOT = { has_character_flag = marriage_to_macsen_daughter }
 		}
 		allow = {
-			prestige = 2000
+			prestige = 1500
 			OR = {
 				AND = {
 					is_tribal = yes
@@ -1385,46 +1385,18 @@ decisions = {
 		
 		potential = {
 			is_ruler = yes
-			is_female = no
 			is_ingvaeonic_culture_trigger = yes	
-			e_aengland = { has_holder = no }
-			NOT = { has_global_flag = britannia_reconquered_roman }
-			NOT = { has_global_flag = HK_aengland_claim }
-			NOT = { has_character_flag = HK_aengland_claimant }
-			NOT = { has_character_flag = HK_aengland_challenge_loser }
-			NOT = { has_character_modifier = HK_aengland_claim_timer }
-			OR = {
-				has_landed_title = k_anglia
-				has_landed_title = k_east_anglia
-				has_landed_title = k_cantia
-				has_landed_title = k_mercia
-				has_landed_title = k_wessex
-				has_landed_title = k_northumbria
-				has_landed_title = k_sussex
-				has_landed_title = k_eastseaxe
-			}
+			holds_anglo_saxon_kingdom_trigger = yes
 			independent = yes
 			primary_title = { tier = KING }
-			age = 20
-			NOT = { trait = incapable }
 		}
 		allow = {
-			prestige = 1250
-			OR = {
-				AND = {
-					is_tribal = yes
-					realm_size = 7
-				}
-				realm_size = 15
-			}
-			realm_diplomacy = 30
-			diplomacy = 10
-			realm_martial = 30
-			martial = 12
-			realm_stewardship = 30
-			stewardship = 7
-			ruled_years = 5
+			e_aengland = { has_holder = no }
+			is_female = no
+			prestige = 1500
 			age = 25
+			diplomacy = 10
+			martial = 8
 			OR = {
 				ruled_years = 15
 				trait = war_hero
@@ -1437,171 +1409,32 @@ decisions = {
 				trait = midas_touched
 				trait = genius
 			}
-			NOT = { trait = slow }
-			NOT = { trait = dwarf }
-			NOT = { trait = leper }
-			NOT = { trait = blinded }
-			NOT = { trait = dull }
-			NOT = { trait = imbecile }
-			NOT = { trait = eunuch }
-			NOT = { trait = weak }
+			NOT = { trait = incapable }
 			custom_tooltip = {
-				text = aengland_kingdoms_required_tooltip
-				any_playable_ruler = {
-					tier = KING
-					is_ingvaeonic_culture_trigger = yes
-					OR = {
-						has_landed_title = k_anglia
-						has_landed_title = k_east_anglia
-						has_landed_title = k_cantia
-						has_landed_title = k_mercia
-						has_landed_title = k_wessex
-						has_landed_title = k_northumbria
-						has_landed_title = k_sussex
-						has_landed_title = k_eastseaxe
-					}
-					NOT = { trait = incapable }
-					NOT = { character = ROOT }
-					primary_title = {
-						tier = KING
-						any_playable_ruler = {
-							tier = KING
-							is_ingvaeonic_culture_trigger = yes
-							OR = {
-								has_landed_title = k_anglia
-								has_landed_title = k_east_anglia
-								has_landed_title = k_cantia
-								has_landed_title = k_mercia
-								has_landed_title = k_wessex
-								has_landed_title = k_northumbria
-								has_landed_title = k_sussex
-								has_landed_title = k_eastseaxe
-							}
-							NOT = { trait = incapable }
-							NOT = { character = ROOT }
-							NOT = {
-								primary_title = { title = PREVPREV }
-							}
-						}
+				text = aengland_hegemony_score_tooltip
+				hidden_tooltip = {
+					check_variable = { 
+						which = aengland_hegemony_score
+						value = 120
 					}
 				}
 			}
 		}
 		
 		effect = {
-			any_playable_ruler = { clr_character_flag = HK_aengland_oppositor }
-			any_playable_ruler = { clr_character_flag = HK_aengland_supporter }
-			any_playable_ruler = { clr_character_flag = HK_aengland_voter }
-			set_global_flag = HK_aengland_claim
-			set_character_flag = HK_aengland_claimant
-			e_aengland = { add_claim = ROOT }
-			any_playable_ruler = {
-				limit = {
-					OR = {
-						has_landed_title = k_anglia
-						has_landed_title = k_east_anglia
-						has_landed_title = k_cantia
-						has_landed_title = k_mercia
-						has_landed_title = k_wessex
-						has_landed_title = k_northumbria
-						has_landed_title = k_sussex
-						has_landed_title = k_eastseaxe
-					}
-					independent = yes
-					primary_title = { tier = KING }
-					NOT = { trait = incapable }
-					NOT = { has_character_flag = HK_aengland_claimant }
-					NOT = { has_character_flag = HK_aengland_challenge_loser }
+			tooltip = {
+				e_aengland = { 
+					show_scope_change = no
+					gain_title = PREV 
 				}
-				set_character_flag = HK_aengland_king
-				character_event = { id = 320200 days = 2 tooltip = "is informed about your claim to the High Kingdom and prompted for its recognition." }
 			}
 			hidden_tooltip = {
-				any_playable_ruler = {
-					limit = {
-						is_HK_aengland_relevant_trigger = yes
-						NOT = { character = ROOT }
-					}
-					character_event = { id = 3121678 }
-				}
-				add_character_modifier = {
-					name = HK_aengland_claim_timer
-					duration = 1825
-					hidden = yes
-				}
-				ROOT = { narrative_event = { id = 3121658 days = 15 } }
+				ROOT = { narrative_event = { id = 320200 } }
 			}
 		}
 		
 		ai_will_do = {
 			factor = 1
-			modifier = {
-				factor = 0
-				character = 1
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { num_of_count_titles_in_realm = 10 }
-			}
-			modifier = {
-				factor = 1.5
-				num_of_count_titles_in_realm = 30
-			}
-			modifier = {
-				factor = 1.5
-				diplomacy = 18
-			}
-			modifier = {
-				factor = 1.5
-				martial = 18
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { diplomacy = 12 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { martial = 14 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { stewardship = 12 }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { prestige = 2000 }
-			}
-			modifier = {
-				factor = 0.75
-				NOT = { prestige = 3000 }
-			}
-			modifier = {
-				factor = 0.1
-				OR = {
-					trait = content
-					trait = shy
-					trait = craven
-				}
-			}
-			modifier = {
-				factor = 0.25
-				OR = {
-					trait = humble
-					trait = slothful
-				}
-			}
-			modifier = {
-				factor = 1.5
-				trait = ambitious
-			}
-			modifier = {
-				factor = 1.5
-				trait = proud
-			}
-			modifier = {
-				factor = 1.5
-				trait = war_hero
-			}
 		}
 	}
 	HK_claim_hen_ogledd = {		# Claim the High Kingdom of Hen Ogledd
@@ -1756,7 +1589,7 @@ decisions = {
 		
 		effect = {
 			wealth = -50
-			custom_tooltip = {  text = "TOOLTIP3121659" }
+			custom_tooltip = { text = "TOOLTIP3121659" }
 			hidden_tooltip = {
 				ROOT = {
 					character_event = { id = 3121659 }

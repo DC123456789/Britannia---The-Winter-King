@@ -2537,26 +2537,6 @@ character_event = {
 				}
 			}
 		}
-		# If holds Aengland, we subtract the realms held by vassal kings (temporary)
-		if = {
-			limit = {
-				has_landed_title = e_aengland
-			}
-			any_vassal = {
-				limit = { tier = KING }
-				ROOT = {
-					export_to_variable = {
-						which = vassal_king_num_provinces
-						value = num_of_count_titles_in_realm
-						who = PREV
-					}
-					subtract_variable = {
-						which = tribal_num_provinces
-						which = vassal_king_num_provinces
-					}
-				}
-			}
-		}
 		subtract_variable = {
 			which = tribal_num_provinces
 			value = 4		# Baseline prestige for no penalty
