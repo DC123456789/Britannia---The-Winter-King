@@ -1344,18 +1344,12 @@ is_unfit_to_rule_britannia_trigger = {
 
 is_unfit_to_rule_aengland_trigger = {
 	OR = {
-		is_adult = no
-		NOT = { prestige = 400 }
-		NOT = { martial = 10 }
-		NOT = { diplomacy = 8 }
-		NOT = { stewardship = 5 }
-		trait = imbecile
-		trait = dull
-		trait = slow
-		trait = dwarf
-		trait = eunuch
-		trait = weak
-		is_female = yes
+		NOT = {
+			check_variable = {
+				which = fraction_anglo_saxon_provinces_controlled_including_revolters
+				value = 0.5
+			}
+		}
 		is_ingvaeonic_culture_trigger = no
 	}
 	NOT = { has_character_flag = anglo_saxons_return_leader }

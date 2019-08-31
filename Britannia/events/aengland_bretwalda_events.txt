@@ -61,7 +61,6 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 				}
 			}
 		}
-		clr_character_flag = HK_aengland_supporter
 	}
 	
 	option = {
@@ -429,7 +428,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 		is_unfit_to_rule_aengland_trigger = yes
 		had_character_flag = {
 			flag = is_unfit_to_rule_aengland
-			days = 120
+			days = 240
 		}
 	}
 	
@@ -442,7 +441,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	}
 	
 	option = {
-		name = "EVTOPTA320204"		# Lose High Kingdom
+		name = "EVTOPTA320204"		# Lose Aengland
 		trigger = {
 			has_landed_title = e_aengland
 		}
@@ -505,7 +504,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 
 # on_yearly_pulse aengland_hegemony_score counter
 character_event = {
-	id = 320905
+	id = 320205
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_feast_1"
 	
@@ -525,154 +524,99 @@ character_event = {
 	
 	immediate = {
 		if = {
-			limit = { holds_anglo_saxon_kingdom_trigger = yes }
-			# Calculate number of Anglo-Saxon provinces controlled
+			limit = { 
+				holds_anglo_saxon_kingdom_trigger = yes
+				is_tributary = no
+				# Check if controls >= 25 provinces and >= 50% of Anglo-Saxon provinces
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 25
+				}
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.5
+				}
+			}
+			# Add score based on proportion of Anglo-Saxon provinces controlled
+			set_variable = {
+				which = score_anglo_saxon_provinces_controlled
+				which = fraction_anglo_saxon_provinces_controlled
+			}
+			multiply_variable = {
+				which = score_anglo_saxon_provinces_controlled
+				value = 10
+			}
+			# Bloodline effects
+			if = {
+				limit = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = aengland_bretwalda_bloodline
+					}
+				}
+				multiply_variable = {
+					which = score_anglo_saxon_provinces_controlled
+					value = 1.15
+				}
+			}
+			change_variable = {
+				which = aengland_hegemony_score
+				which = score_anglo_saxon_provinces_controlled
+			}
+			# Calculate and add score based on proportion of Britannia controlled
 			export_to_variable = {
-				which = num_provinces_controlled
+				which = num_total_provinces_controlled
 				value = num_of_count_titles_in_realm
 			}
 			any_independent_ruler = {
 				limit = { 
 					NOT = { character = ROOT } 
 					is_tributary = {
-						type = anglosaxon_tributary 
 						suzerain = ROOT 
 					}
+					NOT = { war_with = ROOT }
 				}
 				export_to_variable = {
-					which = num_provinces_controlled
+					which = num_total_provinces_controlled
 					value = num_of_count_titles_in_realm
 				}
 				ROOT = {
 					change_variable = {
-						which = num_provinces_controlled
+						which = num_total_provinces_controlled
 						which = PREV
 					}
 				}
 			}
-			# Calculate total number of Anglo-Saxon provinces
 			set_variable = {
-				which = num_anglo_saxon_provinces
-				value = 0
-			}
-			any_province = {
-				limit = { 
-					region = world_britannia 
-					owner = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-				}
-				ROOT = {
-					change_variable = {
-						which = num_anglo_saxon_provinces
-						value = 1
-					}
-				}
-			}
-			set_variable = {
-				which = fraction_anglo_saxon_provinces_controlled
-				which = num_provinces_controlled
+				which = fraction_num_total_provinces_controlled
+				which = num_total_provinces_controlled
 			}
 			divide_variable = {
-				which = fraction_anglo_saxon_provinces_controlled
-				which = num_anglo_saxon_provinces
+				which = fraction_num_total_provinces_controlled
+				which = global_num_provinces_in_britannia
 			}
-			# Check if controls >= 25 provinces and >= 50% of Anglo-Saxon provinces
+			set_variable = {
+				which = score_num_total_provinces_controlled
+				which = fraction_num_total_provinces_controlled
+			}
+			multiply_variable = {
+				which = score_num_total_provinces_controlled
+				value = 20
+			}
+			# Bloodline effects
 			if = {
-				limit = {
-					check_variable = { 
-						which = num_provinces_controlled
-						value = 25
+				limit = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = aengland_bretwalda_bloodline
 					}
-					check_variable = { 
-						which = fraction_anglo_saxon_provinces_controlled
-						value = 0.5
-					}					
-				}
-				# Add score based on proportion of Anglo-Saxon provinces controlled
-				set_variable = {
-					which = score_anglo_saxon_provinces_controlled
-					which = fraction_anglo_saxon_provinces_controlled
-				}
-				multiply_variable = {
-					which = score_anglo_saxon_provinces_controlled
-					value = 10
-				}
-				# Bloodline effects
-				if = {
-					limit = { 
-						any_owned_bloodline = {
-							has_bloodline_flag = aengland_bretwalda_bloodline
-						}
-					}
-					multiply_variable = {
-						which = score_anglo_saxon_provinces_controlled
-						value = 1.15
-					}
-				}
-				change_variable = {
-					which = aengland_hegemony_score
-					which = score_anglo_saxon_provinces_controlled
-				}
-				# Calculate and add score based on proportion of Britannia controlled
-				export_to_variable = {
-					which = num_total_provinces_controlled
-					value = num_of_count_titles_in_realm
-				}
-				any_independent_ruler = {
-					limit = { 
-						NOT = { character = ROOT } 
-						is_tributary = {
-							suzerain = ROOT 
-						}
-					}
-					export_to_variable = {
-						which = num_total_provinces_controlled
-						value = num_of_count_titles_in_realm
-					}
-					ROOT = {
-						change_variable = {
-							which = num_total_provinces_controlled
-							which = PREV
-						}
-					}
-				}
-				set_variable = {
-					which = fraction_num_total_provinces_controlled
-					which = num_total_provinces_controlled
-				}
-				divide_variable = {
-					which = fraction_num_total_provinces_controlled
-					which = global_num_provinces_in_britannia
-				}
-				set_variable = {
-					which = score_num_total_provinces_controlled
-					which = fraction_num_total_provinces_controlled
 				}
 				multiply_variable = {
 					which = score_num_total_provinces_controlled
-					value = 20
-				}
-				# Bloodline effects
-				if = {
-					limit = { 
-						any_owned_bloodline = {
-							has_bloodline_flag = aengland_bretwalda_bloodline
-						}
-					}
-					multiply_variable = {
-						which = score_num_total_provinces_controlled
-						value = 1.15
-					}
-				}
-				change_variable = {
-					which = aengland_hegemony_score
-					which = score_num_total_provinces_controlled
+					value = 1.15
 				}
 			}
-			else = {
-				subtract_variable = {
-					which = aengland_hegemony_score
-					value = 3
-				}
+			change_variable = {
+				which = aengland_hegemony_score
+				which = score_num_total_provinces_controlled
 			}
 		}
 		else = {
@@ -706,7 +650,7 @@ character_event = {
 
 # on_new_holder aengland_hegemony_score initialization
 character_event = {
-	id = 320906
+	id = 320206
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_feast_1"
 	
@@ -738,7 +682,7 @@ character_event = {
 
 # on_startup aengland_hegemony_score initialization
 character_event = {
-	id = 320907
+	id = 320207
 	desc = "You're not supposed to see this..."
 	picture = "GFX_evt_feast_1"
 	
@@ -919,5 +863,143 @@ character_event = {
 				clr_title_flag = aengland_primary_kingdom
 			}
 		}
+	}
+}
+
+# num_provinces_controlled calculation event initialization
+character_event = {
+	id = 320209
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = d_null
+	}
+	
+	immediate = {
+		1 = {
+			province_event = { id = 320210 }
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# num_provinces_controlled calculations 
+province_event = {
+	id = 320210
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Calculate total number of Anglo-Saxon provinces
+		set_variable = {
+			which = global_num_anglo_saxon_provinces
+			value = 0
+		}
+		any_province = {
+			limit = { 
+				region = world_britannia 
+				owner = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
+			}
+			change_variable = {
+				which = global_num_anglo_saxon_provinces
+				value = 1
+			}
+		}
+		any_independent_ruler = {
+			limit = {
+				is_ingvaeonic_culture_trigger = yes
+				OR = {
+					holds_anglo_saxon_kingdom_trigger = yes
+					has_landed_title = e_aengland
+				}
+			}
+			# Calculate number of Anglo-Saxon provinces controlled (with and without revolters)
+			export_to_variable = {
+				which = num_provinces_controlled
+				value = num_of_count_titles_in_realm
+			}
+			export_to_variable = {
+				which = num_provinces_controlled_including_revolters
+				value = num_of_count_titles_in_realm
+			}
+			save_event_target_as = current_king
+			any_independent_ruler = {
+				limit = { 
+					NOT = { character = PREV } 
+					is_tributary = {
+						type = anglosaxon_tributary 
+						suzerain = PREV 
+					}
+				}
+				export_to_variable = {
+					which = num_provinces_controlled
+					value = num_of_count_titles_in_realm
+				}
+				if = {
+					limit = { NOT = { war_with = PREV } }
+					event_target:current_king = {
+						change_variable = {
+							which = num_provinces_controlled
+							which = PREV
+						}
+					}
+				}
+				event_target:current_king = {
+					change_variable = {
+						which = num_provinces_controlled_including_revolters
+						which = PREV
+					}
+				}
+				any_current_enemy = {
+					limit = {
+						in_revolt = yes
+						liege_before_war = { character = PREVPREV }
+					}
+					export_to_variable = {
+						which = num_provinces_controlled
+						value = num_of_count_titles_in_realm
+					}
+					event_target:current_king = {
+						change_variable = {
+							which = num_provinces_controlled_including_revolters
+							which = PREV
+						}
+					}
+				}
+			}
+			set_variable = {
+				which = fraction_anglo_saxon_provinces_controlled
+				which = num_provinces_controlled
+			}
+			set_variable = {
+				which = fraction_anglo_saxon_provinces_controlled_including_revolters
+				which = num_provinces_controlled_including_revolters
+			}
+			divide_variable = {
+				which = fraction_anglo_saxon_provinces_controlled
+				which = global_num_anglo_saxon_provinces
+			}
+			divide_variable = {
+				which = fraction_anglo_saxon_provinces_controlled_including_revolters
+				which = global_num_anglo_saxon_provinces
+			}
+		}	
+		province_event = { id = 320210 days = 10 }	# Loop this forever
+	}
+	
+	option = {
+		name = "OK"
 	}
 }
