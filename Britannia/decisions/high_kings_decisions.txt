@@ -1437,6 +1437,9 @@ decisions = {
 					gain_title = PREV 
 				}
 			}
+			custom_tooltip = {
+				text = HK_claim_aengland_warning_tooltip
+			}
 			hidden_tooltip = {
 				ROOT = { narrative_event = { id = 320200 } }
 			}
@@ -1446,6 +1449,78 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	HK_aengland_declare_supremacy = {
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		
+		potential = {
+			has_landed_title = e_aengland
+			NOT = { has_global_flag = aengland_declared_supremacy }
+		}
+		allow = {
+			is_tribal = no
+			is_female = no
+			prestige = 3000
+			age = 25
+			diplomacy = 12
+			martial = 10
+			OR = {
+				ruled_years = 15
+				trait = war_hero
+				trait = master_warrior
+				trait = inspiring_leader
+				# trait = authoritative
+				trait = brilliant_strategist
+				trait = grey_eminence
+				trait = elusive_shadow
+				trait = midas_touched
+				trait = genius
+			}
+			NOR = { 
+				trait = slow
+				trait = imbecile
+				trait = dwarf
+				trait = leper
+				trait = blinded 
+				trait = eunuch
+				trait = incapable 
+			}
+			custom_tooltip = {
+				text = aengland_controls_75_percent_anglosaxon_provinces_tooltip
+				hidden_tooltip = {
+					check_variable = { 
+						which = fraction_anglo_saxon_provinces_controlled
+						value = 0.75
+					}
+				}
+			}
+			custom_tooltip = {
+				text = aengland_bretwalda_authority_tooltip
+				hidden_tooltip = {
+					check_variable = { 
+						which = aengland_bretwalda_authority
+						value = 300§
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = HK_aengland_declare_supremacy_tooltip
+			}
+			hidden_tooltip = {
+				ROOT = { narrative_event = { id = 320220 } }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 	HK_claim_hen_ogledd = {		# Claim the High Kingdom of Hen Ogledd
 		only_independent = yes
 		is_high_prio = yes

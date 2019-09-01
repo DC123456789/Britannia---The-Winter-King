@@ -1040,6 +1040,118 @@ defined_text = {
 	}
 }
 
+
+# Returns the adjective of the ruler's main Anglo-Saxon kingdom
+defined_text = {
+	name = GetPrimaryAnglosaxonKingdomAdj
+	use_first_valid = yes
+
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_east_anglia }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_east_anglia
+					k_east_anglia = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_east_anglia_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_eastseaxe }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_eastseaxe
+					k_eastseaxe = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_eastseaxe_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_sussex }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_sussex
+					k_sussex = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_sussex_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_cantia }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_cantia
+					k_cantia = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_cantia_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_wessex }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_wessex
+					k_wessex = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_wessex_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_mercia }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_mercia
+					k_mercia = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_mercia_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_northumbria }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_northumbria
+					k_northumbria = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_northumbria_adj
+	}
+	text = {
+		trigger = {
+			OR = {
+				primary_title = { title = k_anglia }
+				AND = {
+					primary_title = { title = e_aengland }
+					has_landed_title = k_anglia
+					k_anglia = { has_title_flag = aengland_primary_kingdom }
+				}
+			}
+		}
+		localisation_key = k_anglia_adj
+	}
+}
+
 # Returns the name of the ruler's main Anglo-Saxon kingdom
 defined_text = {
 	name = GetPrimaryAnglosaxonKingdom
@@ -1370,5 +1482,315 @@ defined_text = {
 			NOT = { has_global_flag = aelle_ruling_anglia }
 		}
 		localisation_key = string_duchies_to_integrate_k_anglia_after_aelle
+	}
+}
+
+# Hegemony Score Localisations
+defined_text = {
+	name = GetAenglandHegemonyScoreChange
+	
+	text = {
+		trigger = { 
+			NAND = {
+				independent = yes
+				is_tributary = no
+				# Check if controls >= 25 provinces and >= 50% of Anglo-Saxon provinces
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 25
+				}
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.5
+				}
+			}
+		}
+		localisation_key = string_hegemony_score_loss
+	}
+	text = {
+		trigger = { 
+			independent = yes
+			is_tributary = no
+			# Check if controls >= 25 provinces and >= 50% of Anglo-Saxon provinces
+			check_variable = { 
+				which = num_provinces_controlled
+				value = 25
+			}
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.5
+			}
+		}
+		localisation_key = string_hegemony_score_gain
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyScoreNotIndependentReason
+	
+	text = {
+		trigger = {
+			independent = no
+		}
+		localisation_key = string_hegemony_score_not_independent
+	}
+	text = {
+		trigger = { 
+			independent = yes
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyScoreTributaryReason
+	
+	text = {
+		trigger = {
+			is_tributary = yes
+		}
+		localisation_key = string_hegemony_score_is_tributary
+	}
+	text = {
+		trigger = { 
+			is_tributary = no
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyScoreTooFewProvincesReason
+	
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 25
+				}
+			}
+		}
+		localisation_key = string_hegemony_score_too_few_provinces
+	}
+	text = {
+		trigger = { 
+			check_variable = { 
+				which = num_provinces_controlled
+				value = 25
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyScoreNotEnoughAngloSaxonControlReason
+	
+	text = {
+		trigger = {
+			NOT = {check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.5
+				}
+			}
+		}
+		localisation_key = string_hegemony_score_not_enough_AS_control
+	}
+	text = {
+		trigger = { 
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.5
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyScoreBloodlineGain
+	
+	text = {
+		trigger = {
+			any_owned_bloodline = {
+				has_bloodline_flag = aengland_bretwalda_bloodline
+			}
+		}
+		localisation_key = string_hegemony_score_bloodline_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				any_owned_bloodline = {
+					has_bloodline_flag = aengland_bretwalda_bloodline
+				}
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+# Bretwalda Authority Localisations
+defined_text = {
+	name = GetBretwaldaAuthorityChange
+	
+	text = {
+		trigger = { 
+			NAND = {
+				independent = yes
+				is_tributary = no
+				# Check if controls >= 60 provinces and >= 75% of Anglo-Saxon provinces
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 60
+				}
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.75
+				}
+			}
+		}
+		localisation_key = string_bretwalda_authority_loss
+	}
+	text = {
+		trigger = { 
+			independent = yes
+			is_tributary = no
+			# Check if controls >= 60 provinces and >= 75% of Anglo-Saxon provinces
+			check_variable = { 
+				which = num_provinces_controlled
+				value = 60
+			}
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.75
+			}
+		}
+		localisation_key = string_bretwalda_authority_gain
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityTooFewProvincesReason
+	
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 60
+				}
+			}
+		}
+		localisation_key = string_bretwalda_authority_too_few_provinces
+	}
+	text = {
+		trigger = { 
+			check_variable = { 
+				which = num_provinces_controlled
+				value = 60
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityNotEnoughAngloSaxonControlReason
+	
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.75
+				}
+			}
+		}
+		localisation_key = string_bretwalda_authority_not_enough_AS_control
+	}
+	text = {
+		trigger = { 
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.75
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityDiplomacyChange
+	
+	text = {
+		trigger = {
+			diplomacy = 9
+		}
+		localisation_key = string_bretwalda_authority_diplomacy_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				diplomacy = 9
+			}
+		}
+		localisation_key = string_bretwalda_authority_diplomacy_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityMartialChange
+	
+	text = {
+		trigger = {
+			martial = 9
+		}
+		localisation_key = string_bretwalda_authority_martial_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				martial = 9
+			}
+		}
+		localisation_key = string_bretwalda_authority_martial_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityStewardshipChange
+	
+	text = {
+		trigger = {
+			stewardship = 9
+		}
+		localisation_key = string_bretwalda_authority_stewardship_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				stewardship = 9
+			}
+		}
+		localisation_key = string_bretwalda_authority_stewardship_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityTribalLoss
+	
+	text = {
+		trigger = {
+			is_tribal = yes
+		}
+		localisation_key = string_bretwalda_authority_tribal_loss
+	}
+	text = {
+		trigger = { 
+			is_tribal = no
+		}
+		localisation_key = String_empty_space
 	}
 }

@@ -1350,6 +1350,10 @@ is_unfit_to_rule_aengland_trigger = {
 				value = 0.5
 			}
 		}
+		AND = {
+			is_tributary = { type = anglosaxon_tributary }
+			suzerain = { NOT = { war_with = PREV } }
+		}
 		is_ingvaeonic_culture_trigger = no
 	}
 	NOT = { has_character_flag = anglo_saxons_return_leader }
@@ -1941,6 +1945,8 @@ kingdom_holder_is_integrating_event_target_duchy_trigger = {
 			}										
 		}
 	}
+	# The de jure liege is not liege of the title itself OR any counties inside the title
+	# This is relevant if the kingdom was vassalized after Declaring Supremacy, but before fully uniting the kingdom
 	NOT = {
 		event_target:duchy_to_integrate = {
 			dejure_liege_title = {
@@ -1949,6 +1955,16 @@ kingdom_holder_is_integrating_event_target_duchy_trigger = {
 					OR = {
 						has_landed_title = PREVPREVPREV
 						any_vassal = { has_landed_title = PREVPREVPREVPREV }
+						event_target:duchy_to_integrate = {
+							any_direct_de_jure_vassal_title = {
+								holder_scope = {
+									OR = {
+										character = PREVPREVPREV
+										is_liege_or_above = PREVPREVPREV
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -1966,5 +1982,19 @@ holds_anglo_saxon_kingdom_trigger = {
 		has_landed_title = k_northumbria
 		has_landed_title = k_sussex
 		has_landed_title = k_eastseaxe
+	}
+}
+
+is_anglosaxon_tributary_potential_trigger = {
+	is_ingvaeonic_culture_trigger = yes
+	primary_title = {
+		capital_scope = {
+			region = world_britannia
+		}
+		OR = {
+			lower_tier_than = DUKE
+			title = e_aengland
+			empire = { title = e_aengland }
+		}
 	}
 }

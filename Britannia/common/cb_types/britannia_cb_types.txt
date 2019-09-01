@@ -7099,6 +7099,10 @@ vassalize = {					# De Jure Subjugation (vassalize lower independent rulers of y
 								NOT = { title = e_britannia }
 								has_global_flag = britannia_empowered_high_council
 							}
+							OR = {
+								NOT = { title = e_aengland }
+								has_global_flag = aengland_united
+							}
 							holder_scope = {
 								OR = {
 									character = ROOT
@@ -7427,6 +7431,17 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 					}
 				}
 				NOT = { has_global_flag = britannia_empowered_high_council }
+			}
+			NAND = {		# Bretwaldas of Aengland can't subjugate other kings until complete unification
+				FROM = { tier = KING }
+				FROM_anglosaxon_king_tier_subjugation_trigger = no
+				NOT = {
+					any_demesne_title = {
+						tier = EMPEROR
+						NOT = { title = e_aengland }
+					}
+				}
+				NOT = { has_global_flag = aengland_united }
 			}
 			
 			# Not if can use the de jure subjugation cb instead
@@ -10915,6 +10930,12 @@ tributary_anglosaxon_cb = {
 					}
 				}
 			}
+		}
+		
+		# Recalculate Aengland variables
+		hidden_tooltip = { 
+			ROOT = { character_event = { id = 320206 days = 1 } } 
+			FROM = { character_event = { id = 320206 days = 1 } } 
 		}
 	}
 
