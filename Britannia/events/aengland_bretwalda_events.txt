@@ -684,17 +684,8 @@ character_event = {
 					has_landed_title = e_aengland
 				}
 			}
-			# Recalculate number of Anglo-Saxon provinces
 			1 = { province_event = { id = 320210 } }
-			character_event = { id = 320211 }
 		}
-		
-		if = {
-			limit = { independent = no }
-			top_liege = { character_event = { id = 320206 } }
-		}
-		
-		#FROM = { character_event = { id = 320206 } }
 	}
 	
 	option = {
@@ -877,15 +868,17 @@ character_event = {
 					k_anglia = { set_title_flag = aengland_primary_kingdom }
 				}
 				else = {		# Just pick a random held kingdom title
-					random_demesne_title = {
-						limit = {
-							tier = KING
-							empire = {
-								title = e_aengland
-							}							
+					ROOT = {
+						random_demesne_title = {
+							limit = {
+								tier = KING
+								empire = {
+									title = e_aengland
+								}							
+							}
+							set_title_flag = aengland_primary_kingdom
 						}
-						set_title_flag = aengland_primary_kingdom
-					}					
+					}
 				}
 			}
 		}
@@ -928,11 +921,6 @@ character_event = {
 				which = global_num_provinces_in_britannia
 				value = 1
 			}
-		}
-		
-		# Initialize variables for all Anglo-Saxon kings
-		any_independent_ruler = {
-			character_event = { id = 320206 }
 		}
 	}
 	
@@ -980,6 +968,12 @@ province_event = {
 				}
 			}
 		}
+		
+		# Recalculate variables for all Anglo-Saxon kings
+		any_independent_ruler = {
+			character_event = { id = 320211 }
+		}
+
 		clear_delayed_event = { id = 320210 }
 		province_event = { id = 320210 days = 10 }	# Loop this forever
 	}
@@ -1028,7 +1022,7 @@ character_event = {
 		}
 		set_variable = {
 			which = num_provinces_controlled_including_revolters
-			value = num_provinces_controlled
+			which = num_provinces_controlled
 		}
 		any_independent_ruler = {
 			limit = { 
@@ -1314,9 +1308,6 @@ character_event = {
 			which = aengland_bretwalda_authority_gain
 			which = aengland_bretwalda_authority_multiplier
 		}
-		
-		clear_delayed_event = { id = 320211 }
-		character_event = { id = 320211 days = 10 }	# Loop this forever
 	}
 	
 	option = {
