@@ -650,7 +650,7 @@ character_event = {
 	}
 }
 
-# on_new_holder aengland_hegemony_score and aengland_bretwalda_authority initialization
+# on_new_holder aengland_hegemony_score and aengland_bretwalda_authority initialization (called on_startup and on_new_holder_*)
 character_event = {
 	id = 320206
 	desc = "You're not supposed to see this..."
@@ -703,6 +703,13 @@ character_event = {
 				OR = {
 					holds_anglo_saxon_kingdom_trigger = yes
 					has_landed_title = e_aengland
+					AND = {
+						has_global_flag = aengland_declared_supremacy
+						is_tributary = {
+							type = anglosaxon_tributary
+						}
+						suzerain = { has_landed_title = e_aengland }
+					}
 				}
 			}
 			1 = { province_event = { id = 320210 } }
@@ -1687,5 +1694,303 @@ narrative_event = {
 				}
 			}
 		}
+	}
+}
+
+
+narrative_event = {
+	id = 320220
+	title = EVTNAME320220	
+	desc = EVTDESC320220
+	picture = GFX_evt_royal_court
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = aengland_declared_supremacy
+		
+		1 = { province_event = { id = 320210 } }
+	}
+	
+	option = {
+		name = "EVTOPTA320220"		# Bretwalda
+		trigger = {
+			character = ROOT
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB320220"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320220"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+			}
+		}
+	}
+}
+
+
+# Seize Control Demand
+letter_event = {
+	id = 320225
+	desc = "EVTDESC320225"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = "EVTOPTA320225"
+		prestige = -100
+		reverse_opinion = {
+			modifier = opinion_approves
+			who = FROMFROM
+			years = 10
+		}
+		FROMFROM = { character_event = { id = 320226 } }
+		tooltip = {
+			FROMFROM = { remove_tributary = ROOT }
+			if = {
+				limit = { tier = COUNT }
+				set_defacto_liege = FROMFROM
+			}
+			else_if = {
+				limit = { tier = DUKE }
+				any_demesne_title = {
+					limit = { tier = DUKE }
+					usurp_title = FROMFROM
+				}
+			}
+			else_if = {
+				limit = { tier = KING }
+				any_demesne_title = {
+					limit = { tier = KING }
+					usurp_title = FROMFROM
+				}
+			}
+			else_if = {			# Shouldn't be possible, but...
+				limit = { tier = EMPEROR }
+				any_demesne_title = {
+					limit = { tier = EMPEROR }
+					usurp_title = FROMFROM
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				OR = {
+					trait = ambitious
+					trait = unloyal
+					relative_power = {
+						who = FROMFROM
+						power = 0.8
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { opinion = { who = FROMFROM value = 0 } }
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { opinion = { who = FROMFROM value = 30 } }
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { opinion = { who = FROMFROM value = 60 } }
+			}
+			modifier = {
+				factor = 5
+				NOT = {
+					relative_power = {
+						who = FROMFROM
+						power = 0.33
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					relative_power = {
+						who = FROMFROM
+						power = 0.4
+					}
+				}
+			}
+			modifier = {
+				factor = 1.25
+				NOT = {
+					relative_power = {
+						who = FROMFROM
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				relative_power = {
+					who = FROMFROM
+					power = 0.6
+				}
+			}
+			modifier = {
+				factor = 0.75
+				relative_power = {
+					who = FROMFROM
+					power = 0.7
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = { culture = FROMFROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { culture_group = FROMFROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion = FROMFROM }
+			}
+			modifier = {
+				factor = 0.75
+				NOT = { religion_group = FROMFROM }
+			}
+		}
+	}
+	
+	option = {			# Never!
+		name = "EVTOPTB320225"
+		# Can't resist if you're a prisoner
+		trigger = {
+			OR = {
+				prisoner = no
+				NOT = { host = { character = FROMFROM } }
+			}
+		}
+		prestige = 100
+		reverse_opinion = {
+			modifier = opinion_furious
+			who = FROMFROM
+			years = 10
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.2
+				trait = craven
+			}
+			modifier = {
+				factor = 1.5
+				is_tribal = yes
+			}
+			modifier = {
+				factor = 0.75
+				lower_tier_than = KING
+			}
+			modifier = {
+				factor = 1.25
+				higher_tier_than = KING
+			}
+		}
+		FROMFROM = { character_event = { id = 320227 } }
+		custom_tooltip = {
+			text = EVTOPTB320225TT
+		}
+		hidden_tooltip = {
+			war = {
+				casus_belli = free_tributary_cb_liege_claim
+				target = e_aengland					
+			}
+		}
+	}
+}
+
+# Subject Kingdom accepts
+letter_event = {
+	id = 320226
+	desc = "EVTDESC320226"
+	picture = "GFX_evt_emissary"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320226"
+		remove_tributary = FROM
+		FROM = {
+			if = {
+				limit = { tier = COUNT }
+				set_defacto_liege = ROOT
+			}
+			else_if = {
+				limit = { tier = DUKE }
+				any_demesne_title = {
+					limit = { tier = DUKE }
+					usurp_title = ROOT
+				}
+			}
+			else_if = {
+				limit = { tier = KING }
+				any_demesne_title = {
+					limit = { tier = KING }
+					usurp_title = ROOT
+				}
+			}
+			else_if = {			# Shouldn't be possible, but...
+				limit = { tier = EMPEROR }
+				any_demesne_title = {
+					limit = { tier = EMPEROR }
+					usurp_title = ROOT
+				}
+			}
+		}
+	}
+}
+
+# Subject Kingdom refuses
+letter_event = {
+	id = 320227
+	desc = "EVTDESC320227"
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320227"
 	}
 }

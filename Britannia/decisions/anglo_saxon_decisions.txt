@@ -850,6 +850,7 @@ targetted_decisions = {
 		from_potential = {
 			has_landed_title = e_aengland
 			has_global_flag = aengland_declared_supremacy
+			NOT = { has_global_flag = aengland_united }
 		}
 		potential = {
 			is_tributary = { type = anglosaxon_tributary }
@@ -876,12 +877,37 @@ targetted_decisions = {
 		effect = {
 			FROM = {
 				prestige = -300
+				subtract_variable = { 
+					which = aengland_bretwalda_authority_2
+					which = ROOT
+				}
+				hidden_tooltip = {
+					ROOT = {
+						set_variable = { 
+							which = aengland_bretwalda_authority
+							which = aengland_bretwalda_authority_2
+						}
+					}
+				}
 			}
 			custom_tooltip = {
 				text = aengland_seize_control_of_subject_tooltip
 			}
 			hidden_tooltip = {
-				character_event = { id = 320225 }
+				any_independent_ruler = {
+					limit = {
+						is_tributary = {
+							type = anglosaxon_tributary
+							suzerain = FROM
+						}
+					}
+					opinion = {					
+						modifier = opinion_furious
+						who = FROM
+						years = 10
+					}
+				}
+				ROOT = { character_event = { id = 320225 } }
 			}
 		}
 		revoke_allowed = {
