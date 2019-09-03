@@ -540,3 +540,19 @@ vassalize_all_flagged_provinces_to_ROOT_effect = {
 		clr_province_flag = vassalize_province
 	}
 }
+
+check_recalculate_aengland_variables_effect = {
+	hidden_tooltip = {
+		if = {
+			limit = {
+				OR = {
+					ROOT = { holds_anglo_saxon_kingdom_trigger = yes }
+					ROOT = { has_landed_title = e_aengland }
+					FROM = { holds_anglo_saxon_kingdom_trigger = yes }
+					FROM = { has_landed_title = e_aengland }
+				}
+			}
+			1 = { province_event = { id = 320210 } }
+		}
+	}
+}

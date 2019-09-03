@@ -1794,3 +1794,136 @@ defined_text = {
 		localisation_key = String_empty_space
 	}
 }
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityBaseFactors
+	
+	text = {
+		trigger = {
+			always = yes
+		}
+		localisation_key = string_subject_bretwalda_authority_base_value
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityDiplomacyChange
+	
+	text = {
+		trigger = {
+			diplomacy = 9
+		}
+		localisation_key = string_subject_bretwalda_authority_diplomacy_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				diplomacy = 9
+			}
+		}
+		localisation_key = string_subject_bretwalda_authority_diplomacy_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityMartialChange
+	
+	text = {
+		trigger = {
+			martial = 9
+		}
+		localisation_key = string_subject_bretwalda_authority_martial_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				martial = 9
+			}
+		}
+		localisation_key = string_subject_bretwalda_authority_martial_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityStewardshipChange
+	
+	text = {
+		trigger = {
+			stewardship = 9
+		}
+		localisation_key = string_subject_bretwalda_authority_stewardship_gain
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				stewardship = 9
+			}
+		}
+		localisation_key = string_subject_bretwalda_authority_stewardship_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityGenderModifier
+	
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					is_female = yes 
+					NOR = {
+						has_game_rule = {
+							name = gender
+							value = all
+						}
+						religion = promethean_pagan
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_pict
+						has_religion_feature = religion_feature_vasconic
+						has_religion_feature = religion_matriarchal
+						primary_title = {
+							has_law = status_of_women_4 
+						}
+					}
+				}
+				AND = {
+					is_female = no 
+					NOT = {
+						has_game_rule = {
+							name = gender
+							value = all
+						}
+					}
+					OR = {
+						has_religion_feature = religion_matriarchal
+						religion = britannic_pagan
+					}
+				}
+			}
+		}
+		localisation_key = string_subject_bretwalda_authority_gender_decrease
+	}
+	text = {
+		trigger = { 
+			is_tribal = no
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityTribalModifier
+	
+	text = {
+		trigger = {
+			is_tribal = yes
+		}
+		localisation_key = string_subject_bretwalda_authority_tribal_increase
+	}
+	text = {
+		trigger = { 
+			is_tribal = no
+		}
+		localisation_key = String_empty_space
+	}
+}

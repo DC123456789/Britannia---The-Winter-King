@@ -37,6 +37,14 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 				}
 			}
 		}
+		set_variable = {
+			which = aengland_bretwalda_authority
+			value = 0
+		}
+		set_variable = {
+			which = aengland_bretwalda_authority_2
+			which = aengland_bretwalda_authority
+		}
 		clr_character_flag = gained_aengland
 	}
 	
@@ -443,6 +451,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	
 	immediate = {
 		clr_character_flag = is_unfit_to_rule_aengland
+		clr_global_flag = aengland_declared_supremacy
 	}
 	
 	option = {
@@ -589,6 +598,10 @@ character_event = {
 				which = aengland_bretwalda_authority
 				which = aengland_bretwalda_authority_gain
 			}
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				which = aengland_bretwalda_authority
+			}
 		}
 		else = {
 			subtract_variable = {
@@ -624,6 +637,10 @@ character_event = {
 			set_variable = { 
 				which = aengland_bretwalda_authority
 				value = 0
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				which = aengland_bretwalda_authority
 			}
 		}
 	}
@@ -673,6 +690,10 @@ character_event = {
 			set_variable = {
 				which = aengland_bretwalda_authority
 				value = 0
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				which = aengland_bretwalda_authority
 			}
 		}
 		
@@ -724,6 +745,10 @@ character_event = {
 							which = aengland_bretwalda_authority
 							which = ROOT
 						}
+						set_variable = {
+							which = aengland_bretwalda_authority_2
+							which = aengland_bretwalda_authority
+						}
 					}
 				}
 			}
@@ -734,6 +759,10 @@ character_event = {
 					change_variable = {
 						which = aengland_bretwalda_authority
 						which = ROOT
+					}
+					set_variable = {
+						which = aengland_bretwalda_authority_2
+						which = aengland_bretwalda_authority
 					}
 				}
 			}
@@ -747,6 +776,10 @@ character_event = {
 					change_variable = {
 						which = aengland_bretwalda_authority
 						which = ROOT
+					}
+					set_variable = {
+						which = aengland_bretwalda_authority_2
+						which = aengland_bretwalda_authority
 					}
 				}				
 			}
@@ -942,10 +975,14 @@ character_event = {
 							value = 0.001
 						}
 					}
-				}			
+				}
 				set_variable = {
 					which = aengland_bretwalda_authority
 					value = 0
+				}
+				set_variable = {
+					which = aengland_bretwalda_authority_2
+					which = aengland_bretwalda_authority
 				}
 			}
 		}
@@ -1038,6 +1075,13 @@ character_event = {
 		OR = {
 			holds_anglo_saxon_kingdom_trigger = yes
 			has_landed_title = e_aengland
+			AND = {
+				has_global_flag = aengland_declared_supremacy
+				is_tributary = {
+					type = anglosaxon_tributary
+				}
+				suzerain = { has_landed_title = e_aengland }
+			}
 		}
 	}
 	
@@ -1296,57 +1340,190 @@ character_event = {
 		}		
 		
 		# Calculate total Bretwalda Authority
-		set_variable = {
-			which = aengland_bretwalda_authority_gain
-			which = authority_anglo_saxon_provinces_controlled
-		}
-		change_variable = {
-			which = aengland_bretwalda_authority_gain
-			which = authority_num_total_provinces_controlled
-		}
-		set_variable = {
-			which = aengland_bretwalda_authority_multiplier
-			value = 100
-		}
-		change_variable = {
-			which = aengland_bretwalda_authority_multiplier
-			which = bretwalda_diplomacy_effect
-		}
-		change_variable = {
-			which = aengland_bretwalda_authority_multiplier
-			which = bretwalda_martial_effect
-		}
-		change_variable = {
-			which = aengland_bretwalda_authority_multiplier
-			which = bretwalda_stewardship_effect
-		}
-		if = {		# Government effects
-			limit = { 
-				is_tribal = yes
-			}
-			subtract_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				value = 33
-			}
-		}
-		if = {		# Bloodline effects
-			limit = { 
-				any_owned_bloodline = {
-					has_bloodline_flag = aengland_bretwalda_bloodline
+		if = {
+			limit = {
+				NAND = {
+					has_global_flag = aengland_declared_supremacy
+					is_tributary = {
+						type = anglosaxon_tributary
+					}
+					suzerain = { has_landed_title = e_aengland }
 				}
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority_gain
+				which = authority_anglo_saxon_provinces_controlled
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_gain
+				which = authority_num_total_provinces_controlled
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = 100
 			}
 			change_variable = {
 				which = aengland_bretwalda_authority_multiplier
-				value = 15
+				which = bretwalda_diplomacy_effect
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				which = bretwalda_martial_effect
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				which = bretwalda_stewardship_effect
+			}
+			if = {		# Government effects
+				limit = { 
+					is_tribal = yes
+				}
+				subtract_variable = {
+					which = aengland_bretwalda_authority_multiplier
+					value = 33
+				}
+			}
+			if = {		# Bloodline effects
+				limit = { 
+					any_owned_bloodline = {
+						has_bloodline_flag = aengland_bretwalda_bloodline
+					}
+				}
+				change_variable = {
+					which = aengland_bretwalda_authority_multiplier
+					value = 15
+				}
+			}
+			multiply_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = 0.01
+			}
+			multiply_variable = {
+				which = aengland_bretwalda_authority_gain
+				which = aengland_bretwalda_authority_multiplier
 			}
 		}
-		multiply_variable = {
-			which = aengland_bretwalda_authority_multiplier
-			value = 0.01
-		}
-		multiply_variable = {
-			which = aengland_bretwalda_authority_gain
-			which = aengland_bretwalda_authority_multiplier
+		else = {
+			# Calculate annexation score
+			set_variable = {
+				which = aengland_bretwalda_authority		# We use this because it's possible to compare same variable in different scopes
+				value = 0
+			}
+			export_to_variable = {
+				which = num_provinces_in_realm
+				value = num_of_count_titles_in_realm
+			}
+			set_variable = {
+				which = score_num_provinces_in_realm
+				which = num_provinces_in_realm
+			}
+			multiply_variable = {
+				which = score_num_provinces_in_realm
+				value = 10
+			}
+			export_to_variable = {
+				which = realm_size_var
+				value = realm_size
+			}
+			set_variable = {
+				which = score_realm_size_var
+				which = realm_size_var
+			}
+			multiply_variable = {
+				which = score_realm_size_var
+				value = 4
+			}
+			
+			set_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = 100
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				which = bretwalda_diplomacy_effect
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				which = bretwalda_martial_effect
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				which = bretwalda_stewardship_effect
+			}
+			if = {
+				limit = { is_tribal = yes }
+				change_variable = {
+					which = aengland_bretwalda_authority_multiplier
+					value = 33
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							is_female = yes 
+							NOR = {
+								has_game_rule = {
+									name = gender
+									value = all
+								}
+								religion = promethean_pagan
+								has_religion_feature = religion_equal
+								has_religion_feature = religion_feature_pict
+								has_religion_feature = religion_feature_vasconic
+								has_religion_feature = religion_matriarchal
+								primary_title = {
+									has_law = status_of_women_4 
+								}
+							}
+						}
+						AND = {
+							is_female = no 
+							NOT = {
+								has_game_rule = {
+									name = gender
+									value = all
+								}
+							}
+							OR = {
+								has_religion_feature = religion_matriarchal
+								religion = britannic_pagan
+							}
+						}
+					}
+				}
+				change_variable = {
+					which = aengland_bretwalda_authority_multiplier
+					value = -33
+				}
+			}
+			divide_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = 100
+			}
+			
+			change_variable = {
+				which = aengland_bretwalda_authority
+				which = score_num_provinces_in_realm
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority
+				which = score_realm_size_var
+			}
+			multiply_variable = {
+				which = aengland_bretwalda_authority
+				which = aengland_bretwalda_authority_multiplier
+			}
+			
+			# Seizing control has a 1.5x cost modifier
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				which = aengland_bretwalda_authority
+			}
+			multiply_variable = {
+				which = aengland_bretwalda_authority_2
+				value = 1.5
+			}
 		}
 	}
 	
@@ -1362,6 +1539,7 @@ character_event = {
 	picture = "GFX_evt_feast_1"
 	
 	hide_window = yes
+	only_independent = yes
 	
 	trigger = {
 		has_landed_title = e_aengland
@@ -1390,6 +1568,64 @@ character_event = {
 	}
 }
 
+# Convert Anglo-Saxon tributaries to normal permanent tributaries if no longer eligible, and vice versa
+character_event = {
+	id = 320213
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			AND = {
+				is_tributary = {
+					type = anglosaxon_tributary
+				}
+				OR = {
+					is_anglosaxon_tributary_potential_trigger = no
+					suzerain = { is_anglosaxon_tributary_potential_trigger = no }
+				}
+			}
+			AND = {
+				is_tributary = yes
+				NOT = {
+					is_tributary = {
+						type = anglosaxon_tributary
+					}
+				}
+				is_anglosaxon_tributary_potential_trigger = yes
+				suzerain = { is_anglosaxon_tributary_potential_trigger = yes }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { 
+				is_tributary = {
+					type = anglosaxon_tributary
+				}
+			}
+			suzerain = {
+				remove_tributary = ROOT
+				make_tributary = { who = ROOT tributary_type = permanent }
+			}
+		}
+		else = {
+			suzerain = {
+				remove_tributary = ROOT
+				make_tributary = { who = ROOT tributary_type = anglosaxon_tributary }
+			}
+		}
+	}
+}
+
 # Declare Supremacy
 narrative_event = {
 	id = 320220
@@ -1402,6 +1638,8 @@ narrative_event = {
 	
 	immediate = {
 		set_global_flag = aengland_declared_supremacy
+		
+		1 = { province_event = { id = 320210 } }
 	}
 	
 	option = {
