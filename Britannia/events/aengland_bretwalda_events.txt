@@ -575,10 +575,10 @@ character_event = {
 				has_landed_title = e_aengland
 				independent = yes
 				is_tributary = no
-				# Check if controls >= 60 provinces and >= 75% of Anglo-Saxon provinces
+				# Check if controls >= 70 provinces and >= 75% of Anglo-Saxon provinces
 				check_variable = { 
 					which = num_provinces_controlled
-					value = 60
+					value = 70
 				}
 				check_variable = { 
 					which = fraction_anglo_saxon_provinces_controlled
@@ -908,6 +908,46 @@ character_event = {
 	immediate = {
 		1 = {
 			province_event = { id = 320210 }
+		}
+		
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					holds_anglo_saxon_kingdom_trigger = yes
+					has_landed_title = e_aengland
+				}
+			}
+			if = {
+				limit = {
+					holds_anglo_saxon_kingdom_trigger = yes
+					NOT = {
+						check_variable = { 
+							which = aengland_hegemony_score
+							value = 0.001
+						}
+					}
+				}			
+				set_variable = {
+					which = aengland_hegemony_score
+					value = 0
+				}
+			}
+			
+			if = {
+				limit = {
+					has_landed_title = e_aengland
+					NOT = {
+						check_variable = { 
+							which = aengland_bretwalda_authority
+							value = 0.001
+						}
+					}
+				}			
+				set_variable = {
+					which = aengland_bretwalda_authority
+					value = 0
+				}
+			}
 		}
 		
 		# Calculate number of provinces in Britannia on startup

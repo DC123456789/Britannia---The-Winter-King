@@ -2376,8 +2376,35 @@ character_event = {
 	}
 }
 
+# Mark starting theocracies so they don't trigger
 character_event = {
 	id = 3129962
+	desc = "A Theocracy!"
+	picture = GFX_evt_council
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = debug
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_playable_ruler = {
+			limit = { is_theocracy = yes }
+			set_character_flag = bad_theocracy_marked
+			capital_scope = {
+				set_province_flag = supposed_to_be_theocracy
+			}
+		}
+	}
+}
+
+character_event = {
+	id = 3129963
 	desc = "Not Tribal!"
 	picture = GFX_evt_council
 	
@@ -2418,7 +2445,7 @@ character_event = {
 
 # Red Pandas
 character_event = {
-	id = 3129963
+	id = 3129964
 	desc = "A Red Panda!"
 	picture = GFX_evt_council
 	
