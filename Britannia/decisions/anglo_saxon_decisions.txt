@@ -867,7 +867,7 @@ targetted_decisions = {
 					text = aengland_seize_control_enough_authority_tooltip
 					hidden_tooltip = {
 						check_variable = { 
-							which = aengland_bretwalda_authority
+							which = aengland_bretwalda_authority_2
 							which = ROOT
 						}
 					}
@@ -908,6 +908,80 @@ targetted_decisions = {
 					}
 				}
 				ROOT = { character_event = { id = 320225 } }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	aengland_vassalize_subject = {
+		filter = independent_rulers
+		ai_check_interval = 12
+		
+		from_potential = {
+			has_landed_title = e_aengland
+			has_global_flag = aengland_declared_supremacy
+			NOT = { has_global_flag = aengland_united }
+		}
+		potential = {
+			is_tributary = { type = anglosaxon_tributary }
+			suzerain = { character = FROM }
+		}
+		allow = {
+			war = no
+			FROM = { 
+				war = no 
+				prisoner = no
+				prestige = 2000
+				NOT = { has_truce = ROOT }
+				custom_tooltip = {
+					text = aengland_vassalize_enough_authority_tooltip
+					hidden_tooltip = {
+						check_variable = { 
+							which = aengland_bretwalda_authority
+							which = ROOT
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			FROM = {
+				prestige = -200
+				subtract_variable = { 
+					which = aengland_bretwalda_authority
+					which = ROOT
+				}
+				hidden_tooltip = {
+					ROOT = {
+						set_variable = { 
+							which = aengland_bretwalda_authority_2
+							which = aengland_bretwalda_authority
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = aengland_vassalize_subject_tooltip
+			}
+			hidden_tooltip = {
+				any_independent_ruler = {
+					limit = {
+						is_tributary = {
+							type = anglosaxon_tributary
+							suzerain = FROM
+						}
+					}
+					opinion = {					
+						modifier = opinion_furious
+						who = FROM
+						years = 10
+					}
+				}
+				ROOT = { character_event = { id = 320230 } }
 			}
 		}
 		revoke_allowed = {
