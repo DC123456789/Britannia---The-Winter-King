@@ -1714,69 +1714,6 @@ narrative_event = {
 }
 
 
-narrative_event = {
-	id = 320220
-	title = EVTNAME320220	
-	desc = EVTDESC320220
-	picture = GFX_evt_royal_court
-	major = yes
-	
-	is_triggered_only = yes
-	
-	immediate = {
-		set_global_flag = aengland_declared_supremacy
-		
-		1 = { province_event = { id = 320210 } }
-	}
-	
-	option = {
-		name = "EVTOPTA320220"		# Bretwalda
-		trigger = {
-			character = ROOT
-		}
-	}
-		
-	option = {
-		name = "EVTOPTB320220"		# Vassals or Subject Kings
-		trigger = {
-			NOT = { character = ROOT }
-			OR = {
-				is_tributary = { 
-					type = anglosaxon_tributary 
-					suzerain = ROOT
-				}
-				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
-					}
-				}
-				top_liege = { character = ROOT }
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTC320220"		# Other Rulers
-		trigger = {
-			NOR = { 
-				character = ROOT
-				top_liege = { character = ROOT }
-				is_tributary = { 
-					type = anglosaxon_tributary 
-					suzerain = ROOT
-				}
-				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
-					}
-				}
-			}
-		}
-	}
-}
-
 
 # Seize Control Demand
 letter_event = {
@@ -2248,5 +2185,94 @@ letter_event = {
 	
 	option = {
 		name = "EVTOPTA320232"
+	}
+}
+
+# King of the Anglo-Saxons
+narrative_event = {
+	id = 320235
+	title = EVTNAME320235	
+	desc = EVTDESC320235
+	picture = GFX_evt_royal_court
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = aengland_united
+		
+		any_province = {
+			limit = { has_province_modifier = province_not_dejure_liege }
+			remove_province_modifier = province_not_dejure_liege
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320235"		# Bretwalda
+		trigger = {
+			character = ROOT
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB320235"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320235"		# Britons
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+			}
+			is_brythonic_culture_trigger = yes
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320235"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				is_brythonic_culture_trigger = yes
+			}
+		}
 	}
 }
