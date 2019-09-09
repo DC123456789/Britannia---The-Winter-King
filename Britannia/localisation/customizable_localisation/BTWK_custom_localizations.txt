@@ -1631,6 +1631,30 @@ defined_text = {
 	}
 }
 
+defined_text = {
+	name = GetAenglandHegemonyScoreCultureModifier
+	
+	text = {
+		trigger = { 
+			NOT = { culture_group = germanic }
+		}
+		localisation_key = string_hegemony_score_not_germanic_modifier
+	}
+	text = {
+		trigger = {
+			culture_group = germanic
+			is_ingvaeonic_culture_trigger = no
+		}
+		localisation_key = string_hegemony_score_not_ingvaeonic_modifier
+	}
+	text = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		localisation_key = String_empty_space
+	}
+}
+
 # Bretwalda Authority Localisations
 defined_text = {
 	name = GetBretwaldaAuthorityChange
@@ -1672,6 +1696,61 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetAenglandBretwaldaAuthorityLoss
+	text = {
+		trigger = {
+			is_variable_equal = { 
+				which = aengland_bretwalda_authority_gain
+				value = 0
+			}
+		}
+		localisation_key = string_bretwalda_authority_no_change
+	}
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { 
+					which = aengland_bretwalda_authority_gain
+					value = 0
+				}
+			}
+		}
+		localisation_key = string_bretwalda_authority_loss_value
+	}
+}
+
+defined_text = {
+	name = GetAenglandBretwaldaAuthorityNotIndependentReason
+	
+	text = {
+		trigger = {
+			independent = no
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.6
+			}
+			is_tributary = no
+		}
+		localisation_key = string_hegemony_score_not_independent
+	}
+	text = {
+		trigger = { 
+			OR = {
+				independent = yes
+				NOT = {
+					check_variable = { 
+						which = fraction_anglo_saxon_provinces_controlled
+						value = 0.6
+					}
+				}
+				is_tributary = yes
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
 	name = GetAenglandBretwaldaAuthorityTooFewProvincesReason
 	
 	text = {
@@ -1682,14 +1761,28 @@ defined_text = {
 					value = 70
 				}
 			}
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.6
+			}
+			is_tributary = no
 		}
 		localisation_key = string_bretwalda_authority_too_few_provinces
 	}
 	text = {
 		trigger = { 
-			check_variable = { 
-				which = num_provinces_controlled
-				value = 70
+			OR = {
+				check_variable = { 
+					which = num_provinces_controlled
+					value = 70
+				}
+				NOT = {
+					check_variable = { 
+						which = fraction_anglo_saxon_provinces_controlled
+						value = 0.6
+					}
+				}
+				is_tributary = yes
 			}
 		}
 		localisation_key = String_empty_space
@@ -1707,14 +1800,34 @@ defined_text = {
 					value = 0.75
 				}
 			}
+			check_variable = { 
+				which = fraction_anglo_saxon_provinces_controlled
+				value = 0.60
+			}
+			is_tributary = no
 		}
-		localisation_key = string_bretwalda_authority_not_enough_AS_control
+		localisation_key = string_bretwalda_authority_less_than_75_AS_control
+	}
+	text = {
+		trigger = {
+			NOT = {
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.60
+				}
+			}
+			is_tributary = no
+		}
+		localisation_key = string_bretwalda_authority_less_than_60_AS_control
 	}
 	text = {
 		trigger = { 
-			check_variable = { 
-				which = fraction_anglo_saxon_provinces_controlled
-				value = 0.75
+			OR = {
+				check_variable = { 
+					which = fraction_anglo_saxon_provinces_controlled
+					value = 0.75
+				}
+				is_tributary = yes
 			}
 		}
 		localisation_key = String_empty_space

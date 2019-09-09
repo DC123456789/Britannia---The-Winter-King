@@ -1356,6 +1356,15 @@ is_unfit_to_rule_aengland_trigger = {
 		}
 		is_ingvaeonic_culture_trigger = no
 	}
+	OR = {
+		NOT = { has_global_flag = aengland_declared_supremacy }
+		NOT = {
+			check_variable = { 
+				which = aengland_bretwalda_authority
+				value = 100
+			}
+		}
+	}
 	NOT = { has_character_flag = anglo_saxons_return_leader }
 }
 
@@ -1986,7 +1995,10 @@ holds_anglo_saxon_kingdom_trigger = {
 }
 
 is_anglosaxon_tributary_potential_trigger = {
-	is_ingvaeonic_culture_trigger = yes
+	OR = {
+		is_ingvaeonic_culture_trigger = yes
+		has_landed_title = e_aengland
+	}
 	primary_title = {
 		capital_scope = {
 			region = world_britannia

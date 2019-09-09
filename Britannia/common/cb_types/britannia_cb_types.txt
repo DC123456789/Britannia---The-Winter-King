@@ -10737,17 +10737,7 @@ tributary_anglosaxon_cb = {
 					only_check_triggers = yes
 				}
 			}
-			primary_title = {
-				capital_scope = {
-					region = world_britannia
-				}
-				OR = {
-					lower_tier_than = DUKE
-					title = e_aengland
-					empire = { title = e_aengland }
-				}
-			}
-			is_ingvaeonic_culture_trigger = yes
+			is_anglosaxon_tributary_potential_trigger = yes
 		}
 		FROM = {
 			is_nomadic = no
@@ -10772,20 +10762,10 @@ tributary_anglosaxon_cb = {
 				is_tributary = { type = foederati }
 				is_tributary = { type = roman_province }
 			}
-			is_ingvaeonic_culture_trigger = yes
-			primary_title = {
-				capital_scope = {
-					region = world_britannia
-				}
-				OR = {
-					lower_tier_than = DUKE
-					title = e_aengland
-					empire = { title = e_aengland }
-				}
-			}
+			is_anglosaxon_tributary_potential_trigger = yes
 		}
 		
-		# The attacker needs a border, or be at most one sea zone away from one of the target's counties, or borders one of your other subject kingdoms
+		# The attacker needs a border, or borders one of your other subject kingdoms
 		FROM = {
 			any_realm_province = {
 				any_neighbor_province = {
@@ -10814,30 +10794,10 @@ tributary_anglosaxon_cb = {
 
 	is_valid = {
 		ROOT = {
-			is_ingvaeonic_culture_trigger = yes
-			primary_title = {
-				capital_scope = {
-					region = world_britannia
-				}
-				OR = {
-					lower_tier_than = DUKE
-					title = e_aengland
-					empire = { title = e_aengland }
-				}
-			}
+			is_anglosaxon_tributary_potential_trigger = yes
 		}
 		FROM = {
-			is_ingvaeonic_culture_trigger = yes
-			primary_title = {
-				capital_scope = {
-					region = world_britannia
-				}
-				OR = {
-					lower_tier_than = DUKE
-					title = e_aengland
-					empire = { title = e_aengland }
-				}
-			}
+			is_anglosaxon_tributary_potential_trigger = yes
 		}
 	}
 
@@ -10872,6 +10832,20 @@ tributary_anglosaxon_cb = {
 				modifier = opinion_forced_tributary 
 				who = ROOT
 				years = 15
+			}
+			if = {
+				limit = { 
+					has_landed_title = e_aengland
+					NOT = { has_global_flag = aengland_declared_supremacy }
+				}
+				set_character_flag = bretwalda_is_subject_kingdom
+				tooltip = {
+					e_aengland = {
+						show_scope_change = no
+						destroy_landed_title = THIS 
+					}
+				}
+				hidden_tooltip = { character_event = { id = 320204 } }
 			}
 		}
 

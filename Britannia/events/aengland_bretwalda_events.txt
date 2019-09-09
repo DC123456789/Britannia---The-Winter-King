@@ -438,10 +438,15 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = e_aengland
-		is_unfit_to_rule_aengland_trigger = yes
-		had_character_flag = {
-			flag = is_unfit_to_rule_aengland
-			days = 240
+		OR = {
+			AND = {
+				had_character_flag = {
+					flag = is_unfit_to_rule_aengland
+					days = 240
+				}
+				is_unfit_to_rule_aengland_trigger = yes
+			}
+			has_character_flag = bretwalda_is_subject_kingdom
 		}
 	}
 	
@@ -452,6 +457,7 @@ narrative_event = {		# Cynerice of Aenglaland Lost (Unfit to Rule)
 	immediate = {
 		clr_character_flag = is_unfit_to_rule_aengland
 		clr_global_flag = aengland_declared_supremacy
+		clr_character_flag = bretwalda_is_subject_kingdom
 	}
 	
 	option = {
@@ -544,6 +550,7 @@ character_event = {
 				value = 0.01
 			}
 		}
+		NOT = { has_global_flag = aengland_united }
 	}
 	
 	immediate = {
@@ -578,35 +585,19 @@ character_event = {
 			}
 		}
 		
-		# Bretwalda Authority Calculation
+		# Bretwalda Authority Change
 		if = {
 			limit = {
 				has_landed_title = e_aengland
-				independent = yes
-				is_tributary = no
-				# Check if controls >= 70 provinces and >= 75% of Anglo-Saxon provinces
-				check_variable = { 
-					which = num_provinces_controlled
-					value = 70
-				}
-				check_variable = { 
-					which = fraction_anglo_saxon_provinces_controlled
-					value = 0.75
-				}
 			}
 			change_variable = {
 				which = aengland_bretwalda_authority
 				which = aengland_bretwalda_authority_gain
 			}
+			
 			set_variable = {
 				which = aengland_bretwalda_authority_2
 				which = aengland_bretwalda_authority
-			}
-		}
-		else = {
-			subtract_variable = {
-				which = aengland_hegemony_score
-				value = 6
 			}
 		}
 		
@@ -1030,7 +1021,12 @@ province_event = {
 			value = 0
 		}
 		any_independent_ruler = {
-			limit = { is_ingvaeonic_culture_trigger = yes }
+			limit = { 
+				OR = {
+					has_landed_title = e_aengland
+					is_ingvaeonic_culture_trigger = yes 
+				}
+			}
 			any_realm_province = {
 				limit = { region = world_britannia }
 				change_variable = {
@@ -1078,7 +1074,10 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ingvaeonic_culture_trigger = yes
+		OR = {
+			is_ingvaeonic_culture_trigger = yes
+			has_landed_title = e_aengland
+		}
 		OR = {
 			holds_anglo_saxon_kingdom_trigger = yes
 			has_landed_title = e_aengland
@@ -1344,7 +1343,25 @@ character_event = {
 				which = aengland_hegemony_score_gain
 				value = 1.15
 			}
-		}		
+		}
+		if = {		# Culture effects
+			limit = { 
+				is_ingvaeonic_culture_trigger = no
+			}
+			multiply_variable = {
+				which = aengland_hegemony_score_gain
+				value = 0.50
+			}
+		}
+		if = {		# Culture group effects
+			limit = { 
+				NOT = { culture_group = germanic }
+			}
+			multiply_variable = {
+				which = aengland_hegemony_score_gain
+				value = 0.50
+			}
+		}
 		
 		# Calculate total Bretwalda Authority
 		if = {
@@ -1408,6 +1425,93 @@ character_event = {
 			multiply_variable = {
 				which = aengland_bretwalda_authority_gain
 				which = aengland_bretwalda_authority_multiplier
+			}
+			
+			if = {		# Culture effects
+				limit = { 
+					is_ingvaeonic_culture_trigger = no
+				}
+				multiply_variable = {
+					which = aengland_bretwalda_authority_gain
+					value = 0.50
+				}
+			}
+			if = {		# Culture group effects
+				limit = { 
+					NOT = { culture_group = germanic }
+				}
+				multiply_variable = {
+					which = aengland_bretwalda_authority_gain
+					value = 0.50
+				}
+			}
+			
+			# No gain if controls < 75% of Anglo-Saxon provinces or < 70 provinces in total
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							check_variable = { 
+								which = fraction_anglo_saxon_provinces_controlled
+								value = 0.75
+							}
+						}
+						NOT = {
+							check_variable = { 
+								which = num_provinces_controlled
+								value = 70
+							}
+						}
+					}
+				}
+				set_variable = {
+					which = aengland_bretwalda_authority_gain
+					value = 0
+				}
+			}
+			
+			# Lose Authority if doesn't control at 60% of all Anglo-Saxon provinces
+			# Gain = 2 * (%Controlled - 60), capped at 80
+			if = {
+				limit = {
+					NOT = {
+						check_variable = { 
+							which = fraction_anglo_saxon_provinces_controlled
+							value = 0.60
+						}
+					}
+				}
+				set_variable = {
+					which = aengland_bretwalda_authority_gain
+					which = percent_anglo_saxon_provinces_controlled
+				}
+				subtract_variable = {
+					which = aengland_bretwalda_authority_gain
+					value = 60
+				}
+				multiply_variable = {
+					which = aengland_bretwalda_authority_gain
+					value = 2
+				}
+			}
+			
+			# Enforce max loss of 80 per year - happens automatically if tributary
+			if = {
+				limit = {
+					OR = {
+						NOT = {
+							check_variable = { 
+								which = aengland_bretwalda_authority_gain
+								value = -80
+							}
+						}
+						is_tributary = yes
+					}
+				}
+				set_variable = { 
+					which = aengland_bretwalda_authority_gain
+					value = -80
+				}
 			}
 		}
 		else = {
