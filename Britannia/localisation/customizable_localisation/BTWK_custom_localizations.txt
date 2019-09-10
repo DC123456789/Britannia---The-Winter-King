@@ -1835,6 +1835,25 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetAenglandBretwaldaAuthorityControlsAenglandModifier
+	
+	text = {
+		trigger = {
+			has_character_flag = completely_controls_aengland
+		}
+		localisation_key = string_bretwalda_authority_controls_aengland
+	}
+	text = {
+		trigger = { 
+			NOT = {
+				has_character_flag = completely_controls_aengland
+			}
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
 	name = GetAenglandBretwaldaAuthorityDiplomacyChange
 	
 	text = {
@@ -1903,6 +1922,33 @@ defined_text = {
 	text = {
 		trigger = { 
 			is_tribal = no
+		}
+		localisation_key = String_empty_space
+	}
+}
+
+defined_text = {
+	name = GetAenglandHegemonyIsCapped
+	
+	text = {
+		trigger = {
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 1200
+			}
+			NOT = { has_character_flag = completely_controls_aengland }
+		}
+		localisation_key = string_bretwalda_authority_is_capped
+	}
+	text = {
+		trigger = { 
+			NAND = {
+				check_variable = {
+					which = aengland_bretwalda_authority
+					value = 1200
+				}
+				NOT = { has_character_flag = completely_controls_aengland }
+			}
 		}
 		localisation_key = String_empty_space
 	}
@@ -1990,6 +2036,23 @@ defined_text = {
 			NOT = { ruled_years = 10 }
 		}
 		localisation_key = string_subject_bretwalda_authority_ruled_years_loss
+	}
+}
+
+defined_text = {
+	name = GetAenglandSubjectBretwaldaAuthorityIsMaxedOut
+	
+	text = {
+		trigger = {
+			has_character_flag = max_annexation_score
+		}
+		localisation_key = string_subject_bretwalda_authority_is_maxed_out
+	}
+	text = {
+		trigger = {
+			NOT = { has_character_flag = max_annexation_score }
+		}
+		localisation_key = String_empty_space
 	}
 }
 
