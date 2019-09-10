@@ -2344,15 +2344,498 @@ letter_event = {
 }
 
 ### BATTLE OF BRUNANBURH CHAIN
-# 320235 Start of chain (notify Bretwalda)
-# 320236 Bounce event 320237 to other rulers
-# 320237 Other rulers asked to join coalition
-# 320238 Bounce event 320239 to other Bretwalda
-# 320239 Notify Bretwalda that the war is about to begin
-# 320240 War begins
-# 320241 Coalition Defeated
-# 320242 Coalition Victorius
-# 320243 White Peace
+# Start of chain (notify Bretwalda)
+character_event = {
+	id = 320235
+	title = "EVTNAME320235"
+	desc = "EVTDESC320235"
+	hide_new = yes
+	
+	picture = "GFX_evt_courtiers_talking"
+	
+	only_independent = yes
+	
+	trigger = {
+		has_landed_title = e_aengland
+		has_global_flag = aengland_declared_supremacy
+		NOT = { has_global_flag = aengland_united }
+		completely_controls_region = custom_aengland
+		NOT = { has_global_flag = battle_of_brunanburh_war_start }
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = { 
+			factor = 0.9
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 600
+			}
+		}
+		modifier = { 
+			factor = 0.8
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 800
+			}
+		}
+		modifier = { 
+			factor = 0.66
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 900
+			}
+		}
+		modifier = { 
+			factor = 0.5
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 1000
+			}
+		}
+		modifier = { 
+			factor = 0.4
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 1100
+			}
+		}
+		modifier = { 
+			factor = 0.3
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 1200
+			}
+		}
+		modifier = { 
+			factor = 0.2
+			check_variable = {
+				which = aengland_bretwalda_authority
+				value = 1250
+			}
+		}
+		modifier = { 
+			factor = 0.8
+			war = yes
+		}
+		# In a major war
+		modifier = {
+			factor = 0.5
+			any_war = {
+				OR = {
+					AND = {
+						attacker = { character = ROOT }
+						defender = {
+							relative_power_including_allies_defender = {
+								who = ROOT
+								power = 0.66
+							}
+						}
+					}
+					AND = {
+						defender = { character = ROOT }
+						attacker = {
+							relative_power_including_allies_attacker = {
+								who = ROOT
+								power = 0.66
+							}
+						}
+					}
+				}
+			}
+		}
+		# Losing a major war
+		modifier = {
+			factor = 0.25
+			any_war = {
+				OR = {
+					AND = {
+						attacker = { character = ROOT }
+						NOT = { war_score = 30 }
+					}
+					AND = {
+						defender = { character = ROOT }
+						war_score = 30
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_global_flag = battle_of_brunanburh_war_start
+		
+		# Bounce event to other rulers
+		# We use a province event to guarantee that it actually happens
+		6 = { province_event = { id = 320236 days = 45 random = 15 } }
+	}
+	
+	option = {
+		name = "EVTOPTA320235"
+	}
+}
+
+# Bounce events 320237 and 320238
+province_event = {
+	id = 320236
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		e_aengland = { has_holder = yes }
+		has_global_flag = aengland_declared_supremacy
+	}
+	
+	immediate = {
+		e_aengland = { holder_scope = { save_event_target_as = aengland_holder } }
+		any_independent_ruler = {
+			limit = {
+				primary_title = {
+					capital_scope = { is_in_british_isles_trigger = yes }
+				}
+				any_realm_province = { is_in_british_isles_trigger = yes }
+				NOT = {
+					has_landed_title = e_aengland
+				}
+			}
+			character_event = { id = 320237 }
+		}
+		6 = { province_event = { id = 320238 days = 2 } }
+	}
+}
+
+# Other rulers asked to join coalition
+character_event = {
+	id = 320237
+	desc = "EVTDESC320237"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		e_aengland = { has_holder = yes }
+		has_global_flag = aengland_declared_supremacy
+	}
+	
+	option = {			# Accept
+		name = "EVTOPTA320237"
+		prestige = 100
+		set_character_flag = joined_brunanburh_coalition
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0
+				OR = {
+					has_non_aggression_pact_with = event_target:aengland_holder
+					is_allied_with = event_target:aengland_holder
+					opinion = { who = event_target:aengland_holder value = 80 }
+					# Loyal Tributary
+					AND = {
+						opinion = { who = event_target:aengland_holder value = 60 }
+						is_tributary = {
+							suzerain = event_target:aengland_holder
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 3
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 1.25
+				higher_tier_than = KING
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = event_target:aengland_holder value = -40 } }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = event_target:aengland_holder value = -20 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:aengland_holder value = 0 } }
+			}
+			modifier = {
+				factor = 0.85
+				opinion = { who = event_target:aengland_holder value = 20 }
+			}
+			modifier = {
+				factor = 0.6
+				opinion = { who = event_target:aengland_holder value = 40 }
+			}
+			modifier = {
+				factor = 0.4
+				opinion = { who = event_target:aengland_holder value = 60 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = event_target:aengland_holder value = -40 } }
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = event_target:aengland_holder value = -20 } }
+			}
+			modifier = {
+				factor = 2
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				NOT = { opinion = { who = event_target:aengland_holder value = -40 } }
+			}
+			modifier = {
+				factor = 1.75
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				NOT = { opinion = { who = event_target:aengland_holder value = -20 } }
+			}
+			modifier = {
+				factor = 1.4
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				NOT = { opinion = { who = event_target:aengland_holder value = 0 } }
+			}
+			modifier = {
+				factor = 1.2
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				NOT = { opinion = { who = event_target:aengland_holder value = 20 } }
+			}
+			modifier = {
+				factor = 0.8
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				opinion = { who = event_target:aengland_holder value = 40 }
+			}
+			modifier = {
+				factor = 5
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 1.5
+				}
+			}
+			modifier = {
+				factor = 3
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 1
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 0.86
+				}
+			}
+			modifier = {
+				factor = 1.5
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 0.75
+				}
+			}
+			modifier = {
+				factor = 1.25
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 0.66
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = {
+					relative_power = {
+						who = event_target:aengland_holder
+						power = 0.33
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				NOT = {
+					relative_power = {
+						who = event_target:aengland_holder
+						power = 0.2
+					}
+				}
+			}
+			modifier = {
+				factor = 1.5
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 0.75
+				}
+			}
+			modifier = {
+				factor = 1.25
+				is_tributary = {
+					suzerain = event_target:aengland_holder
+				}
+				relative_power = {
+					who = event_target:aengland_holder
+					power = 0.66
+				}
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { culture_group = event_target:aengland_holder }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { religion = event_target:aengland_holder }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { religion_group = event_target:aengland_holder }
+			}
+			modifier = {
+				factor = 1.25
+				any_realm_province = {
+					any_neighbor_province = {
+						owner = {
+							top_liege = {
+								character = event_target:aengland_holder
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.85
+				event_target:aengland_holder = {
+					NOT = {
+						any_province = {
+							distance = {
+								who = ROOT
+								value = 350
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				event_target:aengland_holder = {
+					NOT = {
+						any_province = {
+							distance = {
+								who = ROOT
+								value = 500
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {			# Not a good idea
+		name = "EVTOPTB320237"
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = event_target:aengland_holder value = -60 } }
+				NOR = {
+					has_non_aggression_pact_with = event_target:aengland_holder
+					is_allied_with = event_target:aengland_holder
+				}
+			}
+		}
+	}
+}
+
+# Bounce event 320239 to Bretwalda
+province_event = {
+	id = 320238
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		e_aengland = { has_holder = yes }
+		has_global_flag = aengland_declared_supremacy
+	}
+	
+	immediate = {
+		e_aengland = { holder_scope = { character_event = { id = 320239 } } }
+		6 = { province_event = { id = 320240 days = 2 } }
+	}
+}
+
+# Notify Bretwalda that the war is about to begin
+character_event = {
+	id = 320239
+	title = "EVTNAME320239"
+	desc = "EVTDESC320239"
+	hide_new = yes
+	
+	picture = "GFX_evt_saxon_army"
+	
+	only_independent = yes
+	
+	trigger = {
+		e_aengland = { has_holder = yes }
+		has_global_flag = aengland_declared_supremacy
+	}
+	
+	option = {
+		name = "EVTOPTA320239"
+	}
+}
+
+# Bounce event 320241
+province_event = {
+	id = 320240
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		e_aengland = { has_holder = yes }
+		has_global_flag = aengland_declared_supremacy
+	}
+	
+	immediate = {
+		e_aengland = { holder_scope = { character_event = { id = 320241 } } }
+	}
+}
+
+# 320241 War begins
+# 320242 Coalition Defeated
+# 320243 Coalition Victorius
+# 320244 White Peace
 
 # King of the Anglo-Saxons
 narrative_event = {
