@@ -8721,7 +8721,6 @@ anglosaxon_subjugation = {
 	hostile_against_others = yes
 	is_permanent = yes
 	can_ask_to_join_war = yes
-	defender_unoccupied_warscore = yes
 	
 	sort_priority = 2000
 	
@@ -11334,5 +11333,146 @@ full_kingdom_invasion = {		# Take ALL titles within the kingdom and all occupied
 	# ai importance placed on this CB: scope is the targeted title, ROOT is the attacking character, FROM is the defending character
 	ai_will_do = { 
 		factor = 1
+	}
+}
+# Aengland Unification Coalition War
+battle_of_brunanburh_cb = {
+	name = CB_NAME_BATTLE_OF_BRUNANBURH
+	war_name = WAR_NAME_BATTLE_OF_BRUNANBURH
+	sprite = 17
+	truce_days = 1825
+	hostile_against_others = yes
+	is_permanent = no
+	can_call_allies = yes
+	can_call_vassals = yes
+	can_ask_to_join_war = no
+	reflect_titleholder_change = yes
+	defender_unoccupied_warscore = yes
+	capturing_attacker_is_complete_victory = no
+	battle_warscore_mult = 0.75
+	
+	allow_distant = yes
+	
+	sort_priority = 1500
+	
+	can_use = {
+		FROM = {
+			has_landed_title = e_aengland
+			has_global_flag = aengland_declared_supremacy
+		}
+	}
+	
+	can_use_title = {
+		title = e_aengland
+	}
+
+	is_valid = {
+		FROM = {
+			has_landed_title = e_aengland
+		}
+	}
+	
+	on_add = {
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+	}
+	
+	on_success = {
+		ROOT = {
+			prestige = 500
+			participation_scaled_prestige = 500
+			set_character_flag = brunanburh_alliance_member
+		}
+		any_attacker = {
+			limit = { NOT = { character = ROOT } }
+			hidden_tooltip = { participation_scaled_prestige = 500 }
+			set_character_flag = brunanburh_alliance_member
+		}
+		
+		FROM = {
+			prestige = -1000
+			custom_tooltip = {
+				text = battle_of_brunanburh_alliance_victory_tooltip
+			}
+			hidden_tooltip = { character_event = { id = 320243 } }
+		}
+	}
+
+	on_fail = {
+		ROOT = {
+			prestige = -200
+		}
+		any_attacker = {
+			set_character_flag = brunanburh_alliance_member
+		}
+		FROM = {
+			prestige = 200
+		}
+		FROM = {
+			participation_scaled_prestige = 200
+			hidden_tooltip = { character_event = { id = 320244 } }
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 200 }
+		}
+	}
+
+	on_reverse_demand = {
+		ROOT = {
+			prestige = -500
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 2.0
+			}
+			set_character_flag = brunanburh_alliance_member
+		}
+		any_attacker = {
+			limit = { NOT = { character = ROOT } }
+			hidden_tooltip = { participation_scaled_prestige = -500 }
+			set_character_flag = brunanburh_alliance_member
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 0.5
+			}
+		}
+		FROM = {
+			prestige = 500
+		}
+		FROM = {
+			participation_scaled_prestige = 500
+			custom_tooltip = {
+				text = battle_of_brunanburh_aengland_victory_tooltip
+			}
+			hidden_tooltip = { character_event = { id = 320242 } }
+		}
+		any_defender = {
+			limit = { NOT = { character = FROM } }
+			hidden_tooltip = { participation_scaled_prestige = 200 }
+		}
+	}
+	
+	on_invalidation = {
+		clr_global_flag = battle_of_brunanburh_war_start
+		FROM = { character_event = { id = 320244 } }
+	}
+
+	attacker_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	attacker_ai_defeat_worth = {
+		factor = 100
+	}
+
+	defender_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	defender_ai_defeat_worth = {
+		factor = 100
+	}
+	
+	ai_will_do = { 
+		factor = 1	
 	}
 }

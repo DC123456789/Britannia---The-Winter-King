@@ -2360,7 +2360,19 @@ character_event = {
 		has_global_flag = aengland_declared_supremacy
 		NOT = { has_global_flag = aengland_united }
 		completely_controls_region = custom_aengland
-		NOT = { has_global_flag = battle_of_brunanburh_war_start }
+		NOR = { 
+			has_global_flag = battle_of_brunanburh_war_start
+			has_global_flag = won_battle_of_brunanburh
+			AND = {
+				has_global_flag = battle_of_brunanburh_war_over
+				NOT = {
+					had_global_flag = {
+						flag = battle_of_brunanburh_war_over
+						days = 3650		# 10 years since last war
+					}
+				}
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -2467,7 +2479,12 @@ character_event = {
 		
 		# Bounce event to other rulers
 		# We use a province event to guarantee that it actually happens
-		6 = { province_event = { id = 320236 days = 45 random = 15 } }
+		6 = { 
+			province_event = { id = 320236 days = 45 random = 15 } 
+			
+			# Cleanup in case of someone dying or the event chain messing up
+			province_event = { id = 320249 days = 90 }
+		}
 	}
 	
 	option = {
@@ -2524,8 +2541,80 @@ character_event = {
 	
 	option = {			# Accept
 		name = "EVTOPTA320237"
+		# Not already at war
+		trigger = {
+			NOT = {
+				any_war = {
+					OR = {
+						AND = {
+							any_attacker = {
+								character = event_target:aengland_holder
+							}
+							any_defender = {
+								character = ROOT
+							}
+						}
+						AND = {
+							any_attacker = {
+								character = ROOT
+							}
+							any_defender = {
+								character = event_target:aengland_holder
+							}
+						}
+					}
+				}
+			}
+		}
 		prestige = 100
 		set_character_flag = joined_brunanburh_coalition
+		custom_tooltip = {
+			text = EVTOPTA320237TT
+		}
+		# White Peace out of wars with other coalition members
+		if = {
+			limit = { 
+				ai = yes
+				war = yes
+			}
+			any_war = {
+				limit = {
+					OR = {
+						AND = {
+							attacker = { character = ROOT }							
+							defender = { 
+								ai = yes
+								primary_title = {
+									capital_scope = { is_in_british_isles_trigger = yes }
+								}
+								any_realm_province = { is_in_british_isles_trigger = yes }
+								NOT = {
+									has_landed_title = e_aengland
+								}
+							}
+							NOT = { war_score = 80 }
+						}
+						AND = {
+							attacker = {
+								ai = yes
+								primary_title = {
+									capital_scope = { is_in_british_isles_trigger = yes }
+								}
+								any_realm_province = { is_in_british_isles_trigger = yes }
+								NOT = {
+									has_landed_title = e_aengland
+								}
+							}							
+							defender = { 
+								character = ROOT
+							}
+							war_score = -80
+						}
+					}
+				}
+				end_war = whitepeace
+			}
+		}
 		ai_chance = {
 			factor = 80
 			modifier = {
@@ -2558,6 +2647,10 @@ character_event = {
 			modifier = {
 				factor = 0.5
 				trait = craven
+			}
+			modifier = {
+				factor = 0.8
+				lower_tier_than = KING
 			}
 			modifier = {
 				factor = 1.25
@@ -2666,6 +2759,22 @@ character_event = {
 				}
 			}
 			modifier = {
+				factor = 1.1
+				realm_levies = 2000
+			}
+			modifier = {
+				factor = 1.25
+				realm_levies = 3000
+			}
+			modifier = {
+				factor = 1.5
+				realm_levies = 4000
+			}
+			modifier = {
+				factor = 2
+				realm_levies = 5000
+			}
+			modifier = {
 				factor = 0.85
 				NOT = {
 					relative_power = {
@@ -2747,7 +2856,67 @@ character_event = {
 						any_province = {
 							distance = {
 								who = ROOT
+								value = 400
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				event_target:aengland_holder = {
+					NOT = {
+						any_province = {
+							distance = {
+								who = ROOT
 								value = 500
+							}
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				war = yes
+				any_war = {
+					OR = {
+						attacker = { character = ROOT }
+						defender = { character = ROOT }
+					}
+				}
+			}
+			# At war with someone who is NOT eligible to join the coalition
+			modifier = {
+				factor = 0.75
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = { character = ROOT }
+							NOT = { 
+								defender = { 
+									primary_title = {
+										capital_scope = { is_in_british_isles_trigger = yes }
+									}
+									any_realm_province = { is_in_british_isles_trigger = yes }
+									NOT = {
+										has_landed_title = e_aengland
+									}
+								}								
+							}
+						}
+						AND = {
+							defender = { character = ROOT }
+							NOT = { 
+								attacker = { 
+									primary_title = {
+										capital_scope = { is_in_british_isles_trigger = yes }
+									}
+									any_realm_province = { is_in_british_isles_trigger = yes }
+									NOT = {
+										has_landed_title = e_aengland
+									}
+								}								
 							}
 						}
 					}
@@ -2756,8 +2925,59 @@ character_event = {
 		}
 	}
 	
-	option = {			# Not a good idea
-		name = "EVTOPTB320237"
+	option = {	
+		name = {		# Not a good idea	
+			text = "EVTOPTB320237"
+			trigger = {
+				NOT = {
+					any_war = {
+						OR = {
+							AND = {
+								any_attacker = {
+									character = event_target:aengland_holder
+								}
+								any_defender = {
+									character = ROOT
+								}
+							}
+							AND = {
+								any_attacker = {
+									character = ROOT
+								}
+								any_defender = {
+									character = event_target:aengland_holder
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		name = {		# Already at war - great!
+			text = "EVTOPTB320237_1"
+			trigger = {
+				any_war = {
+					OR = {
+						AND = {
+							any_attacker = {
+								character = event_target:aengland_holder
+							}
+							any_defender = {
+								character = ROOT
+							}
+						}
+						AND = {
+							any_attacker = {
+								character = ROOT
+							}
+							any_defender = {
+								character = event_target:aengland_holder
+							}
+						}
+					}
+				}
+			}
+		}
 		ai_chance = {
 			factor = 20
 			modifier = {
@@ -2802,6 +3022,7 @@ character_event = {
 	picture = "GFX_evt_saxon_army"
 	
 	only_independent = yes
+	is_triggered_only = yes
 	
 	trigger = {
 		e_aengland = { has_holder = yes }
@@ -2832,18 +3053,565 @@ province_event = {
 	}
 }
 
-# 320241 War begins
-# 320242 Coalition Defeated
-# 320243 Coalition Victorius
-# 320244 White Peace
+# War begins
+narrative_event = {
+	id = 320241
+	title = EVTNAME320241	
+	desc = EVTDESC320241
+	picture = GFX_evt_battle_cavalry
+	major = yes
+	show_portrait = event_target:battle_of_brunanburh_war_declarer
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		# Strongest member of the coalition not at war and without a truce declares it
+		random_independent_ruler = {
+			limit = {
+				has_character_flag = joined_brunanburh_coalition
+				war = no
+				NOT = { has_truce = ROOT }
+				NOT = {
+					any_independent_ruler = {
+						has_character_flag = joined_brunanburh_coalition
+						realm_levy_diff = {
+							who = PREV
+							value = 0
+						}
+						war = no
+						NOT = { has_truce = ROOT }
+						NOT = { character = PREV }
+					}
+				}
+			}
+			save_event_target_as = battle_of_brunanburh_war_declarer
+			set_global_flag = chose_brunanburh_war_leader
+		}
+		# Strongest member of the coalition not at war and without a truce declares it
+		if = {
+			limit = { NOT = { has_global_flag = chose_brunanburh_war_leader } }
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = joined_brunanburh_coalition
+					war = no
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = joined_brunanburh_coalition
+							realm_levy_diff = {
+								who = PREV
+								value = 0
+							}
+							war = no
+							NOT = { character = PREV }
+						}
+					}
+				}
+				save_event_target_as = battle_of_brunanburh_war_declarer
+				set_global_flag = chose_brunanburh_war_leader
+			}
+		}
+		# If somehow they're all at war, just pick the strongest
+		if = {
+			limit = { NOT = { has_global_flag = chose_brunanburh_war_leader } }
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = joined_brunanburh_coalition
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = joined_brunanburh_coalition
+							realm_levy_diff = {
+								who = PREV
+								value = 0
+							}
+							NOT = { character = PREV }
+						}
+					}
+				}
+				save_event_target_as = battle_of_brunanburh_war_declarer
+				set_character_flag = battle_of_brunanburh_war_declarer
+			}
+		}
+		set_variable = {
+			which = total_alliance_realm_levies
+			value = 0
+		}
+		event_target:battle_of_brunanburh_war_declarer = {
+			war = {
+				target = ROOT
+				casus_belli = battle_of_brunanburh_cb
+				thirdparty_title = e_aengland
+			}
+			# Always gets a commander and a bit of event troops 
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = THIS
+				culture = THIS
+				female = no
+				age = 35
+				attributes = {
+					martial = 10
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = diligent
+				trait = wroth
+			}
+			new_character = {
+				spawn_unit = {
+					province = event_target:battle_of_brunanburh_war_declarer_capital
+					troops = {
+						light_infantry = { 600 600 }
+						heavy_infantry = { 400 400 }
+						pikemen = { 300 300 }
+						archers = { 150 150 }
+						light_cavalry = { 75 75 }
+					}
+					attrition = 0.25
+					merge = yes
+					disband_on_peace = yes
+				}
+			}
+			# Add up the strength of the alliance
+			ROOT = {
+				export_to_variable = {
+					which = alliance_member_realm_levies
+					value = realm_levies
+					who = PREV
+				}
+				change_variable = {
+					which = total_alliance_realm_levies
+					which = alliance_member_realm_levies
+				}
+			}
+		}
+		any_independent_ruler = {
+			limit = { 
+				has_character_flag = joined_brunanburh_coalition
+			}
+			join_attacker_wars = event_target:battle_of_brunanburh_war_declarer
+			# Add up the strength of the alliance
+			ROOT = {
+				export_to_variable = {
+					which = alliance_member_realm_levies
+					value = realm_levies
+					who = PREV
+				}
+				change_variable = {
+					which = total_alliance_realm_levies
+					which = alliance_member_realm_levies
+				}
+			}
+		}
+		# Compare alliance strength to ROOT strength
+		# Spawn more event troops until alliance strength is > 1.25x Aengland's strength
+		ROOT = {
+			export_to_variable = {
+				which = aengland_realm_levies
+				value = realm_levies
+			}
+			set_variable = {
+				which = alliance_min_strength
+				which = aengland_realm_levies
+			}
+			multiply_variable = {
+				which = alliance_min_strength
+				value = 1.25
+			}
+			set_variable = {
+				which = alliance_remaining_event_troops
+				which = alliance_min_strength
+			}
+			subtract_variable = {
+				which = alliance_remaining_event_troops
+				which = total_alliance_realm_levies
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = alliance_remaining_event_troops
+						value = 0
+					}
+				}				
+				event_target:battle_of_brunanburh_war_declarer = {
+					capital_scope = {
+						save_event_target_as = battle_of_brunanburh_war_declarer_capital
+					}
+					spawn_unit = {
+						province = event_target:battle_of_brunanburh_war_declarer_capital
+						troops = {
+							light_infantry = { 400 400 }
+							heavy_infantry = { 250 250 }
+							pikemen = { 200 200 }
+							archers = { 100 100 }
+							light_cavalry = { 50 50 }
+						}
+						attrition = 0.25
+						merge = yes
+						disband_on_peace = yes
+					}
+				}
+				subtract_variable = {
+					which = alliance_remaining_event_troops
+					value = 1000
+				}
+			}
+		}
+		
+		set_global_flag = battle_of_brunanburh_war_declared
+	}
+	
+	option = {
+		name = "EVTOPTA320241"		# Bretwalda
+		trigger = {
+			character = ROOT
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB320241"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+			NOT = { has_character_flag = joined_brunanburh_coalition }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320241"		# Alliance Members
+		trigger = {
+			has_character_flag = joined_brunanburh_coalition
+		}
+		clr_character_flag = joined_brunanburh_coalition
+		custom_tooltip = {
+			text = EVTOPTC320241TT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320241"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				has_character_flag = joined_brunanburh_coalition
+			}
+		}
+	}
+}
+
+# Coalition Defeated
+narrative_event = {
+	id = 320242
+	title = "EVTNAME320242"
+	desc = "EVTDESC320242"
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_gaul"
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = won_battle_of_brunanburh
+		clr_global_flag = battle_of_brunanburh_war_start
+	}
+	
+	option = {
+		name = "EVTOPTA320242"		# Bretwalda - Aengland Prevails! (Unify England)
+		trigger = {
+			character = ROOT
+		}
+		custom_tooltip = {
+			text = HK_unite_aengland_tooltip
+		}
+		hidden_tooltip = {
+			ROOT = { narrative_event = { id = 320250 } }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320242"		# Bretwalda - Don't Unify
+		trigger = {
+			character = ROOT
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority
+			value = 1000
+		}
+		hidden_tooltip = {
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				value = aengland_bretwalda_authority
+			}
+		}
+	}
+		
+	option = {
+		name = "EVTOPTC320242"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+			NOT = { has_character_flag = brunanburh_alliance_member }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320242"		# Alliance Members
+		trigger = {
+			has_character_flag = brunanburh_alliance_member
+		}
+		clr_character_flag = brunanburh_alliance_member
+	}
+	
+	option = {
+		name = "EVTOPTE320242"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				has_character_flag = brunanburh_alliance_member
+			}
+		}
+	}
+}
+
+# Coalition Victorius
+narrative_event = {
+	id = 320243
+	title = "EVTNAME320243"
+	desc = "EVTDESC320243"
+	hide_new = yes
+	
+	picture = "GFX_evt_burning_fire"
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = battle_of_brunanburh_war_over
+		clr_global_flag = battle_of_brunanburh_war_start
+	}
+	
+	option = {
+		name = "EVTOPTA320243"		# Bretwalda
+		trigger = {
+			character = ROOT
+		}
+		# Lose all Bretwalda Authority
+		subtract_variable = {
+			which = aengland_bretwalda_authority
+			which = aengland_bretwalda_authority
+		}
+		hidden_tooltip = {
+			set_variable = {
+				which = aengland_bretwalda_authority_2
+				which = aengland_bretwalda_authority
+			}			
+		}
+	}
+		
+	option = {
+		name = "EVTOPTB320243"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+			NOT = { has_character_flag = brunanburh_alliance_member }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320243"		# Alliance Members
+		trigger = {
+			has_character_flag = brunanburh_alliance_member
+		}
+		clr_character_flag = brunanburh_alliance_member
+	}
+	
+	option = {
+		name = "EVTOPTD320243"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				has_character_flag = brunanburh_alliance_member
+			}
+		}
+	}
+}
+
+# White Peace/Invalidation
+narrative_event = {
+	id = 320244
+	title = "EVTNAME320244"
+	desc = "EVTDESC320244"
+	hide_new = yes
+	
+	picture = "GFX_evt_burning_fire"
+	major = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = battle_of_brunanburh_war_over
+		clr_global_flag = battle_of_brunanburh_war_start
+	}
+	
+	option = {
+		name = "EVTOPTA320244"		# Bretwalda
+		trigger = {
+			character = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320244"		# Vassals or Subject Kings
+		trigger = {
+			NOT = { character = ROOT }
+			OR = {
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				top_liege = { character = ROOT }
+			}
+			NOT = { has_character_flag = brunanburh_alliance_member }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320244"		# Alliance Members
+		trigger = {
+			has_character_flag = brunanburh_alliance_member
+		}
+		clr_character_flag = brunanburh_alliance_member
+	}
+	
+	option = {
+		name = "EVTOPTD320244"		# Other Rulers
+		trigger = {
+			NOR = { 
+				character = ROOT
+				top_liege = { character = ROOT }
+				is_tributary = { 
+					type = anglosaxon_tributary 
+					suzerain = ROOT
+				}
+				top_liege = {
+					is_tributary = { 
+						type = anglosaxon_tributary 
+						suzerain = ROOT
+					}
+				}
+				has_character_flag = brunanburh_alliance_member
+			}
+		}
+	}
+}
+
+# Cleanup
+province_event = {
+	id = 320249
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_battle_cavalry"
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	immediate = {
+		any_character = {
+			limit = { has_character_flag = joined_brunanburh_coalition }
+			clr_character_flag = joined_brunanburh_coalition
+		}
+		
+		if = {
+			limit = { NOT = { has_global_flag = battle_of_brunanburh_war_declared } }
+			clr_global_flag = battle_of_brunanburh_war_start
+		}
+	}
+}
 
 # King of the Anglo-Saxons
 narrative_event = {
-	id = 320245
-	title = EVTNAME320245	
-	desc = EVTDESC320245
+	id = 320250
+	title = EVTNAME320250	
+	desc = EVTDESC320250
 	picture = GFX_evt_royal_court
 	major = yes
+	hide_new = yes
+	hide_from = yes
 	
 	is_triggered_only = yes
 	
@@ -2857,14 +3625,14 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTA320245"		# Bretwalda
+		name = "EVTOPTA320250"		# Bretwalda
 		trigger = {
 			character = ROOT
 		}
 	}
 		
 	option = {
-		name = "EVTOPTB320245"		# Vassals or Subject Kings
+		name = "EVTOPTB320250"		# Vassals or Subject Kings
 		trigger = {
 			NOT = { character = ROOT }
 			OR = {
@@ -2884,7 +3652,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTC320245"		# Britons
+		name = "EVTOPTC320250"		# Britons
 		trigger = {
 			NOR = { 
 				character = ROOT
@@ -2905,7 +3673,7 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTD320245"		# Other Rulers
+		name = "EVTOPTD320250"		# Other Rulers
 		trigger = {
 			NOR = { 
 				character = ROOT
