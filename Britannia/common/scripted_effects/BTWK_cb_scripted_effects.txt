@@ -399,6 +399,13 @@ vassalize_under_ROOT_tribal_effect = {
 # Vassalizes all provinces with the province flag vassalize_province held by the current scope to ROOT
 # Clears the flag after effect finishes executing to avoid possible collisions with subsequent calls
 vassalize_all_flagged_provinces_to_ROOT_effect = {
+	ROOT = { save_event_target_as = vassalization_event_target }
+	vassalize_all_flagged_provinces_to_event_target_effect = yes
+}
+
+# Vassalizes all provinces with the province flag vassalize_province held by the current scope to 
+# the event target vassalization_event_target
+vassalize_all_flagged_provinces_to_event_target_effect = {
 	any_realm_lord = {
 		limit = {
 			capital_scope = {
@@ -407,10 +414,10 @@ vassalize_all_flagged_provinces_to_ROOT_effect = {
 			NOT = { character = PREV }
 			higher_tier_than = BARON
 		}
-		set_defacto_liege = ROOT
+		set_defacto_liege = event_target:vassalization_event_target
 		opinion = {
 			modifier = opinion_subjugated
-			who = ROOT
+			who = event_target:vassalization_event_target
 			months = 120
 		}
 		any_demesne_title = {
@@ -493,7 +500,7 @@ vassalize_all_flagged_provinces_to_ROOT_effect = {
 					}
 				}
 			}
-			usurp_title = ROOT
+			usurp_title = event_target:vassalization_event_target
 		}
 	}
 	any_demesne_title = {
@@ -508,7 +515,7 @@ vassalize_all_flagged_provinces_to_ROOT_effect = {
 				}
 			}
 		}
-		usurp_title = ROOT
+		usurp_title = event_target:vassalization_event_target
 	}
 	any_realm_lord = {
 		limit = {

@@ -3141,6 +3141,9 @@ narrative_event = {
 				casus_belli = battle_of_brunanburh_cb
 				thirdparty_title = e_aengland
 			}
+			capital_scope = {
+				save_event_target_as = battle_of_brunanburh_war_declarer_capital
+			}
 			# Always gets a commander and a bit of event troops 
 			create_character = {
 				random_traits = yes
@@ -3234,9 +3237,6 @@ narrative_event = {
 					}
 				}				
 				event_target:battle_of_brunanburh_war_declarer = {
-					capital_scope = {
-						save_event_target_as = battle_of_brunanburh_war_declarer_capital
-					}
 					spawn_unit = {
 						province = event_target:battle_of_brunanburh_war_declarer_capital
 						troops = {
@@ -3435,7 +3435,1952 @@ narrative_event = {
 	immediate = {
 		set_global_flag = battle_of_brunanburh_war_over
 		clr_global_flag = battle_of_brunanburh_war_start
+		
+		# Find the alliance member with the highest number of max levies
+		set_variable = {
+			which = global_max_alliance_member_levies
+			value = 0
+		}		
+		any_independent_ruler = {
+			limit = { has_character_flag = brunanburh_alliance_member }
+			export_to_variable = {
+				which = max_realm_levies_score
+				value = max_realm_levies
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = max_realm_levies_score
+						which = global_max_alliance_member_levies
+					}
+				}
+				set_variable = {
+					which = global_max_alliance_member_levies
+					which = max_realm_levies_score
+				}
+			}
+			
+			# Attackers will always get their de jure territory back
+			set_variable = {
+				which = num_areas_claimed_plus_one
+				value = 1				# We start at 1, since we are eventually going to divide by this
+			}
+			if = {
+				limit = {
+					ROOT = { 
+						any_realm_province = {
+							region = world_caledonia
+						}
+					}
+					OR = {
+						has_landed_title = e_alba
+						AND = {
+							has_landed_title = k_caledonia
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = brunanburh_alliance_member
+									has_landed_title = e_alba
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = caledonia_conqueror_target
+				set_character_flag = caledonia_conqueror
+				set_global_flag = caledonia_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { 
+						any_realm_province = {
+							region = custom_lothian
+						}
+					}
+					OR = {
+						has_landed_title = k_lothian
+						AND = {
+							has_landed_title = e_alba
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = brunanburh_alliance_member
+									has_landed_title = k_lothian
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = lothian_conqueror_target
+				set_character_flag = lothian_conqueror
+				set_global_flag = lothian_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { 
+						any_realm_province = {
+							region = world_strathclyde
+							NOT = { region = custom_cumbria }
+						}
+					}
+					has_landed_title = k_strathclyde
+				}
+				save_event_target_as = strathclyde_conqueror_target
+				set_character_flag = strathclyde_conqueror
+				set_global_flag = strathclyde_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { 
+						any_realm_province = {
+							OR = {
+								region = custom_cumbria
+								region = custom_lancaster
+							}
+						}
+					}
+					has_landed_title = k_rheged
+				}
+				save_event_target_as = cumbria_conqueror_target
+				set_character_flag = cumbria_conqueror
+				set_global_flag = cumbria_assigned
+				save_event_target_as = lancaster_conqueror_target
+				set_character_flag = lancaster_conqueror
+				set_global_flag = lancaster_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 2
+				}
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						any_realm_province = {
+							OR = {
+								region = custom_deira
+								region = custom_southumbria
+							}
+						}
+					}
+					has_landed_title = k_jorvik
+				}
+				save_event_target_as = jorvik_conqueror_target
+				set_character_flag = jorvik_conqueror
+				set_global_flag = jorvik_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = custom_gwynedd
+						}
+					}
+					has_landed_title = k_gwynedd
+				}
+				save_event_target_as = gwynedd_conqueror_target
+				set_character_flag = gwynedd_conqueror
+				set_global_flag = gwynedd_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = custom_powys
+						}
+					}
+					has_landed_title = k_powys
+				}
+				save_event_target_as = powys_conqueror_target
+				set_character_flag = powys_conqueror
+				set_global_flag = gwynedd_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = custom_gwent
+						}
+					}
+					has_landed_title = k_gwent
+				}
+				save_event_target_as = gwent_conqueror_target
+				set_character_flag = gwent_conqueror
+				set_global_flag = gwent_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = world_demetia
+						}
+					}
+					has_landed_title = k_demetia
+				}
+				save_event_target_as = demetia_conqueror_target
+				set_character_flag = demetia_conqueror
+				set_global_flag = demetia_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = world_siluria
+						}
+					}
+					has_landed_title = k_siluria
+				}
+				save_event_target_as = siluria_conqueror_target
+				set_character_flag = siluria_conqueror
+				set_global_flag = siluria_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = custom_devon
+						}
+					}
+					OR = {
+						has_landed_title = k_dumnonia
+						AND = {
+							has_landed_title = k_kernow
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = brunanburh_alliance_member
+									has_landed_title = k_dumnonia
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = devon_conqueror_target
+				set_character_flag = devon_conqueror
+				set_global_flag = devon_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					ROOT = {
+						any_realm_province = {
+							region = world_britannia_cymry_cornwall_proper
+						}
+					}
+					OR = {
+						has_landed_title = k_kernow
+						AND = {
+							has_landed_title = k_dumnonia
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = brunanburh_alliance_member
+									has_landed_title = k_kernow
+								}
+							}
+						}
+					}
+				}
+				save_event_target_as = cornwall_conqueror_target
+				set_character_flag = cornwall_conqueror
+				set_global_flag = cornwall_assigned
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		
+		any_independent_ruler = {
+			limit = { has_character_flag = brunanburh_alliance_member }
+			
+			export_to_variable = {
+				which = normalized_max_levies
+				value = max_realm_levies
+			}
+			divide_variable = {
+				which = normalized_max_levies
+				which = global_max_alliance_member_levies
+			}
+			multiply_variable = {
+				which = normalized_max_levies
+				value = 10
+			}
+			
+			if = {
+				limit = { NOT = { has_global_flag = caledonia_assigned } }
+				if = {
+					limit = { NOT = { any_realm_province = { region = custom_alba } } }
+					set_variable = {
+						which = caledonia_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Caledonia, allow anyone with territory in Alba, but prioritize those with their capital in Caledonia
+					set_variable = {
+						which = caledonia_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { primary_title = { capital_scope = { region = world_caledonia } } }
+						change_variable = { 
+							which = caledonia_claim_score
+							value = 5
+						}
+					}
+					if = {
+						limit = { capital_scope = { region = world_caledonia } }
+						change_variable = { 
+							which = caledonia_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = lothian_assigned } }
+				if = {
+					limit = { NOT = { any_realm_province = { region = custom_alba } } }
+					set_variable = {
+						which = lothian_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Lothian, allow anyone with territory in Alba, but prioritize neighbouring kings (Alba/Pictavia and Strathclyde)
+					set_variable = {
+						which = lothian_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { primary_title = { capital_scope = { region = world_caledonia } } }
+						change_variable = { 
+							which = lothian_claim_score
+							value = 20
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								has_landed_title = e_alba
+								has_landed_title = k_caledonia
+								has_landed_title = k_strathclyde
+							}
+						}
+						change_variable = { 
+							which = lothian_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = strathclyde_assigned } }
+				if = {
+					limit = { NOT = { any_realm_province = { region = custom_alba } } }
+					set_variable = {
+						which = strathclyde_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Strathclyde, allow anyone with territory in Alba, but prioritize neighbouring kings (Alba/Pictavia, Lothian, Man/Suðreyjar)
+					set_variable = {
+						which = strathclyde_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { primary_title = { capital_scope = { region = world_strathclyde } } }
+						change_variable = { 
+							which = strathclyde_claim_score
+							value = 20
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								has_landed_title = e_alba
+								has_landed_title = k_caledonia
+								has_landed_title = k_lothian
+								has_landed_title = k_ynys_man
+								has_landed_title = k_south_islands
+							}
+						}
+						change_variable = { 
+							which = strathclyde_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = cumbria_assigned } }
+				if = {
+					limit = { NOT = { any_realm_province = { region = world_britannia_cymry_henogledd } } }
+					set_variable = {
+						which = cumbria_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Cumbria, allow anyone with territory in Hen Ogledd, but prioritize Strathclyde, then Mann/The Isles
+					set_variable = {
+						which = cumbria_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							has_landed_title = k_strathclyde
+						}
+						change_variable = { 
+							which = cumbria_claim_score
+							value = 10
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								has_landed_title = k_ynys_man
+								has_landed_title = k_south_islands
+							}
+						}
+						change_variable = { 
+							which = cumbria_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = lancaster_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = { 
+								OR = {
+									region = world_britannia_cymry_henogledd_ynysmanaw 
+									region = world_ireland_ulidia
+									region = world_ireland_mide
+									region = world_ireland_leinster
+								}
+								port = yes
+							} 
+						} 
+					}
+					set_variable = {
+						which = lancaster_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Lancaster, prioritize Mann/The Isles before any Irish-only realms
+					set_variable = {
+						which = lancaster_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							OR = {
+								has_landed_title = k_ynys_man
+								has_landed_title = k_south_islands
+							}
+						}
+						change_variable = { 
+							which = lancaster_claim_score
+							value = 10
+						}
+					}
+					else_if = {
+						limit = {
+							OR = {
+								primary_title = {
+									capital_scope = {
+										region = world_britannia_cymry_henogledd_ynysmanaw
+									}
+								}
+								capital_scope = { region = world_britannia_cymry_henogledd_ynysmanaw }
+							}
+						}
+						change_variable = { 
+							which = lancaster_claim_score
+							value = 5
+						}
+					}
+					if = {
+						limit = { any_realm_province = { region = world_britannia_cymry_henogledd_ynysmanaw } }
+						change_variable = { 
+							which = lancaster_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = jorvik_assigned } }
+				if = {
+					limit = {
+						OR = {
+							is_north_germanic_trigger = no
+							NOT = { 
+								any_realm_province = {
+									port = yes
+								}
+							}
+						}
+					}
+					set_variable = {
+						which = jorvik_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Jorvik, prioritize king-tier rulers and claimants
+					set_variable = {
+						which = jorvik_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							tier = KING
+						}
+						change_variable = { 
+							which = jorvik_claim_score
+							value = 5
+						}
+					}
+					if = {
+						limit = { 
+							OR = {
+								has_claim = k_jorvik
+								has_claim = d_jorvik
+							}
+						}
+						change_variable = { 
+							which = jorvik_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = gwynedd_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = { 
+								OR = {
+									region = world_britannia_cymry_wales
+									AND = {
+										OR = {
+											region = world_britannia_cymry_henogledd_ynysmanaw 
+											region = world_ireland_mide
+											region = world_ireland_leinster
+										}
+										port = yes
+									}
+								}
+							} 
+						} 
+					}
+					set_variable = {
+						which = gwynedd_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Gwynedd, prioritize any rulers in Gwynedd, then Wales before Mannish or Irish realms
+					set_variable = {
+						which = gwynedd_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { region = custom_gwynedd }
+							}
+						}
+						change_variable = { 
+							which = gwynedd_claim_score
+							value = 25
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_gwynedd }
+						}
+						change_variable = { 
+							which = gwynedd_claim_score
+							value = 20
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_gwynedd 
+									owner = { top_liege = { character = ROOT } }
+								} 
+							}
+						}
+						change_variable = { 
+							which = gwynedd_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_gwynedd 
+								} 
+							}
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 12.5
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_britannia_cymry_wales }
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = powys_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								region = world_britannia_cymry_wales
+							} 
+						} 
+					}
+					set_variable = {
+						which = powys_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Powys, prioritize any rulers in Powys, then those neighbouring Powys
+					set_variable = {
+						which = powys_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { region = custom_powys }
+							}
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 20
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_powys }
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_powys 
+									owner = { top_liege = { character = ROOT } }
+								} 
+							}
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 10
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_powys 
+								} 
+							}
+						}
+						change_variable = { 
+							which = powys_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = gwent_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								region = world_britannia_cymry_wales
+							} 
+						} 
+					}
+					set_variable = {
+						which = gwent_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Gwent, prioritize any rulers in Gwent, then those neighbouring Gwent
+					set_variable = {
+						which = gwent_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { region = custom_gwent }
+							}
+						}
+						change_variable = { 
+							which = gwent_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_gwent }
+						}
+						change_variable = { 
+							which = gwent_claim_score
+							value = 10
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_gwent 
+									owner = { top_liege = { character = ROOT } }
+								} 
+							}
+						}
+						change_variable = { 
+							which = gwent_claim_score
+							value = 10
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = custom_gwent 
+								} 
+							}
+						}
+						change_variable = { 
+							which = gwent_claim_score
+							value = 5
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = demetia_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								OR = {
+									region = world_britannia_cymry_wales
+									AND = {
+										OR = {
+											region = world_britannia_cymry_henogledd_ynysmanaw 
+											region = world_ireland_leinster
+											region = world_ireland_munster
+										}
+										port = yes
+									}
+								}
+							} 
+						} 
+					}
+					set_variable = {
+						which = demetia_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Demetia, prioritize any rulers in Demetia, then Wales before Irish realms
+					set_variable = {
+						which = gwynedd_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { region = world_demetia }
+							}
+						}
+						change_variable = { 
+							which = demetia_claim_score
+							value = 25
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_demetia }
+						}
+						change_variable = { 
+							which = demetia_claim_score
+							value = 20
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = world_demetia 
+									owner = { top_liege = { character = ROOT } }
+								} 
+							}
+						}
+						change_variable = { 
+							which = demetia_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = world_demetia 
+								} 
+							}
+						}
+						change_variable = { 
+							which = demetia_claim_score
+							value = 12.5
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_britannia_cymry_wales }
+						}
+						change_variable = { 
+							which = demetia_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = siluria_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								OR = {
+									region = world_britannia_cymry_wales
+									AND = {
+										OR = {
+											region = world_britannia_cymry_henogledd_ynysmanaw 
+											region = world_ireland_leinster
+											region = world_ireland_munster
+										}
+										port = yes
+									}
+								}
+							} 
+						} 
+					}
+					set_variable = {
+						which = siluria_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Demetia, prioritize any rulers in Demetia, then Wales before Irish realms
+					set_variable = {
+						which = siluria_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { region = world_siluria }
+							}
+						}
+						change_variable = { 
+							which = siluria_claim_score
+							value = 25
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_siluria }
+						}
+						change_variable = { 
+							which = siluria_claim_score
+							value = 20
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = world_siluria 
+									owner = { top_liege = { character = ROOT } }
+								} 
+							}
+						}
+						change_variable = { 
+							which = siluria_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { 
+								any_neighbor_province = { 
+									region = world_siluria 
+								} 
+							}
+						}
+						change_variable = { 
+							which = siluria_claim_score
+							value = 12.5
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_britannia_cymry_wales }
+						}
+						change_variable = { 
+							which = siluria_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = devon_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								OR = {
+									region = custom_devon
+									region = world_britannia_cymry_cornwall_proper
+									AND = {
+										OR = {
+											region = world_demetia 
+											region = world_siluria
+											region = custom_gwent
+										}
+										port = yes
+									}
+								}
+							} 
+						} 
+					}
+					set_variable = {
+						which = devon_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Devon, prioritize any Cornish realms before Welsh-only realms
+					set_variable = {
+						which = devon_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { 
+									OR = {
+										region = custom_devon
+										region = world_britannia_cymry_cornwall_proper
+									}
+								}
+							}
+						}
+						change_variable = { 
+							which = devon_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = {
+								OR = {
+									region = custom_devon
+									region = world_britannia_cymry_cornwall_proper
+								}
+							}
+						}
+						change_variable = { 
+							which = devon_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = cornwall_assigned } }
+				if = {
+					limit = { 
+						NOT = { 
+							any_realm_province = {
+								OR = {
+									region = custom_devon
+									region = world_britannia_cymry_cornwall_proper
+									AND = {
+										OR = {
+											region = world_demetia 
+											region = world_siluria
+											region = custom_gwent
+										}
+										port = yes
+									}
+								}
+							} 
+						} 
+					}
+					set_variable = {
+						which = cornwall_claim_score
+						value = -1
+					}
+				}
+				else = {
+					# For Cornwall, prioritize any Cornish realms before Welsh-only realms
+					set_variable = {
+						which = cornwall_claim_score
+						which = normalized_max_levies
+					}
+					if = {
+						limit = { 
+							any_demesne_title = {
+								higher_tier_than = COUNT
+								capital_scope = { 
+									OR = {
+										region = custom_devon
+										region = world_britannia_cymry_cornwall_proper
+									}
+								}
+							}
+						}
+						change_variable = { 
+							which = cornwall_claim_score
+							value = 15
+						}
+					}
+					else_if = {
+						limit = {
+							any_realm_province = {
+								OR = {
+									region = custom_devon
+									region = world_britannia_cymry_cornwall_proper
+								}
+							}
+						}
+						change_variable = { 
+							which = cornwall_claim_score
+							value = 10
+						}
+					}
+				}
+			}
+		}
+		
+		# Assign proper region conquerer flags based on ranking of rulers, taking into account how many regions they've already taken
+		if = {
+			limit = { 
+				NOT = { has_global_flag = caledonia_assigned } 
+				any_realm_province = {
+					region = world_caledonia
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = caledonia_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = caledonia_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = caledonia_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = caledonia_conqueror
+				save_event_target_as = caledonia_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = lothian_assigned } 
+				any_realm_province = {
+					region = custom_lothian
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = lothian_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			any_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = lothian_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = lothian_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = should_have_gotten_lothian
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = lothian_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = lothian_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = lothian_conqueror
+				save_event_target_as = lothian_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = strathclyde_assigned } 
+				any_realm_province = {
+					region = world_strathclyde
+					NOT = { region = custom_cumbria }
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = strathclyde_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = strathclyde_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = strathclyde_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = strathclyde_conqueror
+				save_event_target_as = strathclyde_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = cumbria_assigned } 
+				any_realm_province = {
+					region = custom_cumbria
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = cumbria_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = cumbria_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = cumbria_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = cumbria_conqueror
+				save_event_target_as = cumbria_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = lancaster_assigned } 
+				any_realm_province = {
+					region = custom_lancaster
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = lancaster_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = lancaster_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = lancaster_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = lancaster_conqueror
+				save_event_target_as = lancaster_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = jorvik_assigned } 
+				any_realm_province = {
+					OR = {
+						region = custom_deira
+						region = custom_southumbria
+					}
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = jorvik_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = jorvik_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = jorvik_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = jorvik_conqueror
+				save_event_target_as = jorvik_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 2
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = gwynedd_assigned } 
+				any_realm_province = {
+					region = custom_gwynedd
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = gwynedd_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = gwynedd_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = gwynedd_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = gwynedd_conqueror
+				save_event_target_as = gwynedd_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = gwent_assigned } 
+				any_realm_province = {
+					region = custom_gwent
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = gwent_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = gwent_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = gwent_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = gwent_conqueror
+				save_event_target_as = gwent_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = demetia_assigned } 
+				any_realm_province = {
+					region = world_demetia
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = demetia_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = demetia_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = demetia_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = demetia_conqueror
+				save_event_target_as = demetia_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = siluria_assigned } 
+				any_realm_province = {
+					region = world_siluria
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = siluria_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = siluria_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = siluria_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = siluria_conqueror
+				save_event_target_as = siluria_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = devon_assigned } 
+				any_realm_province = {
+					region = custom_devon
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = devon_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = devon_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = devon_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = devon_conqueror
+				save_event_target_as = devon_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = cornwall_assigned } 
+				any_realm_province = {
+					region = world_britannia_cymry_cornwall_proper
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = devon_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = cornwall_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = cornwall_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = cornwall_conqueror
+				save_event_target_as = cornwall_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		# Recalculate Powys score to take into account any conquerers of neighbouring Welsh realms
+		if = {
+			limit = {
+				any_independent_ruler = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						check_variable = {
+							which = powys_claim_score
+							value = 0
+						}
+					}
+					OR = {
+						has_character_flag = gwynedd_assigned
+						has_character_flag = demetia_assigned
+						has_character_flag = siluria_assigned
+						has_character_flag = gwent_assigned
+					}
+				}
+			}
+			set_variable = {
+				which = powys_claim_score
+				value = normalized_max_levies
+			}
+		}
+		if = {
+			limit = { 
+				NOT = { has_global_flag = powys_assigned } 
+				any_realm_province = {
+					region = custom_powys
+				}
+			}
+			any_independent_ruler = {
+				limit = { has_character_flag = brunanburh_alliance_member }
+				divide_variable = {
+					which = powys_claim_score
+					which = num_areas_claimed_plus_one
+				}
+			}
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = brunanburh_alliance_member
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = brunanburh_alliance_member
+							check_variable = {
+								which = powys_claim_score
+								which = PREV
+							}
+							NOT = { character = PREV }
+						}
+					}
+					check_variable = {		# Make sure they're actually eligible in the first place
+						which = powys_claim_score
+						value = 0
+					}
+				}
+				set_character_flag = powys_conqueror
+				save_event_target_as = powys_conqueror_target
+				if = {			# Make it less likely that any one realm will take more than 2 areas
+					limit = {
+						check_variable = {
+							which = num_areas_claimed_plus_one
+							value = 2
+						}
+					}
+					change_variable = {
+						which = num_areas_claimed_plus_one
+						value = 1
+					}
+				}
+				change_variable = {
+					which = num_areas_claimed_plus_one
+					value = 1
+				}
+			}
+		}
+		
+		any_independent_ruler = {
+			limit = { has_character_flag = brunanburh_alliance_member }
+			any_province = {
+				limit = {
+					owner = { top_liege = { character = ROOT } }
+					OR = {
+						AND = {
+							PREV = { has_character_flag = caledonia_conqueror }
+							region = world_caledonia
+						}
+						AND = {
+							PREV = { has_character_flag = lothian_conqueror }
+							region = custom_lothian
+						}
+						AND = {
+							PREV = { has_character_flag = strathclyde_conqueror }
+							region = world_strathclyde
+							NOT = { region = custom_cumbria }
+						}
+						AND = {
+							PREV = { has_character_flag = cumbria_conqueror }
+							region = custom_cumbria
+						}
+						AND = {
+							PREV = { has_character_flag = lancaster_conqueror }
+							OR = {
+								region = custom_lancaster
+								AND = {
+									region = custom_wrocensaete
+									NOR = { 
+										region = custom_gwynedd 
+										region = custom_powys
+									}
+									has_global_flag = gwynedd_assigned
+									event_target:lancaster_conqueror_target = {
+										OR = {
+											NOT = { culture_group = germanic }
+											is_romanized_germanic_trigger = yes
+										}
+									}
+									PREV = {
+										OR = {
+											NOT = { culture_group = germanic }
+											is_romanized_germanic_trigger = yes
+										} 
+									}
+								}
+							}
+							region = custom_lancaster
+						}
+						AND = {
+							PREV = { has_character_flag = jorvik_conqueror }
+							OR = {
+								region = custom_deira
+								region = custom_southumbria
+							}
+						}
+						AND = {
+							PREV = { has_character_flag = gwynedd_conqueror }
+							OR = {
+								region = custom_gwynedd
+								AND = {									
+									region = custom_wrocensaete
+									NOT = { region = custom_powys }
+									OR = {
+										NOT = { has_global_flag = lancaster_assigned }
+										event_target:lancaster_conqueror_target = {
+											culture_group = germanic
+											is_romanized_germanic_trigger = no
+										}
+										PREV = {
+											culture_group = germanic
+											is_romanized_germanic_trigger = no
+										}
+									}
+								}
+							}
+						}
+						AND = {
+							PREV = { has_character_flag = powys_conqueror }
+							region = custom_powys
+						}
+						AND = {
+							PREV = { has_character_flag = gwent_conqueror }
+							region = custom_gwent
+						}
+						AND = {
+							PREV = { has_character_flag = demetia_conqueror }
+							region = world_demetia
+						}
+						AND = {
+							PREV = { has_character_flag = siluria_conqueror }
+							region = world_siluria
+						}
+						AND = {
+							PREV = { has_character_flag = devon_conqueror }
+							region = custom_devon
+						}
+						AND = {
+							PREV = { has_character_flag = cornwall_conqueror }
+							region = world_britannia_cymry_cornwall_proper
+						}
+					}
+				}
+				set_province_flag = vassalize_province
+			}
+			save_event_target_as = vassalization_event_target
+			ROOT = { 
+				vassalize_all_flagged_provinces_to_event_target_effect = yes 
+			}
+		}
 	}
+	
+	# Possibly something about breaking off Bernicia if Jorvik has been taken and it's now totally isolated
 	
 	option = {
 		name = "EVTOPTA320243"		# Bretwalda
@@ -3452,6 +5397,107 @@ narrative_event = {
 				which = aengland_bretwalda_authority_2
 				which = aengland_bretwalda_authority
 			}			
+		}
+		custom_tooltip = {
+			text = EVTOPTA320243_revolt_risk_tooltip
+			hidden_tooltip = {
+				any_realm_province = {
+					limit = { is_ingvaeonic_culture_trigger = yes }
+					add_province_modifier = {
+						name = bretwalda_defeated_revolt_risk
+						dayse = 365
+					}
+				}
+			}
+		}
+		tooltip = {
+			any_independent_ruler = {
+				limit = {
+					is_tributary = {
+						suzerain = ROOT
+					}
+					has_character_flag = brunanburh_alliance_member
+				}
+				ROOT = { remove_tributary = PREV }
+			}
+		}
+		event_target:caledonia_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_caledonia_conquest_tooltip
+			}
+		}
+		event_target:lothian_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_lothian_conquest_tooltip
+			}
+		}
+		event_target:strathclyde_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_strathclyde_conquest_tooltip
+			}
+		}
+		event_target:cumbria_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_cumbria_conquest_tooltip
+			}
+		}
+		event_target:lancaster_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_lancaster_conquest_tooltip
+			}
+		}
+		event_target:jorvik_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_jorvik_conquest_tooltip
+			}
+		}
+		event_target:gwynedd_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_gwynedd_conquest_tooltip
+			}
+		}
+		event_target:powys_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_powys_conquest_tooltip
+			}
+		}
+		event_target:gwent_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_gwent_conquest_tooltip
+			}
+		}
+		event_target:demetia_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_demetia_conquest_tooltip
+			}
+		}
+		event_target:siluria_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_siluria_conquest_tooltip
+			}
+		}
+		event_target:devon_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_devon_conquest_tooltip
+			}
+		}
+		event_target:cornwall_conqueror_target = {
+			show_scope_change = no
+			custom_tooltip = {
+				text = EVTOPT320243_cornwall_conquest_tooltip
+			}
 		}
 	}
 		
@@ -3481,7 +5527,105 @@ narrative_event = {
 		trigger = {
 			has_character_flag = brunanburh_alliance_member
 		}
-		clr_character_flag = brunanburh_alliance_member
+		if = {
+			limit = {
+				is_tributary = {
+					suzerain = ROOT
+				}
+			}
+			ROOT = { remove_tributary = PREV }
+		}
+		if = {
+			limit = { has_character_flag = caledonia_conqueror }
+			clr_character_flag = caledonia_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_caledonia_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = lothian_conqueror }
+			clr_character_flag = lothian_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_lothian_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = strathclyde_conqueror }
+			clr_character_flag = strathclyde_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_strathclyde_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = cumbria_conqueror }
+			clr_character_flag = cumbria_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_cumbria_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = lancaster_conqueror }
+			clr_character_flag = lancaster_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_lancaster_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = jorvik_conqueror }
+			clr_character_flag = jorvik_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_jorvik_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = gwynedd_conqueror }
+			clr_character_flag = gwynedd_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_gwynedd_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = powys_conqueror }
+			clr_character_flag = powys_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_powys_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = gwent_conqueror }
+			clr_character_flag = gwent_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_gwent_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = demetia_conqueror }
+			clr_character_flag = demetia_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_demetia_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = siluria_conqueror }
+			clr_character_flag = siluria_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_siluria_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = devon_conqueror }
+			clr_character_flag = devon_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_devon_conquest_tooltip
+			}
+		}
+		if = {
+			limit = { has_character_flag = cornwall_conqueror }
+			clr_character_flag = cornwall_conqueror
+			custom_tooltip = {
+				text = EVTOPT320243_cornwall_conquest_tooltip
+			}
+		}
 	}
 	
 	option = {
@@ -3503,6 +5647,38 @@ narrative_event = {
 				has_character_flag = brunanburh_alliance_member
 			}
 		}
+	}
+	
+	after = {
+		any_independent_ruler = {
+			clr_character_flag = brunanburh_alliance_member
+			clr_character_flag = caledonia_conqueror
+			clr_character_flag = lothian_conqueror
+			clr_character_flag = strathclyde_conqueror
+			clr_character_flag = cumbria_conqueror
+			clr_character_flag = lancaster_conqueror
+			clr_character_flag = jorvik_conqueror
+			clr_character_flag = gwynedd_conqueror
+			clr_character_flag = powys_conqueror
+			clr_character_flag = gwent_conqueror
+			clr_character_flag = demetia_conqueror
+			clr_character_flag = siluria_conqueror
+			clr_character_flag = devon_conqueror
+			clr_character_flag = cornwall_conqueror
+		}
+		clr_global_flag = caledonia_assigned
+		clr_global_flag = lothian_assigned
+		clr_global_flag = strathclyde_assigned
+		clr_global_flag = cumbria_assigned
+		clr_global_flag = lancaster_assigned
+		clr_global_flag = jorvik_assigned
+		clr_global_flag = gwynedd_assigned
+		clr_global_flag = powys_assigned
+		clr_global_flag = gwent_assigned
+		clr_global_flag = demetia_assigned
+		clr_global_flag = siluria_assigned
+		clr_global_flag = devon_assigned
+		clr_global_flag = cornwall_assigned
 	}
 }
 
