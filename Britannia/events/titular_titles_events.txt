@@ -4919,6 +4919,36 @@ narrative_event = {
 			set_name = "Glywysing"
 			adjective = "Glywysing"
 		}
+		
+		any_character = {
+			limit = { 
+				is_landed = yes
+				is_brythonic_culture_trigger = yes
+			}
+			any_demesne_title = {
+				limit = { 
+					tier = BARON 
+					location = {
+						OR = {
+							culture = briton
+							culture = cumbrian
+						}
+					}
+				}
+				if = {
+					limit = {
+						holding_type = CASTLE
+					}
+					add_building = ca_welsh_war_hall_1
+				}
+				else_if = {
+					limit = {
+						holding_type = TRIBAL
+					}
+					add_building = tb_welsh_war_hall_1
+				}
+			}
+		}
 	}
 	
 	option = {						# Anglo-Saxons
@@ -4935,6 +4965,9 @@ narrative_event = {
 				culture = romanobritish
 				culture = cumbrian
 			}
+		}
+		custom_tooltip = {
+			text = EVTOPTB3122101_tooltip
 		}
 	}
 	option = {						# Others
