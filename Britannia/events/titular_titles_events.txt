@@ -8867,6 +8867,7 @@ narrative_event = {
 		c_caer_gei = { de_jure_liege = d_centpowys }
 		c_dunoding = { de_jure_liege = d_centpowys }
 		c_gwynedd = { de_jure_liege = d_centpowys }
+		c_edeyrnion = { de_jure_liege = d_centpowys }
 		
 		set_global_flag = dolforwyn_renamed
 	}
@@ -9016,11 +9017,13 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_osmaeliog = { de_jure_liege = k_britannia_prima }
-		d_osmaeliog = {
+		d_arfon = { de_jure_liege = k_britannia_prima }
+		d_arfon = {
 			set_name = "Gangania"
 			adjective = "Ganganian"
 		}
+		c_ynys_mon = { de_jure_liege = d_arfon }
+		c_rhosyr = { de_jure_liege = d_arfon }
 		set_global_flag = ynys_mon_renamed
 	}
 	
@@ -19755,6 +19758,7 @@ narrative_event = {
 	
 	immediate = {
 		d_osmaeliog = { de_jure_liege = k_henis_wyren }
+		d_arfon = { de_jure_liege = k_henis_wyren }
 		set_global_flag = henis_wyren_created
 	}
 	
@@ -19791,6 +19795,7 @@ narrative_event = {
 	
 	immediate = {
 		d_osmaeliog = { de_jure_liege = k_henis_wyren }
+		d_arfon = { de_jure_liege = k_henis_wyren }
 		set_global_flag = henis_wyren_created
 	}
 	
@@ -19816,8 +19821,20 @@ narrative_event = {
 		has_landed_title = k_gwynedd
 		NOT = { has_landed_title = k_henis_wyren }
 		has_global_flag = henis_wyren_created
-		NOT = {
+		NOR = {
 			d_osmaeliog = {
+				any_de_jure_vassal_title = {
+					holder_scope = {
+						OR = {
+							has_landed_title = k_henis_wyren
+							any_liege = {
+								has_landed_title = k_henis_wyren
+							}
+						}
+					}
+				}
+			}
+			d_arfon = {
 				any_de_jure_vassal_title = {
 					holder_scope = {
 						OR = {
@@ -19831,6 +19848,7 @@ narrative_event = {
 			}
 		}
 		completely_controls = d_osmaeliog
+		completely_controls = d_arfon
 	}
 	
 	mean_time_to_happen = {
@@ -19839,7 +19857,9 @@ narrative_event = {
 	
 	immediate = {
 		d_osmaeliog = { de_jure_liege = k_gwynedd }
+		d_arfon = { de_jure_liege = k_gwynedd }
 		k_henis_wyren = { destroy_landed_title = THIS }
+		k_gwynedd = { set_preferred_capital = 157 }  # Rhos (Deganwy)
 		clr_global_flag = henis_wyren_created
 	}
 	
@@ -24685,6 +24705,7 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 			c_caer_gei = { de_jure_liege = d_centpowys }
 			c_dunoding = { de_jure_liege = d_centpowys }
 			c_gwynedd = { de_jure_liege = d_centpowys }
+			c_edeyrnion = { de_jure_liege = d_centpowys }
 		}
 	}
 	
