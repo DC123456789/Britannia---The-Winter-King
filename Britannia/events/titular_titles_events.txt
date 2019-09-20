@@ -8864,7 +8864,6 @@ narrative_event = {
 		c_caer_gei = { de_jure_liege = d_centpowys }
 		c_dunoding = { de_jure_liege = d_centpowys }
 		c_gwynedd = { de_jure_liege = d_centpowys }
-		c_edeyrnion = { de_jure_liege = d_centpowys }
 		
 		set_global_flag = dolforwyn_renamed
 	}
@@ -8916,7 +8915,6 @@ narrative_event = {
 			set_name = "Cornovia"
 			adjective = "Cornovian"
 		}
-		c_maelor = { de_jure_liege = d_eastpowys }
 		if = {
 			limit = { NOT = { has_global_flag = tomsaete_renamed } }
 			c_stour = { de_jure_liege = d_eastpowys }
@@ -8971,6 +8969,8 @@ narrative_event = {
 			adjective = "Deceanglian"
 		}
 		c_tegeingl = { de_jure_liege = d_northgwynedd }
+		c_arllechwedd = { de_jure_liege = d_northgwynedd }
+		c_maelor = { de_jure_liege = d_northgwynedd }
 		
 		set_global_flag = berfeddwlad_renamed
 	}
@@ -24698,7 +24698,6 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 			c_caer_gei = { de_jure_liege = d_centpowys }
 			c_dunoding = { de_jure_liege = d_centpowys }
 			c_gwynedd = { de_jure_liege = d_centpowys }
-			c_edeyrnion = { de_jure_liege = d_centpowys }
 		}
 	}
 	
@@ -24734,20 +24733,18 @@ narrative_event = {	# Cornovia, Deceanglia
 		if = {
 			limit = { has_global_flag = pengwern_renamed }
 			if = {
-				limit = { NOT = { has_global_flag = wrocensaete_created } }
-				c_maelor = { de_jure_liege = d_eastpowys }
-			}
-			if = {
 				limit = { NOT = { has_global_flag = tomsaete_renamed } }
 				c_stour = { de_jure_liege = d_eastpowys }
 			}
 		}
 		if = {
-			limit = { 
-				has_global_flag = berfeddwlad_renamed
-				NOT = { has_global_flag = wrocensaete_created }
+			limit = { has_global_flag = berfeddwlad_renamed }
+			if = {
+				limit = { NOT = { has_global_flag = wrocensaete_created } }
+				c_tegeingl = { de_jure_liege = d_northgwynedd }
+				c_maelor = { de_jure_liege = d_northgwynedd }
 			}
-			c_tegeingl = { de_jure_liege = d_northgwynedd }
+			c_arllechwedd = { de_jure_liege = d_northgwynedd }
 		}
 	}
 	
