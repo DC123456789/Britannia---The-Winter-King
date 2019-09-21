@@ -4580,6 +4580,29 @@ faction_independence = {
 			liege = {
 				NOT = { distance = { who = ROOT distance = 150 } }
 			}
+			NOR = { 
+				has_character_flag = anglia_collapse_faction
+				AND = {
+					liege = { government = tribal_government }
+					OR = {
+						higher_tier_than = COUNT
+						# Does not hold any title in the liege's capital duchy
+						NOT = {
+							liege = {
+								capital_scope = {
+									duchy = {
+										any_direct_de_jure_vassal_title = {
+											holder_scope = {
+												character = ROOT
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		modifier = {
@@ -4766,6 +4789,11 @@ faction_independence = {
 		modifier = {
 			factor = 1.5
 			liege = { government = tribal_government }
+			liege = { NOT = { prestige = 1000 } }
+		}
+		modifier = {
+			factor = 1.5
+			liege = { government = tribal_government }
 			liege = { NOT = { prestige = 750 } }
 		}
 		modifier = {
@@ -4784,12 +4812,20 @@ faction_independence = {
 			liege = { NOT = { prestige = 0 } }
 		}
 		modifier = {
-			factor = 2
+			factor = 1.5
+			liege = { 
+				OR = {
+					has_character_modifier = tribal_modifier_-2
+					has_character_modifier = tribal_modifier_-3
+				} 
+			}
+		}
+		modifier = {
+			factor = 3
 			liege = { 
 				OR = {
 					has_character_modifier = tribal_modifier_-4
 					has_character_modifier = tribal_modifier_-5
-					has_character_modifier = tribal_modifier_-6
 				} 
 			}
 		}
@@ -4798,14 +4834,23 @@ faction_independence = {
 			liege = { government = tribal_government }
 			liege = { 
 				OR = {
+					has_character_modifier = tribal_modifier_-6
 					has_character_modifier = tribal_modifier_-7
+				} 
+			}
+		}
+		modifier = {
+			factor = 9
+			liege = { government = tribal_government }
+			liege = { 
+				OR = {
 					has_character_modifier = tribal_modifier_-8
 					has_character_modifier = tribal_modifier_-9
 				} 
 			}
 		}
 		modifier = {
-			factor = 15
+			factor = 20
 			liege = { government = tribal_government }
 			liege = { 
 				OR = {
@@ -5311,6 +5356,29 @@ faction_independence = {
 			liege = {
 				NOT = { distance = { who = ROOT distance = 150 } }
 			}
+			NOR = { 
+				has_character_flag = anglia_collapse_faction
+				AND = {
+					liege = { government = tribal_government }
+					OR = {
+						higher_tier_than = COUNT
+						# Does not hold any title in the liege's capital duchy
+						NOT = {
+							liege = {
+								capital_scope = {
+									duchy = {
+										any_direct_de_jure_vassal_title = {
+											holder_scope = {
+												character = ROOT
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		modifier = {
@@ -5369,7 +5437,7 @@ faction_independence = {
 			intrigue = 18
 		}
 		modifier = {
-			factor = 0.5
+			factor = 0.75
 			NOT = { intrigue = 6 }
 		}
 		modifier = {
@@ -5440,6 +5508,26 @@ faction_independence = {
 			factor = 4.0
 			NOT = { opinion = { who = LIEGE value = -75 } } 
 		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = LIEGE value = 20 } } 
+			liege = { government = tribal_government }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = LIEGE value = -10 } } 
+			liege = { government = tribal_government }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = LIEGE value = -40 } } 
+			liege = { government = tribal_government }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { opinion = { who = LIEGE value = -80 } } 
+			liege = { government = tribal_government }
+		}
 		
 		modifier = {
 			factor = 0.025
@@ -5452,7 +5540,7 @@ faction_independence = {
 			}
 		}
 		modifier = {
-			factor = 0.025
+			factor = 0.1
 			trait = imbecile
 			NOT = {	
 				has_opinion_modifier = {
@@ -5482,7 +5570,7 @@ faction_independence = {
 			}
 		}
 		modifier = {
-			factor = 0.1
+			factor = 0.25
 			OR = {
 				trait = slow 
 				trait = dull
@@ -5562,9 +5650,14 @@ faction_independence = {
 			has_character_flag = anglia_collapse_faction
 		}
 		modifier = {
-			factor = 3
+			factor = 4
 			government = tribal_government
 			higher_tier_than = COUNT
+		}
+		modifier = {
+			factor = 1.5
+			liege = { government = tribal_government }
+			liege = { NOT = { prestige = 1000 } }
 		}
 		modifier = {
 			factor = 1.5
@@ -5587,12 +5680,20 @@ faction_independence = {
 			liege = { NOT = { prestige = 0 } }
 		}
 		modifier = {
-			factor = 2
+			factor = 1.5
+			liege = { 
+				OR = {
+					has_character_modifier = tribal_modifier_-2
+					has_character_modifier = tribal_modifier_-3
+				} 
+			}
+		}
+		modifier = {
+			factor = 3
 			liege = { 
 				OR = {
 					has_character_modifier = tribal_modifier_-4
 					has_character_modifier = tribal_modifier_-5
-					has_character_modifier = tribal_modifier_-6
 				} 
 			}
 		}
@@ -5601,14 +5702,23 @@ faction_independence = {
 			liege = { government = tribal_government }
 			liege = { 
 				OR = {
+					has_character_modifier = tribal_modifier_-6
 					has_character_modifier = tribal_modifier_-7
+				} 
+			}
+		}
+		modifier = {
+			factor = 9
+			liege = { government = tribal_government }
+			liege = { 
+				OR = {
 					has_character_modifier = tribal_modifier_-8
 					has_character_modifier = tribal_modifier_-9
 				} 
 			}
 		}
 		modifier = {
-			factor = 15
+			factor = 20
 			liege = { government = tribal_government }
 			liege = { 
 				OR = {
@@ -7662,7 +7772,7 @@ faction_overthrow = {
 		modifier = {
 			factor = 0
 			FROM = { 
-				opinion = { who = LIEGE value = 50 } 
+				opinion = { who = LIEGE value = 60 } 
 				NOT = {
 					trait = deceitful
 					trait = ambitious
@@ -7678,7 +7788,7 @@ faction_overthrow = {
 		modifier = {
 			factor = 0
 			FROM = {
-				opinion = { who = LIEGE value = 75 } 
+				opinion = { who = LIEGE value = 80 } 
 				OR = {
 					trait = deceitful
 					trait = ambitious
@@ -7796,15 +7906,19 @@ faction_overthrow = {
 
 		modifier = {
 			factor = 1.5
-			NOT = { FROM = { opinion = { who = LIEGE value = -10 } } }
+			NOT = { FROM = { opinion = { who = LIEGE value = 10 } } }
 		}
 		modifier = {
 			factor = 2.0
+			NOT = { FROM = { opinion = { who = LIEGE value = -20 } } }
+		}
+		modifier = {
+			factor = 3.0
 			NOT = { FROM = { opinion = { who = LIEGE value = -50 } } }
 		}
 		modifier = {
 			factor = 4.0
-			NOT = { FROM = { opinion = { who = LIEGE value = -75 } } }
+			NOT = { FROM = { opinion = { who = LIEGE value = -80 } } }
 		}
 
 		modifier = {
@@ -8036,6 +8150,119 @@ faction_overthrow = {
 			factor = 1.5
 			FROM = { liege = { NOT = { prestige = 0 } } }
 		}
+		modifier = {
+			factor = 1.1
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 1000 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.25
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 750 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 500 }
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 200 }
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 0 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.25
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-2
+						has_character_modifier = tribal_modifier_-3
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 1.75
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-4
+						has_character_modifier = tribal_modifier_-5
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-6
+						has_character_modifier = tribal_modifier_-7
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-8
+						has_character_modifier = tribal_modifier_-9
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 8
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-10
+						has_character_modifier = tribal_modifier_-11
+						has_character_modifier = tribal_modifier_-12
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 12
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-13
+						has_character_modifier = tribal_modifier_-14
+						has_character_modifier = tribal_modifier_-15
+					} 
+				}
+			}
+		}
 	}
 	
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
@@ -8096,7 +8323,7 @@ faction_overthrow = {
 		
 		modifier = {
 			factor = 0
-			opinion = { who = LIEGE value = 60 }
+			opinion = { who = LIEGE value = 70 }
 			liege = {
 				is_weak_trigger = no
 				health = 4
@@ -8200,7 +8427,7 @@ faction_overthrow = {
 		}
 
 		modifier = {
-			factor = 0.01
+			factor = 0.1
 			FROM = {
 				liege = {
 					is_strong_trigger = yes
@@ -8414,7 +8641,7 @@ faction_overthrow = {
 			}
 		}
 		modifier = {
-			factor = 0.01
+			factor = 0.1
 			trait = imbecile
 			NOT = {	
 				has_opinion_modifier = {
@@ -8424,7 +8651,7 @@ faction_overthrow = {
 			}
 		}
 		modifier = {
-			factor = 0.1
+			factor = 0.25
 			trait = inbred
 			NOT = {	
 				has_opinion_modifier = {
@@ -8444,7 +8671,7 @@ faction_overthrow = {
 			}
 		}
 		modifier = {
-			factor = 0.2
+			factor = 0.4
 			OR = {
 				trait = slow 
 				trait = dull
@@ -8532,6 +8759,119 @@ faction_overthrow = {
 		modifier = {
 			factor = 1.5
 			FROM = { liege = { NOT = { prestige = 0 } } }
+		}
+		modifier = {
+			factor = 1.1
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 1000 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.25
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 750 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 500 }
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 200 }
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			FROM = {
+				liege = { 
+					government = tribal_government
+					NOT = { prestige = 0 }
+				}
+			}
+		}
+		modifier = {
+			factor = 1.25
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-2
+						has_character_modifier = tribal_modifier_-3
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 1.75
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-4
+						has_character_modifier = tribal_modifier_-5
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-6
+						has_character_modifier = tribal_modifier_-7
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-8
+						has_character_modifier = tribal_modifier_-9
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 8
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-10
+						has_character_modifier = tribal_modifier_-11
+						has_character_modifier = tribal_modifier_-12
+					} 
+				}
+			}
+		}
+		modifier = {
+			factor = 12
+			FROM = {
+				liege = { 
+					OR = {
+						has_character_modifier = tribal_modifier_-13
+						has_character_modifier = tribal_modifier_-14
+						has_character_modifier = tribal_modifier_-15
+					} 
+				}
+			}
 		}
 	}
 	

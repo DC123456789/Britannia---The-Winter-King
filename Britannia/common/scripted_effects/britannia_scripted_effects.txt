@@ -429,6 +429,23 @@ declare_conquest_war = {
 	}
 }
 
+unsafe_declare_conquest_war = {
+	add_claim = ROOT
+	reverse_war = {
+		target = ROOT
+		casus_belli = county_conquest
+	}
+	hidden_tooltip = {
+		if = {
+			limit = { ROOT = { war = no } }
+			reverse_unsafe_war = {
+				target = ROOT
+				casus_belli = claim
+			}
+		}
+	}
+}
+
 destroy_landless_count_level_title_effect = {
 	unsafe_destroy_landed_title = THIS
 	activate_title = {
@@ -826,14 +843,8 @@ convert_tribal_holding_to_castle_effect = {
 	hidden_tooltip = { refill_holding_levy = yes }
 	location = { #Clear Tribal Great Pillars
 		clr_province_flag = flag_great_pillar_tengri
-		clr_province_flag = flag_great_pillar_germanic
-		clr_province_flag = flag_great_pillar_frankish
-		clr_province_flag = flag_great_pillar_suebic
-		clr_province_flag = flag_great_pillar_gothic
 		clr_province_flag = flag_great_pillar_norse
-		clr_province_flag = flag_great_pillar_briton
-		clr_province_flag = flag_great_pillar_pict
-		clr_province_flag = flag_great_pillar_gael
+		clr_province_flag = flag_great_pillar_celtic
 		clr_province_flag = flag_great_pillar_alan
 		clr_province_flag = flag_great_pillar_vasconic
 		clr_province_flag = flag_great_pillar_roman
