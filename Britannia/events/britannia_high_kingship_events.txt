@@ -695,7 +695,7 @@ letter_event = {
 		trigger = {
 			FROM = { has_character_flag = HK_opponent }
 		}
-		set_character_flag = HK_claimant_has_opponent
+		#set_character_flag = HK_claimant_has_opponent
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = {
@@ -734,7 +734,9 @@ character_event = {		# Claimant gets choice to declare war against opponents or 
 	is_triggered_only = yes
 	
 	trigger = {
-		has_character_flag = HK_claimant_has_opponent
+		any_independent_ruler = {
+			has_character_flag = HK_opponent
+		}
 	}
 
 	immediate = {
@@ -1048,7 +1050,7 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 		has_character_flag = HK_britannia_claimant
 		has_global_flag = HK_britannia_claim
 		NOT = { has_landed_title = e_britannia }
-		NOT = { has_character_flag = HK_claimant_has_opponent }
+		#NOT = { has_character_flag = HK_claimant_has_opponent }
 		NOT = { any_playable_ruler = { has_character_flag = HK_challenged_opponent } }
 		NOT = { any_playable_ruler = { has_character_flag = HK_voter } }
 		NOT = { any_playable_ruler = { has_character_flag = HK_opponent } }
