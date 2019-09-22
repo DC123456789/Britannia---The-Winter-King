@@ -1920,7 +1920,7 @@ is_primary_anglosaxon_title_of_FROM_trigger = {
 			primary_title = { title = PREVPREV }
 			AND = {
 				primary_title = { title = e_aengland }
-				has_landed_title = PREV
+				any_demesne_title = { title = PREVPREV }
 				PREV = { has_title_flag = aengland_primary_kingdom }
 			}
 		}
@@ -1933,7 +1933,7 @@ is_primary_anglosaxon_title_of_ROOT_trigger = {
 			primary_title = { title = PREVPREV }
 			AND = {
 				primary_title = { title = e_aengland }
-				has_landed_title = PREV
+				any_demesne_title = { title = PREVPREV }
 				PREV = { has_title_flag = aengland_primary_kingdom }
 			}
 		}
@@ -1950,7 +1950,7 @@ kingdom_holder_is_integrating_event_target_duchy_trigger = {
 			}
 			AND = {
 				has_landed_title = e_aengland
-				PREV = { has_title_flag = aengland_primary_title }
+				PREV = { has_title_flag = aengland_primary_kingdom }
 			}										
 		}
 	}
@@ -1962,8 +1962,8 @@ kingdom_holder_is_integrating_event_target_duchy_trigger = {
 				has_holder = yes
 				holder_scope = {
 					OR = {
-						has_landed_title = PREVPREVPREV
-						any_vassal = { has_landed_title = PREVPREVPREVPREV }
+						any_demesne_title = { title = PREVPREVPREV }
+						any_vassal = { any_demesne_title = { title = PREVPREVPREVPREV } }
 						event_target:duchy_to_integrate = {
 							any_direct_de_jure_vassal_title = {
 								holder_scope = {
