@@ -1225,6 +1225,43 @@ narrative_event = {		# All Agreed, Gain High Kingdom of Britannia
 	}
 }
 
+province_event = {		# Master cleanup event if something screwed up
+	id = 3121650
+	title = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	only_playable = yes
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOR = {
+			e_britannia = { has_holder = yes }
+			any_playable_ruler = {
+				any_war = {
+					using_cb = disputeBritanniaHighKingship
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		clr_global_flag = HK_britannia_claim
+		any_character = {
+			clr_character_flag = HK_britannia_claimant
+			clr_character_flag = HK_opponent
+			clr_character_flag = HK_challenged_opponent
+			clr_character_flag = HK_challenger
+			clr_character_flag = HK_voter
+			clr_character_flag = HK_challenge_loser
+			clr_character_flag = HK_challenge_winner
+			clr_character_flag = HK_supporter
+			clr_character_flag = HK_indep_supporter
+		}	
+	}
+}
+
 character_event = {		# Unfit to Rule to Britannia or Aengland - start timer
 	id = 312170
 	title = "You're not supposed to see this..."
