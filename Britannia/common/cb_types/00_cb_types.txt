@@ -142,6 +142,15 @@ claim = {
 	on_success_title = {	
 		hidden_tooltip = {
 			ROOT = {
+				# Set proper adventurer government
+				if = {
+					limit = { 
+						has_character_flag = claimant_adventurer 
+						is_landed = no
+					}
+					FROM = { save_event_target_as = target_to_switch_government_to }
+					set_government_to_target_effect = yes
+				}
 				clr_character_flag = claimant_adventurer
 				if = {
 					limit = {
