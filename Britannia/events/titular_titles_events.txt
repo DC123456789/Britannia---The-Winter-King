@@ -72,7 +72,7 @@ narrative_event = {
 			c_banovallum = { de_jure_liege = d_lindsey }
 			c_luda = { de_jure_liege = d_lindsey }
 		}		
-		d_lindsey = { de_jure_liege = k_northumbria }
+		#d_lindsey = { de_jure_liege = k_northumbria }
 		
 		d_lindum = { destroy_landed_title = d_lindum }
 		
@@ -119,7 +119,7 @@ narrative_event = {
 		
 		c_dovedale = { de_jure_liege = d_mercia }
 		
-		d_mercia = { de_jure_liege = k_mercia }
+		#d_mercia = { de_jure_liege = k_mercia }
 		
 		d_the_peak = { destroy_landed_title = d_the_peak }
 		set_global_flag = pegansaete_created
@@ -173,16 +173,16 @@ narrative_event = {
 		}
 		c_brinavae = { de_jure_liege = d_middle_angles }
 		
-		if = {
-			limit = { 
-				has_global_flag = aelle_ruling_anglia
-				NOT = { has_global_flag = anglia_collapsed }
-			}
-			d_middle_angles = { de_jure_liege = k_anglia }
-		}
-		else = {
-			d_middle_angles = { de_jure_liege = k_mercia }
-		}
+		# if = {
+			# limit = { 
+				# has_global_flag = aelle_ruling_anglia
+				# NOT = { has_global_flag = anglia_collapsed }
+			# }
+			# d_middle_angles = { de_jure_liege = k_anglia }
+		# }
+		# else = {
+			# d_middle_angles = { de_jure_liege = k_mercia }
+		# }
 		
 		set_global_flag = middleangles_created
 	}
@@ -221,7 +221,7 @@ narrative_event = {
 		c_hibernicum = { de_jure_liege = d_wrocensaete }
 		c_whitchurch = { de_jure_liege = d_wrocensaete }
 		
-		d_wrocensaete = { de_jure_liege = k_mercia }
+		#d_wrocensaete = { de_jure_liege = k_mercia }
 		
 		set_global_flag = wrocensaete_created
 	}
@@ -266,7 +266,7 @@ narrative_event = {
 		c_manduessedum = { de_jure_liege = d_tomsaete }
 		c_tripontium = { de_jure_liege = d_tomsaete }
 		
-		d_tomsaete = { de_jure_liege = k_mercia }
+		#d_tomsaete = { de_jure_liege = k_mercia }
 		
 		d_luitcoyt = { destroy_landed_title = THIS }
 		set_global_flag = tomsaete_created
@@ -305,7 +305,7 @@ narrative_event = {
 		c_trefyclawdd = { de_jure_liege = d_magonsaete }
 		c_ariconium = { de_jure_liege = d_magonsaete }
 		c_ergyng = { de_jure_liege = d_magonsaete }
-		d_magonsaete = { de_jure_liege = k_mercia }
+		#d_magonsaete = { de_jure_liege = k_mercia }
 		set_global_flag = magonsaete_created
 	}
 	
@@ -348,7 +348,7 @@ narrative_event = {
 		d_corinium = { destroy_landed_title = THIS }
 		d_baddon = { destroy_landed_title = THIS }
 		
-		d_hwicce = { de_jure_liege = k_mercia }
+		#d_hwicce = { de_jure_liege = k_mercia }
 		set_global_flag = hwicce_created
 	}
 	
@@ -384,16 +384,16 @@ narrative_event = {
 		c_chiltern_hills = { de_jure_liege = d_cilternsaete }
 		c_aylesbury = { de_jure_liege = d_cilternsaete }
 		
-		if = {
-			limit = { 
-				has_global_flag = aelle_ruling_anglia 
-				NOT = { has_global_flag = anglia_collapsed }
-			}
-			d_cilternsaete = { de_jure_liege = k_anglia }
-		}
-		else = {
-			d_cilternsaete = { de_jure_liege = k_wessex }
-		}
+		# if = {
+			# limit = { 
+				# has_global_flag = aelle_ruling_anglia 
+				# NOT = { has_global_flag = anglia_collapsed }
+			# }
+			# d_cilternsaete = { de_jure_liege = k_anglia }
+		# }
+		# else = {
+			# d_cilternsaete = { de_jure_liege = k_wessex }
+		# }
 
 		set_global_flag = cilternsaete_created
 	}
@@ -425,9 +425,9 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_mercia = { de_jure_liege = k_mercia }
-		d_magonsaete = { de_jure_liege = k_mercia }
-		d_hwicce = { de_jure_liege = k_mercia }
+		# d_mercia = { de_jure_liege = k_mercia }
+		# d_magonsaete = { de_jure_liege = k_mercia }
+		# d_hwicce = { de_jure_liege = k_mercia }
 		if = {
 			limit = {
 				NOT = {
@@ -508,16 +508,19 @@ character_event = {
 		num_of_count_titles_in_realm = 4
 		prestige = 400
 		independent = yes
-		OR = {
-			has_landed_title = d_mercia
-			has_landed_title = d_tomsaete
-			has_landed_title = d_wrocensaete
-			has_landed_title = d_middle_angles
-			has_landed_title = d_magonsaete
-			AND = {
-				has_landed_title = d_hwicce
-				year = 600
+		any_demesne_title = {
+			OR = {
+				title = d_mercia
+				title = d_tomsaete
+				title = d_wrocensaete
+				title = d_middle_angles
+				title = d_magonsaete
+				AND = {
+					title = d_hwicce
+					year = 600
+				}
 			}
+			dejure_liege_title = { title = k_mercia }
 		}
 		NOT = { trait = incapable }
 		NOT = { trait = imbecile }
@@ -635,7 +638,7 @@ narrative_event = {
 		c_durnovaria = { de_jure_liege = d_dorset }
 		c_dunum = { de_jure_liege = d_dorset }
 		c_vindocladia = { de_jure_liege = d_dorset }
-		d_dorset = { de_jure_liege = k_wessex }
+		#d_dorset = { de_jure_liege = k_wessex }
 		d_centdumnonia = { destroy_landed_title = d_centdumnonia }
 		set_global_flag = dorset_created
 	}
@@ -672,7 +675,7 @@ narrative_event = {
 		c_combe = { de_jure_liege = d_somerset }
 		c_tone = { de_jure_liege = d_somerset }
 		c_lindinis = { de_jure_liege = d_somerset }
-		d_somerset = { de_jure_liege = k_wessex }
+		#d_somerset = { de_jure_liege = k_wessex }
 		set_global_flag = somerset_created
 		
 		d_avalon = { destroy_landed_title = THIS }
@@ -720,7 +723,7 @@ narrative_event = {
 			c_calleva = { de_jure_liege = d_hampshire }
 		}
 		
-		d_hampshire = { de_jure_liege = k_wessex }
+		#d_hampshire = { de_jure_liege = k_wessex }
 		
 		set_global_flag = hampshire_created
 		if = {
@@ -770,7 +773,11 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_the_belgae = { de_jure_liege = k_sussex }
+		d_the_weald = { 
+			dejure_liege_title = {
+				d_the_belgae = { de_jure_liege = PREV }
+			}
+		}
 		d_the_belgae = {
 			set_name = "Meonware"
 			adjective = "Meonwara"
@@ -920,7 +927,7 @@ narrative_event = {
 			c_calleva = { de_jure_liege = d_berkshire }
 		}
 		
-		d_berkshire = { de_jure_liege = k_wessex }
+		#d_berkshire = { de_jure_liege = k_wessex }
 		d_eastdumnonia = { destroy_landed_title = d_eastdumnonia }
 		
 		set_global_flag = berkshire_created
@@ -959,7 +966,7 @@ narrative_event = {
 		c_ambra = { de_jure_liege = d_wiltshire }
 		c_sorviodunum = { de_jure_liege = d_wiltshire }
 		
-		d_wiltshire = { de_jure_liege = k_wessex }
+		#d_wiltshire = { de_jure_liege = k_wessex }
 		d_gradawc = { destroy_landed_title = THIS }
 		
 		set_global_flag = wiltshire_created
@@ -998,7 +1005,7 @@ narrative_event = {
 		c_artland = { de_jure_liege = d_devon }
 		c_muridunum = { de_jure_liege = d_devon }
 		c_nemetostatio = { de_jure_liege = d_devon }
-		d_devon = { de_jure_liege = k_wessex }
+		#d_devon = { de_jure_liege = k_wessex }
 		d_westdumnonia = { destroy_landed_title = d_westdumnonia }
 		set_global_flag = devon_created
 	}
@@ -1035,7 +1042,7 @@ narrative_event = {
 		c_din_tagell = { de_jure_liege = d_cornwall }
 		c_tamara = { de_jure_liege = d_cornwall }
 		c_lyonesse = { de_jure_liege = d_cornwall }
-		d_cornwall = { de_jure_liege = k_wessex }
+		#d_cornwall = { de_jure_liege = k_wessex }
 		d_penwith = { destroy_landed_title = d_penwith }
 		d_kernow = { destroy_landed_title = d_kernow }
 		d_lyonesse = { destroy_landed_title = d_lyonesse }
@@ -1069,24 +1076,24 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_somerset = { de_jure_liege = k_wessex }
-		d_dorset = { de_jure_liege = k_wessex }
-		d_hampshire = { de_jure_liege = k_wessex }
-		d_devon = { de_jure_liege = k_wessex }
+		# d_somerset = { de_jure_liege = k_wessex }
+		# d_dorset = { de_jure_liege = k_wessex }
+		# d_hampshire = { de_jure_liege = k_wessex }
+		# d_devon = { de_jure_liege = k_wessex }
 		if = {
 			limit = {
 				NOT = {
 					ROOT = {
 						OR = {
-							has_landed_title = c_durnovaria
+							has_landed_title = c_venta
 							any_vassal = {
-								has_landed_title = c_durnovaria
+								has_landed_title = c_venta
 							}
 						}
 					}
 				}
 			}
-			ROOT = { add_claim = c_durnovaria }
+			ROOT = { add_claim = c_venta }
 		}
 		#k_wessex = {
 		#	capital_scope = {
@@ -1121,13 +1128,16 @@ character_event = {
 		num_of_count_titles_in_realm = 4
 		prestige = 400
 		independent = yes
-		OR = {
-			has_landed_title = d_somerset
-			has_landed_title = d_dorset
-			has_landed_title = d_hampshire
-			has_landed_title = d_devon
-			has_landed_title = d_berkshire
-			has_landed_title = d_wiltshire
+		any_demesne_title = {
+			OR = {
+				title = d_somerset
+				title = d_dorset
+				title = d_hampshire
+				title = d_devon
+				title = d_berkshire
+				title = d_wiltshire
+			}
+			dejure_liege_title = { title = k_wessex }
 		}
 		NOT = { trait = incapable }
 		NOT = { trait = imbecile }
@@ -1863,11 +1873,7 @@ narrative_event = {
 			}
 			ROOT = { add_claim = c_aldeburgh }
 		}
-		#k_northumbria = {
-		#	capital_scope = {
-		#		culture = ROOT
-		#	}
-		#}
+		
 		set_global_flag = east_anglia_created
 	}
 	
@@ -2060,7 +2066,7 @@ narrative_event = {
 		}
 		
 		d_ebrauc = { destroy_landed_title = d_ebrauc }
-		d_deira = { de_jure_liege = k_northumbria }
+		#d_deira = { de_jure_liege = k_northumbria }
 		
 		set_global_flag = deira_created
 	}
@@ -2100,7 +2106,7 @@ narrative_event = {
 			c_cornovia = { de_jure_liege = d_lancaster }
 		}
 		
-		d_lancaster = { de_jure_liege = k_northumbria }
+		#d_lancaster = { de_jure_liege = k_northumbria }
 		
 		d_the_peak = { destroy_landed_title = d_the_peak }
 		
@@ -2147,7 +2153,7 @@ narrative_event = {
 			c_cambodunum = { de_jure_liege = d_southumbria }
 		}
 		
-		d_southumbria = { de_jure_liege = k_northumbria }
+		#d_southumbria = { de_jure_liege = k_northumbria }
 		
 		d_the_peak = { destroy_landed_title = d_the_peak }
 		d_elmet = { destroy_landed_title = d_elmet }
@@ -2188,7 +2194,7 @@ narrative_event = {
 		c_bravoniacum = { de_jure_liege = d_cumbria }
 		c_kirby_thore = { de_jure_liege = d_cumbria }
 		c_armterid = { de_jure_liege = d_cumbria }
-		d_cumbria = { de_jure_liege = k_northumbria }
+		#d_cumbria = { de_jure_liege = k_northumbria }
 		d_westrheged = { destroy_landed_title = d_westrheged }
 		set_global_flag = cumbria_created
 	}
@@ -2230,7 +2236,7 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = jorvik_created } }
 			c_ashgill = { de_jure_liege = d_bernicia }
 		}
-		d_bernicia = { de_jure_liege = k_northumbria }
+		#d_bernicia = { de_jure_liege = k_northumbria }
 		#d_north_angles = { gain_title = ROOT }
 		d_north_angles = { de_jure_liege = k_northumbria }
 		set_global_flag = bernicia_created
@@ -2272,7 +2278,7 @@ narrative_event = {
 		c_carbantorigum = { de_jure_liege = d_anglelothian }
 		c_dunpender = { de_jure_liege = d_anglelothian }
 		d_manaw = { de_jure_liege = k_strathclyde }
-		d_anglelothian = { de_jure_liege = k_northumbria }		
+		#d_anglelothian = { de_jure_liege = k_northumbria }		
 		#k_lothian = { destroy_landed_title = k_lothian }
 		d_eidyn = { destroy_landed_title = d_eidyn }
 		set_global_flag = anglelothian_created
@@ -2310,7 +2316,7 @@ narrative_event = {
 		c_eskdale = { de_jure_liege = d_anglegalloway }
 		c_nithsdale = { de_jure_liege = d_anglegalloway }
 		c_annandale = { de_jure_liege = d_anglegalloway }
-		d_anglegalloway = { de_jure_liege = k_northumbria }	
+		#d_anglegalloway = { de_jure_liege = k_northumbria }	
 		d_galloway = { destroy_landed_title = THIS }
 		set_global_flag = anglegalloway_created
 	}
@@ -2348,7 +2354,7 @@ narrative_event = {
 		c_govan = { de_jure_liege = d_ayrshire }
 		c_lochduin = { de_jure_liege = d_ayrshire }
 		c_lothian = { de_jure_liege = d_ayrshire }
-		d_ayrshire = { de_jure_liege = k_northumbria }	
+		#d_ayrshire = { de_jure_liege = k_northumbria }	
 		d_aeron = { destroy_landed_title = THIS }
 		set_global_flag = ayrshire_created
 	}
@@ -2380,11 +2386,11 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_lancaster = { de_jure_liege = k_northumbria }
-		d_cumbria = { de_jure_liege = k_northumbria }
-		d_deira = { de_jure_liege = k_northumbria }
-		d_bernicia = { de_jure_liege = k_northumbria }
-		d_southumbria = { de_jure_liege = k_northumbria }
+		# d_lancaster = { de_jure_liege = k_northumbria }
+		# d_cumbria = { de_jure_liege = k_northumbria }
+		# d_deira = { de_jure_liege = k_northumbria }
+		# d_bernicia = { de_jure_liege = k_northumbria }
+		# d_southumbria = { de_jure_liege = k_northumbria }
 		if = {
 			limit = {
 				NOT = {
@@ -2687,16 +2693,16 @@ narrative_event = {
 		c_anderida = { de_jure_liege = d_surrey }
 		c_fearnhamme = { de_jure_liege = d_surrey }
 		
-		if = {
-			limit = {
-				NOT = { has_global_flag = cantia_created }
-			}
-			d_surrey = { de_jure_liege = k_sussex }		
-		}
-		if = {
-			limit = { has_global_flag = cantia_created }
-			d_surrey = { de_jure_liege = k_cantia }		
-		}
+		# if = {
+			# limit = {
+				# NOT = { has_global_flag = cantia_created }
+			# }
+			# d_surrey = { de_jure_liege = k_sussex }		
+		# }
+		# if = {
+			# limit = { has_global_flag = cantia_created }
+			# d_surrey = { de_jure_liege = k_cantia }		
+		# }
 		
 		set_global_flag = surrey_created
 	}
@@ -2734,16 +2740,16 @@ narrative_event = {
 		c_portus_lemanis = { de_jure_liege = d_cantware }
 		c_thanet = { de_jure_liege = d_cantware }
 		
-		if = {
-			limit = {
-				NOT = { has_global_flag = cantia_created }
-			}
-			d_cantware = { de_jure_liege = k_sussex }		
-		}
-		if = {
-			limit = { has_global_flag = cantia_created }
-			d_cantware = { de_jure_liege = k_cantia }		
-		}
+		# if = {
+			# limit = {
+				# NOT = { has_global_flag = cantia_created }
+			# }
+			# d_cantware = { de_jure_liege = k_sussex }		
+		# }
+		# if = {
+			# limit = { has_global_flag = cantia_created }
+			# d_cantware = { de_jure_liege = k_cantia }		
+		# }
 		
 		set_global_flag = cantware_created
 	}
@@ -2778,16 +2784,16 @@ narrative_event = {
 		c_aylesford = { de_jure_liege = d_westcantware }
 		c_noviomagus_cantiacorum = { de_jure_liege = d_westcantware }
 		
-		if = {
-			limit = {
-				NOT = { has_global_flag = cantia_created }
-			}
-			d_westcantware = { de_jure_liege = k_sussex }		
-		}
-		if = {
-			limit = { has_global_flag = cantia_created }
-			d_westcantware = { de_jure_liege = k_cantia }		
-		}
+		# if = {
+			# limit = {
+				# NOT = { has_global_flag = cantia_created }
+			# }
+			# d_westcantware = { de_jure_liege = k_sussex }		
+		# }
+		# if = {
+			# limit = { has_global_flag = cantia_created }
+			# d_westcantware = { de_jure_liege = k_cantia }		
+		# }
 		
 		set_global_flag = westcantware_created
 	}
@@ -2824,7 +2830,7 @@ narrative_event = {
 		c_novus_portus = { de_jure_liege = d_the_weald }
 		c_regentium = { de_jure_liege = d_the_weald }
 		c_hastings = { de_jure_liege = d_the_weald }
-		d_the_weald = { de_jure_liege = k_sussex }		
+		#d_the_weald = { de_jure_liege = k_sussex }		
 		set_global_flag = weald_created
 	}
 	
@@ -2857,13 +2863,16 @@ character_event = {
 		independent = yes
 		completely_controls = c_eburacum
 		completely_controls = c_bernicia
-		OR = {
-			has_landed_title = d_bernicia
-			has_landed_title = d_deira
-			has_landed_title = d_cumbria
-			has_landed_title = d_lancaster
-			has_landed_title = d_southumbria
-			has_landed_title = d_anglelothian
+		any_demesne_title = {
+			OR = {
+				title = d_bernicia
+				title = d_deira
+				title = d_cumbria
+				title = d_lancaster
+				title = d_southumbria
+				title = d_anglelothian
+			}
+			dejure_liege_title = { title = k_northumbria }
 		}
 		NOT = { trait = incapable }
 		NOT = { trait = imbecile }
