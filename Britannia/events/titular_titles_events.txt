@@ -2418,6 +2418,158 @@ narrative_event = {
 		name = "EVTOPTA314115"
 	}
 }
+character_event = {
+	id = 314230
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_council"
+	
+	hide_new = yes
+	
+	ai = yes
+	only_playable = yes
+	min_age = 20
+	capable_only = yes
+	
+	trigger = {
+		is_alternate_start = no
+		year = 580
+		age = 20
+		ai = yes
+		is_ingvaeonic_culture_trigger = yes
+		prisoner = no
+		num_of_count_titles_in_realm = 5
+		prestige = 400
+		independent = yes
+		completely_controls = c_eburacum
+		completely_controls = c_bernicia
+		any_demesne_title = {
+			OR = {
+				title = d_bernicia
+				title = d_deira
+				title = d_cumbria
+				title = d_lancaster
+				title = d_southumbria
+				title = d_anglelothian
+			}
+			dejure_liege_title = { title = k_northumbria }
+		}
+		NOT = { trait = incapable }
+		NOT = { trait = imbecile }
+		NOT = { trait = blinded }
+		NOT = { has_landed_title = k_anglia }
+		NOT = { has_landed_title = k_northumbria }
+		k_northumbria = { has_holder = no }
+		NOT = { has_character_flag = northumbria_assigned }
+	}
+	
+	mean_time_to_happen = {
+		days = 60
+	}
+	
+	immediate = {
+		set_character_flag = northumbria_assigned
+		k_northumbria = { gain_title = ROOT }
+		wealth = 100
+		character_event = { id = 31205 }
+		create_character = {
+			random_traits = yes
+			dynasty = random
+			religion = ROOT
+			culture = ROOT
+			employer = k_northumbria
+			female = no
+			age = 35
+			attributes = {
+				martial = 11
+			}
+			trait = brilliant_strategist
+			trait = veteran
+			trait = brave
+		}
+		location = { 
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					troops =
+					{
+						heavy_infantry = { 400 400 }
+						pikemen = { 300 300 }
+					}
+					attrition = 1
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+
+}
+# Spears of Bernicia
+character_event = {
+	id = 3141151
+	desc = "EVTDESC3141151"
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_playable = yes
+	min_age = 15
+	capable_only = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_northumbria
+		location = { is_capital = yes }
+		NOT = { realm_size = 40 }
+		NOT = { num_of_king_titles = 2 }
+		NOT = { is_title_active = d_spears_of_bernicia }
+	}
+	
+	mean_time_to_happen = {
+		days = 15
+	}
+	
+	immediate = {
+		activate_title = { title = d_spears_of_bernicia status = yes }
+		create_character = {
+			random_traits = no
+			dynasty = random
+			religion = ROOT
+			culture = ROOT
+			employer = k_northumbria
+			female = no
+			age = 35
+			attributes = {
+				martial = 12
+				diplomacy = 12
+				stewardship = 10
+			}
+			trait = brilliant_strategist
+			trait = veteran
+			trait = brave
+			trait = loyal
+			trait = rough_terrain_leader
+			trait = lustful
+		}
+		new_character = {
+			d_spears_of_bernicia = { 
+				gain_title = PREV
+			}
+			set_defacto_liege = ROOT
+		}
+		d_spears_of_bernicia = { 
+			holder_scope = {
+				set_defacto_liege = ROOT
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA3141151"
+		k_northumbria = { holder_scope = { prestige = 50 } }
+	}
+}
+
 # Creation of the Jarldom of Grentbryce
 narrative_event = {
 	id = 314116
@@ -2839,155 +2991,73 @@ narrative_event = {
 	}
 }
 
-character_event = {
-	id = 314230
-	desc = "You're not supposed to see this..."
-	picture = "GFX_evt_council"
-	
+# ANGLO-SAXON DUCHIES IN WALES
+# Ealdormanry of Monmouthshire
+narrative_event = {
+	id = 314130
+	title = "EVTNAME314130"
+	desc = "EVTDESC314130"
+	major = yes
 	hide_new = yes
 	
-	ai = yes
+	picture = "GFX_evt_castle_coastal"
+	
 	only_playable = yes
-	min_age = 20
-	capable_only = yes
 	
 	trigger = {
 		is_alternate_start = no
-		year = 580
-		age = 20
-		ai = yes
-		is_ingvaeonic_culture_trigger = yes
-		prisoner = no
-		num_of_count_titles_in_realm = 5
-		prestige = 400
-		independent = yes
-		completely_controls = c_eburacum
-		completely_controls = c_bernicia
-		any_demesne_title = {
-			OR = {
-				title = d_bernicia
-				title = d_deira
-				title = d_cumbria
-				title = d_lancaster
-				title = d_southumbria
-				title = d_anglelothian
-			}
-			dejure_liege_title = { title = k_northumbria }
-		}
-		NOT = { trait = incapable }
-		NOT = { trait = imbecile }
-		NOT = { trait = blinded }
-		NOT = { has_landed_title = k_anglia }
-		NOT = { has_landed_title = k_northumbria }
-		k_northumbria = { has_holder = no }
-		NOT = { has_character_flag = northumbria_assigned }
+		has_landed_title = d_monmouthshire
+		NOT = { has_global_flag = monmouthshire_created }
 	}
 	
 	mean_time_to_happen = {
-		days = 60
+		days = 1
 	}
 	
 	immediate = {
-		set_character_flag = northumbria_assigned
-		k_northumbria = { gain_title = ROOT }
-		wealth = 100
-		character_event = { id = 31205 }
-		create_character = {
-			random_traits = yes
-			dynasty = random
-			religion = ROOT
-			culture = ROOT
-			employer = k_northumbria
-			female = no
-			age = 35
-			attributes = {
-				martial = 11
-			}
-			trait = brilliant_strategist
-			trait = veteran
-			trait = brave
-		}
-		location = { 
-			new_character = {
-				spawn_unit = {
-					province = PREV
-					troops =
-					{
-						heavy_infantry = { 400 400 }
-						pikemen = { 300 300 }
-					}
-					attrition = 1
-				}
-			}
-		}
+		c_burrium = { de_jure_liege = d_monmouthshire }
+		c_gobannium = { de_jure_liege = d_monmouthshire }
+		c_isca_siluria = { de_jure_liege = d_monmouthshire }
+		
+		set_global_flag = monmouthshire_created
 	}
 	
 	option = {
-		name = "OK"
+		name = "EVTOPTA314123"
 	}
-
 }
-# Spears of Bernicia
-character_event = {
-	id = 3141151
-	desc = "EVTDESC3141151"
-	picture = "GFX_evt_saxon_army_banners"
+# Ealdormanry of Glamorganshire
+narrative_event = {
+	id = 314131
+	title = "EVTNAME314131"
+	desc = "EVTDESC314131"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_coastal"
 	
 	only_playable = yes
-	min_age = 15
-	capable_only = yes
 	
 	trigger = {
 		is_alternate_start = no
-		has_landed_title = k_northumbria
-		location = { is_capital = yes }
-		NOT = { realm_size = 40 }
-		NOT = { num_of_king_titles = 2 }
-		NOT = { is_title_active = d_spears_of_bernicia }
+		has_landed_title = d_glamorganshire
+		NOT = { has_global_flag = glamorganshire_created }
 	}
 	
 	mean_time_to_happen = {
-		days = 15
+		days = 1
 	}
 	
 	immediate = {
-		activate_title = { title = d_spears_of_bernicia status = yes }
-		create_character = {
-			random_traits = no
-			dynasty = random
-			religion = ROOT
-			culture = ROOT
-			employer = k_northumbria
-			female = no
-			age = 35
-			attributes = {
-				martial = 12
-				diplomacy = 12
-				stewardship = 10
-			}
-			trait = brilliant_strategist
-			trait = veteran
-			trait = brave
-			trait = loyal
-			trait = rough_terrain_leader
-			trait = lustful
-		}
-		new_character = {
-			d_spears_of_bernicia = { 
-				gain_title = PREV
-			}
-			set_defacto_liege = ROOT
-		}
-		d_spears_of_bernicia = { 
-			holder_scope = {
-				set_defacto_liege = ROOT
-			}
-		}
+		c_nidum = { de_jure_liege = d_glamorganshire }
+		c_penychen = { de_jure_liege = d_glamorganshire }
+		c_leucarum = { de_jure_liege = d_glamorganshire }
+		
+		set_global_flag = glamorganshire_created
 	}
 	
 	option = {
-		name = "EVTOPTA3141151"
-		k_northumbria = { holder_scope = { prestige = 50 } }
+		name = "EVTOPTA314123"
 	}
 }
 

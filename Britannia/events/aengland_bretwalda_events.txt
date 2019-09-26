@@ -4174,7 +4174,7 @@ narrative_event = {
 					}
 				}
 				else = {
-					# For Gwent, prioritize any rulers in Gwent, then those neighbouring Gwent
+					# For Gwent, prioritize any rulers in Gwent, then Siluria, then those neighbouring Gwent
 					set_variable = {
 						which = gwent_claim_score
 						which = normalized_max_levies
@@ -4222,6 +4222,14 @@ narrative_event = {
 								} 
 							}
 						}
+						change_variable = { 
+							which = gwent_claim_score
+							value = 5
+						}
+					}
+					
+					if = {
+						limit = { has_landed_title = k_siluria }
 						change_variable = { 
 							which = gwent_claim_score
 							value = 5
@@ -4345,7 +4353,7 @@ narrative_event = {
 					}
 				}
 				else = {
-					# For Demetia, prioritize any rulers in Demetia, then Wales before Irish realms
+					# For Demetia, prioritize any rulers in Demetia, then Gwent, then Wales before Irish realms
 					set_variable = {
 						which = siluria_claim_score
 						which = normalized_max_levies
@@ -4405,6 +4413,14 @@ narrative_event = {
 						change_variable = { 
 							which = siluria_claim_score
 							value = 10
+						}
+					}
+					
+					if = {
+						limit = { has_landed_title = k_gwent }
+						change_variable = { 
+							which = gwent_claim_score
+							value = 5
 						}
 					}
 				}
