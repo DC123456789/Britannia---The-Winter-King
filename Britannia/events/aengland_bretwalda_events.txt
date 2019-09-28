@@ -3065,12 +3065,21 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		# Strongest member of the coalition not at war and without a truce declares it
+		# Strongest member of the coalition not at war, without a truce, and with access to Aengland, declares it
 		random_independent_ruler = {
 			limit = {
 				has_character_flag = joined_brunanburh_coalition
 				war = no
 				NOT = { has_truce = ROOT }
+				OR = {
+					any_realm_province = {
+						OR = {
+							region = world_caledonia
+							region = world_britannia
+							port = yes
+						}
+					}
+				}
 				NOT = {
 					any_independent_ruler = {
 						has_character_flag = joined_brunanburh_coalition
@@ -3080,6 +3089,15 @@ narrative_event = {
 						}
 						war = no
 						NOT = { has_truce = ROOT }
+						OR = {
+							any_realm_province = {
+								OR = {
+									region = world_caledonia
+									region = world_britannia
+									port = yes
+								}
+							}
+						}
 						NOT = { character = PREV }
 					}
 				}
@@ -3087,7 +3105,48 @@ narrative_event = {
 			save_event_target_as = battle_of_brunanburh_war_declarer
 			set_global_flag = chose_brunanburh_war_leader
 		}
-		# Strongest member of the coalition not at war and without a truce declares it
+		# Else, strongest member of the coalition not at war and with access to Aengland declares it
+		if = {
+			limit = { NOT = { has_global_flag = chose_brunanburh_war_leader } }
+			random_independent_ruler = {
+				limit = {
+					has_character_flag = joined_brunanburh_coalition
+					war = no
+					OR = {
+						any_realm_province = {
+							OR = {
+								region = world_caledonia
+								region = world_britannia
+								port = yes
+							}
+						}
+					}
+					NOT = {
+						any_independent_ruler = {
+							has_character_flag = joined_brunanburh_coalition
+							realm_levy_diff = {
+								who = PREV
+								value = 0
+							}
+							war = no
+							OR = {
+								any_realm_province = {
+									OR = {
+										region = world_caledonia
+										region = world_britannia
+										port = yes
+									}
+								}
+							}
+							NOT = { character = PREV }
+						}
+					}
+				}
+				save_event_target_as = battle_of_brunanburh_war_declarer
+				set_global_flag = chose_brunanburh_war_leader
+			}
+		}
+		# Else, strongest member of the coalition not at war declares it
 		if = {
 			limit = { NOT = { has_global_flag = chose_brunanburh_war_leader } }
 			random_independent_ruler = {
@@ -3174,6 +3233,15 @@ narrative_event = {
 					merge = yes
 					disband_on_peace = yes
 				}
+				spawn_fleet = {
+					province = closest
+					troops = {
+						galleys = { 25 25 }
+					}
+					maintenance_multiplier = 0
+					merge = yes
+					disband_on_peace = yes
+				}
 			}
 			# Add up the strength of the alliance
 			ROOT = {
@@ -3247,6 +3315,15 @@ narrative_event = {
 							light_cavalry = { 50 50 }
 						}
 						attrition = 0.25
+						merge = yes
+						disband_on_peace = yes
+					}
+					spawn_fleet = {
+						province = closest
+						troops = {
+							galleys = { 10 10 }
+						}
+						maintenance_multiplier = 0
 						merge = yes
 						disband_on_peace = yes
 					}
