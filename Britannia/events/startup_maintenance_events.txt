@@ -254,6 +254,39 @@ character_event = {			# STARTUP Event (called by character 666)
 			}
 			set_character_flag = ethnicity_set
 		}
+		# Set base retinue size
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					is_patrician = yes
+					AND = {
+						is_landed = yes
+						higher_tier_than = BARON
+					}
+				}
+			}
+			add_character_modifier = {
+				name = base_retinue_size
+				duration = -1
+				hidden = yes
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					is_patrician = yes
+					AND = {
+						is_landed = yes
+						higher_tier_than = BARON
+					}
+				}
+			}
+			add_character_modifier = {
+				name = base_retinue_size
+				duration = -1
+				hidden = yes
+			}
+		}
 	}
 	
 	option = {
@@ -751,6 +784,27 @@ character_event = {
 				character_event = { id = history.1014 } 
 			}
 		}
+		
+		# Set base retinue size
+		if = {
+			limit = {
+				OR = {
+					is_patrician = yes
+					AND = {
+						is_landed = yes
+						higher_tier_than = BARON
+					}
+				}
+			}
+			add_character_modifier = {
+				name = base_retinue_size
+				duration = -1
+				hidden = yes
+			}
+		}
+		
+		# Remove modifiers from unlanded characters
+		FROMFROM = { character_event = { id = 301999 }
 	}
 }
 

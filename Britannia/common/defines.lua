@@ -1330,7 +1330,7 @@ NMilitary = {
 	RETINUE_REINFORCE_RATE = 0.08,
 	RETINUE_REINFORCE_COST = 4.0,					-- Retinues cost while reinforcing.
 	RETINUE_CONSTANT_COST = 0.5, 					-- Retinues cost at all times.
-	MIN_RETINUE = 400,								-- Minimum retinue ( Disabled for now, can be enabled by mods )
+	MIN_RETINUE = 0,								-- Minimum retinue ( Disabled for now, can be enabled by mods )
 	
 	TERRAIN_SPEC_BONUS = 0.25,						-- Bonus to fighting in this terrain if you have that terrain as your
 													-- terrain specialization ( gained through combat events in that terrrain )
