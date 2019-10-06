@@ -5480,12 +5480,26 @@ narrative_event = {
 		trigger = {
 			character = ROOT
 		}
-		# Lose all Bretwalda Authority
+		# Lose 500 Bretwalda Authority
 		subtract_variable = {
 			which = aengland_bretwalda_authority
-			which = aengland_bretwalda_authority
+			value = 500
 		}
 		hidden_tooltip = {
+			if = {
+				limit = { 
+					NOT = {
+						check_variable = {
+							which = aengland_bretwalda_authority
+							value = 0
+						}
+					}
+				}
+				set_variable = {
+					which = aengland_bretwalda_authority
+					value = 0
+				}
+			}
 			set_variable = {
 				which = aengland_bretwalda_authority_2
 				which = aengland_bretwalda_authority
@@ -5786,7 +5800,7 @@ narrative_event = {
 	desc = "EVTDESC320244"
 	hide_new = yes
 	
-	picture = "GFX_evt_burning_fire"
+	picture = "GFX_evt_battle_cavalry"
 	major = yes
 	
 	is_triggered_only = yes
