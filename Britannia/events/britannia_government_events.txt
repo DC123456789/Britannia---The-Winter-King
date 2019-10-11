@@ -129,6 +129,174 @@ character_event = {
 	}
 }
 
+# Assign tribal different culture group modifier to all provinces at start, and every year
+character_event = { 
+	id = 302505
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		has_landed_title = d_null
+	}
+	
+	immediate = {
+		any_province = {
+			province_event = { id = 302507 }
+		}
+	}
+}
+
+# When a county changes hands
+character_event = {
+	id = 302506
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			if = {
+				limit = {
+					tier = COUNT
+				}
+				location = {
+					province_event = { id = 302507 }
+				}
+			}
+		}
+	}
+}
+
+# Upon construction of a tribal holding, check for assigning modifier
+character_event = {
+	id = 302508
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_traveller_hills
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			holding_type = TRIBAL
+		}
+	}
+	
+	immediate = {
+		FROM = {
+			location = {
+				province_event = { id = 302507 } # Check Tribal Different Culture Group modifiers
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Upon character culture conversion, check for assigning modifier
+character_event = {
+	id = 302509
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_traveller_hills
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		any_demesne_title = {
+			tier = COUNT
+			location = {
+				any_province_holding = {
+					holding_type = TRIBAL
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				tier = COUNT
+				location = {
+					any_province_holding = {
+						holding_type = TRIBAL
+					}
+				}
+			}
+			location = {
+				province_event = { id = 302507 } # Check Tribal Different Culture Group modifiers
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+# Actual event for province
+province_event = {
+	id = 302507
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_riders_on_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				any_province_holding = {
+					holding_type = TRIBAL
+				}
+				owner = {
+					NOR = {
+						culture_group = ROOT
+						AND = {
+							is_roman_culture_trigger = yes
+							ROOT = {
+								OR = {
+									is_brythonic_culture_trigger = yes
+									culture_group = basque
+									is_roman_culture_trigger = yes
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { has_province_modifier = tribal_wrong_culture_group } }
+				add_province_modifier = {
+					name = tribal_wrong_culture_group
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = { has_province_modifier = tribal_wrong_culture_group }
+			remove_province_modifier = tribal_wrong_culture_group
+		}
+	}
+}
+
+
 ##### IMPERIAL GOVERNMENT #####
 # Assign cultural flexibility modifier to all Imperial/Sub-Roman/Germanic realm counties at start, and every year
 character_event = { 

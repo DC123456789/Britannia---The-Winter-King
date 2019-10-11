@@ -469,7 +469,8 @@ province_event = {		# Assign revolt risk to Anglo-Saxon provinces not controlled
 	hide_window = yes
 	
 	trigger = {
-		is_ingvaeonic_culture_trigger = yes
+		culture_group = germanic
+		is_romanized_germanic_trigger = no
 		is_in_british_isles_trigger = yes
 		owner = { 
 			culture_group = germanic 
@@ -572,7 +573,8 @@ province_event = {		# Remove revolt risk from Anglo-Saxon provinces when not con
 	trigger = {
 		has_province_modifier = province_not_dejure_liege 
 		OR = {
-			is_ingvaeonic_culture_trigger = no
+			NOT = { culture_group = germanic }
+			is_romanized_germanic_trigger = yes
 			has_global_flag = aengland_united
 			NOT = {
 				owner = {
@@ -693,8 +695,9 @@ province_event = {		# Assign revolt risk modifier to all provinces at start
 	
 	immediate = {
 		any_province = {
-			limit = {
-				is_ingvaeonic_culture_trigger = yes
+			limit = {				
+				culture_group = germanic
+				is_romanized_germanic_trigger = no
 				is_in_british_isles_trigger = yes
 			}
 			province_event = { id = 320430 }
