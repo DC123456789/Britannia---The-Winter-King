@@ -4916,7 +4916,7 @@ character_event = {
 	}
 }
 
-# Puting legions under faction leader in faction revolt and apply proper opinion modifiers (called from faction leader)
+# Putting legions under faction leader in faction revolt and apply proper opinion modifiers (called from faction leader)
 character_event = {
 	id = 315910
 	desc = "You're not supposed to see this..."
@@ -6364,6 +6364,50 @@ character_event = {
 					value = 24
 				}
 			}
+		}
+	}
+}
+
+# New emperor takes legions from under their vassals if that somehow happened
+character_event = {
+	id = 315940
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		independent = yes
+		FROM = { is_roman_empire_title_trigger = yes }
+	}
+	
+	immediate = {
+		character_event = { id = 315941 days = 1 }
+	}
+}
+character_event = {
+	id = 315941
+	desc = "You're not supposed to see this..."
+	hide_new = yes
+	picture = "GFX_evt_roman_legion_marching"	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		independent = yes
+	}
+	
+	immediate = {
+		set_character_flag = hello
+		any_realm_character = {
+			limit = { 
+				government = legion_government
+				NOT = { liege = { character = ROOT } }
+			}
+			set_defacto_liege = ROOT
 		}
 	}
 }
