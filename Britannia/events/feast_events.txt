@@ -856,14 +856,38 @@ character_event = {
 				is_alive = yes
 				is_female = no
 				is_abroad = no
+				prisoner = no
+				liege = { character = ROOT }
+				NOT = { health_traits = 1 }
+				is_alive = yes
 			}
 		}
 		any_child = {
 			limit = {
 				age = 14
 				is_alive = yes
-				is_female = no
+				trigger_if = {
+					limit = {
+						is_female = yes
+					}
+					OR = { 
+						primary_title = { has_law = status_of_women_4 }
+						has_game_rule = {
+							name = gender
+							value = all
+						}
+						has_religion_feature = religion_matriarchal 
+						has_religion_feature = religion_equal 
+						#has_religion_feature = religion_feature_bon 
+						has_religion_feature = religion_feature_pict
+						has_religion_feature = religion_feature_vasconic
+					}
+				}
 				is_abroad = no
+				prisoner = no
+				liege = { character = ROOT }
+				NOT = { health_traits = 1 }
+				is_alive = yes
 			}
 			score_value = { #Prioritizes selecting an interesting courtier...
 	            value = 10
@@ -893,6 +917,28 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTC72008"
+		trigger = {
+			age = 14
+			trigger_if = {
+				limit = {
+					is_female = yes
+				}
+				OR = { 
+					primary_title = { has_law = status_of_women_4 }
+					has_game_rule = {
+						name = gender
+						value = all
+					}
+					has_religion_feature = religion_matriarchal 
+					has_religion_feature = religion_equal 
+					#has_religion_feature = religion_feature_bon 
+					has_religion_feature = religion_feature_pict
+					has_religion_feature = religion_feature_vasconic
+				}
+			}
+			NOT = { health_traits = 1 }
+			NOT = { trait = craven }
+		}
 		add_character_modifier = {
 			name = mod_bloodlust
 			duration = 180
