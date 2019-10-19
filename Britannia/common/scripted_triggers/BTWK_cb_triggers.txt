@@ -699,15 +699,33 @@ duchy_invasion_can_use_trigger = {
 				}
 				NOR = {
 					is_north_germanic_trigger = yes
-					is_ingvaeonic_culture_trigger = yes
+					AND = {
+						is_ingvaeonic_culture_trigger = yes
+						OR = {
+							NOT = { has_global_flag = anglo_saxon_duchy_reconquest_enabled }
+							FROM = { is_ingvaeonic_culture_trigger = yes }
+						}
+					}
 				}
 				higher_real_tier_than = COUNT
 				independent = yes
-				capital_scope = {
-					NOR = {
-						region = world_britannia
-						region = world_caledonia
-						region = world_ireland
+				OR = {
+					capital_scope = {
+						NOR = {
+							region = world_britannia
+							region = world_caledonia
+							region = world_ireland
+						}
+					}
+					AND = {
+						is_ingvaeonic_culture_trigger = yes
+						primary_title = { 
+							OR = {
+								title = e_aengland
+								empire = { title = e_aengland }
+							}
+						}
+						has_global_flag = anglo_saxon_duchy_reconquest_enabled
 					}
 				}
 				shares_same_permanent_suzerain_with_from_trigger = no
@@ -807,6 +825,18 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 				}
 			}
 			NOT = { year = 580 }
+		}
+		
+		# Anglo-Saxons are only allowed to use against English duchies that were previously held by Anglo-Saxons
+		AND = {
+			ROOT = { is_ingvaeonic_culture_trigger = yes }
+			NAND = {
+				has_global_flag = anglo_saxon_duchy_reconquest_enabled
+				capital_scope = { region = custom_aengland }
+				any_direct_de_jure_vassal_title = {
+					location = { is_ingvaeonic_culture_trigger = yes }
+				}
+			}
 		}
 	}
 	NOT = {			# This should prevent using this CB against the capital duchy of a Kingdom or High Kingdom, except when the King has very low prestige or the realm is already very small

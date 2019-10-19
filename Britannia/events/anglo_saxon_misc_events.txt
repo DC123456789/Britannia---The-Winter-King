@@ -460,6 +460,69 @@ character_event = {		# Clear Anglo-Saxon Subjugation flags when appropriate
 	}
 }
 
+# Enable Anglo-Saxon duchy reconquests
+character_event = {
+	id = 320412
+	hide_new = yes
+	hide_window = yes
+	
+	picture = "GFX_evt_battle_gaul"
+	
+	only_playable = yes
+	
+	trigger = {
+		has_landed_title = d_null
+		OR = {
+			check_variable = {
+				which = global_viking_duchies_in_england
+				value = 3
+			}
+			has_global_flag = lost_battle_of_brunanburh
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		any_playable_ruler = {
+			limit = { 
+				ai = no 
+				is_ingvaeonic_culture_trigger = yes
+				primary_title = { 
+					OR = {
+						title = e_aengland
+						empire = { title = e_aengland }
+					}
+				}				
+			}
+			character_event = { id = 320413 }
+		}
+		set_global_flag = anglo_saxon_duchy_reconquest_enabled
+	}
+}
+
+# Notify the player
+character_event = {
+	id = 320413
+	desc = "EVTDESC320413"
+	hide_from = yes
+	
+	picture = "GFX_evt_battle_gaul"
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320413"
+		custom_tooltip = {
+			text = EVTOPTA320413TT
+		}
+	}
+}
+
 ### LIBERATION REVOLT EVENTS ###
 province_event = {		# Assign revolt risk to Anglo-Saxon provinces not controlled by their de jure liege
 	id = 320430
