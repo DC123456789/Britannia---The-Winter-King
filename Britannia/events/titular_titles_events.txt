@@ -3060,6 +3060,112 @@ narrative_event = {
 		name = "EVTOPTA314123"
 	}
 }
+# Ealdormanry of Brecknockshire
+narrative_event = {
+	id = 314132
+	title = "EVTNAME314132"
+	desc = "EVTDESC314132"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_coastal"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_brecknockshire
+		NOT = { has_global_flag = brecknockshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_cicucium = { de_jure_liege = d_brecknockshire }
+		c_talgarth = { de_jure_liege = d_brecknockshire }
+		c_maelienydd = { de_jure_liege = d_brecknockshire }
+		c_elfael = { de_jure_liege = d_brecknockshire }
+		c_buelt = { de_jure_liege = d_brecknockshire }
+		c_gwrtheyrnion = { de_jure_liege = d_brecknockshire }
+		
+		set_global_flag = brecknockshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314123"
+	}
+}
+# Ealdormanry of Carmarthenshire
+narrative_event = {
+	id = 314133
+	title = "EVTNAME314133"
+	desc = "EVTDESC314133"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_coastal"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_carmarthenshire
+		NOT = { has_global_flag = carmarthenshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_moridunum = { de_jure_liege = d_carmarthenshire }
+		c_emlyn = { de_jure_liege = d_carmarthenshire }
+		c_roose = { de_jure_liege = d_carmarthenshire }
+		c_cydweli = { de_jure_liege = d_carmarthenshire }
+		c_llanymddyfri = { de_jure_liege = d_carmarthenshire }
+		
+		set_global_flag = carmarthenshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314123"
+	}
+}
+# Ealdormanry of Carmarthenshire
+narrative_event = {
+	id = 314134
+	title = "EVTNAME314134"
+	desc = "EVTDESC314134"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_coastal"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_cardiganshire
+		NOT = { has_global_flag = cardiganshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_ceredigion = { de_jure_liege = d_cardiganshire }
+		c_cardigan = { de_jure_liege = d_cardiganshire }
+		
+		set_global_flag = cardiganshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314123"
+	}
+}
 
 # AI CREATION OF TITULAR DUCHIES
 narrative_event = {		# Mercia
@@ -8824,6 +8930,8 @@ narrative_event = {
 		completely_controls = c_magnis
 		completely_controls = c_isca_siluria
 		independent = yes
+		NOT = { has_global_flag = monmouthshire_created }
+		NOT = { has_global_flag = glamorganshire_created }
 		NOT = { has_global_flag = gwent_renamed }
 	}
 	
@@ -8840,8 +8948,11 @@ narrative_event = {
 		c_isca_siluria = { de_jure_liege = d_gwent }
 		c_nidum = { de_jure_liege = d_gwent }
 		c_penychen = { de_jure_liege = d_gwent }
-		c_cicucium = { de_jure_liege = d_gwent }
-		c_talgarth = { de_jure_liege = d_gwent }
+		if = {
+			limit = { NOT = { has_global_flag = brecknockshire_created } }
+			c_cicucium = { de_jure_liege = d_gwent }
+			c_talgarth = { de_jure_liege = d_gwent }
+		}
 		if = {
 			limit = { NOT = { has_global_flag = magonsaete_created } }
 			c_magnis = { de_jure_liege = d_gwent }
@@ -8883,6 +8994,7 @@ narrative_event = {
 		completely_controls = c_moridunum
 		completely_controls = c_leucarum
 		independent = yes
+		NOT = { has_global_flag = carmarthenshire_created }
 		NOT = { has_global_flag = demetia_renamed }
 	}
 	
@@ -8896,10 +9008,16 @@ narrative_event = {
 			set_name = "Demetia"
 			adjective = "Demetian"
 		}
-		c_leucarum = { de_jure_liege = d_deheubarth }
+		if = {
+			limit = { NOT = { has_global_flag = glamorganshire_created } }
+			c_leucarum = { de_jure_liege = d_deheubarth }
+		}
 		c_cydweli = { de_jure_liege = d_deheubarth }
 		c_llanymddyfri = { de_jure_liege = d_deheubarth }
-		c_ceredigion = { de_jure_liege = d_deheubarth }
+		if = {
+			limit = { NOT = { has_global_flag = cardiganshire_created } }
+			c_ceredigion = { de_jure_liege = d_deheubarth }
+		}
 		
 		set_global_flag = demetia_renamed
 	}
@@ -8937,6 +9055,8 @@ narrative_event = {
 		completely_controls = c_gwynedd
 		completely_controls = c_cardigan
 		independent = yes
+		NOT = { has_global_flag = montgomeryshire_created }
+		NOT = { has_global_flag = brecknockshire_created }
 		NOT = { has_global_flag = dolforwyn_renamed }
 	}
 	
@@ -8952,10 +9072,19 @@ narrative_event = {
 		}
 		c_buelt = { de_jure_liege = d_centpowys }
 		c_gwrtheyrnion = { de_jure_liege = d_centpowys }
-		c_cardigan = { de_jure_liege = d_centpowys }
-		c_caer_gei = { de_jure_liege = d_centpowys }
-		c_dunoding = { de_jure_liege = d_centpowys }
-		c_gwynedd = { de_jure_liege = d_centpowys }
+		if = {
+			limit = { NOT = { has_global_flag = cardiganshire_created } }
+			c_cardigan = { de_jure_liege = d_centpowys }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = caernarfonshire_created } }
+			c_caer_gei = { de_jure_liege = d_centpowys }
+			c_dunoding = { de_jure_liege = d_centpowys }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = denbighshire_created } }
+			c_gwynedd = { de_jure_liege = d_centpowys }
+		}
 		c_maelienydd = { de_jure_liege = d_centpowys }
 		c_elfael = { de_jure_liege = d_centpowys }
 		
@@ -9050,6 +9179,7 @@ narrative_event = {
 		completely_controls = c_tegeingl
 		independent = yes
 		NOT = { has_global_flag = wrocensaete_created }
+		NOT = { has_global_flag = denbighshire_created }
 		NOT = { has_global_flag = berfeddwlad_renamed }
 	}
 	
@@ -9064,8 +9194,11 @@ narrative_event = {
 			adjective = "Deceanglian"
 		}
 		c_tegeingl = { de_jure_liege = d_northgwynedd }
-		c_arllechwedd = { de_jure_liege = d_northgwynedd }
 		c_maelor = { de_jure_liege = d_northgwynedd }
+		if = {
+			limit = { NOT = { has_global_flag = caernarfonshire_created } }
+			c_arllechwedd = { de_jure_liege = d_northgwynedd }
+		}
 		
 		set_global_flag = berfeddwlad_renamed
 	}
@@ -9101,6 +9234,7 @@ narrative_event = {
 		completely_controls = c_ynys_mon
 		completely_controls = c_arfon
 		independent = yes
+		NOT = { has_global_flag = caernarfonshire_created }
 		NOT = { has_global_flag = ynys_mon_renamed }
 	}
 	
@@ -24796,11 +24930,20 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 		}
 		if = {
 			limit = { has_global_flag = gwent_renamed }
-			c_isca_siluria = { de_jure_liege = d_gwent }
-			c_nidum = { de_jure_liege = d_gwent }
-			c_penychen = { de_jure_liege = d_gwent }
-			c_cicucium = { de_jure_liege = d_gwent }
-			c_talgarth = { de_jure_liege = d_gwent }
+			if = {
+				limit = { NOT = { has_global_flag = monmouthshire_created } }
+				c_isca_siluria = { de_jure_liege = d_gwent }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = glamorganshire_created } }
+				c_nidum = { de_jure_liege = d_gwent }
+				c_penychen = { de_jure_liege = d_gwent }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = brecknockshire_created } }
+				c_cicucium = { de_jure_liege = d_gwent }
+				c_talgarth = { de_jure_liege = d_gwent }
+			}
 			if = {
 				limit = { NOT = { has_global_flag = magonsaete_created } }
 				c_magnis = { de_jure_liege = d_gwent }
@@ -24810,21 +24953,42 @@ narrative_event = {	# Dobunnia, Siluria, Demetia, Ordovicia
 		}
 		if = {
 			limit = { has_global_flag = demetia_renamed }
-			c_leucarum = { de_jure_liege = d_deheubarth }
-			c_cydweli = { de_jure_liege = d_deheubarth }
-			c_llanymddyfri = { de_jure_liege = d_deheubarth }
-			c_ceredigion = { de_jure_liege = d_deheubarth }
+			if = {
+				limit = { NOT = { has_global_flag = glamorganshire_created } }
+				c_leucarum = { de_jure_liege = d_deheubarth }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = carmarthenshire_created } }
+				c_cydweli = { de_jure_liege = d_deheubarth }
+				c_llanymddyfri = { de_jure_liege = d_deheubarth }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = cardiganshire_created } }
+				c_ceredigion = { de_jure_liege = d_deheubarth }
+			}
 		}
 		if = {
 			limit = { has_global_flag = dolforwyn_renamed }
-			c_buelt = { de_jure_liege = d_centpowys }
-			c_gwrtheyrnion = { de_jure_liege = d_centpowys }
-			c_cardigan = { de_jure_liege = d_centpowys }
-			c_caer_gei = { de_jure_liege = d_centpowys }
-			c_dunoding = { de_jure_liege = d_centpowys }
-			c_gwynedd = { de_jure_liege = d_centpowys }
-			c_maelienydd = { de_jure_liege = d_centpowys }
-			c_elfael = { de_jure_liege = d_centpowys }
+			if = {
+				limit = { NOT = { has_global_flag = brecknockshire_created } }
+				c_buelt = { de_jure_liege = d_centpowys }
+				c_gwrtheyrnion = { de_jure_liege = d_centpowys }
+				c_maelienydd = { de_jure_liege = d_centpowys }
+				c_elfael = { de_jure_liege = d_centpowys }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = cardiganshire_created } }
+				c_cardigan = { de_jure_liege = d_centpowys }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = caernarfonshire_created } }
+				c_caer_gei = { de_jure_liege = d_centpowys }
+				c_dunoding = { de_jure_liege = d_centpowys }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = denbighshire_created } }
+				c_gwynedd = { de_jure_liege = d_centpowys }
+			}
 		}
 	}
 	
@@ -24875,7 +25039,10 @@ narrative_event = {	# Cornovia, Deceanglia
 				c_tegeingl = { de_jure_liege = d_northgwynedd }
 				c_maelor = { de_jure_liege = d_northgwynedd }
 			}
-			c_arllechwedd = { de_jure_liege = d_northgwynedd }
+			if = {
+				limit = { NOT = { has_global_flag = caernarfonshire_created } }
+				c_arllechwedd = { de_jure_liege = d_northgwynedd }
+			}
 		}
 	}
 	
