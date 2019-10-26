@@ -371,7 +371,6 @@ NDiplomacy = {
 	GRANT_VICE_ROYALTY_INTERACTION_MUST_HAVE_COST = 1,				-- Is having prestige/piety >= cost required for this action?
 	GRANT_VICE_ROYALTY_INTERACTION_ENABLED = 1,						-- Should this action be used at all?
 	
-	
 	SETTLE_ADVENTURER_INTERACTION_MONEY = 0,
 	SETTLE_ADVENTURER_INTERACTION_PIETY = 0,
 	SETTLE_ADVENTURER_INTERACTION_PRESTIGE = 0,
@@ -395,7 +394,6 @@ NDiplomacy = {
 	RESIGN_FROM_OFFICE_INTERACTION_THRESHOLD_FOR_YES = 0,
 	RESIGN_FROM_OFFICE_INTERACTION_MUST_HAVE_COST = 1,				-- Is having prestige/piety >= cost required for this action?
 	RESIGN_FROM_OFFICE_INTERACTION_ENABLED = 1,						-- Should this action be used at all?
-	
 
 	APPOINT_COMMANDER_INTERACTION_MONEY = 0,
 	APPOINT_COMMANDER_INTERACTION_PIETY = 0,
@@ -802,7 +800,6 @@ NCouncil = {
 	ENFORCE_PEACE_START_DELAY = 3,								-- How many months it takes before the enforce peace becomes active
 	ENFORCE_PEACE_BLOCK_LENGTH = 24,							-- How many months Enforce peace is blocked when vassal uses the interaction.
 	ENFORCE_PEACE_COOLDOWN = 60,								-- How many months liege has to wait before he can use enforce peace again.
-	LAW_VOTE_CHANGE_TIME_LIMIT = 1,								-- The time limit abstained council members have to vote before their vote becomes automatically an against vote
 	NO_VOTING_PIETY_OVERRIDE = 1,								-- Flag that disables law voting when Conclave is enabled for groups that otherwise change laws based on piety without Conclave
 	NO_VOTING_PRESTIGE_OVERRIDE = 1,							-- Flag that disables law voting when Conclave is enabled for groups that otherwise change laws based on prestige without Conclave 	
 	REGENCY_VOTING = "laws declare_war_interaction revoke_title_interaction imprison_character_interaction grant_landed_title_interaction exile_imprisoned_interaction execute_imprisoned_interaction",					-- In regencies the council votes on these issues
@@ -849,7 +846,6 @@ NCharacter = {
 	MAX_GENERATED_TRAITS_FOR_HISTORICAL = 4,		-- Generate random traits up this number for adult historical characters
 	MUSLIM_NUM_WIVES_MONTHLY_PRESTIGE_BONUS = 0.4,	-- The prestige effect from each extra expected wife
 	MUSLIM_NUM_WIVES_MONTHLY_PRESTIGE_PENALTY = 1.0,-- The prestige effect from each lacking expected wife
-	MUSLIM_NUM_WIVES_MONTHLY_PRESTIGE = 0.4,		-- The prestige effect from each extra or lacking expected wife
 	PAGAN_NUM_CONSORTS_MONTHLY_PRESTIGE = 0.2,		-- The monthly prestige effect for pagans for each young Concubine
 	INBRED_TRAIT_CHANCE_FACTOR = 1.0,				-- Inbreeding: Multiplier to the base chance
 	LUNATIC_TRAIT_CHANCE_FACTOR = 0.25,				-- Inbreeding: Multiplier to the base chance
@@ -1016,7 +1012,6 @@ NTitle = {
 	CLAIM_DE_JURE_TITLE_COST_MOD = 0.5,
 	NORMAL_LAW_CHANGE_COUNCIL_MONTHS = 60,
 	NORMAL_LAW_CHANGE_ABSOLUTISM_MONTHS = 120,
-	NORMAL_LAW_CHANGE_MONTHS = 60,
 	MAX_CROWN_LAW_CHANGES = 1,
 	CROWN_LAW_CHANGE_MONTHS = 600,
 	CROWN_LAW_CHANGE_TIMER = 1, 				-- If set to 0, rulers will be restricted to MAX_CROWN_LAW_CHANGES. If set to 1, they'll have a CROWN_LAW_CHANGE_MONTHS cooldown
@@ -1205,7 +1200,6 @@ NNomad = {
 	MIN_TRIBAL_BUILDINGS_VS_AGITATION = 2			-- Tribal Holdings with at least this many buildings is enough to stop subjugated Nomad provinces from regaining independence (for Tribal overlords).
 }, 
 
-
 NMilitary = {
 	MORALE_COLLAPSE_THRESHOLD = 0.20,				-- Threshold before unit runs away
 	MORALELOSS_FACTOR = 5,							-- Affects the morale loss rate in combats(higher gives bigger losses)
@@ -1227,7 +1221,7 @@ NMilitary = {
 	MERCENARY_HIRE_DISTANCE_THRESHOLD = 800,		-- Mercs will not be available if the province of origin is more distant from your capital
 	OPINION_WHEN_MARSHAL_INSTEAD_OF_SELF = 50,		-- Below this opinion value a vassal tends to use his marshal instead of himself when someone asks to raise his troops
 	OPINION_WHEN_NO_LEADER = 25,					-- Below this opinion a vassal will not supply a leader for subunits at all
-	BATTLE_WARSCORE_WORTH = 100,						-- Warscore from battles are multiplied with this value
+	BATTLE_WARSCORE_WORTH = 100,					-- Warscore from battles are multiplied with this value
 	BATTLE_WARSCORE_DEFENDER_MULTIPLIER = 1.1,		-- Defenders wins are multiplied with this value, which also means they get more prestige for a win
 	BATTLE_WARSCORE_WORTH_MULTIPLIER = 1.1,			-- Multiplier applied to the warscore value of individual battles (doesn't affect prestige)
 	BATTLE_WARSCORE_HOSTS_MULTIPLIER = 2,			-- Multiplier applied to the warscore value of major battle if the losing side is a claimant adventurer
@@ -1556,6 +1550,7 @@ NDisease = {
 	
 	INFECTION_CHANCE_MOST_LIKELY_PERCENTAGE = 0.1,		-- How many provinces are considered when picking which ones get infected, as a percentage of how many provinces are infectable
 														-- For example, if you have an outbreak province that is 45 provinces big, and has 30 provinces adjacent to those, only the 7 (30 * 0.25, rounded down) most likely provinces  would be considered
+	
 	INFECTION_CHANCE_COASTAL_SEAS_ARE_COUNTED = 0,		-- Exclude coastal seas from the number of infected provinces (they still get infected but don't change the number of "real" provinces that get infected each tick)
 	
 	INFECTION_ONLY_AFFECTS_ADJACENT_PROVINCES = 1,		-- if true, will make provinces adjacent to a province that just got infected target for the infection in the same tick
