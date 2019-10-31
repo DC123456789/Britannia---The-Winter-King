@@ -39112,14 +39112,33 @@ e_franks = {		# Francia
 	allow = {
 		are_dejure_changes_allowed_trigger = yes
 		is_frankish_culture_trigger = yes
-		is_organized_religion_trigger = yes
+		OR = {
+			has_religion_feature = religion_no_leader
+			AND = {
+				custom_tooltip = {
+					text = has_religious_head
+					religion_head = {
+						always = yes
+					}
+				}
+				religion_head = {
+					OR = {
+						top_liege = { character = ROOT }
+						opinion = {
+							who = ROOT
+							value = 60
+						}
+					}
+				}
+			}
+		}
 		is_female = no
 		age = 25
 		prisoner = no
 		independent = yes
-		prestige = 2000
+		prestige = 3000
 		OR = {
-			piety = 500
+			piety = 750
 			has_character_modifier = true_christian_knight
 			AND = {
 				trait = zealous

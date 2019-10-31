@@ -13211,8 +13211,70 @@ narrative_event = {
 narrative_event = {
 	id = 314209
 	title = "EVTNAME314209"
-	desc = "EVTDESC314209"
-	picture = "GFX_evt_pope"
+	desc = {
+		text = EVTDESC314209
+		trigger = {
+			ROOT = {
+				religion = catholic		# References Pope instead of Papal Legate
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314209_manichean
+		trigger = {
+			ROOT = {
+				religion = manichean	# References Archegos instead of Apostle
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314209_generic_religious_head
+		trigger = {
+			ROOT = {
+				NOT = { religion = catholic }
+				religion_head = {
+					always = yes
+					NOT = { character = ROOT }
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314209_no_or_self_religious_head
+		trigger = {
+			ROOT = {
+				NOT = { religion = catholic }
+				NOT = {
+					religion_head = {
+						always = yes
+						NOT = { character = ROOT }
+					}
+				}
+			}
+		}
+	}
+    picture = { 
+		trigger = {
+			ROOT = {
+				OR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+        picture = GFX_evt_pope
+    }
+    picture = { 
+		trigger = {
+			ROOT = {
+				NOR = {
+					religion_group = christian
+					religion_group = gnostic_group
+				}
+			}
+		}
+        picture = GFX_evt_royal_court
+    }
 	
 	major = yes
 	hide_new = yes
@@ -13236,6 +13298,13 @@ narrative_event = {
 	option = {
 		name = "EVTOPTA314209"
 		trigger = { has_landed_title = e_franks }
+		if = {
+			limit = { NOT = { has_global_flag = first_frankish_emperor } }
+			create_bloodline = {
+				type = carolingian
+			}
+			set_global_flag = first_frankish_emperor
+		}
 	}	
 	option = {
 		name = "EVTOPTB314209"
@@ -13250,7 +13319,10 @@ narrative_event = {
 	option = {
 		name = "EVTOPTC314209"
 		trigger = {
-			is_frankish_culture_trigger = no
+			NOR = {
+				liege = { has_landed_title = e_franks }
+				top_liege = { has_landed_title = e_franks }
+			}
 		}
 	}
 }
