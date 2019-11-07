@@ -815,6 +815,52 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	aengland_invade_wales = {
+		only_rulers = yes
+		is_high_prio = yes
+		potential = {
+			has_landed_title = e_aengland
+			has_global_flag = aengland_united
+			NOT = { has_global_flag = english_invasion_of_wales }
+		}
+		allow = {
+			age = 25
+			prestige = 3000
+			wealth = 500
+			war = no
+			prisoner = no
+			diplomacy = 7
+			martial = 12
+			OR = {
+				trait = ambitious
+				trait = brave
+				trait = skilled_tactician
+				trait = brilliant_strategist
+			}
+			NOT = { trait = incapable }
+			NOT = { trait = content }
+			NOT = { trait = craven }
+			NOT = { trait = slow }
+			NOT = { trait = dull }
+			NOT = { trait = imbecile }
+			NOT = { trait = weak }
+			completely_controls_region = custom_aengland
+		}
+		effect = {
+			set_global_flag = english_invasion_of_wales
+			wealth = -400
+			custom_tooltip = {
+				text = aengland_invade_wales_tooltip
+			}
+			hidden_tooltip = {
+				character_event = { id = 313310 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
 
 targetted_decisions = {

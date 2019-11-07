@@ -26,6 +26,7 @@
 # 313180 - 313192	Revolts for New Kingdoms
 # 313195 - 313199   Misc.
 # 313300 - 313309	East Angle Invasions
+# 313310 - 313319	Invasion of Wales
 
 ### ANGLIAN INVASIONS ###
 
@@ -17989,5 +17990,50 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA313195"
+	}
+}
+
+### INVASION OF WALES ###
+
+# Campaign Started
+narrative_event = {
+	id = 313310
+	title = "EVTNAME313310"
+	desc = "EVTDESC313310"
+	major = yes
+	hide_new = yes
+	picture = "GFX_evt_saxon_army"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA313310"	# Other Saxons
+		trigger = {
+			OR = {
+				is_ingvaeonic_culture_trigger = yes
+				top_liege = { has_landed_title = e_aengland }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB313310"	# Britons
+		trigger = {
+			OR = {
+				culture = briton
+				culture = romanobritish
+				culture = cumbrian
+			}
+			NOT = { top_liege = { has_landed_title = e_aengland } }
+		}
+	}
+	option = {
+		name = "EVTOPTC313310"	# Others
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+			NOT = { culture = briton }
+			NOT = { culture = romanobritish }
+			NOT = { culture = cumbrian }
+			NOT = { top_liege = { has_landed_title = e_aengland } }
+		}
 	}
 }

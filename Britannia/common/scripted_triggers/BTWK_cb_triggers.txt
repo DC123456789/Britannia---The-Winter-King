@@ -324,6 +324,13 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 				region = world_britannia_cymry_cornwall_proper
 			}
 		}
+		NOR = { 
+			empire = { title = e_aengland } 
+			ROOT = {
+				has_landed_title = e_aengland
+				has_global_flag = english_invasion_of_wales
+			}
+		}
 	}
 	
 	# Caledonian Conquest Block
@@ -702,7 +709,10 @@ duchy_invasion_can_use_trigger = {
 					AND = {
 						is_ingvaeonic_culture_trigger = yes
 						OR = {
-							NOT = { has_global_flag = anglo_saxon_duchy_reconquest_enabled }
+							NOR = { 
+								has_global_flag = anglo_saxon_duchy_reconquest_enabled 
+								has_global_flag = english_invasion_of_wales 
+							}
 							FROM = { is_ingvaeonic_culture_trigger = yes }
 						}
 					}
@@ -718,14 +728,19 @@ duchy_invasion_can_use_trigger = {
 						}
 					}
 					AND = {
-						is_ingvaeonic_culture_trigger = yes
 						primary_title = { 
 							OR = {
 								title = e_aengland
 								empire = { title = e_aengland }
 							}
 						}
-						has_global_flag = anglo_saxon_duchy_reconquest_enabled
+						OR = {
+							AND = {
+								has_global_flag = anglo_saxon_duchy_reconquest_enabled 
+								is_ingvaeonic_culture_trigger = yes
+							}
+							has_global_flag = english_invasion_of_wales 
+						}
 					}
 				}
 				shares_same_permanent_suzerain_with_from_trigger = no
@@ -804,9 +819,21 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 			region = world_gaul_lugdunensis_armorica
 		}
 		
-		# Wales protection
-		capital_scope = {
-			region = world_britannia_cymry_wales
+		# Wales and Cornwall protection against Anglo-Saxons
+		AND = { 
+			capital_scope = {
+				OR = {
+					region = world_britannia_cymry_wales
+					region = world_britannia_cymry_cornwall_proper
+				}
+			}
+			NOR = { 
+				empire = { title = e_aengland } 
+				ROOT = {
+					has_landed_title = e_aengland
+					has_global_flag = english_invasion_of_wales
+				}
+			}
 		}
 	
 		# Vasconia protection against Germanics
@@ -827,14 +854,26 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 			NOT = { year = 580 }
 		}
 		
-		# Anglo-Saxons are only allowed to use against English duchies that were previously held by Anglo-Saxons
+		# Anglo-Saxons are only allowed to use against English duchies that were previously held by Anglo-Saxons, or against Wales 
 		AND = {
 			ROOT = { is_ingvaeonic_culture_trigger = yes }
-			NAND = {
-				has_global_flag = anglo_saxon_duchy_reconquest_enabled
-				capital_scope = { region = custom_aengland }
-				any_direct_de_jure_vassal_title = {
-					location = { is_ingvaeonic_culture_trigger = yes }
+			NOR = {
+				AND = {
+					has_global_flag = anglo_saxon_duchy_reconquest_enabled
+					capital_scope = { region = custom_aengland }
+					any_direct_de_jure_vassal_title = {
+						location = { is_ingvaeonic_culture_trigger = yes }
+					}
+				}
+				AND = {
+					has_global_flag = english_invasion_of_wales
+					capital_scope = {
+						OR = {
+							region = world_britannia_cymry_wales
+							region = world_britannia_cymry_cornwall_proper
+						}
+					}
+					ROOT = { has_landed_title = e_aengland }
 				}
 			}
 		}
