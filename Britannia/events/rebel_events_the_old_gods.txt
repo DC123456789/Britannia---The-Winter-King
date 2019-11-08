@@ -84,18 +84,21 @@ province_event = {
 			has_province_flag = force_peasant_revolt
 		}
 		
+		# Cultural revolts have prio
+		OR = {
+			is_cultural_revolt_allowed_trigger = no
+			has_province_flag = force_peasant_revolt
+		}
+		
 		# Nationalist revolts have prio
 		OR = {
 			AND = {
 				owner = {
 					top_liege = {
-						culture_group = imperiale
+						is_roman_culture_trigger = yes
 					}
 				}
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
+				is_roman_culture_trigger = yes
 			}
 			NOT = {
 				kingdom = {
@@ -169,6 +172,10 @@ province_event = {
 								AND = {
 									using_cb = religious_revolt
 									attacker = { religion = ROOT }
+								}
+								AND = {
+									using_cb = cultural_revolt
+									attacker = { culture = ROOT }
 								}
 								AND = {
 									using_cb = liberation_revolt
@@ -281,12 +288,22 @@ province_event = {
 			}
 			
 			set_proper_rebel_government_effect = yes
+			
+			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 			if = {
-				limit = { 
-					is_tribal = yes
-					ROOT = { owner = { top_liege = { is_tribal = yes } } } 
+				limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
+				if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 3 } 
+					}
+					any_army = { troops = -0.25 }
 				}
-				any_army = { troops = -0.25 }
+				else_if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 2 } 
+					}
+					any_army = { troops = -0.15 }
+				}
 			}
 		}
 		
@@ -518,6 +535,10 @@ province_event = {
 								using_cb = religious_revolt
 								attacker = { religion = ROOT }
 							}
+							AND = {
+								using_cb = cultural_revolt
+								attacker = { culture = ROOT }
+							}
 						}
 					}
 				}
@@ -618,12 +639,22 @@ province_event = {
 			}
 			
 			set_proper_rebel_government_effect = yes
+			
+			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 			if = {
-				limit = { 
-					is_tribal = yes
-					ROOT = { owner = { top_liege = { is_tribal = yes } } } 
+				limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
+				if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 3 } 
+					}
+					any_army = { troops = -0.25 }
 				}
-				any_army = { troops = -0.25 }
+				else_if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 2 } 
+					}
+					any_army = { troops = -0.15 }
+				}
 			}
 		}
 		
@@ -1088,18 +1119,20 @@ province_event = {
 			
 			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 			if = {
-				limit = { 
-					ROOT = { num_of_empty_holdings = 3 } 
+				limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
+				if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 3 } 
+					}
+					any_army = { troops = -0.25 }
 				}
-				any_army = { troops = -0.25 }
-			}
-			else_if = {
-				limit = { 
-					ROOT = { num_of_empty_holdings = 2 } 
+				else_if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 2 } 
+					}
+					any_army = { troops = -0.15 }
 				}
-				any_army = { troops = -0.15 }
 			}
-				
 			
 			# Notify king you're revolting for, if relevant	
 			ROOT = {
@@ -1763,18 +1796,18 @@ province_event = {
 			}
 		}
 		
+		# Cultural revolts have prio
+		is_cultural_revolt_allowed_trigger = no
+		
 		# Nationalist revolts have prio
 		OR = {
 			AND = {
 				owner = {
 					top_liege = {
-						culture_group = imperiale
+						is_roman_culture_trigger = yes
 					}
 				}
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
+				is_roman_culture_trigger = yes
 			}
 			NOT = {
 				kingdom = {
@@ -1833,6 +1866,10 @@ province_event = {
 							AND = {
 								using_cb = religious_revolt
 								attacker = { religion = ROOT }
+							}
+							AND = {
+								using_cb = cultural_revolt
+								attacker = { culture = ROOT }
 							}
 						}
 					}
@@ -1933,12 +1970,22 @@ province_event = {
 			}
 			
 			set_proper_rebel_government_effect = yes
+			
+			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 			if = {
-				limit = { 
-					is_tribal = yes
-					ROOT = { owner = { top_liege = { is_tribal = yes } } } 
+				limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
+				if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 3 } 
+					}
+					any_army = { troops = -0.25 }
 				}
-				any_army = { troops = -0.25 }
+				else_if = {
+					limit = { 
+						ROOT = { num_of_empty_holdings = 2 } 
+					}
+					any_army = { troops = -0.15 }
+				}
 			}
 		}
 		
@@ -2178,6 +2225,10 @@ character_event = {
 					NOT = { has_character_flag = religious_revolter }
 					NOT = { has_character_flag = shepherds_crusade_leader }
 				}
+			}
+			OR = {
+				NOT = { culture = ROOT }
+				NOT = { has_character_flag = cultural_revolter }
 			}
 		}
 	}

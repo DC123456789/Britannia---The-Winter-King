@@ -2010,3 +2010,47 @@ is_anglosaxon_tributary_potential_trigger = {
 		}
 	}
 }
+
+is_cultural_revolt_allowed_trigger = {
+	owner = {
+		top_liege = {
+			NOR = { 
+				culture_group = ROOT 
+				AND = {		# Romans are okay ruling other Romans, Semi-Romanized cultures formerly within the empire, Romanized Germanics, and Romance cultures
+					is_roman_culture_trigger = yes
+					ROOT = { 
+						OR = {
+							is_roman_culture_trigger = yes
+							is_semiromanized_nongermanic_culture_trigger = yes
+							is_romanized_germanic_trigger = yes
+							culture_group = romance
+						}
+					}
+				}
+				AND = {		# ..and vice versa (but not necessarily with each other!)
+					OR = {
+						is_semiromanized_nongermanic_culture_trigger = yes
+						is_romanized_germanic_trigger = yes
+						culture_group = romance
+					}
+					ROOT = { 
+						is_roman_culture_trigger = yes
+					}
+				}
+				AND = {		# Any culture can rule over Romans if they are of the same organized religion
+					religion = ROOT
+					is_organized_religion_trigger = yes
+					ROOT = { 
+						is_roman_culture_trigger = yes
+					}
+				}
+				AND = {		# Romance cultures are compatible with their parent Germanic cultures
+					is_frankish_culture_trigger = yes
+					ROOT = { 
+						is_frankish_culture_trigger = yes
+					}
+				}
+			}
+		}
+	}
+}
