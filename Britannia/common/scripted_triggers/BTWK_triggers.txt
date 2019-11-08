@@ -2054,3 +2054,56 @@ is_cultural_revolt_allowed_trigger = {
 		}
 	}
 }
+
+local_resistance_potential_trigger = {
+	OR = {
+		AND = {
+			culture_group = celtic
+			NOT = { culture = romanobritish }
+			region = world_britannia_cymry_wales
+			owner = {
+				top_liege = {
+					NOR = {
+						culture_group = celtic
+						culture_group = imperiale
+					}
+				}
+			}
+		}
+		AND = {
+			culture_group = celtic
+			region = world_caledonia
+			owner = {
+				top_liege = {
+					NOR = { culture_group = celtic }
+				}
+			}
+		}
+		AND = {
+			culture_group = basque
+			region = world_gaul_aquitania_tertia
+			owner = {
+				top_liege = {
+					NOR = {
+						culture_group = basque
+						culture_group = imperiale
+					}
+				}
+			}
+		}
+	}
+}
+
+has_local_resistance_modifier_trigger = {
+	OR = {	
+		has_province_modifier = local_resistance_1
+		has_province_modifier = local_resistance_2
+		has_province_modifier = local_resistance_3
+		has_province_modifier = local_resistance_1_quiet
+		has_province_modifier = local_resistance_2_quiet
+		has_province_modifier = local_resistance_3_quiet
+		has_province_modifier = local_resistance_1_march
+		has_province_modifier = local_resistance_2_march
+		has_province_modifier = local_resistance_3_march
+	}
+}

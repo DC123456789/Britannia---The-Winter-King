@@ -1,0 +1,350 @@
+#########################################################
+#
+# 	LOCAL RESISTANCE EVENTS
+#
+# 	Id 320700 - 320899 reserved	
+#
+#########################################################
+
+# Assign local resistance modifier
+province_event = {
+	id = 320700
+	hide_window = yes
+
+	trigger = {
+		local_resistance_potential_trigger = yes
+		NOT = {
+			check_variable = {
+				which = pacification_years_remaining
+				value = 1
+			}
+		}
+		NOT = { has_province_flag = local_resistance_pacified }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_province_flag = local_resistance_pacified_before } }
+			if = {
+				limit = { owner = { culture = ROOT } }
+				add_province_modifier = { 
+					name = local_resistance_3_quiet
+					duration = -1
+				}
+			}
+			else = {
+				add_province_modifier = { 
+					name = local_resistance_3
+					duration = -1
+				}
+			}
+			set_variable = {
+				which = pacification_years_remaining
+				value = 40
+			}
+		}
+		else = {
+			if = {
+				limit = { owner = { culture = ROOT } }
+				add_province_modifier = { 
+					name = local_resistance_2_quiet
+					duration = -1
+				}
+			}
+			else = {
+				add_province_modifier = { 
+					name = local_resistance_2
+					duration = -1
+				}
+			}
+			set_variable = {
+				which = pacification_years_remaining
+				value = 30
+			}
+		}
+		
+		owner = {
+			character_event = { id = 320701 }
+			any_liege = {
+				character_event = { id = 320701 }
+			}
+		}
+	}
+}
+
+# Notify owner/liege
+character_event = {
+	id = 320701
+	desc = EVTDESC320701
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		ai = no
+		NOT = { has_global_flag = disabled_local_resistance_alerts }
+	}
+	
+	option = {
+		name = "EVTOPTA320701"
+	}
+	option = {
+		name = "EVTOPTB320701"
+		set_global_flag = disabled_local_resistance_alerts
+	}
+}
+
+# Remove modifier if no longer relevant
+character_event = {
+	id = 320705
+	hide_window = yes
+
+	trigger = {
+		local_resistance_potential_trigger = no
+		has_local_resistance_modifier_trigger = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_province_modifier = local_resistance_1
+		remove_province_modifier = local_resistance_2
+		remove_province_modifier = local_resistance_3
+		remove_province_modifier = local_resistance_1_quiet
+		remove_province_modifier = local_resistance_2_quiet
+		remove_province_modifier = local_resistance_3_quiet
+		remove_province_modifier = local_resistance_1_march
+		remove_province_modifier = local_resistance_2_march
+		remove_province_modifier = local_resistance_3_march
+		
+		clr_province_flag = local_resistance_pacified
+		set_variable = {
+			which = pacification_years_remaining
+			value = 0
+		}
+	}
+}
+
+# Swap to quiet modifier
+character_event = {
+	id = 320706
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			has_province_modifier = local_resistance_1
+			has_province_modifier = local_resistance_2
+			has_province_modifier = local_resistance_3
+			has_province_modifier = local_resistance_1_march
+			has_province_modifier = local_resistance_2_march
+			has_province_modifier = local_resistance_3_march
+		}
+		owner = { culture = ROOT }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_1 
+					has_province_modifier = local_resistance_1_march
+				}
+			}
+			remove_province_modifier = local_resistance_1
+			remove_province_modifier = local_resistance_1_march
+			add_province_modifier = { 
+				name = local_resistance_1_quiet
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_2
+					has_province_modifier = local_resistance_2_march
+				}
+			}
+			remove_province_modifier = local_resistance_2
+			remove_province_modifier = local_resistance_2_march
+			add_province_modifier = { 
+				name = local_resistance_2_quiet
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_3
+					has_province_modifier = local_resistance_3_march
+				}
+			}
+			remove_province_modifier = local_resistance_3
+			remove_province_modifier = local_resistance_3_march
+			add_province_modifier = { 
+				name = local_resistance_3_quiet
+				duration = -1
+			}
+		}
+	}
+}
+
+# Swap to march modifier
+character_event = {
+	id = 320707
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			has_province_modifier = local_resistance_1
+			has_province_modifier = local_resistance_2
+			has_province_modifier = local_resistance_3
+			has_province_modifier = local_resistance_1_quiet
+			has_province_modifier = local_resistance_2_quiet
+			has_province_modifier = local_resistance_3_quiet
+		}
+		owner = { 
+			NOT = { culture = ROOT }
+			top_liege = {
+				is_tributary = {
+					type = march
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_1 
+					has_province_modifier = local_resistance_1_quiet
+				}
+			}
+			remove_province_modifier = local_resistance_1
+			remove_province_modifier = local_resistance_1_quiet
+			add_province_modifier = { 
+				name = local_resistance_1_march
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_2
+					has_province_modifier = local_resistance_2_quiet
+				}
+			}
+			remove_province_modifier = local_resistance_2
+			remove_province_modifier = local_resistance_2_quiet
+			add_province_modifier = { 
+				name = local_resistance_2_march
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_3
+					has_province_modifier = local_resistance_3_quiet
+				}
+			}
+			remove_province_modifier = local_resistance_3
+			remove_province_modifier = local_resistance_3_quiet
+			add_province_modifier = { 
+				name = local_resistance_3_march
+				duration = -1
+			}
+		}
+	}
+}
+
+# Swap to normal modifier
+character_event = {
+	id = 320708
+	hide_window = yes
+
+	trigger = {
+		OR = {
+			has_province_modifier = local_resistance_1_quiet
+			has_province_modifier = local_resistance_2_quiet
+			has_province_modifier = local_resistance_3_quiet
+			has_province_modifier = local_resistance_1_march
+			has_province_modifier = local_resistance_2_march
+			has_province_modifier = local_resistance_3_march
+		}
+		owner = { 
+			NOR = {
+				culture = ROOT 
+				top_liege = {
+					is_tributary = {
+						type = march
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_1_quiet 
+					has_province_modifier = local_resistance_1_march
+				}
+			}
+			remove_province_modifier = local_resistance_1_quiet
+			remove_province_modifier = local_resistance_1_march
+			add_province_modifier = { 
+				name = local_resistance_1
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_2_quiet
+					has_province_modifier = local_resistance_2_march
+				}
+			}
+			remove_province_modifier = local_resistance_2_quiet
+			remove_province_modifier = local_resistance_2_march
+			add_province_modifier = { 
+				name = local_resistance_2
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = local_resistance_3_quiet
+					has_province_modifier = local_resistance_3_march
+				}
+			}
+			remove_province_modifier = local_resistance_3_quiet
+			remove_province_modifier = local_resistance_3_march
+			add_province_modifier = { 
+				name = local_resistance_3
+				duration = -1
+			}
+		}
+	}
+}
