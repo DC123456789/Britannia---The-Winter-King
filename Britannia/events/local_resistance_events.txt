@@ -24,58 +24,26 @@ province_event = {
 	immediate = {
 		set_province_flag = has_local_resistance
 		if = {
-			limit = { NOT = { has_province_flag = local_resistance_pacified_before } }
-			if = {
-				limit = { owner = { culture = ROOT } }
-				add_province_modifier = { 
-					name = local_resistance_3_quiet
-					duration = -1
-				}
-			}
-			else_if = {
-				limit = { owner = { top_liege = { is_tributary = { type = march } } } }
-				add_province_modifier = { 
-					name = local_resistance_3_march
-					duration = -1
-				}
-			}
-			else = {
-				add_province_modifier = { 
-					name = local_resistance_3
-					duration = -1
-				}
-			}
-			set_variable = {
-				which = pacification_years_remaining
-				value = 40
-			}
+			limit = { has_province_flag = local_resistance_unpacifying }
+			clr_province_flag = local_resistance_unpacifying
 		}
 		else = {
 			if = {
-				limit = { owner = { culture = ROOT } }
-				add_province_modifier = { 
-					name = local_resistance_2_quiet
-					duration = -1
-				}
-			}
-			else_if = {
-				limit = { owner = { top_liege = { is_tributary = { type = march } } } }
-				add_province_modifier = { 
-					name = local_resistance_2_march
-					duration = -1
+				limit = { NOT = { has_province_flag = local_resistance_pacified_before } }
+				set_variable = {
+					which = pacification_years_remaining
+					value = 40
 				}
 			}
 			else = {
-				add_province_modifier = { 
-					name = local_resistance_2
-					duration = -1
+				set_variable = {
+					which = pacification_years_remaining
+					value = 25
 				}
 			}
-			set_variable = {
-				which = pacification_years_remaining
-				value = 30
-			}
 		}
+		
+		set_proper_local_resistance_level_effect = yes
 		
 		owner = {
 			character_event = { id = 320701 }
@@ -143,10 +111,7 @@ character_event = {
 		
 		clr_province_flag = is_pacifying_province
 		clr_province_flag = local_resistance_pacified
-		set_variable = {
-			which = pacification_years_remaining
-			value = 0
-		}
+		set_province_flag = local_resistance_unpacifying
 	}
 }
 
@@ -485,6 +450,39 @@ character_event = {
 				}
 			}
 		}
+		
+		# Pacification progress rolls back gradually if not controlled by a pacifying culture
+		any_province = {
+			limit = { 
+				has_province_flag = local_resistance_unpacifying 
+			}
+			add_variable = {
+				which = pacification_years_remaining
+				value = 1
+			}
+			if = {
+				limit = {
+					OR = {
+						check_variable = {
+							which = pacification_years_remaining
+							value = 40
+						}
+						AND = {
+							has_province_flag = local_resistance_pacified_before
+							check_variable = {
+								which = pacification_years_remaining
+								value = 25
+							}
+						}
+					}
+				}
+				set_variable = {
+					which = pacification_years_remaining
+					value = 0
+				}
+				clr_province_flag = local_resistance_unpacifying
+			}
+		}
 	}
 }
 
@@ -556,101 +554,7 @@ character_event = {
 			}
 			
 			# Increase resistance level if applicable
-			if = {
-				limit = {
-					check_variable = {
-						which = pacification_years_remaining
-						value = 26
-					}
-					OR = {
-						has_province_modifier = local_resistance_1
-						has_province_modifier = local_resistance_2
-						has_province_modifier = local_resistance_1_quiet
-						has_province_modifier = local_resistance_2_quiet
-						has_province_modifier = local_resistance_1_march
-						has_province_modifier = local_resistance_2_march
-					}
-				}
-				if = {
-					limit = { 
-						OR = {
-							has_province_modifier = local_resistance_1
-							has_province_modifier = local_resistance_2
-						}
-					}
-					remove_province_modifier = local_resistance_1
-					remove_province_modifier = local_resistance_2
-					add_province_modifier = { 
-						name = local_resistance_3
-						duration = -1
-					}
-				}
-				else_if = {
-					limit = { 
-						OR = {
-							has_province_modifier = local_resistance_1_quiet
-							has_province_modifier = local_resistance_2_quiet
-						}
-					}
-					remove_province_modifier = local_resistance_1_quiet
-					remove_province_modifier = local_resistance_2_quiet
-					add_province_modifier = { 
-						name = local_resistance_3_quiet
-						duration = -1
-					}
-				}
-				else_if = {
-					limit = { 
-						OR = {
-							has_province_modifier = local_resistance_1_march
-							has_province_modifier = local_resistance_2_march
-						}
-					}
-					remove_province_modifier = local_resistance_1_march
-					remove_province_modifier = local_resistance_2_march
-					add_province_modifier = { 
-						name = local_resistance_3_march
-						duration = -1
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						which = pacification_years_remaining
-						value = 11
-					}
-					OR = {
-						has_province_modifier = local_resistance_1
-						has_province_modifier = local_resistance_1_quiet
-						has_province_modifier = local_resistance_1_march
-					}
-				}
-				if = {
-					limit = { has_province_modifier = local_resistance_1 }
-					remove_province_modifier = local_resistance_1
-					add_province_modifier = { 
-						name = local_resistance_2
-						duration = -1
-					}
-				}
-				else_if = {
-					limit = { has_province_modifier = local_resistance_1_quiet }
-					remove_province_modifier = local_resistance_1_quiet
-					add_province_modifier = { 
-						name = local_resistance_2_quiet
-						duration = -1
-					}
-				}
-				else_if = {
-					limit = { has_province_modifier = local_resistance_1_march }
-					remove_province_modifier = local_resistance_1_march
-					add_province_modifier = { 
-						name = local_resistance_2_march
-						duration = -1
-					}
-				}
-			}
+			set_proper_local_resistance_level_effect = yes
 		}
 	}
 }

@@ -4222,6 +4222,105 @@ restore_theocracy_titles_effect = {
 	}
 }
 
+set_proper_local_resistance_level_effect = {
+	if = {
+		limit = { 
+			check_variable = {
+				which = pacification_years_remaining
+				value = 26
+			}
+		}
+		remove_province_modifier = local_resistance_1
+		remove_province_modifier = local_resistance_2
+		remove_province_modifier = local_resistance_1_quiet
+		remove_province_modifier = local_resistance_2_quiet
+		remove_province_modifier = local_resistance_1_march
+		remove_province_modifier = local_resistance_2_march
+		if = {
+			limit = { owner = { culture = ROOT } }
+			add_province_modifier = { 
+				name = local_resistance_3_quiet
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { owner = { top_liege = { is_tributary = { type = march } } } }
+			add_province_modifier = { 
+				name = local_resistance_3_march
+				duration = -1
+			}
+		}
+		else = {
+			add_province_modifier = { 
+				name = local_resistance_3
+				duration = -1
+			}
+		}
+	}
+	else_if = {
+		limit = { 
+			check_variable = {
+				which = pacification_years_remaining
+				value = 11
+			}
+		}
+		remove_province_modifier = local_resistance_1
+		remove_province_modifier = local_resistance_3
+		remove_province_modifier = local_resistance_1_quiet
+		remove_province_modifier = local_resistance_3_quiet
+		remove_province_modifier = local_resistance_1_march
+		remove_province_modifier = local_resistance_3_march
+		if = {
+			limit = { owner = { culture = ROOT } }
+			add_province_modifier = { 
+				name = local_resistance_2_quiet
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { owner = { top_liege = { is_tributary = { type = march } } } }
+			add_province_modifier = { 
+				name = local_resistance_2_march
+				duration = -1
+			}
+		}
+		else = {
+			add_province_modifier = { 
+				name = local_resistance_2
+				duration = -1
+			}
+		}
+	}
+	else = {
+		remove_province_modifier = local_resistance_1
+		remove_province_modifier = local_resistance_2
+		remove_province_modifier = local_resistance_1_quiet
+		remove_province_modifier = local_resistance_2_quiet
+		remove_province_modifier = local_resistance_1_march
+		remove_province_modifier = local_resistance_2_march
+		if = {
+			limit = { owner = { culture = ROOT } }
+			add_province_modifier = { 
+				name = local_resistance_1_quiet
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { owner = { top_liege = { is_tributary = { type = march } } } }
+			add_province_modifier = { 
+				name = local_resistance_1_march
+				duration = -1
+			}
+		}
+		else = {
+			add_province_modifier = { 
+				name = local_resistance_1
+				duration = -1
+			}
+		}
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {
