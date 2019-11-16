@@ -252,14 +252,14 @@ narrative_event = {		# Anglo-Saxon Christian Monastery
 			limit = { 
 				NOT = { has_global_flag = daner_raiders_created }
 			}
-			activate_title = { title = c_daner status = yes }
+			activate_title = { title = d_daner status = yes }
 			set_global_flag = daner_raiders_created
 			set_global_flag = daner_first_raid
 			create_character = {
 				random_traits = no
 				name = "Hårald"
 				dynasty = 344
-				employer = c_daner
+				employer = d_daner
 				religion = norse_pagan
 				culture = dane
 				female = no
@@ -286,7 +286,7 @@ narrative_event = {		# Anglo-Saxon Christian Monastery
 			new_character = {
 				dynasty = 344
 				set_character_flag = viking_invader
-				c_daner = {
+				d_daner = {
 					gain_title = PREV
 					gender_succ = agnatic
 					#succession_w_cooldown = seniority
@@ -304,7 +304,7 @@ narrative_event = {		# Anglo-Saxon Christian Monastery
 					religion = norse_pagan
 					culture = dane
 					female = no
-					employer = c_daner
+					employer = d_daner
 					age = 36
 					attributes = {
 						martial = 13
@@ -468,14 +468,14 @@ narrative_event = {		# Non Christian or Non Anglo-Saxon
 			limit = { 
 				NOT = { has_global_flag = daner_raiders_created }
 			}
-			activate_title = { title = c_daner status = yes }
+			activate_title = { title = d_daner status = yes }
 			set_global_flag = daner_raiders_created
 			set_global_flag = daner_first_raid
 			create_character = {
 				random_traits = no
 				name = "Hårald"
 				dynasty = 344
-				employer = c_daner
+				employer = d_daner
 				religion = norse_pagan
 				culture = dane
 				female = no
@@ -502,7 +502,7 @@ narrative_event = {		# Non Christian or Non Anglo-Saxon
 			new_character = {
 				dynasty = 344
 				set_character_flag = viking_invader
-				c_daner = {
+				d_daner = {
 					gain_title = PREV
 					gender_succ = agnatic
 					#succession_w_cooldown = seniority
@@ -520,7 +520,7 @@ narrative_event = {		# Non Christian or Non Anglo-Saxon
 					religion = norse_pagan
 					culture = dane
 					female = no
-					employer = c_daner
+					employer = d_daner
 					age = 36
 					attributes = {
 						martial = 13
@@ -549,51 +549,13 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = "OK"
-		68 = {			# Bryneich
-			if = {
-				limit = {
-					has_empty_holding = yes
-				}
-				build_holding = {
-					type = castle 
-					holder = ROOT
-				}
-				ROOT = {
-					any_demesne_title = {
-						limit = { tier = baron }
-						refill_holding_levy = yes
-					}
-				}
-			}
-			if = {
-				limit = { ROOT = { is_landed = no } }
-				random_province_holding = {
-					limit = { 
-						is_capital = no
-					}
-					if = {
-						limit = {
-							NOT = { holding_type = castle }
-						}
-						convert_to = CASTLE
-					}
-					c_daner = {
-						holder_scope = {
-							gain_title = PREVPREV
-						}
-					}
-					refill_holding_levy = yes
-				}
-			}
-		}
-		
+		name = "OK"		
 		c_medcaut = { 
 			owner = {
 				top_liege = {
 					primary_title = { 
 						reverse_unsafe_war = {
-							target = c_daner
+							target = d_daner
 							casus_belli = raid_cb
 						}
 					}
@@ -602,13 +564,13 @@ character_event = {
 		}
 		if = {
 			limit = {
-				c_daner = {
+				d_daner = {
 					holder_scope = {
 						war = no
 					}
 				}
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					c_medcaut = {
 						add_weak_claim = PREV
@@ -629,13 +591,13 @@ character_event = {
 		}
 		if = {
 			limit = {
-				c_daner = {
+				d_daner = {
 					holder_scope = {
 						war = no
 					}
 				}
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					c_bernicia = {
 						add_weak_claim = PREV
@@ -654,7 +616,7 @@ character_event = {
 				}
 			}
 		}
-		c_daner = {
+		d_daner = {
 			holder_scope = {
 				spawn_unit = {
 					province = 144
@@ -678,7 +640,7 @@ character_event = {
 					}
 				}	
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					spawn_unit = {
 						province = 144
@@ -707,7 +669,7 @@ character_event = {
 					}
 				}	
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					spawn_unit = {
 						province = 68
@@ -731,7 +693,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_daner
+				employer = d_daner
 				age = 42
 				attributes = {
 					martial = 12
@@ -813,7 +775,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_daner
+				employer = d_daner
 				age = 19
 				attributes = {
 					diplomacy = 10
@@ -830,7 +792,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_daner
+				employer = d_daner
 				age = 40
 				attributes = {
 					learning = 7
@@ -853,7 +815,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_daner
+				employer = d_daner
 				age = 20
 				attributes = {
 					learning = 5
@@ -885,7 +847,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
-		has_landed_title = c_daner
+		has_landed_title = d_daner
 		had_global_flag = { flag = daner_first_raid days = 1095 }
 		NOT = { has_global_flag = daner_second_raid }
 		ai = yes
@@ -915,49 +877,12 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		315 = {			# Deruentione
-			if = {
-				limit = {
-					has_empty_holding = yes
-				}
-				build_holding = {
-					type = castle 
-					holder = ROOT
-				}
-				ROOT = {
-					any_demesne_title = {
-						limit = { tier = baron }
-						refill_holding_levy = yes
-					}
-				}
-			}
-			if = {
-				limit = { ROOT = { is_landed = no } }
-				random_province_holding = {
-					limit = { 
-						is_capital = no
-					}
-					if = {
-						limit = {
-							NOT = { holding_type = castle }
-						}
-						convert_to = CASTLE
-					}
-					c_daner = {
-						holder_scope = {
-							gain_title = PREVPREV
-						}
-					}
-					refill_holding_levy = yes
-				}
-			}
-		}
 		c_derventio = { 
 			owner = {
 				top_liege = {
 					primary_title = { 
 						reverse_unsafe_war = {
-							target = c_daner
+							target = d_daner
 							casus_belli = raid_cb
 						}
 					}
@@ -966,13 +891,13 @@ character_event = {
 		}
 		if = {
 			limit = {
-				c_daner = {
+				d_daner = {
 					holder_scope = {
 						war = no
 					}
 				}
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					c_derventio = {
 						add_weak_claim = PREV
@@ -992,7 +917,7 @@ character_event = {
 				}
 			}
 		}
-		c_daner = {
+		d_daner = {
 			holder_scope = {
 				spawn_unit = {
 					province = 315
@@ -1016,7 +941,7 @@ character_event = {
 					}
 				}	
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					spawn_unit = {
 						province = 315
@@ -1045,7 +970,7 @@ character_event = {
 					}
 				}	
 			}
-			c_daner = {
+			d_daner = {
 				holder_scope = {
 					spawn_unit = {
 						province = 315
@@ -1069,7 +994,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_daner
+				employer = d_daner
 				age = 36
 				attributes = {
 					martial = 12
@@ -1287,14 +1212,14 @@ narrative_event = {
 			limit = { 
 				NOT = { has_global_flag = fyrkat_raiders_created }
 			}
-			activate_title = { title = c_fyrkat status = yes }
+			activate_title = { title = d_fyrkat status = yes }
 			set_global_flag = fyrkat_raiders_created
 			set_global_flag = fyrkat_first_raid
 			create_character = {
 				random_traits = no
 				name = "Bjørn"
 				dynasty = random
-				employer = c_fyrkat
+				employer = d_fyrkat
 				religion = norse_pagan
 				culture = dane
 				female = no
@@ -1319,7 +1244,7 @@ narrative_event = {
 			}
 			new_character = {
 				set_character_flag = viking_invader
-				c_fyrkat = {
+				d_fyrkat = {
 					gain_title = PREV
 					gender_succ = agnatic
 					#succession_w_cooldown = seniority
@@ -1337,7 +1262,7 @@ narrative_event = {
 					religion = norse_pagan
 					culture = dane
 					female = no
-					employer = c_fyrkat
+					employer = d_fyrkat
 					age = 36
 					attributes = {
 						martial = 13
@@ -1388,56 +1313,19 @@ character_event = {
 	
 	option = {
 		name = "OK"
-		319 = {			# Dunpender
-			if = {
-				limit = {
-					has_empty_holding = yes
-				}
-				build_holding = {
-					type = castle 
-					holder = ROOT
-				}
-				ROOT = {
-					any_demesne_title = {
-						limit = { tier = baron }
-						refill_holding_levy = yes
-					}
-				}
-			}
-			if = {
-				limit = { ROOT = { is_landed = no } }
-				random_province_holding = {
-					limit = { 
-						is_capital = no
-					}
-					if = {
-						limit = {
-							NOT = { holding_type = castle }
-						}
-						convert_to = CASTLE
-					}
-					c_daner = {
-						holder_scope = {
-							gain_title = PREVPREV
-						}
-					}
-					refill_holding_levy = yes
-				}
-			}
-		}
 		c_dunpender = { 
 			owner = {
 				top_liege = {
 					primary_title = { 
 						reverse_unsafe_war = {
-							target = c_fyrkat
+							target = d_fyrkat
 							casus_belli = raid_cb
 						}
 					}
 				}
 			}
 		}
-		c_fyrkat = {
+		d_fyrkat = {
 			holder_scope = {
 				spawn_unit = {
 					province = 319
@@ -1461,7 +1349,7 @@ character_event = {
 					}
 				}	
 			}
-			c_fyrkat = {
+			d_fyrkat = {
 				holder_scope = {
 					spawn_unit = {
 						province = 319
@@ -1490,7 +1378,7 @@ character_event = {
 					}
 				}	
 			}
-			c_fyrkat = {
+			d_fyrkat = {
 				holder_scope = {
 					spawn_unit = {
 						province = 319
@@ -1514,7 +1402,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_fyrkat
+				employer = d_fyrkat
 				age = 34
 				attributes = {
 					martial = 8
@@ -1595,7 +1483,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_fyrkat
+				employer = d_fyrkat
 				age = 17
 				attributes = {
 					diplomacy = 10
@@ -1612,7 +1500,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_fyrkat
+				employer = d_fyrkat
 				age = 40
 				attributes = {
 					learning = 7
@@ -1631,7 +1519,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_fyrkat
+				employer = d_fyrkat
 				age = 24
 				attributes = {
 					learning = 5
@@ -1826,14 +1714,14 @@ narrative_event = {
 			limit = { 
 				NOT = { has_global_flag = skaanen_raiders_created }
 			}
-			activate_title = { title = c_skaanen status = yes }
+			activate_title = { title = d_skaanen status = yes }
 			set_global_flag = skaanen_raiders_created
 			set_global_flag = skaanen_first_raid
 			create_character = {
 				random_traits = no
 				name = "Gudrød"
 				dynasty = 339
-				employer = c_skaanen
+				employer = d_skaanen
 				religion = norse_pagan
 				culture = dane
 				female = no
@@ -1860,7 +1748,7 @@ narrative_event = {
 			new_character = {
 				dynasty = 339
 				set_character_flag = viking_invader
-				c_skaanen = {
+				d_skaanen = {
 					gain_title = PREV
 					gender_succ = agnatic
 					#succession_w_cooldown = seniority
@@ -1888,7 +1776,7 @@ narrative_event = {
 					religion = norse_pagan
 					culture = dane
 					female = no
-					employer = c_skaanen
+					employer = d_skaanen
 					age = 36
 					attributes = {
 						martial = 13
@@ -1939,7 +1827,7 @@ character_event = {
 				}
 			}
 		}
-		c_skaanen = {
+		d_skaanen = {
 			holder_scope = {
 				spawn_unit = {
 					province = 37
@@ -1966,7 +1854,7 @@ character_event = {
 					}
 				}	
 			}
-			c_skaanen = {
+			d_skaanen = {
 				holder_scope = {
 					spawn_unit = {
 						province = 138
@@ -1995,7 +1883,7 @@ character_event = {
 					}
 				}	
 			}
-			c_skaanen = {
+			d_skaanen = {
 				holder_scope = {
 					spawn_unit = {
 						province = 108
@@ -2019,7 +1907,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 33
 				attributes = {
 					martial = 12
@@ -2080,7 +1968,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 38
 				attributes = {
 					martial = 10
@@ -2140,7 +2028,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 29
 				attributes = {
 					learning = 10
@@ -2175,7 +2063,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 16
 				attributes = {
 					learning = 11
@@ -2196,7 +2084,7 @@ character_event = {
 				name = "Lagertha"
 				religion = norse_pagan
 				culture = dane
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 23
 				attributes = {
 					learning = 11
@@ -2216,7 +2104,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 40
 				attributes = {
 					learning = 11
@@ -2239,7 +2127,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_skaanen
+				employer = d_skaanen
 				age = 20
 				attributes = {
 					learning = 11
@@ -2268,7 +2156,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
-		has_landed_title = c_skaanen
+		has_landed_title = d_skaanen
 		has_global_flag = skaanen_first_raid
 		NOT = { has_global_flag = skaanen_third_raid }
 		ai = yes
@@ -2617,14 +2505,14 @@ narrative_event = {
 			limit = { 
 				NOT = { has_global_flag = svear_raiders_created }
 			}
-			activate_title = { title = c_svear status = yes }
+			activate_title = { title = d_svear status = yes }
 			set_global_flag = svear_raiders_created
 			set_global_flag = svear_first_raid
 			create_character = {
 				random_traits = no
 				name = "Harald"
 				dynasty = 342
-				employer = c_svear
+				employer = d_svear
 				religion = norse_pagan
 				culture = dane
 				female = no
@@ -2649,7 +2537,7 @@ narrative_event = {
 			new_character = {
 				dynasty = 342
 				set_character_flag = viking_invader
-				c_svear = {
+				d_svear = {
 					gain_title = PREV
 					gender_succ = agnatic
 					#succession_w_cooldown = seniority
@@ -2674,7 +2562,7 @@ narrative_event = {
 					religion = norse_pagan
 					culture = dane
 					female = no
-					employer = c_svear
+					employer = d_svear
 					age = 36
 					attributes = {
 						martial = 13
@@ -2725,7 +2613,7 @@ character_event = {
 				}
 			}
 		}
-		c_svear = {
+		d_svear = {
 			holder_scope = {
 				spawn_unit = {
 					province = 48
@@ -2750,7 +2638,7 @@ character_event = {
 							}
 						}	
 					}
-					c_svear = {
+					d_svear = {
 						holder_scope = {
 							spawn_unit = {
 								province = 48
@@ -2776,7 +2664,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_svear
+				employer = d_svear
 				age = 33
 				attributes = {
 					martial = 12
@@ -2834,7 +2722,7 @@ character_event = {
 				religion = norse_pagan
 				culture = dane
 				female = no
-				employer = c_svear
+				employer = d_svear
 				age = 38
 				attributes = {
 					martial = 10
@@ -2869,7 +2757,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_svear
+				employer = d_svear
 				age = 39
 				attributes = {
 					learning = 10
@@ -2929,7 +2817,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_svear
+				employer = d_svear
 				age = 16
 				attributes = {
 					learning = 11
@@ -2950,7 +2838,7 @@ character_event = {
 				name = "Ingebjørg"
 				religion = norse_pagan
 				culture = dane
-				employer = c_svear
+				employer = d_svear
 				age = 23
 				attributes = {
 					learning = 11
@@ -2970,7 +2858,7 @@ character_event = {
 				female = no
 				religion = norse_pagan
 				culture = dane
-				employer = c_svear
+				employer = d_svear
 				age = 40
 				attributes = {
 					learning = 11
@@ -2993,7 +2881,7 @@ character_event = {
 				female = yes
 				religion = norse_pagan
 				culture = dane
-				employer = c_svear
+				employer = d_svear
 				age = 20
 				attributes = {
 					learning = 11
@@ -3022,7 +2910,7 @@ character_event = {
 	capable_only = yes
 	
 	trigger = {
-		has_landed_title = c_svear
+		has_landed_title = d_svear
 		has_global_flag = svear_first_raid
 		NOT = { has_global_flag = svear_third_raid }
 		ai = yes
@@ -3422,8 +3310,8 @@ narrative_event = {
 					set_character_flag = viking_invader
 					give_nickname = nick_the_boneless
 					set_father = PREV
-					activate_title = { title = c_mjoll status = yes }
-					c_mjoll = { gain_title = PREV }
+					activate_title = { title = d_mjoll status = yes }
+					d_mjoll = { gain_title = PREV }
 				}
 				create_character = {			# Ubbe Ragnarsson
 					name="Ubbe"
@@ -3811,20 +3699,37 @@ character_event = {
 	trigger = {
 		ai = yes
 		OR = {
-			has_landed_title = c_daner
+			has_landed_title = d_daner
 			AND = {
-				has_landed_title = c_svear
-				has_global_flag = svear_third_raid
+				has_landed_title = d_svear
+				OR = {
+					has_global_flag = svear_third_raid
+					num_of_count_titles_in_realm = 6
+				}
 			}
 			AND = {
-				has_landed_title = c_skaanen
-				has_global_flag = skaanen_third_raid
+				has_landed_title = d_skaanen
+				OR = {
+					has_global_flag = skaanen_third_raid
+					num_of_count_titles_in_realm = 6
+				}
 			}
-			has_landed_title = c_fyrkat
-			#has_landed_title = c_mjoll
+			has_landed_title = d_fyrkat
+			#has_landed_title = d_mjoll
 		}
 		war = no
-		is_landed = no
+		OR = {
+			is_landed = no
+			any_demesne_title = {
+				higher_tier_than = COUNT
+				NOR = {
+					title = d_daner
+					title = d_svear
+					title = d_skaanen
+					title = d_fyrkat
+				}
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -3833,35 +3738,41 @@ character_event = {
 	
 	immediate = {
 		if = {
-			limit = { has_landed_title = c_daner }
-			c_daner = { destroy_landed_title = c_daner }
-			activate_title = { title = c_daner status = no }
+			limit = { has_landed_title = d_daner }
+			activate_title = { title = d_daner status = no }
+			d_daner = { destroy_landed_title = d_daner }
 		}
 		if = {
 			limit = {
-				has_landed_title = c_svear 
-				has_global_flag = svear_third_raid
+				has_landed_title = d_svear 
+				OR = {
+					has_global_flag = svear_third_raid
+					num_of_count_titles_in_realm = 6
+				}
 			}
-			c_svear = { destroy_landed_title = c_svear }
-			activate_title = { title = c_svear status = no }
+			activate_title = { title = d_svear status = no }
+			d_svear = { destroy_landed_title = d_svear }
 		}
 		if = {
 			limit = { 
-				has_landed_title = c_skaanen
-				has_global_flag = skaanen_third_raid				
+				has_landed_title = d_skaanen
+				OR = {
+					has_global_flag = skaanen_third_raid
+					num_of_count_titles_in_realm = 6
+				}				
 			}
-			c_skaanen = { destroy_landed_title = c_skaanen }
-			activate_title = { title = c_skaanen status = no }
+			activate_title = { title = d_skaanen status = no }
+			d_skaanen = { destroy_landed_title = d_skaanen }
 		}
 		if = {
-			limit = { has_landed_title = c_fyrkat }
-			c_fyrkat = { destroy_landed_title = c_fyrkat }
-			activate_title = { title = c_fyrkat status = no }
+			limit = { has_landed_title = d_fyrkat }
+			activate_title = { title = d_fyrkat status = no }
+			d_fyrkat = { destroy_landed_title = d_fyrkat }
 		}
 #		if = {
-#			limit = { has_landed_title = c_mjoll }
-#			c_mjoll = { destroy_landed_title = c_mjoll }
-#			activate_title = { title = c_mjoll status = no }
+#			limit = { has_landed_title = d_mjoll }
+#			activate_title = { title = d_mjoll status = no }
+#			d_mjoll = { destroy_landed_title = d_mjoll }
 #		}
 	}
 	
