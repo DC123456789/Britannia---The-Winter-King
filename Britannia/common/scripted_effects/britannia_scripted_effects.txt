@@ -4321,6 +4321,106 @@ set_proper_local_resistance_level_effect = {
 	}
 }
 
+# Adds to the global_nat_revolt_progress_increase variable
+calculate_province_nat_revolt_progress_increase_effect = {
+	# Base value
+	set_variable = {
+		which = local_nat_revolt_progress_increase
+		value = 0
+	}
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = local_resistance_1
+				has_province_modifier = local_resistance_1_quiet
+				has_province_modifier = local_resistance_1_march
+			}
+		}
+		change_variable = {
+			which = local_nat_revolt_progress_increase
+			value = 1
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_province_modifier = local_resistance_2
+				has_province_modifier = local_resistance_2_quiet
+				has_province_modifier = local_resistance_2_march
+			}
+		}
+		change_variable = {
+			which = local_nat_revolt_progress_increase
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_province_modifier = local_resistance_3
+				has_province_modifier = local_resistance_3_quiet
+				has_province_modifier = local_resistance_3_march
+			}
+		}
+		change_variable = {
+			which = local_nat_revolt_progress_increase
+			value = 3
+		}
+	}
+	
+	# Local control and march modifiers
+	if = {
+		limit = {	# 20% more
+			OR = {
+				has_province_modifier = local_resistance_1_quiet
+				has_province_modifier = local_resistance_2_quiet
+				has_province_modifier = local_resistance_3_quiet
+			}
+		}
+		multiply_variable = {
+			which = local_nat_revolt_progress_increase
+			value = 1.2
+		}
+	}
+	else_if = {
+		limit = {	# 25% less
+			OR = {
+				has_province_modifier = local_resistance_1_march
+				has_province_modifier = local_resistance_2_march
+				has_province_modifier = local_resistance_3_march
+			}
+		}
+		multiply_variable = {
+			which = local_nat_revolt_progress_increase
+			value = 0.75
+		}
+	}
+	
+	# Some variation for each province
+	random_list = {
+		33 = {
+			multiply_variable = {	# +15 %
+				which = local_nat_revolt_progress_increase
+				value = 1.15
+			}
+		}
+		33 = {						# No change
+		}
+		33 = {
+			multiply_variable = {	# -15 %
+				which = local_nat_revolt_progress_increase
+				value = 0.85
+			}
+		}
+	}
+	
+	# Add to global count
+	change_variable = {
+		which = global_nat_revolt_progress_increase
+		which = local_nat_revolt_progress_increase
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {

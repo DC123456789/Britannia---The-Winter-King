@@ -112,11 +112,6 @@ character_event = {
 		clr_province_flag = is_pacifying_province
 		clr_province_flag = local_resistance_pacified
 		set_province_flag = local_resistance_unpacifying
-		
-		set_variable = {
-			which = local_resistance_revolt_progress
-			value = 0
-		}
 	}
 }
 
@@ -452,6 +447,11 @@ character_event = {
 					clr_province_flag = has_local_resistance
 					set_province_flag = local_resistance_pacified
 					set_province_flag = local_resistance_pacified_before
+		
+					set_variable = {
+						which = nationalist_revolt_progress
+						value = 0
+					}
 				}
 			}
 		}
@@ -487,6 +487,154 @@ character_event = {
 				}
 				clr_province_flag = local_resistance_unpacifying
 			}
+		}
+		
+		# Calculate Nationalist revolt progress for each province with local resistance
+		any_province = {
+			if = {
+				limit = { has_province_flag = has_local_resistance }
+				if = {
+					limit = { NOT = { has_province_flag = nationalist_revolt_progress_checked } }
+					set_province_flag = nationalist_revolt_progress_checked
+					save_event_target_as = current_resistance_region_province
+					
+					set_variable = {
+						which = global_nat_revolt_progress_increase
+						value = 0
+					}
+					calculate_province_nat_revolt_progress_increase_effect = yes
+					
+					owner = {
+						top_liege = {
+							# Add together all provinces under the same realm
+							any_realm_province = {
+								limit = {
+									has_province_flag = has_local_resistance
+									NOT = { has_province_flag = nationalist_revolt_progress_checked }
+									is_in_current_resistance_region_province = yes
+								}
+								set_province_flag = nationalist_revolt_progress_checked
+								calculate_province_nat_revolt_progress_increase_effect = yes
+							}
+							# ... including suzerains (if a march)
+							if = {
+								limit = { is_tributary = { type = march } }
+								suzerain = {
+									any_realm_province = {
+										limit = {
+											has_province_flag = has_local_resistance
+											NOT = { has_province_flag = nationalist_revolt_progress_checked }
+											is_in_current_resistance_region_province = yes
+										}
+										set_province_flag = nationalist_revolt_progress_checked
+										calculate_province_nat_revolt_progress_increase_effect = yes
+									}
+								}
+							}
+							# ... and marches (if realm has marches)
+							any_tributary = {
+								limit = { is_tributary = { type = march } }
+								any_realm_province = {
+									limit = {
+										has_province_flag = has_local_resistance
+										NOT = { has_province_flag = nationalist_revolt_progress_checked }
+										is_in_current_resistance_region_province = yes
+									}
+									set_province_flag = nationalist_revolt_progress_checked
+									calculate_province_nat_revolt_progress_increase_effect = yes
+								}
+							}
+							
+							# Now we add the yearly increase to ALL of the realm's provinces (including marches)
+							any_realm_province = {
+								limit = {
+									has_province_flag = has_local_resistance
+									NOT = { has_province_flag = nationalist_revolt_progress_increased }
+									is_in_current_resistance_region_province = yes
+								}
+								set_province_flag = nationalist_revolt_progress_increased
+								change_variable = {
+									which = nationalist_revolt_progress
+									which = global_nat_revolt_progress_increase
+								}
+							}
+							if = {
+								limit = { is_tributary = { type = march } }
+								suzerain = {
+									any_realm_province = {
+										limit = {
+											has_province_flag = has_local_resistance
+											NOT = { has_province_flag = nationalist_revolt_progress_increased }
+											is_in_current_resistance_region_province = yes
+										}
+										set_province_flag = nationalist_revolt_progress_increased
+										change_variable = {
+											which = nationalist_revolt_progress
+											which = global_nat_revolt_progress_increase
+										}
+									}
+								}
+							}
+							any_tributary = {
+								limit = { is_tributary = { type = march } }
+								any_realm_province = {
+									limit = {
+										has_province_flag = has_local_resistance
+										NOT = { has_province_flag = nationalist_revolt_progress_increased }
+										is_in_current_resistance_region_province = yes
+									}
+									set_province_flag = nationalist_revolt_progress_increased
+									change_variable = {
+										which = nationalist_revolt_progress
+										which = global_nat_revolt_progress_increase
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			# Pacification progress rolls back if not controlled by a pacifying culture
+			else_if = {
+				limit = {
+					NOT = {
+						is_variable_equal = {
+							which = nationalist_revolt_progress
+							value = 0
+						}
+					}
+				}
+				subtract_variable = {
+					which = nationalist_revolt_progress
+					value = 5
+				}
+				if = {
+					limit = {
+						NOT = {
+							check_variable = {
+								which = nationalist_revolt_progress
+								value = 0
+							}
+						}
+					}
+					set_variable = {
+						which = nationalist_revolt_progress
+						value = 0
+					}
+				}
+			}				
+		}
+		
+		# Cleanup
+		any_province = {
+			limit = { 
+				OR = {
+					has_province_flag = nationalist_revolt_progress_checked 
+					has_province_flag = nationalist_revolt_progress_increased 
+				}
+			}
+			clr_province_flag = nationalist_revolt_progress_checked
+			clr_province_flag = nationalist_revolt_progress_increased
 		}
 	}
 }
