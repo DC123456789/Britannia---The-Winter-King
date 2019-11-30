@@ -545,7 +545,18 @@ character_event = {
 								}
 							}
 							
+							# Calculate estimated revolt size
+							set_variable = {
+								which = global_nat_revolt_estimated_size
+								which = global_nat_revolt_progress_increase
+							}
+							multiply_variable = {
+								which = global_nat_revolt_estimated_size
+								value = 500
+							}
+							
 							# Now we add the yearly increase to ALL of the realm's provinces (including marches)
+							# And assign the estimated size (for tooltip purposes only)
 							any_realm_province = {
 								limit = {
 									has_province_flag = has_local_resistance
@@ -556,6 +567,10 @@ character_event = {
 								change_variable = {
 									which = nationalist_revolt_progress
 									which = global_nat_revolt_progress_increase
+								}
+								set_variable = {
+									which = nat_revolt_estimated_size
+									which = global_nat_revolt_estimated_size
 								}
 							}
 							if = {
@@ -572,6 +587,10 @@ character_event = {
 											which = nationalist_revolt_progress
 											which = global_nat_revolt_progress_increase
 										}
+										set_variable = {
+											which = nat_revolt_estimated_size
+											which = global_nat_revolt_estimated_size
+										}
 									}
 								}
 							}
@@ -587,6 +606,10 @@ character_event = {
 									change_variable = {
 										which = nationalist_revolt_progress
 										which = global_nat_revolt_progress_increase
+									}
+									set_variable = {
+										which = nat_revolt_estimated_size
+										which = global_nat_revolt_estimated_size
 									}
 								}
 							}
