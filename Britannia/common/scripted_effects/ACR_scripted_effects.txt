@@ -187,7 +187,7 @@ create_diplomacy_mystic_effect = {
 				dna = chaehghfacw
 				dynasty = none
 				religion = norse_pagan
-				culture = norse
+				culture = proto_norse
 				female = yes
 				age = 17
 				health = 15
@@ -220,6 +220,53 @@ create_diplomacy_mystic_effect = {
 				trait = poet
 			}
 		}
+	}
+	new_character = {
+		set_character_flag = eternal_life_mystic 
+
+		will_not_marry_effect = yes
+
+		if = {
+			limit = {
+				is_female = yes
+			}
+			give_nickname = nick_the_youthful
+			set_character_flag = immortal_mystic_idunn
+		} 
+		else = {
+			give_nickname = nick_the_wise
+			set_character_flag = immortal_mystic_nestor
+		}
+		random_list = {
+			90 = {
+				set_character_flag = mystic_is_fraud
+			}
+			10 = {
+				modifier = {
+					factor = 1.4
+					FROM = { diplomacy = 10 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { diplomacy = 13 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { diplomacy = 16 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { diplomacy = 19 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { diplomacy = 22 }
+				}
+				
+				change_diplomacy = 6
+			}
+		}
+		save_event_target_as = eternal_life_mystic
 	}
 }
 
@@ -268,7 +315,7 @@ create_martial_mystic_effect = {
 				random_traits = no
 				dynasty = none
 				religion = roman_pagan
-				culture = roman
+				culture = greek
 				female = no
 				age = 31
 				health = 15
@@ -283,6 +330,63 @@ create_martial_mystic_effect = {
 			}
 		}
 	}
+	new_character = {
+		set_character_flag = eternal_life_mystic 
+
+		will_not_marry_effect = yes
+
+		if = {
+			limit = { culture = greek }
+			give_nickname = nick_the_spartan
+			set_character_flag = immortal_mystic_spartan
+		} 
+		else = {
+			give_nickname = nick_the_fearless
+			#if = {
+				#limit = { culture = manden }
+				#set_character_flag = immortal_mystic_amina
+			#} 
+			#else = {
+				set_character_flag = immortal_mystic_gaul
+			#}
+		}
+
+		random_list = {
+			50 = { add_scarred_high_effect = yes }
+			50 = { add_trait = disfigured }
+		}
+
+		random_list = {
+			90 = {
+				set_character_flag = mystic_is_fraud
+			}
+			10 = {
+				modifier = {
+					factor = 1.4
+					FROM = { martial = 10 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { martial = 13 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { martial = 16 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { martial = 19 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { martial = 22 }
+				}
+				
+				change_martial = 6
+			}
+		}
+		save_event_target_as = eternal_life_mystic
+	}
 }
 
 create_intrigue_mystic_effect = {
@@ -291,8 +395,8 @@ create_intrigue_mystic_effect = {
 			create_character = {
 				random_traits = no
 				dynasty = none
-				religion = briton_pagan
-				culture = briton
+				religion = manichean
+				culture = romanoafrican
 				female = yes
 				age = 72
 				health = 15
@@ -327,27 +431,72 @@ create_intrigue_mystic_effect = {
 				# trait = erudite		
 			# }
 		# }
-		# 25 = {
-			# create_character = {
-				# name = "Cleopatra"
-				# random_traits = no
-				# dynasty = none
-				# religion = egyptian_pagan
-				# culture = egyptian_coptic
-				# female = yes
-				# age = 34
-				# health = 15
-				# trait = elusive_shadow
-				# trait = mystic
-				# trait = fair
-				# trait = slothful
-				# trait = proud
-				# trait = paranoid
-				# trait = ambitious
-				# trait = deceitful
-				# trait = erudite		
-			# }
-		# }
+		25 = {
+			create_character = {
+				name = "Cleopatra"
+				random_traits = no
+				dynasty = none
+				religion = roman_pagan
+				culture = romanosyrian
+				female = yes
+				age = 34
+				health = 15
+				trait = elusive_shadow
+				trait = mystic
+				trait = fair
+				trait = proud
+				trait = paranoid
+				trait = ambitious
+				trait = deceitful
+				trait = erudite		
+			}
+		}
+	}
+	new_character = {
+		set_character_flag = eternal_life_mystic 
+
+		will_not_marry_effect = yes
+
+		give_nickname = nick_the_alchemist
+
+		if = {
+			limit = { is_female = yes }
+			set_character_flag = immortal_mystic_cleopatra
+		} 
+		else = {
+			set_character_flag = immortal_mystic_hunchback
+		}
+
+		random_list = {
+			90 = {
+				set_character_flag = mystic_is_fraud
+			}
+			10 = {
+				modifier = {
+					factor = 1.4
+					FROM = { intrigue = 10 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { intrigue = 13 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { intrigue = 16 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { intrigue = 19 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { intrigue = 22 }
+				}
+				
+				change_intrigue = 6
+			}
+		}
+		save_event_target_as = eternal_life_mystic
 	}
 }
 
@@ -408,6 +557,57 @@ create_learning_mystic_effect = {
 			}
 		}
 	}	
+	new_character = {
+		set_character_flag = eternal_life_mystic 
+
+		will_not_marry_effect = yes
+
+		#remove_trait = kshatriya
+		#remove_trait = vaishya
+		#remove_trait = vajrayana_buddhist
+		#remove_trait = mahayana_buddhist
+
+		trigger_switch = {
+			on_trigger = religion
+			promethean_pagan = { give_nickname = nick_the_younger set_character_flag = immortal_mystic_lucan }
+			roman_pagan = { give_nickname = nick_the_elder set_character_flag = immortal_mystic_seneca }
+			#buddhist = { give_nickname = nick_the_gentle set_character_flag = immortal_mystic_achala }
+		}
+		change_diplomacy = 2
+		change_stewardship = 2
+		change_intrigue = -1
+
+		random_list = {
+			90 = {
+				set_character_flag = mystic_is_fraud
+			}
+			10 = {
+				modifier = {
+					factor = 1.4
+					FROM = { learning = 10 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { learning = 13 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { learning = 16 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { learning = 19 }
+				}
+				modifier = {
+					factor = 1.4
+					FROM = { learning = 22 }
+				}
+				
+				change_learning = 15
+			}
+		}
+		save_event_target_as = eternal_life_mystic
+	}
 }
 
 # will set appropriate character flags
