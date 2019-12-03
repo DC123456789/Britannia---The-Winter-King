@@ -951,7 +951,20 @@ character_event = {
 		has_landed_title = d_null
 	}
 	
-	immediate = {
+	immediate = {		
+		# Calculate number of provinces in Britannia on startup
+		set_variable = {
+			which = global_num_provinces_in_britannia
+			value = 0
+		}				
+		any_province = {
+			limit = { region = world_britannia }
+			change_variable = {
+				which = global_num_provinces_in_britannia
+				value = 1
+			}
+		}
+		
 		1 = {
 			province_event = { id = 320210 }
 		}
@@ -997,19 +1010,6 @@ character_event = {
 					which = aengland_bretwalda_authority_2
 					which = aengland_bretwalda_authority
 				}
-			}
-		}
-		
-		# Calculate number of provinces in Britannia on startup
-		set_variable = {
-			which = global_num_provinces_in_britannia
-			value = 0
-		}				
-		any_province = {
-			limit = { region = world_britannia }
-			change_variable = {
-				which = global_num_provinces_in_britannia
-				value = 1
 			}
 		}
 	}
