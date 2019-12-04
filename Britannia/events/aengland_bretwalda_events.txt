@@ -1545,168 +1545,266 @@ character_event = {
 			}
 		}
 		else = {
-			# Calculate annexation score
-			set_variable = {
-				which = aengland_bretwalda_authority		# We use this because it's possible to compare same variable in different scopes
-				value = 0
-			}
-			export_to_variable = {
-				which = num_provinces_in_realm
-				value = num_of_count_titles_in_realm
-			}
-			set_variable = {
-				which = score_num_provinces_in_realm
-				which = num_provinces_in_realm
-			}
-			multiply_variable = {
-				which = score_num_provinces_in_realm
-				value = 10
-			}
-			export_to_variable = {
-				which = realm_size_var
-				value = realm_size
-			}
-			set_variable = {
-				which = score_realm_size_var
-				which = realm_size_var
-			}
-			multiply_variable = {
-				which = score_realm_size_var
-				value = 4
-			}
-			
-			set_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				value = 100
-			}
-			change_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				which = bretwalda_diplomacy_effect
-			}
-			change_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				which = bretwalda_martial_effect
-			}
-			change_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				which = bretwalda_stewardship_effect
-			}
-			if = {
-				limit = { is_tribal = yes }
-				change_variable = {
-					which = aengland_bretwalda_authority_multiplier
-					value = 33
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						AND = {
-							is_female = yes 
-							NOR = {
-								has_game_rule = {
-									name = gender
-									value = all
-								}
-								religion = promethean_pagan
-								has_religion_feature = religion_equal
-								has_religion_feature = religion_feature_pict
-								has_religion_feature = religion_feature_vasconic
-								has_religion_feature = religion_matriarchal
-								primary_title = {
-									has_law = status_of_women_4 
-								}
-							}
-						}
-						AND = {
-							is_female = no 
-							NOT = {
-								has_game_rule = {
-									name = gender
-									value = all
-								}
-							}
-							OR = {
-								has_religion_feature = religion_matriarchal
-								religion = britannic_pagan
-							}
-						}
-					}
-				}
-				change_variable = {
-					which = aengland_bretwalda_authority_multiplier
-					value = -33
-				}
-			}
-			export_to_variable = {
-				which = score_num_ruled_years
-				value = ruled_years
-			}
-			subtract_variable = {
-				which = score_num_ruled_years
-				value = 10
-			}
-			multiply_variable = {
-				which = score_num_ruled_years
-				value = 2
-			}
-			change_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				which = score_num_ruled_years
-			}
-			divide_variable = {
-				which = aengland_bretwalda_authority_multiplier
-				value = 100
-			}
-			
-			change_variable = {
-				which = aengland_bretwalda_authority
-				which = score_num_provinces_in_realm
-			}
-			change_variable = {
-				which = aengland_bretwalda_authority
-				which = score_realm_size_var
-			}
-			multiply_variable = {
-				which = aengland_bretwalda_authority
-				which = aengland_bretwalda_authority_multiplier
-			}
-			
-			# Maximum possible annexation score is 1200
-			if = {
-				limit = {
-					check_variable = {
-						which = aengland_bretwalda_authority
-						value = 1200
-					}
-				}
-				set_variable = {
-					which = aengland_bretwalda_authority
-					value = 1200
-				}
-				set_character_flag = max_annexation_score
-			}
-			else = {
-				if = {
-					limit = { has_character_flag = max_annexation_score }
-					clr_character_flag = max_annexation_score
-				}
-			}
-			
-			# Seizing control has a 1.5x cost modifier
-			set_variable = {
-				which = aengland_bretwalda_authority_2
-				which = aengland_bretwalda_authority
-			}
-			multiply_variable = {
-				which = aengland_bretwalda_authority_2
-				value = 1.33
-			}
+			character_event = { id = 320215 }
 		}
 	}
 	
 	option = {
 		name = "OK"
+	}
+}
+
+# Bounce event 320215 (annexation score calculation) for on_new_holder on subject kingdoms
+character_event = {
+	id = 320214
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	only_independent = yes
+	
+	trigger = {
+		has_global_flag = aengland_declared_supremacy
+		NOT = { has_landed_title = e_aengland }
+		OR = {
+			is_tributary = {
+				type = anglosaxon_tributary
+			}
+			FROMFROM = {
+				is_tributary = {
+					type = anglosaxon_tributary
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		character_event = { id = 320215 }
+	}
+}
+
+# Calculate annexation score
+character_event = {
+	id = 320215
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	only_independent = yes
+	
+	immediate = {
+		# Calculate annexation score
+		set_variable = {
+			which = aengland_bretwalda_authority		# We use this because it's possible to compare same variable in different scopes
+			value = 0
+		}
+		export_to_variable = {
+			which = num_provinces_in_realm
+			value = num_of_count_titles_in_realm
+		}
+		set_variable = {
+			which = score_num_provinces_in_realm
+			which = num_provinces_in_realm
+		}
+		multiply_variable = {
+			which = score_num_provinces_in_realm
+			value = 10
+		}
+		export_to_variable = {
+			which = realm_size_var
+			value = realm_size
+		}
+		# Manual calculation of realm size required in some instances
+		if = {
+			limit = { 
+				is_variable_equal = {
+					which = realm_size_var
+					value = 0
+				}
+			}
+			any_title_under = {
+				limit = { lower_tier_than = DUKE }
+				PREV = {
+					change_variable = {
+						which = realm_size_var
+						value = 1
+					}
+				}
+			}
+		}
+		set_variable = {
+			which = score_realm_size_var
+			which = realm_size_var
+		}
+		multiply_variable = {
+			which = score_realm_size_var
+			value = 4
+		}
+		
+		export_to_variable = {
+			which = bretwalda_diplomacy_effect
+			value = diplomacy
+		}
+		export_to_variable = {
+			which = bretwalda_martial_effect
+			value = martial
+		}
+		export_to_variable = {
+			which = bretwalda_stewardship_effect
+			value = stewardship
+		}
+		subtract_variable = {
+			which = bretwalda_diplomacy_effect
+			value = 9
+		}
+		subtract_variable = {
+			which = bretwalda_martial_effect
+			value = 9
+		}
+		subtract_variable = {
+			which = bretwalda_stewardship_effect
+			value = 9
+		}
+		multiply_variable = {
+			which = bretwalda_diplomacy_effect
+			value = 1.5
+		}
+		multiply_variable = {
+			which = bretwalda_martial_effect
+			value = 1.5
+		}
+		multiply_variable = {
+			which = bretwalda_stewardship_effect
+			value = 1.5
+		}
+		
+		set_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			value = 100
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			which = bretwalda_diplomacy_effect
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			which = bretwalda_martial_effect
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			which = bretwalda_stewardship_effect
+		}
+		if = {
+			limit = { is_tribal = yes }
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = 33
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						is_female = yes 
+						NOR = {
+							has_game_rule = {
+								name = gender
+								value = all
+							}
+							religion = promethean_pagan
+							has_religion_feature = religion_equal
+							has_religion_feature = religion_feature_pict
+							has_religion_feature = religion_feature_vasconic
+							has_religion_feature = religion_matriarchal
+							primary_title = {
+								has_law = status_of_women_4 
+							}
+						}
+					}
+					AND = {
+						is_female = no 
+						NOT = {
+							has_game_rule = {
+								name = gender
+								value = all
+							}
+						}
+						OR = {
+							has_religion_feature = religion_matriarchal
+							religion = britannic_pagan
+						}
+					}
+				}
+			}
+			change_variable = {
+				which = aengland_bretwalda_authority_multiplier
+				value = -33
+			}
+		}
+		export_to_variable = {
+			which = score_num_ruled_years
+			value = ruled_years
+		}
+		subtract_variable = {
+			which = score_num_ruled_years
+			value = 10
+		}
+		multiply_variable = {
+			which = score_num_ruled_years
+			value = 2
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			which = score_num_ruled_years
+		}
+		divide_variable = {
+			which = aengland_bretwalda_authority_multiplier
+			value = 100
+		}
+		
+		change_variable = {
+			which = aengland_bretwalda_authority
+			which = score_num_provinces_in_realm
+		}
+		change_variable = {
+			which = aengland_bretwalda_authority
+			which = score_realm_size_var
+		}
+		multiply_variable = {
+			which = aengland_bretwalda_authority
+			which = aengland_bretwalda_authority_multiplier
+		}
+		
+		# Maximum possible annexation score is 1200
+		if = {
+			limit = {
+				check_variable = {
+					which = aengland_bretwalda_authority
+					value = 1200
+				}
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority
+				value = 1200
+			}
+			set_character_flag = max_annexation_score
+		}
+		else = {
+			if = {
+				limit = { has_character_flag = max_annexation_score }
+				clr_character_flag = max_annexation_score
+			}
+		}
+		
+		# Seizing control has a 1.5x cost modifier
+		set_variable = {
+			which = aengland_bretwalda_authority_2
+			which = aengland_bretwalda_authority
+		}
+		multiply_variable = {
+			which = aengland_bretwalda_authority_2
+			value = 1.33
+		}
 	}
 }
 
