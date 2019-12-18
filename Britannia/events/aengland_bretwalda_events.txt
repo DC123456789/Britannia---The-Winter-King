@@ -42,7 +42,7 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 			value = 0
 		}
 		set_variable = {
-			which = aengland_bretwalda_authority_2
+			which = aengland_seize_control_score
 			which = aengland_bretwalda_authority
 		}
 		clr_character_flag = gained_aengland
@@ -595,11 +595,6 @@ character_event = {
 				which = aengland_bretwalda_authority_gain
 			}
 			
-			set_variable = {
-				which = aengland_bretwalda_authority_2
-				which = aengland_bretwalda_authority
-			}
-			
 			# Cap Bretwalda Authority at 1200 if not completely controlling Aengland
 			if = {
 				limit = { 
@@ -614,6 +609,8 @@ character_event = {
 					value = 1200
 				}
 			}
+			
+			reset_aengland_bretwalda_authority_scores_effect = yes
 		}
 		
 		# Make sure score is non-negative
@@ -644,10 +641,7 @@ character_event = {
 				which = aengland_bretwalda_authority
 				value = 0
 			}
-			set_variable = {
-				which = aengland_bretwalda_authority_2
-				which = aengland_bretwalda_authority
-			}
+			reset_aengland_bretwalda_authority_scores_effect = yes
 		}
 	}
 	
@@ -697,10 +691,7 @@ character_event = {
 				which = aengland_bretwalda_authority
 				value = 0
 			}
-			set_variable = {
-				which = aengland_bretwalda_authority_2
-				which = aengland_bretwalda_authority
-			}
+			reset_aengland_bretwalda_authority_scores_effect = yes
 		}
 		
 		# Start variable calculation loop
@@ -758,10 +749,6 @@ character_event = {
 							which = aengland_bretwalda_authority
 							which = ROOT
 						}
-						set_variable = {
-							which = aengland_bretwalda_authority_2
-							which = aengland_bretwalda_authority
-						}
 					}
 				}
 			}
@@ -772,10 +759,6 @@ character_event = {
 					change_variable = {
 						which = aengland_bretwalda_authority
 						which = ROOT
-					}
-					set_variable = {
-						which = aengland_bretwalda_authority_2
-						which = aengland_bretwalda_authority
 					}
 				}
 			}
@@ -789,10 +772,6 @@ character_event = {
 					change_variable = {
 						which = aengland_bretwalda_authority
 						which = ROOT
-					}
-					set_variable = {
-						which = aengland_bretwalda_authority_2
-						which = aengland_bretwalda_authority
 					}
 				}				
 			}
@@ -965,8 +944,11 @@ character_event = {
 			}
 		}
 		
-		1 = {
-			province_event = { id = 320210 }
+		if = {
+			limit = { NOT = { has_global_flag = startup } }
+			1 = {
+				province_event = { id = 320210 }
+			}
 		}
 		
 		any_playable_ruler = {
@@ -1006,10 +988,7 @@ character_event = {
 					which = aengland_bretwalda_authority
 					value = 0
 				}
-				set_variable = {
-					which = aengland_bretwalda_authority_2
-					which = aengland_bretwalda_authority
-				}
+				reset_aengland_bretwalda_authority_scores_effect = yes
 			}
 		}
 	}
@@ -1579,7 +1558,10 @@ character_event = {
 	}
 	
 	immediate = {
+		FROMFROM = { save_event_target_as = previous_ruler }
+		ROOT = { set_character_flag = has_previous_ruler }
 		character_event = { id = 320215 }
+		character_event = { id = 320215 days = 1 }
 	}
 }
 
@@ -1595,42 +1577,98 @@ character_event = {
 	immediate = {
 		# Calculate annexation score
 		set_variable = {
-			which = aengland_bretwalda_authority		# We use this because it's possible to compare same variable in different scopes
+			which = aengland_vassalize_subject_score
 			value = 0
 		}
 		export_to_variable = {
 			which = num_provinces_in_realm
 			value = num_of_count_titles_in_realm
 		}
+		export_to_variable = {
+			which = realm_size_var
+			value = realm_size
+		}
+		# If we get 0 (possible if an inheritance has just happened), we instead grab the values from the saved old ruler
+		# Not perfectly accurate, but a good enough heuristic until we recalculate properly the next day
+		if = {
+			limit = {
+				has_character_flag = has_previous_ruler
+				event_target:previous_ruler = {
+					ROOT = {
+						NOT = {
+							check_variable = {
+								which = realm_size_var
+								which = PREV
+							}
+						}
+					}
+				}
+			}
+			event_target:previous_ruler = {
+				ROOT = {
+					set_variable = {
+						which = realm_size_var
+						which = PREV
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_flag = has_previous_ruler
+				event_target:previous_ruler = {
+					ROOT = {
+						NOT = {
+							check_variable = {
+								which = num_provinces_in_realm
+								which = PREV
+							}
+						}
+					}
+				}
+			}
+			event_target:previous_ruler = {
+				ROOT = {
+					set_variable = {
+						which = num_provinces_in_realm
+						which = PREV
+					}
+				}
+			}
+			if = {
+				limit = {
+					event_target:previous_ruler = {
+						ROOT = {
+							NOT = {
+								check_variable = {
+									which = num_provinces_in_realm
+									which = PREV
+								}
+							}
+						}
+					}
+				}
+				# Add in the character's current holdings for province count
+				any_title_under = {
+					limit = {
+						tier = COUNT
+					}
+					ROOT = {
+						change_variable = {
+							which = num_provinces_in_realm
+							value = 1
+						}
+					}
+				}
+			}
+		}
 		set_variable = {
 			which = score_num_provinces_in_realm
 			which = num_provinces_in_realm
 		}
 		multiply_variable = {
 			which = score_num_provinces_in_realm
-			value = 10
-		}
-		export_to_variable = {
-			which = realm_size_var
-			value = realm_size
-		}
-		# Manual calculation of realm size required in some instances
-		if = {
-			limit = { 
-				is_variable_equal = {
-					which = realm_size_var
-					value = 0
-				}
-			}
-			any_title_under = {
-				limit = { lower_tier_than = DUKE }
-				PREV = {
-					change_variable = {
-						which = realm_size_var
-						value = 1
-					}
-				}
-			}
+			value = 7.5
 		}
 		set_variable = {
 			which = score_realm_size_var
@@ -1638,7 +1676,7 @@ character_event = {
 		}
 		multiply_variable = {
 			which = score_realm_size_var
-			value = 4
+			value = 3
 		}
 		
 		export_to_variable = {
@@ -1763,15 +1801,15 @@ character_event = {
 		}
 		
 		change_variable = {
-			which = aengland_bretwalda_authority
+			which = aengland_vassalize_subject_score
 			which = score_num_provinces_in_realm
 		}
 		change_variable = {
-			which = aengland_bretwalda_authority
+			which = aengland_vassalize_subject_score
 			which = score_realm_size_var
 		}
 		multiply_variable = {
-			which = aengland_bretwalda_authority
+			which = aengland_vassalize_subject_score
 			which = aengland_bretwalda_authority_multiplier
 		}
 		
@@ -1779,12 +1817,12 @@ character_event = {
 		if = {
 			limit = {
 				check_variable = {
-					which = aengland_bretwalda_authority
+					which = aengland_vassalize_subject_score
 					value = 1200
 				}
 			}
 			set_variable = {
-				which = aengland_bretwalda_authority
+				which = aengland_vassalize_subject_score
 				value = 1200
 			}
 			set_character_flag = max_annexation_score
@@ -1796,15 +1834,67 @@ character_event = {
 			}
 		}
 		
-		# Seizing control has a 1.5x cost modifier
+		# Calculate the 1.33x, 1.67x, 2.00x variables
 		set_variable = {
-			which = aengland_bretwalda_authority_2
-			which = aengland_bretwalda_authority
+			which = aengland_vassalize_subject_score_2
+			which = aengland_vassalize_subject_score
 		}
 		multiply_variable = {
-			which = aengland_bretwalda_authority_2
+			which = aengland_vassalize_subject_score_2
 			value = 1.33
 		}
+		set_variable = {
+			which = aengland_vassalize_subject_score_3
+			which = aengland_vassalize_subject_score
+		}
+		multiply_variable = {
+			which = aengland_vassalize_subject_score_3
+			value = 1.67
+		}
+		set_variable = {
+			which = aengland_vassalize_subject_score_4
+			which = aengland_vassalize_subject_score
+		}
+		multiply_variable = {
+			which = aengland_vassalize_subject_score_4
+			value = 2.00
+		}
+		
+		# Seizing control has an additional 1.33x cost modifier
+		set_variable = {
+			which = aengland_seize_control_score
+			which = aengland_vassalize_subject_score
+		}
+		multiply_variable = {
+			which = aengland_seize_control_score
+			value = 1.33
+		}
+		set_variable = {
+			which = aengland_seize_control_score_2
+			which = aengland_seize_control_score
+		}
+		multiply_variable = {
+			which = aengland_seize_control_score_2
+			value = 1.33
+		}
+		set_variable = {
+			which = aengland_seize_control_score_3
+			which = aengland_seize_control_score
+		}
+		multiply_variable = {
+			which = aengland_seize_control_score_3
+			value = 1.67
+		}
+		set_variable = {
+			which = aengland_seize_control_score_4
+			which = aengland_seize_control_score
+		}
+		multiply_variable = {
+			which = aengland_seize_control_score_4
+			value = 2.00
+		}
+		
+		clr_character_flag = has_previous_ruler
 	}
 }
 
@@ -3538,7 +3628,7 @@ narrative_event = {
 		}
 		hidden_tooltip = {
 			set_variable = {
-				which = aengland_bretwalda_authority_2
+				which = aengland_seize_control_score
 				value = aengland_bretwalda_authority
 			}
 		}
@@ -5599,10 +5689,7 @@ narrative_event = {
 					value = 0
 				}
 			}
-			set_variable = {
-				which = aengland_bretwalda_authority_2
-				which = aengland_bretwalda_authority
-			}			
+			reset_aengland_bretwalda_authority_scores_effect = yes		
 		}
 		add_character_modifier = {
 			name = bretwalda_defeated
