@@ -927,7 +927,10 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		has_landed_title = d_null
+		OR = {
+			has_landed_title = d_null
+			NOT = { has_global_flag = startup }
+		}
 	}
 	
 	immediate = {		
@@ -2125,6 +2128,7 @@ letter_event = {
 						who = FROMFROM
 						power = 0.8
 					}
+					has_character_flag = seize_control_high_local_opposition
 				}
 			}
 			modifier = {
@@ -2196,6 +2200,18 @@ letter_event = {
 				factor = 0.75
 				NOT = { religion_group = FROMFROM }
 			}
+			modifier = {
+				factor = 0.33
+				has_character_flag = seize_control_med_local_opposition
+			}
+			modifier = {
+				factor = 0.75
+				has_character_flag = seize_control_low_local_opposition
+			}
+			modifier = {
+				factor = 1.25
+				has_character_flag = seize_control_no_local_opposition
+			}
 		}
 	}
 	
@@ -2237,12 +2253,67 @@ letter_event = {
 		custom_tooltip = {
 			text = EVTOPTB320225TT
 		}
+		if = {
+			limit = { has_character_flag = seize_control_high_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 1
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_flag = seize_control_med_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 0.67
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_flag = seize_control_low_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 0.25
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
 		hidden_tooltip = {
 			war = {
 				casus_belli = free_tributary_cb_liege_claim
 				target = e_aengland					
 			}
 		}
+	}
+	
+	after = {
+		clr_character_flag = seize_control_high_local_opposition
+		clr_character_flag = seize_control_med_local_opposition
+		clr_character_flag = seize_control_low_local_opposition
+		clr_character_flag = seize_control_no_local_opposition
 	}
 }
 
@@ -2341,6 +2412,7 @@ letter_event = {
 						who = FROMFROM
 						power = 0.9
 					}
+					has_character_flag = vassalize_subject_high_local_opposition
 				}
 			}
 			modifier = {
@@ -2419,6 +2491,18 @@ letter_event = {
 				factor = 0.75
 				NOT = { religion_group = FROMFROM }
 			}
+			modifier = {
+				factor = 0.33
+				has_character_flag = vassalize_subject_med_local_opposition
+			}
+			modifier = {
+				factor = 0.75
+				has_character_flag = vassalize_subject_low_local_opposition
+			}
+			modifier = {
+				factor = 1.25
+				has_character_flag = vassalize_subject_no_local_opposition
+			}
 		}
 	}
 	
@@ -2460,12 +2544,67 @@ letter_event = {
 		custom_tooltip = {
 			text = EVTOPTB320230TT
 		}
+		if = {
+			limit = { has_character_flag = vassalize_subject_high_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 1
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_flag = vassalize_subject_med_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 0.67
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_flag = vassalize_subject_low_local_opposition }
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						match_character = ROOT
+						match_mult = 0.25
+						attrition = 0.25
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
 		hidden_tooltip = {
 			war = {
 				casus_belli = free_tributary_cb_liege_claim
 				target = e_aengland					
 			}
 		}
+	}
+	
+	after = {
+		clr_character_flag = vassalize_subject_high_local_opposition
+		clr_character_flag = vassalize_subject_med_local_opposition
+		clr_character_flag = vassalize_subject_low_local_opposition
+		clr_character_flag = vassalize_subject_no_local_opposition
 	}
 }
 

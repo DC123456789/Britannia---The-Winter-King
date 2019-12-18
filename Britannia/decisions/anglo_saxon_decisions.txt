@@ -926,19 +926,49 @@ targetted_decisions = {
 		}
 		effect = {
 			FROM = {
+				hidden_tooltip = {
+					if = {
+						limit = {
+							check_variable = { 
+								which = aengland_seize_control_score_4
+								which = ROOT
+							}
+							ROOT = { set_character_flag = seize_control_no_local_opposition }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = { 
+								which = aengland_seize_control_score_3
+								which = ROOT
+							}
+							ROOT = { set_character_flag = seize_control_low_local_opposition }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = { 
+								which = aengland_seize_control_score_2
+								which = ROOT
+							}
+							ROOT = { set_character_flag = seize_control_med_local_opposition }
+						}
+					}
+					else = {
+						ROOT = { set_character_flag = seize_control_high_local_opposition }
+					}
+				}
 				prestige = -300
 				subtract_variable = { 
 					which = aengland_seize_control_score
 					which = ROOT
 				}
 				hidden_tooltip = {
-					ROOT = {
-						set_variable = { 
-							which = aengland_bretwalda_authority
-							which = aengland_seize_control_score
-						}
-						reset_aengland_bretwalda_authority_scores_effect = yes
+					set_variable = { 
+						which = aengland_bretwalda_authority
+						which = aengland_seize_control_score
 					}
+					reset_aengland_bretwalda_authority_scores_effect = yes
 				}
 			}
 			custom_tooltip = {
@@ -1001,19 +1031,49 @@ targetted_decisions = {
 		}
 		effect = {
 			FROM = {
+				hidden_tooltip = {
+					if = {
+						limit = {
+							check_variable = { 
+								which = aengland_vassalize_subject_score_4
+								which = ROOT
+							}
+							ROOT = { set_character_flag = vassalize_subject_no_local_opposition }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = { 
+								which = aengland_vassalize_subject_score_3
+								which = ROOT
+							}
+							ROOT = { set_character_flag = vassalize_subject_low_local_opposition }
+						}
+					}
+					else_if = {
+						limit = {
+							check_variable = { 
+								which = aengland_vassalize_subject_score_2
+								which = ROOT
+							}
+							ROOT = { set_character_flag = vassalize_subject_med_local_opposition }
+						}
+					}
+					else = {
+						ROOT = { set_character_flag = vassalize_subject_high_local_opposition }
+					}
+				}
 				prestige = -200
 				subtract_variable = { 
 					which = aengland_vassalize_subject_score
 					which = ROOT
 				}
 				hidden_tooltip = {
-					ROOT = {
-						set_variable = { 
-							which = aengland_bretwalda_authority
-							which = aengland_vassalize_subject_score
-						}
-						reset_aengland_bretwalda_authority_scores_effect = yes
+					set_variable = { 
+						which = aengland_bretwalda_authority
+						which = aengland_vassalize_subject_score
 					}
+					reset_aengland_bretwalda_authority_scores_effect = yes
 				}
 			}
 			custom_tooltip = {
