@@ -4456,6 +4456,130 @@ calculate_province_nat_revolt_progress_increase_effect = {
 	}
 }
 
+# Should only be used on top lieges, assumes that the event target current_resistance_region_province 
+# Arguments:
+# - current_resistance_region_province			event_target, a province in the region to check the nationalist revolt size of
+update_nationalist_revolt_size = {
+	set_variable = {
+		which = global_nat_revolt_progress_increase
+		value = 0
+	}
+	
+	# Add together all provinces under the realm
+	any_realm_province = {
+		limit = {
+			has_province_flag = has_local_resistance
+			is_in_current_resistance_region_province = yes
+		}
+		calculate_province_nat_revolt_progress_increase_effect = yes
+	}
+	# ... including suzerains (if a march)
+	if = {
+		limit = { is_tributary = { type = march } }
+		suzerain = {
+			any_realm_province = {
+				limit = {
+					has_province_flag = has_local_resistance
+					is_in_current_resistance_region_province = yes
+				}
+				calculate_province_nat_revolt_progress_increase_effect = yes
+			}
+			# Check other marches of suzerain
+			any_tributary = {
+				limit = { 
+					is_tributary = { type = march } 
+					NOT = { character = PREVPREV }
+				}
+				any_realm_province = {
+					limit = {
+						has_province_flag = has_local_resistance
+						is_in_current_resistance_region_province = yes
+					}
+					calculate_province_nat_revolt_progress_increase_effect = yes
+				}
+			}
+		}
+	}
+	# ... and marches (if realm has marches)
+	any_tributary = {
+		limit = { is_tributary = { type = march } }
+		any_realm_province = {
+			limit = {
+				has_province_flag = has_local_resistance
+				is_in_current_resistance_region_province = yes
+			}
+			calculate_province_nat_revolt_progress_increase_effect = yes
+		}
+	}
+	
+	# Calculate estimated revolt size
+	set_variable = {
+		which = global_nat_revolt_estimated_size
+		which = global_nat_revolt_progress_increase
+	}
+	multiply_variable = {
+		which = global_nat_revolt_estimated_size
+		value = 500
+	}
+	
+	# Now we assign the estimated size (for tooltip purposes only)
+	any_realm_province = {
+		limit = {
+			has_province_flag = has_local_resistance
+			is_in_current_resistance_region_province = yes
+		}
+		set_variable = {
+			which = nat_revolt_estimated_size
+			which = global_nat_revolt_estimated_size
+		}
+	}
+	if = {
+		limit = { is_tributary = { type = march } }
+		suzerain = {
+			any_realm_province = {
+				limit = {
+					has_province_flag = has_local_resistance
+					is_in_current_resistance_region_province = yes
+				}
+				set_variable = {
+					which = nat_revolt_estimated_size
+					which = global_nat_revolt_estimated_size
+				}
+			}
+			# Check other marches of suzerain
+			any_tributary = {
+				limit = { 
+					is_tributary = { type = march } 
+					NOT = { character = PREVPREV }
+				}
+				any_realm_province = {
+					limit = {
+						has_province_flag = has_local_resistance
+						is_in_current_resistance_region_province = yes
+					}
+					set_variable = {
+						which = nat_revolt_estimated_size
+						which = global_nat_revolt_estimated_size
+					}
+				}
+			}
+		}
+	}
+	any_tributary = {
+		limit = { is_tributary = { type = march } }
+		any_realm_province = {
+			limit = {
+				has_province_flag = has_local_resistance
+				is_in_current_resistance_region_province = yes
+			}
+			set_variable = {
+				which = nat_revolt_estimated_size
+				which = global_nat_revolt_estimated_size
+			}
+		}
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {

@@ -401,10 +401,27 @@ vassalize_under_ROOT_tribal_effect = {
 vassalize_all_flagged_provinces_to_ROOT_effect = {
 	ROOT = { save_event_target_as = vassalization_event_target }
 	vassalize_all_flagged_provinces_to_event_target_effect = yes
+	clear_event_target = vassalization_event_target
+}
+
+# Vassalizes all provinces with the province flag vassalize_province held by the current scope with the
+# same culture ruler as ROOT to ROOT, and usurps all others
+vassalize_same_culture_rulers_and_take_other_flagged_provinces_to_ROOT_effect = {
+	ROOT = {
+		save_event_target_as = vassalization_event_target
+		set_character_flag = vassalize_same_culture_only
+	}
+	vassalize_all_flagged_provinces_to_event_target_effect = yes
+	clear_event_target = vassalization_event_target
+	ROOT = {
+		clr_character_flag = vassalize_same_culture_only
+	}
 }
 
 # Vassalizes all provinces with the province flag vassalize_province held by the current scope to 
 # the event target vassalization_event_target
+# Set the flag vassalize_same_culture_only on the vassalization_event_target character to only vassalize characters of the same culture - 
+# other flagged provinces will be usurped directly
 vassalize_all_flagged_provinces_to_event_target_effect = {
 	any_realm_lord = {
 		limit = {
@@ -413,6 +430,10 @@ vassalize_all_flagged_provinces_to_event_target_effect = {
 			}
 			NOT = { character = PREV }
 			higher_tier_than = BARON
+			OR = {
+				culture = event_target:vassalization_event_target
+				NOT = { event_target:vassalization_event_target = { has_character_flag = vassalize_same_culture_only } }
+			}
 		}
 		set_defacto_liege = event_target:vassalization_event_target
 		opinion = {
@@ -483,8 +504,14 @@ vassalize_all_flagged_provinces_to_event_target_effect = {
 	}
 	any_realm_lord = {
 		limit = {
-			capital_scope = {
-				NOT = { has_province_flag = vassalize_province }
+			OR = {
+				capital_scope = {
+					NOT = { has_province_flag = vassalize_province }
+				}
+				AND = {	
+					NOT = { culture = event_target:vassalization_event_target }
+					event_target:vassalization_event_target = { has_character_flag = vassalize_same_culture_only }
+				}
 			}
 			NOT = { character = PREV }
 		}
@@ -524,6 +551,10 @@ vassalize_all_flagged_provinces_to_event_target_effect = {
 			}
 			NOT = { character = PREV }
 			tier = BARON
+			OR = {
+				culture = event_target:vassalization_event_target
+				NOT = { event_target:vassalization_event_target = { has_character_flag = vassalize_same_culture_only } }
+			}
 		}
 		capital_scope = {
 			owner = {

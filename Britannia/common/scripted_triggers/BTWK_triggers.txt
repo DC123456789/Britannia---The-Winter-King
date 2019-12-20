@@ -2057,6 +2057,18 @@ is_cultural_revolt_allowed_trigger = {
 	}
 }
 
+# In title scope
+is_unheld_or_held_under_FROM = {
+	OR = {
+		has_holder = no 
+		holder_scope = {
+			top_liege = {
+				character = FROM
+			}
+		}
+	}
+}
+
 local_resistance_potential_trigger = {
 	OR = {
 		AND = {
@@ -2159,6 +2171,51 @@ is_in_current_resistance_region_province = {
 		AND = {
 			region = world_gaul_aquitania_tertia
 			event_target:current_resistance_region_province = { region = world_gaul_aquitania_tertia }
+		}
+	}
+}
+
+is_ROOT_in_current_resistance_region_province_trigger = {
+	OR = {
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_britannia_cymry_wales 
+					}
+				}
+			}
+			region = world_britannia_cymry_wales
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_caledonia 
+					}
+				}
+			}
+			region = world_caledonia
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_gaul_lugdunensis_armorica 
+					}
+				}
+			}
+			region = world_gaul_lugdunensis_armorica
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_gaul_aquitania_tertia 
+					}
+				}
+			}
+			region = world_gaul_aquitania_tertia
 		}
 	}
 }

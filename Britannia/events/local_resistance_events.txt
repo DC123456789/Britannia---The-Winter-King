@@ -51,6 +51,13 @@ province_event = {
 				character_event = { id = 320701 }
 			}
 		}
+		
+		save_event_target_as = current_resistance_region_province
+		owner = {
+			top_liege = {
+				update_nationalist_revolt_size = yes
+			}
+		}
 	}
 }
 
@@ -84,7 +91,7 @@ character_event = {
 }
 
 # Remove modifier if no longer relevant
-character_event = {
+province_event = {
 	id = 320705
 	hide_window = yes
 
@@ -112,11 +119,18 @@ character_event = {
 		clr_province_flag = is_pacifying_province
 		clr_province_flag = local_resistance_pacified
 		set_province_flag = local_resistance_unpacifying
+		
+		save_event_target_as = current_resistance_region_province
+		owner = {
+			top_liege = {
+				update_nationalist_revolt_size = yes
+			}
+		}
 	}
 }
 
 # Swap to quiet modifier
-character_event = {
+province_event = {
 	id = 320706
 	hide_window = yes
 
@@ -184,7 +198,7 @@ character_event = {
 }
 
 # Swap to march modifier
-character_event = {
+province_event = {
 	id = 320707
 	hide_window = yes
 
@@ -259,7 +273,7 @@ character_event = {
 }
 
 # Swap to normal modifier
-character_event = {
+province_event = {
 	id = 320708
 	hide_window = yes
 
@@ -494,69 +508,15 @@ character_event = {
 			if = {
 				limit = { has_province_flag = has_local_resistance }
 				if = {
-					limit = { NOT = { has_province_flag = nationalist_revolt_progress_checked } }
-					set_province_flag = nationalist_revolt_progress_checked
-					save_event_target_as = current_resistance_region_province
+					limit = { NOT = { has_province_flag = nationalist_revolt_progress_increased } }
 					
-					set_variable = {
-						which = global_nat_revolt_progress_increase
-						value = 0
-					}
-					calculate_province_nat_revolt_progress_increase_effect = yes
-					
+					save_event_target_as = current_resistance_region_province					
 					owner = {
-						top_liege = {
-							# Add together all provinces under the same realm
-							any_realm_province = {
-								limit = {
-									has_province_flag = has_local_resistance
-									NOT = { has_province_flag = nationalist_revolt_progress_checked }
-									is_in_current_resistance_region_province = yes
-								}
-								set_province_flag = nationalist_revolt_progress_checked
-								calculate_province_nat_revolt_progress_increase_effect = yes
-							}
-							# ... including suzerains (if a march)
-							if = {
-								limit = { is_tributary = { type = march } }
-								suzerain = {
-									any_realm_province = {
-										limit = {
-											has_province_flag = has_local_resistance
-											NOT = { has_province_flag = nationalist_revolt_progress_checked }
-											is_in_current_resistance_region_province = yes
-										}
-										set_province_flag = nationalist_revolt_progress_checked
-										calculate_province_nat_revolt_progress_increase_effect = yes
-									}
-								}
-							}
-							# ... and marches (if realm has marches)
-							any_tributary = {
-								limit = { is_tributary = { type = march } }
-								any_realm_province = {
-									limit = {
-										has_province_flag = has_local_resistance
-										NOT = { has_province_flag = nationalist_revolt_progress_checked }
-										is_in_current_resistance_region_province = yes
-									}
-									set_province_flag = nationalist_revolt_progress_checked
-									calculate_province_nat_revolt_progress_increase_effect = yes
-								}
-							}
-							
-							# Calculate estimated revolt size
-							set_variable = {
-								which = global_nat_revolt_estimated_size
-								which = global_nat_revolt_progress_increase
-							}
-							multiply_variable = {
-								which = global_nat_revolt_estimated_size
-								value = 500
-							}
+						top_liege = {	
+							# Calculate revolt progress and potential size
+							update_nationalist_revolt_size = yes
 							
 							# Now we add the yearly increase to ALL of the realm's provinces (including marches)
-							# And assign the estimated size (for tooltip purposes only)
 							any_realm_province = {
 								limit = {
 									has_province_flag = has_local_resistance
@@ -567,10 +527,6 @@ character_event = {
 								change_variable = {
 									which = nationalist_revolt_progress
 									which = global_nat_revolt_progress_increase
-								}
-								set_variable = {
-									which = nat_revolt_estimated_size
-									which = global_nat_revolt_estimated_size
 								}
 							}
 							if = {
@@ -587,9 +543,24 @@ character_event = {
 											which = nationalist_revolt_progress
 											which = global_nat_revolt_progress_increase
 										}
-										set_variable = {
-											which = nat_revolt_estimated_size
-											which = global_nat_revolt_estimated_size
+									}
+									# Check other marches of suzerain
+									any_tributary = {
+										limit = { 
+											is_tributary = { type = march } 
+											NOT = { character = PREVPREV }
+										}
+										any_realm_province = {
+											limit = {
+												has_province_flag = has_local_resistance
+												NOT = { has_province_flag = nationalist_revolt_progress_increased }
+												is_in_current_resistance_region_province = yes
+											}
+											set_province_flag = nationalist_revolt_progress_increased
+											change_variable = {
+												which = nationalist_revolt_progress
+												which = global_nat_revolt_progress_increase
+											}
 										}
 									}
 								}
@@ -606,10 +577,6 @@ character_event = {
 									change_variable = {
 										which = nationalist_revolt_progress
 										which = global_nat_revolt_progress_increase
-									}
-									set_variable = {
-										which = nat_revolt_estimated_size
-										which = global_nat_revolt_estimated_size
 									}
 								}
 							}
@@ -650,13 +617,9 @@ character_event = {
 		
 		# Cleanup
 		any_province = {
-			limit = { 
-				OR = {
-					has_province_flag = nationalist_revolt_progress_checked 
-					has_province_flag = nationalist_revolt_progress_increased 
-				}
+			limit = {
+				has_province_flag = nationalist_revolt_progress_increased
 			}
-			clr_province_flag = nationalist_revolt_progress_checked
 			clr_province_flag = nationalist_revolt_progress_increased
 		}
 	}
