@@ -11,19 +11,20 @@
 #	
 
 decisions = {
+	# Informs the player that the targeted decision is available, cannot actually ever be taken
 	launch_nationalist_revolt = {
 		only_playable = yes
 		is_high_prio = yes
 		
 		potential = {
-			ai = no			# AI is handled by a separate event
+			ai = no
 			OR = {
 				AND = {
 					independent = yes
 					is_tributary = no
 					any_realm_province = {
 						any_neighbor_province = {
-							culture = ROOT
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
 							has_province_flag = has_local_resistance	
 						}
 					}
@@ -32,13 +33,28 @@ decisions = {
 					independent = yes
 					is_tributary = yes
 					suzerain = {
-						any_realm_province = {
-							culture = ROOT
-							has_province_flag = has_local_resistance
-							OR = {
-								is_ROOT_in_current_resistance_region_province_trigger = yes
-								any_neighbor_province = {
-									owner = { top_liege = { character = ROOT } }
+						OR = {
+							any_realm_province = {
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								has_province_flag = has_local_resistance
+								OR = {
+									is_ROOT_in_current_resistance_region_province_trigger = yes
+									any_neighbor_province = {
+										owner = { top_liege = { character = ROOT } }
+									}
+								}
+							}
+							any_tributary = {
+								is_tributary = { type = march }
+								any_realm_province = {
+									is_local_resistance_similar_culture_to_ROOT_trigger = yes
+									has_province_flag = has_local_resistance
+									OR = {
+										is_ROOT_in_current_resistance_region_province_trigger = yes
+										any_neighbor_province = {
+											owner = { top_liege = { character = ROOT } }
+										}
+									}
 								}
 							}
 						}
@@ -46,10 +62,12 @@ decisions = {
 				}
 				AND = {
 					independent = no
-					liege = { independent = yes }
+					liege = { 
+						independent = yes 
+					}
 					top_liege = {
 						any_realm_province = {
-							culture = ROOT
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
 							has_province_flag = has_local_resistance
 							is_ROOT_in_current_resistance_region_province_trigger = yes
 						}
@@ -71,7 +89,7 @@ decisions = {
 				}
 				top_liege = {
 					any_realm_province = {
-						culture = ROOT
+						is_local_resistance_similar_culture_to_ROOT_trigger = yes
 						custom_tooltip = {
 							text = nationalist_revolt_progress_at_least_100
 							hidden_tooltip = {
@@ -84,15 +102,33 @@ decisions = {
 						is_ROOT_in_current_resistance_region_province_trigger = yes
 					}
 					custom_tooltip = {
-						text = not_already_defending_against_nationalist_revolt_tooltip
+						text = not_already_defending_against_nationalist_revolt_in_region_tooltip
 						hidden_tooltip = {
 							NOT = {
 								any_war = {
-									defender = { character = PREV }
+									defender = { 
+										OR = {
+											character = PREVPREV
+											AND = {
+												is_tributary = { type = march }
+												suzerain = { character = PREVPREVPREV }
+											} 
+											any_tributary = {
+												character = PREVPREVPREV
+												PREVPREVPREV = { is_tributary = { type = march } }
+											}
+										}
+									}
 									using_cb = nationalist_revolt_wales
 								}
 							}
 						}
+					}
+				}
+				custom_tooltip = {
+					text = launch_nationalist_revolt_vassal_tooltip
+					hidden_tooltip = {
+						always = no
 					}
 				}
 			}
@@ -102,34 +138,75 @@ decisions = {
 					is_tributary = yes
 				}
 				suzerain = {
-					any_realm_province = {
-						culture = ROOT
-						custom_tooltip = {
-							text = nationalist_revolt_progress_at_least_100
-							hidden_tooltip = {
-								check_variable = {
-									which = nationalist_revolt_progress
-									value = 100
+					OR = {
+						any_realm_province = {
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							custom_tooltip = {
+								text = nationalist_revolt_progress_at_least_100
+								hidden_tooltip = {
+									check_variable = {
+										which = nationalist_revolt_progress
+										value = 100
+									}
+								}
+							}
+							OR = {
+								is_ROOT_in_current_resistance_region_province_trigger = yes
+								any_neighbor_province = {
+									owner = { top_liege = { character = ROOT } }
 								}
 							}
 						}
-						OR = {
-							is_ROOT_in_current_resistance_region_province_trigger = yes
-							any_neighbor_province = {
-								owner = { top_liege = { character = ROOT } }
+						any_tributary = {
+							is_tributary = { type = march }
+							any_realm_province = {
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								custom_tooltip = {
+									text = nationalist_revolt_progress_at_least_100
+									hidden_tooltip = {
+										check_variable = {
+											which = nationalist_revolt_progress
+											value = 100
+										}
+									}
+								}
+								OR = {
+									is_ROOT_in_current_resistance_region_province_trigger = yes
+									any_neighbor_province = {
+										owner = { top_liege = { character = ROOT } }
+									}
+								}
 							}
 						}
 					}
 					custom_tooltip = {
-						text = not_already_defending_against_nationalist_revolt_tooltip
+						text = not_already_defending_against_nationalist_revolt_in_region_tooltip
 						hidden_tooltip = {
 							NOT = {
 								any_war = {
-									defender = { character = PREV }
+									defender = {
+										OR = {
+											character = PREVPREV
+											AND = {
+												is_tributary = { type = march }
+												suzerain = { character = PREVPREVPREV }
+											} 
+											any_tributary = {
+												character = PREVPREVPREV
+												PREVPREVPREV = { is_tributary = { type = march } }
+											}
+										}
+									}
 									using_cb = nationalist_revolt_wales
 								}
 							}
 						}
+					}
+				}
+				custom_tooltip = {
+					text = launch_nationalist_revolt_tributary_tooltip
+					hidden_tooltip = {
+						always = no
 					}
 				}
 			}
@@ -140,7 +217,7 @@ decisions = {
 				}
 				any_realm_province = {
 					any_neighbor_province = {
-						culture = ROOT
+						is_local_resistance_similar_culture_to_ROOT_trigger = yes
 						custom_tooltip = {
 							text = nationalist_revolt_progress_at_least_100
 							hidden_tooltip = {
@@ -153,11 +230,23 @@ decisions = {
 						owner = {
 							top_liege = {
 								custom_tooltip = {
-									text = not_already_defending_against_nationalist_revolt_tooltip
+									text = not_already_defending_against_nationalist_revolt_in_region_tooltip
 									hidden_tooltip = {
 										NOT = {
 											any_war = {
-												defender = { character = PREV }
+												defender = {
+													OR = {
+														character = PREVPREV
+														AND = {
+															is_tributary = { type = march }
+															suzerain = { character = PREVPREVPREV }
+														} 
+														any_tributary = {
+															character = PREVPREVPREV
+															PREVPREVPREV = { is_tributary = { type = march } }
+														}
+													}
+												}
 												using_cb = nationalist_revolt_wales
 											}
 										}
@@ -176,9 +265,6 @@ decisions = {
 			}
 		}
 		effect = {
-			custom_tooltip = {
-				text = launch_nationalist_revolt_effect_tooltip
-			}
 			if = {
 				limit = {
 					independent = no
@@ -191,7 +277,7 @@ decisions = {
 					}
 				}
 				custom_tooltip = {
-					text = launch_nationalist_revolt_effect_potential_allies_as_vassal_tooltip
+					text = launch_nationalist_revolt_effect_vassal_tooltip
 				}
 			}
 			else_if = {
@@ -206,15 +292,12 @@ decisions = {
 					}
 				}
 				custom_tooltip = {
-					text = launch_nationalist_revolt_effect_potential_allies_as_tributary_tooltip
+					text = launch_nationalist_revolt_effect_tributary_tooltip
 				}
 			}
 			else = {
 				custom_tooltip = {
-					text = launch_nationalist_revolt_independent_tooltip
-				}
-				custom_tooltip = {
-					text = launch_nationalist_revolt_effect_potential_allies_as_independent_tooltip
+					text = launch_nationalist_revolt_effect_independent_tooltip
 				}
 			}
 		}
@@ -292,23 +375,21 @@ title_decisions = {
 			factor = 1
 			modifier = {
 				factor = 0
-				FROM = { culture = ROOT }
+				FROM = { culture_group = ROOT }
 			}
 		}
 	}
 	launch_nationalist_revolt_targeted = {
-		only_independent = yes
+		only_playable = yes
 		filter = all
 		ai_target_filter = capital
 		
 		from_potential = {
 			ai = no		# Player only - AI handled by events
-			independent = yes
-			is_tributary = no
-			any_realm_province = {
-				any_neighbor_province = {
-					culture = ROOT
-					has_province_flag = has_local_resistance	
+			OR = {
+				independent = yes
+				liege = { 
+					independent = yes 
 				}
 			}
 		}
@@ -316,13 +397,55 @@ title_decisions = {
 		potential = {
 			tier = COUNT
 			location = {
-				culture = ROOT
+				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 				has_province_flag = has_local_resistance
-				any_neighbor_province = {
-					owner = {
-						top_liege = {
-							character = FROM
+				OR = {
+					AND = {
+						FROM = {
+							independent = yes
+							is_tributary = no
 						}
+						any_neighbor_province = {
+							owner = {
+								top_liege = {
+									character = FROM
+								}
+							}
+						}
+					}
+					AND = {
+						FROM = {
+							independent = yes
+							is_tributary = yes
+						}
+						OR = {
+							is_FROM_in_current_resistance_region_province_trigger = yes
+							any_neighbor_province = {
+								owner = {
+									top_liege = {
+										character = FROM
+									}
+								}
+							}
+						}
+						owner = {
+							top_liege = {
+								OR = {
+									any_tributary = { character = FROM }
+									AND = {
+										is_tributary = { type = march }
+										suzerain = { any_tributary = { character = FROM } }
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						FROM = {
+							independent = no
+							liege = { independent = yes }
+						}
+						is_FROM_in_current_resistance_region_province_trigger = yes
 					}
 				}
 			}
@@ -350,13 +473,26 @@ title_decisions = {
 				}
 			}
 			owner = {
+				show_scope_change = no
 				top_liege = {
 					custom_tooltip = {
-						text = not_already_defending_against_nationalist_revolt_tooltip
+						text = not_already_defending_against_nationalist_revolt_in_region_tooltip
 						hidden_tooltip = {
 							NOT = {
 								any_war = {
-									defender = { character = PREV }
+									defender = {
+										OR = {
+											character = PREVPREV
+											AND = {
+												is_tributary = { type = march }
+												suzerain = { character = PREVPREVPREV }
+											} 
+											any_tributary = {
+												character = PREVPREVPREV
+												PREVPREVPREV = { is_tributary = { type = march } }
+											}
+										}
+									}
 									using_cb = nationalist_revolt_wales
 								}
 							}
@@ -367,12 +503,12 @@ title_decisions = {
 		}
 		effect = {
 			custom_tooltip = {
-				text = launch_nationalist_revolt_effect_tooltip
+				text = launch_nationalist_revolt_targeted_effect_tooltip
 			}
 			owner = {
-				show_scope_change = yes
+				show_scope_change = no
 				top_liege = {
-					show_scope_change = yes
+					show_scope_change = no
 					reverse_unsafe_war = {
 						casus_belli = nationalist_revolt_wales
 						target = FROM
@@ -380,7 +516,46 @@ title_decisions = {
 				}
 			}
 			custom_tooltip = {
-				text = launch_nationalist_revolt_targeted_effect_potential_allies_as_independent_tooltip
+				text = launch_nationalist_revolt_targeted_effect_spawn_troops_tooltip
+				hidden_tooltip = {
+					location = {
+						FROM = {
+							set_variable = {
+								which = nat_revolt_estimated_size
+								which = PREV
+							}
+							while = {
+								limit = {
+									check_variable = {
+										which = nat_revolt_estimated_size
+										value = 1
+									}
+								}
+								spawn_unit = {
+									province = ROOT
+									home = ROOT
+									troops = {
+										light_infantry = { 4 4 }
+										heavy_infantry = { 2 2 }
+										pikemen = { 3 3 }
+										archers = { 1 1 }
+									}
+									attrition = 0.25
+									merge = yes
+									disband_on_peace = yes
+									maintenance_multiplier = 0
+								}
+								subtract_variable = {
+									which = nat_revolt_estimated_size
+									value = 10
+								}
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = launch_nationalist_revolt_targeted_effect_potential_allies_tooltip
 			}
 		}
 		revoke_allowed = {
