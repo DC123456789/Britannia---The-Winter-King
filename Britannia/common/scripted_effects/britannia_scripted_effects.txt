@@ -4585,6 +4585,70 @@ update_nationalist_revolt_size = {
 	}
 }
 
+# Called from province scope
+clear_nationalist_revolt_progress_from_realm_region_effect = {
+	save_event_target_as = current_resistance_region_province
+	owner = {
+		top_liege = {
+			any_realm_province = {
+				limit = {
+					has_province_flag = has_local_resistance
+					is_in_current_resistance_region_province = yes
+				}
+				set_variable = {
+					which = nat_revolt_estimated_size
+					value = 0
+				}
+			}
+			if = {
+				limit = { is_tributary = { type = march } }
+				suzerain = {
+					any_realm_province = {
+						limit = {
+							has_province_flag = has_local_resistance
+							is_in_current_resistance_region_province = yes
+						}
+						set_variable = {
+							which = nat_revolt_estimated_size
+							value = 0
+						}
+					}
+					# Check other marches of suzerain
+					any_tributary = {
+						limit = { 
+							is_tributary = { type = march } 
+							NOT = { character = PREVPREV }
+						}
+						any_realm_province = {
+							limit = {
+								has_province_flag = has_local_resistance
+								is_in_current_resistance_region_province = yes
+							}
+							set_variable = {
+								which = nat_revolt_estimated_size
+								value = 0
+							}
+						}
+					}
+				}
+			}
+			any_tributary = {
+				limit = { is_tributary = { type = march } }
+				any_realm_province = {
+					limit = {
+						has_province_flag = has_local_resistance
+						is_in_current_resistance_region_province = yes
+					}
+					set_variable = {
+						which = nat_revolt_estimated_size
+						value = 0
+					}
+				}
+			}
+		}
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {
