@@ -861,6 +861,7 @@ province_event = {
 		random_playable_ruler = {
 			limit = {
 				ai = yes
+				war = no
 				is_local_resistance_similar_culture_to_ROOT_trigger = yes
 				NOT = {
 					any_war = {
@@ -887,7 +888,6 @@ province_event = {
 										is_target_ruler_or_associated_march_trigger = yes
 										NOR = {
 											has_non_aggression_pact_with = PREVPREVPREVPREV
-											is_allied_with = PREVPREVPREVPREV
 											reverse_opinion = {
 												who = PREVPREVPREVPREV
 												value = 70
@@ -947,6 +947,7 @@ province_event = {
 				NOT = {
 					any_playable_ruler = {
 						ai = yes
+						war = no
 						is_local_resistance_similar_culture_to_ROOT_trigger = yes
 						NOT = {
 							any_war = {
@@ -973,7 +974,6 @@ province_event = {
 												is_target_ruler_or_associated_march_trigger = yes
 												NOR = {
 													has_non_aggression_pact_with = PREVPREVPREVPREV
-													is_allied_with = PREVPREVPREVPREV
 													reverse_opinion = {
 														who = PREVPREVPREVPREV
 														value = 70
@@ -1184,9 +1184,11 @@ character_event = {
 	
 	is_triggered_only = yes
 
-	immediate = {		
-		# Spawn event troops		
+	immediate = {				
 		event_target:nationalist_revolt_target_province = {
+			save_event_target_as = current_resistance_region_province
+			
+			# Spawn event troops
 			ROOT = {
 				set_variable = {
 					which = nat_revolt_estimated_size
@@ -1219,10 +1221,8 @@ character_event = {
 					}
 				}
 			}
-		}
-		
-		# Clear revolt progress
-		event_target:nationalist_revolt_target_province = { 
+			
+			# Clear revolt progress
 			clear_nationalist_revolt_progress_from_realm_region_effect = yes
 		}
 		
@@ -1234,6 +1234,7 @@ character_event = {
 					casus_belli = nationalist_revolt_wales
 					target = ROOT
 				}
+				save_event_target_as = nationalist_revolt_target_char
 			}
 		}
 		else_if = {
@@ -1256,6 +1257,124 @@ character_event = {
 					}
 				}
 			}
+		}
+		
+		event_target:nationalist_revolt_target_char = {
+			# Notify revolt
+			character_event = { id = 320722 }
+			
+			# Call in marches in the region...
+			any_tributary = {
+				limit = { 
+					is_tributary = { type = march } 
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				join_defender_wars = PREV
+				character_event = { id = 320722 }
+			}
+			
+			# and your suzerain (if a march), along with any of their marches in the region
+			if = {
+				limit = { is_tributary = { type = march } }
+				suzerain = { 
+					join_defender_wars = PREV
+					character_event = { id = 320722 }
+					any_tributary = {
+						limit = { 
+							is_tributary = { type = march } 
+							any_realm_province = {
+								is_in_current_resistance_region_province = yes
+							}
+						}
+						join_defender_wars = PREVPREV
+						character_event = { id = 320722 }
+					}
+				}
+			}
+		}
+		
+		# Call in other vassals, tributaries, and nearby independent rulers of the associated culture
+		any_playable_ruler = {
+			limit = {
+				is_local_resistance_similar_culture_to_ROOT_trigger = yes
+				any_realm_province = {
+					is_in_current_resistance_region_province = yes
+				}
+				OR = {
+					AND = {
+						independent = no
+						#liege = { character = event_target:nationalist_revolt_target_char }
+					}
+					AND = {
+						independent = yes
+						is_tributary = yes
+						suzerain = {
+							OR = {
+								character = event_target:nationalist_revolt_target_char
+								any_tributary = { 
+									character = event_target:nationalist_revolt_target_char
+									is_tributary = { type = march }
+								}
+							}
+						}
+					}
+					AND = {
+						independent = yes
+						is_tributary = no
+					}
+				}
+				NOT = {
+					has_non_aggression_pact_with = event_target:nationalist_revolt_target_char
+				}
+			}
+			character_event = { id = 320723 }
+		}
+	}
+}
+
+# Notify liege and marches of revolt
+character_event = {
+	id = 320722
+	title = EVTNAME320722
+	desc = EVTDESC320722
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320722"
+	}
+}
+
+# Other lords in the area asked to join revolt
+character_event = {
+	id = 320723
+	title = EVTNAME320723
+	desc = EVTDESC320723
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_character_flag = got_event_320723
+	}
+	
+	option = {
+		name = "EVTOPTA320723"
+		ai_chance = {
+			factor = 100
+		}
+		join_attacker_wars = FROM
+	}
+	
+	option = {
+		name = "EVTOPTA320723"
+		ai_chance = {
+			factor = 0
 		}
 	}
 }
