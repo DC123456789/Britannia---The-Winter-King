@@ -1578,12 +1578,12 @@ NGraphics = {
 
 NEngine = {
 	EVENT_PROCESS_OFFSET = 10,	 -- Events are checked every X day per character or province (1 is ideal, but CPU heavy)
-	COURTIER_EVENT_PROCESS_OFFSET = 20, 	 -- Events are checked every X day for courtiers. Max value of 255
+	COURTIER_EVENT_PROCESS_OFFSET = 25, 	 -- Events are checked every X day for courtiers. Max value of 255
 	COURTIERS_MTTTH_EVENTS = 1,  -- Toggles if courtiers are allowed to run MTTH events or not
 	MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_YEAR = 410, -- The missing scripted successor error will not be shown before this date
 	MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_MONTH = 1,
 	MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_DAY = 1,
-	COURT_PRUNE_SIZE = 20, 				-- Courts larger than this will be checked for pruning each month
+	COURT_PRUNE_SIZE = 18, 				-- Courts larger than this will be checked for pruning each month
 	PRUNE_MINIMAL_AGE = 45,				-- Minimum age for a courtier to be prunable if considered irrelevant
 	HEALTH_IMMUNITY_TO_PRUNING = 7,		-- If a character has that much health, they won't be pruned
 },
