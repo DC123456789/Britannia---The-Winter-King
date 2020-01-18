@@ -4682,21 +4682,21 @@ adjust_revolt_army_size_effect = {
 			limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
 			change_variable = {
 				which = global_troop_change
-				value = 0.15
+				value = 0.10
 			}
 		}
 		if = {
 			limit = { ROOT = { owner = { NOT = { culture_group = ROOT } } } }
 			change_variable = {
 				which = global_troop_change
-				value = 0.20
+				value = 0.15
 			}
 		}
 		if = {
 			limit = { ROOT = { owner = { NOT = { religion = ROOT } } } }
 			change_variable = {
 				which = global_troop_change
-				value = 0.10
+				value = 0.05
 			}
 		}
 		if = {
@@ -4808,6 +4808,92 @@ adjust_revolt_army_size_effect = {
 			which = global_troop_change
 			value = 0.1
 		}
+	}
+	
+	# Cultural affinity
+	ROOT = { 
+		owner = { 
+			top_liege = {
+				if = {
+					limit = { 
+						any_realm_province = {
+							count = 15
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.35
+					}
+				}
+				if = {
+					limit = { 
+						any_realm_province = {
+							count = 10
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.2
+					}
+				}
+				else_if = {
+					limit = { 
+						any_realm_province = {
+							count = 7
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 5
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.1
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 3
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.2
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 2
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.35
+					}
+				}
+			} 
+		} 
 	}
 	
 	# global_troop_decrease = (1 + global_troop_change) / 2 - 1
