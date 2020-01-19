@@ -4657,7 +4657,7 @@ adjust_revolt_army_size_effect = {
 	
 	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 	if = {
-		limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
+		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
 		if = {
 			limit = { 
 				ROOT = { num_of_empty_holdings = 3 } 
@@ -4810,7 +4810,7 @@ adjust_revolt_army_size_effect = {
 		}
 	}
 	
-	# Cultural affinity
+	# Cultural affinity of other provinces
 	ROOT = { 
 		owner = { 
 			top_liege = {
@@ -4895,6 +4895,23 @@ adjust_revolt_army_size_effect = {
 			} 
 		} 
 	}
+	
+	# Imperial provinces are less resistant if the owner is of the same religion
+	if = {
+		limit = { 
+			ROOT = { 
+				NOT = { any_province_holding = { holding_type = TRIBAL } }
+				culture_group = imperiale
+				owner = { 
+					NOT = { culture_group = imperiale } 
+					religion = ROOT
+				}
+			}
+		}
+		change_variable = {
+			which = global_troop_change
+			value = -0.15
+		}
 	
 	# global_troop_decrease = (1 + global_troop_change) / 2 - 1
 	# Converts global_troop_decrease into a decrease from 2 * the normal size

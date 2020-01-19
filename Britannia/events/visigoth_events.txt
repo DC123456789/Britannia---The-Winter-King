@@ -166,7 +166,12 @@ character_event = {			# Southern Aquitania
 	immediate = {
 		event_target:target_defender = {
 			any_province = {
-				limit = { region = custom_southaquitania }
+				limit = { 
+					OR = {
+						region = custom_southaquitania 
+						region = world_gaul_narbonensis_septimania
+					}
+				}
 				set_province_flag = vassalize_province
 			}
 			vassalize_all_flagged_provinces_to_ROOT_effect = yes
@@ -178,7 +183,10 @@ character_event = {			# Southern Aquitania
 						suzerain = PREV
 					}
 					capital_scope = {
-						region = custom_southaquitania
+						OR = {
+							region = custom_southaquitania 
+							region = world_gaul_narbonensis_septimania
+						}
 					}
 				}
 				save_event_target_as = new_tributary
@@ -211,7 +219,10 @@ character_event = {			# Aquitania
 	immediate = {
 		event_target:target_defender = {
 			any_province = {
-				limit = { region = world_gaul_aquitania }
+				limit = { 
+					region = world_gaul_aquitania 
+					region = world_gaul_narbonensis_prima
+				}
 				set_province_flag = vassalize_province
 			}
 			vassalize_all_flagged_provinces_to_ROOT_effect = yes
@@ -223,7 +234,8 @@ character_event = {			# Aquitania
 						suzerain = PREV
 					}
 					capital_scope = {
-						region = world_gaul_aquitania
+						region = world_gaul_aquitania 
+						region = world_gaul_narbonensis_prima
 					}
 				}
 				save_event_target_as = new_tributary
