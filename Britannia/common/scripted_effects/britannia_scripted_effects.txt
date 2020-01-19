@@ -4649,6 +4649,293 @@ clear_nationalist_revolt_progress_from_realm_region_effect = {
 	}
 }
 
+adjust_revolt_army_size_effect = {
+	set_variable = {
+		which = global_troop_change
+		value = 0
+	}
+	
+	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
+	if = {
+		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
+		if = {
+			limit = { 
+				ROOT = { num_of_empty_holdings = 3 } 
+			}
+			change_variable = {
+				which = global_troop_change
+				value = -0.25
+			}
+		}
+		else_if = {
+			limit = { 
+				ROOT = { num_of_empty_holdings = 2 } 
+			}
+			change_variable = {
+				which = global_troop_change
+				value = -0.15
+			}
+		}
+		
+		# Offset additional maluses from tribal + wrong culture/religion
+		if = {
+			limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
+			change_variable = {
+				which = global_troop_change
+				value = 0.10
+			}
+		}
+		if = {
+			limit = { ROOT = { owner = { NOT = { culture_group = ROOT } } } }
+			change_variable = {
+				which = global_troop_change
+				value = 0.15
+			}
+		}
+		if = {
+			limit = { ROOT = { owner = { NOT = { religion = ROOT } } } }
+			change_variable = {
+				which = global_troop_change
+				value = 0.05
+			}
+		}
+		if = {
+			limit = { ROOT = { owner = { NOT = { religion_group = ROOT } } } }
+			change_variable = {
+				which = global_troop_change
+				value = 0.10
+			}
+		}
+		if = {
+			limit = { ROOT = { has_province_modifier = province_not_dejure_liege } }
+			change_variable = {
+				which = global_troop_change
+				value = 0.10
+			}
+		}
+	}
+	# Offset base wrong culture/religion maluses
+	if = {
+		limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.10
+		}
+	}
+	if = {
+		limit = { ROOT = { owner = { NOT = { culture_group = ROOT } } } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.15
+		}
+	}
+	if = {
+		limit = { ROOT = { owner = { NOT = { religion = ROOT } } } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.10
+		}
+	}
+	if = {
+		limit = { ROOT = { owner = { NOT = { religion_group = ROOT } } } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.15
+		}
+	}
+	
+	# Note: since many of the local resistance modifiers significantly decrease levy and garrison size, most of these increases
+	# are not as large as they look like
+	if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_3 } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.5
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_2 } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.37
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_1 } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.25
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_3_quiet } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.25
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_2_quiet } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.17
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_1_quiet } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.1
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_3_march } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.3
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_2_march } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.2
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = local_resistance_1_march } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.1
+		}
+	}
+	
+	# Cultural affinity of other provinces
+	ROOT = { 
+		owner = { 
+			top_liege = {
+				if = {
+					limit = { 
+						any_realm_province = {
+							count = 15
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.35
+					}
+				}
+				if = {
+					limit = { 
+						any_realm_province = {
+							count = 10
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.2
+					}
+				}
+				else_if = {
+					limit = { 
+						any_realm_province = {
+							count = 7
+							culture = ROOT
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.1
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 5
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.1
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 3
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.2
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							any_realm_province = {
+								count = 2
+								culture = ROOT
+							}
+						}
+					}
+					change_variable = {
+						which = global_troop_change
+						value = -0.35
+					}
+				}
+			} 
+		} 
+	}
+	
+	# Imperial provinces are less resistant if the owner is of the same religion
+	if = {
+		limit = { 
+			ROOT = { 
+				NOT = { any_province_holding = { holding_type = TRIBAL } }
+				culture_group = imperiale
+				owner = { 
+					NOT = { culture_group = imperiale } 
+					religion = ROOT
+				}
+			}
+		}
+		change_variable = {
+			which = global_troop_change
+			value = -0.15
+		}
+	
+	# global_troop_decrease = (1 + global_troop_change) / 2 - 1
+	# Converts global_troop_decrease into a decrease from 2 * the normal size
+	set_variable = {
+		which = global_troop_decrease
+		which = global_troop_change
+	}
+	change_variable = {
+		which = global_troop_decrease
+		value = 1
+	}
+	divide_variable = {
+		which = global_troop_decrease
+		value = 2
+	}
+	subtract_variable = {
+		which = global_troop_decrease
+		value = 1
+	}
+	any_army = {
+		troops = global_troop_decrease
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {

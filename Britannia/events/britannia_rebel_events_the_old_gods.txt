@@ -217,72 +217,8 @@ province_event = {
 			
 			set_proper_rebel_government_effect = yes
 			
-			# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
-			if = {
-				limit = { ROOT = { capital_holding = { holding_type = TRIBAL } } }
-				if = {
-					limit = { 
-						ROOT = { num_of_empty_holdings = 3 } 
-					}
-					any_army = { troops = -0.25 }
-				}
-				else_if = {
-					limit = { 
-						ROOT = { num_of_empty_holdings = 2 } 
-					}
-					any_army = { troops = -0.15 }
-				}
-				
-				# Then scale up again to represent increased tribal resentment
-				any_army = { troops = 0.15 }
-			}
-			if = {
-				limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
-				any_army = { troops = 0.10 }
-			}
-			if = {
-				limit = { ROOT = { owner = { NOT = { culture_group = ROOT } } } }
-				any_army = { troops = 0.10 }
-			}
-			
-			# Note: since many of the local resistance modifiers significantly decrease levy and garrison size, most of these increases
-			# are not as large as they look like
-			if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_3 } }
-				any_army = { troops = 0.5 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_2 } }
-				any_army = { troops = 0.37 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_1 } }
-				any_army = { troops = 0.25 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_3_quiet } }
-				any_army = { troops = 0.25 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_2_quiet } }
-				any_army = { troops = 0.17 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_1_quiet } }
-				any_army = { troops = 0.1 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_3_march } }
-				any_army = { troops = 0.3 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_2_march } }
-				any_army = { troops = 0.2 }
-			}
-			else_if = {
-				limit = { ROOT = { has_province_modifier = local_resistance_1_march } }
-				any_army = { troops = 0.1 }
-			}
+			# Adjust army size for various maluses that don't make sense for decreasing revolt size
+			adjust_revolt_army_size_effect = yes
 		}
 		
 		owner = {

@@ -1120,7 +1120,10 @@ character_event = {
 	trigger = {
 		is_alternate_start = no
 		year = 535
-		#age = 20
+		OR = {
+			year = 540
+			has_global_flag = west_saxon_invasion_534
+		}
 		is_adult = yes
 		ai = yes
 		is_ingvaeonic_culture_trigger = yes
@@ -1148,10 +1151,30 @@ character_event = {
 		NOT = { has_landed_title = k_wessex }
 		k_wessex = { has_holder = no }
 		NOT = { has_character_flag = wessex_assigned }
+		OR = {
+			has_landed_title = d_west_saxons
+			has_character_flag = wessex_invader
+			AND = {
+				d_west_saxons = { has_holder = no }
+				NOT = {
+					any_independent_ruler = {
+						has_character_flag = wessex_invader
+					}
+				}
+			}
+			had_global_flag = {
+				flag = west_saxon_invasion_534
+				days = 3650
+			}
+		}
 	}
 	
 	mean_time_to_happen = {
 		days = 30
+		modifier = {
+			factor = 12
+			is_tributary = yes
+		}		
 	}
 	
 	immediate = {
