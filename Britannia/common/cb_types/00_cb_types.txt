@@ -149,7 +149,7 @@ claim = {
 						is_landed = no
 					}
 					FROM = { save_event_target_as = target_to_switch_government_to }
-					set_government_to_target_effect = yes
+					flag_target_government_effect = yes
 				}
 				clr_character_flag = claimant_adventurer
 				if = {
@@ -166,6 +166,8 @@ claim = {
 		}
 	
 		usurp_title_plus_barony_if_unlanded = { target = ROOT type = claim }
+		
+		ROOT = { set_flagged_government_effect = yes }
 		
 		# Transfer foederati
 		if = {
@@ -3675,6 +3677,62 @@ tribal_invasion = {
 	# ai importance placed on this CB: scope is the targeted title, ROOT is the attacking character, FROM is the defending character
 	ai_will_do = { 
 		factor = 1
+		modifier = {
+			factor = 0		# Not if small or kingdom has few counties
+			OR = {
+				FROM = { NOT = { num_of_count_titles_in_realm = 6 } }
+				FROM = {
+					OR = {
+						tier = EMPEROR
+						num_of_king_titles = 2
+					}
+					num_of_realm_counties = {
+						value = 6
+						title = PREV
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 5		# Prefer for larger realms
+			OR = {
+				FROM = { 
+					num_of_count_titles_in_realm = 10 
+					lower_tier_than = EMPEROR
+					NOT = { num_of_king_titles = 2 }
+				}
+				FROM = {
+					OR = {
+						tier = EMPEROR
+						num_of_king_titles = 2
+					}
+					num_of_realm_counties = {
+						value = 10
+						title = PREV
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 10		# Prefer for larger realms
+			OR = {
+				FROM = { 
+					num_of_count_titles_in_realm = 20 
+					lower_tier_than = EMPEROR
+					NOT = { num_of_king_titles = 2 }
+				}
+				FROM = {
+					OR = {
+						tier = EMPEROR
+						num_of_king_titles = 2
+					}
+					num_of_realm_counties = {
+						value = 20
+						title = PREV
+					}
+				}
+			}
+		}
 	}
 }
 
