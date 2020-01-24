@@ -5062,6 +5062,37 @@ adjust_revolt_army_size_effect = {
 	}
 }
 
+flag_faction_revolt_title_effect = {
+	ROOT = { 
+		primary_title = { 
+			if = {
+				limit = {
+					is_titular = yes
+					temporary = yes
+				}
+				d_null = { set_title_flag = temp_revolt_title_@PREV } 
+			}
+		} 
+	}
+}
+
+destroy_faction_revolt_title_effect = {
+	hidden_tooltip = {
+		any_title = {
+			limit = {
+				d_null = { has_title_flag = temp_revolt_title_@PREV }
+				OR = {
+					has_holder = no
+					holder_scope = { war = no }
+				}
+			}
+			destroy_landed_title = THIS
+			activate_title = { title = THIS status = no }
+			d_null = { clr_title_flag = temp_revolt_title_@PREV }
+		}
+	}
+}
+
 ### ROMAN LEGIONS ###
 
 spawn_legio_VI_victrix = {
