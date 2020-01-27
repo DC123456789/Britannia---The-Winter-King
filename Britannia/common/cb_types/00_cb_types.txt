@@ -1849,7 +1849,30 @@ other_claim_on_liege = {
 			}
 		}
 		
-		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
+		# Flag is checked and handled in posttitle
+		ROOT = {
+			if = {
+				limit = {
+					is_landed = no
+				}
+				set_character_flag = set_proper_unlanded_liege
+				FROM = { save_event_target_as = target_to_switch_government_to }
+				flag_target_government_effect = yes
+				if = {
+					limit = { FROM = { independent = yes } }
+					save_global_event_target_as = new_ROOT_liege
+				}
+				else = {
+					FROM = {
+						liege = {
+							save_global_event_target_as = new_ROOT_liege
+						}
+					}
+				}
+			}
+		}
+		
+		usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = ROOT type = claim }
 		
 		if = {
 			limit = {
@@ -1917,6 +1940,28 @@ other_claim_on_liege = {
 					imprison = ROOT
 					clr_character_flag = temp_other_claim_on_liege_prison
 				}
+			}
+		
+			# If the claimant was formerly unlanded, make sure they get the right government and don't keep their host as liege
+			ROOT = {
+				if = {
+					limit = {
+						has_character_flag = set_proper_unlanded_liege
+					}
+				}
+				clr_character_flag = set_proper_unlanded_liege
+				set_flagged_government_effect = yes
+				if = {
+					limit = {
+						NOT = { lower_tier_than = FROM }
+					}
+					set_defacto_liege = event_target:new_ROOT_liege
+				}
+				else_if = {
+					limit = { NOT = { any_liege = { character = FROM } } }
+					set_defacto_liege = FROM
+				}
+				clear_global_event_target = event_target:new_ROOT_liege
 			}
 		}
 	}
@@ -10975,6 +11020,7 @@ free_tributary_cb = {
 		
 		modifier = {
 			factor = 1.5
+			always = yes
 		}
 
 		modifier = {
@@ -11016,15 +11062,36 @@ free_tributary_cb = {
 		}
 		
 		modifier = {
-			factor = 2
+			factor = 5
 			ROOT = { is_tributary = { type = anglosaxon_tributary } }
 		}
 		
 		# Anglo-Saxons like to revolt at the beginning of a new reign
 		modifier = {
-			factor = 2
+			factor = 3
 			ROOT = { is_tributary = { type = anglosaxon_tributary } }
-			FROM = { NOT = { ruled_years = 3 } }
+			FROM = { NOT = { ruled_years = 5 } }
+		}
+		
+		modifier = {
+			factor = 4
+			ROOT = {
+				OR = {
+					is_tributary = { type = anglosaxon_tributary }
+					is_tributary = { type = britannia_subject }
+				}
+				trait = ambitious
+			}
+		}
+		
+		modifier = {
+			factor = 3
+			ROOT = {
+				relative_power = {
+					who = FROM
+					power = 0.9
+				}
+			}
 		}
 	}
 }

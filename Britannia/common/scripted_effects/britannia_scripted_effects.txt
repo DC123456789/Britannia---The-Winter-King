@@ -4782,26 +4782,7 @@ adjust_revolt_army_size_effect = {
 	
 	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
 	if = {
-		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
-		if = {
-			limit = { 
-				ROOT = { num_of_empty_holdings = 3 } 
-			}
-			change_variable = {
-				which = global_troop_change
-				value = -0.25
-			}
-		}
-		else_if = {
-			limit = { 
-				ROOT = { num_of_empty_holdings = 2 } 
-			}
-			change_variable = {
-				which = global_troop_change
-				value = -0.15
-			}
-		}
-		
+		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }		
 		# Offset additional maluses from tribal + wrong culture/religion
 		if = {
 			limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
@@ -4942,16 +4923,30 @@ adjust_revolt_army_size_effect = {
 				if = {
 					limit = { 
 						any_realm_province = {
+							count = 20
+							culture = ROOT
+						}
+						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+					}
+					change_variable = {
+						which = global_troop_change
+						value = 0.50
+					}
+				}
+				else_if = {
+					limit = { 
+						any_realm_province = {
 							count = 15
 							culture = ROOT
 						}
+						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
 					}
 					change_variable = {
 						which = global_troop_change
 						value = 0.35
 					}
 				}
-				if = {
+				else_if = {
 					limit = { 
 						any_realm_province = {
 							count = 10
@@ -5059,6 +5054,28 @@ adjust_revolt_army_size_effect = {
 	}
 	any_army = {
 		troops = global_troop_decrease
+	}
+	
+	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
+	# Applied as a final multiplier
+	if = {
+		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
+		if = {
+			limit = { 
+				ROOT = { num_of_empty_holdings = 3 } 
+			}
+			any_army = {
+				troops = -0.25
+			}
+		}
+		else_if = {
+			limit = { 
+				ROOT = { num_of_empty_holdings = 2 } 
+			}
+			any_army = {
+				troops = -0.15
+			}
+		}
 	}
 }
 

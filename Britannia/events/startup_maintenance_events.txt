@@ -1409,17 +1409,22 @@ character_event = {	# Mercenary Captains
 						AND = {
 							independent = yes
 							k_burgundy = { has_holder = yes }
+							NOT = { has_global_flag = burgundy_subjugated }
 						}
-						NOT = {
+						NAND = {
 							any_liege = {
 								has_landed_title = k_burgundy
 							}
+							NOT = { has_global_flag = burgundy_subjugated }
 						}
 					}
 				}
 				d_burgundian_guard = { save_event_target_as = mercenary_title }
 				if = {
-					limit = { k_burgundy = { has_holder = yes } }
+					limit = { 
+						k_burgundy = { has_holder = yes } 
+						NOT = { has_global_flag = burgundy_subjugated }
+					}
 					k_burgundy = { save_event_target_as = proper_mercenary_liege }
 				}
 				else = {

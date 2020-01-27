@@ -346,7 +346,19 @@ province_event = {
 			region = world_britannia_cymry_henogledd
 		}
 		modifier = {
-			factor = 0.5
+			factor = 0.75
+			owner = { 
+				culture_group = germanic 
+				is_tribal = yes
+			}
+			OR = {
+				is_brythonic_culture_trigger = yes
+				culture_group = imperiale
+			}
+			any_province_holding = { holding_type = tribal }
+		}
+		modifier = {
+			factor = 0.75
 			owner = { culture_group = germanic }
 			has_province_modifier = tribal_settlements
 		}
@@ -532,6 +544,10 @@ province_event = {
 						}
 						OR = {
 							NOT = { year = 570 }
+							AND = {
+								is_tribal = yes
+								ROOT = { any_province_holding = { holding_type = TRIBAL } }
+							}
 							culture = dane
 						}
 					}

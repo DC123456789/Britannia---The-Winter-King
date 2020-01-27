@@ -1462,7 +1462,7 @@ NMilitary = {
 	SHATTERED_RETREAT_MOVEMENT_MULTIPLIER = 1.2,-- Multiplier of unit movement speed when shattered
 	SHATTERED_RETREAT_MORALE_MULTIPLIER = 2.5,	-- Multiplier of morale regain when shattered
 	
-	SHATTERED_RETREAT_PREFERRED_PROVINCES = 4,				-- Units will try to move at least this many provinces away in shattered retreat
+	SHATTERED_RETREAT_PREFERRED_PROVINCES = 5,				-- Units will try to move at least this many provinces away in shattered retreat
 	SHATTERED_RETREAT_MAX_PROVINCES = 8,					-- Units can not move longer than this many provinces during a shattered retreat
 	SHATTERED_RETREAT_DISTANCE_MULTIPLIER = -20,			-- Value added for each province away from the prefered distance (whether too close or too far)
 	SHATTERED_RETREAT_OWN_UNIT_MULTIPLIER = 0.1,			-- Multiplier of own units in province when evaluating retreat provinces
