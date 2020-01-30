@@ -2070,6 +2070,78 @@ is_unheld_or_held_under_FROM = {
 	}
 }
 
+# Called in the scope of the top liege (or liege before war in case of revolt)
+is_ROOT_non_dejure_province_trigger = {
+	culture_group = germanic 
+	is_romanized_germanic_trigger = no
+	num_of_count_titles_in_realm = 8
+	NOR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+		}
+		AND = {
+			tier = KING
+			any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+			OR = {
+				NOT = { num_of_king_titles = 2 }
+				capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+				AND = {
+					capital_scope = { 
+						kingdom = { 
+							OR = {
+								has_holder = no
+								holder_scope = { NOT = { character = PREVPREVPREV } }
+							}
+						} 
+					}
+					primary_title = {
+						ROOT = { kingdom = { title = PREVPREV } }
+					}
+				}
+			}
+		}
+		AND = {
+			tier = EMPEROR
+			OR = {
+				AND = {
+					any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+					OR = {
+						num_of_king_titles = 1
+						capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+						AND = {
+							has_landed_title = e_aengland
+							ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+						}
+					}
+				}
+				AND = {
+					any_vassal = {
+						any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }	
+						OR = {
+							NOT = { num_of_king_titles = 2 }
+							capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+							AND = {
+								capital_scope = { 
+									kingdom = { 
+										OR = {
+											has_holder = no
+											holder_scope = { NOT = { character = PREVPREVPREV } }
+										}
+									} 
+								}
+								primary_title = {
+									ROOT = { kingdom = { title = PREVPREV } }
+								}
+							}
+						}								
+					}
+				}
+			}
+		}
+	}
+}
+
 local_resistance_potential_trigger = {
 	OR = {
 		AND = {

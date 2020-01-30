@@ -230,6 +230,7 @@ claim = {
 		}
 		
 		ROOT = {
+			clr_character_flag = claimant_adventurer
 			#if = {
 			#	limit = { 
 			#		has_landed_title = c_angeln_host 
@@ -287,12 +288,19 @@ claim = {
 			#remove_claim = ROOT
 		#}
 		ROOT = { show_scope_change = no remove_claim = PREV }
-		#ROOT = {
-		#	hidden_tooltip = {
+		ROOT = {
+			hidden_tooltip = {
 		#		disband_event_forces = yes
-		#		clr_character_flag = claimant_adventurer
-		#	}
-		#}
+				clr_character_flag = claimant_adventurer
+			}
+		}
+	}
+	
+	on_attacker_leader_death = {
+		if = {
+			limit = { ROOT = { has_character_flag = claimant_adventurer } }
+			end_war = invalid
+		}
 	}
 		
 	on_invalidation = {
