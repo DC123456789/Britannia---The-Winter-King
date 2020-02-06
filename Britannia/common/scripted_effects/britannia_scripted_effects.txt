@@ -5012,6 +5012,92 @@ adjust_revolt_army_size_effect = {
 						value = -0.35
 					}
 				}
+				
+				# Wrong culture group tribal revolts also scale more
+				if = {
+					limit = {
+						ROOT = { 
+							any_province_holding = { holding_type = TRIBAL } 
+							NOT = { culture_group = PREVPREV }
+						}
+					}
+					if = {
+						limit = { 
+							any_realm_province = {
+								count = 30
+								culture = ROOT
+							}
+							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.5
+						}
+					}
+					else_if = {
+						limit = { 
+							any_realm_province = {
+								count = 25
+								culture = ROOT
+							}
+							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.4
+						}
+					}
+					else_if = {
+						limit = { 
+							any_realm_province = {
+								count = 18
+								culture = ROOT
+							}
+							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.3
+						}
+					}
+					else_if = {
+						limit = { 
+							any_realm_province = {
+								count = 12
+								culture = ROOT
+							}
+							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.2
+						}
+					}
+					else_if = {
+						limit = { 
+							any_realm_province = {
+								count = 8
+								culture = ROOT
+							}
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.1
+						}
+					}
+					else_if = {
+						limit = { 
+							any_realm_province = {
+								count = 6
+								culture = ROOT
+							}
+						}
+						change_variable = {
+							which = global_troop_change
+							value = 0.05
+						}
+					}
+				}
 			} 
 		} 
 	}
@@ -5034,8 +5120,8 @@ adjust_revolt_army_size_effect = {
 		}
 	}
 	
-	# global_troop_decrease = (1 + global_troop_change) / 2 - 1
-	# Converts global_troop_decrease into a decrease from 2 * the normal size
+	# global_troop_decrease = (1 + global_troop_change) / 4 - 1
+	# Converts global_troop_decrease into a decrease from 4 * the normal size
 	set_variable = {
 		which = global_troop_decrease
 		which = global_troop_change
@@ -5046,7 +5132,7 @@ adjust_revolt_army_size_effect = {
 	}
 	divide_variable = {
 		which = global_troop_decrease
-		value = 2
+		value = 4
 	}
 	subtract_variable = {
 		which = global_troop_decrease

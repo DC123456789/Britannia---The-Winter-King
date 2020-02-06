@@ -2326,6 +2326,21 @@ defined_text = {
 			# NOT = { has_alternate_start_parameter = { key = religion_names value = random } }
 		# }
 	# }
+	
+	### ACR ###
+	# text = {
+		# localisation_key = String_Glory_to_Dark_Ones
+		# trigger = { society_member_of = unseelie_petitioners }
+	# }
+	# text = {
+		# localisation_key = String_Glory_to_Hecate
+		# trigger = { society_member_of = the_coven }
+	# }
+	# text = {
+		# localisation_key = String_Glory_to_the_Great_Serpent
+		# trigger = { society_member_of = the_sand_snakes }
+	# }
+	
 	fallback_text = {
 		localisation_key = String_Praise_Evilgod
 	}
@@ -2417,11 +2432,20 @@ defined_text = { #Does not work for jain and buddhist
 		localisation_key = string_god_random
 		trigger = {
 			OR = {				
-				society_member_of = monastic_order_stoics
+				is_hellenic_monastic_order_member_trigger = yes
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 	}
+	# text = {
+		# localisation_key = GOD_ISIS
+		# trigger = {
+			# OR = {				
+				# society_member_of = monastic_order_isis
+				# has_alternate_start_parameter = { key = religion_names value = random }
+			# }
+		# }
+	# }
 }
 
 defined_text = {
@@ -2474,12 +2498,40 @@ defined_text = {
 	}
 	text = {
 		localisation_key = String_Zeno
-		trigger = { society_member_of = monastic_order_stoics
+		trigger = { 
+			society_member_of = monastic_order_stoics
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 	}
+	text = {
+		localisation_key = AncientThinker_Epicurious
+		trigger = { 
+			society_member_of = monastic_order_epicureans
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	text = {
+		localisation_key = AncientThinker_Plato
+		trigger = { 
+			society_member_of = monastic_order_skeptics
+			NOT = {
+				has_alternate_start_parameter = { key = religion_names value = random }
+			}
+		}
+	}
+	# text = {
+		# localisation_key = GOD_ISIS
+		# trigger = { 
+			# society_member_of = monastic_order_isis
+			# NOT = {
+				# has_alternate_start_parameter = { key = religion_names value = random }
+			# }
+		# }
+	# }
 	text = {
 		localisation_key = string_saint_generic
 		trigger = {
@@ -2505,8 +2557,18 @@ defined_text = {
 	}
 	text = {
 		localisation_key = String_agora
-		trigger = { society_member_of = monastic_order_stoics }
+		trigger = { is_hellenic_monastic_order_member_trigger = yes }
 	}
+	# text = {
+		# localisation_key = String_temple
+		# trigger = {
+			# OR = {
+				# society_member_of = monastic_order_jain
+				# society_member_of = monastic_order_buddhist
+				# society_member_of = monastic_order_isis
+			# }
+		# }
+	# }
 }
 
 defined_text = {
@@ -2559,12 +2621,22 @@ defined_text = {
 	}
 	text = {
 		localisation_key = String_the_Aretai
-		trigger = { society_member_of = monastic_order_stoics
+		trigger = { 
+			is_hellenic_monastic_order_member_trigger = yes
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
 	}
+	# text = {
+		# localisation_key = String_the_Mysteries_of_Isis
+		# trigger = { 
+		# is_hellenic_monastic_order_member_trigger = yes
+			# NOT = {
+				# has_alternate_start_parameter = { key = religion_names value = random }
+			# }
+		# }
+	# }
 	text = {
 		localisation_key = string_the_code
 		trigger = {
@@ -2618,9 +2690,10 @@ defined_text = {
 	text = {
 		localisation_key = String_Peace_be_upon_you
 		trigger = { 
-			society_member_of = monastic_order_stoics
-			is_dharmic_monastic_member_trigger = yes 
-			NOT = {
+			OR = {
+				# society_member_of = monastic_order_isis
+				is_hellenic_monastic_order_member_trigger = yes
+				is_dharmic_monastic_member_trigger = yes
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
 		}
@@ -2659,7 +2732,10 @@ defined_text = {
 	text = {
 		localisation_key = String_Go_in_peace
 		trigger = {
-			society_member_of = monastic_order_stoics
+			OR = {
+				society_member_of = monastic_order_isis
+				is_hellenic_monastic_order_member_trigger = yes
+			}
 			NOT = {
 				has_alternate_start_parameter = { key = religion_names value = random }
 			}
