@@ -3014,7 +3014,7 @@ narrative_event = {
 	}
 }
 
-# ANGLO-SAXON DUCHIES IN WALES
+# ANGLO-SAXONS IN WALES
 # Ealdormanry of Monmouthshire
 narrative_event = {
 	id = 314130
@@ -3294,6 +3294,90 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314123"
+	}
+}
+# Creation of the Earldom of Wales
+narrative_event = {
+	id = 314138
+	title = "EVTNAME314138"
+	desc = "EVTDESC314138"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_royal_court"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_wales
+		NOT = { has_global_flag = wales_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {		
+		set_global_flag = wales_created
+	}
+	
+	option = {
+		name = "EVTOPTA314138"
+	}
+}
+# Anglo-Saxon Conquest of Wales
+narrative_event = {
+	id = 314139
+	title = "EVTNAME314139"
+	desc = "EVTDESC314139"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_saxon_army_banners"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_aengland
+		completely_controls_region = world_britannia_cymry_wales
+		NOT = { has_global_flag = wales_conquered_anglosaxon }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {		
+		set_global_flag = wales_conquered_anglosaxon
+	}
+	
+	option = {
+		name = "EVTOPTA314139"
+		trigger = {
+			OR = {
+				has_landed_title = e_aengland
+				AND = {
+					top_liege = { has_landed_title = e_aengland }
+					is_brythonic_culture_trigger = no
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB314139"
+		trigger = {
+			NOT = { has_landed_title = e_aengland }
+			top_liege = { has_landed_title = e_aengland }
+			is_brythonic_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTC314139"
+		trigger = {
+			NOT = { top_liege = { has_landed_title = e_aengland } }
+		}
 	}
 }
 
