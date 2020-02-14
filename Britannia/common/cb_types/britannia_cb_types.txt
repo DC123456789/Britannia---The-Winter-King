@@ -9610,10 +9610,12 @@ gallic_deposition = {
 			any_vassal = {
 				limit = { government = legion_government }
 				primary_title = {
+					save_event_target_as = vassal_legion_title
 					capital_scope = {
 						kingdom = {
 							holder_scope = {
 								set_defacto_vassal = PREVPREVPREVPREV
+								spawn_event_target_legion_units_effect = yes
 							}
 						}
 					}
@@ -9626,8 +9628,11 @@ gallic_deposition = {
 					ROOT = { make_tributary = { who = PREV tributary_type = roman_province } }
 					set_government_type = imperial_government
 				}
+				# Remove legion troops
+				disband_all_legions_effect = yes
 			}
 		}
+		
 		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = { 
@@ -9635,10 +9640,12 @@ gallic_deposition = {
 						type = foederati
 						suzerain = FROM 
 					}
-					NOT = { has_landed_title = k_franks }
 				}
 				FROM = { remove_tributary = PREV }
-				ROOT = { make_tributary = { who = PREV tributary_type = foederati } }
+				if = {
+					limit = { NOT = { has_landed_title = k_franks } }
+					ROOT = { make_tributary = { who = PREV tributary_type = foederati } }
+				}
 			}
 		}
 		e_gaul = {

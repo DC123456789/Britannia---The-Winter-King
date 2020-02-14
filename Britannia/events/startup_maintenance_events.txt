@@ -1861,14 +1861,22 @@ character_event = {		# Alba
 		primary_title = {
 			title = e_alba
 		}
+		NOT = { num_of_count_titles_in_realm = 8 }
 		OR = {
-			AND = {
-				war = no
-				NOT = { realm_size = 20 }
-			}
-			AND = {
-				war = yes
-				NOT = { realm_size = 10 }
+			war = no
+			NOT = {
+				any_war = {
+					OR = {
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+						defender = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1916,14 +1924,22 @@ character_event = {		# Hen Ogledd
 			title = e_hen_ogledd
 		}
 		NOT = { num_of_king_titles = 2 }
+		NOT = { num_of_count_titles_in_realm = 8 }
 		OR = {
-			AND = {
-				war = no
-				NOT = { realm_size = 25 }
-			}
-			AND = {
-				war = yes
-				NOT = { realm_size = 15 }
+			war = no
+			NOT = {
+				any_war = {
+					OR = {
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+						defender = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1970,14 +1986,22 @@ character_event = {		# Imperium Galliarum/Britanniarum
 				title = e_roman_britannia
 			}
 		}
+		NOT = { num_of_count_titles_in_realm = 4 }
 		OR = {
-			AND = {
-				war = no
-				NOT = { realm_size = 25 }
-			}
-			AND = {
-				war = yes
-				NOT = { realm_size = 15 }
+			war = no
+			NOT = {
+				any_war = {
+					OR = {
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+						defender = {
+							in_revolt = yes
+							liege_before_war = { character = ROOT }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1987,6 +2011,13 @@ character_event = {		# Imperium Galliarum/Britanniarum
 		trigger = {
 			character = ROOT
 		}
+		hidden_tooltip = {
+			any_realm_lord = {
+				limit = { government = imperial_government }
+				set_character_flag = former_imperial_reset_government
+			}
+			set_character_flag = former_imperial_reset_government
+		}
 		if = {
 			limit = { has_landed_title = e_gaul }
 			e_gaul = { destroy_landed_title = e_gaul }
@@ -1994,6 +2025,41 @@ character_event = {		# Imperium Galliarum/Britanniarum
 		if = {
 			limit = { has_landed_title = e_roman_britannia }
 			e_roman_britannia = { destroy_landed_title = e_roman_britannia }
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = { has_character_flag = former_imperial_reset_government }
+				clr_character_flag = former_imperial_reset_government
+				if = {
+					limit = {
+						OR = {
+							is_brythonic_culture_trigger = yes
+							capital_scope = {
+								region = world_britannia
+							}
+						}
+					}
+					set_government_type = sub_roman_brythonic_government
+				}
+				else = {
+					set_government_type = sub_roman_government
+				}
+			}
+			clr_character_flag = former_imperial_reset_government
+			if = {
+				limit = {
+					OR = {
+						is_brythonic_culture_trigger = yes
+						capital_scope = {
+							region = world_britannia
+						}
+					}
+				}
+				set_government_type = sub_roman_brythonic_government
+			}
+			else = {
+				set_government_type = sub_roman_government
+			}
 		}
 	}
 	

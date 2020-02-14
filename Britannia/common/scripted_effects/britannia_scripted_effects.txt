@@ -5801,3 +5801,70 @@ ROOT_respawn_held_rebel_legion = {
 		}
 	}
 }
+
+# Spawns the units corresponding to the title event_target vassal_legion_title to the current scope at the legion's capital location
+spawn_event_target_legion_units_effect = {
+	event_target:vassal_legion_title = {
+		capital_scope = {
+			if = {
+				limit = { PREV = { title = d_legio_vi_victrix } }
+				PREVPREV = { spawn_legio_VI_victrix = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_xx_valeria_victrix } }
+				PREVPREV = { spawn_legio_XX_valeria_victrix = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_ii_augusta } }
+				PREVPREV = { spawn_legio_II_augusta = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_ii_britannica } }
+				PREVPREV = { spawn_legio_II_britannica = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_i_flavia_gallicana_constantia } }
+				PREVPREV = { spawn_legio_I_flavia_gallicana_constantia = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_i_flavia_martis } }
+				PREVPREV = { spawn_legio_I_flavia_martis = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_i_minervia } }
+				PREVPREV = { spawn_legio_I_minervia = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_xxx_ulpia_victrix } }
+				PREVPREV = { spawn_legio_XXX_ulpia_victrix = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_xii_victrix } }
+				PREVPREV = { spawn_legio_XII_victrix = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_legio_vi_gallicana } }
+				PREVPREV = { spawn_legio_VI_gallicana = yes }
+			}
+			else_if = {
+				limit = { PREV = { title = d_classis_britannica } }
+				PREVPREV = { spawn_classis_britannica = yes }
+			}
+		}
+	}
+}
+
+# Disbands ALL legion units held by scoped character
+disband_all_legions_effect = {
+	disband_event_forces = legio_six_victrix
+	disband_event_forces = legio_twenty_valeria_victrix
+	disband_event_forces = legio_two_augusta
+	disband_event_forces = legio_two_britannica
+	disband_event_forces = legio_one_constantia
+	disband_event_forces = legio_one_flavia
+	disband_event_forces = legio_one_minervia
+	disband_event_forces = legio_thirty_ulpia
+	disband_event_forces = legio_twelve_victrix
+	disband_event_forces = legio_six_gallicana
+	disband_event_forces = classis_britannica
+}
