@@ -1283,17 +1283,38 @@ character_event = {	# Mercenary Captains
 					OR = {
 						AND = {
 							independent = yes
-							k_visigoths = { has_holder = yes }
+							OR = {
+								k_visigoths = { has_holder = yes }
+								e_visigoths = { 
+									has_holder = yes 
+									has_title_flag = empire_claimed_visigoths
+								}
+							}
 						}
 						NOT = {
 							any_liege = {
-								has_landed_title = k_visigoths
+								OR = {
+									has_landed_title = k_visigoths
+									AND = {
+										has_landed_title = e_visigoths
+										e_visigoths = { has_title_flag = empire_claimed_visigoths }
+									}
+								}
 							}
 						}
 					}
 				}
 				d_swords_of_septimania = { save_event_target_as = mercenary_title }
 				if = {
+					limit = {
+						e_visigoths = { 
+							has_holder = yes 
+							has_title_flag = empire_claimed_visigoths
+						}
+					}
+					e_visigoths = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
 					limit = { k_visigoths = { has_holder = yes } }
 					k_visigoths = { save_event_target_as = proper_mercenary_liege }
 				}
@@ -1408,19 +1429,44 @@ character_event = {	# Mercenary Captains
 					OR = {
 						AND = {
 							independent = yes
-							k_burgundy = { has_holder = yes }
-							NOT = { has_global_flag = burgundy_subjugated }
-						}
-						NAND = {
-							any_liege = {
-								has_landed_title = k_burgundy
+							OR = {
+								AND = {
+									k_burgundy = { has_holder = yes }
+									NOT = { has_global_flag = burgundy_subjugated }
+								}
+								e_visigoths = { 
+									has_holder = yes 
+									has_title_flag = empire_claimed_burgundians
+								}
 							}
-							NOT = { has_global_flag = burgundy_subjugated }
+						}
+						NOT = {
+							any_liege = {
+								OR = {
+									AND = {
+										has_landed_title = k_burgundy
+										NOT = { has_global_flag = burgundy_subjugated }
+									}
+									AND = {
+										has_landed_title = e_visigoths
+										e_visigoths = { has_title_flag = empire_claimed_burgundians }
+									}
+								}
+							}
 						}
 					}
 				}
 				d_burgundian_guard = { save_event_target_as = mercenary_title }
 				if = {
+					limit = {
+						e_visigoths = { 
+							has_holder = yes 
+							has_title_flag = empire_claimed_burgundians
+						}
+					}
+					e_visigoths = { save_event_target_as = proper_mercenary_liege }
+				}
+				else_if = {
 					limit = { 
 						k_burgundy = { has_holder = yes } 
 						NOT = { has_global_flag = burgundy_subjugated }
