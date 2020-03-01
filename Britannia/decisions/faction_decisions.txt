@@ -571,19 +571,29 @@ plot_decisions = {
 						power = 0.75
 					}
 				}
-			}			
+			}
 			modifier = {
 				factor = 0.1
 				NOT = { 
 					faction_power = 
 					{
 						faction = faction_lower_tribal_organization
-						power = 1.0
+						power = 0.9
 					}
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.3
+				NOT = { 
+					faction_power = 
+					{
+						faction = faction_lower_tribal_organization
+						power = 1.25
+					}
+				}
+			}
+			modifier = {
+				factor = 0.3
 				NOT = { 
 					faction_power = 
 					{
@@ -979,6 +989,16 @@ plot_decisions = {
 			}
 			
 			modifier = {
+				factor = 0.75
+				NOT = { 
+					faction_power = {
+						faction = faction_claimant
+						power = 1.0
+					}
+				}
+			}
+			
+			modifier = {
 				factor = 1.5
 				faction_power = {
 					faction = faction_claimant
@@ -1043,6 +1063,68 @@ plot_decisions = {
 			}
 			
 			modifier = {
+				factor = 1.25
+				liege = { 
+					is_tribal = yes 
+					independent = yes
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				liege = { 
+					government = tribal_government
+					independent = yes
+				}
+			}
+			
+			modifier = {
+				factor = 1.15
+				liege = {
+					OR = {
+						has_character_modifier = tribal_modifier_-2
+						has_character_modifier = tribal_modifier_-3
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 1.15
+				liege = {
+					OR = {
+						has_character_modifier = tribal_modifier_-4
+						has_character_modifier = tribal_modifier_-5
+						has_character_modifier = tribal_modifier_-6
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				liege = {
+					OR = {
+						has_character_modifier = tribal_modifier_-7
+						has_character_modifier = tribal_modifier_-8
+						has_character_modifier = tribal_modifier_-9
+						has_character_modifier = tribal_modifier_-10
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 1.5
+				liege = {
+					OR = {
+						has_character_modifier = tribal_modifier_-11
+						has_character_modifier = tribal_modifier_-12
+						has_character_modifier = tribal_modifier_-13
+						has_character_modifier = tribal_modifier_-14
+						has_character_modifier = tribal_modifier_-15
+					}
+				}
+			}
+			
+			modifier = {
 				factor = 0
 				supported_claimant = {
 					any_war = {
@@ -1075,9 +1157,14 @@ plot_decisions = {
 			modifier = {
 				factor = 0
 				liege = {
-					NAND = { 
-						government = imperial_government 
-						independent = yes
+					NOT = { 
+						OR = {
+							AND = {
+								government = imperial_government
+								independent = yes
+							}
+							is_tribal = yes
+						}
 					}
 					any_war = {
 						OR = {
@@ -1110,30 +1197,30 @@ plot_decisions = {
 									}
 								}
 							}
-							AND = {
-								attacker = {
-									character = PREV
-									ROOT = {
-										supported_claimant = {
-											religion = PREVPREV
-											culture = PREVPREV
-										}
-									}
-								}
-								OR = {
-									using_cb = invasion
-									using_cb = tribal_invasion
-									using_cb = viking_invasion_britannia
-									using_cb = irishinvasion
-									using_cb = county_conquest
-									using_cb = cultural_reconquest
-									using_cb = imperial_reclaim
-									using_cb = imperial_invasion_hibernia
-									using_cb = claim_all
-									using_cb = claim
-									using_cb = other_claim
-								}
-							}
+							# AND = {
+								# attacker = {
+									# character = PREV
+									# ROOT = {
+										# supported_claimant = {
+											# religion = PREVPREV
+											# culture = PREVPREV
+										# }
+									# }
+								# }
+								# OR = {
+									# using_cb = invasion
+									# using_cb = tribal_invasion
+									# using_cb = viking_invasion_britannia
+									# using_cb = irishinvasion
+									# using_cb = county_conquest
+									# using_cb = cultural_reconquest
+									# using_cb = imperial_reclaim
+									# using_cb = imperial_invasion_hibernia
+									# using_cb = claim_all
+									# using_cb = claim
+									# using_cb = other_claim
+								# }
+							# }
 						}
 					}
 				}

@@ -1857,6 +1857,27 @@ county_conquest = {
 			NOT = { has_global_flag = anglia_collapsed }
 		}
 		modifier = {
+			factor = 3
+			ROOT = { 
+				has_landed_title = k_northumbria
+			}
+			region = custom_northumbria
+		}
+		modifier = {
+			factor = 3
+			ROOT = { 
+				has_landed_title = k_mercia
+			}
+			region = custom_mercia
+		}
+		modifier = {
+			factor = 3
+			ROOT = { 
+				has_landed_title = k_wessex
+			}
+			region = custom_wessex
+		}
+		modifier = {
 			factor = 0
 			ROOT = { culture = oldfrankish }
 			NOT = { year = 495 }
@@ -4436,6 +4457,31 @@ duchy_invasion = {
 					region = world_gaul_narbonensis_septimania
 					region = custom_southern_provence
 				}
+			}
+		}
+		# Prefer larger duchies if possible
+		modifier = {
+			factor = 2
+			any_direct_de_jure_vassal_title = {
+				holder_scope = {
+					OR = {
+						character = FROM
+						is_liege_or_above = FROM
+					}
+				}
+				count = 2
+			}
+		}
+		modifier = {
+			factor = 1.5
+			any_direct_de_jure_vassal_title = {
+				holder_scope = {
+					OR = {
+						character = FROM
+						is_liege_or_above = FROM
+					}
+				}
+				count = 4
 			}
 		}
 	}

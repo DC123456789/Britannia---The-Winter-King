@@ -1997,6 +1997,54 @@ character_event = {
 	}
 }
 
+# Remove Anglo-Saxon tributaries if they become a vassal, or transfer to liege if the suzerain becomes a vassal
+character_event = {
+	id = 320214
+	desc = "You're not supposed to see this..."
+	picture = "GFX_evt_feast_1"
+	
+	hide_window = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_tributary = {
+			type = anglosaxon_tributary
+		}
+		OR = {
+			independent = no
+			suzerain = { independent = no }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { independent = no }
+			suzerain = {
+				remove_tributary = ROOT
+			}
+		}
+		else_if = {
+			limit = { suzerain = { independent = no } }
+			suzerain = {
+				remove_tributary = ROOT
+				top_liege = {
+					if = {
+						limit = { is_anglosaxon_tributary_potential_trigger = yes }
+						make_tributary = { who = ROOT tributary_type = anglosaxon_tributary }						
+					}
+					else = {
+						make_tributary = { who = ROOT tributary_type = permanent }
+					}
+				}
+			}			
+		}
+	}
+}
+
 # Declare Supremacy
 narrative_event = {
 	id = 320220
