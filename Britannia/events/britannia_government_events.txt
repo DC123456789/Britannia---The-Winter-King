@@ -296,8 +296,7 @@ province_event = {
 	}
 }
 
-
-##### IMPERIAL GOVERNMENT #####
+##### GOVERNMENT-BASED PROVINCE MODIFIERS #####
 # Assign cultural flexibility modifier to all Imperial/Sub-Roman/Germanic realm counties at start, and every year
 character_event = { 
 	id = 302530
@@ -382,9 +381,50 @@ province_event = {
 			limit = { has_province_modifier = imperial_cultural_tolerance }
 			remove_province_modifier = imperial_cultural_tolerance
 		}
+		
+		if = {
+			limit = {
+				owner = {
+					government = high_tribal_government
+				}
+			}
+			if = {
+				limit = { NOT = { has_province_modifier = high_tribal_government_province_modifier } }
+				add_province_modifier = {
+					name = high_tribal_government_province_modifier
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = { has_province_modifier = high_tribal_government_province_modifier }
+			remove_province_modifier = high_tribal_government_province_modifier
+		}
+		
+		if = {
+			limit = {
+				owner = {
+					government = tribal_government
+				}
+			}
+			if = {
+				limit = { NOT = { has_province_modifier = tribal_government_province_modifier } }
+				add_province_modifier = {
+					name = tribal_government_province_modifier
+					hidden = yes
+					duration = -1
+				}
+			}
+		}
+		else_if = {
+			limit = { has_province_modifier = tribal_government_province_modifier }
+			remove_province_modifier = tribal_government_province_modifier
+		}
 	}
 }
 
+##### IMPERIAL GOVERNMENT #####
 # Remove born in the purple trait
 character_event = {
 	id = 302535

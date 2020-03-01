@@ -4293,16 +4293,10 @@ faction_independence = {
 		modifier = {
 			factor = 0.1
 			ROOT = {
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
+				is_roman_culture_trigger = yes
 			}
 			liege = {
-				OR = {
-					has_landed_title = e_gaul
-					has_landed_title = e_roman_britannia
-				}
+				is_roman_emperor_trigger = yes
 			}
 		}
 		
@@ -4313,19 +4307,6 @@ faction_independence = {
 			}
 			liege = {
 				culture = visigoth
-			}
-		}
-		
-		modifier = {
-			factor = 0.25
-			ROOT = {
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
-			}
-			liege = {
-				culture = roman
 			}
 		}
 		
@@ -4378,21 +4359,6 @@ faction_independence = {
 			liege = {
 				primary_title = {
 					title = k_anglia
-				}
-			}
-		}
-		
-		modifier = {
-			factor = 0.5
-			liege = {
-				primary_title = {
-					OR = {
-						title = k_mercia
-						title = k_wessex
-						title = k_eastseaxe
-						title = k_sussex
-						title = k_northumbria
-					}
 				}
 			}
 		}
@@ -4616,47 +4582,157 @@ faction_independence = {
 		modifier = {
 			factor = 1.5
 			liege = {
-				distance = { who = ROOT distance = 300 }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 400 }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 500 }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 600 }
-			}
-		}
-		modifier = {
-			factor = 0.3
-			liege = {
 				OR = {
-					has_landed_title = e_gaul
-					has_landed_title = e_roman_britannia
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 150 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 300 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 400 }
+					}
 				}
 			}
 		}
 		modifier = {
 			factor = 2.0
 			liege = {
-				NOT = { religion_group = ROOT }
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 200 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 400 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 600 }
+					}
+				}
 			}
 		}
-		
+		modifier = {
+			factor = 2.0
+			liege = {
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 250 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 500 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 750 }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			liege = {
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 300 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 600 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 900 }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			liege = {
+				NOT = { religion_group = ROOT }
+				is_romanized_or_germanic_government_trigger = yes
+			}
+		}
+		modifier = {
+			factor = 2.0
+			liege = {
+				NOT = { religion_group = ROOT }
+				is_romanized_or_germanic_government_trigger = no
+			}
+		}
+		modifier = {
+			factor = 2.0
+			liege = {
+				NOT = { culture_group = ROOT }
+				is_romanized_or_germanic_government_trigger = yes
+			}
+		}
 		modifier = {
 			factor = 3.5
 			liege = {
 				NOT = { culture_group = ROOT }
+				is_romanized_or_germanic_government_trigger = no
 			}
 		}
 		
@@ -4911,29 +4987,10 @@ faction_independence = {
 		modifier = {
 			factor = 0.1
 			ROOT = {
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
+				is_roman_culture_trigger = yes
 			}
 			liege = {
-				OR = {
-					has_landed_title = e_gaul
-					has_landed_title = e_roman_britannia
-				}
-			}
-		}
-		
-		modifier = {
-			factor = 0.25
-			ROOT = {
-				OR = {
-					culture_group = imperiale
-					culture = romanobritish
-				}
-			}
-			liege = {
-				culture = roman
+				is_roman_emperor_trigger = yes
 			}
 		}
 		
@@ -5003,19 +5060,6 @@ faction_independence = {
 			factor = 2.0
 			liege = {
 				has_landed_title = k_anglia
-			}
-		}
-		
-		modifier = {
-			factor = 0.5
-			liege = {
-				primary_title = {
-					OR = {
-						title = k_mercia
-						title = k_wessex
-						title = k_northumbria
-					}
-				}
 			}
 		}
 		
@@ -5398,33 +5442,128 @@ faction_independence = {
 		modifier = {
 			factor = 1.5
 			liege = {
-				distance = { who = ROOT distance = 300 }
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 150 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 300 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 400 }
+					}
+				}
 			}
 		}
 		modifier = {
 			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 400 }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 500 }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			liege = {
-				distance = { who = ROOT distance = 600 }
-			}
-		}
-		modifier = {
-			factor = 0.3
 			liege = {
 				OR = {
-					has_landed_title = e_gaul
-					has_landed_title = e_roman_britannia
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 200 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 400 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 600 }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			liege = {
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 250 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 500 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 750 }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 2.0
+			liege = {
+				OR = {
+					AND = {
+						OR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+						}
+						distance = { who = ROOT distance = 300 }
+					}
+					AND = {
+						NOR = {
+							is_tribal = yes
+							government = sub_roman_brythonic_government
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 600 }
+					}
+					AND = {
+						OR = {
+							government = sub_roman_government
+							government = germanic_government
+							government = imperial_government
+						}
+						distance = { who = ROOT distance = 900 }
+					}
 				}
 			}
 		}
@@ -5467,16 +5606,32 @@ faction_independence = {
 			trait = unloyal
 		}
 		modifier = {
+			factor = 1.5
+			liege = {
+				NOT = { religion_group = ROOT }
+				is_romanized_or_germanic_government_trigger = yes
+			}
+		}
+		modifier = {
 			factor = 2.0
 			liege = {
 				NOT = { religion_group = ROOT }
+				is_romanized_or_germanic_government_trigger = no
 			}
 		}
 		
 		modifier = {
+			factor = 1.75
+			liege = {
+				NOT = { culture_group = ROOT }
+				is_romanized_or_germanic_government_trigger = yes
+			}
+		}
+		modifier = {
 			factor = 2.5
 			liege = {
 				NOT = { culture_group = ROOT }
+				is_romanized_or_germanic_government_trigger = no
 			}
 		}
 		

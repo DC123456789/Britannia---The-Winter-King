@@ -1956,20 +1956,20 @@ other_claim_on_liege = {
 					limit = {
 						has_character_flag = set_proper_unlanded_liege
 					}
-				}
-				clr_character_flag = set_proper_unlanded_liege
-				set_flagged_government_effect = yes
-				if = {
-					limit = {
-						NOT = { lower_tier_than = FROM }
+					clr_character_flag = set_proper_unlanded_liege
+					set_flagged_government_effect = yes
+					if = {
+						limit = {
+							NOT = { lower_tier_than = FROM }
+						}
+						set_defacto_liege = event_target:new_ROOT_liege
 					}
-					set_defacto_liege = event_target:new_ROOT_liege
+					else_if = {
+						limit = { NOT = { any_liege = { character = FROM } } }
+						set_defacto_liege = FROM
+					}
+					clear_global_event_target = event_target:new_ROOT_liege
 				}
-				else_if = {
-					limit = { NOT = { any_liege = { character = FROM } } }
-					set_defacto_liege = FROM
-				}
-				clear_global_event_target = event_target:new_ROOT_liege
 			}
 		}
 	}
