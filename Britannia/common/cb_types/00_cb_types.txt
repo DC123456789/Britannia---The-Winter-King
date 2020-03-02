@@ -9261,7 +9261,29 @@ dejure_county_claim = {
 					}
 				}
 			}
-		}		
+		}
+		# Stop AI from using county-level cbs if it can use duchy invasion instead
+		modifier = {
+			factor = 0
+			dejure_liege_title = {
+				ROOT = { 
+					OR = {
+						can_use_cb = {
+							target = FROM
+							casus_belli = duchy_invasion
+							thirdparty_title = PREV
+							only_check_triggers = yes
+						}
+						can_use_cb = {
+							target = FROM
+							casus_belli = duchy_invasion_event
+							thirdparty_title = PREV
+							only_check_triggers = yes
+						}
+					}
+				}
+			}
+		}
 	}
 }
 dejure_barony_claim = {

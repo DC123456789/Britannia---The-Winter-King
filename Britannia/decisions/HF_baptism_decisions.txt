@@ -1205,6 +1205,12 @@ decisions = {
 				}
 			}
 			modifier = {
+				factor = 1.25
+				year = 590
+				capital_scope = { is_in_british_isles_trigger = yes }
+				is_north_germanic_trigger = no
+			}
+			modifier = {
 				factor = 0.01
 				NOT = { year = 590 }
 				NOR = {
@@ -1400,12 +1406,28 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 2 #Isolated pagan tribes will convert rather than die.
-				lower_tier_than = KING
+				factor = 1.5 #Isolated pagan tribes will convert rather than die.
+				OR = {
+					lower_tier_than = KING
+					num_of_count_titles_in_realm <= 6
+				}
 				any_neighbor_independent_ruler = { 
 					higher_real_tier_than = COUNT
 					is_organized_religion_trigger = yes
 					count = 4
+				}
+			}
+			modifier = {
+				factor = 1.75 #Isolated pagan tribes will convert rather than die.
+				OR = {
+					lower_tier_than = KING
+					num_of_count_titles_in_realm <= 6
+				}
+				NOT = {
+					any_neighbor_independent_ruler = {
+						higher_real_tier_than = COUNT
+						religion_group = pagan_group
+					}
 				}
 			}
 			modifier = {
@@ -1432,6 +1454,21 @@ decisions = {
 			modifier = {
 				factor = 1.15
 				any_realm_province = { 
+					NOT = { religion_group = pagan_group }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_realm_province = {
+					count = 2
+					NOT = { religion_group = pagan_group }
+				}
+				num_of_count_titles_in_realm <= 6
+			}
+			modifier = {
+				factor = 1.25
+				any_realm_province = {
+					count = 5
 					NOT = { religion_group = pagan_group }
 				}
 			}

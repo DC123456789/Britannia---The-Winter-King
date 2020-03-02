@@ -37,14 +37,21 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 				}
 			}
 		}
-		set_variable = {
-			which = aengland_bretwalda_authority
-			value = 0
+		if = {
+			limit = { 
+				NOT = {
+					check_variable = {
+						which = aengland_bretwalda_authority
+						value = 0.001
+					}
+				}
+			}
+			set_variable = {
+				which = aengland_bretwalda_authority
+				value = 0
+			}
 		}
-		set_variable = {
-			which = aengland_seize_control_score
-			which = aengland_bretwalda_authority
-		}
+		reset_aengland_bretwalda_authority_scores_effect = yes
 		clr_character_flag = gained_aengland
 	}
 	
@@ -1673,7 +1680,7 @@ character_event = {
 		}
 		multiply_variable = {
 			which = score_num_provinces_in_realm
-			value = 7.5
+			value = 6
 		}
 		set_variable = {
 			which = score_realm_size_var
@@ -1681,7 +1688,7 @@ character_event = {
 		}
 		multiply_variable = {
 			which = score_realm_size_var
-			value = 3
+			value = 2.5
 		}
 		
 		export_to_variable = {
@@ -2753,7 +2760,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		months = 60
+		months = 48
 		modifier = { 
 			factor = 0.9
 			check_variable = {
@@ -2998,13 +3005,51 @@ character_event = {
 				factor = 0
 				OR = {
 					has_non_aggression_pact_with = event_target:aengland_holder
-					is_allied_with = event_target:aengland_holder
+					AND = {
+						is_allied_with = event_target:aengland_holder
+						NOT = {
+							is_tributary = {
+								suzerain = event_target:aengland_holder
+							}
+						}
+					}
 					opinion = { who = event_target:aengland_holder value = 80 }
 					# Loyal Tributary
 					AND = {
 						opinion = { who = event_target:aengland_holder value = 60 }
 						is_tributary = {
 							suzerain = event_target:aengland_holder
+						}
+					}
+					# Can't access Aengland
+					NOR = {
+						any_realm_province = {
+							OR = {
+								region = world_britannia
+								region = world_caledonia
+							}
+						}
+						OR = {
+							# Has vassal levies or personally owns a port
+							AND = {
+								any_realm_province = {
+									port = yes
+								}
+								OR = {
+									is_tribal = no
+									has_law = tribal_organization_5
+									has_law = tribal_organization_6
+								}
+							}
+							any_demesne_province = {
+								port = yes
+							}
+						}
+						event_target:aengland_holder = {
+							any_realm_province = {
+								count = 4
+								region = world_ireland
+							}
 						}
 					}
 				}
@@ -3362,7 +3407,14 @@ character_event = {
 				NOT = { opinion = { who = event_target:aengland_holder value = -60 } }
 				NOR = {
 					has_non_aggression_pact_with = event_target:aengland_holder
-					is_allied_with = event_target:aengland_holder
+					AND = {
+						is_allied_with = event_target:aengland_holder
+						NOT = {
+							is_tributary = {
+								suzerain = event_target:aengland_holder
+							}
+						}
+					}
 				}
 			}
 		}
@@ -3568,7 +3620,7 @@ narrative_event = {
 			}
 		}
 		set_variable = {
-			which = total_alliance_realm_levies
+			which = global_total_alliance_realm_levies
 			value = 0
 		}
 		event_target:battle_of_brunanburh_war_declarer = {
@@ -3628,7 +3680,7 @@ narrative_event = {
 					who = PREV
 				}
 				change_variable = {
-					which = total_alliance_realm_levies
+					which = global_total_alliance_realm_levies
 					which = alliance_member_realm_levies
 				}
 			}
@@ -3645,14 +3697,31 @@ narrative_event = {
 					value = realm_levies
 					who = PREV
 				}
+				# Tribal realms without vassal levies count for less
+				if = {
+					limit = {
+						PREV = {
+							is_tribal = yes
+							NOR = {
+								event_target:battle_of_brunanburh_war_declarer = { character = PREV }
+								has_law = tribal_organization_5
+								has_law = tribal_organization_6
+							}
+						}
+					}
+					divide_variable = {
+						which = alliance_member_realm_levies
+						value = 2
+					}
+				}
 				change_variable = {
-					which = total_alliance_realm_levies
+					which = global_total_alliance_realm_levies
 					which = alliance_member_realm_levies
 				}
 			}
 		}
 		# Compare alliance strength to ROOT strength
-		# Spawn more event troops until alliance strength is > 1.25x Aengland's strength
+		# Spawn more event troops until alliance strength is > 1.5x Aengland's strength
 		ROOT = {
 			export_to_variable = {
 				which = aengland_realm_levies
@@ -3664,7 +3733,7 @@ narrative_event = {
 			}
 			multiply_variable = {
 				which = alliance_min_strength
-				value = 1.25
+				value = 1.5
 			}
 			set_variable = {
 				which = alliance_remaining_event_troops
@@ -3672,7 +3741,69 @@ narrative_event = {
 			}
 			subtract_variable = {
 				which = alliance_remaining_event_troops
-				which = total_alliance_realm_levies
+				which = global_total_alliance_realm_levies
+			}
+			# Guaranteed spawn of 2500 (+ 2500 if declaring against human) event troops
+			event_target:battle_of_brunanburh_war_declarer = {
+				spawn_unit = {
+					province = event_target:battle_of_brunanburh_war_declarer_capital
+					troops = {
+						light_infantry = { 1000 1000 }
+						heavy_infantry = { 600 600 }
+						pikemen = { 500 500 }
+						archers = { 250 250 }
+						light_cavalry = { 125 125 }
+					}
+					attrition = 0.25
+					merge = yes
+					disband_on_peace = yes
+				}
+				spawn_fleet = {
+					province = closest
+					troops = {
+						galleys = { 25 25 }
+					}
+					maintenance_multiplier = 0
+					merge = yes
+					disband_on_peace = yes
+				}
+				ROOT = {
+					subtract_variable = {
+						which = alliance_remaining_event_troops
+						value = 2000
+					}
+				}
+				if = {
+					limit = { ROOT = { ai = no } }
+					spawn_unit = {
+						province = event_target:battle_of_brunanburh_war_declarer_capital
+						troops = {
+							light_infantry = { 1000 1000 }
+							heavy_infantry = { 600 600 }
+							pikemen = { 500 500 }
+							archers = { 250 250 }
+							light_cavalry = { 125 125 }
+						}
+						attrition = 0.25
+						merge = yes
+						disband_on_peace = yes
+					}
+					spawn_fleet = {
+						province = closest
+						troops = {
+							galleys = { 25 25 }
+						}
+						maintenance_multiplier = 0
+						merge = yes
+						disband_on_peace = yes
+					}
+					ROOT = {
+						subtract_variable = {
+							which = alliance_remaining_event_troops
+							value = 2000
+						}
+					}
+				}
 			}
 			while = {
 				limit = {
@@ -3680,7 +3811,7 @@ narrative_event = {
 						which = alliance_remaining_event_troops
 						value = 0
 					}
-				}				
+				}
 				event_target:battle_of_brunanburh_war_declarer = {
 					spawn_unit = {
 						province = event_target:battle_of_brunanburh_war_declarer_capital
@@ -3708,6 +3839,173 @@ narrative_event = {
 				subtract_variable = {
 					which = alliance_remaining_event_troops
 					value = 1000
+				}
+			}
+			if = {
+				limit = { ROOT = { ai = no } }
+				# Extra event troops for strongest realms in Wales, Scotland, and Ireland
+				if = {
+					limit = {
+						NOT = { 
+							event_target:battle_of_brunanburh_war_declarer = { 
+								capital_scope = { 
+									OR = {
+										region = world_caledonia
+										region = world_britannia_cymry_henogledd
+									}
+								}
+							}
+						}
+					}
+					random_independent_ruler = {
+						limit = {
+							has_character_flag = joined_brunanburh_coalition
+							capital_scope = { 
+								OR = {
+									region = world_caledonia
+									region = world_britannia_cymry_henogledd
+								}
+							}
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = joined_brunanburh_coalition
+									realm_levy_diff = {
+										who = PREV
+										value = 0
+									}
+									capital_scope = { 
+										OR = {
+											region = world_caledonia
+											region = world_britannia_cymry_henogledd
+										}
+									}
+									NOT = { character = PREV }
+								}
+							}
+						}
+						capital_scope = { save_event_target_as = scotland_strongest_alliance_member_capital }
+						spawn_unit = {
+							province = event_target:scotland_strongest_alliance_member_capital
+							troops = {
+								light_infantry = { 1200 1200 }
+								heavy_infantry = { 750 750 }
+								pikemen = { 600 600 }
+								archers = { 300 300 }
+								light_cavalry = { 150 150 }
+							}
+							attrition = 0.25
+							merge = yes
+							disband_on_peace = yes
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { 
+							event_target:battle_of_brunanburh_war_declarer = { 
+								capital_scope = { 
+									region = world_britannia_cymry
+									NOT = { region = world_britannia_cymry_henogledd }
+								}
+							}
+						}
+					}
+					random_independent_ruler = {
+						limit = {
+							has_character_flag = joined_brunanburh_coalition
+							capital_scope = { 
+								OR = {
+									region = world_britannia_cymry
+									NOT = { region = world_britannia_cymry_henogledd }
+								}
+							}
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = joined_brunanburh_coalition
+									realm_levy_diff = {
+										who = PREV
+										value = 0
+									}
+									capital_scope = { 
+										OR = {
+											region = world_britannia_cymry
+											NOT = { region = world_britannia_cymry_henogledd }
+										}
+									}
+									NOT = { character = PREV }
+								}
+							}
+						}
+						capital_scope = { save_event_target_as = wales_strongest_alliance_member_capital }
+						spawn_unit = {
+							province = event_target:wales_strongest_alliance_member_capital
+							troops = {
+								light_infantry = { 1200 1200 }
+								heavy_infantry = { 750 750 }
+								pikemen = { 600 600 }
+								archers = { 300 300 }
+								light_cavalry = { 150 150 }
+							}
+							attrition = 0.25
+							merge = yes
+							disband_on_peace = yes
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = { 
+							event_target:battle_of_brunanburh_war_declarer = { 
+								capital_scope = { 
+									region = world_ireland
+								}
+							}
+						}
+					}
+					random_independent_ruler = {
+						limit = {
+							has_character_flag = joined_brunanburh_coalition
+							capital_scope = { 
+								region = world_ireland
+							}
+							NOT = {
+								any_independent_ruler = {
+									has_character_flag = joined_brunanburh_coalition
+									realm_levy_diff = {
+										who = PREV
+										value = 0
+									}
+									capital_scope = { 
+										region = world_ireland
+									}
+									NOT = { character = PREV }
+								}
+							}
+						}
+						capital_scope = { save_event_target_as = ireland_strongest_alliance_member_capital }
+						spawn_unit = {
+							province = event_target:ireland_strongest_alliance_member_capital
+							troops = {
+								light_infantry = { 1200 1200 }
+								heavy_infantry = { 750 750 }
+								pikemen = { 600 600 }
+								archers = { 300 300 }
+								light_cavalry = { 150 150 }
+							}
+							attrition = 0.25
+							merge = yes
+							disband_on_peace = yes
+						}
+						spawn_fleet = {
+							province = closest
+							troops = {
+								galleys = { 40 40 }
+							}
+							maintenance_multiplier = 0
+							merge = yes
+							disband_on_peace = yes
+						}
+					}
 				}
 			}
 		}

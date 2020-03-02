@@ -926,9 +926,9 @@ NCharacter = {
 NTitle = {
 -- Monthly prestige from vassals
 	BARON_AS_VASSAL_PRESTIGE = 0.015,
-	COUNT_AS_VASSAL_PRESTIGE = 0.05,
-	DUKE_AS_VASSAL_PRESTIGE = 0.15,
-	KING_AS_VASSAL_PRESTIGE = 0.5,
+	COUNT_AS_VASSAL_PRESTIGE = 0.04,
+	DUKE_AS_VASSAL_PRESTIGE = 0.10,
+	KING_AS_VASSAL_PRESTIGE = 0.4,
 	EMPEROR_AS_VASSAL_PRESTIGE = 1.0, 	-- Impossible, but needs to be here
 
 -- Monthly prestige from held titles
