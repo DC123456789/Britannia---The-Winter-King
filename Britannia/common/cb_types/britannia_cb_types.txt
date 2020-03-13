@@ -1812,7 +1812,7 @@ county_conquest = {
 			}
 		}
 		modifier = {
-			factor = 8
+			factor = 10
 			ROOT = { 
 				is_ingvaeonic_culture_trigger = yes
 				primary_title = { title = k_anglia }
@@ -1827,7 +1827,7 @@ county_conquest = {
 			}
 		}
 		modifier = {
-			factor = 5
+			factor = 3
 			ROOT = { 
 				is_ingvaeonic_culture_trigger = yes
 				primary_title = { title = k_anglia }
@@ -1837,15 +1837,21 @@ county_conquest = {
 				region = custom_cilternsaete
 			}
 		}
-		modifier = {
-			factor = 2
+		modifier = {		# Try to get AI Anglia to take the provinces for creating Cilternsaete and Middle Anglia
+			factor = 3
 			ROOT = { 
 				is_ingvaeonic_culture_trigger = yes
 				primary_title = { title = k_anglia }
 			}
 			NOT = { year = 530 }
-			location = { 
-				region = custom_wixna
+			OR = {
+				title = c_bensington
+				title = c_alchester
+				title = c_chiltern_hills
+				title = c_bannaventa
+				title = c_holland
+				title = c_vernemetum
+				title = c_causennae
 			}
 		}
 		modifier = {
@@ -4443,6 +4449,24 @@ duchy_invasion = {
 			factor = 0
 			ROOT = { frankish_invasion_gaul_event_trigger_with_neighbour_condition = yes }
 			FROM = { has_landed_title = k_gaul }
+		}
+		modifier = {
+			factor = 5
+			ROOT = {
+				culture = oldfrankish
+			}
+			capital_scope = {
+				region = custom_frankish_area
+			}
+		}
+		modifier = {
+			factor = 3
+			ROOT = {
+				culture = oldfrankish
+			}
+			capital_scope = {
+				region = custom_roman_soissons_area
+			}
 		}
 		modifier = {
 			factor = 20
