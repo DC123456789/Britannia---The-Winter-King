@@ -41939,9 +41939,38 @@ e_germania = {				# High Kingdom of Germania
 		dynasty_title_names = no
 		
 		allow = {
-			prestige = 2000
-			realm_size = 30
-			culture_group = germanic
+			OR = {
+				AND = {
+					age = 20
+					OR = {
+						culture = oldsaxon
+						culture = saxon
+					}
+					independent = yes
+					prestige = 1500
+					num_of_count_titles_in_realm = 15
+				}
+				AND = {
+					is_frankish_culture_trigger = yes
+					custom_tooltip = {
+						text = saxony_subjugated_tooltip
+						has_global_flag = saxony_subjugated
+					}
+				}
+				AND = {
+					culture_group = germanic
+					top_liege = { 
+						culture_group = germanic
+						tier = EMPEROR
+					}
+				}
+			}	
+			conditional_tooltip = {
+				trigger = {
+					is_roman_emperor_trigger = yes
+				}
+				is_roman_emperor_trigger = no
+			}
 		}
 		
 		d_nordalbingia = {
@@ -49027,7 +49056,7 @@ e_germania = {				# High Kingdom of Germania
 					completely_controls = c_stadunensis
 					completely_controls = c_verdun
 				}
-				realm_size = 20
+				num_of_count_titles_in_realm = 15
 			}
 		}
 	}
@@ -49056,7 +49085,8 @@ e_germania = {				# High Kingdom of Germania
 						}
 					}
 					independent = yes
-					prestige = 1250
+					prestige = 1500
+					num_of_count_titles_in_realm = 15
 				}
 				AND = {
 					is_frankish_culture_trigger = yes
@@ -49067,10 +49097,18 @@ e_germania = {				# High Kingdom of Germania
 				}
 				AND = {
 					culture_group = germanic
-					is_romanized_germanic_trigger = no
-					top_liege = { has_landed_title = e_germania }
+					top_liege = { 
+						culture_group = germanic
+						tier = EMPEROR
+					}
 				}
-			}				
+			}	
+			conditional_tooltip = {
+				trigger = {
+					is_roman_emperor_trigger = yes
+				}
+				is_roman_emperor_trigger = no
+			}
 		}
 		
 		d_west_frisia = {
@@ -50359,7 +50397,8 @@ e_germania = {				# High Kingdom of Germania
 						culture = alemannic
 					}
 					independent = yes
-					prestige = 1250
+					prestige = 1500
+					num_of_count_titles_in_realm = 15
 				}
 				AND = {
 					is_frankish_culture_trigger = yes
@@ -50370,9 +50409,17 @@ e_germania = {				# High Kingdom of Germania
 				}
 				AND = {
 					culture_group = germanic
-					is_romanized_germanic_trigger = no
-					top_liege = { has_landed_title = e_germania }
+					top_liege = { 
+						culture_group = germanic
+						tier = EMPEROR
+					}
 				}
+			}	
+			conditional_tooltip = {
+				trigger = {
+					is_roman_emperor_trigger = yes
+				}
+				is_roman_emperor_trigger = no
 			}
 			hidden_tooltip = {
 				OR = {
@@ -51397,16 +51444,24 @@ e_germania = {				# High Kingdom of Germania
 		culture = oldfrankish
 		
 		assimilate = no
-	
+		
 		allow = {
 			has_global_flag = franconia_created
 			OR = {
 				is_frankish_culture_trigger = yes
 				AND = {
 					culture_group = germanic
-					is_romanized_germanic_trigger = no
-					top_liege = { has_landed_title = e_germania }
+					top_liege = { 
+						culture_group = germanic
+						tier = EMPEROR
+					}
 				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					is_roman_emperor_trigger = yes
+				}
+				is_roman_emperor_trigger = no
 			}
 		}
 	}

@@ -11097,7 +11097,7 @@ free_tributary_cb = {
 		}
 		
 		modifier = {
-			factor = 10
+			factor = 20
 			ROOT = { is_tributary = { type = anglosaxon_tributary } }
 		}
 		
@@ -11109,6 +11109,48 @@ free_tributary_cb = {
 		}
 		
 		modifier = {
+			factor = 1.5
+			FROM = { war = yes }
+		}
+		
+		modifier = {
+			factor = 1.5
+			FROM = { 
+				war = yes 
+				OR = {
+					is_primary_war_attacker = yes
+					is_primary_war_defender = yes
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 4
+			# Is in a civil war/rebellion
+			FROM = { 
+				war = yes 
+				any_war = {
+					OR = {
+						AND = {
+							attacker = { character = FROM }
+							defender = {
+								in_revolt = yes
+								liege_before_war = { character = FROM }
+							}
+						}
+						AND = {
+							defender = { character = FROM }
+							attacker = {
+								in_revolt = yes
+								liege_before_war = { character = FROM }
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		modifier = {
 			factor = 4
 			ROOT = {
 				OR = {
@@ -11116,6 +11158,16 @@ free_tributary_cb = {
 					is_tributary = { type = britannia_subject }
 				}
 				trait = ambitious
+			}
+		}
+		
+		modifier = {
+			factor = 1.5
+			ROOT = {
+				relative_power = {
+					who = FROM
+					power = 0.75
+				}
 			}
 		}
 		
