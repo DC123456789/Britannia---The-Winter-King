@@ -321,7 +321,7 @@ imperial_reclaim = {
 				has_landed_title = e_roman_britannia
 				AND = {
 					age = 20
-					has_landed_title = k_gaul
+					num_of_count_titles_in_realm = 10
 					prestige = 2000
 					OR = {
 						trait = skilled_tactician
@@ -365,7 +365,15 @@ imperial_reclaim = {
 		ROOT = {
 			OR = {
 				is_roman_emperor_trigger = yes
-				has_landed_title = k_gaul
+				AND = {
+					any_demesne_title = {
+						has_title_flag = roman_province
+					}
+					NOR = { 
+						is_brythonic_culture_trigger = yes
+						government = sub_roman_brythonic_government 
+					}
+				}
 			}
 			NOT = { same_realm = FROM }
 			is_female = no
