@@ -2161,6 +2161,66 @@ is_holding_well_developed_trigger = {
 	}
 }
 
+title_gender_requirement_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			NOT = {
+				has_game_rule = {
+					name = gender
+					value = all
+				}
+			}
+		}
+		OR = {
+			conditional_tooltip = {
+				trigger = {
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
+				is_female = no
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_religion_feature = religion_matriarchal
+				}
+				AND = {
+					is_female = no
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_religion_feature = religion_matriarchal
+				}
+				AND = {
+					is_female = yes
+					has_religion_feature = religion_matriarchal
+				}
+			}
+			primary_title = { has_law = status_of_women_4 }
+			custom_tooltip = {
+				text = follows_feminist_religion
+				hidden_tooltip = {
+					OR = {
+						has_religion_feature = religion_equal
+						has_religion_feature = religion_feature_pict
+						AND = {
+							religion = pict_pagan_reformed
+							has_religion_features = no
+						}
+						has_religion_feature = religion_feature_vasconic
+						AND = {
+							religion = vasconic_pagan_reformed
+							has_religion_features = no
+						}
+						religion = promethean_pagan
+						religion = britannic_pagan
+					}
+				}
+			}
+		}
+	}
+}
+
 local_resistance_potential_trigger = {
 	OR = {
 		AND = {

@@ -1030,7 +1030,10 @@ can_be_chancellor_trigger = {
 					OR = {
 						religion = pict_pagan
 						religion = pict_pagan_reformed
+						religion = vasconic_pagan
+						religion = vasconic_pagan_reformed
 						religion = promethean_pagan
+						religion = britannic_pagan
 					}
 					religion = ROOT
 				}
@@ -1109,11 +1112,20 @@ can_be_marshal_trigger = {
 					} 
 				}
 				trait = horse # So we can have female glitterhoofs! :D
-				OR = {
-					AND = {
+				AND = {
+					OR = {
+						AND = {
+							religion = pict_pagan_reformed
+							has_religion_features = no
+						}
+						AND = {
+							religion = vasconic_pagan_reformed
+							has_religion_features = no
+						}
 						religion = promethean_pagan
-						liege = { religion = promethean_pagan }
+						religion = britannic_pagan
 					}
+					religion = ROOT
 				}
 				AND = {
 					liege = {
@@ -1203,8 +1215,15 @@ can_be_treasurer_trigger = {
 				}
 				trait = horse # So we can have female glitterhoofs! :D
 				AND = {
-					religion = promethean_pagan
-					liege = { religion = promethean_pagan }
+					OR = {
+						religion = pict_pagan
+						religion = pict_pagan_reformed
+						religion = vasconic_pagan
+						religion = vasconic_pagan_reformed
+						religion = promethean_pagan
+						religion = britannic_pagan
+					}
+					religion = ROOT
 				}
 				AND = {
 					liege = {
@@ -1292,29 +1311,16 @@ can_be_spymaster_trigger = {
 					}
 				}
 				AND = {
-					religion = pict_pagan
-					liege = { 
-						religion = pict_pagan 
-						NOR = {
-							liege = { has_religion_feature = religion_matriarchal } 
-							liege = { has_religion_feature = religion_patriarchal } 
-						}
+					OR = {
+						religion = pict_pagan
+						religion = pict_pagan_reformed
+						religion = vasconic_pagan
+						religion = vasconic_pagan_reformed
+						religion = promethean_pagan
+						religion = britannic_pagan
 					}
-				}
-				AND = {
-					religion = pict_pagan_reformed
 					liege = { 
-						religion = pict_pagan_reformed 
-						NOR = {
-							liege = { has_religion_feature = religion_matriarchal } 
-							liege = { has_religion_feature = religion_patriarchal } 
-						}
-					}
-				}
-				AND = {
-					religion = promethean_pagan
-					liege = { 
-						religion = promethean_pagan 
+						religion = PREV 
 						NOR = {
 							liege = { has_religion_feature = religion_matriarchal } 
 							liege = { has_religion_feature = religion_patriarchal } 
@@ -1469,7 +1475,10 @@ can_be_councilmember_king_trigger = {
 				OR = {
 					religion = pict_pagan
 					religion = pict_pagan_reformed
+					religion = vasconic_pagan
+					religion = vasconic_pagan_reformed
 					religion = promethean_pagan
+					religion = britannic_pagan
 				}
 				liege = { religion = ROOT }
 			}
@@ -1534,7 +1543,10 @@ can_be_councilmember_emperor_trigger = {
 					OR = {
 						religion = pict_pagan
 						religion = pict_pagan_reformed
+						religion = vasconic_pagan
+						religion = vasconic_pagan_reformed
 						religion = promethean_pagan
+						religion = britannic_pagan
 					}
 					liege = { religion = ROOT }
 				}
