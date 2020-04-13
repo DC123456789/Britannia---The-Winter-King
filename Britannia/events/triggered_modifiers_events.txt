@@ -2533,7 +2533,8 @@ character_event = {
 			which = tribal_prestige
 		}
 		
-		# Tribal Variable -= max(Num of Provinces - 4, 0)(*0.7 if High Tribal)(*1.2 if Low Tribal)
+		# Tribal Variable -= max(Num of Provinces - 4, 0)(*0.7 if High Tribal)(*1.2 if Low Tribal)(*0.8 if not Celtic/Ingvaeonic/North Germanic/Vasconian)
+		# 							(*0.85 if lowest Tribal Organization)(*1.1 if second highest Tribal Organization)(*1.2 if highest Tribal Organization)
 		export_to_variable = {
 			which = tribal_num_provinces
 			value = num_of_count_titles_in_realm
@@ -2583,6 +2584,68 @@ character_event = {
 			multiply_variable = {
 				which = tribal_num_provinces
 				value = 0.7
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					culture_group = celtic
+					is_north_germanic_trigger = yes
+					is_ingvaeonic_culture_trigger = yes
+					culture_group = basque
+				}
+			}
+			multiply_variable = {
+				which = tribal_num_provinces
+				value = 0.8
+			}
+		}
+		if = {
+			limit = { 
+				primary_title = {
+					OR = {
+						has_law = tribal_organization_0 
+						AND = {
+							has_law = tribal_organization_3
+							ROOT = { government = high_tribal_government }
+						}
+					}
+				}
+			}
+			multiply_variable = {
+				which = tribal_num_provinces
+				value = 0.85
+			}
+		}
+		else_if = {
+			limit = { 
+				primary_title = {
+					OR = {
+						has_law = tribal_organization_2 
+						has_law = tribal_organization_5
+					}
+				}
+			}
+			multiply_variable = {
+				which = tribal_num_provinces
+				value = 1.1
+			}
+		}
+		else_if = {
+			limit = { 
+				primary_title = {
+					OR = {
+						AND = {
+							has_law = tribal_organization_3
+							ROOT = { government = tribal_government }
+						}
+						has_law = tribal_organization_6
+					}
+				}
+			}
+			multiply_variable = {
+				which = tribal_num_provinces
+				value = 1.2
 			}
 		}
 		if = {
