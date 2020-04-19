@@ -1381,7 +1381,7 @@ decisions = {
 			age = 15
 			#character = 1100
 			culture = oldfrankish
-			NOT = { religion_group = christian }
+			religion_group = pagan_group 
 			NOT = { has_character_flag = converted_to_catholicism }
 			NOT = { has_character_flag = converted }
 			NOT = {	
@@ -1395,6 +1395,7 @@ decisions = {
 				#culture_group = imperiale
 			}
 			OR = {
+				has_landed_title = e_franks
 				has_landed_title = k_neustria
 				has_landed_title = k_orleans
 				has_landed_title = k_aquitaine
@@ -1409,6 +1410,10 @@ decisions = {
 			NOT = { has_character_flag = converted_to_catholicism }
 			NOT = { has_character_flag = converted }
 			NOT = { trait = zealous }
+			OR = {
+				independent = yes
+				top_liege = { religion_group = christian }
+			}
 		}
 		effect = {
 			set_character_flag = converted_to_catholicism
@@ -1422,6 +1427,10 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				is_reformed_religion = yes
+				factor = 0
+			}
 			modifier = {
 				factor = 0.01	# Slow it down
 			}
