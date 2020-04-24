@@ -8087,7 +8087,8 @@ character_event = {
 				}
 			}
 			set_province_flag = iclingas_invasion_province
-			character_event = { id = 313054 }	# Spawn Troops
+			save_event_target_as = iclingas_invasion_province
+			ROOT = { character_event = { id = 313054 } }	# Spawn Troops
 		}
 	}
 }
@@ -8100,234 +8101,231 @@ character_event = {			# Spawn troops
 
 	option = {
 		name = "OK"
-		any_independent_ruler = {
-			any_realm_province = {
-				limit = { has_province_flag = iclingas_invasion_province }
-				ROOT = {
+		event_target:iclingas_invasion_province = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					owner = ROOT
+					earmark = iclingas_army_560
+					troops = {
+						archers = { 200 200 }
+						light_infantry = { 300 300 }
+						pikemen = { 500 500 }
+						heavy_infantry = { 1000 1000 }
+					}
+					attrition = 0.25
+				}
+				if = {
+					limit = {
+						PREV = {
+							owner = {
+								top_liege = { tier = emperor }
+							}
+						}
+					}
 					spawn_unit = {
 						province = PREV
 						home = PREV
 						owner = ROOT
-						earmark = iclingas_army_560
-						troops = {
-								archers = { 200 200 }
-								light_infantry = { 300 300 }
-								pikemen = { 500 500 }
-								heavy_infantry = { 1000 1000 }
-						}
-						attrition = 0.25
-					}
-					if = {
-						limit = {
-							PREV = {
-								owner = {
-									top_liege = { tier = emperor }
-								}
-							}
-						}
-						spawn_unit = {
-							province = PREV
-							home = PREV
-							owner = ROOT
-							earmark = iclingas_army_560 
-							troops = {
-								light_infantry = { 1000 1000 }
-								pikemen = { 500 500 }
-								heavy_infantry = { 2000 2000 }
-							}
-							attrition = 0.25
-						}
-					}
-					if = {
-						limit = { has_global_flag = iclingas_invasion_580 }
-						spawn_unit = {
-							province = PREV
-							home = PREV
-							owner = ROOT
-							earmark = iclingas_army_560 
-							troops = {
-								light_infantry = { 500 500 }
-								pikemen = { 1200 1200 }
-								heavy_infantry = { 1700 1700 }
-								archers = { 600 600 }
-							}
-							attrition = 0.25
-						}
-					}
-				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					religion = germanic_pagan
-					culture = angle
-					female = no
-					employer = d_iclingas
-					age = 21
-					attributes = {
-						martial = 13
-						stewardship = 11
-						diplomacy = 10
-					}
-					trait = brilliant_strategist
-					trait = veteran
-					trait = brave
-					trait = loyal
-					#trait = ruthless
-				}
-				new_character = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
 						earmark = iclingas_army_560 
-						owner = ROOT
 						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 700 700 }
-							heavy_infantry = { 800 800 }
+							light_infantry = { 1000 1000 }
+							pikemen = { 500 500 }
+							heavy_infantry = { 2000 2000 }
 						}
 						attrition = 0.25
 					}
 				}
-				new_character = {
+				if = {
+					limit = { has_global_flag = iclingas_invasion_580 }
 					spawn_unit = {
 						province = PREV
 						home = PREV
-						earmark = iclingas_army_560 
 						owner = ROOT
-						troops = {
-							light_infantry = { 300 300 }
-							pikemen = { 700 700 }
-							heavy_infantry = { 800 800 }
-						}
-						attrition = 0.25
-						disband_on_peace = yes
-					}
-				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					religion = germanic_pagan
-					culture = angle
-					female = no
-					employer = d_iclingas
-					age = 35
-					attributes = {
-						martial = 11
-						diplomacy = 10
-						stewardship = 10
-					}
-					trait = brilliant_strategist
-					trait = veteran
-					trait = brave
-					trait = loyal
-				}
-				new_character = {
-					spawn_unit = {
-						province = PREV
-						home = PREV
 						earmark = iclingas_army_560 
-						owner = ROOT
 						troops = {
-							pikemen = { 700 700 }
+							light_infantry = { 500 500 }
+							pikemen = { 1200 1200 }
 							heavy_infantry = { 1700 1700 }
-							archers = { 500 500 }
+							archers = { 600 600 }
 						}
 						attrition = 0.25
-						disband_on_peace = yes
 					}
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = angle
-					employer = d_iclingas
-					age = 19
-					attributes = {
-						learning = 8
-						diplomacy = 6
-						stewardship = 12
-					}
-					trait = thrifty_clerk
-					trait = fair
-					trait = gregarious
-					trait = kind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = angle
+				female = no
+				employer = d_iclingas
+				age = 21
+				attributes = {
+					martial = 13
+					stewardship = 11
+					diplomacy = 10
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = angle
-					employer = d_iclingas
-					age = 16
-					attributes = {
-						learning = 8
-						diplomacy = 9
-						stewardship = 10
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+				#trait = ruthless
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = iclingas_army_560 
+					owner = ROOT
+					troops = {
+						light_infantry = { 300 300 }
+						pikemen = { 700 700 }
+						heavy_infantry = { 800 800 }
 					}
-					trait = naive_appeaser
-					trait = diligent
-					trait = quick
-					trait = trusting
+					attrition = 0.25
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = angle
-					employer = d_iclingas
-					age = 23
-					attributes = {
-						learning = 7
-						diplomacy = 11
-						stewardship = 10
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = iclingas_army_560 
+					owner = ROOT
+					troops = {
+						light_infantry = { 300 300 }
+						pikemen = { 700 700 }
+						heavy_infantry = { 800 800 }
 					}
-					trait = naive_appeaser
-					#trait = familyperson
-					trait = lustful
-					trait = trusting
+					attrition = 0.25
+					disband_on_peace = yes
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = no
-					religion = germanic_pagan
-					culture = angle
-					employer = d_iclingas
-					age = 40
-					attributes = {
-						learning = 11
-						diplomacy = 11
-						stewardship = 11
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				religion = germanic_pagan
+				culture = angle
+				female = no
+				employer = d_iclingas
+				age = 35
+				attributes = {
+					martial = 11
+					diplomacy = 10
+					stewardship = 10
+				}
+				trait = brilliant_strategist
+				trait = veteran
+				trait = brave
+				trait = loyal
+			}
+			new_character = {
+				spawn_unit = {
+					province = PREV
+					home = PREV
+					earmark = iclingas_army_560 
+					owner = ROOT
+					troops = {
+						pikemen = { 700 700 }
+						heavy_infantry = { 1700 1700 }
+						archers = { 500 500 }
 					}
-					trait = charismatic_negotiator
-					trait = gregarious
-					#trait = authoritative
-					trait = temperate
-					trait = loyal
+					attrition = 0.25
+					disband_on_peace = yes
 				}
-				create_character = {
-					random_traits = yes
-					dynasty = random
-					female = yes
-					religion = germanic_pagan
-					culture = angle
-					employer = d_iclingas
-					age = 20
-					attributes = {
-						learning = 11
-						intrigue = 12
-					}
-					trait = elusive_shadow
-					trait = greedy
-					trait = mystic
-					trait = quick
-					trait = ambitious
-					trait = loyal
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = angle
+				employer = d_iclingas
+				age = 19
+				attributes = {
+					learning = 8
+					diplomacy = 6
+					stewardship = 12
 				}
+				trait = thrifty_clerk
+				trait = fair
+				trait = gregarious
+				trait = kind
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = angle
+				employer = d_iclingas
+				age = 16
+				attributes = {
+					learning = 8
+					diplomacy = 9
+					stewardship = 10
+				}
+				trait = naive_appeaser
+				trait = diligent
+				trait = quick
+				trait = trusting
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = angle
+				employer = d_iclingas
+				age = 23
+				attributes = {
+					learning = 7
+					diplomacy = 11
+					stewardship = 10
+				}
+				trait = naive_appeaser
+				#trait = familyperson
+				trait = lustful
+				trait = trusting
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = no
+				religion = germanic_pagan
+				culture = angle
+				employer = d_iclingas
+				age = 40
+				attributes = {
+					learning = 11
+					diplomacy = 11
+					stewardship = 11
+				}
+				trait = charismatic_negotiator
+				trait = gregarious
+				#trait = authoritative
+				trait = temperate
+				trait = loyal
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = random
+				female = yes
+				religion = germanic_pagan
+				culture = angle
+				employer = d_iclingas
+				age = 20
+				attributes = {
+					learning = 11
+					intrigue = 12
+				}
+				trait = elusive_shadow
+				trait = greedy
+				trait = mystic
+				trait = quick
+				trait = ambitious
+				trait = loyal
 			}
 		}
 	}
