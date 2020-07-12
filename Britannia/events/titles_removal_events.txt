@@ -1730,16 +1730,10 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_global_flag = ayrshire_created
-		c_lothian = {
-			is_germanic_controlled_trigger = no 
-		}
 		c_ayr = {
 			is_germanic_controlled_trigger = no
 		}
 		c_southayr = {
-			is_germanic_controlled_trigger = no
-		}
-		c_govan = {
 			is_germanic_controlled_trigger = no
 		}
 		c_cunninghame = {
@@ -1757,13 +1751,9 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { has_global_flag = aeron_renamed } }
-			c_govan = { de_jure_liege = d_lennox }
-			c_lothian = { de_jure_liege = d_manaw }
 			c_lochduin = { de_jure_liege = d_selgovae }
 		}
 		else = {
-			c_govan = { de_jure_liege = d_aeron }
-			c_lothian = { de_jure_liege = d_aeron }
 			c_lochduin = { de_jure_liege = d_aeron }
 		}
 		if = {
@@ -1778,6 +1768,81 @@ narrative_event = {
 		c_ayr = { de_jure_liege = d_aeron }
 		d_ayrshire = { destroy_landed_title = THIS }
 		clr_global_flag = ayrshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA4141143"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB4141143"
+	}
+}
+# Jarldom of Ayrshire
+narrative_event = {
+	id = 4141144
+	title = "EVTNAME4141144"
+	desc = "EVTDESC4141144"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = anglelennox_created
+		c_altclut = {
+			is_germanic_controlled_trigger = no 
+		}
+		c_lumonwy = {
+			is_germanic_controlled_trigger = no
+		}
+		c_govan = {
+			is_germanic_controlled_trigger = no
+		}
+		c_iuddeu = {
+			is_germanic_controlled_trigger = no
+		}
+		c_lothian = {
+			is_germanic_controlled_trigger = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = aeron_renamed } }
+			c_govan = { de_jure_liege = d_lennox }
+			c_lothian = { de_jure_liege = d_manaw }
+		}
+		else = {
+			c_govan = { de_jure_liege = d_aeron }
+			c_lothian = { de_jure_liege = d_aeron }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = lennox_renamed } }
+			c_iuddeu = { de_jure_liege = d_manaw }
+		}
+		else = {
+			c_iuddeu = { de_jure_liege = d_lumond }
+		}
+		c_altclut = { de_jure_liege = d_lumond }
+		c_lumonwy = { de_jure_liege = d_lumond }
+		d_anglelennox = { destroy_landed_title = THIS }
+		clr_global_flag = anglelennox_created
 	}
 	
 	option = {

@@ -2052,7 +2052,7 @@ character_event = {
 	}
 }
 
-# Creation of the Jarldom of Deira
+# Creation of the Ealdormary of Deira
 narrative_event = {
 	id = 314111
 	title = "EVTNAME314111"
@@ -2098,7 +2098,7 @@ narrative_event = {
 		name = "EVTOPTA314111"
 	}
 }
-# Creation of the Jarldom of Recedsaete
+# Creation of the Ealdormary of Recedsaete
 narrative_event = {
 	id = 314112
 	title = "EVTNAME314112"
@@ -2140,7 +2140,7 @@ narrative_event = {
 		name = "EVTOPTA314112"
 	}
 }
-# Creation of the Jarldom of Southumbria/Elmetsaete
+# Creation of the Ealdormary of Southumbria/Elmetsaete
 narrative_event = {
 	id = 3141124
 	title = "EVTNAME3141124"
@@ -2189,7 +2189,7 @@ narrative_event = {
 		name = "EVTOPTA3141124"
 	}
 }
-# Creation of the Jarldom of Cumbria
+# Creation of the Ealdormary of Cumbria
 narrative_event = {
 	id = 314113
 	title = "EVTNAME314113"
@@ -2226,7 +2226,7 @@ narrative_event = {
 		name = "EVTOPTA314113"
 	}
 }
-# Creation of the Jarldom of Bernicia
+# Creation of the Ealdormary of Bernicia
 narrative_event = {
 	id = 314114
 	title = "EVTNAME314114"
@@ -2272,7 +2272,7 @@ narrative_event = {
 		name = "EVTOPTA314114"
 	}
 }
-# Creation of the Jarldom of Lothian
+# Creation of the Ealdormary of Lothian
 narrative_event = {
 	id = 3141141
 	title = "EVTNAME3141141"
@@ -2311,7 +2311,7 @@ narrative_event = {
 		name = "EVTOPTA3141141"
 	}
 }
-# Creation of the Jarldom of Galloway
+# Creation of the Ealdormary of Galloway
 narrative_event = {
 	id = 3141142
 	title = "EVTNAME3141142"
@@ -2348,7 +2348,7 @@ narrative_event = {
 		name = "EVTOPTA3141142"
 	}
 }
-# Creation of the Jarldom of Ayrshire
+# Creation of the Ealdormary of Ayrshire
 narrative_event = {
 	id = 3141143
 	title = "EVTNAME3141143"
@@ -2374,12 +2374,47 @@ narrative_event = {
 		c_ayr = { de_jure_liege = d_ayrshire }
 		c_southayr = { de_jure_liege = d_ayrshire }
 		c_cunninghame = { de_jure_liege = d_ayrshire }
-		c_govan = { de_jure_liege = d_ayrshire }
 		c_lochduin = { de_jure_liege = d_ayrshire }
-		c_lothian = { de_jure_liege = d_ayrshire }
 		#d_ayrshire = { de_jure_liege = k_northumbria }	
 		d_aeron = { destroy_landed_title = THIS }
 		set_global_flag = ayrshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA3141143"
+	}
+}
+# Creation of the Ealdormary of Lennox
+narrative_event = {
+	id = 3141144
+	title = "EVTNAME3141144"
+	desc = "EVTDESC3141144"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_anglelennox
+		NOT = { has_global_flag = anglelennox_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_altclut = { de_jure_liege = d_anglelennox }
+		c_lumonwy = { de_jure_liege = d_anglelennox }
+		c_govan = { de_jure_liege = d_anglelennox }
+		c_iuddeu = { de_jure_liege = d_anglelennox }
+		c_lothian = { de_jure_liege = d_anglelennox }
+		#d_anglelennox = { de_jure_liege = k_northumbria }	
+		d_lumond = { destroy_landed_title = THIS }
+		set_global_flag = anglelennox_created
 	}
 	
 	option = {
@@ -3721,6 +3756,17 @@ narrative_event = {		# Northumbria
 				NOT = { has_global_flag = ayrshire_created }
 			}
 			d_ayrshire = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Lennox
+			limit = {
+				d_anglelennox = { has_holder = no }
+				is_landed_title_allowed = d_anglelennox
+				NOT = { has_global_flag = anglelennox_created }
+			}
+			d_anglelennox = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -23876,9 +23922,7 @@ narrative_event = {	# Bernicia, Cumbria, Lothian, Galloway, Ayrshire
 			c_ayr = { de_jure_liege = d_ayrshire }
 			c_southayr = { de_jure_liege = d_ayrshire }
 			c_cunninghame = { de_jure_liege = d_ayrshire }
-			c_govan = { de_jure_liege = d_ayrshire }
 			c_lochduin = { de_jure_liege = d_ayrshire }
-			c_lothian = { de_jure_liege = d_ayrshire }
 		}
 	}
 	
