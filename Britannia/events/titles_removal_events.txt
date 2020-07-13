@@ -11279,12 +11279,12 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		c_govan = { de_jure_liege = d_lennox }
-		c_lochduin = { de_jure_liege = d_selgovae }
 		if = {
-			limit = { NOT = { has_global_flag = ayrshire_created } }
+			limit = { NOT = { has_global_flag = anglelennox_created } }
+			c_govan = { de_jure_liege = d_lennox }
 			c_lothian = { de_jure_liege = d_manaw }
 		}
+		c_lochduin = { de_jure_liege = d_selgovae }
 		
 		clr_global_flag = aeron_renamed
 	}
@@ -11378,6 +11378,7 @@ narrative_event = {
 		c_lochearn = {
 			is_celtic_controlled_trigger = yes
 		}
+		NOT = { has_global_flag = anglelennox_created }
 		has_global_flag = lennox_renamed
 	}
 	
@@ -11393,8 +11394,11 @@ narrative_event = {
 		}
 		
 		c_iuddeu = { de_jure_liege = d_manaw }
-		c_caledonia = { de_jure_liege = d_fotla }
-		c_lochearn = { de_jure_liege = d_fotla }
+		if = {
+			limit = { NOT = { has_global_flag = perthshire_created } }
+			c_caledonia = { de_jure_liege = d_fotla }
+			c_lochearn = { de_jure_liege = d_fotla }
+		}
 		
 		clr_global_flag = lennox_renamed
 	}
@@ -11435,6 +11439,7 @@ narrative_event = {
 		c_gowrie = {
 			is_celtic_controlled_trigger = yes
 		}
+		NOT = { has_global_flag = fifeshire_created }
 		has_global_flag = fib_renamed
 	}
 	
@@ -11448,10 +11453,15 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		
-		c_gowrie = { de_jure_liege = d_circind }
-		c_angus = { de_jure_liege = d_circind }
-		c_strathmore = { de_jure_liege = d_circind }
+		if = {
+			limit = { NOT = { has_global_flag = perthshire_created } }
+			c_gowrie = { de_jure_liege = d_circind }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = forfarshire_created } }
+			c_angus = { de_jure_liege = d_circind }
+			c_strathmore = { de_jure_liege = d_circind }
+		}		
 		
 		clr_global_flag = fib_renamed
 	}
@@ -11492,6 +11502,7 @@ narrative_event = {
 		c_the_mearns = {
 			is_celtic_controlled_trigger = yes
 		}
+		NOT = { has_global_flag = aberdeenshire_created }
 		has_global_flag = cei_renamed
 	}
 	
@@ -11505,8 +11516,10 @@ narrative_event = {
 			set_name = ""
 			adjective = ""
 		}
-		
-		c_the_mearns = { de_jure_liege = d_circind }
+		if = {
+			limit = { NOT = { has_global_flag = forfarshire_created } }
+			c_the_mearns = { de_jure_liege = d_circind }
+		}		
 		
 		clr_global_flag = cei_renamed
 	}

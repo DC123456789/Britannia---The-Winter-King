@@ -3415,6 +3415,149 @@ narrative_event = {
 		}
 	}
 }
+# ANGLO-SAXONS IN CALEDONIA
+# Creation of the Ealdormary of Fifeshire
+narrative_event = {
+	id = 314140
+	title = "EVTNAME314140"
+	desc = "EVTDESC314140"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_fifeshire
+		NOT = { has_global_flag = fifeshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_eastcaledonia = { de_jure_liege = d_fifeshire }
+		c_fothriff = { de_jure_liege = d_fifeshire }
+		#d_fifeshire = { de_jure_liege = k_pictland }	
+		d_fiobha = { destroy_landed_title = THIS }
+		set_global_flag = fifeshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314114"
+	}
+}
+# Creation of the Ealdormary of Perthshire
+narrative_event = {
+	id = 314141
+	title = "EVTNAME314141"
+	desc = "EVTDESC314141"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_perthshire
+		NOT = { has_global_flag = perthshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_lochearn = { de_jure_liege = d_perthshire }
+		c_caledonia = { de_jure_liege = d_perthshire }
+		c_attacotia = { de_jure_liege = d_perthshire }
+		c_fotla = { de_jure_liege = d_perthshire }
+		c_rannoch = { de_jure_liege = d_perthshire }
+		c_gowrie = { de_jure_liege = d_perthshire }
+		#d_perthshire = { de_jure_liege = k_pictland }	
+		d_fotla = { destroy_landed_title = THIS }
+		set_global_flag = perthshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314114"
+	}
+}
+# Creation of the Ealdormary of Forfarshire
+narrative_event = {
+	id = 314142
+	title = "EVTNAME314142"
+	desc = "EVTDESC314142"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_forfarshire
+		NOT = { has_global_flag = forfarshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_angus = { de_jure_liege = d_forfarshire }
+		c_strathmore = { de_jure_liege = d_forfarshire }
+		c_the_mearns = { de_jure_liege = d_forfarshire }
+		#d_forfarshire = { de_jure_liege = k_pictland }	
+		d_circind = { destroy_landed_title = THIS }
+		set_global_flag = forfarshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314114"
+	}
+}
+# Creation of the Ealdormary of Aberdeenshire
+narrative_event = {
+	id = 314143
+	title = "EVTNAME314143"
+	desc = "EVTDESC314143"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_aberdeenshire
+		NOT = { has_global_flag = aberdeenshire_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_aberdeen = { de_jure_liege = d_aberdeenshire }
+		c_buchan = { de_jure_liege = d_aberdeenshire }
+		c_cei = { de_jure_liege = d_aberdeenshire }
+		#d_aberdeenshire = { de_jure_liege = k_pictland }	
+		d_ce = { destroy_landed_title = THIS }
+		set_global_flag = aberdeenshire_created
+	}
+	
+	option = {
+		name = "EVTOPTA314114"
+	}
+}
 
 # AI CREATION OF TITULAR DUCHIES
 narrative_event = {		# Mercia
@@ -9157,8 +9300,11 @@ narrative_event = {
 			set_name = "Damnonia"
 			adjective = "Damnonian"
 		}
-		c_govan = { de_jure_liege = d_aeron }
-		c_lothian = { de_jure_liege = d_aeron }
+		if = {
+			limit = { NOT = { has_global_flag = anglelennox_created } }
+			c_govan = { de_jure_liege = d_aeron }
+			c_lothian = { de_jure_liege = d_aeron }
+		}
 		c_lochduin = { de_jure_liege = d_aeron }
 		
 		set_global_flag = aeron_renamed
@@ -9304,6 +9450,7 @@ narrative_event = {
 		completely_controls = c_altclut
 		completely_controls = c_lochearn
 		independent = yes
+		NOT = { has_global_flag = anglelennox_created }
 		NOT = { has_global_flag = lennox_renamed }
 	}
 	
@@ -9318,8 +9465,11 @@ narrative_event = {
 			adjective = "Attacottian"
 		}
 		c_iuddeu = { de_jure_liege = d_lennox }
-		c_caledonia = { de_jure_liege = d_lennox }
-		c_lochearn = { de_jure_liege = d_lennox }
+		if = {
+			limit = { NOT = { has_global_flag = perthshire_created } }
+			c_caledonia = { de_jure_liege = d_lennox }
+			c_lochearn = { de_jure_liege = d_lennox }
+		}
 		
 		set_global_flag = lennox_renamed
 	}
@@ -9355,6 +9505,7 @@ narrative_event = {
 		completely_controls = c_eastcaledonia
 		completely_controls = c_gowrie
 		independent = yes
+		NOT = { has_global_flag = fifeshire_created }
 		NOT = { has_global_flag = fib_renamed }
 	}
 	
@@ -9368,9 +9519,15 @@ narrative_event = {
 			set_name = "Veniconia"
 			adjective = "Veniconian"
 		}
-		c_gowrie = { de_jure_liege = d_fiobha }
-		c_angus = { de_jure_liege = d_fiobha }
-		c_strathmore = { de_jure_liege = d_fiobha }
+		if = {
+			limit = { NOT = { has_global_flag = perthshire_created } }
+			c_gowrie = { de_jure_liege = d_fiobha }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = forfarshire_created } }
+			c_angus = { de_jure_liege = d_fiobha }
+			c_strathmore = { de_jure_liege = d_fiobha }
+		}
 		
 		set_global_flag = fib_renamed
 	}
@@ -9406,6 +9563,7 @@ narrative_event = {
 		completely_controls = c_aberdeen
 		completely_controls = c_the_mearns
 		independent = yes
+		NOT = { has_global_flag = aberdeenshire_created }
 		NOT = { has_global_flag = cei_renamed }
 	}
 	
@@ -9419,7 +9577,10 @@ narrative_event = {
 			set_name = "Taexalia"
 			adjective = "Taexalian"
 		}
-		c_the_mearns = { de_jure_liege = d_ce }
+		if = {
+			limit = { NOT = { has_global_flag = forfarshire_created } }
+			c_the_mearns = { de_jure_liege = d_ce }
+		}
 		
 		set_global_flag = cei_renamed
 	}
@@ -9503,6 +9664,7 @@ narrative_event = {
 		completely_controls = c_fotla
 		completely_controls = c_badenoch
 		independent = yes
+		NOT = { has_global_flag = perthshire_created }
 		NOT = { has_global_flag = fotla_renamed }
 	}
 	
@@ -26006,6 +26168,11 @@ narrative_event = {	# Brigantia, Selgovia, Votadinia, Damnonia
 				c_lothian = { de_jure_liege = d_aeron }
 				c_lochduin = { de_jure_liege = d_aeron }
 			}
+			if = {
+				limit = { NOT = { has_global_flag = anglelennox_created } }
+				c_govan = { de_jure_liege = d_aeron }
+				c_lothian = { de_jure_liege = d_aeron }
+			}
 		}
 	}
 	
@@ -26041,19 +26208,34 @@ narrative_event = {	# Attacotia, Veniconia, Taexalia
 	immediate = {
 		if = {
 			limit = { has_global_flag = lennox_renamed }
-			c_iuddeu = { de_jure_liege = d_lennox }
-			c_caledonia = { de_jure_liege = d_lennox }
-			c_lochearn = { de_jure_liege = d_lennox }
+			if = {
+				limit = { NOT = { has_global_flag = anglelennox_created } }
+				c_iuddeu = { de_jure_liege = d_lennox }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = perthshire_created } }
+				c_caledonia = { de_jure_liege = d_lennox }
+				c_lochearn = { de_jure_liege = d_lennox }
+			}
 		}
 		if = {
 			limit = { has_global_flag = fib_renamed }
-			c_gowrie = { de_jure_liege = d_fiobha }
-			c_angus = { de_jure_liege = d_fiobha }
-			c_strathmore = { de_jure_liege = d_fiobha }
+			if = {
+				limit = { NOT = { has_global_flag = perthshire_created } }
+				c_gowrie = { de_jure_liege = d_fiobha }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = forfarshire_created } }
+				c_angus = { de_jure_liege = d_fiobha }
+				c_strathmore = { de_jure_liege = d_fiobha }
+			}
 		}
 		if = {
 			limit = { has_global_flag = cei_renamed }
-			c_the_mearns = { de_jure_liege = d_ce }
+			if = {
+				limit = { NOT = { has_global_flag = forfarshire_created } }
+				c_the_mearns = { de_jure_liege = d_ce }
+			}
 		}
 	}
 	
