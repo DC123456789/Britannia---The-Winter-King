@@ -14666,7 +14666,7 @@ e_alba = {
 		}
 		
 		d_forfarshire = {
-			color={ 144 155 70 }
+			color={ 194 165 70 }
 			color2={ 255 255 255 }
 		
 			culture = anglosaxon
@@ -14684,7 +14684,7 @@ e_alba = {
 		}
 		
 		d_aberdeenshire = {
-			color={ 124 145 70 }
+			color={ 164 135 80 }
 			color2={ 255 255 255 }
 		
 			culture = anglosaxon
@@ -14698,6 +14698,142 @@ e_alba = {
 				can_create_germanic_title_trigger = yes
 				completely_controls = c_aberdeen
 				completely_controls = c_buchan
+			}
+		}
+		
+		d_elginshire = {
+			color={ 189 165 100 }
+			color2={ 255 255 255 }
+		
+			culture = anglosaxon
+			
+			title_prefix = "EALDORMANRY_OF"
+			
+			capital = 249	# Elgin/Moray
+			
+			allow = {
+				are_dejure_changes_allowed_trigger = yes
+				can_create_germanic_title_trigger = yes
+				completely_controls = c_moray
+				completely_controls = c_vacomagia
+			}
+		}
+		
+		d_angleargyll = {
+			color={ 196 182 100 }
+			color2={ 255 255 255 }
+		
+			culture = anglosaxon
+			
+			title_prefix = "EALDORMANRY_OF"
+			
+			capital = 261	# Lismore/Scotia
+			
+			allow = {
+				are_dejure_changes_allowed_trigger = yes
+				can_create_germanic_title_trigger = yes
+				conditional_tooltip = {
+					trigger = {
+						NOT = {
+							has_global_flag = norse_skotsland_created
+						}
+					}
+					completely_controls = c_scotia
+					completely_controls = c_dunadd
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOR = {
+							has_global_flag = norse_tyrvist_created
+							has_global_flag = norse_dyrey_created
+						}
+					}
+					OR = {
+						completely_controls = c_epidion
+						completely_controls = c_muile	
+					}
+				}
+				conditional_tooltip = {
+					trigger = {
+						has_global_flag = norse_tyrvist_created
+						NOT = { has_global_flag = norse_dyrey_created }
+					}
+					completely_controls = c_epidion
+				}
+				conditional_tooltip = {
+					trigger = {
+						NOT = { has_global_flag = norse_tyrvist_created }
+						has_global_flag = norse_dyrey_created
+					}
+					completely_controls = c_muile
+				}
+				conditional_tooltip = {
+					trigger = {
+						has_global_flag = norse_skotsland_created
+						has_global_flag = norse_tyrvist_created
+						has_global_flag = norse_dyrey_created
+					}
+					completely_controls = c_cowal
+				}
+			}
+		}
+		
+		d_invernessshire = {
+			color={ 205 162 60 }
+			color2={ 255 255 255 }
+		
+			culture = anglosaxon
+			
+			title_prefix = "EALDORMANRY_OF"
+			
+			capital = 262	# Inverness
+			
+			allow = {
+				are_dejure_changes_allowed_trigger = yes
+				can_create_germanic_title_trigger = yes
+				completely_controls = c_inverness
+				completely_controls = c_inverlochy
+			}
+		}
+		
+		d_rossshire = {
+			color={ 246 212 105 }
+			color2={ 255 255 255 }
+		
+			culture = anglosaxon
+			
+			title_prefix = "EALDORMANRY_OF"
+			
+			capital = 252	# Easter-Ross
+			
+			allow = {
+				are_dejure_changes_allowed_trigger = yes
+				can_create_germanic_title_trigger = yes
+				completely_controls = c_fortrose
+				OR = {
+					completely_controls = c_rois
+					completely_controls = c_westeros
+				}
+				NOT = { has_global_flag = norse_ross_created }
+			}
+		}
+		
+		d_caithness = {
+			color={ 182 175 120 }
+			color2={ 255 255 255 }
+		
+			culture = anglosaxon
+			
+			title_prefix = "EALDORMANRY_OF"
+			
+			capital = 257	# Thurso/Caithness
+			
+			allow = {
+				are_dejure_changes_allowed_trigger = yes
+				can_create_germanic_title_trigger = yes
+				completely_controls = c_gallaibh
+				completely_controls = c_dornoch
+				NOT = { has_global_flag = norse_katanes_created }
 			}
 		}
 
