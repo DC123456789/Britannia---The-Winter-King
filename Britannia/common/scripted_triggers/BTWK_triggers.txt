@@ -429,15 +429,20 @@ is_gallo_romance_culture_trigger = {
 }
 
 can_create_roman_title_trigger = {
-	top_liege = {
-		NOR = {
-			AND = {
-				culture_group = germanic
-				NOT = { is_romanized_germanic_trigger = yes }
+	conditional_tooltip = {
+		trigger = {
+			is_alternate_start = no
+		}
+		top_liege = {
+			NOR = {
+				AND = {
+					culture_group = germanic
+					NOT = { is_romanized_germanic_trigger = yes }
+				}
+				culture = french
+				culture = occitan
+				culture = arpitan
 			}
-			culture = french
-			culture = occitan
-			culture = arpitan
 		}
 	}
 }
@@ -532,10 +537,15 @@ can_create_germanic_title_trigger = {
 }
 
 can_create_brythonic_only_title_trigger = {		# Really means not for Romans or non-Romanized Germanics
-	top_liege = {
-		is_roman_ruler_trigger = no
+	conditional_tooltip = {
+		trigger = {
+			is_alternate_start = no
+		}
+		top_liege = {
+			is_roman_ruler_trigger = no
+		}
+		can_create_roman_title_trigger = yes
 	}
-	can_create_roman_title_trigger = yes
 }
 
 cannot_be_created_by_romans_trigger = {
