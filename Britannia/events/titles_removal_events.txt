@@ -1784,7 +1784,7 @@ narrative_event = {
 		name = "EVTOPTB4141143"
 	}
 }
-# Jarldom of Ayrshire
+# Jarldom of Lennox
 narrative_event = {
 	id = 4141144
 	title = "EVTNAME4141144"
@@ -1843,6 +1843,57 @@ narrative_event = {
 		c_lumonwy = { de_jure_liege = d_lumond }
 		d_anglelennox = { destroy_landed_title = THIS }
 		clr_global_flag = anglelennox_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA4141143"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB4141143"
+	}
+}
+# Jarldom of Mann
+narrative_event = {
+	id = 4141145
+	title = "EVTNAME4141145"
+	desc = "EVTDESC4141145"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = anglemann_created
+		c_ynys_man = {
+			is_germanic_controlled_trigger = no 
+		}
+		c_manaan = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_mon_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_ynys_man = { de_jure_liege = d_ynys_man }
+		c_manaan = { de_jure_liege = d_ynys_man }
+		d_anglemann = { destroy_landed_title = THIS }
+		clr_global_flag = anglemann_created
 	}
 	
 	option = {
@@ -11835,7 +11886,18 @@ narrative_event = {
 					has_global_flag = norse_skotsland_created 
 				}
 			}
-			c_ardnamurchan = { de_jure_liege = d_lorne }
+			if = {
+				limit = { 
+					NAND = {
+						has_global_flag = norse_tyrvist_created 
+						has_global_flag = norse_dyrey_created
+					}
+				}
+				c_ardnamurchan = { de_jure_liege = d_lorne }
+			}
+			else = {
+				c_ardnamurchan = { de_jure_liege = d_argyll }
+			}
 		}
 		if = {
 			limit = { 
@@ -11901,20 +11963,48 @@ narrative_event = {
 	
 	immediate = {
 		if = {
+			limit = {
+				has_global_flag = norse_tyrvist_created
+				has_global_flag = norse_dyrey_created
+				has_global_flag = norse_skotsland_created
+			}
+			d_argyll = { de_jure_liege = k_south_caledonia }
+		}
+		else_if = {
 			limit = { has_global_flag = dalriada_created }
 			d_argyll = { de_jure_liege = k_dalriada }
 		}
-		if = {
-			limit = { NOT = { has_global_flag = dalriada_created } }
+		else = {
 			d_argyll = { de_jure_liege = k_ulaid }
 		}
-		d_argyll = {
-			set_name = ""
-			adjective = ""
+		
+		if = {
+			limit = {
+				has_global_flag = norse_tyrvist_created 
+				has_global_flag = norse_dyrey_created
+			}
+			d_argyll = {
+				set_name = "Airer Goídel"
+				adjective = "Argathelian"
+			}
+		}
+		else = {
+			d_argyll = {
+				set_name = ""
+				adjective = ""
+			}
 		}
 		
-		c_scotia = { de_jure_liege = d_lorne }
-		c_glen_orchy = { de_jure_liege = d_lorne }
+		if = {
+			limit = { 
+				NAND = {
+					has_global_flag = norse_tyrvist_created 
+					has_global_flag = norse_dyrey_created
+				}
+			}
+			c_scotia = { de_jure_liege = d_lorne }
+			c_glen_orchy = { de_jure_liege = d_lorne }
+		}
 		if = {
 			limit = { NOT = { has_global_flag = norse_dyrey_created } }
 			c_epidion = { de_jure_liege = d_hebrides }

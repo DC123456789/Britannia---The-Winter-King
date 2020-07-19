@@ -2421,6 +2421,40 @@ narrative_event = {
 		name = "EVTOPTA3141143"
 	}
 }
+# Creation of the Ealdormary of Mann
+narrative_event = {
+	id = 3141145
+	title = "EVTNAME3141145"
+	desc = "EVTDESC3141145"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_valley_rock"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_anglemann
+		NOT = { has_global_flag = anglemann_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_ynys_man = { de_jure_liege = d_anglemann }
+		c_manann = { de_jure_liege = d_anglemann }
+		#d_anglemann = { de_jure_liege = k_northumbria }	
+		d_ynys_man = { destroy_landed_title = THIS }
+		set_global_flag = anglemann_created
+	}
+	
+	option = {
+		name = "EVTOPTA3141143"
+	}
+}
 # Creation of the Kingdom of Northumbria
 narrative_event = {
 	id = 314115
@@ -23601,6 +23635,30 @@ narrative_event = {
 		c_dunmor = { de_jure_liege = d_port_tyrvist }
 		c_muile = { de_jure_liege = d_port_tyrvist }
 		
+		if = {
+			limit = { 
+				has_global_flag = norse_dyrey_created 
+				NOT = { has_global_flag = angleargyll_created }
+				NOT = { has_global_flag = argyll_renamed }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = norse_skotsland_created } }
+				c_scotia = { de_jure_liege = d_argyll }
+				c_ardnamurchan = { de_jure_liege = d_argyll }
+				c_glen_orchy = { de_jure_liege = d_argyll }
+			}
+			d_argyll = {
+				set_name = "Airer Goídel"
+				adjective = "Argathelian"
+				if = {
+					limit = { 
+						has_global_flag = norse_skotsland_created 
+					}
+					de_jure_liege = k_south_caledonia
+				}
+			}
+		}
+		
 		set_global_flag = norse_tyrvist_created
 	}
 	
@@ -23637,6 +23695,30 @@ narrative_event = {
 		c_epidion = { de_jure_liege = d_port_dyrey }
 		c_cantyre = { de_jure_liege = d_port_dyrey }
 		c_ynys_aru = { de_jure_liege = d_port_dyrey }
+		
+		if = {
+			limit = { 
+				has_global_flag = norse_tyrvist_created 
+				NOT = { has_global_flag = angleargyll_created }
+				NOT = { has_global_flag = argyll_renamed }
+			}
+			if = {
+				limit = { NOT = { has_global_flag = norse_skotsland_created } }
+				c_scotia = { de_jure_liege = d_argyll }
+				c_ardnamurchan = { de_jure_liege = d_argyll }
+				c_glen_orchy = { de_jure_liege = d_argyll }
+			}
+			d_argyll = {
+				set_name = "Airer Goídel"
+				adjective = "Argathelian"
+				if = {
+					limit = { 
+						has_global_flag = norse_skotsland_created 
+					}
+					de_jure_liege = k_south_caledonia
+				}
+			}
+		}
 		
 		set_global_flag = norse_dyrey_created
 	}
@@ -23887,6 +23969,14 @@ narrative_event = {
 		c_dunadd = { de_jure_liege = d_port_skotsland }
 		c_ardnamurchan = { de_jure_liege = d_port_skotsland }
 		
+		if = {
+			limit = { 
+				has_global_flag = norse_tyrvist_created
+				has_global_flag = norse_dyrey_created
+			}
+			d_argyll = { de_jure_liege = k_south_caledonia }
+		}	
+		
 		set_global_flag = norse_skotsland_created
 	}
 	
@@ -23895,40 +23985,40 @@ narrative_event = {
 	}
 }
 # Creation of the Jarldom of Leifernax
-narrative_event = {	
-	id = 320044
-	title = "EVTNAME320044"
-	desc = "EVTDESC320044"
-	major = yes
-	hide_new = yes
+# narrative_event = {	
+	# id = 320044
+	# title = "EVTNAME320044"
+	# desc = "EVTDESC320044"
+	# major = yes
+	# hide_new = yes
 	
-	picture = "GFX_evt_danes_ship_hall"
+	# picture = "GFX_evt_danes_ship_hall"
 	
-	only_playable = yes
+	# only_playable = yes
 	
-	trigger = {
-		is_alternate_start = no
-		has_landed_title = d_port_leifernax
-		NOT = { has_global_flag = norse_leifernax_created }
-	}
+	# trigger = {
+		# is_alternate_start = no
+		# has_landed_title = d_port_leifernax
+		# NOT = { has_global_flag = norse_leifernax_created }
+	# }
 	
-	mean_time_to_happen = {
-		days = 1
-	}
+	# mean_time_to_happen = {
+		# days = 1
+	# }
 	
-	immediate = {
-		d_port_leifernax  = { de_jure_liege = k_south_islands }
-		c_altclut = { de_jure_liege = d_port_leifernax }
-		c_lumonwy = { de_jure_liege = d_port_leifernax }
-		c_cowal = { de_jure_liege = d_port_skotsland }
+	# immediate = {
+		# d_port_leifernax  = { de_jure_liege = k_south_islands }
+		# c_altclut = { de_jure_liege = d_port_leifernax }
+		# c_lumonwy = { de_jure_liege = d_port_leifernax }
+		# c_cowal = { de_jure_liege = d_port_skotsland }
 		
-		set_global_flag = norse_leifernax_created
-	}
+		# set_global_flag = norse_leifernax_created
+	# }
 	
-	option = {
-		name = "EVTOPTA320044"
-	}
-}
+	# option = {
+		# name = "EVTOPTA320044"
+	# }
+# }
 # Creation of Kingdom of Suðreyjar
 narrative_event = {	
 	id = 320045
