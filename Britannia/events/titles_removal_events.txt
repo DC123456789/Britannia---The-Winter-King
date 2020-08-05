@@ -9228,24 +9228,10 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		c_ratiatum = {
-			holder_scope = {
-				top_liege = {
-					OR = {
-						NOT = { culture_group = celtic }
-						is_roman_ruler_trigger = yes
-					}
-				}
-			}
+			is_armorican_controlled_trigger = no
 		}
 		c_vetraria = {
-			holder_scope = {
-				top_liege = {
-					OR = {
-						NOT = { culture_group = celtic }
-						is_roman_ruler_trigger = yes
-					}
-				}
-			}
+			is_armorican_controlled_trigger = no
 		}
 		has_global_flag = retz_created
 	}
@@ -9306,24 +9292,10 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		c_combaristum = {
-			holder_scope = {
-				top_liege = {
-					OR = {
-						NOT = { culture_group = celtic }
-						is_roman_ruler_trigger = yes
-					}
-				}
-			}
+			is_armorican_controlled_trigger = no
 		}
 		c_meduana = {
-			holder_scope = {
-				top_liege = {
-					OR = {
-						NOT = { culture_group = celtic }
-						is_roman_ruler_trigger = yes
-					}
-				}
-			}
+			is_armorican_controlled_trigger = no
 		}
 		has_global_flag = etre_daou_vor_created
 	}
@@ -9348,6 +9320,209 @@ narrative_event = {
 		}
 		
 		clr_global_flag = etre_daou_vor_created
+	}
+	
+	option = {
+		name = "EVTOPTA414425"
+		trigger = {
+			culture_group = celtic
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414425"
+		trigger = {
+			OR = {
+				NOT = { culture_group = celtic }
+				is_roman_ruler_trigger = yes
+			}
+		}	
+	}
+}
+# Kingdom of Arvor
+narrative_event = {
+	id = 414432
+	title = "EVTNAME414432"
+	desc = "EVTDESC414432"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_somerset_coast"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		c_ynys_trebes = {
+			is_armorican_controlled_trigger = no
+		}
+		c_constantia = {
+			is_armorican_controlled_trigger = no
+		}
+		c_augustodurum = {
+			is_armorican_controlled_trigger = no
+		}
+		c_mediolanum = {
+			is_armorican_controlled_trigger = no
+		}
+		c_noviomagus = {
+			is_armorican_controlled_trigger = no
+		}
+		c_aulercia = {
+			is_armorican_controlled_trigger = no
+		}
+		c_rotomagus = {
+			is_armorican_controlled_trigger = no
+		}
+		has_global_flag = benoic_armorica_created
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_baiocassia = { de_jure_liege = k_gaul }
+			d_sagia = { de_jure_liege = k_gaul }
+			d_lexovia = { de_jure_liege = k_gaul }
+			d_eburovicia = { de_jure_liege = k_gaul }
+			d_veliocassia = { de_jure_liege = k_gaul }
+			if = {
+				limit = {
+					has_global_flag = benoic_renamed
+				}
+				d_normannia = { de_jure_liege = k_gaul }
+				d_trebes = { de_jure_liege = k_gaul }
+				d_redonia = { de_jure_liege = k_gaul }
+			}
+			else_if = {
+				limit = { 
+					has_global_flag = benoic_destroyed
+					NOT = { has_global_flag = broceliande_renamed }
+				}
+				d_normannia = { de_jure_liege = k_broceliande }
+				d_trebes = { de_jure_liege = k_broceliande }
+				d_redonia = { de_jure_liege = k_broceliande }
+			}
+		}
+		else = {
+			d_baiocassia = { de_jure_liege = k_lugdunesis_secunda }
+			d_sagia = { de_jure_liege = k_lugdunesis_secunda }
+			d_lexovia = { de_jure_liege = k_lugdunesis_secunda }
+			d_eburovicia = { de_jure_liege = k_lugdunesis_secunda }
+			d_veliocassia = { de_jure_liege = k_lugdunesis_secunda }
+			if = {
+				limit = {
+					has_global_flag = benoic_renamed
+				}
+				d_normannia = { de_jure_liege = k_lugdunesis_secunda }
+				d_trebes = { de_jure_liege = k_lugdunesis_secunda }
+				d_redonia = { de_jure_liege = k_lugdunesis_tertia }
+			}
+			else_if = {
+				limit = { 
+					has_global_flag = benoic_destroyed
+					NOT = { has_global_flag = broceliande_renamed }
+				}
+				d_normannia = { de_jure_liege = k_broceliande }
+				d_trebes = { de_jure_liege = k_broceliande }
+				d_redonia = { de_jure_liege = k_broceliande }
+			}
+		}
+		
+		k_benoic = {
+			destroy_landed_title = THIS
+		}
+		
+		clr_global_flag = benoic_armorica_created
+	}
+	
+	option = {
+		name = "EVTOPTA414425"
+		trigger = {
+			culture_group = celtic
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414425"
+		trigger = {
+			OR = {
+				NOT = { culture_group = celtic }
+				is_roman_ruler_trigger = yes
+			}
+		}	
+	}
+}
+# Kingdom of Arvor
+narrative_event = {
+	id = 414433
+	title = "EVTNAME414433"
+	desc = "EVTDESC414433"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_castle_river"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		c_blesum = {
+			is_armorican_controlled_trigger = no
+		}
+		c_carnutia = {
+			is_armorican_controlled_trigger = no
+		}
+		c_vindinium = {
+			is_armorican_controlled_trigger = no
+		}
+		c_tours = {
+			is_armorican_controlled_trigger = no
+		}
+		c_andecavis = {
+			is_armorican_controlled_trigger = no
+		}
+		c_orleans = {
+			is_armorican_controlled_trigger = no
+		}
+		has_global_flag = blesum_armorica_created
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
+			d_blesum = { de_jure_liege = k_gaul }
+			d_carnutia = { de_jure_liege = k_gaul }
+			d_aureliania = { de_jure_liege = k_gaul }
+			d_cenomannia = { de_jure_liege = k_gaul }
+			d_turonia = { de_jure_liege = k_gaul }
+			d_andecavia = { de_jure_liege = k_gaul }
+		}
+		else = {
+			d_blesum = { de_jure_liege = k_lugdunesis_quartia }
+			d_carnutia = { de_jure_liege = k_lugdunesis_quartia }
+			d_aureliania = { de_jure_liege = k_lugdunesis_quartia }
+			d_cenomannia = { de_jure_liege = k_lugdunesis_tertia }
+			d_turonia = { de_jure_liege = k_lugdunesis_tertia }
+			d_andecavia = { de_jure_liege = k_lugdunesis_tertia }
+		}
+		
+		k_blesum = {
+			destroy_landed_title = THIS
+		}
+		
+		clr_global_flag = blesum_armorica_created
 	}
 	
 	option = {

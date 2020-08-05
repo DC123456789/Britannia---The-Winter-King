@@ -17770,6 +17770,9 @@ e_gaul = {		# Imperium Galliarum
 			capital = 79 # Constantia
 			
 			armorican = "Gannes"
+			breton = "Guinnel"
+			briton = "Gwynnel"
+			cumbrian = "Gwynnel"
 			
 			allow = {
 				can_create_roman_title_trigger = yes
@@ -18889,6 +18892,10 @@ e_gaul = {		# Imperium Galliarum
 				proto_norse = "Evurawiko"
 				dane = "Eivurrvíkr"
 				norse_gael = "Eivurrvíkr"
+				armorican = "Evrog"
+				breton = "Evrog"
+				briton = "Evrog"
+				cumbrian = "Evrog"
 			
 				b_aulerciacastle = {
 					roman = "Mediolanum Aulercorum"
@@ -18912,6 +18919,10 @@ e_gaul = {		# Imperium Galliarum
 					proto_norse = "Evurawiko"
 					dane = "Eivurrvíkr"
 					norse_gael = "Eivurrvíkr"
+					armorican = "Evrog"
+					breton = "Evrog"
+					briton = "Evrog"
+					cumbrian = "Evrog"
 				}
 				b_aulerciatown = {
 					title = "MAGISTRATE"
@@ -18938,6 +18949,10 @@ e_gaul = {		# Imperium Galliarum
 					proto_norse = "Evurawiko"
 					dane = "Eivurrvíkr"
 					norse_gael = "Eivurrvíkr"
+					armorican = "Evrog"
+					breton = "Evrog"
+					briton = "Evrog"
+					cumbrian = "Evrog"
 				}				
 			}
 			c_condate = {
@@ -41093,11 +41108,13 @@ e_gaul = {		# Imperium Galliarum
 					top_liege = { trait = northaugustus }
 				}
 			}
-			OR = {
-				custom_tooltip = {
-					text = benoic_tooltip_1
-					NOT = { has_global_flag = benoic_renamed }
-					NOT = { has_global_flag = benoic_destroyed }
+			conditional_tooltip = {
+				trigger = {
+					OR = { 
+						has_global_flag = benoic_renamed
+						has_global_flag = benoic_destroyed
+					}
+					NOT = { has_global_flag = benoic_armorica_created }
 				}
 				AND = {
 					completely_controls = c_ynys_trebes
@@ -41105,10 +41122,10 @@ e_gaul = {		# Imperium Galliarum
 					completely_controls = c_rennes
 				}
 			}
-			OR = {
-				custom_tooltip = {
-					text = benoic_tooltip_2
-					NOT = { has_global_flag = benoic_destroyed }
+			conditional_tooltip = {
+				trigger = {
+					has_global_flag = benoic_destroyed
+					NOT = { has_global_flag = benoic_armorica_created }
 				}
 				culture = armorican
 			}
@@ -41119,6 +41136,39 @@ e_gaul = {		# Imperium Galliarum
 		capital = 78 # Ynys Trebes
 		assimilate = no
 		
+	}
+	
+	k_blesum = {		# Argoad
+		color={ 105 132 65 }
+		color2={ 255 255 255 }
+		
+		culture = armorican
+
+		allow = {
+			culture_group = celtic
+			NOT = {
+				OR = {
+					trait = northaugustus
+					top_liege = { trait = northaugustus }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					NOT = { has_global_flag = blesum_armorica_created }
+				}
+				completely_controls = c_blesum
+				completely_controls = c_carnutia
+				completely_controls = c_vindinium
+				completely_controls = c_tours
+				completely_controls = c_andecavis
+				completely_controls = c_orleans
+			}
+		}
+		
+		title_prefix = "BRITISH_KINGDOM_OF"
+		
+		capital = 192 # Blesum/Blois
+		assimilate = no
 	}
 	
 	k_gaul = {
@@ -55080,6 +55130,24 @@ e_armorica = {
 			trait = eunuch
 			trait = incapable 
 		}
+		completely_controls = c_quimper
+		completely_controls = c_broceliande
+		completely_controls = c_vannes
+		completely_controls = c_rennes
+		completely_controls = c_nantes
+		completely_controls = c_ynys_trebes
+		completely_controls = c_constantia
+		completely_controls = c_augustodurum
+		completely_controls = c_mediolanum
+		completely_controls = c_noviomagus
+		completely_controls = c_aulercia
+		completely_controls = c_rotomagus
+		completely_controls = c_blesum
+		completely_controls = c_carnutia
+		completely_controls = c_orleans
+		completely_controls = c_vindinium
+		completely_controls = c_tours
+		completely_controls = c_andecavis		
 	}
 }
 

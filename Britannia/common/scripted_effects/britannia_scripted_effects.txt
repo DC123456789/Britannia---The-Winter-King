@@ -46,11 +46,14 @@ restore_roman_provinces_gaul_effect = {
 		d_genavensia = { de_jure_liege = k_viennensis_prima }
 	}
 	
-	d_veliocassia = { de_jure_liege = k_lugdunesis_secunda }
-	d_lexovia = { de_jure_liege = k_lugdunesis_secunda }
-	d_eburovicia = { de_jure_liege = k_lugdunesis_secunda }
-	d_sagia = { de_jure_liege = k_lugdunesis_secunda }
-	d_baiocassia = { de_jure_liege = k_lugdunesis_secunda }
+	if = {
+		limit = { NOT = { has_global_flag = benoic_armorica_created } }
+		d_veliocassia = { de_jure_liege = k_lugdunesis_secunda }
+		d_lexovia = { de_jure_liege = k_lugdunesis_secunda }
+		d_eburovicia = { de_jure_liege = k_lugdunesis_secunda }
+		d_sagia = { de_jure_liege = k_lugdunesis_secunda }
+		d_baiocassia = { de_jure_liege = k_lugdunesis_secunda }
+	}
 	
 	if = {
 		limit = { 
@@ -61,15 +64,22 @@ restore_roman_provinces_gaul_effect = {
 					has_global_flag = benoic_destroyed
 				}
 			}
+			NOT = { has_global_flag = benoic_armorica_created }
 		}
 		d_normannia = { de_jure_liege = k_lugdunesis_secunda }
 		d_trebes = { de_jure_liege = k_lugdunesis_secunda }
 	}
 	
-	d_namnetia = { de_jure_liege = k_lugdunesis_tertia }
-	d_andecavia = { de_jure_liege = k_lugdunesis_tertia }
-	d_cenomannia = { de_jure_liege = k_lugdunesis_tertia }
-	d_turonia = { de_jure_liege = k_lugdunesis_tertia }
+	if = {
+		limit = { NOT = { has_global_flag = naoned_created } }
+		d_namnetia = { de_jure_liege = k_lugdunesis_tertia }
+	}
+	if = {
+		limit = { NOT = { has_global_flag = blesum_armorica_created } }
+		d_andecavia = { de_jure_liege = k_lugdunesis_tertia }
+		d_cenomannia = { de_jure_liege = k_lugdunesis_tertia }
+		d_turonia = { de_jure_liege = k_lugdunesis_tertia }
+	}
 	if = {
 		limit = { has_global_flag = broceliande_renamed }
 		d_broerec = { de_jure_liege = k_lugdunesis_tertia }
@@ -79,7 +89,10 @@ restore_roman_provinces_gaul_effect = {
 	if = {
 		limit = {
 			OR = {
-				has_global_flag = benoic_renamed
+				AND = {
+					NOT = { has_global_flag = benoic_armorica_created }
+					has_global_flag = benoic_renamed
+				}
 				AND = {
 					has_global_flag = broceliande_renamed 
 					has_global_flag = benoic_destroyed
@@ -93,9 +106,12 @@ restore_roman_provinces_gaul_effect = {
 	d_meldia = { de_jure_liege = k_lugdunesis_quartia }
 	d_senonia = { de_jure_liege = k_lugdunesis_quartia }
 	d_autissiodoria = { de_jure_liege = k_lugdunesis_quartia }
-	d_aureliania = { de_jure_liege = k_lugdunesis_quartia }
-	d_carnutia = { de_jure_liege = k_lugdunesis_quartia }
-	d_blesum = { de_jure_liege = k_lugdunesis_quartia }
+	if = {
+		limit = { NOT = { has_global_flag = blesum_armorica_created } }
+		d_carnutia = { de_jure_liege = k_lugdunesis_quartia }
+		d_blesum = { de_jure_liege = k_lugdunesis_quartia }
+		d_aureliania = { de_jure_liege = k_lugdunesis_quartia }
+	}
 	d_tricassia = { de_jure_liege = k_lugdunesis_quartia }
 	
 	d_mediomatricia = { de_jure_liege = k_belgica_prima }

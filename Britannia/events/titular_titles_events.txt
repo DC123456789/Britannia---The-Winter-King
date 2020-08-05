@@ -21745,6 +21745,7 @@ narrative_event = {
 		is_alternate_start = no
 		has_landed_title = k_benoic
 		has_global_flag = benoic_renamed
+		NOT = { has_global_flag = benoic_armorica_created }
 	}
 	
 	mean_time_to_happen = {
@@ -21809,6 +21810,7 @@ narrative_event = {
 		has_landed_title = k_benoic
 		has_global_flag = benoic_destroyed
 		NOT = { has_global_flag = benoic_renamed }
+		NOT = { has_global_flag = benoic_armorica_created }
 	}
 	
 	mean_time_to_happen = {
@@ -22025,6 +22027,7 @@ narrative_event = {
 		has_landed_title = k_broceliande
 		has_global_flag = benoic_destroyed
 		NOT = { has_global_flag = broceliande_renamed }
+		NOT = { has_global_flag = benoic_armorica_created }
 		has_global_flag = benoic_renamed
 		completely_controls_region = custom_benoic
 	}
@@ -22112,6 +22115,135 @@ narrative_event = {
 	}
 }
 
+# Kingdom of Arvor
+narrative_event = {
+	id = 314432
+	title = "EVTNAME314432"
+	desc = "EVTDESC314432"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_somerset_coast"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = k_broceliande
+			has_landed_title = k_benoic
+			has_landed_title = k_blesum
+			has_landed_title = e_armorica
+			AND = {
+				has_landed_title = e_britannia
+				has_global_flag = britannia_reclaimed_caratacus_legacy
+			}
+			culture = breton
+			culture = armorican
+		}
+		is_roman_ruler_trigger = no
+		NOT = { has_global_flag = benoic_armorica_created }
+		completely_controls = c_ynys_trebes
+		completely_controls = c_constantia
+		completely_controls = c_augustodurum
+		completely_controls = c_mediolanum
+		completely_controls = c_noviomagus
+		completely_controls = c_aulercia
+		completely_controls = c_rotomagus
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_normannia = { de_jure_liege = k_benoic }
+		d_trebes = { de_jure_liege = k_benoic }
+		d_baiocassia = { de_jure_liege = k_benoic }
+		d_sagia = { de_jure_liege = k_benoic }
+		d_lexovia = { de_jure_liege = k_benoic }
+		d_eburovicia = { de_jure_liege = k_benoic }
+		d_veliocassia = { de_jure_liege = k_benoic }
+		if = {
+			limit = { 
+				NOR = { 
+					has_global_flag = benoic_renamed 
+					has_global_flag = benoic_destroyed 
+					has_global_flag = broceliande_renamed
+				}
+			}
+			d_redonia = { de_jure_liege = k_broceliande }
+		}
+		
+		k_benoic = {
+			set_name = "Arvor"
+			adjective = "Arvorian"			
+		}
+		
+		set_global_flag = benoic_armorica_created
+	}
+	
+	option = {
+		name = "EVTOPTA314426"
+	}
+}
+
+# Kingdom of Argoad
+narrative_event = {
+	id = 314433
+	title = "EVTNAME314433"
+	desc = "EVTDESC314433"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_river"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = k_broceliande
+			has_landed_title = k_benoic
+			has_landed_title = k_blesum
+			has_landed_title = e_armorica
+			AND = {
+				has_landed_title = e_britannia
+				has_global_flag = britannia_reclaimed_caratacus_legacy
+			}
+			culture = breton
+			culture = armorican
+		}
+		is_roman_ruler_trigger = no
+		NOT = { has_global_flag = blesum_armorica_created }
+		completely_controls = c_blesum
+		completely_controls = c_carnutia
+		completely_controls = c_vindinium
+		completely_controls = c_tours
+		completely_controls = c_andecavis
+		completely_controls = c_orleans
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_blesum = { de_jure_liege = k_blesum }
+		d_carnutia = { de_jure_liege = k_blesum }
+		d_aureliania = { de_jure_liege = k_blesum }
+		d_cenomannia = { de_jure_liege = k_blesum }
+		d_turonia = { de_jure_liege = k_blesum }
+		d_andecavia = { de_jure_liege = k_blesum }
+		
+		set_global_flag = blesum_armorica_created
+	}
+	
+	option = {
+		name = "EVTOPTA314426"
+	}
+}
+
 # High Kingdom of Armorica
 narrative_event = {		
 	id = 314440
@@ -22136,6 +22268,7 @@ narrative_event = {
 	immediate = {
 		k_benoic = { de_jure_liege = e_armorica }
 		k_broceliande = { de_jure_liege = e_armorica }
+		k_blesum = { de_jure_liege = e_armorica }
 		set_global_flag = armorica_created
 		clr_global_flag = armorica_conquered_britannia
 	}
@@ -22633,6 +22766,7 @@ narrative_event = {
 	immediate = {
 		k_broceliande = { de_jure_liege = e_britannia }
 		k_benoic = { de_jure_liege = e_britannia }
+		k_blesum = { de_jure_liege = e_britannia }
 		e_armorica = {
 			any_direct_de_jure_vassal_title = {
 				limit = { tier = KING }
