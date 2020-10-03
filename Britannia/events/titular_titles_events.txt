@@ -4000,6 +4000,7 @@ narrative_event = {
 	}
 }
 
+# ANGLO-SAXON TITLES IN IRELAND
 # Creation of the Ealdormary of Antrimshire
 narrative_event = {
 	id = 314155
@@ -4024,7 +4025,10 @@ narrative_event = {
 	
 	immediate = {
 		c_dal_naraide = { de_jure_liege = d_antrimshire }
-		c_larne = { de_jure_liege = d_antrimshire }
+		if = {
+			limit = { NOT = { has_global_flag = norse_ulfreksfjord_created } }
+			c_larne = { de_jure_liege = d_antrimshire }
+		}
 		c_dal_riata = { de_jure_liege = d_antrimshire }
 		c_eilne = { de_jure_liege = d_antrimshire }
 		c_dal_mbuinne = { de_jure_liege = d_antrimshire }
@@ -11647,9 +11651,7 @@ narrative_event = {
 		completely_controls = c_kildare
 		completely_controls = d_southmide
 		completely_controls = d_northmide
-		
-		
-		
+
 		independent = yes
 		NOT = { has_global_flag = uisneach_renamed }
 	}
@@ -23026,14 +23028,60 @@ narrative_event = {
 		k_northern_ui_neill = { de_jure_liege = e_ireland }
 		d_ui_neill = { de_jure_liege = k_northern_ui_neill }
 		d_ulaid = { de_jure_liege = k_northern_ui_neill }
-		c_fermanagh = { de_jure_liege = d_ui_neill }
-		c_tir_enda = { de_jure_liege = d_ui_neill }
-		c_doire = { de_jure_liege = d_ulaid }
-		c_ardstraw = { de_jure_liege = d_ulaid }
-		c_fir_li = { de_jure_liege = d_ulaid }
-		c_ui_tuirtri = { de_jure_liege = d_ulaid }
-		c_clogher = { de_jure_liege = d_ulaid }
-		c_cianachta = { de_jure_liege = d_ulaid }
+		
+		if = {
+			limit = { 
+				NOR = {
+					has_global_flag = tyrconnell_renamed 
+					has_global_flag = cavanshire_created
+					has_global_flag = norse_carlingford_expanded
+				}
+			}
+			c_fermanagh = { de_jure_liege = d_ui_neill }
+		}
+		if = {
+			limit = { 
+				NOR = {
+					has_global_flag = ailigh_renamed 
+					has_global_flag = donegalshire_created
+					has_global_flag = norse_donegal_expanded
+				}
+			}
+			c_tir_enda = { de_jure_liege = d_ui_neill }
+		}
+		if = {
+			limit = { 
+				NOR = {
+					has_global_flag = tyrone_created
+					has_global_flag = antrim_renamed 
+					has_global_flag = norse_carrick_expanded
+				}
+			}			
+			c_doire = { de_jure_liege = d_ulaid }
+			c_ardstraw = { de_jure_liege = d_ulaid }
+			c_fir_li = { de_jure_liege = d_ulaid }
+			c_ui_tuirtri = { de_jure_liege = d_ulaid }
+		}
+		if = {
+			limit = { 
+				NOR = {
+					has_global_flag = tyrconnell_renamed 
+					has_global_flag = tyrone_created
+					has_global_flag = norse_carlingford_expanded
+				}
+			}
+			c_clogher = { de_jure_liege = d_ulaid }
+		}
+		if = {
+			limit = { 
+				NOR = {
+					has_global_flag = antrim_renamed 
+					has_global_flag = tyrone_created
+					has_global_flag = norse_ulfreksfjord_created
+				}
+			}
+			c_cianachta = { de_jure_liege = d_ulaid }
+		}
 		set_global_flag = northern_ui_neill_created
 	}
 	

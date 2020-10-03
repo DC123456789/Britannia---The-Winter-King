@@ -3967,6 +3967,863 @@ narrative_event = {
 	}
 }
 
+# ANGLO-SAXON TITLES IN IRELAND
+# Ealdormanry of Antrimshire
+narrative_event = {
+	id = 414155
+	title = "EVTNAME414155"
+	desc = "EVTDESC414155"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = antrimshire_created
+		c_dal_naraide = {
+			is_germanic_controlled_trigger = no
+		}
+		c_larne = {
+			is_germanic_controlled_trigger = no
+		}
+		c_dal_riata = {
+			is_germanic_controlled_trigger = no
+		}
+		c_eilne = {
+			is_germanic_controlled_trigger = no
+		}
+		c_dal_mbuinne = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_ulfreksfjord_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_dal_naraide = { de_jure_liege = d_antrim }
+		if = {
+			limit = { NOT = { has_global_flag = norse_ulfreksfjord_created } }
+			c_larne = { de_jure_liege = d_antrim }
+		}
+		c_dal_riata = { de_jure_liege = d_antrim }
+		c_eilne = { de_jure_liege = d_antrim }
+		c_dal_mbuinne = { de_jure_liege = d_antrim }
+		
+		d_antrimshire = { destroy_landed_title = d_antrimshire }
+		clr_global_flag = antrimshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Antrimshire
+narrative_event = {
+	id = 414156
+	title = "EVTNAME414156"
+	desc = "EVTDESC414156"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_lord_overlooking_bridge"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = downshire_created
+		c_dal_fiatach = {
+			is_germanic_controlled_trigger = no
+		}
+		c_ui_blathmaic = {
+			is_germanic_controlled_trigger = no
+		}
+		c_arda = {
+			is_germanic_controlled_trigger = no
+		}
+		c_the_mourns = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_strangford_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_dal_fiatach = { de_jure_liege = d_down }
+		if = {
+			limit = { NOT = { has_global_flag = norse_strangford_created } }
+			c_arda = { de_jure_liege = d_down }
+		}
+		c_ui_blathmaic = { de_jure_liege = d_down }
+		c_the_mourns = { de_jure_liege = d_cuib }
+		
+		d_downshire = { destroy_landed_title = d_downshire }
+		clr_global_flag = downshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Louthshire
+narrative_event = {
+	id = 414157
+	title = "EVTNAME414157"
+	desc = "EVTDESC414157"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = louthshire_created
+		c_fir_rois = {
+			is_germanic_controlled_trigger = no
+		}
+		c_conaille = {
+			is_germanic_controlled_trigger = no
+		}
+		c_lu = {
+			is_germanic_controlled_trigger = no
+		}
+		c_armagh = {
+			is_germanic_controlled_trigger = no
+		}
+		c_muineachain = {
+			is_germanic_controlled_trigger = no
+		}
+		c_louth = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_carlingford_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = norse_carlingford_created } }
+			if = {
+				limit = { has_global_flag = down_renamed }
+				c_conaille = { de_jure_liege = d_down }
+			}
+			else = {
+				c_conaille = { de_jure_liege = d_cuib }
+			}
+		}
+		if = {
+			limit = { has_global_flag = down_renamed }
+			c_fir_rois = { de_jure_liege = d_down }
+			c_lu = { de_jure_liege = d_down }
+			c_armagh = { de_jure_liege = d_down }
+			c_muineachain = { de_jure_liege = d_down }
+		}
+		else = {
+			c_fir_rois = { de_jure_liege = d_airgialla }
+			c_lu = { de_jure_liege = d_airgialla }
+			c_armagh = { de_jure_liege = d_airgialla }
+			c_muineachain = { de_jure_liege = d_airgialla }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_dyflin_expanded } }
+			c_louth = { de_jure_liege = d_northmide }
+		}
+		
+		d_louthshire = { destroy_landed_title = d_louthshire }
+		clr_global_flag = louthshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Tyrone
+narrative_event = {
+	id = 414158
+	title = "EVTNAME414158"
+	desc = "EVTDESC414158"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_castle_grass_hill"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = tyrone_created
+		c_ui_tuirtri = {
+			is_germanic_controlled_trigger = no
+		}
+		c_fir_li = {
+			is_germanic_controlled_trigger = no
+		}
+		c_doire = {
+			is_germanic_controlled_trigger = no
+		}
+		c_ardstraw = {
+			is_germanic_controlled_trigger = no
+		}
+		c_cianachta = {
+			is_germanic_controlled_trigger = no
+		}
+		c_clogher = {
+			is_germanic_controlled_trigger = no
+		}
+		c_tyrone = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_carrick_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = antrim_renamed }
+			c_ui_tuirtri = { de_jure_liege = d_antrim }
+			c_fir_li = { de_jure_liege = d_antrim }
+			c_doire = { de_jure_liege = d_antrim }
+			c_ardstraw = { de_jure_liege = d_antrim }
+		}
+		else_if = {
+			limit = { has_global_flag = northern_ui_neill_created }
+			c_ui_tuirtri = { de_jure_liege = d_ulaid }
+			c_fir_li = { de_jure_liege = d_ulaid }
+			c_doire = { de_jure_liege = d_ulaid }
+			c_ardstraw = { de_jure_liege = d_ulaid }
+		}
+		else = {
+			c_ui_tuirtri = { de_jure_liege = d_airgialla }
+			c_fir_li = { de_jure_liege = d_airgialla }
+			c_doire = { de_jure_liege = d_airgialla }
+			c_ardstraw = { de_jure_liege = d_airgialla }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_ulfreksfjord_expanded } }
+			if = {
+				limit = { has_global_flag = northern_ui_neill_created }
+				c_cianachta = { de_jure_liege = d_ulaid }
+			}
+			else = {
+				c_cianachta = { de_jure_liege = d_antrim }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_carlingford_expanded } }
+			if = {
+				limit = { has_global_flag = tyrconnell_renamed }
+				c_clogher = { de_jure_liege = d_ui_neill }
+			}
+			else_if = {
+				limit = { has_global_flag = northern_ui_neill_created }
+				c_clogher = { de_jure_liege = d_ulaid }
+			}
+			else = {
+				c_clogher = { de_jure_liege = d_airgialla }
+			}
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_donegal_expanded } }
+			if = {
+				limit = { has_global_flag = tyrconnell_renamed }
+				c_tyrone = { de_jure_liege = d_ui_neill }
+			}
+			else = {
+				c_tyrone = { de_jure_liege = d_ulaid }
+			}
+		}
+		
+		d_tyrone = { destroy_landed_title = d_tyrone }
+		clr_global_flag = tyrone_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Donegalshire
+narrative_event = {
+	id = 414159
+	title = "EVTNAME414159"
+	desc = "EVTDESC414159"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_traveller_hills"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = donegalshire_created
+		c_ui_neill = {
+			is_germanic_controlled_trigger = no
+		}
+		c_donegal = {
+			is_germanic_controlled_trigger = no
+		}
+		c_letterkenny = {
+			is_germanic_controlled_trigger = no
+		}
+		c_eas_ruaidh = {
+			is_germanic_controlled_trigger = no
+		}
+		c_tir_enda = {
+			is_germanic_controlled_trigger = no
+		}
+		c_ailech = {
+			is_germanic_controlled_trigger = no
+		}
+		c_carraickabraghy = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_donegal_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = ailigh_renamed }
+			c_ui_neill = { de_jure_liege = d_ulaid }
+			c_letterkenny = { de_jure_liege = d_ulaid }
+		}
+		else = {
+			c_ui_neill = { de_jure_liege = d_ui_neill }
+			c_letterkenny = { de_jure_liege = d_ui_neill }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_donegal_created } }
+			c_donegal = { de_jure_liege = d_ui_neill }
+		}
+		c_eas_ruaidh = { de_jure_liege = d_ui_neill }
+		if = {
+			limit = { has_global_flag = northern_ui_neill_created }
+			c_tir_enda = { de_jure_liege = d_ui_neill }
+		}
+		else = {
+			c_tir_enda = { de_jure_liege = d_ulaid }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_carrick_expanded } }
+			c_ailech = { de_jure_liege = d_ulaid }
+			if = {
+				limit = { NOT = { has_global_flag = norse_carrick_created } }
+				c_carraickabraghy = { de_jure_liege = d_ulaid }
+			}
+		}
+		
+		d_donegalshire = { destroy_landed_title = d_donegalshire }
+		clr_global_flag = donegalshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Cavanshire
+narrative_event = {
+	id = 414160
+	title = "EVTNAME414160"
+	desc = "EVTDESC414160"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_lake_landscape"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = cavanshire_created
+		c_cavan = {
+			is_germanic_controlled_trigger = no
+		}
+		c_mag_slecht = {
+			is_germanic_controlled_trigger = no
+		}
+		c_tuath_ratha = {
+			is_germanic_controlled_trigger = no
+		}
+		c_fermanagh = {
+			is_germanic_controlled_trigger = no
+		}
+		c_dairtre = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_donegal_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = brega_renamed }
+			c_cavan = { de_jure_liege = d_northmide }
+		}
+		else = {
+			c_cavan = { de_jure_liege = d_breifne }
+		}
+		c_mag_slecht = { de_jure_liege = d_breifne }
+		if = {
+			limit = { has_global_flag = breifne_renamed }
+			c_tuath_ratha = { de_jure_liege = d_breifne }
+		}
+		else = {
+			c_tuath_ratha = { de_jure_liege = d_ui_neill }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_carlingford_expanded } }
+			if = {
+				limit = { has_global_flag = tyrconnell_renamed }
+				c_fermanagh = { de_jure_liege = d_ui_neill }
+			}
+			else_if = {
+				limit = { has_global_flag = northern_ui_neill_created }
+				c_fermanagh = { de_jure_liege = d_ui_neill }
+			}
+			else = {
+				c_fermanagh = { de_jure_liege = d_airgialla }
+			}
+			if = {
+				limit = { has_global_flag = down_renamed }
+				c_dairtre = { de_jure_liege = d_down }
+			}
+			else = {
+				c_dairtre = { de_jure_liege = d_airgialla }
+			}
+		}
+		
+		d_cavanshire = { destroy_landed_title = d_cavanshire }
+		clr_global_flag = cavanshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Dublinshire
+narrative_event = {
+	id = 414161
+	title = "EVTNAME414161"
+	desc = "EVTDESC414161"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_coastal_town"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = dublinshire_created
+		c_eblana = {
+			is_germanic_controlled_trigger = no
+		}
+		c_wicklow = {
+			is_germanic_controlled_trigger = no
+		}
+		c_cualu = {
+			is_germanic_controlled_trigger = no
+		}
+		c_arklow = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_dyflin_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = norse_dyflin_created } }
+			if = {
+				limit = { has_global_flag = uisneach_renamed }
+				c_eblana = { de_jure_liege = d_southmide }
+				c_wicklow = { de_jure_liege = d_southmide }
+			}
+			else = {
+				c_eblana = { de_jure_liege = d_northmide }
+				c_wicklow = { de_jure_liege = d_ui_ceinnselaig }
+			}
+		}
+		c_cualu = { de_jure_liege = d_ui_ceinnselaig }
+		c_arklow = { de_jure_liege = d_ui_ceinnselaig }
+		
+		d_dublinshire = { destroy_landed_title = d_dublinshire }
+		clr_global_flag = dublinshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Meath
+narrative_event = {
+	id = 414162
+	title = "EVTNAME414162"
+	desc = "EVTDESC414162"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_hill_tara"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = meath_created
+		c_mide = {
+			is_germanic_controlled_trigger = no
+		}
+		c_luine = {
+			is_germanic_controlled_trigger = no
+		}
+		c_mora = {
+			is_germanic_controlled_trigger = no
+		}
+		c_fir_cul_breg = {
+			is_germanic_controlled_trigger = no
+		}
+		c_uisneach = {
+			is_germanic_controlled_trigger = no
+		}
+		c_tethbae = {
+			is_germanic_controlled_trigger = no
+		}
+		c_longford = {
+			is_germanic_controlled_trigger = no
+		}
+		c_athlone = {
+			is_germanic_controlled_trigger = no
+		}
+		c_firceall = {
+			is_germanic_controlled_trigger = no
+		}
+		c_fir_tulach = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_dyflin_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_mide = { de_jure_liege = d_northmide }
+		c_luine = { de_jure_liege = d_northmide }
+		c_mora = { de_jure_liege = d_northmide }
+		c_fir_cul_breg = { de_jure_liege = d_northmide }
+		if = {
+			limit = { NOT = { has_global_flag = norse_athlone_expanded } }
+			if = {
+				limit = { has_global_flag = brega_renamed }
+				c_uisneach = { de_jure_liege = d_northmide }
+				c_tethbae = { de_jure_liege = d_northmide }
+				c_longford = { de_jure_liege = d_northmide }
+				if = {
+					limit = { NOT = { has_global_flag = norse_athlone_created } }
+					c_athlone = { de_jure_liege = d_northmide }
+				}
+			}
+			else = {
+				c_uisneach = { de_jure_liege = d_southmide }
+				c_tethbae = { de_jure_liege = d_southmide }
+				c_longford = { de_jure_liege = d_southmide }
+				if = {
+					limit = { NOT = { has_global_flag = norse_athlone_created } }
+					c_athlone = { de_jure_liege = d_southmide }
+				}
+			}
+			c_firceall = { de_jure_liege = d_southmide }
+			c_fir_tulach = { de_jure_liege = d_southmide }
+		}
+		
+		d_meath = { destroy_landed_title = d_meath }
+		clr_global_flag = meath_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Kildareshire
+narrative_event = {
+	id = 414163
+	title = "EVTNAME414163"
+	desc = "EVTDESC414163"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_golden_fields"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = meath_created
+		c_kildare = {
+			is_germanic_controlled_trigger = no
+		}
+		c_loigis = {
+			is_germanic_controlled_trigger = no
+		}
+		c_regia = {
+			is_germanic_controlled_trigger = no
+		}
+		c_loegaire = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_wexford_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = uisneach_renamed }
+			c_kildare = { de_jure_liege = d_southmide }
+			c_loigis = { de_jure_liege = d_southmide }
+			c_regia = { de_jure_liege = d_southmide }
+		}
+		else = {
+			c_kildare = { de_jure_liege = d_ui_ceinnselaig }
+			c_loigis = { de_jure_liege = d_ui_ceinnselaig }
+			c_regia = { de_jure_liege = d_ui_ceinnselaig }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_dyflin_expanded } }
+			if = {
+				limit = { has_global_flag = uisneach_renamed }
+				c_loegaire = { de_jure_liege = d_southmide }
+			}
+			else = {
+				c_loegaire = { de_jure_liege = d_northmide }
+			}
+		}
+		
+		d_kildareshire = { destroy_landed_title = d_kildareshire }
+		clr_global_flag = kildareshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+# Ealdormanry of Wexfordshire
+narrative_event = {
+	id = 414164
+	title = "EVTNAME414164"
+	desc = "EVTDESC414164"
+	major = yes
+	hide_from = yes		
+	picture = "GFX_evt_fields_landscape"
+	
+	only_playable = yes
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		has_global_flag = wexfordshire_created
+		c_wexford = {
+			is_germanic_controlled_trigger = no
+		}
+		c_rath_bhile = {
+			is_germanic_controlled_trigger = no
+		}
+		c_laberus = {
+			is_germanic_controlled_trigger = no
+		}
+		c_carlow = {
+			is_germanic_controlled_trigger = no
+		}
+		c_kilkenny = {
+			is_germanic_controlled_trigger = no
+		}
+		c_mag_mail = {
+			is_germanic_controlled_trigger = no
+		}
+		c_ui_duach = {
+			is_germanic_controlled_trigger = no
+		}
+		c_ui_berchain = {
+			is_germanic_controlled_trigger = no
+		}
+		NOT = { has_global_flag = norse_wexford_expanded }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = norse_wexford_created } }
+			c_wexford = { de_jure_liege = d_ui_dunlainge }
+		}
+		c_laberus = { de_jure_liege = d_ui_dunlainge }
+		if = {
+			limit = { has_global_flag = ui_ceinnselaig_renamed }
+			c_rath_bhile = { de_jure_liege = d_ui_ceinnselaig }
+			c_carlow = { de_jure_liege = d_ui_ceinnselaig }
+		}
+		else = {
+			c_rath_bhile = { de_jure_liege = d_ui_dunlainge }
+			c_carlow = { de_jure_liege = d_ui_dunlainge }
+		}
+		if = {
+			limit = { NOT = { has_global_flag = norse_waterford_expanded } }
+			c_kilkenny = { de_jure_liege = d_osraige }
+			c_mag_mail = { de_jure_liege = d_osraige }
+			c_ui_duach = { de_jure_liege = d_osraige }
+			c_ui_berchain = { de_jure_liege = d_osraige }
+		}
+		
+		d_wexfordshire = { destroy_landed_title = d_wexfordshire }
+		clr_global_flag = wexfordshire_created
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = no
+		}
+		name = "EVTOPTA414123"
+	}
+	
+	option = {
+		trigger = {
+			is_ingvaeonic_culture_trigger = yes
+		}
+		name = "EVTOPTB414123"
+	}
+}
+
 ## ROMAN RECONQUEST OF GAUL ##
 ## DE JURE RECLAIM ##
 
