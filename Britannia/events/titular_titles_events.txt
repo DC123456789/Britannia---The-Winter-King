@@ -5834,13 +5834,35 @@ narrative_event = {		# Neustria/Paris
 			prestige = 200
 			break = yes
 		}
-		if = {			# Bretland
+		if = {			# Vannes
 			limit = {
 				d_bretagne = { has_holder = no }
 				is_landed_title_allowed = d_bretagne
 				NOT = { has_global_flag = bretagne_created }
 			}
 			d_bretagne = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Penthievre
+			limit = {
+				d_penthievre = { has_holder = no }
+				is_landed_title_allowed = d_penthievre
+				NOT = { has_global_flag = penthievre_created }
+			}
+			d_penthievre = { grant_title = ROOT }
+			wealth = -20
+			prestige = 200
+			break = yes
+		}
+		if = {			# Cornouaille
+			limit = {
+				d_cornouaille = { has_holder = no }
+				is_landed_title_allowed = d_cornouaille
+				NOT = { has_global_flag = cornouaille_created }
+			}
+			d_cornouaille = { grant_title = ROOT }
 			wealth = -20
 			prestige = 200
 			break = yes
@@ -14535,102 +14557,6 @@ narrative_event = {
 		}
 	}
 }
-	
-
-# Creation of the Duchy of Bretland/Eorldom of Lidwic
-narrative_event = {
-	id = 314203
-	title = EVTNAME314203
-	major = yes
-	hide_new = yes
-	
-	picture = "GFX_evt_forest_light"
-	
-	desc = {
-		text = EVTDESC314203
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC314203_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
-	
-	only_playable = yes
-	
-	trigger = {
-		is_alternate_start = no
-		has_landed_title = d_bretagne
-		OR = {
-			NOT = { has_global_flag = bretagne_created }
-			AND = {
-				has_global_flag = saxon_bretagne
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no 
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_bretagne }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		c_blavia = { de_jure_liege = d_bretagne }
-		c_vannes = { de_jure_liege = d_bretagne }
-		c_duretie = { de_jure_liege = d_bretagne }
-		c_belz = { de_jure_liege = d_bretagne }
-		c_pourlet = { de_jure_liege = d_bretagne }
-		c_cornugallia = { de_jure_liege = d_bretagne }
-		c_cantinus = { de_jure_liege = d_bretagne }
-		c_pougastel = { de_jure_liege = d_bretagne }
-		c_brivates = { de_jure_liege = d_bretagne }
-		c_quimper = { de_jure_liege = d_bretagne }
-		c_cap_sizun = { de_jure_liege = d_bretagne }
-		c_artus = { de_jure_liege = d_bretagne }
-		c_armorica = { de_jure_liege = d_bretagne }
-		c_poutrocoet = { de_jure_liege = d_bretagne }
-		c_broceliande = { de_jure_liege = d_bretagne }
-		c_goelo = { de_jure_liege = d_bretagne }
-		c_loudeac = { de_jure_liege = d_bretagne }
-		c_fanum_martis = { de_jure_liege = d_bretagne }
-		c_dol = { de_jure_liege = d_bretagne }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_bretagne = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_bretagne
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_bretagne = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_bretagne
-		}
-		
-		d_finis_terrae = { destroy_landed_title = d_finis_terrae }
-		d_poher = { destroy_landed_title = d_poher }
-		d_broerec = { destroy_landed_title = d_broerec }
-		d_domnonea = { destroy_landed_title = d_domnonea }
-		
-		set_global_flag = bretagne_created
-	}
-	
-	option = {
-		name = "EVTOPTA314203"
-	}
-}
 
 # Conquest of Toulouse
 narrative_event = {
@@ -17226,6 +17152,206 @@ narrative_event = {
 		d_auvergne = { de_jure_liege = k_aquitaine }
 		
 		set_global_flag = auvergne_created
+	}
+	
+	option = {
+		name = "EVTOPTA318000"
+	}
+}
+
+# Creation of the County of Vannes
+narrative_event = {
+	id = 318077
+	title = EVTNAME318077
+	desc = EVTDESC318077
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_forest_light"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_bretagne
+		OR = {
+			NOT = { has_global_flag = bretagne_created }
+			AND = {
+				has_global_flag = saxon_bretagne
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no 
+					in_revolt = no
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = saxon_bretagne }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_blavia = { de_jure_liege = d_bretagne }
+		c_vannes = { de_jure_liege = d_bretagne }
+		c_duretie = { de_jure_liege = d_bretagne }
+		c_belz = { de_jure_liege = d_bretagne }
+		c_pourlet = { de_jure_liege = d_bretagne }
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
+			d_bretagne = { de_jure_liege = k_neustria }
+			clr_global_flag = saxon_bretagne
+		}
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
+			d_bretagne = { de_jure_liege = k_saxon_gaul }
+			set_global_flag = saxon_bretagne
+		}
+		
+		d_broerec = { destroy_landed_title = d_broerec }
+		
+		set_global_flag = bretagne_created
+	}
+	
+	option = {
+		name = "EVTOPTA318000"
+	}
+}
+
+# Creation of the County of Penthievre
+narrative_event = {
+	id = 318078
+	title = EVTNAME318078
+	desc = EVTDESC318078
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_dusk_forest"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_penthievre
+		OR = {
+			NOT = { has_global_flag = penthievre_created }
+			AND = {
+				has_global_flag = saxon_penthievre
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no 
+					in_revolt = no
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = saxon_penthievre }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_pougastel = { de_jure_liege = d_penthievre }
+		c_armorica = { de_jure_liege = d_penthievre }
+		c_broceliande = { de_jure_liege = d_penthievre }
+		c_goelo = { de_jure_liege = d_penthievre }
+		c_loudeac = { de_jure_liege = d_penthievre }
+		c_fanum_martis = { de_jure_liege = d_penthievre }
+		c_poutrocoet = { de_jure_liege = d_penthievre }
+		c_dol = { de_jure_liege = d_penthievre }
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
+			d_penthievre = { de_jure_liege = k_neustria }
+			clr_global_flag = saxon_penthievre
+		}
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
+			d_penthievre = { de_jure_liege = k_saxon_gaul }
+			set_global_flag = saxon_penthievre
+		}
+		
+		d_domnonea = { destroy_landed_title = d_domnonea }
+		
+		set_global_flag = penthievre_created
+	}
+	
+	option = {
+		name = "EVTOPTA318000"
+	}
+}
+
+# Creation of the County of Cornouaille
+narrative_event = {
+	id = 318079
+	title = EVTNAME318079
+	desc = EVTDESC318079
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_somerset_coast"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = d_cornouaille
+		OR = {
+			NOT = { has_global_flag = cornouaille_created }
+			AND = {
+				has_global_flag = saxon_cornouaille
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = no 
+					in_revolt = no
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = saxon_cornouaille }
+				top_liege = { 
+					is_ingvaeonic_culture_trigger = yes
+					in_revolt = no
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		c_cornugallia = { de_jure_liege = d_cornouaille }
+		c_cantinus = { de_jure_liege = d_cornouaille }
+		c_brivates = { de_jure_liege = d_cornouaille }
+		c_quimper = { de_jure_liege = d_cornouaille }
+		c_cap_sizun = { de_jure_liege = d_cornouaille }
+		c_artus = { de_jure_liege = d_cornouaille }
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
+			d_cornouaille = { de_jure_liege = k_neustria }
+			clr_global_flag = saxon_cornouaille
+		}
+		if = {
+			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
+			d_cornouaille = { de_jure_liege = k_saxon_gaul }
+			set_global_flag = saxon_cornouaille
+		}
+		
+		d_finis_terrae = { destroy_landed_title = d_finis_terrae }
+		d_poher = { destroy_landed_title = d_poher }
+		
+		set_global_flag = cornouaille_created
 	}
 	
 	option = {
@@ -26031,7 +26157,7 @@ narrative_event = {	# Evreux, Lisieux, Hiemois, Bayeux, Cotentin
 	}
 }
 
-narrative_event = {	# Rennes, Celmans/Maine, Bretland
+narrative_event = {	# Rennes, Celmans/Maine, Vannes, Penthievre, Cornouaille
 	id = 314282
 	desc = "You're not supposed to see this..."
 	major = no
@@ -26049,6 +26175,8 @@ narrative_event = {	# Rennes, Celmans/Maine, Bretland
 			has_global_flag = rennes_created
 			has_global_flag = maine_created
 			has_global_flag = bretagne_created
+			has_global_flag = penthievre_created
+			has_global_flag = cornouaille_created
 		}
 		is_alternate_start = no
 	}
@@ -26078,20 +26206,26 @@ narrative_event = {	# Rennes, Celmans/Maine, Bretland
 			c_duretie = { de_jure_liege = d_bretagne }
 			c_belz = { de_jure_liege = d_bretagne }
 			c_pourlet = { de_jure_liege = d_bretagne }
-			c_cornugallia = { de_jure_liege = d_bretagne }
-			c_cantinus = { de_jure_liege = d_bretagne }
-			c_pougastel = { de_jure_liege = d_bretagne }
-			c_brivates = { de_jure_liege = d_bretagne }
-			c_quimper = { de_jure_liege = d_bretagne }
-			c_cap_sizun = { de_jure_liege = d_bretagne }
-			c_artus = { de_jure_liege = d_bretagne }
-			c_armorica = { de_jure_liege = d_bretagne }
-			c_poutrocoet = { de_jure_liege = d_bretagne }
-			c_broceliande = { de_jure_liege = d_bretagne }
-			c_goelo = { de_jure_liege = d_bretagne }
-			c_loudeac = { de_jure_liege = d_bretagne }
-			c_fanum_martis = { de_jure_liege = d_bretagne }
-			c_dol = { de_jure_liege = d_bretagne }
+		}
+		if = {
+			limit = { has_global_flag = penthievre_created }
+			c_pougastel = { de_jure_liege = d_penthievre }
+			c_armorica = { de_jure_liege = d_penthievre }
+			c_broceliande = { de_jure_liege = d_penthievre }
+			c_goelo = { de_jure_liege = d_penthievre }
+			c_loudeac = { de_jure_liege = d_penthievre }
+			c_fanum_martis = { de_jure_liege = d_penthievre }
+			c_poutrocoet = { de_jure_liege = d_penthievre }
+			c_dol = { de_jure_liege = d_penthievre }
+		}
+		if = {
+			limit = { has_global_flag = cornouaille_created }
+			c_cornugallia = { de_jure_liege = d_cornouaille }
+			c_cantinus = { de_jure_liege = d_cornouaille }
+			c_brivates = { de_jure_liege = d_cornouaille }
+			c_quimper = { de_jure_liege = d_cornouaille }
+			c_cap_sizun = { de_jure_liege = d_cornouaille }
+			c_artus = { de_jure_liege = d_cornouaille }
 		}
 	}
 	
@@ -27238,15 +27372,18 @@ narrative_event = {	# Broceliande, Bro-Raez, Etre Daou Vor
 	
 	immediate = {
 		if = {
-			limit = { 
-				NOT = { has_global_flag = broceliande_renamed }
-				NOT = { has_global_flag = bretagne_created } 
+			limit = { NOT = { has_global_flag = broceliande_renamed } }
+			if = {
+				limit = { NOT = { has_global_flag = penthievre_created } }
+				c_armorica = { de_jure_liege = d_domnonea }
+				c_poutrocoet = { de_jure_liege = d_broerec }
+				c_pougastel = { de_jure_liege = d_poher }
 			}
-			c_armorica = { de_jure_liege = d_domnonea }
-			c_poutrocoet = { de_jure_liege = d_broerec }
-			c_cornugallia = { de_jure_liege = d_poher }
-			c_cantinus = { de_jure_liege = d_poher }
-			c_pougastel = { de_jure_liege = d_poher }
+			if = {
+				limit = { NOT = { has_global_flag = cornouaille_created } }
+				c_cornugallia = { de_jure_liege = d_poher }
+				c_cantinus = { de_jure_liege = d_poher }
+			}
 		}
 		if = {
 			limit = { has_global_flag = retz_created }
