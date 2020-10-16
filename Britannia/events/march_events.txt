@@ -1,0 +1,50 @@
+#########################################################
+#
+# 	MARCH EVENTS
+#
+# 	Id 320900 - 320999 reserved	
+#
+#########################################################
+
+# Creation of the Breton March
+narrative_event = {
+	id = 320900
+	title = "EVTNAME320900"
+	desc = "EVTDESC320900"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_gate"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		d_nantes = { de_jure_liege = k_breton_march }
+		d_rennes = { de_jure_liege = k_breton_march }
+		d_bretagne = { de_jure_liege = k_breton_march }
+		d_penthievre = { de_jure_liege = k_breton_march }
+		d_cornouaille = { de_jure_liege = k_breton_march }
+		
+		set_global_flag = breton_march_created
+		
+		grant_title = k_breton_march
+		set_defacto_liege = THIS
+		liege = {
+			make_tributary = { who = ROOT tributary_type = march }
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						primary_title = {
+							de_jure_liege_or_above = k_breton_march
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320900"
+	}
+}

@@ -467,4 +467,95 @@ title_decisions = {
 			factor = 0
 		}
 	}
+	
+	
+	# Marches
+	grant_breton_march = {
+		only_playable = yes
+		filter = all
+		ai_target_filter = primary_title
+		third_party_filter = vassals
+		ai_check_interval = 36
+		is_high_prio = yes
+		show_third_party_score = no
+		
+		from_potential = {
+			can_create_germanic_title_trigger = yes
+			any_realm_province = {
+				region = custom_breton_march
+			}
+			NOT = {
+				top_liege = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+			}
+		}
+		
+		potential = {
+			are_dejure_changes_allowed_trigger = yes
+			title = k_breton_march
+		}
+		
+		third_party_potential = {
+			FROMFROM = {
+				higher_tier_than = BARON
+				can_create_germanic_title_trigger = yes
+				any_realm_province = {
+					#OR = {
+						region = custom_breton_march
+						#any_neighbor_province = {
+							#region = custom_breton_march
+						#}
+					#}
+				}
+			}
+		}
+		
+		third_party_score = {
+			factor = 1
+			
+			additive_modifier = {
+				value = 100
+				FROMFROM = { 
+					tier = KING
+				}
+			}
+			additive_modifier = {
+				value = 20
+				FROMFROM = { 
+					tier = DUKE
+				}
+			}
+		}
+
+		allow = {
+			k_breton_march = { has_holder = no }
+			FROM = {
+				is_tribal = no
+				higher_tier_than = DUKE
+				independent = yes
+			}
+		}
+		effect = {
+			tooltip = {
+				FROMFROM = {
+					grant_title = k_breton_march
+				}
+				FROM = {
+					make_tributary = { who = ROOT_FROMFROM tributary_type = march }
+				}
+			}
+			hidden_tooltip = {
+				FROMFROM = { character_event = { id = 320900 } }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
