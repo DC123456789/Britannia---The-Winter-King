@@ -1056,6 +1056,92 @@ is_wrong_secret_pagan_religion_trigger = {
 	}
 }
 
+is_wrong_pagan_religion_than_FROM_trigger = {
+	NOT = { has_religion_feature = religion_proselytizing }
+	OR = {
+		AND = {
+			FROM = { is_brythonic_culture_trigger = no }
+			OR = {
+				religion = briton_pagan 
+				religion = briton_pagan_reformed
+				religion = britannic_pagan
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture = pictish } }
+			OR = {
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+		}			
+		AND = {
+			FROM = { is_gaelic_culture_trigger = no }
+			OR = { 			
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_north_germanic_trigger = no }
+			OR = {		
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_ingvaeonic_culture_trigger = no }
+			OR = {		
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_istvaeonic_culture_trigger = no }
+			OR = {		
+				religion = frankish_pagan
+				religion = frankish_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_irminonic_culture_trigger = no }
+			OR = {		
+				religion = suebic_pagan
+				religion = suebic_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_east_germanic_trigger = no }
+			OR = {		
+				religion = gothic_pagan
+				religion = gothic_pagan_reformed
+			}
+		}
+		# is_roman_pagan_culture_trigger = no
+		AND = {
+			FROM = { NOT = { culture_group = sarmatian } }
+			OR = {		
+				religion = alan_pagan 
+				religion = alan_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture_group = altaic } }
+			OR = {		
+				religion = tengri_pagan 
+				religion = tengri_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture_group = basque } }
+			OR = {		
+				religion = vasconic_pagan 
+				religion = vasconic_pagan_reformed
+			}
+		}
+		# culture_group = israelite
+	}
+}
+
 is_same_default_pagan_religion_as_ROOT = {
 	OR = {
 		AND = {
@@ -2600,6 +2686,59 @@ is_target_ruler_or_associated_march_trigger = {
 		is_tributary = {
 			type = march
 			suzerain = event_target:target_ruler
+		}
+	}
+}
+
+# Checks if the province is in the core region of one of FROM's marches
+is_in_march_of_FROM_trigger = {
+	OR = {
+		AND = {
+			region = custom_breton_march
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_breton_march
+				}
+			}
+		}
+		AND = {
+			region = custom_vasconia_gaul
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_vasconia
+				}
+			}
+		}
+		AND = {
+			region = world_britannia_cymry_wales
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_wales
+				}
+			}
+		}
+		AND = {
+			region = world_caledonia
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					OR = {
+						has_landed_title = k_pictland
+						has_landed_title = k_romancaledonia
+					}
+				}
+			}
 		}
 	}
 }

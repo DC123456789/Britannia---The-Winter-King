@@ -254,6 +254,8 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	# TODO Notification decision for Breton March
 }
 
 title_decisions = {
@@ -480,7 +482,10 @@ title_decisions = {
 		show_third_party_score = no
 		
 		from_potential = {
-			can_create_germanic_title_trigger = yes
+			NOR = {
+				culture_group = imperiale
+				culture_group = celtic
+			}
 			any_realm_province = {
 				region = custom_breton_march
 			}
@@ -501,7 +506,10 @@ title_decisions = {
 		third_party_potential = {
 			FROMFROM = {
 				higher_tier_than = BARON
-				can_create_germanic_title_trigger = yes
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
 				any_realm_province = {
 					#OR = {
 						region = custom_breton_march
@@ -531,11 +539,23 @@ title_decisions = {
 		}
 
 		allow = {
-			k_breton_march = { has_holder = no }
+			OR = {
+				k_breton_march = { has_holder = no }
+				FROM = { has_landed_title = k_breton_march }
+			}
 			FROM = {
 				is_tribal = no
 				higher_tier_than = DUKE
 				independent = yes
+				custom_tooltip = {
+					text = grant_breton_march_territory_control_tooltip
+					hidden_tooltip = {
+						any_realm_province = {
+							count = 3
+							region = world_gaul_lugdunensis_armorica
+						}
+					}
+				}
 			}
 		}
 		effect = {
@@ -555,7 +575,114 @@ title_decisions = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 0
+			factor = 0		# Handled by event for AI
+		}
+	}
+	
+	# TODO Duchy of Vasconia
+	# TODO Welsh March
+	# TODO Pictish March
+	# TODO Caledonian March (Limes Caledonicus) - alt Roman version of Pictish March
+	
+	grant_county_to_march = {
+		only_playable = yes
+		filter = owned
+		ai_target_filter = owned
+		ai_check_interval = 12
+		is_high_prio = yes
+		
+		from_potential = {
+			independent = yes
+			any_tributary = {
+				is_tributary = {
+					type = march
+				}
+			}
+		}
+		
+		potential = {
+			location = { is_in_march_of_FROM_trigger = yes }
+		}
+
+		allow = {
+			NOT = { FROM = { capital_holding = { title = PREVPREV } } }
+		}
+		
+		effect = {
+			if = {
+				limit = { region = custom_breton_march }
+				k_breton_march = { 
+					show_scope_change = no
+					holder_scope = {
+						show_scope_change = no
+						grant_title = ROOT
+						character_event = { id = 320925 }
+					}
+				}
+			}
+			if = {
+				limit = { region = custom_vasconia_gaul }
+				k_vasconia = { 
+					show_scope_change = no
+					holder_scope = {
+						show_scope_change = no
+						grant_title = ROOT
+						character_event = { id = 320925 }
+					}
+				}
+			}
+			if = {
+				limit = { region = world_britannia_cymry_wales }
+				k_wales = { 
+					show_scope_change = no
+					holder_scope = {
+						show_scope_change = no
+						grant_title = ROOT
+						character_event = { id = 320925 }
+					}
+				}
+			}
+			if = {
+				limit = { region = world_caledonia }
+				if = {
+					limit = {
+						top_liege = {
+							any_tributary = {
+								is_tributary = { type = march }
+								has_landed_title = k_pictland 
+							}
+						}
+					}
+					k_pictland = { 
+						show_scope_change = no
+						holder_scope = {
+							show_scope_change = no
+							grant_title = ROOT
+							character_event = { id = 320925 }
+						}
+					}
+				}
+				else = {
+					k_romancaledonia = {
+						show_scope_change = no
+						holder_scope = {
+							show_scope_change = no
+							grant_title = ROOT
+							character_event = { id = 320925 }
+						}
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }
+	# TODO Targeted decision to grant marches (same as title decision)
+	
+	# TODO Targeted decision to transfer direct vassal to march
+	# TODO Targeted decision to revoke march status

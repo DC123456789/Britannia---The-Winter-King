@@ -19,23 +19,72 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		d_nantes = { de_jure_liege = k_breton_march }
-		d_rennes = { de_jure_liege = k_breton_march }
-		d_bretagne = { de_jure_liege = k_breton_march }
-		d_penthievre = { de_jure_liege = k_breton_march }
-		d_cornouaille = { de_jure_liege = k_breton_march }
+		liege = { save_event_target_as = ROOT_liege }
+		if = {
+			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			d_nantes = { de_jure_liege = k_breton_march }
+			d_rennes = { de_jure_liege = k_breton_march }
+			d_bretagne = { de_jure_liege = k_breton_march }
+			d_penthievre = { de_jure_liege = k_breton_march }
+			d_cornouaille = { de_jure_liege = k_breton_march }
+			
+			if = {
+				limit = { 
+					has_global_flag = western_roman_empire_fallen
+					NOT = { has_global_flag = franks_defeated }
+				}
+				k_breton_march = { de_jure_liege = e_franks }
+			}
+			else = {
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
+		}
+		else = {
+			# Alternative de jure if formed by a Romanized Germanic
+			
+			# TODO Trigger these only when the march takes full control of the duchy?
+			# d_namnetia = { de_jure_liege = k_breton_march }
+			# d_redonia = { de_jure_liege = k_breton_march }
+			# d_broerec = { de_jure_liege = k_breton_march }
+			# d_domnonea = { de_jure_liege = k_breton_march }
+			# d_finis_terrae = { de_jure_liege = k_breton_march }
+			# d_poher = { de_jure_liege = k_breton_march }
+			
+			if = {
+				limit = { liege = { has_landed_title = e_visigoths } }
+				# TODO Need to apply this when e_visigoths is formed as well, 
+				# and remove it if e_visigoths is destroyed
+				k_breton_march = { de_jure_liege = e_visigoths }
+			}
+			else = {
+				k_breton_march = { de_jure_liege = 0 }
+			}
+		}		
 		
 		set_global_flag = breton_march_created
 		
 		grant_title = k_breton_march
 		set_defacto_liege = THIS
-		liege = {
+		event_target:ROOT_liege = {
 			make_tributary = { who = ROOT tributary_type = march }
 			hidden_tooltip = {
 				any_vassal = {
 					limit = {
 						primary_title = {
-							de_jure_liege_or_above = k_breton_march
+							OR = {
+								AND = {
+									tier = DUKE
+									capital_scope = {
+										region = custom_breton_march
+									}
+								}
+								AND = {
+									tier = COUNT
+									location = {
+										region = custom_breton_march
+									}
+								}
+							}
 						}
 					}
 					set_defacto_liege = ROOT
@@ -48,3 +97,23 @@ narrative_event = {
 		name = "EVTOPTA320900"
 	}
 }
+
+# 320901 TODO Creation of the Duchy of Vasconia
+
+# 320902 TODO Creation of the Welsh March
+
+# 320903 TODO Creation of the Pictish March
+
+# 320904 TODO Creation of the Limes Caledonicus
+
+# 320910 TODO Welsh March -> Earldom of Wales
+
+# 320911 TODO Pictish March -> Earldom of Pictland
+
+# 320920 TODO AI creation of marches
+
+# 320925 TODO Notification event for granting title to march
+
+# 320926 TODO Notification event for transferring vassal to march
+
+# TODO Succession handling events?
