@@ -682,7 +682,356 @@ title_decisions = {
 		}
 	}
 }
+
+targeted_decisions = {
 	# TODO Targeted decision to grant marches (same as title decision)
+	grant_breton_march_to_character = {
+		only_playable = yes
+		filter = all
+		ai_target_filter = primary_title
+		ai_check_interval = 36
+		is_high_prio = yes
+		
+		from_potential = {
+			NOR = {
+				culture_group = imperiale
+				culture_group = celtic
+			}
+			any_realm_province = {
+				region = custom_breton_march
+			}
+			NOT = {
+				top_liege = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+			}
+		}
+		
+		potential = {
+			are_dejure_changes_allowed_trigger = yes
+			higher_tier_than = BARON
+			any_realm_province = {
+				#OR = {
+					region = custom_breton_march
+					#any_neighbor_province = {
+						#region = custom_breton_march
+					#}
+				#}
+			}
+		}
+
+		allow = {
+			OR = {
+				k_breton_march = { has_holder = no }
+				FROM = { has_landed_title = k_breton_march }
+			}
+			NOR = {
+				culture_group = imperiale
+				culture_group = celtic
+			}
+			FROM = {
+				is_tribal = no
+				higher_tier_than = DUKE
+				independent = yes
+				custom_tooltip = {
+					text = grant_breton_march_territory_control_tooltip
+					hidden_tooltip = {
+						any_realm_province = {
+							count = 3
+							region = world_gaul_lugdunensis_armorica
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			tooltip = {
+				grant_title = k_breton_march
+				FROM = {
+					make_tributary = { who = ROOT tributary_type = march }
+				}
+			}
+			hidden_tooltip = {
+				character_event = { id = 320900 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0		# Handled by event for AI
+		}
+	}
 	
-	# TODO Targeted decision to transfer direct vassal to march
+	transfer_vassal_to_march = {
+		only_playable = yes
+		filter = vassals
+		ai_target_filter = vassals
+		ai_check_interval = 12
+		is_high_prio = yes
+		
+		from_potential = {
+			independent = yes
+			any_tributary = {
+				is_tributary = {
+					type = march
+				}
+			}
+		}
+		
+		potential = {
+			lower_real_tier_than = KING
+			higher_tier_than = BARON
+			primary_title = {
+				OR = {
+					AND = {
+						NOT = { tier = COUNT }
+						capital_scope = { is_in_march_of_FROM_trigger = yes }
+					}
+					AND = {
+						tier = COUNT
+						location = { is_in_march_of_FROM_trigger = yes }
+					}
+				}
+			}
+		}
+
+		allow = {
+		}
+		
+		effect = {
+			primary_title = {
+				show_scope_change = no
+				if = {
+					limit = {
+						tier = DUKE
+					}
+					capital_scope = {
+						show_scope_change = no
+						if = {
+							limit = { region = custom_breton_march }
+							k_breton_march = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+						}
+						if = {
+							limit = { region = custom_vasconia_gaul }
+							k_vasconia = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+							ROOT = {
+								set_defacto_liege = k_vasconia
+							}
+						}
+						if = {
+							limit = { region = world_britannia_cymry_wales }
+							k_wales = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+						}
+						if = {
+							limit = { region = world_caledonia }
+							if = {
+								limit = {
+									ROOT = {
+										top_liege = {
+											any_tributary = {
+												is_tributary = { type = march }
+												has_landed_title = k_pictland 
+											}
+										}
+									}
+								}
+								k_pictland = {
+									holder_scope = {
+										show_scope_change = no
+										set_defacto_vassal = ROOT
+									}
+								}
+							}
+							else = {
+								k_romancaledonia = {
+									holder_scope = {
+										show_scope_change = no
+										set_defacto_vassal = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+				else = {
+					location = {
+						show_scope_change = no
+						if = {
+							limit = { region = custom_breton_march }
+							k_breton_march = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+						}
+						if = {
+							limit = { region = custom_vasconia_gaul }
+							k_vasconia = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+							ROOT = {
+								set_defacto_liege = k_vasconia
+							}
+						}
+						if = {
+							limit = { region = world_britannia_cymry_wales }
+							k_wales = {
+								holder_scope = {
+									show_scope_change = no
+									set_defacto_vassal = ROOT
+								}
+							}
+						}
+						if = {
+							limit = { region = world_caledonia }
+							if = {
+								limit = {
+									ROOT = {
+										top_liege = {
+											any_tributary = {
+												is_tributary = { type = march }
+												has_landed_title = k_pictland 
+											}
+										}
+									}
+								}
+								k_pictland = {
+									holder_scope = {
+										show_scope_change = no
+										set_defacto_vassal = ROOT
+									}
+								}
+							}
+							else = {
+								k_romancaledonia = {
+									holder_scope = {
+										show_scope_change = no
+										set_defacto_vassal = ROOT
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	transfer_vassal_to_march_on_march = {
+		only_playable = yes
+		filter = independent_rulers
+		ai_target_filter = none
+		third_party_filter = vassals
+		is_high_prio = yes
+		ai_check_interval = 36
+		show_third_party_score = no
+		
+		from_potential = {
+			independent = yes
+			any_tributary = {
+				is_tributary = {
+					type = march
+				}
+			}
+		}
+		
+		potential = {
+			is_tributary = {
+				type = march
+				suzerain = FROM
+			}
+		}
+		
+		third_party_potential = {
+			FROMFROM = {
+				lower_real_tier_than = KING
+				higher_tier_than = BARON
+				primary_title = {
+					OR = {
+						AND = {
+							NOT = { tier = COUNT }
+							capital_scope = { is_in_ROOT_march_region_trigger = yes }
+						}
+						AND = {
+							tier = COUNT
+							location = { is_in_ROOT_march_region_trigger = yes }
+						}
+					}
+				}
+			}
+		}
+		
+		third_party_score = {
+			factor = 1
+			
+			additive_modifier = {
+				value = 20
+				FROMFROM = { 
+					tier = DUKE
+				}
+			}
+		}
+
+		allow = {
+			custom_tooltip = {
+				text = transfer_vassal_to_march_on_march_tooltip
+				hidden_tooltip = {
+					any_vassal = {
+						primary_title = {
+							OR = {
+								AND = {
+									NOT = { tier = COUNT }
+									capital_scope = { is_in_ROOT_march_region_trigger = yes }
+								}
+								AND = {
+									tier = COUNT
+									location = { is_in_ROOT_march_region_trigger = yes }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			FROMFROM = { set_defacto_liege = ROOT }
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0		# AI will only use the other decision
+		}
+	}
+	
 	# TODO Targeted decision to revoke march status
+}

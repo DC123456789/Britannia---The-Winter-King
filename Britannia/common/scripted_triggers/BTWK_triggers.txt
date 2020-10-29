@@ -2742,3 +2742,45 @@ is_in_march_of_FROM_trigger = {
 		}
 	}
 }
+
+# Checks if the province is in the core region of a march title held by ROOT
+is_in_ROOT_march_region_trigger = {
+	OR = {
+		AND = {
+			region = custom_breton_march
+			ROOT = {
+				has_landed_title = k_breton_march
+				k_breton_march = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = custom_vasconia_gaul
+			ROOT = {
+				has_landed_title = k_vasconia
+				k_vasconia = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = world_britannia_cymry_wales
+			ROOT = {
+				has_landed_title = k_wales
+				k_wales = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = world_caledonia
+			ROOT = {
+				OR = {
+					AND = {
+						has_landed_title = k_pictland
+						k_pictland = { has_title_flag = is_march }
+					}
+					AND = {
+						has_landed_title = k_romancaledonia
+						k_romancaledonia = { has_title_flag = is_march }
+					}
+				}
+			}
+		}
+	}
+}
