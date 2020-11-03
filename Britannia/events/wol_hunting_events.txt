@@ -33,7 +33,30 @@ character_event = {
 
 	immediate = {
 		set_character_flag = epic_hunt
-		set_character_flag = white_stag
+		if = {
+			limit = {
+				capital_scope = {
+					OR = {
+						region = world_britannia
+						region = world_caledonia
+						region = world_ireland
+						region = world_gaul
+						region = world_germania
+						# region = world_hispania
+						NOT = { region = custom_scandinavia }
+					}
+				}
+			}
+			set_character_flag = white_stag
+		}
+		if = {
+			limit = {
+				capital_scope = {
+					region = custom_scandinavia
+				}
+			}
+			set_character_flag = white_bear
+		}
 		narrative_event = { id = WoL.5001 }
 	}
 }
@@ -287,10 +310,10 @@ character_event = {
 					OR = {
 						region = world_britannia
 						region = world_caledonia
-						region = world_hibernia
+						region = world_ireland
 						region = world_gaul
 						region = world_germania
-						region = world_hispania
+						# region = world_hispania
 						NOT = { region = custom_scandinavia }
 					}
 				}
@@ -408,7 +431,7 @@ narrative_event = {
 						region = world_hibernia
 						region = world_gaul
 						region = world_germania
-						region = world_hispania
+						# region = world_hispania
 						NOT = { region = custom_scandinavia }
 					}
 				}
@@ -2715,6 +2738,7 @@ character_event = {
 		hidden_tooltip = { character_event = { id = WoL.5291 } }
 	}
 	option = { # Lunatic option - build him a great pyramid - use dogs name
+		name = EVTOPTC_WoL_5290
 		trigger = {
 			ai = no
 			OR = {

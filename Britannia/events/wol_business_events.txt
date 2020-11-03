@@ -468,7 +468,6 @@ character_event = {
 	
 	option = {
 		name = EVTOPTA_WOL_10111
-		#add_trait = expedition
 		hidden_tooltip = {
 			if = {
 				limit = {
@@ -530,7 +529,7 @@ character_event = {
 					is_rival = ROOT
 					trait = incapable
 					prisoner = yes
-					religion_group = ROOT
+					religion = ROOT
 					ROOT = {
 						any_liege = {
 							character = PREVPREV
@@ -556,7 +555,6 @@ character_event = {
 					is_rival = ROOT
 					trait = incapable
 					prisoner = yes
-					religion_group = ROOT
 					ROOT = {
 						any_liege = {
 							character = PREVPREV
@@ -1290,7 +1288,6 @@ character_event = {
 	hide_window = yes ###fix if time
 	
 	option = {
-		name = EVTOPTA_WOL_10127
 		trigger = {
 			has_character_flag = trade_rewarded
 		}
@@ -1306,7 +1303,6 @@ character_event = {
 	}
 	
 	option = {
-		name = EVTOPTB_WOL_10127
 		trigger = {
 			NOT = { has_character_flag = trade_rewarded }
 		}
@@ -1929,10 +1925,8 @@ character_event = {
 		if = { 
 			limit = {
 				NOT = {
-					OR = {
-						#religion_group = indian_group
-						religion_group = pagan_group
-					}
+					#religion_group = indian_group
+					religion_group = pagan_group
 				}
 				any_vassal = {
 					ai = yes
@@ -2524,7 +2518,7 @@ character_event = {
 		name = EVTOPTA_WOL_10219
 		hidden_tooltip = {
 			FROM = {
-				long_character_event = { id = WoL.10221 years = 3 }
+				long_character_event = { id = WoL.10221 days = 1095 }
 			}
 		}
 	}
@@ -3026,10 +3020,8 @@ character_event = {
 	option = {
 		trigger = {
 			NOT = {
-				OR = {
-					religion_group = muslim
-					religion = iconoclast
-				}
+				religion_group = muslim
+				# religion = iconoclast
 			}
 		}
 		name = EVTOPTB_WOL_10302
@@ -3489,8 +3481,8 @@ character_event = {
 								}
 							}
 						}
-						NOT = { demesne_size = 1 }
 						has_character_flag = est_trade_route
+						NOT = { demesne_size = 1 }
 					}
 					factor = 0
 				}
