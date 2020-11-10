@@ -1036,5 +1036,487 @@ targeted_decisions = {
 		}
 	}
 	
-	# TODO Targeted decision to revoke march status
+	revoke_march = {
+		only_playable = yes
+		filter = independent_rulers
+		ai_target_filter = none
+		is_high_prio = yes
+		ai_check_interval = 36
+		
+		from_potential = {
+			independent = yes
+			any_tributary = {
+				is_tributary = {
+					type = march
+				}
+			}
+		}
+		
+		potential = {
+			is_tributary = {
+				type = march
+				suzerain = FROM
+			}
+		}
+
+		allow = {
+			ROOT = { NOT = { war_with = FROM } }
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = revoke_march_if_ai_accepts_tooltip
+			}
+			tooltip = {
+				FROM = {
+					show_scope_change = no
+					remove_tributary = ROOT
+				}
+				ROOT = {
+					show_scope_change = no
+					any_demesne_title = {
+						limit = {
+							has_title_flag = is_march
+						}
+						show_scope_change = no
+						destroy_landed_title = THIS
+					}
+					set_defacto_liege = FROM 
+				}
+			}
+			hidden_tooltip = {
+				ROOT = { character_event = { id = 320930 } }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0		# TODO AI will try to revoke the march once all local resistance is pacified
+		}
+		ai_acceptance = {
+			factor = 10	# The base score	
+			yes_threshold = 100 
+			show_maybe_for_human = yes 
+	
+			additive_modifier = {
+				value = 100
+				localisation_key = revoke_march_base_acceptance
+				always = yes
+			}
+			additive_modifier = {
+				value = -10
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.5
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power <= 0.75
+					}
+				}
+			}
+			additive_modifier = {
+				value = 50
+				localisation_key = revoke_march_power_acceptance
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.16
+					}
+				}
+			}
+			additive_modifier = {
+				value = 40
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.16
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.25
+					}
+				}
+			}
+			additive_modifier = {
+				value = 30
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.25
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.33
+					}
+				}
+			}
+			additive_modifier = {
+				value = 20
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.33
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.4
+					}
+				}
+			}
+			additive_modifier = {
+				value = 10
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.4
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.5
+					}
+				}
+			}
+			additive_modifier = {
+				value = -10
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.6
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.66
+					}
+				}
+			}
+			additive_modifier = {
+				value = -20
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.66
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.75
+					}
+				}
+			}
+			additive_modifier = {
+				value = -30
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.75
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 0.87
+					}
+				}
+			}
+			additive_modifier = {
+				value = -40
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 0.87
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 1.0
+					}
+				}
+			}
+			additive_modifier = {
+				value = -50
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 1.0
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 1.25
+					}
+				}
+			}
+			additive_modifier = {
+				value = -60
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 1.25
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 1.5
+					}
+				}
+			}
+			additive_modifier = {
+				value = -70
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 1.5
+				}
+				NOT = {
+					relative_power = { 
+						who = FROM
+						power >= 2
+					}
+				}
+			}
+			additive_modifier = {
+				value = -80
+				localisation_key = revoke_march_power_acceptance
+				relative_power = { 
+					who = FROM
+					power >= 2
+				}
+			}
+			additive_modifier = {
+				value = 5
+				localisation_key = revoke_march_at_war
+				war = yes
+				NOT = {
+					any_war = {
+						OR = {
+							attacker = { 
+								character = PREVPREV 
+								NOT = { war_score = -25 }
+							}
+							defender = {
+								character = PREVPREV 
+								war_score = 25
+							}
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = 10
+				localisation_key = revoke_march_at_war_losing
+				war = yes
+				any_war = {
+					OR = {
+						attacker = { 
+							character = PREVPREV 
+							NOT = { war_score = -25 }
+							war_score = -60
+						}
+						defender = {
+							character = PREVPREV 
+							war_score = 25
+							NOT = { war_score = 60 }
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = 15
+				localisation_key = revoke_march_at_war_losing
+				war = yes
+				any_war = {
+					OR = {
+						attacker = { 
+							character = PREVPREV 
+							NOT = { war_score = -60 }
+						}
+						defender = {
+							character = PREVPREV 
+							war_score = 60
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = -5
+				localisation_key = revoke_march_FROM_at_war
+				FROM = { 
+					war = yes
+					NOT = {
+						any_war = {
+							OR = {
+								attacker = { 
+									character = PREVPREV 
+									NOT = { war_score = -25 }
+								}
+								defender = {
+									character = PREVPREV 
+									war_score = 25
+								}
+							}
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = -10
+				localisation_key = revoke_march_FROM_at_war_losing
+				FROM = {
+					war = yes
+					any_war = {
+						OR = {
+							attacker = { 
+								character = PREVPREV 
+								NOT = { war_score = -25 }
+								war_score = -60
+							}
+							defender = {
+								character = PREVPREV 
+								war_score = 25
+								NOT = { war_score = 60 }
+							}
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = -20
+				localisation_key = revoke_march_FROM_at_war_losing
+				FROM = {
+					war = yes
+					any_war = {
+						OR = {
+							attacker = { 
+								character = PREVPREV 
+								NOT = { war_score = -60 }
+							}
+							defender = {
+								character = PREVPREV 
+								war_score = 60
+							}
+						}
+					}
+				}
+			}
+			additive_modifier = {
+				value = 5
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value >= 25
+				}
+				NOT = {
+					opinion = { 
+						who = FROM
+						value >= 50
+					}
+				}
+			}
+			additive_modifier = {
+				value = 10
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value >= 50
+				}
+				NOT = {
+					opinion = { 
+						who = FROM
+						value >= 75
+					}
+				}
+			}
+			additive_modifier = {
+				value = 15
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value >= 75
+				}
+			}
+			additive_modifier = {
+				value = -5
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value < 0
+				}
+				NOT = {
+					opinion = { 
+						who = FROM
+						value <= -25
+					}
+				}
+			}
+			additive_modifier = {
+				value = -10
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value <= -25
+				}
+				NOT = {
+					opinion = { 
+						who = FROM
+						value <= -50
+					}
+				}
+			}
+			additive_modifier = {
+				value = -15
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value <= -50
+				}
+				NOT = {
+					opinion = { 
+						who = FROM
+						value <= -75
+					}
+				}
+			}
+			additive_modifier = {
+				value = -15
+				localisation_key = revoke_march_opinion_acceptance
+				opinion = { 
+					who = FROM
+					value <= -75
+				}
+			}
+			additive_modifier = {
+				value = -10
+				localisation_key = ambitious
+				trait = ambitious
+			}
+			additive_modifier = {
+				value = -5
+				localisation_key = brave
+				trait = brave
+			}
+			additive_modifier = {
+				value = 10
+				localisation_key = craven
+				trait = craven
+			}
+			additive_modifier = {
+				value = 10
+				localisation_key = loyal
+				trait = loyal
+			}
+			additive_modifier = {
+				value = 5
+				localisation_key = content
+				trait = content
+			}
+		}
+	}
 }
