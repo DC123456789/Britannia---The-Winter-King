@@ -11193,8 +11193,30 @@ free_tributary_cb_liege_claim = {
 					}
 				}
 			}
-			any_demesne_title = {
-				FROM = { usurp_title = PREV }
+			if = {
+				limit = {
+					is_tributary = { type = march }
+				}
+				FROM = { remove_tributary = ROOT }
+				hidden_tooltip = {
+					any_vassal = {
+						limit = { defacto_liege_title = { has_title_flag = is_march } }
+						set_defacto_liege = FROM
+					}
+				}
+				any_demesne_title = {
+					limit = {
+						has_title_flag = is_march
+					}
+					show_scope_change = no
+					destroy_landed_title = THIS
+				}
+				set_defacto_liege = FROM				
+			}
+			else = {
+				any_demesne_title = {
+					FROM = { usurp_title = PREV }
+				}
 			}
 		}
 

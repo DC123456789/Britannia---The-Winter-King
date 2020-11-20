@@ -818,6 +818,7 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
 							}
 						}
@@ -827,10 +828,8 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
-							}
-							ROOT = {
-								set_defacto_liege = k_vasconia
 							}
 						}
 						if = {
@@ -839,6 +838,7 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
 							}
 						}
@@ -859,6 +859,7 @@ targeted_decisions = {
 									holder_scope = {
 										show_scope_change = no
 										set_defacto_vassal = ROOT
+										character_event = { id = 320926 }
 									}
 								}
 							}
@@ -867,6 +868,7 @@ targeted_decisions = {
 									holder_scope = {
 										show_scope_change = no
 										set_defacto_vassal = ROOT
+										character_event = { id = 320926 }
 									}
 								}
 							}
@@ -882,6 +884,7 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
 							}
 						}
@@ -891,10 +894,8 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
-							}
-							ROOT = {
-								set_defacto_liege = k_vasconia
 							}
 						}
 						if = {
@@ -903,6 +904,7 @@ targeted_decisions = {
 								holder_scope = {
 									show_scope_change = no
 									set_defacto_vassal = ROOT
+									character_event = { id = 320926 }
 								}
 							}
 						}
@@ -923,6 +925,7 @@ targeted_decisions = {
 									holder_scope = {
 										show_scope_change = no
 										set_defacto_vassal = ROOT
+										character_event = { id = 320926 }
 									}
 								}
 							}
@@ -931,6 +934,7 @@ targeted_decisions = {
 									holder_scope = {
 										show_scope_change = no
 										set_defacto_vassal = ROOT
+										character_event = { id = 320926 }
 									}
 								}
 							}
@@ -1027,6 +1031,7 @@ targeted_decisions = {
 		effect = {
 			# TODO Increase opinion
 			FROMFROM = { set_defacto_liege = ROOT }
+			ROOT = { character_event = { id = 320927 } }
 		}
 		revoke_allowed = {
 			always = no
@@ -1061,6 +1066,18 @@ targeted_decisions = {
 
 		allow = {
 			ROOT = { NOT = { war_with = FROM } }
+			FROM = { higher_tier_than = DUKE }
+			conditional_tooltip = {
+				trigger = {
+					has_character_modifier = revoke_march_timer
+				}
+				custom_tooltip = {
+					text = revoke_march_timer_tooltip
+					hidden_tooltip = {
+						NOT = { has_character_modifier = revoke_march_timer }
+					}
+				}
+			}
 		}
 		
 		effect = {
@@ -1085,7 +1102,23 @@ targeted_decisions = {
 				}
 			}
 			hidden_tooltip = {
-				ROOT = { character_event = { id = 320930 } }
+				ROOT = { 
+					if = {
+						limit = {
+							check_variable = {
+								which = local_ai_acceptance_score
+								value = 100
+							}
+						}
+						set_character_flag = will_give_up_march
+					}
+					character_event = { id = 320930 days = 3 } 
+				}
+			}
+			add_character_modifier = {
+				name = revoke_march_timer
+				days = 4
+				hidden = yes
 			}
 		}
 		revoke_allowed = {
@@ -1095,15 +1128,10 @@ targeted_decisions = {
 			factor = 0		# TODO AI will try to revoke the march once all local resistance is pacified
 		}
 		ai_acceptance = {
-			factor = 10	# The base score	
+			factor = 100	# The base score	
 			yes_threshold = 100 
 			show_maybe_for_human = yes 
-	
-			additive_modifier = {
-				value = 100
-				localisation_key = revoke_march_base_acceptance
-				always = yes
-			}
+			
 			additive_modifier = {
 				value = -10
 				localisation_key = revoke_march_power_acceptance

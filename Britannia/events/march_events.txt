@@ -112,11 +112,199 @@ narrative_event = {
 
 # 320920 TODO AI creation of marches
 
-# 320925 TODO Notification event for granting title to march
+# Notification event for granting title to march
+diploresponse_event = {
+	id = 320925
 
-# 320926 TODO Notification event for transferring vassal to march
+	is_triggered_only = yes
+	major = no
+	is_friendly = yes
 
-# 320930 TODO Events for accepting/rejecting revokation of march
+	trigger = {
+		ai = no
+	}
+
+	desc = "EVTDESC320925"
+
+	option = {
+		name = "OK"
+	}
+}
+
+# Notification event for transferring vassal to march
+diploresponse_event = {
+	id = 320926
+
+	is_triggered_only = yes
+	major = no
+	is_friendly = yes
+
+	trigger = {
+		ai = no
+	}
+
+	desc = "EVTDESC320926"
+
+	option = {
+		name = "OK"
+	}
+}
+
+diploresponse_event = {
+	id = 320927
+
+	is_triggered_only = yes
+	major = no
+	is_friendly = yes
+
+	trigger = {
+		ai = no
+	}
+
+	desc = "EVTDESC320927"
+
+	option = {
+		name = "OK"
+	}
+}
+
+# Receive demand to revoke march
+letter_event = {
+	id = 320930
+	desc = "EVTDESC320930"
+	picture = "GFX_evt_emissary"
+	
+	only_rulers = yes
+	
+	is_triggered_only = yes
+	
+	option = {			# Accept
+		name = "Yes"
+		prestige = -50
+		reverse_opinion = {
+			modifier = opinion_approves
+			who = FROMFROM
+			years = 10
+		}
+		FROMFROM = { 
+			character_event = { id = 320931 }
+		}
+		tooltip = {
+			FROMFROM = { 
+				remove_tributary = ROOT 
+			}
+			any_demesne_title = {
+				limit = {
+					has_title_flag = is_march
+				}
+				show_scope_change = no
+				destroy_landed_title = THIS
+			}
+			set_defacto_liege = FROMFROM
+		}
+		hidden_tooltip = {
+			opinion = {
+				modifier = opinion_revoked_my_title
+				who = FROMFROM
+				years = 20
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = will_give_up_march }
+			}
+		}
+	}
+	
+	option = {			# Reject
+		name = "No"
+		# Can't resist if you're a prisoner
+		trigger = {
+			OR = {
+				prisoner = no
+				NOT = { host = { character = FROMFROM } }
+			}
+		}
+		prestige = 50
+		reverse_opinion = {
+			modifier = opinion_furious
+			who = FROMFROM
+			years = 10
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				has_character_flag = will_give_up_march
+			}
+		}
+		FROMFROM = { character_event = { id = 320932 } }
+		war = {
+			casus_belli = free_tributary_cb_liege_claim
+			target = FROMFROM					
+		}
+	}
+	
+	after = {
+		clr_character_flag = will_give_up_march
+	}
+}
+
+# March revokation accepted
+diploresponse_event = {
+	id = 320931
+	desc = "EVTDESC320931"
+
+	is_triggered_only = yes
+	major = no
+	is_friendly = yes
+
+	trigger = {
+		#ai = no
+	}
+
+	option = {
+		name = "OK"
+		FROM = {
+			show_scope_change = no
+			remove_tributary = FROM
+			hidden_tooltip = {
+				any_vassal = {
+					limit = { defacto_liege_title = { has_title_flag = is_march } }
+					set_defacto_liege = ROOT
+				}
+			}
+			any_demesne_title = {
+				limit = {
+					has_title_flag = is_march
+				}
+				show_scope_change = no
+				destroy_landed_title = THIS
+			}
+			set_defacto_liege = ROOT
+		}
+	}
+}
+
+# March revokation refused
+diploresponse_event = {
+	id = 320932
+	desc = "EVTDESC320932"
+
+	is_triggered_only = yes
+	major = no
+	is_hostile = yes
+
+	trigger = {
+		ai = no
+	}
+
+	option = {
+		name = "OK"
+	}
+}
 
 # TODO Succession handling events?
 
