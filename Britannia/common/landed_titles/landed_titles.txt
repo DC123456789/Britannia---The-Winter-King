@@ -41543,9 +41543,31 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		# saxon = "Lidwic"
 		# jute = "Lidwic"
 		
+		# TODO Need to adjust allow for k_vasconia, k_wales, k_pictland as well
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
-			always = no
+			conditional_tooltip = {
+				trigger = {
+					k_breton_march = { has_title_flag = is_march }
+				}
+				custom_tooltip = {
+					text = k_breton_march_tooltip
+					hidden_tooltip = {
+						always = no
+					}
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					k_breton_march = { NOT = { has_title_flag = is_march } }
+				}
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				num_of_count_titles_in_realm = 12
+				prestige = 1000
+			}
 		}
 	}
 	

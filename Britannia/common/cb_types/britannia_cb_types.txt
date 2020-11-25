@@ -10360,6 +10360,17 @@ tributary_client_state_cb = {
 				}
 			}
 		}
+		
+		# Not if can establish a March instead
+		NOT = {				
+			ROOT = { 
+				can_use_cb = {
+					target = FROM
+					casus_belli = tributary_march_cb
+					only_check_triggers = yes
+				}
+			}
+		}
 	}
 
 	is_valid = {
@@ -10630,6 +10641,17 @@ tributary_britannia_subject_cb = {
 		FROM = {
 			is_defending_against_tributary_war = no
 		}
+		
+		# Not if can establish a March instead
+		NOT = {				
+			ROOT = { 
+				can_use_cb = {
+					target = FROM
+					casus_belli = tributary_march_cb
+					only_check_triggers = yes
+				}
+			}
+		}
 	}
 
 	is_valid = {
@@ -10890,6 +10912,17 @@ tributary_anglosaxon_cb = {
 		FROM = {
 			is_defending_against_tributary_war = no
 		}
+		
+		# Not if can establish a March instead
+		NOT = {				
+			ROOT = { 
+				can_use_cb = {
+					target = FROM
+					casus_belli = tributary_march_cb
+					only_check_triggers = yes
+				}
+			}
+		}
 	}
 
 	is_valid = {
@@ -11076,6 +11109,253 @@ tributary_anglosaxon_cb = {
 	}
 }
 
+# TODO Localisation
+tributary_march_cb = {
+	name = CB_NAME_MARCH
+	war_name = WAR_NAME_MARCH
+	sprite = 37
+	truce_days = 365
+	is_permanent = yes
+	hostile_against_others = yes
+	can_ask_to_join_war = no
+	display_on_map = no
+	allowed_to_target_tributaries = no
+	
+	defender_unoccupied_warscore = yes
+	
+	sort_priority = 2000
+	
+	can_use_gui = {
+		# TODO Harsher requirements if not in the same empire? Good proxy for the "proper" liege of the march
+		ROOT = {
+			relative_realm_size = {
+				who = FROM 
+				size > 2
+			}
+			prestige = 1000
+		}
+	}
+	
+	can_use = {
+		ROOT = {
+			is_feudal = yes
+			independent = yes
+			higher_tier_than = DUKE
+			mercenary = no
+			is_tributary = no
+			NOT = { is_vassal_or_below = FROM }
+			NOT = { is_liege_or_above = FROM }
+			NOT = {
+				rightful_religious_head_scope = {
+					character = FROM
+				}
+			}
+			NAND = {
+				holy_order = yes
+				religion = FROM
+			}
+		}
+		FROM = {
+			any_demesne_title = {
+				has_title_flag = is_march
+				is_in_ROOT_march_culture_trigger = yes
+			}
+			is_nomadic = no
+			tier = KING
+			NOT = {
+				is_offmap_governor = yes
+			}
+			NAND = {
+				holy_order = yes
+				religion = ROOT
+			}
+			independent = yes
+			is_tributary = no
+		}
+		
+		# The attacker needs a border
+		FROM = {
+			any_realm_province = {
+				any_neighbor_province = {
+					has_owner = yes
+					owner = {
+						OR = {
+							character = ROOT
+							is_liege_or_above = ROOT
+						}
+					}
+				}
+			}
+		}
+		
+		# The defender is not in any tributary war
+		FROM = {
+			is_defending_against_tributary_war = no
+		}
+	}
+
+	is_valid = {
+		NOT = {
+			ROOT = {
+				rightful_religious_head_scope = {
+					character = FROM 
+				}
+			}
+		}
+	}
+
+	on_add = {
+		# Chance to surrender early
+		ROOT = { save_event_target_as = tribute_war_suzerain }
+		FROM = {
+			save_event_target_as = tribute_war_target
+			set_character_flag = surrender_tributary_march_cb
+			character_event = { id = JD.2500 days = 5 tooltip = surrender_tributary_tt }
+		}
+		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+	}
+
+	on_success = {
+		FROM = {
+			show_scope_change = no
+			save_event_target_as = target_loser
+			prestige = -100
+			custom_tooltip = {
+				text = "REMOVE_PREVIOUS_SUZERAIN"
+				hidden_tooltip = {
+					any_suzerain = {
+						event_target:target_loser = {
+							remove_tributary = PREV
+						}
+					}
+				}
+			}
+			opinion = {
+				modifier = opinion_forced_tributary 
+				who = ROOT
+				years = 20
+			}
+		}
+
+		ROOT = {
+			show_scope_change = no
+			prestige = 200
+			make_tributary = { who = FROM tributary_type = march }
+		}
+		
+		# Clear independent march flag
+		FROM = { hidden_tooltip = { character_event = { id = 320938 } }
+		
+		if = {
+			limit = {
+				ROOT = {
+					uses_decadence = yes
+				}
+			}
+			ROOT = {
+				decadence = -10
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					is_nomadic = yes
+				}
+			}
+			ROOT = {
+				clan_title = {
+					ROOT = {
+						any_vassal = {
+							limit = { is_nomadic = yes }
+							clan_title = {
+								clan_opinion = {
+									who = PREVPREVPREV
+									modifier = won_tributary_war
+									years = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if = {
+			limit = {
+				ROOT = {
+					is_tribal = yes
+				}
+			}
+			ROOT = {
+				any_vassal = {
+					limit = { is_tribal = yes }
+					opinion = {
+						who = PREV
+						modifier = won_tributary_war
+						years = 5
+					}
+				}
+			}
+		}
+	}
+
+	on_fail = {
+		ROOT = {
+			show_scope_change = no
+			prestige = -100
+		}
+		FROM = {
+			show_scope_change = no
+			prestige = 100
+		}
+	}
+
+	on_reverse_demand = {
+		ROOT = {
+			show_scope_change = no
+			prestige = -200
+			transfer_scaled_wealth = {
+				to = FROM
+				value = 4.0
+			}
+		}
+
+		FROM = {
+			show_scope_change = no
+			prestige = 200
+		}
+	}
+	
+	on_attacker_leader_death = {
+		end_war = invalid
+	}
+
+	attacker_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	attacker_ai_defeat_worth = {
+		factor = 100
+	}
+
+	defender_ai_victory_worth = {
+		factor = -1 # always accept
+	}
+	
+	defender_ai_defeat_worth = {
+		factor = 100
+	}
+
+	ai_will_do = {
+		factor = 1
+		
+		modifier = {
+			factor = 10		# High prio cb
+			always = yes
+		}
+	}
+}
+
 
 free_tributary_cb_liege_claim = {
 	name = CB_NAME_FREE_TRIBUTARY
@@ -11131,6 +11411,13 @@ free_tributary_cb_liege_claim = {
 		ROOT = {
 			show_scope_change = no
 			prestige = 100
+			# Flag march independence before it gets removed
+			hidden_tooltip = {
+				if = {
+					limit = { is_tributary = { type = march } }
+					set_character_flag = was_a_march
+				}
+			}
 			if = {
 				limit = {
 					is_tributary = yes
@@ -11145,6 +11432,15 @@ free_tributary_cb_liege_claim = {
 				}
 				suzerain = {
 					remove_tributary = PREV
+				}
+			}
+			# March independence notification
+			hidden_tooltip = {
+				if = {
+					limit = { has_character_flag = was_a_march }
+					clr_character_flag = was_a_march
+					character_event = { id = 320935 }
+					suzerain = { character_event = { id = 320936 } }
 				}
 			}
 			any_vassal = {

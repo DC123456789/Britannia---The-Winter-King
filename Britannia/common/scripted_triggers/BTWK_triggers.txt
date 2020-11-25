@@ -2784,3 +2784,45 @@ is_in_ROOT_march_region_trigger = {
 		}
 	}
 }
+
+# Checks if ROOT is a culture that can create the scoped march title
+is_in_ROOT_march_culture_trigger = {
+	OR = {
+		AND = {
+			title = k_breton_march
+			ROOT = {
+				NOR = {
+					culture_group = celtic
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			title = k_vasconia
+			ROOT = {
+				NOR = {
+					culture_group = basque
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			title = k_wales
+			ROOT = {
+				NOR = {
+					culture_group = celtic
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			OR = {
+				title = k_pictland
+				title = k_romancaledonia
+			}
+			ROOT = {
+				NOT = { culture_group = celtic }
+			}
+		}
+	}
+}

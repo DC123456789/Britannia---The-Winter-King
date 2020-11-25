@@ -10216,6 +10216,17 @@ tributary_cb = {
 						}
 					}
 				}
+		
+				# Not if can establish a March instead
+				NOT = {				
+					ROOT = { 
+						can_use_cb = {
+							target = FROM
+							casus_belli = tributary_march_cb
+							only_check_triggers = yes
+						}
+					}
+				}
 				
 				# Not if supposed to use Anglo-Saxon tributary cbs
 				NOR = {			
@@ -10805,10 +10816,18 @@ free_tributary_cb = {
 			show_scope_change = no
 			prestige = -100
 		}
+		
 
 		ROOT = {
 			show_scope_change = no
 			prestige = 100
+			# Flag march independence before it gets removed
+			hidden_tooltip = {
+				if = {
+					limit = { is_tributary = { type = march } }
+					set_character_flag = was_a_march
+				}
+			}
 			if = {
 				limit = {
 					is_tributary = yes
@@ -10823,6 +10842,15 @@ free_tributary_cb = {
 				}
 				suzerain = {
 					remove_tributary = PREV
+				}
+			}
+			# March independence notification
+			hidden_tooltip = {
+				if = {
+					limit = { has_character_flag = was_a_march }
+					clr_character_flag = was_a_march
+					character_event = { id = 320935 }
+					suzerain = { character_event = { id = 320936 } }
 				}
 			}
 			any_vassal = {
