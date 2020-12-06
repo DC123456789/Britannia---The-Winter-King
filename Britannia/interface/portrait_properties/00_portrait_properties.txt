@@ -28,9 +28,14 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { real_tier = emperor }
+			NOT = {
+				any_demesne_title = {
+					higher_real_tier_than = DUKE
+					NOT = { has_title_flag = is_march }
+				}
+			}
 		}
+			
 		modifier = {
 			factor = 5
 			OR = { 
@@ -1346,10 +1351,20 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { real_tier = emperor }
-			NOT = { spouse = { real_tier = king } }
-			NOT = { spouse = { real_tier = emperor } }
+			NOT = {
+				any_demesne_title = {
+					higher_real_tier_than = DUKE
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NOT = {
+				spouse = {
+					any_demesne_title = {
+						higher_real_tier_than = DUKE
+						NOT = { has_title_flag = is_march }
+					}
+				}
+			}
 			NOT = { has_minor_title = title_prince }
 		}
 	}
@@ -1381,10 +1396,20 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { real_tier = emperor }
-			NOT = { spouse = { real_tier = king } }
-			NOT = { spouse = { real_tier = emperor } }
+			NOT = {
+				any_demesne_title = {
+					higher_real_tier_than = DUKE
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NOT = {
+				spouse = {
+					any_demesne_title = {
+						higher_real_tier_than = DUKE
+						NOT = { has_title_flag = is_march }
+					}
+				}
+			}
 			NOT = { has_minor_title = title_prince }
 		}
 	}
@@ -1416,10 +1441,20 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { real_tier = emperor }
-			NOT = { spouse = { real_tier = king } }
-			NOT = { spouse = { real_tier = emperor } }
+			NOT = {
+				any_demesne_title = {
+					higher_real_tier_than = DUKE
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NOT = {
+				spouse = {
+					any_demesne_title = {
+						higher_real_tier_than = DUKE
+						NOT = { has_title_flag = is_march }
+					}
+				}
+			}
 			NOT = { has_minor_title = title_prince }
 		}
 	}
@@ -1458,6 +1493,7 @@
 			NOT = { spouse = { real_tier = count } }
 			NOT = { spouse = { real_tier = baron } }
 			NOT = { has_minor_title = title_prince }
+			NOT = { any_demesne_title = { has_title_flag = is_march } }
 		}
 	}
 	
@@ -1495,6 +1531,7 @@
 			NOT = { spouse = { real_tier = count } }
 			NOT = { spouse = { real_tier = baron } }
 			NOT = { has_minor_title = title_prince }
+			NOT = { any_demesne_title = { has_title_flag = is_march } }
 		}
 	}
 	
@@ -1532,6 +1569,7 @@
 			NOT = { spouse = { real_tier = count } }
 			NOT = { spouse = { real_tier = baron } }
 			NOT = { has_minor_title = title_prince }
+			NOT = { any_demesne_title = { has_title_flag = is_march } }
 		}
 	}
 	
@@ -1705,6 +1743,9 @@
 						# title = d_knights_templar
 						# title = d_teutonic_order
 					# }
+				# }
+				# any_demesne_title = {
+					# has_title_flag = is_march
 				# }
 			}
 		}
@@ -2121,8 +2162,22 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { spouse = { real_tier = king } }
+			NAND = {
+				real_tier = king 
+				any_demesne_title = {
+					real_tier = king
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NAND = {
+				spouse = { 
+					real_tier = king 
+					any_demesne_title = {
+						real_tier = king
+						NOT = { has_title_flag = is_march }
+					}
+				} 
+			}
 		}
 		modifier = {
 			factor = 0
@@ -2255,8 +2310,22 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { spouse = { real_tier = king } }
+			NAND = {
+				real_tier = king 
+				any_demesne_title = {
+					real_tier = king
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NAND = {
+				spouse = { 
+					real_tier = king 
+					any_demesne_title = {
+						real_tier = king
+						NOT = { has_title_flag = is_march }
+					}
+				} 
+			}
 		}
 		modifier = {
 			factor = 0
@@ -2389,8 +2458,22 @@
 		}
 		modifier = {
 			factor = 0
-			NOT = { real_tier = king }
-			NOT = { spouse = { real_tier = king } }
+			NAND = {
+				real_tier = king 
+				any_demesne_title = {
+					real_tier = king
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			NAND = {
+				spouse = { 
+					real_tier = king 
+					any_demesne_title = {
+						real_tier = king
+						NOT = { has_title_flag = is_march }
+					}
+				} 
+			}
 			NOT = { song_dynasty_futou_trigger = yes }
 		}
 		modifier = {
@@ -2524,8 +2607,11 @@
 			are_coronations_active_trigger = yes
 			#is_feudal = yes
 			OR = { 
-				AND = { 
-					higher_real_tier_than = DUKE 
+				AND = {
+					any_demesne_title = {
+						higher_real_tier_than = DUKE
+						NOT = { has_title_flag = is_march }
+					}
 					religion_group = christian
 					OR = { 
 						trait = crowned_by_priest
@@ -2543,8 +2629,11 @@
 						}
 					}
 				}
-				spouse = { 
-					higher_real_tier_than = DUKE 
+				spouse = {
+					any_demesne_title = {
+						higher_real_tier_than = DUKE
+						NOT = { has_title_flag = is_march }
+					}
 					religion_group = christian
 					OR = { 
 						trait = crowned_by_priest
@@ -2575,24 +2664,34 @@
 		modifier = {
 			factor = 0
 			NOT = { has_dlc = "Holy Fury" }
-			higher_real_tier_than = DUKE
+			any_demesne_title = {
+				higher_real_tier_than = DUKE
+				NOT = { has_title_flag = is_march }
+			}
 		}
 		modifier = {
 			factor = 0
 			NOT = { has_dlc = "Holy Fury" }
-			spouse = { higher_real_tier_than = DUKE }
+			spouse = {
+				any_demesne_title = {
+					higher_real_tier_than = DUKE
+					NOT = { has_title_flag = is_march }
+				}
+			}
 		}
 		modifier = {
 			factor = 0
 			is_ruler = yes
 			NOT = { trait = uncrowned }
 			NOT = { religion_group = christian }
-			higher_real_tier_than = DUKE
+			any_demesne_title = {
+				higher_real_tier_than = DUKE
+				NOT = { has_title_flag = is_march }
+			}
 			OR = { 
 				is_nomadic = no 
 				population = 5000
 			}
-
 		}
 		modifier = {
 			factor = 0 #Dead Doges should not wear crowns.
@@ -2636,6 +2735,10 @@
 			factor = 0
 			is_feudal = yes
 			real_tier = king
+			any_demesne_title = {
+				real_tier = king
+				NOT = { has_title_flag = is_march }
+			}
 		}
 		modifier = {
 			factor = 0
