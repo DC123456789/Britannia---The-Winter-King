@@ -21,11 +21,18 @@ targeted_decisions = {
 			hidden_tooltip = {
 				if = {
 					limit = { is_tributary = { type = march } }
-					character_event = { id = 320935 }
-					# suzerain = { character_event = { id = 320936 } }
+					set_character_flag = was_march
 				}
 			}
 			remove_tributary = FROM
+			hidden_tooltip = {
+				if = {
+					limit = { has_character_flag = was_march }
+					clr_character_flag = was_march
+					character_event = { id = 320935 days = 1 }
+					# suzerain = { character_event = { id = 320936 } }
+				}
+			}
 			FROM = {
 				prestige = -200
 			}
