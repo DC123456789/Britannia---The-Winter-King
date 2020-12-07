@@ -1,0 +1,493 @@
+
+
+local_resistance_potential_trigger = {
+	OR = {
+		AND = {
+			culture_group = celtic
+			NOT = { culture = romanobritish }
+			region = world_britannia_cymry_wales
+			owner = {
+				top_liege = {
+					NOR = {
+						culture_group = celtic
+						culture_group = imperiale
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								OR = {
+									culture_group = celtic
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		AND = {
+			culture_group = celtic
+			region = world_caledonia
+			owner = {
+				top_liege = {
+					NOR = { 
+						culture_group = celtic
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								culture_group = celtic
+							}
+						}
+					}
+				}
+			}
+		}
+		AND = {
+			culture_group = celtic
+			region = world_gaul_lugdunensis_armorica
+			owner = {
+				top_liege = {
+					NOR = { 
+						culture_group = celtic
+						culture_group = imperiale
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								OR = {
+									culture_group = celtic
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		AND = {
+			culture_group = basque
+			region = world_gaul_aquitania_tertia
+			owner = {
+				top_liege = {
+					NOR = {
+						culture_group = basque
+						culture_group = imperiale
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								OR = {
+									culture_group = basque
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Uses the current_resistance_region_province event_target
+is_in_current_resistance_region_province = {
+	OR = {
+		AND = {
+			region = world_britannia_cymry_wales
+			event_target:current_resistance_region_province = { region = world_britannia_cymry_wales }
+		}
+		AND = {
+			region = world_caledonia
+			event_target:current_resistance_region_province = { region = world_caledonia }
+		}
+		AND = {
+			region = world_gaul_lugdunensis_armorica
+			event_target:current_resistance_region_province = { region = world_gaul_lugdunensis_armorica }
+		}
+		AND = {
+			region = world_gaul_aquitania_tertia
+			event_target:current_resistance_region_province = { region = world_gaul_aquitania_tertia }
+		}
+	}
+}
+
+is_ROOT_in_current_resistance_region_province_trigger = {
+	OR = {
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_britannia_cymry_wales 
+					}
+				}
+			}
+			region = world_britannia_cymry_wales
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_caledonia 
+					}
+				}
+			}
+			region = world_caledonia
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_gaul_lugdunensis_armorica 
+					}
+				}
+			}
+			region = world_gaul_lugdunensis_armorica
+		}
+		conditional_tooltip = {
+			trigger = {
+				ROOT = { 
+					any_realm_province = {
+						region = world_gaul_aquitania_tertia 
+					}
+				}
+			}
+			region = world_gaul_aquitania_tertia
+		}
+	}
+}
+
+is_FROM_in_current_resistance_region_province_trigger = {
+	OR = {
+		conditional_tooltip = {
+			trigger = {
+				FROM = { 
+					any_realm_province = {
+						region = world_britannia_cymry_wales 
+					}
+				}
+			}
+			region = world_britannia_cymry_wales
+		}
+		conditional_tooltip = {
+			trigger = {
+				FROM = { 
+					any_realm_province = {
+						region = world_caledonia 
+					}
+				}
+			}
+			region = world_caledonia
+		}
+		conditional_tooltip = {
+			trigger = {
+				FROM = { 
+					any_realm_province = {
+						region = world_gaul_lugdunensis_armorica 
+					}
+				}
+			}
+			region = world_gaul_lugdunensis_armorica
+		}
+		conditional_tooltip = {
+			trigger = {
+				FROM = { 
+					any_realm_province = {
+						region = world_gaul_aquitania_tertia 
+					}
+				}
+			}
+			region = world_gaul_aquitania_tertia
+		}
+	}
+}
+
+is_local_resistance_similar_culture_to_ROOT_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { 
+				is_brythonic_culture_trigger = yes
+			}
+		}
+		is_brythonic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { 
+				is_gaelic_culture_trigger = yes
+			}
+		}
+		is_gaelic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { 
+				culture = pictish
+			}
+		}
+		culture = pictish
+	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = { 
+				culture_group = basque
+			}
+		}
+		culture_group = basque
+	}
+}
+
+has_local_resistance_modifier_trigger = {
+	OR = {	
+		has_province_modifier = local_resistance_1
+		has_province_modifier = local_resistance_2
+		has_province_modifier = local_resistance_3
+		has_province_modifier = local_resistance_1_quiet
+		has_province_modifier = local_resistance_2_quiet
+		has_province_modifier = local_resistance_3_quiet
+		has_province_modifier = local_resistance_1_march
+		has_province_modifier = local_resistance_2_march
+		has_province_modifier = local_resistance_3_march
+	}
+}
+
+is_province_liege_not_defending_against_nat_revolt_trigger = {
+	owner = {
+		top_liege = {
+			custom_tooltip = {
+				text = not_already_defending_against_nationalist_revolt_in_region_tooltip
+				# We have to do it the long way because PREV doesn't work properly in war scopes...
+				hidden_tooltip = {
+					NOR = {
+						AND = {
+							any_war = {
+								defender = { 
+									OR = {
+										character = PREVPREV
+										AND = {
+											is_tributary = { type = march }
+											suzerain = { character = PREVPREVPREV }
+										} 
+										any_tributary = {
+											character = PREVPREVPREV
+											PREVPREVPREV = { is_tributary = { type = march } }
+										}
+									}
+								}
+								using_cb = nationalist_revolt_wales
+							}
+							PREVPREV = { region = world_britannia_cymry_wales }
+						}
+						AND = {
+							any_war = {
+								defender = { 
+									OR = {
+										character = PREVPREV
+										AND = {
+											is_tributary = { type = march }
+											suzerain = { character = PREVPREVPREV }
+										} 
+										any_tributary = {
+											character = PREVPREVPREV
+											PREVPREVPREV = { is_tributary = { type = march } }
+										}
+									}
+								}
+								using_cb = nationalist_revolt_caledonia
+							}
+							PREVPREV = { region = world_caledonia }
+						}
+						AND = {
+							any_war = {
+								defender = { 
+									OR = {
+										character = PREVPREV
+										AND = {
+											is_tributary = { type = march }
+											suzerain = { character = PREVPREVPREV }
+										} 
+										any_tributary = {
+											character = PREVPREVPREV
+											PREVPREVPREV = { is_tributary = { type = march } }
+										}
+									}
+								}
+								using_cb = nationalist_revolt_armorica
+							}
+							PREVPREV = { region = world_gaul_lugdunensis_armorica }
+						}
+						AND = {
+							any_war = {
+								defender = { 
+									OR = {
+										character = PREVPREV
+										AND = {
+											is_tributary = { type = march }
+											suzerain = { character = PREVPREVPREV }
+										} 
+										any_tributary = {
+											character = PREVPREVPREV
+											PREVPREVPREV = { is_tributary = { type = march } }
+										}
+									}
+								}
+								using_cb = nationalist_revolt_vasconia
+							}
+							PREVPREV = { region = world_gaul_aquitania_tertia }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Province scope
+# Arguments:
+# - target_ruler			event_target, the ruler to check if is the current scope, a march thereof, or the suzerain of the scope as a march
+is_target_ruler_or_associated_march_trigger = {
+	OR = {
+		character = event_target:target_ruler
+		any_tributary = {
+			is_tributary = { type = march }
+			character = event_target:target_ruler
+		}
+		is_tributary = {
+			type = march
+			suzerain = event_target:target_ruler
+		}
+	}
+}
+
+# Checks if the province is in the core region of one of FROM's marches
+is_in_march_of_FROM_trigger = {
+	OR = {
+		AND = {
+			region = custom_breton_march
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_breton_march
+				}
+			}
+		}
+		AND = {
+			region = custom_vasconia_gaul
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_vasconia
+				}
+			}
+		}
+		AND = {
+			region = world_britannia_cymry_wales
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					has_landed_title = k_wales
+				}
+			}
+		}
+		AND = {
+			region = world_caledonia
+			FROM = {
+				any_tributary = {
+					is_tributary = {
+						type = march
+					}
+					OR = {
+						has_landed_title = k_pictland
+						has_landed_title = k_romancaledonia
+					}
+				}
+			}
+		}
+	}
+}
+
+# Checks if the province is in the core region of a march title held by ROOT
+is_in_ROOT_march_region_trigger = {
+	OR = {
+		AND = {
+			region = custom_breton_march
+			ROOT = {
+				has_landed_title = k_breton_march
+				k_breton_march = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = custom_vasconia_gaul
+			ROOT = {
+				has_landed_title = k_vasconia
+				k_vasconia = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = world_britannia_cymry_wales
+			ROOT = {
+				has_landed_title = k_wales
+				k_wales = { has_title_flag = is_march }
+			}
+		}
+		AND = {
+			region = world_caledonia
+			ROOT = {
+				OR = {
+					AND = {
+						has_landed_title = k_pictland
+						k_pictland = { has_title_flag = is_march }
+					}
+					AND = {
+						has_landed_title = k_romancaledonia
+						k_romancaledonia = { has_title_flag = is_march }
+					}
+				}
+			}
+		}
+	}
+}
+
+# Checks if ROOT is a culture that can create the scoped march title
+is_in_ROOT_march_culture_trigger = {
+	OR = {
+		AND = {
+			title = k_breton_march
+			ROOT = {
+				NOR = {
+					culture_group = celtic
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			title = k_vasconia
+			ROOT = {
+				NOR = {
+					culture_group = basque
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			title = k_wales
+			ROOT = {
+				NOR = {
+					culture_group = celtic
+					culture_group = imperiale
+				}
+			}
+		}
+		AND = {
+			OR = {
+				title = k_pictland
+				title = k_romancaledonia
+			}
+			ROOT = {
+				NOT = { culture_group = celtic }
+			}
+		}
+	}
+}
