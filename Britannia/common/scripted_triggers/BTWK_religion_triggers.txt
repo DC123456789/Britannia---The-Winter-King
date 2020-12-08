@@ -1,0 +1,497 @@
+
+is_celtic_pagan_trigger = {
+	OR = {
+		religion_openly_briton_or_reformed_trigger = yes
+		religion_openly_pict_or_reformed_trigger = yes
+		religion_openly_gael_or_reformed_trigger = yes
+	}
+}
+
+is_reformed_celtic_pagan_trigger = {
+	OR = {
+		religion = briton_pagan_reformed
+		religion = pict_pagan_reformed
+		religion = gael_pagan_reformed
+	}
+}
+
+is_unreformed_celtic_pagan_trigger = {
+	OR = {
+		religion = briton_pagan
+		religion = pict_pagan
+		religion = gael_pagan
+	}
+}
+
+is_germanic_pagan_trigger = {
+	OR = {
+		religion_openly_norse_or_reformed_trigger = yes
+		religion_openly_germanic_or_reformed_trigger = yes
+		religion_openly_frankish_or_reformed_trigger = yes
+		religion_openly_suebic_or_reformed_trigger = yes
+		religion_openly_gothic_or_reformed_trigger = yes
+	}
+}
+
+is_reformed_germanic_pagan_trigger = {
+	OR = {
+		religion = norse_pagan_reformed
+		religion = germanic_pagan_reformed
+		religion = frankish_pagan_reformed
+		religion = suebic_pagan_reformed
+		religion = gothic_pagan_reformed
+	}
+}
+
+is_unreformed_germanic_pagan_trigger = {
+	OR = {
+		religion = norse_pagan
+		religion = germanic_pagan
+		religion = frankish_pagan
+		religion = suebic_pagan
+		religion = gothic_pagan
+	}
+}
+
+is_catholic_heresy_trigger = {
+	OR = {
+		religion = pelagian
+		religion = nestorian
+		religion = priscillian
+	}
+}
+
+is_gnostic_religion_trigger = {
+	OR = {
+		religion = manichean
+		religion = gnostic
+		religion = priscillian
+	}
+}
+
+is_roman_pagan_or_reformed_trigger = {
+	OR = {
+		religion = roman_pagan
+		religion = roman_pagan_reformed
+		# religion = sol_invictus
+	}
+}
+
+is_hellenic_group_religion_trigger = {
+	OR = {
+		religion = roman_pagan
+		religion = roman_pagan_reformed
+		# religion = sol_invictus
+		religion = titan_pagan
+		religion = promethean_pagan
+	}
+}
+
+is_secretly_hellenic_group_religion_trigger = {
+	OR = {
+		secret_religion = roman_pagan
+		secret_religion = roman_pagan_reformed
+		# secret_religion = sol_invictus
+		secret_religion = titan_pagan
+		secret_religion = promethean_pagan
+	}
+}
+
+true_religion_hellenic_group_trigger = {
+	OR = {
+		true_religion = roman_pagan
+		true_religion = roman_pagan_reformed
+		# true_religion = sol_invictus
+		true_religion = titan_pagan
+		true_religion = promethean_pagan
+	}
+}
+
+has_theocratic_religion_head_trigger = {
+	OR = {
+		AND = {
+			OR = {
+				religion = alan_pagan_reformed
+				religion = tengri_pagan_reformed
+				religion = vasconic_pagan_reformed
+			}
+			has_religion_features = no # Old saves, and campaigns without HF, need the Fylkirate to continue working
+		}
+		AND = {
+			has_religion_features = yes
+			religion_group = pagan_group
+			is_reformed_religion = yes
+			NOR = { 
+				has_religion_feature = religion_temporal_head 
+				has_religion_feature = religion_druidic_leadership
+			}
+		}
+		religion = britannic_pagan
+		religion_group = christian
+		religion_group = gnostic_group
+		# religion = sol_invictus
+	}
+}
+
+is_wrong_pagan_religion_trigger = {
+	NOT = { has_religion_feature = religion_proselytizing }
+	OR = {
+		AND = {
+			is_brythonic_culture_trigger = yes
+			NOR = {
+				religion = briton_pagan 
+				religion = briton_pagan_reformed
+				religion = britannic_pagan
+			}
+		}
+		AND = {
+			culture = pictish
+			NOR = {
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+		}			
+		AND = {
+			is_gaelic_culture_trigger = yes
+			NOR = { 			
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+			}
+		}
+		AND = {
+			is_north_germanic_trigger = yes
+			NOR = {		
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+			}
+		}
+		AND = {
+			is_ingvaeonic_culture_trigger = yes
+			NOR = {		
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+			}
+		}
+		AND = {
+			is_istvaeonic_culture_trigger = yes
+			NOR = {		
+				religion = frankish_pagan
+				religion = frankish_pagan_reformed
+			}
+		}
+		AND = {
+			is_irminonic_culture_trigger = yes
+			NOR = {		
+				religion = suebic_pagan
+				religion = suebic_pagan_reformed
+			}
+		}
+		AND = {
+			is_east_germanic_trigger = yes
+			NOR = {		
+				religion = gothic_pagan
+				religion = gothic_pagan_reformed
+			}
+		}
+		is_roman_pagan_culture_trigger = yes
+		AND = {
+			culture_group = sarmatian
+			NOR = {		
+				religion = alan_pagan 
+				religion = alan_pagan_reformed
+			}
+		}
+		AND = {
+			culture_group = altaic
+			NOR = {		
+				religion = tengri_pagan 
+				religion = tengri_pagan_reformed
+			}
+		}
+		AND = {
+			culture_group = basque
+			NOR = {		
+				religion = vasconic_pagan 
+				religion = vasconic_pagan_reformed
+			}
+		}
+		culture_group = israelite
+	}
+}
+
+is_wrong_secret_pagan_religion_trigger = {
+	NOT = { secret_religion_scope = { has_religion_feature = religion_proselytizing } }
+	OR = {
+		AND = {
+			is_brythonic_culture_trigger = yes
+			NOR = {
+				secret_religion = briton_pagan 
+				secret_religion = briton_pagan_reformed
+				secret_religion = britannic_pagan
+			}
+		}
+		AND = {
+			culture = pictish
+			NOR = {
+				secret_religion = pict_pagan
+				secret_religion = pict_pagan_reformed
+			}
+		}			
+		AND = {
+			is_gaelic_culture_trigger = yes
+			NOR = { 			
+				secret_religion = gael_pagan
+				secret_religion = gael_pagan_reformed
+			}
+		}
+		AND = {
+			is_north_germanic_trigger = yes
+			NOR = {		
+				secret_religion = norse_pagan
+				secret_religion = norse_pagan_reformed
+			}
+		}
+		AND = {
+			is_ingvaeonic_culture_trigger = yes
+			NOR = {		
+				secret_religion = germanic_pagan
+				secret_religion = germanic_pagan_reformed
+			}
+		}
+		AND = {
+			is_istvaeonic_culture_trigger = yes
+			NOR = {		
+				secret_religion = frankish_pagan
+				secret_religion = frankish_pagan_reformed
+			}
+		}
+		AND = {
+			is_irminonic_culture_trigger = yes
+			NOR = {		
+				secret_religion = suebic_pagan
+				secret_religion = suebic_pagan_reformed
+			}
+		}
+		AND = {
+			is_east_germanic_trigger = yes
+			NOR = {		
+				secret_religion = gothic_pagan
+				secret_religion = gothic_pagan_reformed
+			}
+		}
+		is_roman_pagan_culture_trigger = yes
+		AND = {
+			culture_group = sarmatian
+			NOR = {		
+				secret_religion = alan_pagan 
+				secret_religion = alan_pagan_reformed
+			}
+		}
+		AND = {
+			culture_group = altaic
+			NOR = {		
+				secret_religion = tengri_pagan 
+				secret_religion = tengri_pagan_reformed
+			}
+		}
+		AND = {
+			culture_group = basque
+			NOR = {		
+				secret_religion = vasconic_pagan 
+				secret_religion = vasconic_pagan_reformed
+			}
+		}
+		culture_group = israelite
+	}
+}
+
+is_wrong_pagan_religion_than_FROM_trigger = {
+	NOT = { has_religion_feature = religion_proselytizing }
+	OR = {
+		AND = {
+			FROM = { is_brythonic_culture_trigger = no }
+			OR = {
+				religion = briton_pagan 
+				religion = briton_pagan_reformed
+				religion = britannic_pagan
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture = pictish } }
+			OR = {
+				religion = pict_pagan
+				religion = pict_pagan_reformed
+			}
+		}			
+		AND = {
+			FROM = { is_gaelic_culture_trigger = no }
+			OR = { 			
+				religion = gael_pagan
+				religion = gael_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_north_germanic_trigger = no }
+			OR = {		
+				religion = norse_pagan
+				religion = norse_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_ingvaeonic_culture_trigger = no }
+			OR = {		
+				religion = germanic_pagan
+				religion = germanic_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_istvaeonic_culture_trigger = no }
+			OR = {		
+				religion = frankish_pagan
+				religion = frankish_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_irminonic_culture_trigger = no }
+			OR = {		
+				religion = suebic_pagan
+				religion = suebic_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { is_east_germanic_trigger = no }
+			OR = {		
+				religion = gothic_pagan
+				religion = gothic_pagan_reformed
+			}
+		}
+		# is_roman_pagan_culture_trigger = no
+		AND = {
+			FROM = { NOT = { culture_group = sarmatian } }
+			OR = {		
+				religion = alan_pagan 
+				religion = alan_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture_group = altaic } }
+			OR = {		
+				religion = tengri_pagan 
+				religion = tengri_pagan_reformed
+			}
+		}
+		AND = {
+			FROM = { NOT = { culture_group = basque } }
+			OR = {		
+				religion = vasconic_pagan 
+				religion = vasconic_pagan_reformed
+			}
+		}
+		# culture_group = israelite
+	}
+}
+
+is_same_default_pagan_religion_as_ROOT = {
+	OR = {
+		AND = {
+			is_brythonic_culture_trigger = yes
+			ROOT = { is_brythonic_culture_trigger = yes }
+		}
+		AND = {
+			culture = pictish
+			ROOT = { culture = pictish }
+		}			
+		AND = {
+			is_gaelic_culture_trigger = yes
+			ROOT = { is_gaelic_culture_trigger = yes }
+		}
+		AND = {
+			is_north_germanic_trigger = yes
+			ROOT = { is_north_germanic_trigger = yes }
+		}
+		AND = {
+			is_ingvaeonic_culture_trigger = yes
+			ROOT = { is_ingvaeonic_culture_trigger = yes }
+		}
+		AND = {
+			is_istvaeonic_culture_trigger = yes
+			ROOT = { is_istvaeonic_culture_trigger = yes }
+		}
+		AND = {
+			is_irminonic_culture_trigger = yes
+			ROOT = { is_irminonic_culture_trigger = yes }
+		}
+		AND = {
+			is_east_germanic_trigger = yes
+			ROOT = { is_east_germanic_trigger = yes }
+		}
+		AND = {
+			is_roman_pagan_culture_trigger = yes
+			ROOT = { is_roman_pagan_culture_trigger = yes }
+		}
+		AND = {
+			culture_group = sarmatian
+			ROOT = { culture_group = sarmatian }
+		}
+		AND = {
+			culture_group = altaic
+			ROOT = { culture_group = altaic }
+		}
+		AND = {
+			culture_group = basque
+			ROOT = { culture_group = basque }
+		}
+		AND = {
+			culture_group = israelite
+			ROOT = { culture_group = israelite }
+		}
+	}
+}
+
+
+is_jewish_settlement_region_trigger = {
+	region = world_gaul
+}
+
+is_catholic_spread_blocked_trigger = {
+	OR = {
+		AND = {
+			culture = proto_norse
+			NOT = { year = 700 }
+		}
+		AND = {
+			culture_group = germanic
+			NOT = { year = 650 }
+			region = world_germania
+			NOR = { 
+				region = world_germania_saxony_westphalia
+				region = world_hamaland_salland
+				region = world_bructeria
+				region = custom_frisia 
+			}
+		}
+	}
+	NOR = {
+		owner = {
+			OR = {
+				religion = catholic
+				any_liege = {
+					religion = catholic
+				}
+			}
+		}
+		any_neighbor_province = {
+			OR = {	
+				religion = catholic
+				owner = {
+					OR = {
+						religion = catholic
+						any_liege = {
+							religion = catholic
+						}
+					}
+				}
+			}
+		}
+	}
+}

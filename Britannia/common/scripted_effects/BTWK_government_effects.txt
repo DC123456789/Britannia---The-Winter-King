@@ -1,0 +1,341 @@
+
+convert_to_proper_feudal_government_effect = {
+	if = {
+		limit = {
+			religion_group = muslim
+		}
+		set_government_type = muslim_government
+	}
+	else_if = {
+		limit = { ROOT = { government = imperial_government } }
+		set_government_type = imperial_government
+	}
+	else_if = {
+		limit = {
+			ROOT = { is_romanized_or_germanic_government_trigger = yes }
+		}
+		if = {
+			limit = { 
+				culture_group = germanic
+				is_romanized_germanic_trigger = no
+			}
+			set_government_type = germanic_government
+		}
+		else_if = {
+			limit = { 
+				ROOT = { government = sub_roman_brythonic_government }
+			}
+			set_government_type = sub_roman_brythonic_government
+		}
+		else = {
+			set_government_type = sub_roman_government
+		}
+	}
+	else = {
+		set_government_type = feudal_government
+	}
+}
+
+set_proper_rebel_government_effect = {
+	# If revolting from a tribal province, becomes a tribal ruler
+	if = {
+		limit = { ROOT = { any_province_holding = { holding_type = tribal } } }
+		if = {
+			limit = {
+				ROOT = { 
+					owner = { 
+						government = tribal_government
+						top_liege = { government = tribal_government } 
+					} 
+				}
+			}
+			set_government_type = tribal_government
+		}
+		else = {
+			set_government_type = high_tribal_government
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				religion_group = muslim
+			}
+			set_government_type = muslim_government
+		}
+		else_if = {
+			limit = {
+				ROOT = { 
+					owner = { 
+						top_liege = {
+							OR = {							
+								is_romanized_or_germanic_government_trigger = yes 
+								AND = {
+									is_tribal = yes
+									ROOT = {
+										NOT = { any_province_holding = { holding_type = TRIBAL } }
+									}
+									OR = {
+										is_roman_culture_trigger = yes
+										is_frankish_culture_trigger = yes
+										is_romanized_germanic_trigger = yes
+									}
+								}
+							} 
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					culture_group = germanic
+					is_romanized_germanic_trigger = no
+				}
+				set_government_type = germanic_government
+			}
+			else_if = {
+				limit = { 
+					ROOT = { owner = { top_liege = { government = sub_roman_brythonic_government } } }
+				}
+				set_government_type = sub_roman_brythonic_government
+			}
+			else = {
+				set_government_type = sub_roman_government
+			}
+		}
+		else = {
+			set_government_type = feudal_government
+		}
+	}
+}
+
+britannia_flag_proper_post_revolt_government_effect = {
+	if = {
+		limit = {
+			government = high_tribal_government
+		}
+		set_character_flag = set_to_high_tribal_government
+	}
+	else_if = {
+		limit = {
+			government = sub_roman_government
+		}
+		set_character_flag = set_to_sub_roman_government
+	}
+	else_if = {
+		limit = {
+			government = sub_roman_brythonic_government
+		}
+		set_character_flag = set_to_sub_roman_brythonic_government
+	}
+	else_if = {
+		limit = {
+			government = germanic_government
+		}
+		set_character_flag = set_to_germanic_government
+	}
+}
+
+convert_to_proper_subroman_government_effect = {
+	if = {
+		limit = {
+			OR = {
+				is_brythonic_culture_trigger = yes
+				AND = {
+					OR = {
+						culture_group = imperiale
+						is_romanized_germanic_trigger = yes
+					}
+					capital_scope = {
+						region = world_britannia
+					}
+				}
+			}
+		}
+		set_government_type = sub_roman_brythonic_government
+	}
+	else = {
+		set_government_type = sub_roman_government
+	}
+}
+
+set_government_to_target_effect = {
+	if = {
+		limit = { event_target:target_to_switch_government_to = { government = imperial_government } }
+		set_character_flag = converting_to_imperial_government
+		set_government_type = imperial_government
+		clr_character_flag = converting_to_imperial_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = sub_roman_brythonic_government } }
+		set_government_type = sub_roman_brythonic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = sub_roman_government } }
+		set_government_type = sub_roman_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = germanic_government } }
+		set_government_type = germanic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = legion_government } }
+		set_government_type = legion_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = feudal_government } }
+		set_government_type = feudal_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = muslim_government } }
+		set_government_type = muslim_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = nomadic_government } }
+		set_government_type = nomadic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = merchant_republic_government } }
+		set_government_type = merchant_republic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = republic_government } }
+		set_government_type = republic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = theocracy_government } }
+		set_government_type = theocracy_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = tribal_government } }
+		set_government_type = tribal_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = high_tribal_government } }
+		set_government_type = high_tribal_government
+	}
+}
+
+flag_target_government_effect = {
+	if = {
+		limit = { event_target:target_to_switch_government_to = { government = imperial_government } }
+		set_character_flag = set_to_imperial_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = sub_roman_brythonic_government } }
+		set_character_flag = set_to_sub_roman_brythonic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = sub_roman_government } }
+		set_character_flag = set_to_sub_roman_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = germanic_government } }
+		set_character_flag = set_to_germanic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = legion_government } }
+		set_character_flag = set_to_legion_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = feudal_government } }
+		set_character_flag = set_to_feudal_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = muslim_government } }
+		set_character_flag = set_to_muslim_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = nomadic_government } }
+		set_character_flag = set_to_nomadic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = merchant_republic_government } }
+		set_character_flag = set_to_merchant_republic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = republic_government } }
+		set_character_flag = set_to_republic_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = theocracy_government } }
+		set_character_flag = set_to_theocracy_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = tribal_government } }
+		set_character_flag = set_to_tribal_government
+	}
+	else_if = {
+		limit = { event_target:target_to_switch_government_to = { government = high_tribal_government } }
+		set_character_flag = set_to_high_tribal_government
+	}
+}
+
+set_flagged_government_effect = {
+	if = {
+		limit = { has_character_flag = set_to_imperial_government }
+		set_character_flag = converting_to_imperial_government
+		set_government_type = imperial_government
+		clr_character_flag = converting_to_imperial_government
+		clr_character_flag = set_to_imperial_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_sub_roman_brythonic_government }
+		set_government_type = sub_roman_brythonic_government
+		clr_character_flag = set_to_sub_roman_brythonic_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_sub_roman_government }
+		set_government_type = sub_roman_government
+		clr_character_flag = set_to_sub_roman_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_germanic_government }
+		set_government_type = germanic_government
+		clr_character_flag = set_to_germanic_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_legion_government }
+		set_government_type = legion_government
+		clr_character_flag = set_to_legion_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_feudal_government }
+		set_government_type = feudal_government
+		clr_character_flag = set_to_feudal_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_muslim_government }
+		set_government_type = muslim_government
+		clr_character_flag = set_to_muslim_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_nomadic_government }
+		set_government_type = nomadic_government
+		clr_character_flag = set_to_nomadic_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_merchant_republic_government }
+		set_government_type = merchant_republic_government
+		clr_character_flag = set_to_merchant_republic_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_republic_government }
+		set_government_type = republic_government
+		clr_character_flag = set_to_republic_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_theocracy_government }
+		set_government_type = theocracy_government
+		clr_character_flag = set_to_theocracy_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_tribal_government }
+		set_government_type = tribal_government
+		clr_character_flag = set_to_tribal_government
+	}
+	else_if = {
+		limit = { has_character_flag = set_to_high_tribal_government }
+		set_government_type = high_tribal_government
+		clr_character_flag = set_to_high_tribal_government
+	}
+}
