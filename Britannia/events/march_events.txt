@@ -532,7 +532,7 @@ character_event = {
 }
 
 # Notification event for former suzerain when march becomes independent
-character_event = {		# TODO localisation
+character_event = {
 	id = 320936
 	title = "EVTNAME320936"
 	desc = "EVTDESC320936"
@@ -610,6 +610,41 @@ character_event = {
 	}
 }
 
+# If a march's suzerain is lower than king tier and no longer independent, the march is re-assigned to the liege
+character_event = {
+	id = 320940
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_hill"	
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		is_tributary = { type = march }
+		suzerain = {
+			lower_tier_than = KING
+			independent = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		suzerain = {
+			remove_tributary = ROOT
+			top_liege = {
+				make_tributary = {
+					who = ROOT
+					tributary_type = march
+				}
+			}
+		}
+	}
+}
+
+
 # TODO If a march's suzerain gets deposed and is now unlanded or a vassal of the new ruler, the march goes to the new ruler
 
 # TODO If a march's suzerain loses a top-tier title (but still has others):
@@ -618,6 +653,3 @@ character_event = {
 ### (k_neustria for k_breton_march, k_aquitaine for k_vasconia, k_mercia for k_wales, and k_northumbria for k_pictland)
 ## Otherwise, transfer the march to the new ruler if the title that the old ruler no longer borders the march's territory, and the new ruler does
 
-# TODO If a march's suzerain is duke-tier or lower (and independent), the march breaks free
-
-# TODO If a march's suzerain is no longer independent, the march is re-assigned to the liege

@@ -827,3 +827,88 @@ transfer_vassal_to_march_effect = {
 		character_event = { id = 320926 }
 	}
 }
+
+# Flags all marches of the event target
+flag_target_marches_effect = {
+	event_target:target_char = {
+		set_character_flag = i_am_from
+		any_tributary = {
+			set_character_flag = i_pay_tribute_to_from
+		}
+		any_tributary = {
+			limit = { is_tributary = { type = march } }
+			set_character_flag = is_march_of_@PREV
+		}
+	}
+}
+
+# Transfers relevant marches from FROM to the new owner after a claimant war (or similar). Assumes that flag_FROM_marches_effect was called before the title was usurped. mostly in case FROM becomes unlanded and the marches are lost.
+# The march will be transferred if one of the following is true:
+# - FROM is no longer landed
+# - FROM is now a vassal of ROOT
+# - FROM no longer neighbours the march, and ROOT does
+# - The usurped title was Neustria, and the march was the Breton March
+# - The usurped title was Aquitaine, and the march was Vasconia
+# - The usurped title was Mercia, and the march was the Welsh March
+# - The usurped title was Northumbria, and the march was the Pictish March
+# SCOPE - The claimed title that was usurped
+# event_target:new_holder - The claimant taking the title
+# event_target:old_holder - The old holder of the title
+transfer_marches_to_new_holder_claim_effect = {
+	any_playable_ruler = {
+		limit = {
+			has_character_flag = is_march_of_@FROM
+		}
+		clr_character_flag = is_march_of_@FROM
+		if = {
+			limit = {
+				OR = {
+					FROM = { is_landed = no }
+					FROM = { any_liege = { character = event_target:new_holder } }
+					AND = {
+						PREV = { title = k_neustria }
+						has_landed_title = k_breton_march
+					}
+					AND = {
+						PREV = { title = k_aquitaine }
+						has_landed_title = k_vasconia
+					}
+					AND = {
+						PREV = { title = k_mercia }
+						has_landed_title = k_wales
+					}
+					AND = {
+						PREV = { title = k_northumbria }
+						has_landed_title = k_pictland
+					}
+					AND = {
+						any_realm_province = {
+							any_neighbor_province = {
+								any_liege = { character = event_target:new_holder }
+							}
+						}
+						NOT = {
+							any_realm_province = {
+								any_neighbor_province = {
+									any_liege = { character = FROM }
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = { is_tributary = yes }
+				suzerain = {
+					remove_tributary = PREV
+				}
+			}
+			event_target:new_holder = {
+				make_tributary = {
+					who = PREV
+					tributary_type = march
+				}
+			}
+		}
+	}
+}
