@@ -450,6 +450,66 @@ is_in_ROOT_march_region_trigger = {
 	}
 }
 
+# SCOPE - The province to check if in a march under the ruler of interest
+# ROOT - The character to check if has a march that includes the province of interest
+# Note that this somewhat awkward construction is necessary as PREVPREVPREV does not seem to work correctly
+is_in_march_under_ROOT = {
+	OR = {
+		AND = {
+			PREV = { region = custom_breton_march }
+			owner = {
+				top_liege = {
+					is_tributary = {
+						type = march
+						suzerain = ROOT
+					}
+					has_landed_title = k_breton_march
+					k_breton_march = { has_title_flag = is_march }
+				}
+			}
+		}
+		AND = {
+			PREV = { region = custom_vasconia_gaul }
+			owner = {
+				top_liege = {
+					is_tributary = {
+						type = march
+						suzerain = ROOT
+					}
+					has_landed_title = k_vasconia
+					k_vasconia = { has_title_flag = is_march }
+				}
+			}
+		}
+		AND = {
+			PREV = { region = world_britannia_cymry_wales }
+			owner = {
+				top_liege = {
+					is_tributary = {
+						type = march
+						suzerain = ROOT
+					}
+					has_landed_title = k_wales
+					k_wales = { has_title_flag = is_march }
+				}
+			}
+		}
+		AND = {
+			PREV = { region = world_caledonia }
+			owner = {
+				top_liege = {
+					is_tributary = {
+						type = march
+						suzerain = ROOT
+					}
+					has_landed_title = k_pictland
+					k_pictland = { has_title_flag = is_march }
+				}
+			}
+		}
+	}
+}
+
 # Checks if ROOT is a culture that can create the scoped march title
 is_in_ROOT_march_culture_trigger = {
 	OR = {

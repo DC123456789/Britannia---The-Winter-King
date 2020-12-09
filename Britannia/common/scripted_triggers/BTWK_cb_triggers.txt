@@ -377,35 +377,6 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 		}
 	}
 	
-	# Irish Kingdoms Protection
-	# NAND = { 
-		# FROM = {
-			# realm = {
-				# OR = { 
-					# title = k_mide
-					# title = k_ulaid
-					# title = k_leinster
-					# title = k_connacht
-					# title = k_munster
-				# }
-			# }
-			# NOT = { realm_size = 12 }
-		# }
-		# ROOT = {
-			# ai = yes
-			# realm = {
-				# OR = { 
-					# title = k_mide
-					# title = k_ulaid
-					# title = k_leinster
-					# title = k_connacht
-					# title = k_munster
-				# }
-			# }
-			# realm_size = 20
-		# }
-	# }
-	
 	# Mercian Protection
 	NAND = {
 		ROOT = {
@@ -425,26 +396,6 @@ county_conquest_can_use_title_minus_neighbour_condition_trigger = {
 			}
 		}
 	}
-	
-	# Linnius/Lindsey Protection
-	# NAND = {
-		# location = {
-			# region = custom_lindsey
-		# }
-		# ROOT = {
-			# OR = {
-				# has_landed_title = k_anglia
-				# top_liege = { has_landed_title = k_anglia }
-			# }
-			# NOT = { has_landed_title = d_lindsey }
-			# is_ingvaeonic_culture_trigger = yes
-		# }
-		# NOT = { year = 495 }
-		# OR = {
-			# NOT = { year = 440 }
-			# c_ad_abum = { holder_scope = { is_ingvaeonic_culture_trigger = yes } }
-		# }
-	# }
 	
 	# Ebrauc/Deira Protection
 	NAND = {
@@ -821,6 +772,15 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 		# Armorica protection
 		capital_scope = {
 			region = world_gaul_lugdunensis_armorica
+			ROOT = {
+				NAND = {
+					any_tributary = { 
+						is_tributary = { type = march } 
+						has_landed_title = k_breton_march
+					}
+					year = 750
+				}
+			}
 		}
 		
 		# Wales and Cornwall protection against Anglo-Saxons

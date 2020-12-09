@@ -912,3 +912,113 @@ transfer_marches_to_new_holder_claim_effect = {
 		}
 	}
 }
+
+vassalize_duchy_for_correct_march_of_ROOT_w_opinion_effect_and_save = {
+	if = {
+		limit = { capital_scope = { region = custom_breton_march } }
+		ROOT = {
+			show_scope_change = no
+			any_tributary = {
+				if = {
+					limit = {
+						is_tributary = { type = march } 
+						has_landed_title = k_breton_march 
+						k_breton_march = { has_title_flag = is_march }
+					}
+					vassalize_or_take_under_title_destroy_duchies = {
+						title = PREVPREV
+						enemy = FROM
+					}
+					opinion = {
+						modifier = opinion_granted_duchy
+						who = ROOT
+					}
+					save_event_target_as = target_march
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { capital_scope = { region = custom_vasconia_gaul } }
+		ROOT = {
+			show_scope_change = no
+			any_tributary = {
+				if = {
+					limit = {
+						is_tributary = { type = march } 
+						has_landed_title = k_vasconia 
+						k_vasconia = { has_title_flag = is_march }
+					}
+					vassalize_or_take_under_title_destroy_duchies = {
+						title = PREVPREV
+						enemy = FROM
+					}
+					opinion = {
+						modifier = opinion_granted_duchy
+						who = ROOT
+					}
+					save_event_target_as = target_march
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { capital_scope = { region = world_britannia_cymry_wales } }
+		ROOT = {
+			show_scope_change = no
+			any_tributary = {
+				if = {
+					limit = {
+						is_tributary = { type = march } 
+						has_landed_title = k_wales 
+						k_wales = { has_title_flag = is_march }
+					}
+					vassalize_or_take_under_title_destroy_duchies = {
+						title = PREVPREV
+						enemy = FROM
+					}
+					opinion = {
+						modifier = opinion_granted_duchy
+						who = ROOT
+					}
+					save_event_target_as = target_march
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { capital_scope = { region = world_caledonia } }
+		ROOT = {
+			show_scope_change = no
+			random_tributary = {
+				limit = {
+					is_tributary = { type = march } 
+					OR = {
+						AND = {
+							has_landed_title = k_pictland
+							k_pictland = { has_title_flag = is_march }
+						}
+						AND = {
+							has_landed_title = k_romancaledonia
+							k_romancaledonia = { has_title_flag = is_march }
+						}
+					}
+					any_realm_province = {
+						any_neighbor_province = {
+							province = PREVPREVPREV
+						}
+					}
+				}
+				vassalize_or_take_under_title_destroy_duchies = {
+					title = PREVPREV
+					enemy = FROM
+				}
+				opinion = {
+					modifier = opinion_granted_duchy
+					who = ROOT
+				}
+				save_event_target_as = target_march
+			}	
+		}
+	}
+}
