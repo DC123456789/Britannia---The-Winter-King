@@ -20440,6 +20440,23 @@ narrative_event = {	# Romanized Germanic claims the Empire
 			limit = { has_title_flag = gallic_province }
 			de_jure_liege = e_visigoths
 		}
+		any_tributary = {
+			limit = { is_tributary = { type = march } }
+			if = {
+				limit = {
+					has_landed_title = k_breton_march
+					k_breton_march = { has_title_flag = is_march }
+				}
+				k_breton_march = { de_jure_liege = e_visigoths }
+			}
+			if = {
+				limit = {
+					has_landed_title = k_vasconia
+					k_vasconia = { has_title_flag = is_march }
+				}
+				k_vasconia = { de_jure_liege = e_visigoths }
+			}
+		}
 		
 		# Rename title and remove previous empire claiming if appropriate
 		activate_title = { title = e_visigoths status = yes }

@@ -28,6 +28,7 @@ narrative_event = {
 			d_penthievre = { de_jure_liege = k_breton_march }
 			d_cornouaille = { de_jure_liege = k_breton_march }
 			
+			set_global_flag = germanic_breton_march
 			if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
@@ -56,6 +57,14 @@ narrative_event = {
 				# TODO Need to apply this when e_visigoths is formed as well, 
 				# and remove it if e_visigoths is destroyed
 				k_breton_march = { de_jure_liege = e_visigoths }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				k_breton_march = { de_jure_liege = e_roman_britannia }
 			}
 			else = {
 				k_breton_march = { de_jure_liege = 0 }
@@ -112,183 +121,100 @@ narrative_event = {
 
 # 320911 TODO Pictish March -> Earldom of Pictland
 
-# AI creation of marches
-# TODO Need to add other marches
+
+# March de jure removal
+# TODO Update with other marches
 character_event = {
-	id = 320920
-	desc = "You're not supposed to see this..."
-	
-	picture = "GFX_evt_castle_gate"
-	
+	id = 320919
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_hill"	
 	hide_window = yes
-	only_independent = yes
-	is_triggered_only = yes
+	
+	only_playable = yes
 	
 	trigger = {
-		are_dejure_changes_allowed_trigger = yes
-		ai = yes
-		is_tribal = no
-		higher_tier_than = DUKE
-		independent = yes
+		has_landed_title = k_nuncio_britanniae
 		OR = {
-			AND = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
-				any_realm_province = {
-					count = 3
-					region = world_gaul_lugdunensis_armorica
-				}
-				# any_realm_province = {
-					# region = custom_breton_march
-				# }
-				NOT = {
-					any_tributary = {
-						has_landed_title = k_breton_march
-					}
-				}
-				OR = {
-					k_breton_march = { has_holder = no }
-					FROM = { has_landed_title = k_breton_march }
-				}
+			k_breton_march = { 
+				has_holder = no
+				has_title_flag = is_march
+				has_global_flag = breton_march_created
 			}
 		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
 	}
 	
 	immediate = {
-		# Breton March
 		if = {
-			limit = {			
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
-				any_realm_province = {
-					count = 3
-					region = world_gaul_lugdunensis_armorica
-				}
-				# any_realm_province = {
-					# region = custom_breton_march
-				# }
-				NOT = {
-					any_tributary = {
-						has_landed_title = k_breton_march
-					}
-				}
-				OR = {
-					k_breton_march = { has_holder = no }
-					FROM = { has_landed_title = k_breton_march }
+			limit = {
+				k_breton_march = { 
+					has_holder = no
+					has_title_flag = is_march
+					has_global_flag = breton_march_created
 				}
 			}
-			any_vassal = {
-				limit = {
-					higher_tier_than = BARON
-					NOR = {
-						culture_group = imperiale
-						culture_group = celtic
-					}
-					any_realm_province = {
-						#OR = {
-							region = custom_breton_march
-							#any_neighbor_province = {
-								#region = custom_breton_march
-							#}
-						#}
-					}
+			if = {
+				limit = { 
+					has_global_flag = western_roman_empire_fallen
+					NOT = { has_global_flag = franks_defeated }
 				}
-				score_value = {
-					value = 1
-					additive_modifier = {
-						OR = {
-							culture_group = celtic
-							culture_group = imperiale
-						}
-						value = -30
-					}
-					additive_modifier = {
-						NOT = { culture_group = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { culture = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { religion_group = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { religion = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						tier = DUKE
-						value = 10
-					}
-					additive_modifier = {
-						realm_size <= 2
-						value = -5
-					}
-					additive_modifier = {
-						realm_size >= 10
-						value = 5
-					}
-					additive_modifier = {
-						num_of_count_titles <= 1
-						value = -5
-					}
-					additive_modifier = {
-						num_of_count_titles > 3
-						value = 5
-					}
-					additive_modifier = {
-						dynasty = ROOT
-						value = 5
-					}
-					additive_modifier = {
-						is_friend = ROOT
-						value = 5
-					}
-					additive_modifier = {
-						is_rival = ROOT
-						value = -10
-					}
-					additive_modifier = {
-						value = 5
-						reverse_opinion = { 
-							who = ROOT
-							value >= 25
-						}
-					}
-					additive_modifier = {
-						value = 5
-						reverse_opinion = { 
-							who = ROOT
-							value >= 75
-						}
-					}
-					additive_modifier = {
-						value = -5
-						reverse_opinion = { 
-							who = ROOT
-							value <= -25
-						}
-					}
-					additive_modifier = {
-						value = -5
-						reverse_opinion = { 
-							who = ROOT
-							value <= -75
-						}
-					}
-				}
-				count = 1
-				character_event = { id = 320900 }
+				k_breton_march = { de_jure_liege = e_franks }
 			}
+			else = {
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
+			
+			if = {
+				limit = { has_global_flag = saxon_nantes }
+				d_nantes = { de_jure_liege = k_saxon_gaul }
+			}
+			else = {
+				d_nantes = { de_jure_liege = k_orleans }
+			}
+			if = {
+				limit = { has_global_flag = saxon_rennes }
+				d_rennes = { de_jure_liege = k_saxon_gaul }
+			}
+			else = {
+				d_rennes = { de_jure_liege = k_orleans }
+			}
+			if = {
+				limit = { has_global_flag = saxon_bretagne }
+				d_bretagne = { de_jure_liege = k_saxon_gaul }
+			}
+			else = {
+				d_bretagne = { de_jure_liege = k_orleans }
+			}
+			if = {
+				limit = { has_global_flag = saxon_penthievre }
+				d_penthievre = { de_jure_liege = k_saxon_gaul }
+			}
+			else = {
+				d_penthievre = { de_jure_liege = k_orleans }
+			}
+			if = {
+				limit = { has_global_flag = saxon_cornouaille }
+				d_cornouaille = { de_jure_liege = k_saxon_gaul }
+			}
+			else = {
+				d_cornouaille = { de_jure_liege = k_orleans }
+			}
+			
+			# TODO Need to do Romanized Germanic variant
+			
+			clr_global_flag = breton_march_created
+			clr_global_flag = germanic_breton_march
 		}
 	}
 }
+
+# TODO 320920 Romanized Breton March duchy de jure shift event
+# TODO 320921 Romanized Vasconia duchy de jure shift event
+# TODO 320922 Romanized Welsh March duchy de jure shift event
+# TODO 320923 Romanized Pictish March duchy de jure shift event
 
 # Notification event for granting title to march
 diploresponse_event = {
@@ -463,6 +389,7 @@ diploresponse_event = {
 			}
 			set_defacto_liege = ROOT
 		}
+		hidden_tooltip = { character_event = { id = 320919 } }		# De jure effects
 	}
 }
 
@@ -644,3 +571,181 @@ character_event = {
 	}
 }
 
+
+# AI creation of marches
+# TODO Need to add other marches
+character_event = {
+	id = 320945
+	desc = "You're not supposed to see this..."
+	
+	picture = "GFX_evt_castle_gate"
+	
+	hide_window = yes
+	only_independent = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		are_dejure_changes_allowed_trigger = yes
+		ai = yes
+		is_tribal = no
+		higher_tier_than = DUKE
+		independent = yes
+		OR = {
+			AND = {
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				any_realm_province = {
+					count = 3
+					region = world_gaul_lugdunensis_armorica
+				}
+				# any_realm_province = {
+					# region = custom_breton_march
+				# }
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+				OR = {
+					k_breton_march = { has_holder = no }
+					FROM = { has_landed_title = k_breton_march }
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		# Breton March
+		if = {
+			limit = {			
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				any_realm_province = {
+					count = 3
+					region = world_gaul_lugdunensis_armorica
+				}
+				# any_realm_province = {
+					# region = custom_breton_march
+				# }
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+				OR = {
+					k_breton_march = { has_holder = no }
+					FROM = { has_landed_title = k_breton_march }
+				}
+			}
+			any_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					NOR = {
+						culture_group = imperiale
+						culture_group = celtic
+					}
+					any_realm_province = {
+						#OR = {
+							region = custom_breton_march
+							#any_neighbor_province = {
+								#region = custom_breton_march
+							#}
+						#}
+					}
+				}
+				score_value = {
+					value = 1
+					additive_modifier = {
+						OR = {
+							culture_group = celtic
+							culture_group = imperiale
+						}
+						value = -30
+					}
+					additive_modifier = {
+						NOT = { culture_group = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { culture = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { religion_group = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { religion = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						tier = DUKE
+						value = 10
+					}
+					additive_modifier = {
+						realm_size <= 2
+						value = -5
+					}
+					additive_modifier = {
+						realm_size >= 10
+						value = 5
+					}
+					additive_modifier = {
+						num_of_count_titles <= 1
+						value = -5
+					}
+					additive_modifier = {
+						num_of_count_titles > 3
+						value = 5
+					}
+					additive_modifier = {
+						dynasty = ROOT
+						value = 5
+					}
+					additive_modifier = {
+						is_friend = ROOT
+						value = 5
+					}
+					additive_modifier = {
+						is_rival = ROOT
+						value = -10
+					}
+					additive_modifier = {
+						value = 5
+						reverse_opinion = { 
+							who = ROOT
+							value >= 25
+						}
+					}
+					additive_modifier = {
+						value = 5
+						reverse_opinion = { 
+							who = ROOT
+							value >= 75
+						}
+					}
+					additive_modifier = {
+						value = -5
+						reverse_opinion = { 
+							who = ROOT
+							value <= -25
+						}
+					}
+					additive_modifier = {
+						value = -5
+						reverse_opinion = { 
+							who = ROOT
+							value <= -75
+						}
+					}
+				}
+				count = 1
+				character_event = { id = 320900 }
+			}
+		}
+	}
+}
