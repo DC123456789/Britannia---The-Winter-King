@@ -207,11 +207,123 @@ character_event = {
 			
 			clr_global_flag = breton_march_created
 			clr_global_flag = germanic_breton_march
+			k_breton_march = {
+				any_direct_de_jure_vassal_title = {
+					clear_title_flag = under_march_k_breton_march
+				}
+			}
 		}
 	}
 }
 
-# TODO 320920 Romanized Breton March duchy de jure shift event
+# Romanized Breton March duchy de jure shift event
+character_event = {
+	id = 320920
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_gate"
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_breton_march
+		NOT = { has_global_flag = germanic_breton_march }
+		OR = {
+			d_redonia = { can_drift_into_breton_march = yes }
+			d_namnetia = { can_drift_into_breton_march = yes }
+			d_broerec = { can_drift_into_breton_march = yes }
+			d_domnonea = { can_drift_into_breton_march = yes }
+			d_poher = { can_drift_into_breton_march = yes }
+			d_finis_terrae = { can_drift_into_breton_march = yes }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { is_tributary = { type = march } }
+			suzerain = { primary_title = { save_event_target_as = march_suzerain_title } }
+		}
+		
+		k_breton_march = { save_event_target_as = kingdom_to_de_jure_drift_to }
+		if = {
+			limit = {
+				d_redonia = { can_drift_into_breton_march = yes }
+			}
+			d_redonia = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		else_if = {
+			limit = {
+				d_namnetia = { can_drift_into_breton_march = yes }
+			}
+			d_namnetia = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		else_if = {
+			limit = {
+				d_broerec = { can_drift_into_breton_march = yes }
+			}
+			d_broerec = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		else_if = {
+			limit = {
+				d_domnonea = { can_drift_into_breton_march = yes }
+			}
+			d_domnonea = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		else_if = {
+			limit = {
+				d_poher = { can_drift_into_breton_march = yes }
+			}
+			d_poher = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		else_if = {
+			limit = {
+				d_finis_terrae = { can_drift_into_breton_march = yes }
+			}
+			d_finis_terrae = { save_event_target_as = duchy_to_de_jure_drift }
+		}
+		
+		event_target:duchy_to_de_jure_drift = { 
+			de_jure_liege = event_target:kingdom_to_de_jure_drift_to 
+			set_title_flag = under_march_@event_target:kingdom_to_de_jure_drift_to
+		}
+		
+		any_player = {
+			character_event = { id = 320921 }
+		}
+		
+	}
+}
+
+# Player notification event (major events don't interact properly with event targets
+narrative_event = {
+	id = 320921
+	title = "EVTNAME320921"
+	desc = {
+		trigger = {
+			FROM = { is_tributary = { type = march } }
+		}
+		text = EVTDESC320921_march
+	}
+	desc = {
+		trigger = {
+			NOT = { FROM = { is_tributary = { type = march } } }
+		}
+		text = EVTDESC320921_not_march
+	}	
+	picture = "GFX_evt_castle_gate"
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320921"
+	}
+}
+
 # TODO 320921 Romanized Vasconia duchy de jure shift event
 # TODO 320922 Romanized Welsh March duchy de jure shift event
 # TODO 320923 Romanized Pictish March duchy de jure shift event

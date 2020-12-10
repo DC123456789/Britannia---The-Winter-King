@@ -126,7 +126,7 @@ can_create_roman_province_gaul_trigger = {
 	}
 }
 
-can_create_germanic_title_trigger = {
+is_germanic_ruler_trigger = {
 	OR = {
 		culture_group = germanic
 		culture = french
@@ -134,14 +134,33 @@ can_create_germanic_title_trigger = {
 		culture = arpitan
 	}
 	NOT = { is_romanized_germanic_trigger = yes }
+}
+
+can_create_germanic_title_trigger = {
+	# is_germanic_ruler_trigger = yes
 	top_liege = {
-		OR = {
-			culture_group = germanic
-			culture = french
-			culture = occitan
-			culture = arpitan
+		conditional_tooltip = {
+			trigger = {
+				NAND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
+			}
+			is_germanic_ruler_trigger = yes
 		}
-		NOT = { is_romanized_germanic_trigger = yes }
+		conditional_tooltip = {
+			trigger = {
+				is_tributary = { type = march }
+				suzerain = { is_germanic_ruler_trigger = yes }
+			}
+			OR = {
+				is_germanic_ruler_trigger = yes
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
+			}
+		}
 	}
 }
 
@@ -211,29 +230,25 @@ is_germanic_controlled_trigger = {
 	holder_scope = {
 		top_liege = { 
 			OR = {
-				AND = {
-					culture_group = germanic
-					is_romanized_germanic_trigger = no
-				}
-				culture = french
-				culture = occitan
-				culture = arpitan
+				is_germanic_ruler_trigger = yes
 				primary_title = {
 					tier = KING
 					empire = { title = e_franks }
 				}
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
 				liege_before_war = { 
 					OR = {
-						AND = {
-							culture_group = germanic
-							is_romanized_germanic_trigger = no
-						}
-						culture = french
-						culture = occitan
-						culture = arpitan
+						is_germanic_ruler_trigger = yes
 						primary_title = {
 							tier = KING
 							empire = { title = e_franks }
+						}
+						AND = {
+							is_tributary = { type = march }
+							suzerain = { is_germanic_ruler_trigger = yes }
 						}
 					}
 				}
