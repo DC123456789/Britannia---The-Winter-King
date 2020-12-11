@@ -290,3 +290,86 @@ set_benoic_destroyed_effect = {
 		}
 	}
 }
+
+# Note - does NOT clear the under_march_[march title] flag
+return_march_duchy_to_original_de_jure_liege_effect = {
+	if = {
+		limit = {
+			title = d_redonia
+		}
+		if = {
+			limit = { 
+				OR = {
+					AND = {
+						NOT = { has_global_flag = benoic_armorica_created }
+						has_global_flag = benoic_renamed
+					}
+					AND = {
+						has_global_flag = broceliande_renamed 
+						has_global_flag = benoic_destroyed
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_global_flag = roman_provinces_gaul_restored
+				}
+				de_jure_liege = k_lugdunesis_tertia
+			}
+			else = {
+				de_jure_liege = k_gaul
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_global_flag = benoic_armorica_created
+					has_global_flag = benoic_destroyed
+				}
+			}
+			de_jure_liege = k_broceliande
+		}
+		else = {
+			de_jure_liege = k_benoic
+		}
+	}
+	else_if = {
+		limit = {
+			title = d_namnetia
+		}
+		if = {
+			limit = { has_global_flag = naoned_created }
+			de_jure_liege = k_broceliande
+		}
+		else_if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			de_jure_liege = k_lugdunesis_tertia
+		}
+		else = {
+			de_jure_liege = k_gaul
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				title = d_broerec
+				title = d_domnonea
+				title = d_poher
+				title = d_finis_terrae
+			}
+		}
+		if = {
+			limit = { has_global_flag = broceliande_renamed }
+			if = {
+				limit = { has_global_flag = roman_provinces_gaul_restored }
+				de_jure_liege = k_lugdunesis_tertia
+			}
+			else = {
+				de_jure_liege = k_gaul
+			}
+		}
+		else = {
+			de_jure_liege = k_broceliande
+		}
+	}
+}

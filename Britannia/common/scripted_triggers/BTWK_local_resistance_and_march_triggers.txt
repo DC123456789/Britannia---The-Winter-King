@@ -552,17 +552,47 @@ is_in_ROOT_march_culture_trigger = {
 	}
 }
 
-# Checks that a duchy has all counties controlled by the Breton March, but is not a de jure part of it (and is not titular)
-# Assumes that the Breton March has a holder (probably won't break otherwise, but still)
+# Checks that a duchy has all counties controlled by a March, but is not a de jure part of it (and is not titular)
+# Assumes that the March has a holder (probably won't break otherwise, but still)
 # SCOPE - The duchy to check if the Breton March controls
-# PREV - The holder of the Breton March
-can_drift_into_breton_march = {
-	NOT = { de_jure_liege = k_breton_march } 
-	NOT = { dejure_liege_title = { holder_scope = { character = PREVPREVPREV } } }
+# PREV - The march title to check if the duchy can drift into
+can_drift_into_march = {
+	NOT = { de_jure_liege = PREV } 
+	NOT = { dejure_liege_title = { holder_scope = { has_landed_title = PREVPREVPREV } } }
 	is_titular = no
 	NOT = {
 		any_direct_de_jure_vassal_title = {
-			NOT = { holder_scope = { top_liege = { character = PREVPREVPREVPREV } } }
+			NOT = { holder_scope = { top_liege = { has_landed_title = PREVPREVPREVPREV } } }
+		}
+	}
+}
+
+# Checks that a duchy that is de jure part of the Breton March can drift out
+# Requires that all counties in the duchy be under the control of a non-Germanic kingdom or empire title, that does not hold the relevant march title
+# SCOPE - The duchy to check if the Breton March controls
+# PREV - The March title the duchy is currently in
+can_drift_out_of_breton_march = {
+	is_titular = no
+	NOT = {
+		any_direct_de_jure_vassal_title = {
+			NOT = {
+				holder_scope = {
+					NOR = {
+						has_landed_title = PREVPREVPREV
+						any_liege = { 
+							has_landed_title = PREVPREVPREVPREV
+						}
+					}
+					top_liege = {
+						is_germanic_ruler_trigger = no
+						OR = {
+							higher_tier_than = DUKE
+							culture_group = celtic
+							culture_group = imperiale
+						}
+					}
+				}
+			}
 		}
 	}
 }
