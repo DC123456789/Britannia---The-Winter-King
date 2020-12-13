@@ -9,7 +9,7 @@
 # Creation of the Breton March
 narrative_event = {
 	id = 320900
-	title = "EVTNAME320900"
+	title = "EVTNAME320900"		# TODO Localisation
 	desc = "EVTDESC320900"
 	major = yes
 	hide_new = yes
@@ -28,6 +28,7 @@ narrative_event = {
 			d_penthievre = { de_jure_liege = k_breton_march }
 			d_cornouaille = { de_jure_liege = k_breton_march }
 			
+			set_global_flag = germanic_breton_march
 			if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
@@ -56,6 +57,14 @@ narrative_event = {
 				# TODO Need to apply this when e_visigoths is formed as well, 
 				# and remove it if e_visigoths is destroyed
 				k_breton_march = { de_jure_liege = e_visigoths }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				k_breton_march = { de_jure_liege = e_roman_britannia }
 			}
 			else = {
 				k_breton_march = { de_jure_liege = 0 }
@@ -112,181 +121,334 @@ narrative_event = {
 
 # 320911 TODO Pictish March -> Earldom of Pictland
 
-# AI creation of marches
-# TODO Need to add other marches
+
+# March de jure removal
+# TODO Update with other marches
 character_event = {
-	id = 320920
-	desc = "You're not supposed to see this..."
-	
-	picture = "GFX_evt_castle_gate"
-	
+	id = 320919
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_hill"	
 	hide_window = yes
-	only_independent = yes
-	is_triggered_only = yes
+	
+	only_playable = yes
 	
 	trigger = {
-		are_dejure_changes_allowed_trigger = yes
-		ai = yes
-		is_tribal = no
-		higher_tier_than = DUKE
-		independent = yes
+		has_landed_title = k_nuncio_britanniae
 		OR = {
-			AND = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
-				any_realm_province = {
-					count = 3
-					region = world_gaul_lugdunensis_armorica
-				}
-				# any_realm_province = {
-					# region = custom_breton_march
-				# }
-				NOT = {
-					any_tributary = {
-						has_landed_title = k_breton_march
-					}
-				}
-				OR = {
-					k_breton_march = { has_holder = no }
-					FROM = { has_landed_title = k_breton_march }
-				}
+			k_breton_march = { 
+				has_holder = no
+				has_title_flag = is_march
+				has_global_flag = breton_march_created
 			}
 		}
 	}
 	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
 	immediate = {
-		# Breton March
 		if = {
-			limit = {			
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
-				any_realm_province = {
-					count = 3
-					region = world_gaul_lugdunensis_armorica
-				}
-				# any_realm_province = {
-					# region = custom_breton_march
-				# }
-				NOT = {
-					any_tributary = {
-						has_landed_title = k_breton_march
-					}
-				}
-				OR = {
-					k_breton_march = { has_holder = no }
-					FROM = { has_landed_title = k_breton_march }
+			limit = {
+				k_breton_march = { 
+					has_holder = no
+					has_title_flag = is_march
+					has_global_flag = breton_march_created
 				}
 			}
-			any_vassal = {
-				limit = {
-					higher_tier_than = BARON
-					NOR = {
-						culture_group = imperiale
-						culture_group = celtic
-					}
-					any_realm_province = {
-						#OR = {
-							region = custom_breton_march
-							#any_neighbor_province = {
-								#region = custom_breton_march
-							#}
-						#}
+			if = {
+				limit = { 
+					has_global_flag = western_roman_empire_fallen
+					NOT = { has_global_flag = franks_defeated }
+				}
+				k_breton_march = { de_jure_liege = e_franks }
+			}
+			else = {
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
+			
+			# Needs to be before, as otherwise k_breton_march won't have any more de jure duchies remaining
+			k_breton_march = {
+				any_direct_de_jure_vassal_title = {
+					clear_title_flag = under_march_k_breton_march
+				}
+			}
+			
+			if = {
+				limit = { has_global_flag = germanic_breton_march }
+				if = {
+					limit = { has_global_flag = saxon_nantes }
+					d_nantes = { de_jure_liege = k_saxon_gaul }
+				}
+				else = {
+					d_nantes = { de_jure_liege = k_orleans }
+				}
+				if = {
+					limit = { has_global_flag = saxon_rennes }
+					d_rennes = { de_jure_liege = k_saxon_gaul }
+				}
+				else = {
+					d_rennes = { de_jure_liege = k_orleans }
+				}
+				if = {
+					limit = { has_global_flag = saxon_bretagne }
+					d_bretagne = { de_jure_liege = k_saxon_gaul }
+				}
+				else = {
+					d_bretagne = { de_jure_liege = k_orleans }
+				}
+				if = {
+					limit = { has_global_flag = saxon_penthievre }
+					d_penthievre = { de_jure_liege = k_saxon_gaul }
+				}
+				else = {
+					d_penthievre = { de_jure_liege = k_orleans }
+				}
+				if = {
+					limit = { has_global_flag = saxon_cornouaille }
+					d_cornouaille = { de_jure_liege = k_saxon_gaul }
+				}
+				else = {
+					d_cornouaille = { de_jure_liege = k_orleans }
+				}
+			}
+			else = {
+				k_breton_march = {
+					any_direct_de_jure_vassal_title = {
+						return_march_duchy_to_original_de_jure_liege_effect = yes
 					}
 				}
-				score_value = {
-					value = 1
-					additive_modifier = {
-						OR = {
-							culture_group = celtic
-							culture_group = imperiale
-						}
-						value = -30
-					}
-					additive_modifier = {
-						NOT = { culture_group = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { culture = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { religion_group = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						NOT = { religion = ROOT }
-						value = -10
-					}
-					additive_modifier = {
-						tier = DUKE
-						value = 10
-					}
-					additive_modifier = {
-						realm_size <= 2
-						value = -5
-					}
-					additive_modifier = {
-						realm_size >= 10
-						value = 5
-					}
-					additive_modifier = {
-						num_of_count_titles <= 1
-						value = -5
-					}
-					additive_modifier = {
-						num_of_count_titles > 3
-						value = 5
-					}
-					additive_modifier = {
-						dynasty = ROOT
-						value = 5
-					}
-					additive_modifier = {
-						is_friend = ROOT
-						value = 5
-					}
-					additive_modifier = {
-						is_rival = ROOT
-						value = -10
-					}
-					additive_modifier = {
-						value = 5
-						reverse_opinion = { 
-							who = ROOT
-							value >= 25
-						}
-					}
-					additive_modifier = {
-						value = 5
-						reverse_opinion = { 
-							who = ROOT
-							value >= 75
-						}
-					}
-					additive_modifier = {
-						value = -5
-						reverse_opinion = { 
-							who = ROOT
-							value <= -25
-						}
-					}
-					additive_modifier = {
-						value = -5
-						reverse_opinion = { 
-							who = ROOT
-							value <= -75
-						}
-					}
-				}
-				count = 1
-				character_event = { id = 320900 }
+			}
+			
+			clr_global_flag = breton_march_created
+			clr_global_flag = germanic_breton_march
+		}
+	}
+}
+
+# Romanized Breton March duchy de jure shift event
+# TODO Romanized Vasconia duchy de jure shifts
+# TODO Romanized Welsh March duchy de jure shifts
+# TODO Romanized Pictish March duchy de jure shifts
+character_event = {
+	id = 320920
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_gate"
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_breton_march
+		NOT = { has_global_flag = germanic_breton_march }
+		k_breton_march = {
+			OR = {
+				d_redonia = { can_drift_into_march = yes }
+				d_namnetia = { can_drift_into_march = yes }
+				d_broerec = { can_drift_into_march = yes }
+				d_domnonea = { can_drift_into_march = yes }
+				d_poher = { can_drift_into_march = yes }
+				d_finis_terrae = { can_drift_into_march = yes }
 			}
 		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { is_tributary = { type = march } }
+			suzerain = { primary_title = { save_event_target_as = march_suzerain_title } }
+		}
+		
+		k_breton_march = { 
+			save_event_target_as = kingdom_to_de_jure_drift_to
+			if = {
+				limit = {
+					d_redonia = { can_drift_into_march = yes }
+				}
+				d_redonia = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+			else_if = {
+				limit = {
+					d_namnetia = { can_drift_into_march = yes }
+				}
+				d_namnetia = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+			else_if = {
+				limit = {
+					d_broerec = { can_drift_into_march = yes }
+				}
+				d_broerec = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+			else_if = {
+				limit = {
+					d_domnonea = { can_drift_into_march = yes }
+				}
+				d_domnonea = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+			else_if = {
+				limit = {
+					d_poher = { can_drift_into_march = yes }
+				}
+				d_poher = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+			else_if = {
+				limit = {
+					d_finis_terrae = { can_drift_into_march = yes }
+				}
+				d_finis_terrae = { save_event_target_as = duchy_to_de_jure_drift }
+			}
+		}
+		
+		event_target:duchy_to_de_jure_drift = { 
+			de_jure_liege = event_target:kingdom_to_de_jure_drift_to 
+			set_title_flag = under_march_@event_target:kingdom_to_de_jure_drift_to
+		}
+		
+		any_player = {
+			character_event = { id = 320921 }
+		}		
+	}
+}
+
+# Player notification event (major events don't interact properly with event targets)
+narrative_event = {
+	id = 320921
+	title = "EVTNAME320921"
+	desc = {
+		trigger = {
+			FROM = { is_tributary = { type = march } }
+		}
+		text = EVTDESC320921_march
+	}
+	desc = {
+		trigger = {
+			NOT = { FROM = { is_tributary = { type = march } } }
+		}
+		text = EVTDESC320921_not_march
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_redonia } } 
+		picture = GFX_evt_fields_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_namnetia } } 
+		picture = GFX_evt_castle_river
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_broerec } } 
+		picture = GFX_evt_forest_light
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_domnonea } } 
+		picture = GFX_evt_dusk_forest
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_poher } } 
+		picture = GFX_evt_forest
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_finis_terrae } } 
+		picture = GFX_evt_somerset_coast
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320921"
+	}
+}
+
+# Romanized Germanic march duchy de jure removal event
+character_event = {
+	id = 320922
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_gate"
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		NOT = { has_global_flag = germanic_breton_march }
+		k_breton_march = {
+			any_direct_de_jure_vassal_title = {
+				can_drift_out_of_breton_march = yes		
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {	
+		if = {
+			limit = { is_tributary = { type = march } }
+			suzerain = { primary_title = { save_event_target_as = march_suzerain_title } }
+		}
+		
+		k_breton_march = { 
+			save_event_target_as = kingdom_to_de_jure_drift_out_of
+		}
+		
+		event_target:kingdom_to_de_jure_drift_out_of = {
+			random_direct_de_jure_vassal_title = {
+				limit = { can_drift_out_of_breton_march = yes }
+				save_event_target_as = duchy_to_de_jure_drift
+			}
+		}
+		
+		event_target:duchy_to_de_jure_drift = { 
+			return_march_duchy_to_original_de_jure_liege_effect = yes
+			clr_title_flag = under_march_@event_target:kingdom_to_de_jure_drift_out_of
+		}
+		
+		any_player = {
+			character_event = { id = 320923 }
+		}
+		
+	}
+}
+
+# Player notification event (major events don't interact properly with event targets)
+narrative_event = {
+	id = 320923
+	title = "EVTNAME320923"
+	desc = EVTDESC320923
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_redonia } } 
+		picture = GFX_evt_fields_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_namnetia } } 
+		picture = GFX_evt_castle_river
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_broerec } } 
+		picture = GFX_evt_forest_light
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_domnonea } } 
+		picture = GFX_evt_dusk_forest
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_poher } } 
+		picture = GFX_evt_forest
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_finis_terrae } } 
+		picture = GFX_evt_somerset_coast
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320923"
 	}
 }
 
@@ -463,6 +625,7 @@ diploresponse_event = {
 			}
 			set_defacto_liege = ROOT
 		}
+		hidden_tooltip = { k_nuncio_britanniae = { holder_scope = { character_event = { id = 320919 } } } }		# De jure effects
 	}
 }
 
@@ -485,7 +648,7 @@ diploresponse_event = {
 }
 
 # Event when march becomes independent
-character_event = {		# TODO localisation
+character_event = {
 	id = 320935
 	title = "EVTNAME320935"
 	desc = "EVTDESC320935"
@@ -532,7 +695,7 @@ character_event = {		# TODO localisation
 }
 
 # Notification event for former suzerain when march becomes independent
-character_event = {		# TODO localisation
+character_event = {
 	id = 320936
 	title = "EVTNAME320936"
 	desc = "EVTDESC320936"
@@ -565,7 +728,7 @@ character_event = {		# TODO localisation
 			has_title_flag = is_march
 			had_title_flag = {
 				flag = is_independent_march
-				years >= 30
+				years >= 35
 			}
 		}
 		NOT = { is_tributary = { type = march } }
@@ -610,4 +773,215 @@ character_event = {
 	}
 }
 
-# TODO Succession handling events?
+# If a march's suzerain is lower than king tier and no longer independent, the march is re-assigned to the liege
+character_event = {
+	id = 320940
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_hill"	
+	hide_window = yes
+	
+	only_playable = yes
+	
+	trigger = {
+		is_tributary = { type = march }
+		suzerain = {
+			lower_tier_than = KING
+			independent = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		suzerain = {
+			remove_tributary = ROOT
+			top_liege = {
+				make_tributary = {
+					who = ROOT
+					tributary_type = march
+				}
+			}
+		}
+	}
+}
+
+
+# AI creation of marches
+# TODO Need to add other marches
+character_event = {
+	id = 320945
+	desc = "You're not supposed to see this..."
+	
+	picture = "GFX_evt_castle_gate"
+	
+	hide_window = yes
+	only_independent = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		are_dejure_changes_allowed_trigger = yes
+		ai = yes
+		is_tribal = no
+		higher_tier_than = DUKE
+		independent = yes
+		OR = {
+			AND = {
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				any_realm_province = {
+					count = 3
+					region = world_gaul_lugdunensis_armorica
+				}
+				# any_realm_province = {
+					# region = custom_breton_march
+				# }
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+				OR = {
+					k_breton_march = { has_holder = no }
+					FROM = { has_landed_title = k_breton_march }
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		# Breton March
+		if = {
+			limit = {			
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				any_realm_province = {
+					count = 3
+					region = world_gaul_lugdunensis_armorica
+				}
+				# any_realm_province = {
+					# region = custom_breton_march
+				# }
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_breton_march
+					}
+				}
+				OR = {
+					k_breton_march = { has_holder = no }
+					FROM = { has_landed_title = k_breton_march }
+				}
+			}
+			any_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					NOR = {
+						culture_group = imperiale
+						culture_group = celtic
+					}
+					any_realm_province = {
+						#OR = {
+							region = custom_breton_march
+							#any_neighbor_province = {
+								#region = custom_breton_march
+							#}
+						#}
+					}
+				}
+				score_value = {
+					value = 1
+					additive_modifier = {
+						OR = {
+							culture_group = celtic
+							culture_group = imperiale
+						}
+						value = -30
+					}
+					additive_modifier = {
+						NOT = { culture_group = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { culture = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { religion_group = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						NOT = { religion = ROOT }
+						value = -10
+					}
+					additive_modifier = {
+						tier = DUKE
+						value = 10
+					}
+					additive_modifier = {
+						realm_size <= 2
+						value = -5
+					}
+					additive_modifier = {
+						realm_size >= 10
+						value = 5
+					}
+					additive_modifier = {
+						num_of_count_titles <= 1
+						value = -5
+					}
+					additive_modifier = {
+						num_of_count_titles > 3
+						value = 5
+					}
+					additive_modifier = {
+						dynasty = ROOT
+						value = 5
+					}
+					additive_modifier = {
+						is_friend = ROOT
+						value = 5
+					}
+					additive_modifier = {
+						is_rival = ROOT
+						value = -10
+					}
+					additive_modifier = {
+						value = 5
+						reverse_opinion = { 
+							who = ROOT
+							value >= 25
+						}
+					}
+					additive_modifier = {
+						value = 5
+						reverse_opinion = { 
+							who = ROOT
+							value >= 75
+						}
+					}
+					additive_modifier = {
+						value = -5
+						reverse_opinion = { 
+							who = ROOT
+							value <= -25
+						}
+					}
+					additive_modifier = {
+						value = -5
+						reverse_opinion = { 
+							who = ROOT
+							value <= -75
+						}
+					}
+				}
+				count = 1
+				character_event = { id = 320900 }
+			}
+		}
+	}
+}

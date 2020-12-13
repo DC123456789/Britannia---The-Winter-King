@@ -255,7 +255,6 @@ decisions = {
 		}
 	}
 	
-	# TODO Localisation
 	grant_breton_march_notification = {
 		only_playable = yes
 		ai = no
@@ -270,6 +269,7 @@ decisions = {
 			}
 			any_realm_province = {
 				region = custom_breton_march
+				has_local_resistance_modifier_trigger = yes
 			}
 			NOT = {
 				top_liege = {
@@ -315,6 +315,9 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	# TODO Reorganize Breton March decision to put it under your empire title, if possible
+	# TODO Reorganize Duchy of Vasconia decision to put it under your empire title, if possible
 }
 
 title_decisions = {
@@ -621,8 +624,10 @@ title_decisions = {
 			tooltip = {
 				FROMFROM = {
 					grant_title = k_breton_march
+					set_defacto_liege = THIS
 				}
 				FROM = {
+					show_scope_change = no
 					make_tributary = { who = ROOT_FROMFROM tributary_type = march }
 				}
 			}
@@ -668,38 +673,25 @@ title_decisions = {
 		}
 		
 		effect = {
-			# TODO Increase opinion
 			if = {
 				limit = { region = custom_breton_march }
 				k_breton_march = { 
 					show_scope_change = no
-					holder_scope = {
-						show_scope_change = no
-						grant_title = ROOT
-						character_event = { id = 320925 }
-					}
+					grant_county_to_march_effect = yes
 				}
 			}
 			if = {
 				limit = { region = custom_vasconia_gaul }
 				k_vasconia = { 
 					show_scope_change = no
-					holder_scope = {
-						show_scope_change = no
-						grant_title = ROOT
-						character_event = { id = 320925 }
-					}
+					grant_county_to_march_effect = yes
 				}
 			}
 			if = {
 				limit = { region = world_britannia_cymry_wales }
 				k_wales = { 
 					show_scope_change = no
-					holder_scope = {
-						show_scope_change = no
-						grant_title = ROOT
-						character_event = { id = 320925 }
-					}
+					grant_county_to_march_effect = yes
 				}
 			}
 			if = {
@@ -715,21 +707,13 @@ title_decisions = {
 					}
 					k_pictland = { 
 						show_scope_change = no
-						holder_scope = {
-							show_scope_change = no
-							grant_title = ROOT
-							character_event = { id = 320925 }
-						}
+						grant_county_to_march_effect = yes
 					}
 				}
 				else = {
 					k_romancaledonia = {
 						show_scope_change = no
-						holder_scope = {
-							show_scope_change = no
-							grant_title = ROOT
-							character_event = { id = 320925 }
-						}
+						grant_county_to_march_effect = yes
 					}
 				}
 			}
@@ -744,7 +728,6 @@ title_decisions = {
 }
 
 targeted_decisions = {
-	# TODO Targeted decision to grant marches (same as title decision)
 	grant_breton_march_to_character = {
 		only_playable = yes
 		filter = all
@@ -809,7 +792,9 @@ targeted_decisions = {
 		effect = {
 			tooltip = {
 				grant_title = k_breton_march
+				set_defacto_liege = THIS
 				FROM = {
+					show_scope_change = no
 					make_tributary = { who = ROOT tributary_type = march }
 				}
 			}
@@ -862,7 +847,6 @@ targeted_decisions = {
 		}
 		
 		effect = {
-			# TODO Increase opinion
 			primary_title = {
 				show_scope_change = no
 				if = {
@@ -873,33 +857,15 @@ targeted_decisions = {
 						show_scope_change = no
 						if = {
 							limit = { region = custom_breton_march }
-							k_breton_march = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_breton_march = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = custom_vasconia_gaul }
-							k_vasconia = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_vasconia = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = world_britannia_cymry_wales }
-							k_wales = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_wales = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = world_caledonia }
@@ -914,22 +880,10 @@ targeted_decisions = {
 										}
 									}
 								}
-								k_pictland = {
-									holder_scope = {
-										show_scope_change = no
-										set_defacto_vassal = ROOT
-										character_event = { id = 320926 }
-									}
-								}
+								k_pictland = { transfer_vassal_to_march_effect = yes }
 							}
 							else = {
-								k_romancaledonia = {
-									holder_scope = {
-										show_scope_change = no
-										set_defacto_vassal = ROOT
-										character_event = { id = 320926 }
-									}
-								}
+								k_romancaledonia = { transfer_vassal_to_march_effect = yes }
 							}
 						}
 					}
@@ -939,33 +893,15 @@ targeted_decisions = {
 						show_scope_change = no
 						if = {
 							limit = { region = custom_breton_march }
-							k_breton_march = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_breton_march = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = custom_vasconia_gaul }
-							k_vasconia = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_vasconia = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = world_britannia_cymry_wales }
-							k_wales = {
-								holder_scope = {
-									show_scope_change = no
-									set_defacto_vassal = ROOT
-									character_event = { id = 320926 }
-								}
-							}
+							k_wales = { transfer_vassal_to_march_effect = yes }
 						}
 						if = {
 							limit = { region = world_caledonia }
@@ -980,22 +916,10 @@ targeted_decisions = {
 										}
 									}
 								}
-								k_pictland = {
-									holder_scope = {
-										show_scope_change = no
-										set_defacto_vassal = ROOT
-										character_event = { id = 320926 }
-									}
-								}
+								k_pictland = { transfer_vassal_to_march_effect = yes }
 							}
 							else = {
-								k_romancaledonia = {
-									holder_scope = {
-										show_scope_change = no
-										set_defacto_vassal = ROOT
-										character_event = { id = 320926 }
-									}
-								}
+								k_romancaledonia = { transfer_vassal_to_march_effect = yes }
 							}
 						}
 					}
@@ -1088,9 +1012,14 @@ targeted_decisions = {
 		}
 		
 		effect = {
-			# TODO Increase opinion
 			FROMFROM = { set_defacto_liege = ROOT }
-			ROOT = { character_event = { id = 320927 } }
+			ROOT = { 
+				opinion = {
+					modifier = opinion_vassal_transfer
+					who = FROM
+				}
+				character_event = { id = 320927 } 
+			}
 		}
 		revoke_allowed = {
 			always = no
@@ -1105,7 +1034,7 @@ targeted_decisions = {
 		filter = independent_rulers
 		ai_target_filter = none
 		is_high_prio = yes
-		ai_check_interval = 36
+		ai_check_interval = 60
 		
 		from_potential = {
 			independent = yes
@@ -1187,7 +1116,26 @@ targeted_decisions = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 0		# TODO AI will try to revoke the march once all local resistance is pacified
+			factor = 1		# AI will try to revoke the march once all local resistance is pacified, if not allied/NAP and sufficiently strong enough
+			modifier = {
+				value = 0
+				OR = {
+					FROM = { is_friend = ROOT }
+					FROM = { has_non_aggression_pact_with = ROOT }
+					FROM = { is_allied_with = ROOT }
+					ROOT = {
+						any_realm_province = {
+							has_local_resistance_modifier_trigger = yes
+						}
+					}
+					FROM = {
+						relative_power = { 
+							who = FROM
+							power < 1.5
+						}
+					}
+				}
+			}
 		}
 		ai_acceptance = {
 			factor = 100	# The base score	

@@ -1,0 +1,350 @@
+
+are_dejure_changes_allowed_trigger = {
+	conditional_tooltip = {
+		trigger = { is_alternate_start = yes }
+		is_alternate_start = no
+	}
+}
+
+is_roman_ruler_trigger = {
+	OR = {
+		culture_group = imperiale
+		has_landed_title = e_gaul
+		has_landed_title = e_roman_britannia
+		primary_title = {
+			#custom_tooltip = {
+				#text = is_roman_province_tooltip
+				has_title_flag = roman_province
+			#}
+		}
+		hidden_tooltip = {
+			in_revolt = yes
+			liege_before_war = {
+				OR = {
+					culture_group = imperiale
+					has_landed_title = e_gaul
+					has_landed_title = e_roman_britannia
+					any_demesne_title = {
+						has_title_flag = roman_province
+					}
+				}
+			}
+		}
+	}
+	NAND = {
+		primary_title = { title = k_praetorian_prefecture_of_gaul }
+		k_praetorian_prefecture_of_gaul = { NOT = { has_title_flag = roman_province } }
+	}
+}
+
+can_create_roman_title_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			is_alternate_start = no
+		}
+		top_liege = {
+			NOR = {
+				AND = {
+					culture_group = germanic
+					NOT = { is_romanized_germanic_trigger = yes }
+				}
+				culture = french
+				culture = occitan
+				culture = arpitan
+			}
+		}
+	}
+}
+
+can_create_roman_province_gaul_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			NOT = { has_global_flag = romanized_germanic_empire_formed }
+		}
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			top_liege = { is_roman_emperor_trigger = yes }
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			has_global_flag = romanized_germanic_empire_formed
+		}
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+			top_liege = { is_roman_emperor_trigger = yes }
+			top_liege = { has_landed_title = e_visigoths }
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			has_landed_title = k_praetorian_prefecture_of_gaul
+		}
+		NOT = { has_landed_title = k_praetorian_prefecture_of_gaul }
+	}
+	custom_tooltip = {
+		text = roman_provinces_gaul_restored_tooltip
+		has_global_flag = roman_provinces_gaul_restored
+	}
+	conditional_tooltip = {
+		trigger = {
+			top_liege = { 
+				OR = {
+					has_landed_title = e_franks 
+					has_landed_title = e_germania 
+					primary_title = {
+						tier = KING
+						OR = {
+							empire = { title = e_franks }
+							empire = { title = e_germania }
+						}
+					}
+				}
+			}
+		}
+		top_liege = { 
+			NOR = {
+				has_landed_title = e_franks 
+				has_landed_title = e_germania 
+				primary_title = {
+					tier = KING
+					OR = {
+						empire = { title = e_franks }
+						empire = { title = e_germania }
+					}
+				}
+			}
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			NOT = { num_of_count_titles_in_realm = 8 }
+		}
+		num_of_count_titles_in_realm = 8
+	}
+}
+
+is_germanic_ruler_trigger = {
+	OR = {
+		culture_group = germanic
+		culture = french
+		culture = occitan
+		culture = arpitan
+	}
+	NOT = { is_romanized_germanic_trigger = yes }
+}
+
+can_create_germanic_title_trigger = {
+	# is_germanic_ruler_trigger = yes
+	top_liege = {
+		conditional_tooltip = {
+			trigger = {
+				NAND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
+			}
+			is_germanic_ruler_trigger = yes
+		}
+		conditional_tooltip = {
+			trigger = {
+				is_tributary = { type = march }
+				suzerain = { is_germanic_ruler_trigger = yes }
+			}
+			OR = {
+				is_germanic_ruler_trigger = yes
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
+			}
+		}
+	}
+}
+
+can_create_brythonic_only_title_trigger = {		# Really means not for Romans or non-Romanized Germanics
+	conditional_tooltip = {
+		trigger = {
+			is_alternate_start = no
+		}
+		top_liege = {
+			is_roman_ruler_trigger = no
+		}
+		can_create_roman_title_trigger = yes
+	}
+}
+
+cannot_be_created_by_romans_trigger = {
+	top_liege = {
+		is_roman_ruler_trigger = no
+	}
+}
+
+briton_king_roman_province_creation_block_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			NOR = {
+				is_roman_emperor_trigger = yes
+				top_liege = { is_roman_emperor_trigger = yes }
+				any_demesne_title = {
+					has_title_flag = roman_province
+				}
+				top_liege = {
+					any_demesne_title = {
+						has_title_flag = roman_province
+					}
+				}
+				has_global_flag = offa_dyke_created
+			}
+		}
+		top_liege = {
+			custom_tooltip = {
+				text = briton_king_roman_province_creation_block_trigger_tooltip
+				hidden_tooltip = {
+					NOT = {
+						any_demesne_title = {
+							higher_tier_than = DUKE
+							OR = {
+								title = e_britannia
+								title = e_cymru
+								title = e_hen_ogledd
+								empire = {
+									OR = {
+										title = e_britannia
+										title = e_cymru
+										title = e_hen_ogledd
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+is_germanic_controlled_trigger = {
+	holder_scope = {
+		top_liege = { 
+			OR = {
+				is_germanic_ruler_trigger = yes
+				primary_title = {
+					tier = KING
+					empire = { title = e_franks }
+				}
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { is_germanic_ruler_trigger = yes }
+				}
+				liege_before_war = { 
+					OR = {
+						is_germanic_ruler_trigger = yes
+						primary_title = {
+							tier = KING
+							empire = { title = e_franks }
+						}
+						AND = {
+							is_tributary = { type = march }
+							suzerain = { is_germanic_ruler_trigger = yes }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+is_celtic_controlled_trigger = {
+	holder_scope = {
+		top_liege = { 
+			culture_group = celtic
+			is_roman_ruler_trigger = no
+		}
+	}
+}
+
+is_armorican_controlled_trigger = {
+	holder_scope = {
+		top_liege = {
+			OR = {
+				has_landed_title = e_armorica
+				AND = {
+					has_landed_title = e_britannia
+					has_global_flag = britannia_reclaimed_caratacus_legacy
+				}
+				AND = {
+					culture_group = celtic
+					is_roman_ruler_trigger = no
+				}
+			}
+		}
+	}
+}
+
+is_norse_controlled_trigger = {
+	holder_scope = {
+		top_liege = { 
+			is_north_germanic_trigger = yes
+		}
+	}
+}
+
+is_gothic_controlled_trigger = {
+	holder_scope = {
+		top_liege = {
+			OR = {
+				is_gothic_ruler_trigger = yes
+				AND = {
+					in_revolt = yes
+					liege_before_war = {
+						is_gothic_ruler_trigger = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+is_gothic_ruler_trigger = {
+	OR = {
+		culture = visigoth
+		culture = ostrogoth
+		has_landed_title = k_visigoths
+		has_landed_title = k_ostrogoths
+		AND = {
+			has_landed_title = e_visigoths
+			OR = {
+				e_visigoths = { has_title_flag = empire_claimed_visigoths }
+				e_visigoths = { has_title_flag = empire_claimed_ostrogoths }
+			}
+		}				
+	}
+}
+
+is_from_and_this_top_liege_roman_province_trigger = {
+	top_liege = {
+		is_tributary = { type = roman_province }
+		suzerain = {
+			FROM = { 
+				is_tributary = { 
+					type = roman_province 
+					suzerain = PREV
+				} 
+			}
+		}
+	}
+}
+
+is_germanic_king_or_emperor_trigger = {
+	OR = {
+		real_tier = KING
+		real_tier = EMPEROR
+		AND = {
+			real_tier = DUKE
+			independent = yes
+		}
+	}
+}

@@ -1,0 +1,314 @@
+is_brythonic_culture_trigger = {
+	OR = {
+		culture = briton
+		culture = romanobritish
+		culture = cumbrian
+		culture = armorican
+		culture = breton
+	}
+}
+
+is_gaelic_culture_trigger = {
+	OR = {
+		culture = oldirish
+		culture = gaelic
+	}
+}
+
+is_roman_culture_trigger = {
+	OR = {
+		culture_group = imperiale
+		culture = romanobritish
+	}
+}
+
+is_semiromanized_nongermanic_culture_trigger = {
+	OR = {
+		culture = briton
+		culture = cumbrian
+		culture = armorican
+		culture = breton
+		culture = vasconian
+		culture = alan
+		culture = numidian
+		culture = hebrew
+	}
+}
+
+is_semiromanized_germanic_culture_trigger = {
+	OR = {
+		culture = oldfrankish
+		culture = frankish
+		culture = dutch
+		culture = franconian
+		culture = oldalemannic
+		culture = alemannic
+		culture = oldbavarian
+		culture = bavarian
+		culture = french		# Not actually Germanic, but treated as such for these purposes
+		culture = occitan
+		culture = arpitan
+	}
+}
+
+is_ingvaeonic_culture_trigger = {
+	OR = {
+		culture = angle
+		culture = oldsaxon
+		culture = jute
+		culture = oldfrisian
+		culture = anglosaxon
+		culture = frisian
+		culture = saxon
+	}
+}
+
+is_istvaeonic_culture_trigger = {
+	OR = {
+		culture = oldfrankish
+		culture = frankish
+		culture = dutch
+		culture = franconian
+	}
+}
+
+is_irminonic_culture_trigger = {
+	OR = {
+		culture = oldthuringian
+		culture = thuringian
+		culture = oldalemannic
+		culture = alemannic
+		culture = oldbavarian
+		culture = bavarian
+		culture = suebic
+	}
+}
+
+is_east_germanic_trigger = {
+	OR = {
+		culture = visigoth
+		culture = burgundian
+		culture = ostrogoth
+		culture = vandal
+		culture = taifal
+	}
+}
+
+is_north_germanic_trigger = {
+	OR = {
+		culture = proto_norse
+		culture = dane
+		hidden_tooltip = {
+			culture = norse_gael
+		}
+	}
+}
+
+is_romanized_germanic_trigger = {
+	OR = {
+		culture = visigoth
+		culture = burgundian
+		culture = ostrogoth
+		culture = vandal
+		culture = taifal
+		culture = suebic
+	}
+}
+
+is_frankish_culture_trigger = {
+	OR = {
+		is_istvaeonic_culture_trigger = yes
+		culture = french
+		culture = occitan
+		culture = arpitan
+	}
+}
+
+is_alemannic_culture_trigger = {
+	OR = {
+		culture = oldalemannic
+		culture = alemannic
+	}
+}
+
+is_roman_pagan_culture_trigger = {
+	OR = {
+		culture_group = imperiale
+		culture_group = romance
+	}	
+}	
+
+is_gallo_romance_culture_trigger = {
+	OR = {
+		culture = french
+		culture = occitan
+		culture = arpitan
+	}
+}
+
+is_similar_culture_to_ROOT_trigger = {
+	OR = {
+		culture = ROOT
+		AND = {
+			is_roman_culture_trigger = yes
+			ROOT = { is_roman_culture_trigger = yes }
+		}
+		AND = {
+			is_gaelic_culture_trigger = yes
+			ROOT = { is_gaelic_culture_trigger = yes }
+		}
+		AND = {
+			is_brythonic_culture_trigger = yes
+			ROOT = { is_brythonic_culture_trigger = yes }
+		}
+		AND = {
+			is_north_germanic_trigger = yes
+			ROOT = { is_north_germanic_trigger = yes }
+		}
+		AND = {
+			is_ingvaeonic_culture_trigger = yes
+			ROOT = { is_ingvaeonic_culture_trigger = yes }
+		}
+		AND = {
+			is_istvaeonic_culture_trigger = yes
+			ROOT = { is_istvaeonic_culture_trigger = yes }
+		}
+		AND = {
+			is_irminonic_culture_trigger = yes
+			ROOT = { is_irminonic_culture_trigger = yes }
+		}
+		AND = {
+			is_east_germanic_trigger = yes
+			ROOT = { is_east_germanic_trigger = yes }
+		}
+		AND = {
+			culture_group = ROOT
+			NOR = {
+				culture_group = celtic
+				culture_group = germanic
+			}
+		}
+	}
+}
+
+
+is_romanogallic_area_trigger = {
+	region = world_gaul
+	OR = {
+		NOR = { 
+			region = world_gaul_romangermania 
+			region = world_gaul_aquitania_tertia
+		}
+		region = world_gaul_maxima_sequanorum
+	}
+}
+
+is_romanobritish_area_trigger = {
+	OR = {
+		region = world_britannia
+		region = world_caledonia
+		region = world_ireland 
+	}
+}
+
+is_romanogermanic_area_trigger = {
+	OR = {
+		region = world_gaul_romangermania 
+		region = world_germania 
+	}
+	NOT = { region = world_gaul_maxima_sequanorum }
+	NAND = {
+		region = world_germania_jutland
+		has_global_flag = jutland_conquered_norse
+	}
+	NAND = {
+		region = world_germania_angeln
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoscandian_area_trigger = {
+	region = custom_scandinavia 
+	OR = {
+		NOT = { region = world_germania_jutland }
+		has_global_flag = jutland_conquered_norse
+	}
+	OR = {
+		NOT = { region = world_germania_angeln }
+		has_global_flag = angeln_conquered_norse
+	}
+}
+
+is_romanoaquitanian_area_trigger = {
+	region = world_gaul_aquitania_tertia
+}
+
+is_local_roman_culture_trigger = {
+	OR = {
+		AND = {
+			is_romanogallic_area_trigger = yes
+			culture = romanogallic
+		}
+		AND = { 
+			is_romanobritish_area_trigger = yes
+			culture = romanobritish
+		}
+		AND = { 
+			is_romanogermanic_area_trigger = yes
+			culture = romanogermanic
+		}
+		AND = { 
+			is_romanoscandian_area_trigger = yes
+			culture = romanoscandian
+		}
+		AND = { 
+			is_romanoaquitanian_area_trigger = yes
+			culture = romanoaquitanian
+		}
+	}
+}
+
+
+is_cultural_revolt_allowed_trigger = {
+	owner = {
+		top_liege = {
+			NOR = { 
+				culture_group = ROOT 
+				AND = {		# Romans are okay ruling other Romans, Semi-Romanized cultures formerly within the empire, Romanized Germanics, and Romance cultures
+					is_roman_culture_trigger = yes
+					ROOT = { 
+						OR = {
+							is_roman_culture_trigger = yes
+							is_semiromanized_nongermanic_culture_trigger = yes
+							is_romanized_germanic_trigger = yes
+							culture_group = romance
+						}
+					}
+				}
+				AND = {		# ..and vice versa (but not necessarily with each other!)
+					OR = {
+						is_semiromanized_nongermanic_culture_trigger = yes
+						is_romanized_germanic_trigger = yes
+						culture_group = romance
+					}
+					ROOT = { 
+						is_roman_culture_trigger = yes
+					}
+				}
+				AND = {		# Any culture can rule over Romans if they are of the same organized religion (e.g. Nicene Franks over Gallo-Romans)
+					religion = ROOT
+					is_organized_religion_trigger = yes
+					ROOT = { 
+						is_roman_culture_trigger = yes
+					}
+				}
+				AND = {		# Romance cultures are compatible with their parent Germanic cultures
+					is_frankish_culture_trigger = yes
+					ROOT = { 
+						is_frankish_culture_trigger = yes
+					}
+				}
+			}
+		}
+	}
+}

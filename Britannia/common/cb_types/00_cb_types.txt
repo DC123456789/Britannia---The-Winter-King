@@ -165,9 +165,18 @@ claim = {
 			}
 		}
 	
+		# Flag marches
+		holder_scope = { save_event_target_as = target_char }
+		flag_target_marches_effect = yes
+		
 		usurp_title_plus_barony_if_unlanded = { target = ROOT type = claim }
 		
 		ROOT = { set_flagged_government_effect = yes }
+		
+		# Transfer marches
+		ROOT = { save_event_target_as = new_holder }
+		event_target:target_char = { save_event_target_as = old_holder }
+		transfer_marches_to_new_holder_claim_effect = yes
 		
 		# Transfer foederati
 		if = {
@@ -565,6 +574,10 @@ other_claim = {
 			}
 		}
 		
+		# Flag marches
+		holder_scope = { save_event_target_as = target_char }
+		flag_target_marches_effect = yes
+		
 		if = {
 			limit = {
 				OR = {
@@ -839,6 +852,11 @@ other_claim = {
 				}
 			}
 		}
+		
+		# Transfer marches
+		ROOT = { save_event_target_as = new_holder }
+		event_target:target_char = { save_event_target_as = old_holder }
+		transfer_marches_to_new_holder_claim_effect = yes
 		
 		# Transfer foederati
 		if = {
@@ -1129,7 +1147,16 @@ claim_on_liege = {
 			}
 		}
 		
+		# Flag marches
+		holder_scope = { save_event_target_as = target_char }
+		flag_target_marches_effect = yes		
+		
 		usurp_title_plus_barony_if_unlanded_and_vassals = ROOT
+		
+		# Transfer marches
+		ROOT = { save_event_target_as = new_holder }
+		event_target:target_char = { save_event_target_as = old_holder }
+		transfer_marches_to_new_holder_claim_effect = yes
 		
 		# Transfer foederati
 		if = {
@@ -4146,7 +4173,11 @@ depose_liege = {
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 
-	on_success = {
+	on_success = {	
+		# Flag marches
+		FROM = { save_event_target_as = target_char }
+		flag_target_marches_effect = yes
+		
 		FROM = {
 			prestige = -500
 			if = {
@@ -4179,7 +4210,10 @@ depose_liege = {
 				}
 			}
 			
-			primary_title = { set_title_flag = former_primary_title }
+			primary_title = { 
+				set_title_flag = former_primary_title 
+				save_event_target_as = FROM_old_primary_title
+			}
 			if = {
 				limit = { NOT = { government = tribal_government } }
 				abdicate_to_most_liked_by = ROOT
@@ -4189,6 +4223,11 @@ depose_liege = {
 				usurp_all_top_level_titles_to_ROOT_effect = yes
 			}
 		}
+		
+		# Transfer marches
+		PREVPREV = { save_event_target_as = new_holder }
+		FROM = { save_event_target_as = old_holder }
+		event_target:FROM_old_primary_title = { transfer_marches_to_new_holder_claim_effect = yes }
 		
 		# Transfer foederati
 		hidden_tooltip = {

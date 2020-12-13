@@ -3130,7 +3130,16 @@ letter_event = {
 						PREVPREV = { set_character_flag = prompt_high_king_subject }
 					}
 					
+					# Flag marches
+					holder_scope = { save_event_target_as = target_char }
+					flag_target_marches_effect = yes
+		
 					usurp_title_plus_barony_if_unlanded_and_vassals_no_adj = { target = PREVPREV type = faction_demand }
+					
+					# Transfer marches
+					PREVPREV = { save_event_target_as = new_holder }
+					FROM = { save_event_target_as = old_holder }
+					transfer_marches_to_new_holder_claim_effect = yes
 					
 					# Transfer foederati and client states
 					if = {

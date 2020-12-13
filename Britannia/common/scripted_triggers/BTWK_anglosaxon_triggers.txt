@@ -1,0 +1,379 @@
+
+
+can_conquer_anglosaxon_trigger = {		# Assumes ROOT is independent
+	holder_scope = {
+		top_liege = {
+			NOR = {
+				character = ROOT
+				reverse_has_truce = ROOT
+				is_ingvaeonic_culture_trigger = yes
+			}
+		}
+	}
+	location = {
+		any_neighbor_province = {
+			owner = {
+				OR = {
+					character = ROOT
+					is_liege_or_above = ROOT
+				}
+			}
+		}
+	}
+}
+
+is_angeln_migration_province_trigger = {
+	owner = {
+		top_liege = {
+			OR = {
+				has_landed_title = k_angeln
+				AND = {
+					has_landed_title = d_angeln
+					k_angeln = { has_holder = no }
+				}
+				AND = {
+					ai = yes
+					culture = angle
+					capital_scope = {
+						OR = {
+							region = world_germania_jutland
+							region = world_germania_angeln
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_eastanglia_trigger = {
+	OR = {
+		NOT = { has_global_flag = aelle_ruling_anglia }
+		has_global_flag = anglia_collapsed
+	}
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_eastanglia }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_eastanglia
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_eastanglia }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_essex_trigger = {
+	OR = {
+		NOT = { has_global_flag = aelle_ruling_anglia }
+		has_global_flag = anglia_collapsed
+	}
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_essex }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_eastseaxe
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_essex }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_sussex_trigger = {
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_sussex }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_sussex
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_sussex }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_cantia_trigger = {
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_cantia }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_cantia
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_cantia }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_wessex_trigger = {
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_wessex }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_wessex
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_wessex }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_mercia_trigger = {
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_mercia }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_mercia
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_mercia }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_northumbria_trigger = {
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { region = custom_northumbria }
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_northumbria
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_northumbria }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_kingdom_anglia_trigger = {
+	has_global_flag = aelle_ruling_anglia
+	NOT = { has_global_flag = anglia_collapsed }
+	OR = {
+		AND = {
+			lower_tier_than = KING
+			OR = {
+				capital_scope = { region = custom_eastanglia }
+				capital_scope = { region = custom_essex }
+			}
+		}
+		AND = {
+			higher_tier_than = DUKE
+			has_landed_title = k_northumbria
+			OR = {
+				num_of_king_titles == 1
+				capital_scope = { region = custom_eastanglia }
+				capital_scope = { region = custom_essex }
+			}
+		}
+	}
+}
+
+has_anglosaxon_subjugation_flag_trigger = {
+	OR = {
+		has_character_flag = anglosaxon_subjugation_k_eastanglia
+		has_character_flag = anglosaxon_subjugation_k_eastseaxe
+		has_character_flag = anglosaxon_subjugation_k_sussex
+		has_character_flag = anglosaxon_subjugation_k_cantia
+		has_character_flag = anglosaxon_subjugation_k_wessex
+		has_character_flag = anglosaxon_subjugation_k_mercia
+		has_character_flag = anglosaxon_subjugation_k_northumbria
+		has_character_flag = anglosaxon_subjugation_k_anglia
+	}
+}
+
+is_primary_anglosaxon_title_of_FROM_trigger = {
+	FROM = {
+		OR = {
+			primary_title = { title = PREVPREV }
+			AND = {
+				primary_title = { title = e_aengland }
+				any_demesne_title = { title = PREVPREV }
+				PREV = { has_title_flag = aengland_primary_kingdom }
+			}
+		}
+	}
+}
+
+is_primary_anglosaxon_title_of_ROOT_trigger = {
+	ROOT = {
+		OR = {
+			primary_title = { title = PREVPREV }
+			AND = {
+				primary_title = { title = e_aengland }
+				any_demesne_title = { title = PREVPREV }
+				PREV = { has_title_flag = aengland_primary_kingdom }
+			}
+		}
+	}
+}
+
+# In the scope of the kingdom the duchy is integrating to
+# Uses the duchy_to_integrate event_target to save the target
+kingdom_holder_is_integrating_event_target_duchy_trigger = {
+	holder_scope = {
+		OR = {
+			primary_title = { 
+				title = PREVPREV
+			}
+			AND = {
+				has_landed_title = e_aengland
+				PREV = { has_title_flag = aengland_primary_kingdom }
+			}										
+		}
+	}
+	# The de jure liege is not liege of the title itself OR any counties inside the title
+	# This is relevant if the kingdom was vassalized after Declaring Supremacy, but before fully uniting the kingdom
+	NOT = {
+		event_target:duchy_to_integrate = {
+			dejure_liege_title = {
+				has_holder = yes
+				holder_scope = {
+					OR = {
+						any_demesne_title = { title = PREVPREVPREV }
+						any_vassal = { any_demesne_title = { title = PREVPREVPREVPREV } }
+						event_target:duchy_to_integrate = {
+							any_direct_de_jure_vassal_title = {
+								holder_scope = {
+									OR = {
+										character = PREVPREVPREV
+										is_liege_or_above = PREVPREVPREV
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+holds_anglo_saxon_kingdom_trigger = {
+	OR = {
+		has_landed_title = k_anglia
+		has_landed_title = k_east_anglia
+		has_landed_title = k_cantia
+		has_landed_title = k_mercia
+		has_landed_title = k_wessex
+		has_landed_title = k_northumbria
+		has_landed_title = k_sussex
+		has_landed_title = k_eastseaxe
+	}
+}
+
+is_anglosaxon_tributary_potential_trigger = {
+	OR = {
+		is_ingvaeonic_culture_trigger = yes
+		has_landed_title = e_aengland
+	}
+	primary_title = {
+		capital_scope = {
+			region = world_britannia
+		}
+		OR = {
+			lower_tier_than = DUKE
+			title = e_aengland
+			empire = { title = e_aengland }
+		}
+	}
+}
+
+# Called in the scope of the top liege (or liege before war in case of revolt)
+is_ROOT_non_dejure_province_trigger = {
+	culture_group = germanic 
+	is_romanized_germanic_trigger = no
+	num_of_count_titles_in_realm = 8
+	NOR = {
+		AND = {
+			lower_tier_than = KING
+			capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+		}
+		AND = {
+			tier = KING
+			any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+			OR = {
+				NOT = { num_of_king_titles = 2 }
+				capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+				AND = {
+					capital_scope = { 
+						kingdom = { 
+							OR = {
+								has_holder = no
+								holder_scope = { NOT = { character = PREVPREVPREV } }
+							}
+						} 
+					}
+					primary_title = {
+						ROOT = { kingdom = { title = PREVPREV } }
+					}
+				}
+			}
+		}
+		AND = {
+			tier = EMPEROR
+			OR = {
+				AND = {
+					any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }
+					OR = {
+						num_of_king_titles = 1
+						capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+						AND = {
+							has_landed_title = e_aengland
+							ROOT = { kingdom = { has_title_flag = aengland_primary_kingdom } }
+						}
+					}
+				}
+				AND = {
+					any_vassal = {
+						any_demesne_title = { ROOT = { kingdom = { title = PREVPREV } } }	
+						OR = {
+							NOT = { num_of_king_titles = 2 }
+							capital_scope = { kingdom = { ROOT = { kingdom = { title = PREVPREV } } } }
+							AND = {
+								capital_scope = { 
+									kingdom = { 
+										OR = {
+											has_holder = no
+											holder_scope = { NOT = { character = PREVPREVPREV } }
+										}
+									} 
+								}
+								primary_title = {
+									ROOT = { kingdom = { title = PREVPREV } }
+								}
+							}
+						}								
+					}
+				}
+			}
+		}
+	}
+}
