@@ -44,8 +44,6 @@ narrative_event = {
 			# Alternative de jure if formed by a Romanized Germanic			
 			if = {
 				limit = { liege = { has_landed_title = e_visigoths } }
-				# TODO Need to apply this when e_visigoths is formed as well, 
-				# and remove it if e_visigoths is destroyed
 				k_breton_march = { de_jure_liege = e_visigoths }
 			}
 			else_if = {
@@ -703,7 +701,7 @@ character_event = {
 }
 
 # March has been independent for long enough, becomes a proper title
-character_event = {		# TODO localisation
+character_event = {
 	id = 320937
 	title = "EVTNAME320937"
 	desc = "EVTDESC320937"
@@ -725,8 +723,17 @@ character_event = {		# TODO localisation
 	}
 	
 	immediate = {
-		clr_title_flag = is_march
-		clr_title_flag = is_independent_march
+		any_demesne_title = {
+			limit = {
+				has_title_flag = is_march
+				# had_title_flag = {
+					# flag = is_independent_march
+					# years >= 35
+				# }
+			}
+			clr_title_flag = is_march
+			clr_title_flag = is_independent_march
+		}
 	}
 	
 	option = {

@@ -278,6 +278,10 @@ decisions = {
 					}
 				}
 			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
 		}
 
 		allow = {
@@ -285,8 +289,15 @@ decisions = {
 				k_breton_march = { has_holder = no }
 				has_landed_title = k_breton_march
 			}
+			# Marches can't make marches of their own
+			any_demesne_title = {
+				higher_tier_than = DUKE
+				custom_tooltip = {
+					text = not_a_march_tooltip
+					NOT = { has_title_flag = is_march }
+				}
+			}
 			is_tribal = no
-			higher_tier_than = DUKE
 			custom_tooltip = {
 				text = grant_breton_march_territory_control_tooltip
 				hidden_tooltip = {
@@ -663,6 +674,10 @@ title_decisions = {
 					}
 				}
 			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
 		}
 		
 		potential = {
@@ -712,7 +727,14 @@ title_decisions = {
 			}
 			FROM = {
 				is_tribal = no
-				higher_tier_than = DUKE
+				# Marches can't make marches of their own
+				any_demesne_title = {
+					higher_tier_than = DUKE
+					custom_tooltip = {
+						text = not_a_march_tooltip
+						NOT = { has_title_flag = is_march }
+					}
+				}
 				custom_tooltip = {
 					text = grant_breton_march_territory_control_tooltip
 					hidden_tooltip = {
@@ -855,6 +877,10 @@ targeted_decisions = {
 					}
 				}
 			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
 		}
 		
 		potential = {
@@ -881,7 +907,14 @@ targeted_decisions = {
 			}
 			FROM = {
 				is_tribal = no
-				higher_tier_than = DUKE
+				# Marches can't make marches of their own
+				any_demesne_title = {
+					higher_tier_than = DUKE
+					custom_tooltip = {
+						text = not_a_march_tooltip
+						NOT = { has_title_flag = is_march }
+					}
+				}
 				custom_tooltip = {
 					text = grant_breton_march_territory_control_tooltip
 					hidden_tooltip = {
