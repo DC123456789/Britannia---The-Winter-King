@@ -316,8 +316,112 @@ decisions = {
 		}
 	}
 	
-	# TODO Reorganize Breton March decision to put it under your empire title, if possible
-	# TODO Reorganize Duchy of Vasconia decision to put it under your empire title, if possible
+	# Change the de jure structure of the Breton March if it gets transferred to another title somehow
+	reorganize_breton_march = {
+		only_playable = yes
+		is_high_prio = yes
+		
+		potential = {
+			independent = yes
+			are_dejure_changes_allowed_trigger = yes
+			any_tributary = {
+				is_tributary = { type = march }
+				has_landed_title = k_breton_march
+			}
+			k_breton_march = { has_title_flag = is_march }
+			OR = {
+				AND = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_breton_march }
+						}
+					}
+					# Potential Breton March lieges
+					OR = {
+						has_landed_title = e_franks
+						has_landed_title = e_visigoths
+						has_landed_title = e_gaul
+						has_landed_title = e_roman_britannia
+					}
+				}
+				AND = {
+					 can_create_germanic_title_trigger = yes
+					 NOT = { has_global_flag = germanic_breton_march }
+				}
+				AND = {
+					 can_create_germanic_title_trigger = no
+					 has_global_flag = germanic_breton_march
+				}
+			}
+		}
+		allow = {
+			independent = yes
+			NOT = { k_breton_march = { holder_scope = { war_with = ROOT } } }		
+		}
+		effect = {
+			if = {
+				limit = {
+					 can_create_germanic_title_trigger = yes
+					 NOT = { has_global_flag = germanic_breton_march }
+				}
+				custom_tooltip = {
+					text = reorganize_breton_march_germanic_tooltip
+				}
+				set_global_flag = germanic_breton_march
+			}
+			else_if = {
+				limit = {
+					 can_create_germanic_title_trigger = no
+					 has_global_flag = germanic_breton_march
+				}
+				custom_tooltip = {
+					text = reorganize_breton_march_non_germanic_tooltip
+				}
+				clr_global_flag = germanic_breton_march
+				hidden_tooltip = {				
+					if = {
+						limit = { k_breton_march = { de_jure_liege = e_franks } }
+						k_breton_march = { de_jure_liege = 0 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_breton_march }
+						}
+					}
+				}
+				if = {
+					limit = { has_landed_title = e_franks }
+					k_breton_march = { de_jure_liege = e_franks }
+				}
+				else_if = {
+					limit = { has_landed_title = e_visigoths }
+					k_breton_march = { de_jure_liege = e_visigoths }
+				}
+				else_if = {
+					limit = { has_landed_title = e_gaul }
+					k_breton_march = { de_jure_liege = e_gaul }
+				}
+				else_if = {
+					limit = { has_landed_title = e_roman_britannia }
+					k_breton_march = { de_jure_liege = e_roman_britannia }
+				}
+			}			
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	# TODO Reorganize decision for other marches
 }
 
 title_decisions = {
