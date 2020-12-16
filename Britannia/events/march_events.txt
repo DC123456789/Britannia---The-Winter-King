@@ -9,7 +9,7 @@
 # Creation of the Breton March
 narrative_event = {
 	id = 320900
-	title = "EVTNAME320900"		# TODO Localisation
+	title = "EVTNAME320900"
 	desc = "EVTDESC320900"
 	major = yes
 	hide_new = yes
@@ -94,6 +94,22 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA320900"
+		trigger = {
+			NOR = {
+				culture = armorican
+				culture = breton
+			}			
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320900"
+		trigger = {
+			OR = {
+				culture = armorican
+				culture = breton
+			}
+		}
 	}
 }
 
@@ -977,8 +993,28 @@ character_event = {
 					}
 				}
 				count = 1
-				character_event = { id = 320900 }
+				set_character_flag = grant_breton_march
+				character_event = { id = 320946 }
 			}
+		}
+	}
+}
+
+# Bounce event to ensure correct scopes
+character_event = {
+	id = 320946
+	desc = "You're not supposed to see this..."	
+	picture = "GFX_evt_castle_gate"
+	
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		# TODO update with other marches
+		if = {
+			limit = { has_character_flag = grant_breton_march }
+			clr_character_flag = grant_breton_march
+			character_event = { id = 320900 }
 		}
 	}
 }
