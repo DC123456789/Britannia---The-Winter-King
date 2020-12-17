@@ -7872,7 +7872,12 @@ narrative_event = {	# Reconquest of Aquitania Secunda
 						has_global_flag = basque_vasconia_created
 					} 
 				}
-				d_viviscia = { de_jure_liege = k_gaul }
+				d_viviscia = {
+					if = {
+						limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+						de_jure_liege = k_gaul 
+					}
+				}
 				d_nitiobrogia = { de_jure_liege = k_gaul }
 			}
 			break = yes
@@ -7888,7 +7893,12 @@ narrative_event = {	# Reconquest of Aquitania Secunda
 					has_global_flag = basque_vasconia_created
 				} 
 			}
-			d_viviscia = { de_jure_liege = k_aquitania_secunda }
+			d_viviscia = {
+				if = {
+					limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+					de_jure_liege = k_aquitania_secunda 
+				}
+			}
 			d_nitiobrogia = { de_jure_liege = k_aquitania_secunda }
 		}
 	}
@@ -8081,18 +8091,26 @@ narrative_event = {	# Reconquest of Aquitania Tertia
 		clr_global_flag = aquitania_tertia_conquered_visigoths
 		if = {
 			limit = { NOT = { has_global_flag = roman_provinces_gaul_restored } }
-			d_elusatia = { de_jure_liege = k_gaul }
-			d_auscia = { de_jure_liege = k_gaul }
-			d_lactoratia = { de_jure_liege = k_gaul }
-			d_convenia = { de_jure_liege = k_gaul }
-			d_consorannia = { de_jure_liege = k_gaul }
-			d_bigerria = { de_jure_liege = k_gaul }
-			d_aturensia = { de_jure_liege = k_gaul }
-			d_vasatia = { de_jure_liege = k_gaul }
-			d_benearia = { de_jure_liege = k_gaul }
-			d_iluronensia = { de_jure_liege = k_gaul }
-			d_boiatia = { de_jure_liege = k_gaul }
-			d_tarbellia = { de_jure_liege = k_gaul }
+			any_title = {
+				limit = {
+					OR = {
+						title = d_elusatia
+						title = d_auscia
+						title = d_lactoratia
+						title = d_convenia
+						title = d_consorannia
+						title = d_bigerria
+						title = d_aturensia
+						title = d_vasatia
+						title = d_benearia
+						title = d_iluronensia
+						title = d_boiatia
+						title = d_tarbellia
+					}
+					NOT = { has_title_flag = under_march_k_vasconia }
+				}
+				de_jure_liege = k_gaul
+			}
 			if = {
 				limit = { 
 					has_global_flag = aquitania_created 
@@ -8100,43 +8118,72 @@ narrative_event = {	# Reconquest of Aquitania Tertia
 				}
 				if = {
 					limit = { NOT = { has_global_flag = aquitania_secunda_conquered_visigoths } }
-					d_viviscia = { de_jure_liege = k_gaul }
+					d_viviscia = {
+						if = {
+							limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+							de_jure_liege = k_gaul 
+						}
+					}
 					d_nitiobrogia = { de_jure_liege = k_gaul }
 				}
 				if = {
 					limit = { has_global_flag = aquitania_secunda_conquered_visigoths }
-					d_viviscia = { de_jure_liege = k_visigoths }
+					d_viviscia = {
+						if = {
+							limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+							de_jure_liege = k_visigoths 
+						}
+					}
 					d_nitiobrogia = { de_jure_liege = k_visigoths }
 				}
 			}
-			break = yes
 		}
-		d_elusatia = { de_jure_liege = k_aquitania_tertia }
-		d_auscia = { de_jure_liege = k_aquitania_tertia }
-		d_lactoratia = { de_jure_liege = k_aquitania_tertia }
-		d_convenia = { de_jure_liege = k_aquitania_tertia }
-		d_consorannia = { de_jure_liege = k_aquitania_tertia }
-		d_bigerria = { de_jure_liege = k_aquitania_tertia }
-		d_aturensia = { de_jure_liege = k_aquitania_tertia }
-		d_vasatia = { de_jure_liege = k_aquitania_tertia }
-		d_benearia = { de_jure_liege = k_aquitania_tertia }
-		d_iluronensia = { de_jure_liege = k_aquitania_tertia }
-		d_boiatia = { de_jure_liege = k_aquitania_tertia }
-		d_tarbellia = { de_jure_liege = k_aquitania_tertia }
-		if = {
-			limit = { 
-				has_global_flag = aquitania_created 
-				has_global_flag = basque_vasconia_created
+		else = {
+			any_title = {
+				limit = {
+					OR = {
+						title = d_elusatia
+						title = d_auscia
+						title = d_lactoratia
+						title = d_convenia
+						title = d_consorannia
+						title = d_bigerria
+						title = d_aturensia
+						title = d_vasatia
+						title = d_benearia
+						title = d_iluronensia
+						title = d_boiatia
+						title = d_tarbellia
+					}
+					NOT = { has_title_flag = under_march_k_vasconia }
+				}
+				de_jure_liege = k_aquitania_tertia
 			}
 			if = {
-				limit = { NOT = { has_global_flag = aquitania_secunda_conquered_visigoths } }
-				d_viviscia = { de_jure_liege = k_aquitania_secunda }
-				d_nitiobrogia = { de_jure_liege = k_aquitania_secunda }
-			}
-			if = {
-				limit = { has_global_flag = aquitania_secunda_conquered_visigoths }
-				d_viviscia = { de_jure_liege = k_visigoths }
-				d_nitiobrogia = { de_jure_liege = k_visigoths }
+				limit = { 
+					has_global_flag = aquitania_created 
+					has_global_flag = basque_vasconia_created
+				}
+				if = {
+					limit = { NOT = { has_global_flag = aquitania_secunda_conquered_visigoths } }
+					d_viviscia = {
+						if = {
+							limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+							de_jure_liege = k_aquitania_secunda 
+						}
+					}
+					d_nitiobrogia = { de_jure_liege = k_aquitania_secunda }
+				}
+				if = {
+					limit = { has_global_flag = aquitania_secunda_conquered_visigoths }
+					d_viviscia = {
+						if = {
+							limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+							de_jure_liege = k_visigoths 
+						}
+					}
+					d_nitiobrogia = { de_jure_liege = k_visigoths }
+				}
 			}
 		}
 	}
@@ -16429,17 +16476,17 @@ narrative_event = {
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 			if = {
-				limit = { has_global_flag = breton_march_created }
-				d_rennes = { de_jure_liege = k_breton_march }
-			}
-			else = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
 				d_rennes = { de_jure_liege = k_neustria }
 			}
 			clr_global_flag = saxon_rennes
 		}
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_rennes = { de_jure_liege = k_saxon_gaul }
+			if = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
+				d_rennes = { de_jure_liege = k_saxon_gaul }
+			}
 			set_global_flag = saxon_rennes
 		}
 
@@ -16910,17 +16957,17 @@ narrative_event = {
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 			if = {
-				limit = { has_global_flag = breton_march_created }
-				d_nantes = { de_jure_liege = k_breton_march }
-			}
-			else = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
 				d_nantes = { de_jure_liege = k_orleans }
 			}
 			clr_global_flag = saxon_nantes
 		}
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_nantes = { de_jure_liege = k_saxon_gaul }
+			if = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
+				d_nantes = { de_jure_liege = k_saxon_gaul }
+			}
 			set_global_flag = saxon_nantes
 		}
 		
@@ -17219,17 +17266,17 @@ narrative_event = {
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 			if = {
-				limit = { has_global_flag = breton_march_created }
-				d_bretagne = { de_jure_liege = k_breton_march }
-			}
-			else = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
 				d_bretagne = { de_jure_liege = k_neustria }
 			}
 			clr_global_flag = saxon_bretagne
 		}
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_bretagne = { de_jure_liege = k_saxon_gaul }
+			if = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
+				d_bretagne = { de_jure_liege = k_saxon_gaul }
+			}
 			set_global_flag = saxon_bretagne
 		}
 		
@@ -17293,17 +17340,17 @@ narrative_event = {
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 			if = {
-				limit = { has_global_flag = breton_march_created }
-				d_penthievre = { de_jure_liege = k_breton_march }
-			}
-			else = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
 				d_penthievre = { de_jure_liege = k_neustria }
 			}
 			clr_global_flag = saxon_penthievre
 		}
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_penthievre = { de_jure_liege = k_saxon_gaul }
+			if = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
+				d_penthievre = { de_jure_liege = k_saxon_gaul }
+			}
 			set_global_flag = saxon_penthievre
 		}
 		
@@ -17365,17 +17412,17 @@ narrative_event = {
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
 			if = {
-				limit = { has_global_flag = breton_march_created }
-				d_cornouaille = { de_jure_liege = k_breton_march }
-			}
-			else = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
 				d_cornouaille = { de_jure_liege = k_neustria }
 			}
 			clr_global_flag = saxon_cornouaille
 		}
 		if = {
 			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_cornouaille = { de_jure_liege = k_saxon_gaul }
+			if = {
+				limit = { NOT = { has_global_flag = breton_march_created } }
+				d_cornouaille = { de_jure_liege = k_saxon_gaul }
+			}
 			set_global_flag = saxon_cornouaille
 		}
 		
@@ -17502,7 +17549,7 @@ narrative_event = {
 		c_santonorum = { de_jure_liege = d_saintes }
 		c_aunedonnacum = { de_jure_liege = d_saintes }
 		c_agernacum = { de_jure_liege = d_saintes }
-		d_saintes = { de_jure_liege = k_vasconia }
+		# d_saintes = { de_jure_liege = k_vasconia }
 		
 		d_santonia = { destroy_landed_title = THIS }
 		
@@ -17539,7 +17586,7 @@ narrative_event = {
 	immediate = {
 		c_iculisma = { de_jure_liege = d_angouleme }
 		c_sermanicomagus = { de_jure_liege = d_angouleme }
-		d_angouleme = { de_jure_liege = k_vasconia }
+		# d_angouleme = { de_jure_liege = k_vasconia }
 		
 		d_ecolismensia = { destroy_landed_title = THIS }
 		
@@ -17580,7 +17627,7 @@ narrative_event = {
 		c_varatedo = { de_jure_liege = d_bordeaux }
 		c_boios = { de_jure_liege = d_bordeaux }
 		c_losa = { de_jure_liege = d_bordeaux }
-		d_bordeaux = { de_jure_liege = k_vasconia }
+		# d_bordeaux = { de_jure_liege = k_vasconia }
 		
 		d_viviscia = { destroy_landed_title = THIS }
 		
@@ -17620,7 +17667,7 @@ narrative_event = {
 		c_diolindum = { de_jure_liege = d_perigord }
 		c_fines = { de_jure_liege = d_perigord }
 		c_attanum = { de_jure_liege = d_perigord }
-		d_perigord = { de_jure_liege = k_vasconia }
+		# d_perigord = { de_jure_liege = k_vasconia }
 		
 		d_petrocoria = { destroy_landed_title = THIS }
 		
@@ -17658,7 +17705,7 @@ narrative_event = {
 		c_aginnum = { de_jure_liege = d_agen }
 		c_excisum = { de_jure_liege = d_agen }
 		c_condatomagus = { de_jure_liege = d_agen }
-		d_agen = { de_jure_liege = k_vasconia }
+		# d_agen = { de_jure_liege = k_vasconia }
 		
 		d_nitiobrogia = { destroy_landed_title = THIS }
 		
@@ -18394,7 +18441,7 @@ narrative_event = {
 		c_belsinum = { de_jure_liege = d_fezensac }
 		c_elusa = { de_jure_liege = d_fezensac }
 		c_lactora = { de_jure_liege = d_fezensac }
-		d_fezensac = { de_jure_liege = k_vasconia }
+		# d_fezensac = { de_jure_liege = k_vasconia }
 		
 		d_auscia = { destroy_landed_title = THIS }
 		d_elusatia = { destroy_landed_title = THIS }
@@ -18434,7 +18481,7 @@ narrative_event = {
 		c_lugdunum_convenarum = { de_jure_liege = d_comminges }
 		c_aquae_onesiorum = { de_jure_liege = d_comminges }
 		c_consorannum = { de_jure_liege = d_comminges }
-		d_comminges = { de_jure_liege = k_vasconia }
+		# d_comminges = { de_jure_liege = k_vasconia }
 		
 		d_convenia = { destroy_landed_title = THIS }
 		d_consorannia = { destroy_landed_title = THIS }
@@ -18472,7 +18519,7 @@ narrative_event = {
 	immediate = {
 		c_bigorra = { de_jure_liege = d_bigorre }
 		c_novum_oppidum = { de_jure_liege = d_bigorre }
-		d_bigorre = { de_jure_liege = k_vasconia }
+		# d_bigorre = { de_jure_liege = k_vasconia }
 		
 		d_bigerria = { destroy_landed_title = THIS }
 		
@@ -18509,7 +18556,7 @@ narrative_event = {
 	immediate = {
 		c_atura = { de_jure_liege = d_marsan }
 		c_mons_martiani = { de_jure_liege = d_marsan }
-		d_marsan = { de_jure_liege = k_vasconia }
+		# d_marsan = { de_jure_liege = k_vasconia }
 		
 		d_aturensia = { destroy_landed_title = THIS }
 		
@@ -18546,7 +18593,7 @@ narrative_event = {
 	immediate = {
 		c_cossium = { de_jure_liege = d_bazas }
 		c_alingo = { de_jure_liege = d_bazas }
-		d_bazas = { de_jure_liege = k_vasconia }
+		# d_bazas = { de_jure_liege = k_vasconia }
 		
 		d_vasatia = { destroy_landed_title = THIS }
 		
@@ -18584,7 +18631,7 @@ narrative_event = {
 		c_beneharnum = { de_jure_liege = d_bearn }
 		c_iluro = { de_jure_liege = d_bearn }
 		c_aspalluga = { de_jure_liege = d_bearn }
-		d_bearn = { de_jure_liege = k_vasconia }
+		# d_bearn = { de_jure_liege = k_vasconia }
 		
 		d_benearia = { destroy_landed_title = THIS }
 		d_iluronensia = { destroy_landed_title = THIS }
@@ -18623,7 +18670,7 @@ narrative_event = {
 		c_aquae_tarbellicae = { de_jure_liege = d_dax }
 		c_coequosa = { de_jure_liege = d_dax }
 		c_cocosatia = { de_jure_liege = d_dax }
-		d_dax = { de_jure_liege = k_vasconia }
+		# d_dax = { de_jure_liege = k_vasconia }
 		
 		d_tarbellia = { destroy_landed_title = THIS }
 		
@@ -18660,7 +18707,7 @@ narrative_event = {
 	immediate = {
 		c_lapurdum = { de_jure_liege = d_vasconia_citerior }
 		c_subola = { de_jure_liege = d_vasconia_citerior }
-		d_vasconia_citerior = { de_jure_liege = k_vasconia }
+		# d_vasconia_citerior = { de_jure_liege = k_vasconia }
 		
 		set_global_flag = vasconia_citerior_created
 	}
@@ -20197,7 +20244,12 @@ narrative_event = {	# Conquest of Aquitania Secunda
 					has_global_flag = basque_vasconia_created
 				}
 			}
-			d_viviscia = { de_jure_liege = k_visigoths }
+			d_viviscia = {
+				if = {
+					limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+					de_jure_liege = k_visigoths 
+				}
+			}
 			d_nitiobrogia = { de_jure_liege = k_visigoths }
 		}
 	}
@@ -20320,18 +20372,26 @@ narrative_event = {	# Conquest of Aquitania Tertia
 	
 	immediate = {
 		set_global_flag = aquitania_tertia_conquered_visigoths
-		d_elusatia = { de_jure_liege = k_visigoths }
-		d_auscia = { de_jure_liege = k_visigoths }
-		d_lactoratia = { de_jure_liege = k_visigoths }
-		d_convenia = { de_jure_liege = k_visigoths }
-		d_consorannia = { de_jure_liege = k_visigoths }
-		d_bigerria = { de_jure_liege = k_visigoths }
-		d_aturensia = { de_jure_liege = k_visigoths }
-		d_vasatia = { de_jure_liege = k_visigoths }
-		d_benearia = { de_jure_liege = k_visigoths }
-		d_iluronensia = { de_jure_liege = k_visigoths }
-		d_boiatia = { de_jure_liege = k_visigoths }
-		d_tarbellia = { de_jure_liege = k_visigoths }
+		any_title = {
+			limit = {
+				OR = {
+					title = d_elusatia
+					title = d_auscia
+					title = d_lactoratia
+					title = d_convenia
+					title = d_consorannia
+					title = d_bigerria
+					title = d_aturensia
+					title = d_vasatia
+					title = d_benearia
+					title = d_iluronensia
+					title = d_boiatia
+					title = d_tarbellia
+				}
+				NOT = { has_title_flag = under_march_k_vasconia }
+			}
+			de_jure_liege = k_visigoths
+		}
 		
 		if = {
 			limit = { 
@@ -20343,7 +20403,12 @@ narrative_event = {	# Conquest of Aquitania Tertia
 					NOT = { has_global_flag = aquitania_secunda_conquered_visigoths }
 					NOT = { has_global_flag = roman_provinces_gaul_restored }
 				}
-				d_viviscia = { de_jure_liege = k_gaul }
+				d_viviscia = {
+					if = {
+						limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+						de_jure_liege = k_gaul 
+					}
+				}
 				d_nitiobrogia = { de_jure_liege = k_gaul }
 			}
 			if = {
@@ -20351,12 +20416,22 @@ narrative_event = {	# Conquest of Aquitania Tertia
 					NOT = { has_global_flag = aquitania_secunda_conquered_visigoths }
 					has_global_flag = roman_provinces_gaul_restored
 				}
-				d_viviscia = { de_jure_liege = k_aquitania_secunda }
+				d_viviscia = {
+					if = {
+						limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+						de_jure_liege = k_aquitania_secunda 
+					}
+				}
 				d_nitiobrogia = { de_jure_liege = k_aquitania_secunda }
 			}
 			if = {
 				limit = { has_global_flag = aquitania_secunda_conquered_visigoths }
-				d_viviscia = { de_jure_liege = k_visigoths }
+				d_viviscia = {
+					if = {
+						limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+						de_jure_liege = k_visigoths 
+					}
+				}
 				d_nitiobrogia = { de_jure_liege = k_visigoths }
 			}
 		}
@@ -21471,21 +21546,34 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_elusatia = { de_jure_liege = k_basque_vasconia }
-		d_auscia = { de_jure_liege = k_basque_vasconia }
-		d_lactoratia = { de_jure_liege = k_basque_vasconia }
-		d_convenia = { de_jure_liege = k_basque_vasconia }
-		d_consorannia = { de_jure_liege = k_basque_vasconia }
-		d_bigerria = { de_jure_liege = k_basque_vasconia }
-		d_aturensia = { de_jure_liege = k_basque_vasconia }
-		d_vasatia = { de_jure_liege = k_basque_vasconia }
-		d_benearia = { de_jure_liege = k_basque_vasconia }
-		d_iluronensia = { de_jure_liege = k_basque_vasconia }
-		d_boiatia = { de_jure_liege = k_basque_vasconia }
-		d_tarbellia = { de_jure_liege = k_basque_vasconia }
+		any_title = {
+			limit = {
+				OR = {
+					title = d_elusatia
+					title = d_auscia
+					title = d_lactoratia
+					title = d_convenia
+					title = d_consorannia
+					title = d_bigerria
+					title = d_aturensia
+					title = d_vasatia
+					title = d_benearia
+					title = d_iluronensia
+					title = d_boiatia
+					title = d_tarbellia
+				}
+				NOT = { has_title_flag = under_march_k_vasconia }
+			}
+			de_jure_liege = k_basque_vasconia
+		}
 		if = {
 			limit = { has_global_flag = aquitania_created }
-			d_viviscia = { de_jure_liege = k_basque_vasconia }
+			d_viviscia = {
+				if = {
+					limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+					de_jure_liege = k_basque_vasconia 
+				}
+			}
 			d_nitiobrogia = { de_jure_liege = k_basque_vasconia }
 		}
 		
@@ -21542,7 +21630,12 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { has_global_flag = basque_vasconia_created }
-			d_viviscia = { de_jure_liege = k_basque_vasconia }
+			d_viviscia = {
+				if = {
+					limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+					de_jure_liege = k_basque_vasconia 
+				}
+			}
 			d_nitiobrogia = { de_jure_liege = k_basque_vasconia }
 		}
 		

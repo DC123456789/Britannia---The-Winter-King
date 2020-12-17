@@ -175,7 +175,12 @@ restore_roman_provinces_gaul_effect = {
 					has_global_flag = basque_vasconia_created
 				} 
 			}
-			d_viviscia = { de_jure_liege = k_aquitania_secunda }
+			d_viviscia = {
+				if = {
+					limit = { NOT = { has_title_flag = under_march_k_vasconia } }
+					de_jure_liege = k_aquitania_secunda 
+				}
+			}
 			d_nitiobrogia = { de_jure_liege = k_aquitania_secunda }
 		}
 	}
@@ -186,18 +191,26 @@ restore_roman_provinces_gaul_effect = {
 				has_global_flag = basque_vasconia_created  
 			} 
 		}
-		d_elusatia = { de_jure_liege = k_aquitania_tertia }
-		d_auscia = { de_jure_liege = k_aquitania_tertia }
-		d_lactoratia = { de_jure_liege = k_aquitania_tertia }
-		d_convenia = { de_jure_liege = k_aquitania_tertia }
-		d_consorannia = { de_jure_liege = k_aquitania_tertia }
-		d_bigerria = { de_jure_liege = k_aquitania_tertia }
-		d_aturensia = { de_jure_liege = k_aquitania_tertia }
-		d_vasatia = { de_jure_liege = k_aquitania_tertia }
-		d_benearia = { de_jure_liege = k_aquitania_tertia }
-		d_iluronensia = { de_jure_liege = k_aquitania_tertia }
-		d_boiatia = { de_jure_liege = k_aquitania_tertia }
-		d_tarbellia = { de_jure_liege = k_aquitania_tertia }
+		any_title = {
+			limit = {
+				OR = {
+					title = d_elusatia
+					title = d_auscia
+					title = d_lactoratia
+					title = d_convenia
+					title = d_consorannia
+					title = d_bigerria
+					title = d_aturensia
+					title = d_vasatia
+					title = d_benearia
+					title = d_iluronensia
+					title = d_boiatia
+					title = d_tarbellia
+				}
+				NOT = { has_title_flag = under_march_k_vasconia }
+			}
+			de_jure_liege = k_aquitania_tertia
+		}
 	}
 	if = {
 		limit = { NOT = { has_global_flag = septimania_conquered_visigoths } }
@@ -370,6 +383,64 @@ return_march_duchy_to_original_de_jure_liege_effect = {
 		}
 		else = {
 			de_jure_liege = k_broceliande
+		}
+	}
+	else_if = {
+		limit = {
+			title = d_viviscia
+		}
+		if = {
+			limit = {
+				has_global_flag = aquitania_created 
+				has_global_flag = basque_vasconia_created
+			}
+			de_jure_liege = k_basque_vasconia
+		}
+		else_if = {
+			limit = { has_global_flag = aquitania_secunda_conquered_visigoths }
+			de_jure_liege = k_visigoths
+		}
+		else_if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			de_jure_liege = k_aquitania_secunda
+		}
+		else = {
+			de_jure_liege = k_gaul
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				title = d_elusatia
+				title = d_auscia
+				title = d_lactoratia
+				title = d_convenia
+				title = d_consorannia
+				title = d_bigerria
+				title = d_aturensia
+				title = d_vasatia
+				title = d_benearia
+				title = d_iluronensia
+				title = d_boiatia
+				title = d_tarbellia
+			}
+		}
+		if = {
+			limit = {
+				has_global_flag = basque_vasconia_created
+			}
+			de_jure_liege = k_basque_vasconia
+		}
+		else_if = {
+			limit = { has_global_flag = aquitania_tertia_conquered_visigoths }
+			de_jure_liege = k_visigoths
+		}
+		else_if = {
+			limit = { has_global_flag = roman_provinces_gaul_restored }
+			de_jure_liege = k_aquitania_tertia
+		}
+		else = {
+			de_jure_liege = k_gaul
 		}
 	}
 }

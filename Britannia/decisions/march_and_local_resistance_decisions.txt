@@ -298,15 +298,7 @@ decisions = {
 				}
 			}
 			is_tribal = no
-			custom_tooltip = {
-				text = grant_breton_march_territory_control_tooltip
-				hidden_tooltip = {
-					any_realm_province = {
-						count = 3
-						region = world_gaul_lugdunensis_armorica
-					}
-				}
-			}
+			breton_march_province_control_trigger = yes
 			custom_tooltip = {
 				text = grant_breton_march_notification_allow_tooltip
 				hidden_tooltip = {
@@ -326,6 +318,73 @@ decisions = {
 			factor = 0
 		}
 	}
+	
+	
+	grant_vasconia_notification = {
+		only_playable = yes
+		ai = no
+		is_high_prio = yes
+		
+		potential = {
+			independent = yes
+			are_dejure_changes_allowed_trigger = yes
+			NOR = {
+				culture_group = imperiale
+				culture_group = basque
+			}
+			any_realm_province = {
+				region = custom_vasconia_gaul
+				has_local_resistance_modifier_trigger = yes
+			}
+			NOT = {
+				top_liege = {
+					any_tributary = {
+						has_landed_title = k_vasconia
+					}
+				}
+			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
+		}
+
+		allow = {
+			OR = {
+				k_vasconia = { has_holder = no }
+				has_landed_title = k_vasconia
+			}
+			# Marches can't make marches of their own
+			any_demesne_title = {
+				higher_tier_than = DUKE
+				custom_tooltip = {
+					text = not_a_march_tooltip
+					NOT = { has_title_flag = is_march }
+				}
+			}
+			is_tribal = no
+			vasconia_province_control_trigger = yes
+			custom_tooltip = {
+				text = grant_vasconia_notification_allow_tooltip
+				hidden_tooltip = {
+					always = no
+				}
+			}			
+		}
+		effect = {
+			custom_tooltip = {
+				text = grant_vasconia_notification_effect_tooltip
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	# TODO Add other marches
 	
 	# Change the de jure structure of the Breton March if it gets transferred to another title somehow
 	reorganize_breton_march = {
@@ -432,6 +491,109 @@ decisions = {
 		}
 	}
 	
+	reorganize_vasconia = {
+		only_playable = yes
+		is_high_prio = yes
+		
+		potential = {
+			independent = yes
+			are_dejure_changes_allowed_trigger = yes
+			any_tributary = {
+				is_tributary = { type = march }
+				has_landed_title = k_vasconia
+			}
+			k_vasconia = { has_title_flag = is_march }
+			OR = {
+				AND = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_vasconia }
+						}
+					}
+					# Potential Breton March lieges
+					OR = {
+						has_landed_title = e_franks
+						has_landed_title = e_visigoths
+						has_landed_title = e_gaul
+						has_landed_title = e_roman_britannia
+					}
+				}
+				AND = {
+					 can_create_germanic_title_trigger = yes
+					 NOT = { has_global_flag = germanic_vasconia }
+				}
+				AND = {
+					 can_create_germanic_title_trigger = no
+					 has_global_flag = germanic_vasconia
+				}
+			}
+		}
+		allow = {
+			independent = yes
+			NOT = { k_vasconia = { holder_scope = { war_with = ROOT } } }		
+		}
+		effect = {
+			if = {
+				limit = {
+					 can_create_germanic_title_trigger = yes
+					 NOT = { has_global_flag = germanic_vasconia }
+				}
+				custom_tooltip = {
+					text = reorganize_vasconia_germanic_tooltip
+				}
+				set_global_flag = germanic_vasconia
+			}
+			else_if = {
+				limit = {
+					 can_create_germanic_title_trigger = no
+					 has_global_flag = germanic_vasconia
+				}
+				custom_tooltip = {
+					text = reorganize_vasconia_non_germanic_tooltip
+				}
+				clr_global_flag = germanic_vasconia
+				hidden_tooltip = {				
+					if = {
+						limit = { k_vasconia = { de_jure_liege = e_franks } }
+						k_vasconia = { de_jure_liege = 0 }
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_vasconia }
+						}
+					}
+				}
+				if = {
+					limit = { has_landed_title = e_franks }
+					k_vasconia = { de_jure_liege = e_franks }
+				}
+				else_if = {
+					limit = { has_landed_title = e_visigoths }
+					k_vasconia = { de_jure_liege = e_visigoths }
+				}
+				else_if = {
+					limit = { has_landed_title = e_gaul }
+					k_vasconia = { de_jure_liege = e_gaul }
+				}
+				else_if = {
+					limit = { has_landed_title = e_roman_britannia }
+					k_vasconia = { de_jure_liege = e_roman_britannia }
+				}
+			}			
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	# TODO Reorganize decision for other marches
 }
 
@@ -735,15 +897,7 @@ title_decisions = {
 						NOT = { has_title_flag = is_march }
 					}
 				}
-				custom_tooltip = {
-					text = grant_breton_march_territory_control_tooltip
-					hidden_tooltip = {
-						any_realm_province = {
-							count = 3
-							region = world_gaul_lugdunensis_armorica
-						}
-					}
-				}
+				breton_march_province_control_trigger = yes
 			}
 		}
 		effect = {
@@ -769,7 +923,116 @@ title_decisions = {
 		}
 	}
 	
-	# TODO Duchy of Vasconia
+	grant_vasconia = {
+		only_playable = yes
+		filter = all
+		ai_target_filter = primary_title
+		third_party_filter = vassals
+		ai_check_interval = 36
+		is_high_prio = yes
+		show_third_party_score = no
+		
+		from_potential = {
+			independent = yes
+			NOR = {
+				culture_group = imperiale
+				culture_group = basque
+			}
+			any_realm_province = {
+				OR = {
+					region = custom_vasconia_gaul
+					kingdom = { title = k_vasconia }
+				}
+			}
+			NOT = {
+				top_liege = {
+					any_tributary = {
+						has_landed_title = k_vasconia
+					}
+				}
+			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
+		}
+		
+		potential = {
+			are_dejure_changes_allowed_trigger = yes
+			title = k_vasconia
+		}
+		
+		third_party_potential = {
+			FROMFROM = {
+				higher_tier_than = BARON
+				NOR = {
+					culture_group = imperiale
+					culture_group = basque
+				}
+				any_realm_province = {
+					region = custom_vasconia_gaul
+				}
+			}
+		}
+		
+		third_party_score = {
+			factor = 1
+			
+			additive_modifier = {
+				value = 100
+				FROMFROM = { 
+					tier = KING
+				}
+			}
+			additive_modifier = {
+				value = 20
+				FROMFROM = { 
+					tier = DUKE
+				}
+			}
+		}
+
+		allow = {
+			OR = {
+				k_vasconia = { has_holder = no }
+				FROM = { has_landed_title = k_vasconia }
+			}
+			FROM = {
+				is_tribal = no
+				# Marches can't make marches of their own
+				any_demesne_title = {
+					higher_tier_than = DUKE
+					custom_tooltip = {
+						text = not_a_march_tooltip
+						NOT = { has_title_flag = is_march }
+					}
+				}
+				vasconia_province_control_trigger = yes
+			}
+		}
+		effect = {
+			tooltip = {
+				FROMFROM = {
+					grant_title = k_vasconia
+					set_defacto_liege = THIS
+				}
+				FROM = {
+					show_scope_change = no
+					make_tributary = { who = ROOT_FROMFROM tributary_type = march }
+				}
+			}
+			hidden_tooltip = {
+				FROMFROM = { character_event = { id = 320901 } }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0		# Handled by event for AI
+		}
+	}
+	
 	# TODO Welsh March
 	# TODO Pictish March
 	# TODO Caledonian March (Limes Caledonicus) - alt Roman version of Pictish March
@@ -894,6 +1157,7 @@ targeted_decisions = {
 					#}
 				#}
 			}
+			liege = { character = FROM }
 		}
 
 		allow = {
@@ -915,15 +1179,7 @@ targeted_decisions = {
 						NOT = { has_title_flag = is_march }
 					}
 				}
-				custom_tooltip = {
-					text = grant_breton_march_territory_control_tooltip
-					hidden_tooltip = {
-						any_realm_province = {
-							count = 3
-							region = world_gaul_lugdunensis_armorica
-						}
-					}
-				}
+				breton_march_province_control_trigger = yes
 			}
 		}
 		effect = {
@@ -946,6 +1202,88 @@ targeted_decisions = {
 			factor = 0		# Handled by event for AI
 		}
 	}
+	
+	grant_vasconia_to_character = {
+		only_playable = yes
+		filter = all
+		ai_target_filter = primary_title
+		ai_check_interval = 36
+		is_high_prio = yes
+		
+		from_potential = {
+			independent = yes
+			NOR = {
+				culture_group = imperiale
+				culture_group = basque
+			}
+			any_realm_province = {
+				region = custom_vasconia_gaul
+			}
+			NOT = {
+				top_liege = {
+					any_tributary = {
+						has_landed_title = k_vasconia
+					}
+				}
+			}
+			NOR = {
+				is_tributary = { type = march }
+				in_revolt = yes
+			}
+		}
+		
+		potential = {
+			are_dejure_changes_allowed_trigger = yes
+			higher_tier_than = BARON
+			any_realm_province = {
+				region = custom_vasconia_gaul
+			}
+			liege = { character = FROM }
+		}
+
+		allow = {
+			OR = {
+				k_vasconia = { has_holder = no }
+				FROM = { has_landed_title = k_vasconia }
+			}
+			NOR = {
+				culture_group = imperiale
+				culture_group = basque
+			}
+			FROM = {
+				is_tribal = no
+				# Marches can't make marches of their own
+				any_demesne_title = {
+					higher_tier_than = DUKE
+					custom_tooltip = {
+						text = not_a_march_tooltip
+						NOT = { has_title_flag = is_march }
+					}
+				}
+				vasconia_province_control_trigger = yes
+			}
+		}
+		effect = {
+			tooltip = {
+				grant_title = k_vasconia
+				set_defacto_liege = THIS
+				FROM = {
+					show_scope_change = no
+					make_tributary = { who = ROOT tributary_type = march }
+				}
+			}
+			hidden_tooltip = {
+				character_event = { id = 320901 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0		# Handled by event for AI
+		}
+	}
+	# TODO Add other marches
 	
 	transfer_vassal_to_march = {
 		only_playable = yes

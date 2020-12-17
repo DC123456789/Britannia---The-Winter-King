@@ -596,3 +596,75 @@ can_drift_out_of_breton_march = {
 		}
 	}
 }
+
+# Checks that a duchy that is de jure part of the Breton March can drift out
+# Requires that all counties in the duchy be under the control of a non-Germanic kingdom or empire title, that does not hold the relevant march title
+# SCOPE - The duchy to check if Vasconia controls
+# PREV - The March title the duchy is currently in
+can_drift_out_of_vasconia = {
+	is_titular = no
+	NOT = {
+		any_direct_de_jure_vassal_title = {
+			NOT = {
+				holder_scope = {
+					NOR = {
+						has_landed_title = PREVPREVPREV
+						any_liege = { 
+							has_landed_title = PREVPREVPREVPREV
+						}
+					}
+					top_liege = {
+						is_germanic_ruler_trigger = no
+						OR = {
+							higher_tier_than = DUKE
+							culture_group = basque
+							culture_group = imperiale
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Territorial control requirements for granting Breton March
+breton_march_province_control_trigger = {
+	custom_tooltip = {
+		text = grant_breton_march_territory_control_tooltip
+		hidden_tooltip = {
+			any_realm_province = {
+				count = 3
+				region = world_gaul_lugdunensis_armorica
+			}
+		}
+	}
+}
+
+breton_march_province_control_with_resistance_trigger = {
+	any_realm_province = {
+		count = 3
+		region = world_gaul_lugdunensis_armorica
+		has_local_resistance_modifier_trigger = yes
+	}
+}
+
+# Territorial control requirements for granting Duchy of Vasconia
+vasconia_province_control_trigger = {
+	custom_tooltip = {
+		text = grant_vasconia_territory_control_tooltip
+		hidden_tooltip = {
+			any_realm_province = {
+				count = 5
+				region = world_gaul_aquitania_tertia
+			}
+		}
+	}
+}
+
+vasconia_province_control_with_resistance_trigger = {
+	any_realm_province = {
+		count = 5
+		region = world_gaul_aquitania_tertia
+		has_local_resistance_modifier_trigger = yes
+	}
+}

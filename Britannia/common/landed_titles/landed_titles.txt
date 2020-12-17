@@ -19562,9 +19562,9 @@ e_gaul = {		# Imperium Galliarum
 			
 			culture = romanogallic
 			
-			#title = "COMES"
+			title = "COMES"
 			title_female = "HIGHLADY"
-			#title_prefix = "CIVITAS_OF" 
+			title_prefix = "CIVITAS_OF" 
 			
 			allow = {
 				can_create_roman_title_trigger = yes
@@ -41559,7 +41559,7 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		# saxon = "Lidwic"
 		# jute = "Lidwic"
 		
-		# TODO Need to adjust allow for k_vasconia, k_wales, k_pictland as well
+		# TODO Need to adjust allow for k_wales, k_pictland as well
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
 			conditional_tooltip = {
@@ -41639,7 +41639,47 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
-			always = no
+			conditional_tooltip = {
+				trigger = {
+					k_vasconia = { has_title_flag = is_march }
+				}
+				custom_tooltip = {
+					text = k_vasconia_tooltip
+					hidden_tooltip = {
+						always = no
+					}
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					k_vasconia = { NOT = { has_title_flag = is_march } }
+				}
+				NOR = {
+					culture_group = imperiale
+					culture_group = basque
+				}
+				conditional_tooltip = {
+					trigger = { has_global_flag = germanic_vasconia }
+					can_create_germanic_title_trigger = yes
+				}
+				conditional_tooltip = {
+					trigger = { NOT = { has_global_flag = germanic_vasconia } }
+					can_create_germanic_title_trigger = no
+				}
+				num_of_count_titles_in_realm = 12
+				prestige = 1000
+				k_vasconia = {
+					custom_tooltip = {
+						text = 10_title_provs_in_realm
+						hidden_tooltip = {
+							num_title_realm_provs = {
+								who = PREV
+								value = 10
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 	
