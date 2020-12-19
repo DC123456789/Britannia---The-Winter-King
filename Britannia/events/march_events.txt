@@ -59,7 +59,6 @@ narrative_event = {
 			d_penthievre = { de_jure_liege = k_breton_march }
 			d_cornouaille = { de_jure_liege = k_breton_march }
 			
-			set_global_flag = germanic_breton_march
 			if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
@@ -72,6 +71,8 @@ narrative_event = {
 			}
 		}
 		else = {
+			set_global_flag = romanized_germanic_breton_march
+			
 			# Alternative de jure if formed by a Romanized Germanic			
 			if = {
 				limit = { liege = { has_landed_title = e_visigoths } }
@@ -88,6 +89,7 @@ narrative_event = {
 			else = {
 				k_breton_march = { de_jure_liege = 0 }
 			}
+			
 			
 			k_breton_march = {
 				any_title = {		# Should really be random_title, but that apparently doesn't exist
@@ -193,7 +195,6 @@ narrative_event = {
 			d_dax = { de_jure_liege = k_vasconia }
 			d_vasconia_citerior = { de_jure_liege = k_vasconia }
 			
-			set_global_flag = germanic_vasconia
 			if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
@@ -210,6 +211,8 @@ narrative_event = {
 			}
 		}
 		else = {
+			set_global_flag = romanized_germanic_vasconia
+			
 			# Alternative de jure if formed by a Romanized Germanic			
 			if = {
 				limit = { liege = { has_landed_title = e_visigoths } }
@@ -348,61 +351,10 @@ character_event = {
 				k_breton_march = { de_jure_liege = e_gaul }
 			}
 			
-			# Needs to be before, as otherwise k_breton_march won't have any more de jure duchies remaining
-			k_breton_march = {
-				any_direct_de_jure_vassal_title = {
-					clear_title_flag = under_march_k_breton_march
-				}
-			}
-			
-			if = {
-				limit = { has_global_flag = germanic_breton_march }
-				if = {
-					limit = { has_global_flag = saxon_nantes }
-					d_nantes = { de_jure_liege = k_saxon_gaul }
-				}
-				else = {
-					d_nantes = { de_jure_liege = k_orleans }
-				}
-				if = {
-					limit = { has_global_flag = saxon_rennes }
-					d_rennes = { de_jure_liege = k_saxon_gaul }
-				}
-				else = {
-					d_rennes = { de_jure_liege = k_orleans }
-				}
-				if = {
-					limit = { has_global_flag = saxon_bretagne }
-					d_bretagne = { de_jure_liege = k_saxon_gaul }
-				}
-				else = {
-					d_bretagne = { de_jure_liege = k_orleans }
-				}
-				if = {
-					limit = { has_global_flag = saxon_penthievre }
-					d_penthievre = { de_jure_liege = k_saxon_gaul }
-				}
-				else = {
-					d_penthievre = { de_jure_liege = k_orleans }
-				}
-				if = {
-					limit = { has_global_flag = saxon_cornouaille }
-					d_cornouaille = { de_jure_liege = k_saxon_gaul }
-				}
-				else = {
-					d_cornouaille = { de_jure_liege = k_orleans }
-				}
-			}
-			else = {
-				k_breton_march = {
-					any_direct_de_jure_vassal_title = {
-						return_march_duchy_to_original_de_jure_liege_effect = yes
-					}
-				}
-			}
+			breton_march_return_de_jure_duchies_effect = yes
 			
 			clr_global_flag = breton_march_created
-			clr_global_flag = germanic_breton_march
+			clr_global_flag = romanized_germanic_breton_march
 		}
 		if = {
 			limit = {
@@ -423,29 +375,14 @@ character_event = {
 				k_vasconia = { de_jure_liege = e_gaul }
 			}
 			
-			# Needs to be before, as otherwise k_vasconia won't have any more de jure duchies remaining
-			k_vasconia = {
-				any_direct_de_jure_vassal_title = {
-					clear_title_flag = under_march_k_vasconia
-				}
-			}
-			
-			if = {
-				limit = { NOT = { has_global_flag = germanic_vasconia } }
-				k_vasconia = {
-					any_direct_de_jure_vassal_title = {
-						set_title_flag = target_duchy
-						return_march_duchy_to_original_de_jure_liege_effect = yes
-					}
-				}
-			}
+			vasconia_return_de_jure_duchies_effect = yes
 			k_vasconia = {
 				set_name = ""
 				adjective = ""
 			}
 			
 			clr_global_flag = vasconia_created
-			clr_global_flag = germanic_vasconia
+			clr_global_flag = romanized_germanic_vasconia
 		}
 	}
 }
@@ -466,7 +403,7 @@ character_event = {
 		OR = {
 			AND = {
 				has_landed_title = k_breton_march
-				NOT = { has_global_flag = germanic_breton_march }
+				has_global_flag = romanized_germanic_breton_march
 				k_breton_march = {
 					OR = {
 						d_redonia = { can_drift_into_march = yes }
@@ -480,7 +417,7 @@ character_event = {
 			}
 			AND = {
 				has_landed_title = k_vasconia
-				NOT = { has_global_flag = germanic_vasconia }
+				has_global_flag = romanized_germanic_vasconia
 				k_vasconia = {
 					OR = {
 						d_viviscia = { can_drift_into_march = yes }
@@ -515,7 +452,7 @@ character_event = {
 		if = {
 			limit = {
 				has_landed_title = k_breton_march
-				NOT = { has_global_flag = germanic_breton_march }
+				has_global_flag = romanized_germanic_breton_march
 				k_breton_march = {
 					OR = {
 						d_redonia = { can_drift_into_march = yes }
@@ -548,7 +485,7 @@ character_event = {
 		else_if = {
 			limit = {
 				has_landed_title = k_vasconia
-				NOT = { has_global_flag = germanic_vasconia }
+				has_global_flag = romanized_germanic_vasconia
 				k_vasconia = {
 					OR = {
 						d_viviscia = { can_drift_into_march = yes }
@@ -719,7 +656,7 @@ character_event = {
 		is_alternate_start = no
 		OR = {
 			AND = {
-				NOT = { has_global_flag = germanic_breton_march }
+				has_global_flag = romanized_germanic_breton_march
 				k_breton_march = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_breton_march = yes		
@@ -727,7 +664,7 @@ character_event = {
 				}
 			}
 			AND = {
-				NOT = { has_global_flag = germanic_vasconia }
+				has_global_flag = romanized_germanic_vasconia
 				k_vasconia = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_vasconia = yes		
@@ -744,7 +681,7 @@ character_event = {
 	immediate = {
 		if = {
 			limit = {
-				NOT = { has_global_flag = germanic_breton_march }
+				has_global_flag = romanized_germanic_breton_march
 				k_breton_march = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_breton_march = yes		
@@ -764,7 +701,7 @@ character_event = {
 		}
 		else_if = {
 			limit = {
-				NOT = { has_global_flag = germanic_vasconia }
+				has_global_flag = romanized_germanic_vasconia
 				k_vasconia = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_vasconia = yes		

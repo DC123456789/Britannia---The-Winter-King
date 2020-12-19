@@ -15707,8 +15707,18 @@ e_aengland = {
 
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
-			culture_group = germanic
-			NOT = { is_romanized_germanic_trigger = yes }			
+			conditional_tooltip = {
+				trigger = { NOT = { has_global_flag = romanized_germanic_wales } }
+				can_create_germanic_title_trigger = yes
+			}
+			conditional_tooltip = {
+				trigger = { has_global_flag = romanized_germanic_wales }
+				can_create_germanic_title_trigger = no
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+			}
 			k_wales = {
 				custom_tooltip = {
 					text = 10_title_provs_in_realm
@@ -15720,7 +15730,6 @@ e_aengland = {
 					}
 				}
 			}
-			#has_global_flag = earldom_of_wales_created
 		}
 		
 		capital = 52 # Moridunum/Carmerthen
@@ -15739,8 +15748,18 @@ e_aengland = {
 
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
-			culture_group = germanic
-			NOT = { is_romanized_germanic_trigger = yes }			
+			conditional_tooltip = {
+				trigger = { NOT = { has_global_flag = romanized_germanic_pictland } }
+				can_create_germanic_title_trigger = yes
+			}
+			conditional_tooltip = {
+				trigger = { has_global_flag = romanized_germanic_pictland }
+				can_create_germanic_title_trigger = no
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+			}
 			k_pictland = {
 				custom_tooltip = {
 					text = 10_title_provs_in_realm
@@ -15752,7 +15771,6 @@ e_aengland = {
 					}
 				}
 			}
-			#has_global_flag = earldom_of_wales_created
 		}
 		
 		capital = 128	# East Caledonia
@@ -41559,7 +41577,6 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		# saxon = "Lidwic"
 		# jute = "Lidwic"
 		
-		# TODO Need to adjust allow for k_wales, k_pictland as well
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
 			conditional_tooltip = {
@@ -41582,11 +41599,11 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 					culture_group = celtic
 				}
 				conditional_tooltip = {
-					trigger = { has_global_flag = germanic_breton_march }
+					trigger = { NOT = { has_global_flag = romanized_germanic_breton_march } }
 					can_create_germanic_title_trigger = yes
 				}
 				conditional_tooltip = {
-					trigger = { NOT = { has_global_flag = germanic_breton_march } }
+					trigger = { has_global_flag = romanized_germanic_breton_march }
 					can_create_germanic_title_trigger = no
 				}
 				num_of_count_titles_in_realm = 12
@@ -41659,11 +41676,11 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 					culture_group = basque
 				}
 				conditional_tooltip = {
-					trigger = { has_global_flag = germanic_vasconia }
+					trigger = { NOT = { has_global_flag = romanized_germanic_vasconia } }
 					can_create_germanic_title_trigger = yes
 				}
 				conditional_tooltip = {
-					trigger = { NOT = { has_global_flag = germanic_vasconia } }
+					trigger = { has_global_flag = romanized_germanic_vasconia }
 					can_create_germanic_title_trigger = no
 				}
 				num_of_count_titles_in_realm = 12
@@ -54444,6 +54461,17 @@ e_roman_britannia = {
 					completely_controls = c_dunadd
 					completely_controls = c_fidach
 					completely_controls = c_gallaibh
+				}
+			}
+			k_romancaledonia = {
+				custom_tooltip = {
+					text = 10_title_provs_in_realm
+					hidden_tooltip = {
+						num_title_realm_provs = {
+							who = PREV
+							value = 10
+						}
+					}
 				}
 			}
 		}
