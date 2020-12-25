@@ -79,6 +79,10 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 					type = anglosaxon_tributary 
 					suzerain = ROOT 
 				}
+				is_tributary = {
+					type = march 
+					suzerain = ROOT 
+				}
 			}
 		}
 	}
@@ -91,6 +95,10 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 				top_liege = { character = ROOT }
 				is_tributary = {
 					type = anglosaxon_tributary 
+					suzerain = ROOT 
+				}
+				is_tributary = {
+					type = march 
 					suzerain = ROOT 
 				}
 			}
@@ -117,6 +125,10 @@ narrative_event = {		# All Agreed, Gain Cynerice of Aenglaland
 				top_liege = { character = ROOT }
 				is_tributary = {
 					type = anglosaxon_tributary 
+					suzerain = ROOT 
+				}
+				is_tributary = {
+					type = march 
 					suzerain = ROOT 
 				}
 				AND = {
@@ -716,8 +728,13 @@ character_event = {
 					has_landed_title = e_aengland
 					AND = {
 						has_global_flag = aengland_declared_supremacy
-						is_tributary = {
-							type = anglosaxon_tributary
+						OR = {
+							is_tributary = {
+								type = anglosaxon_tributary
+							}
+							is_tributary = {
+								type = march
+							}
 						}
 						suzerain = { has_landed_title = e_aengland }
 					}
@@ -1124,8 +1141,13 @@ character_event = {
 			has_landed_title = e_aengland
 			AND = {
 				has_global_flag = aengland_declared_supremacy
-				is_tributary = {
-					type = anglosaxon_tributary
+				OR = {
+					is_tributary = {
+						type = anglosaxon_tributary
+					}
+					is_tributary = {
+						type = march
+					}
 				}
 				suzerain = { has_landed_title = e_aengland }
 			}
@@ -1190,9 +1212,15 @@ character_event = {
 			}
 			if = {
 				limit = {
-					is_tributary = {
-						type = anglosaxon_tributary 
-						suzerain = ROOT 
+					OR = {
+						is_tributary = {
+							type = anglosaxon_tributary 
+							suzerain = ROOT 
+						}
+						is_tributary = {
+							type = march
+							suzerain = ROOT 
+						}
 					}
 				}
 				if = {
@@ -1409,8 +1437,13 @@ character_event = {
 			limit = {
 				NAND = {
 					has_global_flag = aengland_declared_supremacy
-					is_tributary = {
-						type = anglosaxon_tributary
+					OR = {
+						is_tributary = {
+							type = anglosaxon_tributary
+						}
+						is_tributary = {
+							type = march
+						}
 					}
 					suzerain = { has_landed_title = e_aengland }
 				}
@@ -2004,9 +2037,12 @@ character_event = {
 			}
 			AND = {
 				is_tributary = yes
-				NOT = {
+				NOR = {
 					is_tributary = {
 						type = anglosaxon_tributary
+					}
+					is_tributary = {
+						type = march
 					}
 				}
 				is_anglosaxon_tributary_potential_trigger = yes
@@ -2120,13 +2156,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 		}
 	}
@@ -2136,15 +2182,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 			}
@@ -4065,13 +4121,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 			NOT = { has_character_flag = joined_brunanburh_coalition }
 		}
@@ -4093,15 +4159,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 				has_character_flag = joined_brunanburh_coalition
@@ -4166,13 +4242,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 			NOT = { has_character_flag = brunanburh_alliance_member }
 		}
@@ -4191,15 +4277,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 				has_character_flag = brunanburh_alliance_member
@@ -6342,13 +6438,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 			NOT = { has_character_flag = brunanburh_alliance_member }
 		}
@@ -6465,15 +6571,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 				has_character_flag = brunanburh_alliance_member
@@ -6547,13 +6663,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 			NOT = { has_character_flag = brunanburh_alliance_member }
 		}
@@ -6572,15 +6698,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 				has_character_flag = brunanburh_alliance_member
@@ -6648,13 +6784,23 @@ narrative_event = {
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
-				top_liege = { character = ROOT }
 			}
 		}
 	}
@@ -6664,15 +6810,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 			}
@@ -6685,15 +6841,25 @@ narrative_event = {
 		trigger = {
 			NOR = { 
 				character = ROOT
-				top_liege = { character = ROOT }
 				is_tributary = { 
 					type = anglosaxon_tributary 
 					suzerain = ROOT
 				}
+				is_tributary = { 
+					type = march 
+					suzerain = ROOT
+				}
 				top_liege = {
-					is_tributary = { 
-						type = anglosaxon_tributary 
-						suzerain = ROOT
+					OR = {
+						is_tributary = { 
+							type = anglosaxon_tributary 
+							suzerain = ROOT
+						}
+						is_tributary = { 
+							type = march 
+							suzerain = ROOT
+						}
+						character = ROOT
 					}
 				}
 				is_brythonic_culture_trigger = yes

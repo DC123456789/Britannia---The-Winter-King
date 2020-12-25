@@ -765,6 +765,114 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	reorganize_welsh_march = {
+		only_playable = yes
+		is_high_prio = yes
+		
+		potential = {
+			independent = yes
+			are_dejure_changes_allowed_trigger = yes
+			any_tributary = {
+				is_tributary = { type = march }
+				has_landed_title = k_wales
+			}
+			k_wales = { has_title_flag = is_march }
+			OR = {
+				AND = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_wales }
+						}
+					}
+					# Potential Welsh March lieges
+					OR = {
+						has_landed_title = e_gaul
+						has_landed_title = e_roman_britannia
+						has_landed_title = e_aengland
+					}
+				}
+				AND = {
+					 can_create_germanic_title_trigger = yes
+					 has_global_flag = romanized_germanic_wales
+				}
+				AND = {
+					 can_create_germanic_title_trigger = no
+					 NOT = { has_global_flag = romanized_germanic_wales }
+				}
+			}
+		}
+		allow = {
+			independent = yes
+			NOT = { k_wales = { holder_scope = { war_with = ROOT } } }		
+		}
+		effect = {
+			if = {
+				limit = {
+					 can_create_germanic_title_trigger = yes
+					 has_global_flag = romanized_germanic_wales
+				}
+				custom_tooltip = {
+					text = reorganize_wales_germanic_tooltip
+				}
+				hidden_tooltip = {
+					welsh_march_return_de_jure_duchies_effect = yes
+				}
+				clr_global_flag = romanized_germanic_wales
+				hidden_tooltip = {
+					k_wales = { de_jure_liege = e_aengland }
+				}
+			}
+			else_if = {
+				limit = {
+					 can_create_germanic_title_trigger = no
+					 NOT = { has_global_flag = romanized_germanic_wales }
+				}
+				custom_tooltip = {
+					text = reorganize_wales_non_germanic_tooltip
+				}
+				hidden_tooltip = {
+					welsh_march_return_de_jure_duchies_effect = yes
+				}
+				set_global_flag = romanized_germanic_wales
+				hidden_tooltip = {
+					if = {
+						limit = { k_wales = { de_jure_liege = e_aengland } }
+						k_wales = { de_jure_liege = e_britannia }
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_demesne_title = {
+							tier = EMPEROR
+							any_direct_de_jure_vassal_title = { title = k_wales }
+						}
+					}
+				}
+				if = {
+					limit = { has_landed_title = e_aengland }
+					k_wales = { de_jure_liege = e_aengland }
+				}
+				else_if = {
+					limit = { has_landed_title = e_roman_britannia }
+					k_wales = { de_jure_liege = e_roman_britannia }
+				}
+				else_if = {
+					limit = { has_landed_title = e_gaul }
+					k_wales = { de_jure_liege = e_gaul }
+				}
+			}			
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	# TODO Reorganize decision for other marches
 }
 
