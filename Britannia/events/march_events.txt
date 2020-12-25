@@ -290,7 +290,143 @@ narrative_event = {
 	}
 }
 
-# 320902 TODO Creation of the Welsh March
+# Creation of the Welsh March
+narrative_event = {
+	id = 320902
+	title = "EVTNAME320902"		# TODO Localisation
+	desc = "EVTDESC320902"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		liege = { save_event_target_as = ROOT_liege }		
+		grant_title = k_wales
+		k_wales = { set_title_flag = is_march }
+		set_defacto_liege = THIS
+		event_target:ROOT_liege = {
+			make_tributary = { who = ROOT tributary_type = march }
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						primary_title = {
+							OR = {
+								AND = {
+									tier = DUKE
+									capital_scope = {
+										region = world_britannia_cymry_wales
+									}
+								}
+								AND = {
+									tier = COUNT
+									location = {
+										region = world_britannia_cymry_wales
+									}
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+			
+		k_wales = {
+			set_name = "Welsh March"
+		}
+		
+		if = {
+			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			# In case they were re-assigned to Mercia earlier
+			d_monmouthshire = { de_jure_liege = k_wales }
+			d_glamorganshire = { de_jure_liege = k_wales }
+			d_brecknockshire = { de_jure_liege = k_wales }
+			d_carmarthenshire = { de_jure_liege = k_wales }
+			d_cardiganshire = { de_jure_liege = k_wales }
+			d_montgomeryshire = { de_jure_liege = k_wales }
+			d_denbighshire = { de_jure_liege = k_wales }
+			d_caernarfonshire = { de_jure_liege = k_wales }
+			
+			# Wales has only one possible empire title right now (e_aengland)
+			k_wales = { de_jure_liege = e_aengland }
+		}
+		else = {
+			set_global_flag = romanized_germanic_wales
+			
+			if = {
+				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				k_wales = { de_jure_liege = e_roman_britannia }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				k_wales = { de_jure_liege = e_gaul }
+			}
+			else = {
+				k_wales = { de_jure_liege = e_britannia }			# Since most other duchies in the area are likely to be under Britannia too, if this ever somehow happens
+			}
+			
+			k_wales = {
+				any_title = {
+					limit = {
+						OR = {
+							title = d_gwent
+							title = d_glywissing
+							title = d_brycheiniog
+							title = d_deheubarth
+							title = d_ystrad_tywi
+							title = d_fferyllwg
+							title = d_buelt
+							title = d_centpowys
+							title = d_meirion
+							title = d_northgwynedd
+							title = d_westpowys
+							title = d_osmaeliog
+							title = d_arfon
+						}
+						can_drift_into_march = yes
+					}
+					de_jure_liege = k_wales
+					set_title_flag = under_march_k_wales
+				}
+			}
+			
+			# Give to Mercia so we don't have the awkward situation where Germanic duchies are under the wrong empire
+			d_monmouthshire = { de_jure_liege = k_mercia }
+			d_glamorganshire = { de_jure_liege = k_mercia }
+			d_brecknockshire = { de_jure_liege = k_mercia }
+			d_carmarthenshire = { de_jure_liege = k_mercia }
+			d_cardiganshire = { de_jure_liege = k_mercia }
+			d_montgomeryshire = { de_jure_liege = k_mercia }
+			d_denbighshire = { de_jure_liege = k_mercia }
+			d_caernarfonshire = { de_jure_liege = k_mercia }
+		}		
+		
+		set_global_flag = welsh_march_created
+	}
+	
+	option = {
+		name = "EVTOPTA320902"
+		trigger = {
+			NOR = {
+				culture = briton 
+				culture = romanobritish
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320902"
+		trigger = {
+			OR = {
+				culture = briton 
+				culture = romanobritish
+			}
+		}
+	}
+}
 
 # 320903 TODO Creation of the Pictish March
 
@@ -323,6 +459,11 @@ character_event = {
 				has_holder = no
 				has_title_flag = is_march
 				has_global_flag = vasconia_created
+			}
+			k_wales = { 
+				has_holder = no
+				has_title_flag = is_march
+				has_global_flag = welsh_march_created
 			}
 		}
 	}
@@ -384,11 +525,28 @@ character_event = {
 			clr_global_flag = vasconia_created
 			clr_global_flag = romanized_germanic_vasconia
 		}
+		if = {
+			limit = {
+				k_wales = { 
+					has_holder = no
+					has_title_flag = is_march
+					has_global_flag = welsh_march_created
+				}
+			}
+			k_wales = { de_jure_liege = e_aengland }
+			
+			welsh_march_return_de_jure_duchies_effect = yes
+			k_wales = {
+				set_name = ""
+			}
+			
+			clr_global_flag = welsh_march_created
+			clr_global_flag = romanized_germanic_wales
+		}
 	}
 }
 
-# Romanized Breton March duchy de jure shift event
-# TODO Romanized Welsh March duchy de jure shifts
+# Romanized march duchy de jure shift event
 # TODO Romanized Pictish March duchy de jure shifts
 character_event = {
 	id = 320920
@@ -433,6 +591,27 @@ character_event = {
 						d_iluronensia = { can_drift_into_march = yes }
 						d_boiatia = { can_drift_into_march = yes }
 						d_tarbellia = { can_drift_into_march = yes }
+					}
+				}
+			}
+			AND = {
+				has_landed_title = k_wales
+				has_global_flag = romanized_germanic_wales
+				k_wales = {
+					OR = {
+						d_gwent = { can_drift_into_march = yes }
+						d_glywissing = { can_drift_into_march = yes }
+						d_brycheiniog = { can_drift_into_march = yes }
+						d_deheubarth = { can_drift_into_march = yes }
+						d_ystrad_tywi = { can_drift_into_march = yes }
+						d_fferyllwg = { can_drift_into_march = yes }
+						d_buelt = { can_drift_into_march = yes }
+						d_centpowys = { can_drift_into_march = yes }
+						d_meirion = { can_drift_into_march = yes }
+						d_northgwynedd = { can_drift_into_march = yes }
+						d_westpowys = { can_drift_into_march = yes }
+						d_osmaeliog = { can_drift_into_march = yes }
+						d_arfon = { can_drift_into_march = yes }
 					}
 				}
 			}
@@ -522,6 +701,53 @@ character_event = {
 							title = d_iluronensia
 							title = d_boiatia
 							title = d_tarbellia
+						}
+						can_drift_into_march = yes
+					}
+					save_event_target_as = duchy_to_de_jure_drift
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_landed_title = k_wales
+				has_global_flag = romanized_germanic_wales
+				k_wales = {
+					OR = {
+						d_gwent = { can_drift_into_march = yes }
+						d_glywissing = { can_drift_into_march = yes }
+						d_brycheiniog = { can_drift_into_march = yes }
+						d_deheubarth = { can_drift_into_march = yes }
+						d_ystrad_tywi = { can_drift_into_march = yes }
+						d_fferyllwg = { can_drift_into_march = yes }
+						d_buelt = { can_drift_into_march = yes }
+						d_centpowys = { can_drift_into_march = yes }
+						d_meirion = { can_drift_into_march = yes }
+						d_northgwynedd = { can_drift_into_march = yes }
+						d_westpowys = { can_drift_into_march = yes }
+						d_osmaeliog = { can_drift_into_march = yes }
+						d_arfon = { can_drift_into_march = yes }
+					}
+				}
+			}
+			k_wales = { 
+				save_event_target_as = kingdom_to_de_jure_drift_to
+				any_title = {		# Should really be random_title, but that apparently doesn't exist
+					limit = {
+						OR = {
+							title = d_gwent
+							title = d_glywissing
+							title = d_brycheiniog
+							title = d_deheubarth
+							title = d_ystrad_tywi
+							title = d_fferyllwg
+							title = d_buelt
+							title = d_centpowys
+							title = d_meirion
+							title = d_northgwynedd
+							title = d_westpowys
+							title = d_osmaeliog
+							title = d_arfon
 						}
 						can_drift_into_march = yes
 					}
@@ -634,7 +860,58 @@ narrative_event = {
 		trigger = { event_target:duchy_to_de_jure_drift = { title = d_tarbellia } } 
 		picture = GFX_evt_lord_overlooking_bridge
 	}
-	
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_gwent } } 
+		picture = GFX_evt_hills_woodland
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_glywissing } } 
+		picture = GFX_evt_valley_rock
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_brycheiniog } } 
+		picture = GFX_evt_valley_autumn
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_deheubarth } } 
+		picture = GFX_evt_fields_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_ystrad_tywi } } 
+		picture = GFX_evt_valley_river_spring
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fferyllwg } } 
+		picture = GFX_evt_lord_overlooking_bridge
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_buelt } } 
+		picture = GFX_evt_valley_autumn
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_centpowys } } 
+		picture = GFX_evt_sunrise_cliffs
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_meirion } } 
+		picture = GFX_evt_hills_woodland
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_northgwynedd } } 
+		picture = GFX_evt_sunrise_valley
+	}	
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_westpowys } } 
+		picture = GFX_evt_somerset_coast
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_osmaeliog } } 
+		picture = GFX_evt_traveller_hills
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_arfon } } 
+		picture = GFX_evt_castle_coastal
+	}
 	is_triggered_only = yes
 	
 	option = {
@@ -668,6 +945,14 @@ character_event = {
 				k_vasconia = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_vasconia = yes		
+					}
+				}
+			}
+			AND = {
+				has_global_flag = romanized_germanic_wales
+				k_wales = {
+					any_direct_de_jure_vassal_title = {
+						can_drift_out_of_wales = yes		
 					}
 				}
 			}
@@ -715,6 +1000,26 @@ character_event = {
 			event_target:kingdom_to_de_jure_drift_out_of = {
 				random_direct_de_jure_vassal_title = {
 					limit = { can_drift_out_of_vasconia = yes }
+					save_event_target_as = duchy_to_de_jure_drift
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = romanized_germanic_wales
+				k_wales = {
+					any_direct_de_jure_vassal_title = {
+						can_drift_out_of_wales = yes		
+					}
+				}
+			}
+			k_wales = { 
+				save_event_target_as = kingdom_to_de_jure_drift_out_of
+			}
+			
+			event_target:kingdom_to_de_jure_drift_out_of = {
+				random_direct_de_jure_vassal_title = {
+					limit = { can_drift_out_of_wales = yes }
 					save_event_target_as = duchy_to_de_jure_drift
 				}
 			}
@@ -813,6 +1118,58 @@ narrative_event = {
 	picture = { 
 		trigger = { event_target:duchy_to_de_jure_drift = { title = d_tarbellia } } 
 		picture = GFX_evt_lord_overlooking_bridge
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_gwent } } 
+		picture = GFX_evt_hills_woodland
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_glywissing } } 
+		picture = GFX_evt_valley_rock
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_brycheiniog } } 
+		picture = GFX_evt_valley_autumn
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_deheubarth } } 
+		picture = GFX_evt_fields_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_ystrad_tywi } } 
+		picture = GFX_evt_valley_river_spring
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fferyllwg } } 
+		picture = GFX_evt_lord_overlooking_bridge
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_buelt } } 
+		picture = GFX_evt_valley_autumn
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_centpowys } } 
+		picture = GFX_evt_sunrise_cliffs
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_meirion } } 
+		picture = GFX_evt_hills_woodland
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_northgwynedd } } 
+		picture = GFX_evt_sunrise_valley
+	}	
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_westpowys } } 
+		picture = GFX_evt_somerset_coast
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_osmaeliog } } 
+		picture = GFX_evt_traveller_hills
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_arfon } } 
+		picture = GFX_evt_castle_coastal
 	}
 	
 	is_triggered_only = yes
@@ -1188,7 +1545,6 @@ character_event = {
 
 
 # AI creation of marches
-# TODO Need to add other marches
 character_event = {
 	id = 320945
 	desc = "You're not supposed to see this..."
@@ -1236,6 +1592,48 @@ character_event = {
 				OR = {
 					k_vasconia = { has_holder = no }
 					has_landed_title = k_vasconia
+				}
+			}
+			AND = {
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				wales_province_control_with_resistance_trigger = yes
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_wales
+					}
+				}
+				OR = {
+					k_wales = { has_holder = no }
+					has_landed_title = k_wales
+				}
+			}
+			AND = {
+				NOT = {
+					culture_group = celtic
+				}
+				pictland_province_control_with_resistance_trigger = yes
+				NOT = {
+					any_tributary = {
+						OR = {
+							has_landed_title = k_pictland
+							has_landed_title = k_romancaledonia
+						}
+					}
+				}
+				OR = {
+					AND = {
+						is_roman_ruler_trigger = no
+						k_pictland = { has_holder = no }
+						has_landed_title = k_pictland
+					}
+					AND = {
+						is_roman_ruler_trigger = yes
+						k_romancaledonia = { has_holder = no }
+						has_landed_title = k_romancaledonia
+					}
 				}
 			}
 		}
@@ -1320,6 +1718,97 @@ character_event = {
 				}
 				count = 1
 				set_character_flag = grant_vasconia
+				character_event = { id = 320946 }
+			}
+		}
+		# Wales
+		else_if = {
+			limit = {
+				NOR = {
+					culture_group = imperiale
+					culture_group = celtic
+				}
+				wales_province_control_with_resistance_trigger = yes
+				NOT = {
+					any_tributary = {
+						has_landed_title = k_wales
+					}
+				}
+				OR = {
+					k_wales = { has_holder = no }
+					has_landed_title = k_wales
+				}
+			}
+			any_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					NOR = {
+						culture_group = imperiale
+						culture_group = celtic
+					}
+					any_realm_province = {
+						region = world_britannia_cymry_wales
+					}
+				}
+				score_value = {
+					value = 1
+					march_suitability_score = yes
+				}
+				count = 1
+				set_character_flag = grant_welsh_march
+				character_event = { id = 320946 }
+			}
+		}
+		# Pictland/Caledonia
+		else_if = {
+			limit = {
+				NOR = {
+					culture_group = celtic
+				}
+				pictland_province_control_with_resistance_trigger = yes
+				NOT = {
+					any_tributary = {
+						OR = {
+							has_landed_title = k_pictland
+							has_landed_title = k_romancaledonia
+						}
+					}
+				}
+				OR = {
+					AND = {
+						is_roman_ruler_trigger = no
+						k_pictland = { has_holder = no }
+						has_landed_title = k_pictland
+					}
+					AND = {
+						is_roman_ruler_trigger = yes
+						k_romancaledonia = { has_holder = no }
+						has_landed_title = k_romancaledonia
+					}
+				}
+			}
+			any_vassal = {
+				limit = {
+					higher_tier_than = BARON
+					NOR = {
+						culture_group = celtic
+					}
+					any_realm_province = {
+						region = world_caledonia
+					}
+				}
+				score_value = {
+					value = 1
+					march_suitability_score = yes
+				}
+				count = 1
+				if = {
+					limit = { is_roman_ruler_trigger = yes }
+					set_character_flag = grant_limes_caledonicus
+				}
+				else = {
+					set_character_flag = grant_pictish_march
+				}
 				character_event = { id = 320946 }
 			}
 		}

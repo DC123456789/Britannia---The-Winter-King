@@ -389,6 +389,35 @@ vasconia_return_de_jure_duchies_effect = {
 	}
 }
 
+welsh_march_return_de_jure_duchies_effect = {
+	# Needs to be before, as otherwise k_vasconia won't have any more de jure duchies remaining
+	k_wales = {
+		any_direct_de_jure_vassal_title = {
+			clear_title_flag = under_march_k_vasconia
+		}
+	}
+	
+	if = {
+		limit = { has_global_flag = romanized_germanic_wales }
+		k_wales = {
+			any_direct_de_jure_vassal_title = {
+				set_title_flag = target_duchy
+				return_march_duchy_to_original_de_jure_liege_effect = yes
+			}
+		}
+		
+		# Return Germanic duchies to Wales now that it's no longer a Romanized Germanic title
+		d_monmouthshire = { de_jure_liege = k_wales }
+		d_glamorganshire = { de_jure_liege = k_wales }
+		d_brecknockshire = { de_jure_liege = k_wales }
+		d_carmarthenshire = { de_jure_liege = k_wales }
+		d_cardiganshire = { de_jure_liege = k_wales }
+		d_montgomeryshire = { de_jure_liege = k_wales }
+		d_denbighshire = { de_jure_liege = k_wales }
+		d_caernarfonshire = { de_jure_liege = k_wales }
+	}
+}
+
 # Note - does NOT clear the under_march_[march title] flag
 return_march_duchy_to_original_de_jure_liege_effect = {
 	if = {
@@ -526,6 +555,116 @@ return_march_duchy_to_original_de_jure_liege_effect = {
 		}
 		else = {
 			de_jure_liege = k_gaul
+		}
+	}
+	else_if = {
+		limit = { title = d_gwent }
+		if = {
+			limit = { has_global_flag = gwent_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else = {
+			de_jure_liege = k_gwent
+		}
+	}
+	else_if = {
+		limit = { 
+			OR = {
+				title = d_glywissing 
+				title = d_brycheiniog
+			}
+		}
+		de_jure_liege = k_siluria
+	}
+	else_if = {
+		limit = { title = d_deheubarth }
+		if = {
+			limit = { has_global_flag = demetia_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else = {
+			de_jure_liege = k_demetia
+		}
+	}
+	else_if = {
+		limit = { title = d_ystrad_tywi }
+		de_jure_liege = k_demetia
+	}
+	else_if = {
+		limit = { title = d_deheubarth }
+		if = {
+			limit = { has_global_flag = demetia_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else = {
+			de_jure_liege = k_demetia
+		}
+	}
+	else_if = {
+		limit = { 
+			OR = {
+				title = d_fferyllwg 
+				title = d_buelt
+			}
+		}
+		de_jure_liege = k_powys
+	}
+	else_if = {
+		limit = { title = d_centpowys }
+		if = {
+			limit = { has_global_flag = dolforwyn_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else = {
+			de_jure_liege = k_powys
+		}
+	}
+	else_if = {
+		limit = { title = d_meirion }
+		de_jure_liege = k_gwynedd
+	}
+	else_if = {
+		limit = { title = d_northgwynedd }
+		if = {
+			limit = { has_global_flag = berfeddwlad_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else = {
+			de_jure_liege = k_gwynedd
+		}
+	}
+	else_if = {
+		limit = { title = d_westpowys }
+		if = {
+			limit = { has_global_flag = offa_dyke_created }
+			de_jure_liege = k_demetia
+		}
+		else = {
+			de_jure_liege = k_gwynedd
+		}
+	}
+	else_if = {
+		limit = { title = d_osmaeliog }
+		if = {
+			limit = { has_global_flag = henis_wyren_created }
+			de_jure_liege = k_henis_wyren
+		}
+		else = {
+			de_jure_liege = k_gwynedd
+		}
+	}
+	else_if = {
+		limit = { title = d_arfon }
+		if = {
+			limit = { has_global_flag = ynys_mon_renamed }
+			de_jure_liege = k_britannia_prima
+		}
+		else_if = {
+			limit = { has_global_flag = henis_wyren_created }
+			de_jure_liege = k_henis_wyren
+		}
+		else = {
+			de_jure_liege = k_gwynedd
 		}
 	}
 }
