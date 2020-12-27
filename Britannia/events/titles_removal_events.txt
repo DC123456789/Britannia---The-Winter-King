@@ -13136,7 +13136,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_gwent = { de_jure_liege = k_gwent }
+		d_gwent = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_wales } }
+				de_jure_liege = k_gwent 
+			}
+		}
 		d_gwent = {
 			set_name = ""
 			adjective = ""
@@ -13204,7 +13209,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_deheubarth = { de_jure_liege = k_demetia }
+		d_deheubarth = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_wales } }
+				de_jure_liege = k_demetia 
+			}
+		}
 		d_deheubarth = {
 			set_name = ""
 			adjective = ""
@@ -13275,7 +13285,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_centpowys = { de_jure_liege = k_powys }
+		d_centpowys = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_wales } }
+				de_jure_liege = k_powys 
+			}
+		}
 		d_centpowys = {
 			set_name = ""
 			adjective = ""
@@ -13406,7 +13421,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_northgwynedd = { de_jure_liege = k_gwynedd }
+		d_northgwynedd = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_wales } }
+				de_jure_liege = k_gwynedd 
+			}
+		}
 		d_northgwynedd = {
 			set_name = ""
 			adjective = ""
@@ -13478,12 +13498,14 @@ narrative_event = {
 		c_ynys_mon = { de_jure_liege = d_osmaeliog }
 		c_rhosyr = { de_jure_liege = d_osmaeliog }
 		if = {
-			limit = { has_global_flag = henis_wyren_created }
-			d_arfon = { de_jure_liege = k_henis_wyren }
-		}
-		if = {
-			limit = { NOT = { has_global_flag = henis_wyren_created } }
-			d_arfon = { de_jure_liege = k_gwynedd }
+			limit = { NOT = { d_arfon = { has_title_flag = under_march_k_wales } } }
+			if = {
+				limit = { has_global_flag = henis_wyren_created }
+				d_arfon = { de_jure_liege = k_henis_wyren }
+			}
+			else = {
+				d_arfon = { de_jure_liege = k_gwynedd }
+			}
 		}
 		d_arfon = {
 			set_name = ""
@@ -14178,7 +14200,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_fiobha = { de_jure_liege = k_south_caledonia }
+		d_fiobha = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_south_caledonia 
+			}
+		}
 		d_fiobha = {
 			set_name = ""
 			adjective = ""
@@ -14241,7 +14268,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_ce = { de_jure_liege = k_south_caledonia }
+		d_ce = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_south_caledonia 
+			}
+		}
 		d_ce = {
 			set_name = ""
 			adjective = ""
@@ -14299,7 +14331,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_fortriu = { de_jure_liege = k_caledonia }
+		d_fortriu = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_fortriu = {
 			set_name = ""
 			adjective = ""
@@ -14353,7 +14390,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_fotla = { de_jure_liege = k_south_caledonia }
+		d_fotla = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_south_caledonia 
+			}
+		}
 		d_fotla = {
 			set_name = ""
 			adjective = ""
@@ -14416,7 +14458,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_cat = { de_jure_liege = k_caledonia }
+		d_cat = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_cat = {
 			set_name = ""
 			adjective = ""
@@ -14471,7 +14518,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_skye = { de_jure_liege = k_dalriada }
+		d_skye = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_dalriada 
+			}
+		}
 		d_skye = {
 			set_name = ""
 			adjective = ""
@@ -14552,7 +14604,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_fidach = { de_jure_liege = k_caledonia }
+		d_fidach = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_fidach = {
 			set_name = ""
 			adjective = ""
@@ -14642,19 +14699,22 @@ narrative_event = {
 	
 	immediate = {
 		if = {
-			limit = {
-				has_global_flag = norse_tyrvist_created
-				has_global_flag = norse_dyrey_created
-				has_global_flag = norse_skotsland_created
+			limit = { NOT = { d_argyll = { has_title_flag = under_march_k_pictland } } }		
+			if = {
+				limit = {
+					has_global_flag = norse_tyrvist_created
+					has_global_flag = norse_dyrey_created
+					has_global_flag = norse_skotsland_created
+				}
+				d_argyll = { de_jure_liege = k_south_caledonia }
 			}
-			d_argyll = { de_jure_liege = k_south_caledonia }
-		}
-		else_if = {
-			limit = { has_global_flag = dalriada_created }
-			d_argyll = { de_jure_liege = k_dalriada }
-		}
-		else = {
-			d_argyll = { de_jure_liege = k_ulaid }
+			else_if = {
+				limit = { has_global_flag = dalriada_created }
+				d_argyll = { de_jure_liege = k_dalriada }
+			}
+			else = {
+				d_argyll = { de_jure_liege = k_ulaid }
+			}
 		}
 		
 		if = {
@@ -14739,7 +14799,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_hyperborea = { de_jure_liege = k_caledonia }
+		d_hyperborea = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_hyperborea = {
 			set_name = ""
 			adjective = ""
@@ -14794,7 +14859,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_galeth = { de_jure_liege = k_caledonia }
+		d_galeth = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_galeth = {
 			set_name = ""
 			adjective = ""
@@ -14849,7 +14919,12 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_shetland = { de_jure_liege = k_caledonia }
+		d_shetland = {
+			if = {
+				limit = { NOT = { has_title_flag = under_march_k_pictland } }
+				de_jure_liege = k_caledonia 
+			}
+		}
 		d_shetland = {
 			set_name = ""
 			adjective = ""

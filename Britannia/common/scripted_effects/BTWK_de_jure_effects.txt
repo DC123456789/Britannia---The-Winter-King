@@ -418,6 +418,39 @@ welsh_march_return_de_jure_duchies_effect = {
 	}
 }
 
+pictish_march_return_de_jure_duchies_effect = {
+	# Needs to be before, as otherwise k_vasconia won't have any more de jure duchies remaining
+	k_pictland = {
+		any_direct_de_jure_vassal_title = {
+			clear_title_flag = under_march_k_pictland
+		}
+	}
+	
+	if = {
+		limit = { has_global_flag = romanized_germanic_pictland }
+		k_pictland = {
+			any_direct_de_jure_vassal_title = {
+				set_title_flag = target_duchy
+				return_march_duchy_to_original_de_jure_liege_effect = yes
+			}
+		}
+		
+		# Return Germanic duchies to Pictland now that it's no longer a Romanized Germanic title
+		d_fifeshire = { de_jure_liege = k_pictland }
+		d_perthshire = { de_jure_liege = k_pictland }
+		d_forfarshire = { de_jure_liege = k_pictland }
+		d_aberdeenshire = { de_jure_liege = k_pictland }
+		d_elginshire = { de_jure_liege = k_pictland }
+		d_angleargyll = { de_jure_liege = k_pictland }
+		d_invernessshire = { de_jure_liege = k_pictland }
+		d_rossshire = { de_jure_liege = k_pictland }
+		d_caithness = { de_jure_liege = k_pictland }
+		d_stornowayshire = { de_jure_liege = k_pictland }
+		d_angleorkney = { de_jure_liege = k_pictland }
+		d_angleshetland = { de_jure_liege = k_pictland }
+	}
+}
+
 # Note - does NOT clear the under_march_[march title] flag
 return_march_duchy_to_original_de_jure_liege_effect = {
 	if = {
@@ -665,6 +698,154 @@ return_march_duchy_to_original_de_jure_liege_effect = {
 		}
 		else = {
 			de_jure_liege = k_gwynedd
+		}
+	}
+	else_if = {
+		limit = { title = d_cat }
+		if = {
+			limit = { has_global_flag = cait_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_fidach }
+		if = {
+			limit = { has_global_flag = fidach_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_fortriu }
+		if = {
+			limit = { has_global_flag = fortriu_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_hyperborea }
+		if = {
+			limit = { has_global_flag = hyperborea_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_galeth }
+		if = {
+			limit = { has_global_flag = orkney_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_shetland }
+		if = {
+			limit = { has_global_flag = shetland_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_fotla }
+		if = {
+			limit = { has_global_flag = fotla_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_south_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_fiobha }
+		if = {
+			limit = { has_global_flag = fib_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_south_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_ce }
+		if = {
+			limit = { has_global_flag = cei_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_south_caledonia
+		}
+	}
+	else_if = {
+		limit = { title = d_circind }
+		de_jure_liege = k_south_caledonia
+	}
+	else_if = {
+		limit = { title = d_argyll }
+		if = {
+			limit = { has_global_flag = argyll_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else_if = {
+			limit = { 
+				has_global_flag = norse_dyrey_created
+				has_global_flag = norse_tyrvist_created
+				has_global_flag = norse_skotsland_created
+			}
+			de_jure_liege = k_south_caledonia
+		}
+		else_if = {
+			limit = { has_global_flag = dalriada_created }
+			de_jure_liege = k_dalriada
+		}
+		else_if = {
+			limit = { has_global_flag = alba_formed }
+			de_jure_liege = k_caledonia
+		}
+		else = {
+			de_jure_liege = k_ulaid
+		}
+	}
+	else_if = {
+		limit = { title = d_hebrides }
+		if = {
+			limit = { has_global_flag = dalriada_created }
+			de_jure_liege = k_dalriada
+		}
+		else_if = {
+			limit = { has_global_flag = alba_formed }
+			de_jure_liege = k_caledonia
+		}
+		else = {
+			de_jure_liege = k_ulaid
+		}
+	}
+	else_if = {
+		limit = { title = d_lorne }
+		de_jure_liege = k_dalriada
+	}
+	else_if = {
+		limit = { title = d_skye }
+		if = {
+			limit = { has_global_flag = skye_renamed }
+			de_jure_liege = k_romancaledonia
+		}
+		else = {
+			de_jure_liege = k_dalriada
 		}
 	}
 }

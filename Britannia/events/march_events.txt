@@ -293,7 +293,7 @@ narrative_event = {
 # Creation of the Welsh March
 narrative_event = {
 	id = 320902
-	title = "EVTNAME320902"		# TODO Localisation
+	title = "EVTNAME320902"
 	desc = "EVTDESC320902"
 	major = yes
 	hide_new = yes
@@ -428,17 +428,232 @@ narrative_event = {
 	}
 }
 
-# 320903 TODO Creation of the Pictish March
+# Creation of the Pictish March
+narrative_event = {
+	id = 320903
+	title = "EVTNAME320903"
+	desc = "EVTDESC320903"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape_cloudy"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		liege = { save_event_target_as = ROOT_liege }		
+		grant_title = k_pictland
+		k_pictland = { set_title_flag = is_march }
+		set_defacto_liege = THIS
+		event_target:ROOT_liege = {
+			make_tributary = { who = ROOT tributary_type = march }
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						primary_title = {
+							OR = {
+								AND = {
+									tier = DUKE
+									capital_scope = {
+										region = world_caledonia
+									}
+								}
+								AND = {
+									tier = COUNT
+									location = {
+										region = world_caledonia
+									}
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+			
+		k_pictland = {
+			set_name = "Pictish March"
+		}
+		
+		if = {
+			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			# In case they were re-assigned to Northumbria earlier
+			d_fifeshire = { de_jure_liege = k_pictland }
+			d_perthshire = { de_jure_liege = k_pictland }
+			d_forfarshire = { de_jure_liege = k_pictland }
+			d_aberdeenshire = { de_jure_liege = k_pictland }
+			d_elginshire = { de_jure_liege = k_pictland }
+			d_angleargyll = { de_jure_liege = k_pictland }
+			d_invernessshire = { de_jure_liege = k_pictland }
+			d_rossshire = { de_jure_liege = k_pictland }
+			d_caithness = { de_jure_liege = k_pictland }
+			d_stornowayshire = { de_jure_liege = k_pictland }
+			d_angleorkney = { de_jure_liege = k_pictland }
+			d_angleshetland = { de_jure_liege = k_pictland }
+			
+			# Pictland has only one possible empire title right now (e_aengland)
+			k_pictland = { de_jure_liege = e_aengland }
+		}
+		else = {
+			set_global_flag = romanized_germanic_pictland
+			
+			if = {
+				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				k_pictland = { de_jure_liege = e_roman_britannia }
+			}
+			else_if = {
+				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				k_pictland = { de_jure_liege = e_gaul }
+			}
+			else = {
+				k_pictland = { de_jure_liege = e_alba }			# Since most other duchies in the area are likely to be under Alba too, if this ever somehow happens
+			}
+			
+			k_pictland = {
+				any_title = {
+					limit = {
+						OR = {
+							title = d_cat
+							title = d_fidach
+							title = d_fortriu
+							title = d_hyperborea
+							title = d_galeth
+							title = d_shetland
+							title = d_fotla
+							title = d_fiobha
+							title = d_ce
+							title = d_circind
+							title = d_argyll
+							title = d_hebrides
+							title = d_lorne
+							title = d_skye
+						}
+						can_drift_into_march = yes
+					}
+					de_jure_liege = k_pictland
+					set_title_flag = under_march_k_pictland
+				}
+			}
+			
+			# Give to Northumbria so we don't have the awkward situation where Germanic duchies are under the wrong empire
+			d_fifeshire = { de_jure_liege = k_northumbria }
+			d_perthshire = { de_jure_liege = k_northumbria }
+			d_forfarshire = { de_jure_liege = k_northumbria }
+			d_aberdeenshire = { de_jure_liege = k_northumbria }
+			d_elginshire = { de_jure_liege = k_northumbria }
+			d_angleargyll = { de_jure_liege = k_northumbria }
+			d_invernessshire = { de_jure_liege = k_northumbria }
+			d_rossshire = { de_jure_liege = k_northumbria }
+			d_caithness = { de_jure_liege = k_northumbria }
+			d_stornowayshire = { de_jure_liege = k_northumbria }
+			d_angleorkney = { de_jure_liege = k_northumbria }
+			d_angleshetland = { de_jure_liege = k_northumbria }
+		}		
+		
+		set_global_flag = pictish_march_created
+	}
+	
+	option = {
+		name = "EVTOPTA320903"
+		trigger = {
+			NOR = {
+				culture = pictish
+				culture = gaelic
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320903"
+		trigger = {
+			OR = {
+				culture = pictish
+				culture = gaelic
+			}
+		}
+	}
+}
 
-# 320904 TODO Creation of the Limes Caledonicus
+# Creation of the Limes Caledonicus
+narrative_event = {
+	id = 320904
+	title = "EVTNAME320904"		# TODO Localisation
+	desc = "EVTDESC320904"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_highlands_landscape_cloudy"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		liege = { save_event_target_as = ROOT_liege }		
+		grant_title = k_romancaledonia
+		k_romancaledonia = { set_title_flag = is_march }
+		set_defacto_liege = THIS
+		event_target:ROOT_liege = {
+			make_tributary = { who = ROOT tributary_type = march }
+			hidden_tooltip = {
+				any_vassal = {
+					limit = {
+						primary_title = {
+							OR = {
+								AND = {
+									tier = DUKE
+									capital_scope = {
+										region = world_caledonia
+									}
+								}
+								AND = {
+									tier = COUNT
+									location = {
+										region = world_caledonia
+									}
+								}
+							}
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+			
+		k_romancaledonia = {
+			set_name = "Limes Caledonicus"
+		}
+
+		# No special de jure changes for the Limes Caledonicus
+		
+		set_global_flag = limes_caledonicus_created
+	}
+	
+	option = {
+		name = "EVTOPTA320904"
+		trigger = {
+			NOR = {
+				culture = pictish
+				culture = gaelic
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320904"
+		trigger = {
+			OR = {
+				culture = pictish
+				culture = gaelic
+			}
+		}
+	}
+}
 
 # 320910 TODO Welsh March -> Earldom of Wales
 
 # 320911 TODO Pictish March -> Earldom of Pictland
 
-
 # March de jure removal
-# TODO Update with other marches
 character_event = {
 	id = 320919
 	desc = "You're not supposed to see this..."	
@@ -464,6 +679,16 @@ character_event = {
 				has_holder = no
 				has_title_flag = is_march
 				has_global_flag = welsh_march_created
+			}
+			k_pictland = { 
+				has_holder = no
+				has_title_flag = is_march
+				has_global_flag = pictish_march_created
+			}
+			k_romancaledonia = { 
+				has_holder = no
+				has_title_flag = is_march
+				has_global_flag = limes_caledonicus_created
 			}
 		}
 	}
@@ -537,17 +762,51 @@ character_event = {
 			
 			welsh_march_return_de_jure_duchies_effect = yes
 			k_wales = {
+				clr_title_flag = is_march
 				set_name = ""
 			}
 			
 			clr_global_flag = welsh_march_created
 			clr_global_flag = romanized_germanic_wales
 		}
+		if = {
+			limit = {
+				k_pictland = { 
+					has_holder = no
+					has_title_flag = is_march
+					has_global_flag = pictish_march_created
+				}
+			}
+			k_pictland = { de_jure_liege = e_aengland }
+			
+			pictish_march_return_de_jure_duchies_effect = yes
+			k_pictland = {
+				clr_title_flag = is_march
+				set_name = ""
+			}
+			
+			clr_global_flag = pictish_march_created
+			clr_global_flag = romanized_germanic_pictland
+		}
+		if = {
+			limit = {
+				k_romancaledonia = { 
+					has_holder = no
+					has_title_flag = is_march
+					has_global_flag = limes_caledonicus_created
+				}
+			}
+			
+			k_romancaledonia = {
+				clr_title_flag = is_march
+				set_name = ""
+			}			
+			clr_global_flag = limes_caledonicus_created
+		}
 	}
 }
 
 # Romanized march duchy de jure shift event
-# TODO Romanized Pictish March duchy de jure shifts
 character_event = {
 	id = 320920
 	desc = "You're not supposed to see this..."	
@@ -612,6 +871,28 @@ character_event = {
 						d_westpowys = { can_drift_into_march = yes }
 						d_osmaeliog = { can_drift_into_march = yes }
 						d_arfon = { can_drift_into_march = yes }
+					}
+				}
+			}
+			AND = {
+				has_landed_title = k_pictland
+				has_global_flag = romanized_germanic_pictland
+				k_pictland = {
+					OR = {
+						d_cat = { can_drift_into_march = yes }
+						d_fidach = { can_drift_into_march = yes }
+						d_fortriu = { can_drift_into_march = yes }
+						d_hyperborea = { can_drift_into_march = yes }
+						d_galeth = { can_drift_into_march = yes }
+						d_shetland = { can_drift_into_march = yes }
+						d_fotla = { can_drift_into_march = yes }
+						d_fiobha = { can_drift_into_march = yes }
+						d_ce = { can_drift_into_march = yes }
+						d_circind = { can_drift_into_march = yes }
+						d_argyll = { can_drift_into_march = yes }
+						d_hebrides = { can_drift_into_march = yes }
+						d_lorne = { can_drift_into_march = yes }
+						d_skye = { can_drift_into_march = yes }
 					}
 				}
 			}
@@ -755,6 +1036,55 @@ character_event = {
 				}
 			}
 		}
+		else_if = {
+			limit = {
+				has_landed_title = k_pictland
+				has_global_flag = romanized_germanic_pictland
+				k_pictland = {
+					OR = {
+						d_cat = { can_drift_into_march = yes }
+						d_fidach = { can_drift_into_march = yes }
+						d_fortriu = { can_drift_into_march = yes }
+						d_hyperborea = { can_drift_into_march = yes }
+						d_galeth = { can_drift_into_march = yes }
+						d_shetland = { can_drift_into_march = yes }
+						d_fotla = { can_drift_into_march = yes }
+						d_fiobha = { can_drift_into_march = yes }
+						d_ce = { can_drift_into_march = yes }
+						d_circind = { can_drift_into_march = yes }
+						d_argyll = { can_drift_into_march = yes }
+						d_hebrides = { can_drift_into_march = yes }
+						d_lorne = { can_drift_into_march = yes }
+						d_skye = { can_drift_into_march = yes }
+					}
+				}
+			}
+			k_wales = { 
+				save_event_target_as = kingdom_to_de_jure_drift_to
+				any_title = {		# Should really be random_title, but that apparently doesn't exist
+					limit = {
+						OR = {
+							title = d_cat
+							title = d_fidach
+							title = d_fortriu
+							title = d_hyperborea
+							title = d_galeth
+							title = d_shetland
+							title = d_fotla
+							title = d_fiobha
+							title = d_ce
+							title = d_circind
+							title = d_argyll
+							title = d_hebrides
+							title = d_lorne
+							title = d_skye
+						}
+						can_drift_into_march = yes
+					}
+					save_event_target_as = duchy_to_de_jure_drift
+				}
+			}
+		}
 		
 		event_target:duchy_to_de_jure_drift = { 
 			de_jure_liege = event_target:kingdom_to_de_jure_drift_to 
@@ -768,7 +1098,6 @@ character_event = {
 }
 
 # Player notification event (major events don't interact properly with event targets)
-# TODO Update with possible march titles
 narrative_event = {
 	id = 320921
 	title = "EVTNAME320921"
@@ -912,6 +1241,62 @@ narrative_event = {
 		trigger = { event_target:duchy_to_de_jure_drift = { title = d_arfon } } 
 		picture = GFX_evt_castle_coastal
 	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_cat } } 
+		picture = GFX_evt_warriors_hills_mist
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fidach } } 
+		picture = GFX_evt_highlands_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fortriu } } 
+		picture = GFX_evt_castle_grass_hill
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_hyperborea } } 
+		picture = GFX_evt_ship_arriving
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_galeth } } 
+		picture = GFX_evt_dolmen_storm
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_shetland } } 
+		picture = GFX_evt_winter_dolmen
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fotla } } 
+		picture = GFX_evt_castle_coastal
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fiobha } } 
+		picture = GFX_evt_somerset_coast
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_ce } } 
+		picture = GFX_evt_castle_hill
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_circind } } 
+		picture = GFX_evt_valley_rock
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_argyll } } 
+		picture = GFX_evt_lord_overlooking_bridge
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_hebrides } } 
+		picture = GFX_evt_coastal_village
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_lorne } } 
+		picture = GFX_evt_highlands_landscape_cloudy
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_skye } } 
+		picture = GFX_evt_highlands_landscape_path
+	}
 	is_triggered_only = yes
 	
 	option = {
@@ -920,7 +1305,6 @@ narrative_event = {
 }
 
 # Romanized Germanic march duchy de jure removal event
-# TODO Add other marches
 character_event = {
 	id = 320922
 	desc = "You're not supposed to see this..."	
@@ -953,6 +1337,14 @@ character_event = {
 				k_wales = {
 					any_direct_de_jure_vassal_title = {
 						can_drift_out_of_wales = yes		
+					}
+				}
+			}
+			AND = {
+				has_global_flag = romanized_germanic_pictland
+				k_pictland = {
+					any_direct_de_jure_vassal_title = {
+						can_drift_out_of_pictland = yes		
 					}
 				}
 			}
@@ -1024,6 +1416,26 @@ character_event = {
 				}
 			}
 		}
+		else_if = {
+			limit = {
+				has_global_flag = romanized_germanic_pictland
+				k_pictland = {
+					any_direct_de_jure_vassal_title = {
+						can_drift_out_of_pictland = yes		
+					}
+				}
+			}
+			k_pictland = { 
+				save_event_target_as = kingdom_to_de_jure_drift_out_of
+			}
+			
+			event_target:kingdom_to_de_jure_drift_out_of = {
+				random_direct_de_jure_vassal_title = {
+					limit = { can_drift_out_of_pictland = yes }
+					save_event_target_as = duchy_to_de_jure_drift
+				}
+			}
+		}
 		
 		event_target:duchy_to_de_jure_drift = { 
 			return_march_duchy_to_original_de_jure_liege_effect = yes
@@ -1038,7 +1450,6 @@ character_event = {
 }
 
 # Player notification event (major events don't interact properly with event targets)
-# TODO Add other marches
 narrative_event = {
 	id = 320923
 	title = "EVTNAME320923"
@@ -1170,6 +1581,62 @@ narrative_event = {
 	picture = { 
 		trigger = { event_target:duchy_to_de_jure_drift = { title = d_arfon } } 
 		picture = GFX_evt_castle_coastal
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_cat } } 
+		picture = GFX_evt_warriors_hills_mist
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fidach } } 
+		picture = GFX_evt_highlands_landscape
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fortriu } } 
+		picture = GFX_evt_castle_grass_hill
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_hyperborea } } 
+		picture = GFX_evt_ship_arriving
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_galeth } } 
+		picture = GFX_evt_dolmen_storm
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_shetland } } 
+		picture = GFX_evt_winter_dolmen
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fotla } } 
+		picture = GFX_evt_castle_coastal
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_fiobha } } 
+		picture = GFX_evt_somerset_coast
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_ce } } 
+		picture = GFX_evt_castle_hill
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_circind } } 
+		picture = GFX_evt_valley_rock
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_argyll } } 
+		picture = GFX_evt_lord_overlooking_bridge
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_hebrides } } 
+		picture = GFX_evt_coastal_village
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_lorne } } 
+		picture = GFX_evt_highlands_landscape_cloudy
+	}
+	picture = { 
+		trigger = { event_target:duchy_to_de_jure_drift = { title = d_skye } } 
+		picture = GFX_evt_highlands_landscape_path
 	}
 	
 	is_triggered_only = yes
