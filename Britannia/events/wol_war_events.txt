@@ -646,6 +646,12 @@ long_character_event = {
 	
 	option = {
 		name = EVTOPTC_WOL_11006
+		trigger = {
+			NAND = {
+				is_celtic_pagan_trigger = yes
+				NOT = { has_religion_feature = religion_peaceful }
+			}
+		}
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -734,6 +740,126 @@ long_character_event = {
 		if = {
 			limit = { NOT = { event_target:challenger = { character = ROOT } } }
 			event_target:opponent = { save_event_target_as = kinslayer_target }
+			add_kinslayer_trait_effect = yes
+			tooltip = {
+				event_target:challenger = {
+					death = {
+						death_reason = death_duel
+						killer = event_target:opponent
+					}
+				}
+			}
+			hidden_tooltip = {
+				event_target:challenger = {
+					long_character_event = { id = WoL.11008 }
+				}
+				random = {
+					chance = 25
+					character_event = { id = WoL.11200 }
+				}
+			}
+		}
+		hidden_tooltip = { character_event = { id = 720 } } # Bring it On achievement check event
+	}
+
+	option = {
+		name = EVTOPTC_WOL_11006
+		trigger = {
+			is_celtic_pagan_trigger = yes
+			NOT = { has_religion_feature = religion_peaceful }
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				trait = kind
+				factor = 0.1
+			}
+			modifier = {
+				trait = impaler
+				factor = 15
+			}
+			modifier = {
+				trait = cruel
+				factor = 5
+			}
+			modifier = {
+				OR = {
+					AND = {
+						event_target:opponent = { character = ROOT }
+						is_rival = event_target:challenger
+					}
+					AND = {
+						event_target:challenger = { character = ROOT }
+						is_rival = event_target:opponent
+					}
+				}
+				factor = 10
+			}
+		}
+		prestige = 50
+		custom_tooltip = {
+			text = EVTTOOLTIPWOL11006
+			hidden_tooltip = {
+				generate_tooltip = no
+				any_realm_character = {
+					opinion = {
+						modifier = opinion_ruthless
+						who = ROOT
+						months = 60
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_character_modifier = merciless
+			}
+			if = {
+				limit = {
+					has_nickname = no
+				}
+				give_nickname = nick_the_ruthless
+				add_blood_splatter_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_character_modifier = merciless }
+			}
+			add_character_modifier = {
+				modifier = merciless
+				duration = -1
+			}
+		}
+		if = {
+			limit = { event_target:challenger = { character = ROOT } }
+			event_target:opponent = { 
+				save_event_target_as = kinslayer_target
+                prev_takes_this_head_as_trophy_effect = yes
+
+			}
+			add_kinslayer_trait_effect = yes
+			tooltip = {
+				event_target:opponent = {
+					death = {
+						death_reason = death_duel
+						killer = event_target:challenger
+					}
+				}
+			}
+			hidden_tooltip = {
+				event_target:opponent = {
+					long_character_event = { id = WoL.11008 }
+				}
+				random = {
+					chance = 25
+					character_event = { id = WoL.11200 }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { event_target:challenger = { character = ROOT } } }
+			event_target:challenger = { save_event_target_as = kinslayer_target }
 			add_kinslayer_trait_effect = yes
 			tooltip = {
 				event_target:challenger = {
@@ -1027,7 +1153,21 @@ long_character_event = {
 			}
 			give_nickname = nick_the_beheader
 		}
-		event_target:challenger = { save_event_target_as = kinslayer_target }
+		event_target:challenger = { 
+			save_event_target_as = kinslayer_target 
+			# keep the head, only for Celtic folks
+			if = {
+				limit = {
+					PREV = {
+						is_celtic_pagan_trigger = yes
+						NOT = {
+							has_religion_feature = religion_peaceful
+						}
+					}
+				}
+				prev_takes_this_head_as_trophy_effect = yes
+			}
+		}
 		add_kinslayer_trait_effect = yes
 		tooltip = {
 			event_target:challenger = {

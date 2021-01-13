@@ -1489,3 +1489,157 @@ spawn_good_steward_effect = {
 		save_event_target_as = invited_character
 	}
 }
+
+prev_takes_this_head_as_trophy_effect = {
+	if = { # an honest-to-gods immortal person
+		limit = {
+			has_trait = immortal
+		}
+		PREV = { add_artifact = immortal_skull }
+		new_artifact = {
+			set_name = immortal_head_name
+			set_description = immortal_head_desc
+		}
+	}
+	else_if = { # the reborn alexander the great
+		limit = {
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_alexander
+				founder = {
+					character = PREVPREV
+				}
+			}
+		}
+		PREV = { add_artifact = alexanders_skull }
+		new_artifact = {
+			set_name = alexander_head_name
+			set_description = alexander_head_desc
+		}
+	}
+	# else_if = { # Charlemagne, post-HRE
+		# limit = {
+			# character = 6392
+			# has_landed_title = e_hre
+		# }
+		# PREV = { add_artifact = karl_skull2 }
+	# }
+	else_if = { # a religious head
+		limit = {
+			controls_religion = yes
+		}
+		PREV = { add_artifact = great_priest_skull }
+		new_artifact = {
+			set_name = great_priest_head_name
+			set_description = great_priest_head_desc
+		}
+	}
+	else_if = { # roman successor emperor
+		limit = {
+			OR = {
+				AND = {
+					has_landed_title = e_gaul
+					NOT = { has_global_flag = britannia_reconquered_roman }
+				}
+				AND = {
+					has_landed_title = e_roman_britannia
+					NOT = { has_global_flag = gaul_reconquered_roman }
+				}
+				has_landed_title = e_franks
+				has_landed_title = e_visigoths
+			}
+		}
+		PREV = { add_artifact = roman_pretender_skull }
+		new_artifact = {
+			set_name = roman_pretender_head_name
+			set_description = roman_pretender_head_desc
+		}
+	}
+	else_if = { # restored roman emperor
+		limit = {
+			OR = {
+				AND = {
+					has_landed_title = e_gaul
+					has_global_flag = britannia_reconquered_roman
+				}
+				AND = {
+					has_landed_title = e_roman_britannia
+					has_global_flag = gaul_reconquered_roman
+				}
+				has_landed_title = e_western_roman_empire
+				has_landed_title = e_eastern_roman_empire
+			}
+		}
+		PREV = { add_artifact = true_roman_skull }
+		new_artifact = {
+			set_name = roman_head_name
+			set_description = roman_head_desc
+		}
+	}
+	# else_if = { # William the Conqueror, so long as he's a king
+		# limit = {
+			# character = 140
+			# higher_real_tier_than = DUKE
+		# }
+		# PREV = { add_artifact = williams_skull }
+		# new_artifact = {
+			# set_name = williams_head_name
+			# set_description = williams_head_desc
+		# }
+	# }
+	else_if = { # super famous, Exalted
+		limit = {
+			prestige > 5000
+		}
+		PREV = { add_artifact = prestige_skull2 }
+		new_artifact = {
+			set_name = prestige_head2_name
+			set_description = prestige_head2_desc
+		}
+	}
+	else_if = { # super pious, Sanctified
+		limit = {
+			piety > 5000
+		}
+		PREV = { add_artifact = piety_skull2 }
+		new_artifact = {
+			set_name = piety_head2_name
+			set_description = piety_head2_desc
+		}
+	}
+	# else_if = { # porphyrogenitos
+		# limit = {
+			# has_trait = born_in_the_purple
+		# }
+		# PREV = { add_artifact = purple_skull }
+		# new_artifact = {
+			# set_name = purple_head_name
+			# set_description = purple_head_desc
+		# }
+	# }
+	else_if = { # pretty famous
+		limit = {
+			prestige > 1000
+		}
+		PREV = { add_artifact = prestige_skull1 }
+		new_artifact = {
+			set_name = prestige_head1_name
+			set_description = prestige_head1_desc
+		}
+	}
+	else_if = { # pretty pious
+		limit = {
+			piety > 1000
+		}
+		PREV = { add_artifact = piety_skull1 }
+		new_artifact ={
+			set_name = piety_head1_name
+			set_description = piety_head1_desc
+		}
+	}
+	else = { # schmuck
+		PREV = { add_artifact = schmuck_skull }
+		new_artifact = {
+			set_name = schmuck_head_name
+		}
+	}
+}
