@@ -12,7 +12,7 @@ province_event = {
 	hide_window = yes
 
 	trigger = {
-		always = no
+		# always = no
 		local_resistance_potential_trigger = yes
 		NOT = { has_province_flag = has_local_resistance }
 		NOT = { has_province_flag = local_resistance_pacified }
@@ -505,260 +505,260 @@ character_event = {
 		}
 		
 		# Calculate Nationalist revolt progress for each province with local resistance
-		any_province = {
-			if = {
-				limit = { has_province_flag = has_local_resistance }
-				if = {
-					limit = { NOT = { has_province_flag = nationalist_revolt_progress_increased } }
+		# any_province = {
+			# if = {
+				# limit = { has_province_flag = has_local_resistance }
+				# if = {
+					# limit = { NOT = { has_province_flag = nationalist_revolt_progress_increased } }
 					
-					save_event_target_as = current_resistance_region_province
+					# save_event_target_as = current_resistance_region_province
 					
-					clr_global_flag = nationalist_revolt_imminent
-					clear_event_target = highest_revolt_progress_province
+					# clr_global_flag = nationalist_revolt_imminent
+					# clear_event_target = highest_revolt_progress_province
 					
-					owner = {
-						top_liege = {	
-							# Calculate revolt progress and potential size
-							update_nationalist_revolt_size = yes
+					# owner = {
+						# top_liege = {	
+							# # Calculate revolt progress and potential size
+							# update_nationalist_revolt_size = yes
 							
-							# Now we add the yearly increase to ALL of the realm's provinces (including marches)
-							any_realm_province = {
-								limit = {
-									has_province_flag = has_local_resistance
-									NOT = { has_province_flag = nationalist_revolt_progress_increased }
-									is_in_current_resistance_region_province = yes
-								}
-								set_province_flag = nationalist_revolt_progress_increased
-								change_variable = {
-									which = nationalist_revolt_progress
-									which = global_nat_revolt_progress_increase
-								}
+							# # Now we add the yearly increase to ALL of the realm's provinces (including marches)
+							# any_realm_province = {
+								# limit = {
+									# has_province_flag = has_local_resistance
+									# NOT = { has_province_flag = nationalist_revolt_progress_increased }
+									# is_in_current_resistance_region_province = yes
+								# }
+								# set_province_flag = nationalist_revolt_progress_increased
+								# change_variable = {
+									# which = nationalist_revolt_progress
+									# which = global_nat_revolt_progress_increase
+								# }
 								
-								# Check if eligible for a major revolt
-								if = {
-									limit = {
-										check_variable = {
-											which = nationalist_revolt_progress
-											value = 100
-										}
-										OR = {
-											NOT = { has_global_flag = nationalist_revolt_imminent }
-											check_variable = {
-												which = nationalist_revolt_progress
-												which = event_target:highest_revolt_progress_province
-											}
-										}
-									}
-									set_global_flag = nationalist_revolt_imminent
-									save_event_target_as = highest_revolt_progress_province
-								}
-							}
-							if = {
-								limit = { is_tributary = { type = march } }
-								suzerain = {
-									any_realm_province = {
-										limit = {
-											has_province_flag = has_local_resistance
-											NOT = { has_province_flag = nationalist_revolt_progress_increased }
-											is_in_current_resistance_region_province = yes
-										}
-										set_province_flag = nationalist_revolt_progress_increased
-										change_variable = {
-											which = nationalist_revolt_progress
-											which = global_nat_revolt_progress_increase
-										}
+								# # Check if eligible for a major revolt
+								# if = {
+									# limit = {
+										# check_variable = {
+											# which = nationalist_revolt_progress
+											# value = 100
+										# }
+										# OR = {
+											# NOT = { has_global_flag = nationalist_revolt_imminent }
+											# check_variable = {
+												# which = nationalist_revolt_progress
+												# which = event_target:highest_revolt_progress_province
+											# }
+										# }
+									# }
+									# set_global_flag = nationalist_revolt_imminent
+									# save_event_target_as = highest_revolt_progress_province
+								# }
+							# }
+							# if = {
+								# limit = { is_tributary = { type = march } }
+								# suzerain = {
+									# any_realm_province = {
+										# limit = {
+											# has_province_flag = has_local_resistance
+											# NOT = { has_province_flag = nationalist_revolt_progress_increased }
+											# is_in_current_resistance_region_province = yes
+										# }
+										# set_province_flag = nationalist_revolt_progress_increased
+										# change_variable = {
+											# which = nationalist_revolt_progress
+											# which = global_nat_revolt_progress_increase
+										# }
 								
-										# Check if eligible for a major revolt
-										if = {
-											limit = {
-												check_variable = {
-													which = nationalist_revolt_progress
-													value = 100
-												}
-												OR = {
-													NOT = { has_global_flag = nationalist_revolt_imminent }
-													check_variable = {
-														which = nationalist_revolt_progress
-														which = event_target:highest_revolt_progress_province
-													}
-												}
-											}
-											set_global_flag = nationalist_revolt_imminent
-											save_event_target_as = highest_revolt_progress_province
-										}
-									}
-									# Check other marches of suzerain
-									any_tributary = {
-										limit = { 
-											is_tributary = { type = march } 
-											NOT = { character = PREVPREV }
-										}
-										any_realm_province = {
-											limit = {
-												has_province_flag = has_local_resistance
-												NOT = { has_province_flag = nationalist_revolt_progress_increased }
-												is_in_current_resistance_region_province = yes
-											}
-											set_province_flag = nationalist_revolt_progress_increased
-											change_variable = {
-												which = nationalist_revolt_progress
-												which = global_nat_revolt_progress_increase
-											}
+										# # Check if eligible for a major revolt
+										# if = {
+											# limit = {
+												# check_variable = {
+													# which = nationalist_revolt_progress
+													# value = 100
+												# }
+												# OR = {
+													# NOT = { has_global_flag = nationalist_revolt_imminent }
+													# check_variable = {
+														# which = nationalist_revolt_progress
+														# which = event_target:highest_revolt_progress_province
+													# }
+												# }
+											# }
+											# set_global_flag = nationalist_revolt_imminent
+											# save_event_target_as = highest_revolt_progress_province
+										# }
+									# }
+									# # Check other marches of suzerain
+									# any_tributary = {
+										# limit = { 
+											# is_tributary = { type = march } 
+											# NOT = { character = PREVPREV }
+										# }
+										# any_realm_province = {
+											# limit = {
+												# has_province_flag = has_local_resistance
+												# NOT = { has_province_flag = nationalist_revolt_progress_increased }
+												# is_in_current_resistance_region_province = yes
+											# }
+											# set_province_flag = nationalist_revolt_progress_increased
+											# change_variable = {
+												# which = nationalist_revolt_progress
+												# which = global_nat_revolt_progress_increase
+											# }
 								
-											# Check if eligible for a major revolt
-											if = {
-												limit = {
-													check_variable = {
-														which = nationalist_revolt_progress
-														value = 100
-													}
-													OR = {
-														NOT = { has_global_flag = nationalist_revolt_imminent }
-														check_variable = {
-															which = nationalist_revolt_progress
-															which = event_target:highest_revolt_progress_province
-														}
-													}
-												}
-												set_global_flag = nationalist_revolt_imminent
-												save_event_target_as = highest_revolt_progress_province
-											}
-										}
-									}
-								}
-							}
-							any_tributary = {
-								limit = { is_tributary = { type = march } }
-								any_realm_province = {
-									limit = {
-										has_province_flag = has_local_resistance
-										NOT = { has_province_flag = nationalist_revolt_progress_increased }
-										is_in_current_resistance_region_province = yes
-									}
-									set_province_flag = nationalist_revolt_progress_increased
-									change_variable = {
-										which = nationalist_revolt_progress
-										which = global_nat_revolt_progress_increase
-									}
+											# # Check if eligible for a major revolt
+											# if = {
+												# limit = {
+													# check_variable = {
+														# which = nationalist_revolt_progress
+														# value = 100
+													# }
+													# OR = {
+														# NOT = { has_global_flag = nationalist_revolt_imminent }
+														# check_variable = {
+															# which = nationalist_revolt_progress
+															# which = event_target:highest_revolt_progress_province
+														# }
+													# }
+												# }
+												# set_global_flag = nationalist_revolt_imminent
+												# save_event_target_as = highest_revolt_progress_province
+											# }
+										# }
+									# }
+								# }
+							# }
+							# any_tributary = {
+								# limit = { is_tributary = { type = march } }
+								# any_realm_province = {
+									# limit = {
+										# has_province_flag = has_local_resistance
+										# NOT = { has_province_flag = nationalist_revolt_progress_increased }
+										# is_in_current_resistance_region_province = yes
+									# }
+									# set_province_flag = nationalist_revolt_progress_increased
+									# change_variable = {
+										# which = nationalist_revolt_progress
+										# which = global_nat_revolt_progress_increase
+									# }
 								
-									# Check if eligible for a major revolt
-									if = {
-										limit = {
-											check_variable = {
-												which = nationalist_revolt_progress
-												value = 100
-											}
-											OR = {
-												NOT = { has_global_flag = nationalist_revolt_imminent }
-												check_variable = {
-													which = nationalist_revolt_progress
-													which = event_target:highest_revolt_progress_province
-												}
-											}
-										}
-										set_global_flag = nationalist_revolt_imminent
-										save_event_target_as = highest_revolt_progress_province
-									}
-								}
-							}
-						}
-					}
+									# # Check if eligible for a major revolt
+									# if = {
+										# limit = {
+											# check_variable = {
+												# which = nationalist_revolt_progress
+												# value = 100
+											# }
+											# OR = {
+												# NOT = { has_global_flag = nationalist_revolt_imminent }
+												# check_variable = {
+													# which = nationalist_revolt_progress
+													# which = event_target:highest_revolt_progress_province
+												# }
+											# }
+										# }
+										# set_global_flag = nationalist_revolt_imminent
+										# save_event_target_as = highest_revolt_progress_province
+									# }
+								# }
+							# }
+						# }
+					# }
 					
-					if = {
-						limit = { has_global_flag = nationalist_revolt_imminent }
-						event_target:highest_revolt_progress_province = {
-							# Roll for chance of revolt depending on the province with the highest progress
-							random = {
-								chance = 40
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 105
-									}
-								}
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 110
-									}
-								}
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 115
-									}
-								}
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 120
-									}
-								}
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 125
-									}
-								}
-								additive_modifier = {
-									value = 10
-									check_variable = {
-										which = nationalist_revolt_progress
-										value = 130
-									}
-								}
-								# Trigger the revolt
-								#province_event = { id = 320720 days = 90 random = 180 }
-								province_event = { id = 320720 }
-							}
-						}
-						clr_global_flag = nationalist_revolt_imminent
-					}
-				}
-			}
-			# Revolt progress rolls back if not controlled by a resistance-generating culture
-			else_if = {
-				limit = {
-					NOT = {
-						is_variable_equal = {
-							which = nationalist_revolt_progress
-							value = 0
-						}
-					}
-				}
-				subtract_variable = {
-					which = nationalist_revolt_progress
-					value = 5
-				}
-				if = {
-					limit = {
-						NOT = {
-							check_variable = {
-								which = nationalist_revolt_progress
-								value = 0
-							}
-						}
-					}
-					set_variable = {
-						which = nationalist_revolt_progress
-						value = 0
-					}
-				}
-			}				
-		}
+					# if = {
+						# limit = { has_global_flag = nationalist_revolt_imminent }
+						# event_target:highest_revolt_progress_province = {
+							# # Roll for chance of revolt depending on the province with the highest progress
+							# random = {
+								# chance = 40
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 105
+									# }
+								# }
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 110
+									# }
+								# }
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 115
+									# }
+								# }
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 120
+									# }
+								# }
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 125
+									# }
+								# }
+								# additive_modifier = {
+									# value = 10
+									# check_variable = {
+										# which = nationalist_revolt_progress
+										# value = 130
+									# }
+								# }
+								# # Trigger the revolt
+								# #province_event = { id = 320720 days = 90 random = 180 }
+								# province_event = { id = 320720 }
+							# }
+						# }
+						# clr_global_flag = nationalist_revolt_imminent
+					# }
+				# }
+			# }
+			# # Revolt progress rolls back if not controlled by a resistance-generating culture
+			# else_if = {
+				# limit = {
+					# NOT = {
+						# is_variable_equal = {
+							# which = nationalist_revolt_progress
+							# value = 0
+						# }
+					# }
+				# }
+				# subtract_variable = {
+					# which = nationalist_revolt_progress
+					# value = 5
+				# }
+				# if = {
+					# limit = {
+						# NOT = {
+							# check_variable = {
+								# which = nationalist_revolt_progress
+								# value = 0
+							# }
+						# }
+					# }
+					# set_variable = {
+						# which = nationalist_revolt_progress
+						# value = 0
+					# }
+				# }
+			# }				
+		# }
 		
-		# Cleanup
-		any_province = {
-			limit = {
-				has_province_flag = nationalist_revolt_progress_increased
-			}
-			clr_province_flag = nationalist_revolt_progress_increased
-		}
+		# # Cleanup
+		# any_province = {
+			# limit = {
+				# has_province_flag = nationalist_revolt_progress_increased
+			# }
+			# clr_province_flag = nationalist_revolt_progress_increased
+		# }
 	}
 }
 
@@ -838,545 +838,545 @@ character_event = {
 
 ### MAJOR REVOLT EVENTS ###
 
-# Revolt triggered (not by player)
-province_event = {
-	id = 320720
-	hide_window = yes
+# # Revolt triggered (not by player)
+# province_event = {
+	# id = 320720
+	# hide_window = yes
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	trigger = {
-		local_resistance_potential_trigger = yes
-		has_province_flag = has_local_resistance
-		check_variable = {
-			which = nationalist_revolt_progress
-			value = 100
-		}
-		is_province_liege_not_defending_against_nat_revolt_trigger = yes
-	}
+	# trigger = {
+		# local_resistance_potential_trigger = yes
+		# has_province_flag = has_local_resistance
+		# check_variable = {
+			# which = nationalist_revolt_progress
+			# value = 100
+		# }
+		# is_province_liege_not_defending_against_nat_revolt_trigger = yes
+	# }
 	
-	immediate = {
-		save_event_target_as = current_resistance_region_province
-		owner = { top_liege = { save_event_target_as = target_ruler } }
+	# immediate = {
+		# save_event_target_as = current_resistance_region_province
+		# owner = { top_liege = { save_event_target_as = target_ruler } }
 		
-		# Pick the strongest eligible revolt leader
-		random_playable_ruler = {
-			limit = {
-				ai = yes
-				war = no
-				is_local_resistance_similar_culture_to_ROOT_trigger = yes
-				NOT = {
-					any_war = {
-						AND = {
-							attacker = { character = PREVPREV }
-							defender = { is_target_ruler_or_associated_march_trigger = yes }
-						}
-						AND = {
-							defender = { character = PREVPREV }
-							attacker = { is_target_ruler_or_associated_march_trigger = yes }
-						}
-					}
-				}
-				OR = {
-					AND = {
-						independent = yes
-						is_tributary = no
-						any_realm_province = {
-							any_neighbor_province = {
-								is_local_resistance_similar_culture_to_ROOT_trigger = yes
-								is_in_current_resistance_region_province = yes
-								owner = {
-									top_liege = {
-										is_target_ruler_or_associated_march_trigger = yes
-										NOR = {
-											has_non_aggression_pact_with = PREVPREVPREVPREV
-											reverse_opinion = {
-												who = PREVPREVPREVPREV
-												value = 70
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					AND = {
-						independent = yes
-						is_tributary = yes
-						suzerain = {
-							is_target_ruler_or_associated_march_trigger = yes
-							NOR = {
-								has_non_aggression_pact_with = PREV
-								reverse_opinion = {
-									who = PREV
-									value = 70
-								}
-							}
-						}
-						any_realm_province = {
-							OR = {
-								is_in_current_resistance_region_province = yes
-								any_neighbor_province = {
-									is_local_resistance_similar_culture_to_ROOT_trigger = yes
-									is_in_current_resistance_region_province = yes
-									owner = {
-										top_liege = {
-											is_target_ruler_or_associated_march_trigger = yes
-										}
-									}
-								}
-							}
-						}
-					}
-					AND = {
-						independent = no
-						liege = { 
-							independent = yes 
-							is_target_ruler_or_associated_march_trigger = yes
-							NOR = {
-								has_non_aggression_pact_with = PREV
-								reverse_opinion = {
-									who = PREV
-									value = 70
-								}
-							}
-						}
-						any_realm_province = {
-							is_in_current_resistance_region_province = yes
-						}
-					}
-				}
-				NOT = {
-					any_playable_ruler = {
-						ai = yes
-						war = no
-						is_local_resistance_similar_culture_to_ROOT_trigger = yes
-						NOT = {
-							any_war = {
-								AND = {
-									attacker = { character = PREVPREV }
-									defender = { is_target_ruler_or_associated_march_trigger = yes }
-								}
-								AND = {
-									defender = { character = PREVPREV }
-									attacker = { is_target_ruler_or_associated_march_trigger = yes }
-								}
-							}
-						}
-						OR = {
-							AND = {
-								independent = yes
-								is_tributary = no
-								any_realm_province = {
-									any_neighbor_province = {
-										is_local_resistance_similar_culture_to_ROOT_trigger = yes
-										is_in_current_resistance_region_province = yes
-										owner = {
-											top_liege = {
-												is_target_ruler_or_associated_march_trigger = yes
-												NOR = {
-													has_non_aggression_pact_with = PREVPREVPREVPREV
-													reverse_opinion = {
-														who = PREVPREVPREVPREV
-														value = 70
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-							AND = {
-								independent = yes
-								is_tributary = yes
-								suzerain = {
-									is_target_ruler_or_associated_march_trigger = yes
-									NOR = {
-										has_non_aggression_pact_with = PREV
-										reverse_opinion = {
-											who = PREV
-											value = 70
-										}
-									}
-								}
-								any_realm_province = {
-									OR = {
-										is_in_current_resistance_region_province = yes
-										any_neighbor_province = {
-											is_local_resistance_similar_culture_to_ROOT_trigger = yes
-											is_in_current_resistance_region_province = yes
-											owner = {
-												top_liege = {
-													is_target_ruler_or_associated_march_trigger = yes
-												}
-											}
-										}
-									}
-								}
-							}
-							AND = {
-								independent = no
-								liege = { 
-									independent = yes 
-									is_target_ruler_or_associated_march_trigger = yes
-									NOR = {
-										has_non_aggression_pact_with = PREV
-										reverse_opinion = {
-											who = PREV
-											value = 70
-										}
-									}
-								}
-								any_realm_province = {
-									is_in_current_resistance_region_province = yes
-								}
-							}
-						}
-						relative_power = {
-							who = PREV
-							power > 1
-						}
-					}
-				}
-			}
-			save_event_target_as = revolt_leader
-			if = {
-				limit = {
-					independent = no
-				}
-				random_realm_province = {
-					limit = {
-						is_in_current_resistance_region_province = yes
-					}
-					preferred_limit = {
-						owner = {
-							character = PREVPREV
-							capital_scope = { province = PREVPREV }
-						}
-					}
-					preferred_limit = {
-						owner = {
-							character = PREVPREV
-						}
-					}
-					save_event_target_as = nationalist_revolt_target_province
-				}
-			}
-			else_if = {
-				limit = {
-					is_tributary = yes
-				}
-				random_realm_province = {
-					limit = {
-						OR = {
-							is_in_current_resistance_region_province = yes
-							any_neighbor_province = {
-								is_local_resistance_similar_culture_to_ROOT_trigger = yes
-								is_in_current_resistance_region_province = yes
-								owner = {
-									top_liege = {
-										is_target_ruler_or_associated_march_trigger = yes
-									}
-								}
-							}
-						}
-					}
-					preferred_limit = {
-						owner = {
-							character = PREVPREV
-							capital_scope = { province = PREVPREV }
-						}
-					}
-					preferred_limit = {
-						owner = {
-							character = PREVPREV
-						}
-					}
-					save_event_target_as = nationalist_revolt_target_province
-				}
-			}
-			else = {
-				random_realm_province = {
-					limit = {
-						any_neighbor_province = {
-							is_local_resistance_similar_culture_to_ROOT_trigger = yes
-							is_in_current_resistance_region_province = yes
-							owner = {
-								top_liege = {
-									is_target_ruler_or_associated_march_trigger = yes
-								}
-							}
-						}
-					}
-					random_neighbor_province = {
-						limit = {
-							is_local_resistance_similar_culture_to_ROOT_trigger = yes
-							is_in_current_resistance_region_province = yes
-							owner = {
-								top_liege = {
-									is_target_ruler_or_associated_march_trigger = yes
-								}
-							}
-						}
-						save_event_target_as = nationalist_revolt_target_province
-					}
-				}
-			}
-		}
+		# # Pick the strongest eligible revolt leader
+		# random_playable_ruler = {
+			# limit = {
+				# ai = yes
+				# war = no
+				# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+				# NOT = {
+					# any_war = {
+						# AND = {
+							# attacker = { character = PREVPREV }
+							# defender = { is_target_ruler_or_associated_march_trigger = yes }
+						# }
+						# AND = {
+							# defender = { character = PREVPREV }
+							# attacker = { is_target_ruler_or_associated_march_trigger = yes }
+						# }
+					# }
+				# }
+				# OR = {
+					# AND = {
+						# independent = yes
+						# is_tributary = no
+						# any_realm_province = {
+							# any_neighbor_province = {
+								# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								# is_in_current_resistance_region_province = yes
+								# owner = {
+									# top_liege = {
+										# is_target_ruler_or_associated_march_trigger = yes
+										# NOR = {
+											# has_non_aggression_pact_with = PREVPREVPREVPREV
+											# reverse_opinion = {
+												# who = PREVPREVPREVPREV
+												# value = 70
+											# }
+										# }
+									# }
+								# }
+							# }
+						# }
+					# }
+					# AND = {
+						# independent = yes
+						# is_tributary = yes
+						# suzerain = {
+							# is_target_ruler_or_associated_march_trigger = yes
+							# NOR = {
+								# has_non_aggression_pact_with = PREV
+								# reverse_opinion = {
+									# who = PREV
+									# value = 70
+								# }
+							# }
+						# }
+						# any_realm_province = {
+							# OR = {
+								# is_in_current_resistance_region_province = yes
+								# any_neighbor_province = {
+									# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+									# is_in_current_resistance_region_province = yes
+									# owner = {
+										# top_liege = {
+											# is_target_ruler_or_associated_march_trigger = yes
+										# }
+									# }
+								# }
+							# }
+						# }
+					# }
+					# AND = {
+						# independent = no
+						# liege = { 
+							# independent = yes 
+							# is_target_ruler_or_associated_march_trigger = yes
+							# NOR = {
+								# has_non_aggression_pact_with = PREV
+								# reverse_opinion = {
+									# who = PREV
+									# value = 70
+								# }
+							# }
+						# }
+						# any_realm_province = {
+							# is_in_current_resistance_region_province = yes
+						# }
+					# }
+				# }
+				# NOT = {
+					# any_playable_ruler = {
+						# ai = yes
+						# war = no
+						# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+						# NOT = {
+							# any_war = {
+								# AND = {
+									# attacker = { character = PREVPREV }
+									# defender = { is_target_ruler_or_associated_march_trigger = yes }
+								# }
+								# AND = {
+									# defender = { character = PREVPREV }
+									# attacker = { is_target_ruler_or_associated_march_trigger = yes }
+								# }
+							# }
+						# }
+						# OR = {
+							# AND = {
+								# independent = yes
+								# is_tributary = no
+								# any_realm_province = {
+									# any_neighbor_province = {
+										# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+										# is_in_current_resistance_region_province = yes
+										# owner = {
+											# top_liege = {
+												# is_target_ruler_or_associated_march_trigger = yes
+												# NOR = {
+													# has_non_aggression_pact_with = PREVPREVPREVPREV
+													# reverse_opinion = {
+														# who = PREVPREVPREVPREV
+														# value = 70
+													# }
+												# }
+											# }
+										# }
+									# }
+								# }
+							# }
+							# AND = {
+								# independent = yes
+								# is_tributary = yes
+								# suzerain = {
+									# is_target_ruler_or_associated_march_trigger = yes
+									# NOR = {
+										# has_non_aggression_pact_with = PREV
+										# reverse_opinion = {
+											# who = PREV
+											# value = 70
+										# }
+									# }
+								# }
+								# any_realm_province = {
+									# OR = {
+										# is_in_current_resistance_region_province = yes
+										# any_neighbor_province = {
+											# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+											# is_in_current_resistance_region_province = yes
+											# owner = {
+												# top_liege = {
+													# is_target_ruler_or_associated_march_trigger = yes
+												# }
+											# }
+										# }
+									# }
+								# }
+							# }
+							# AND = {
+								# independent = no
+								# liege = { 
+									# independent = yes 
+									# is_target_ruler_or_associated_march_trigger = yes
+									# NOR = {
+										# has_non_aggression_pact_with = PREV
+										# reverse_opinion = {
+											# who = PREV
+											# value = 70
+										# }
+									# }
+								# }
+								# any_realm_province = {
+									# is_in_current_resistance_region_province = yes
+								# }
+							# }
+						# }
+						# relative_power = {
+							# who = PREV
+							# power > 1
+						# }
+					# }
+				# }
+			# }
+			# save_event_target_as = revolt_leader
+			# if = {
+				# limit = {
+					# independent = no
+				# }
+				# random_realm_province = {
+					# limit = {
+						# is_in_current_resistance_region_province = yes
+					# }
+					# preferred_limit = {
+						# owner = {
+							# character = PREVPREV
+							# capital_scope = { province = PREVPREV }
+						# }
+					# }
+					# preferred_limit = {
+						# owner = {
+							# character = PREVPREV
+						# }
+					# }
+					# save_event_target_as = nationalist_revolt_target_province
+				# }
+			# }
+			# else_if = {
+				# limit = {
+					# is_tributary = yes
+				# }
+				# random_realm_province = {
+					# limit = {
+						# OR = {
+							# is_in_current_resistance_region_province = yes
+							# any_neighbor_province = {
+								# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								# is_in_current_resistance_region_province = yes
+								# owner = {
+									# top_liege = {
+										# is_target_ruler_or_associated_march_trigger = yes
+									# }
+								# }
+							# }
+						# }
+					# }
+					# preferred_limit = {
+						# owner = {
+							# character = PREVPREV
+							# capital_scope = { province = PREVPREV }
+						# }
+					# }
+					# preferred_limit = {
+						# owner = {
+							# character = PREVPREV
+						# }
+					# }
+					# save_event_target_as = nationalist_revolt_target_province
+				# }
+			# }
+			# else = {
+				# random_realm_province = {
+					# limit = {
+						# any_neighbor_province = {
+							# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							# is_in_current_resistance_region_province = yes
+							# owner = {
+								# top_liege = {
+									# is_target_ruler_or_associated_march_trigger = yes
+								# }
+							# }
+						# }
+					# }
+					# random_neighbor_province = {
+						# limit = {
+							# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							# is_in_current_resistance_region_province = yes
+							# owner = {
+								# top_liege = {
+									# is_target_ruler_or_associated_march_trigger = yes
+								# }
+							# }
+						# }
+						# save_event_target_as = nationalist_revolt_target_province
+					# }
+				# }
+			# }
+		# }
 		
-		if = {
-			limit = {
-				NOT = {
-					event_target:revolt_leader = { always = yes }
-				}
-			}
-			# Create a new revolter
-			create_character = {
-				random_traits = yes
-				dynasty = random
-				religion = ROOT
-				culture = ROOT
-				female = no
-				age = 23
-				health = 7
-				fertility = 0.7
-				attributes = {
-					martial = 8
-					diplomacy = 9
-				}
-				trait = just
-				trait = brave
-				trait = gregarious
-				trait = ambitious
-				trait = brilliant_strategist
-				trait = inspiring_leader
-			}
+		# if = {
+			# limit = {
+				# NOT = {
+					# event_target:revolt_leader = { always = yes }
+				# }
+			# }
+			# # Create a new revolter
+			# create_character = {
+				# random_traits = yes
+				# dynasty = random
+				# religion = ROOT
+				# culture = ROOT
+				# female = no
+				# age = 23
+				# health = 7
+				# fertility = 0.7
+				# attributes = {
+					# martial = 8
+					# diplomacy = 9
+				# }
+				# trait = just
+				# trait = brave
+				# trait = gregarious
+				# trait = ambitious
+				# trait = brilliant_strategist
+				# trait = inspiring_leader
+			# }
 			
-			new_character = {
-				set_character_flag = nationalist_rebel
+			# new_character = {
+				# set_character_flag = nationalist_rebel
 				
-				create_title = {
-					tier = DUKE
-					landless = yes
-					temporary = yes
-					rebel = yes
-					culture = ROOT
-					name = "MAJOR_NATIONALIST_REVOLT"
-					holder = THIS
-				}
+				# create_title = {
+					# tier = DUKE
+					# landless = yes
+					# temporary = yes
+					# rebel = yes
+					# culture = ROOT
+					# name = "MAJOR_NATIONALIST_REVOLT"
+					# holder = THIS
+				# }
 				
-				wealth = 150
+				# wealth = 150
 				
-				set_proper_rebel_government_effect = yes
-			}
+				# set_proper_rebel_government_effect = yes
+			# }
 			
-			ROOT = { save_event_target_as = nationalist_revolt_target_province }
-		}
+			# ROOT = { save_event_target_as = nationalist_revolt_target_province }
+		# }
 		
-		event_target:revolt_leader = {
-			character_event = { id = 320721 }
-		}
-	}
-}
+		# event_target:revolt_leader = {
+			# character_event = { id = 320721 }
+		# }
+	# }
+# }
 
-# Event handling the actual revolt
-character_event = {
-	id = 320721
-	hide_window = yes
+# # Event handling the actual revolt
+# character_event = {
+	# id = 320721
+	# hide_window = yes
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 
-	immediate = {				
-		event_target:nationalist_revolt_target_province = {
-			save_event_target_as = current_resistance_region_province
+	# immediate = {				
+		# event_target:nationalist_revolt_target_province = {
+			# save_event_target_as = current_resistance_region_province
 			
-			# Spawn event troops
-			ROOT = {
-				set_variable = {
-					which = nat_revolt_estimated_size
-					which = PREV
-				}
-				while = {
-					limit = {
-						check_variable = {
-							which = nat_revolt_estimated_size
-							value = 1
-						}
-					}
-					spawn_unit = {
-						province = event_target:nationalist_revolt_target_province
-						home = event_target:nationalist_revolt_target_province
-						troops = {
-							light_infantry = { 4 4 }
-							heavy_infantry = { 2 2 }
-							pikemen = { 3 3 }
-							archers = { 1 1 }
-						}
-						attrition = 0.25
-						merge = yes
-						disband_on_peace = yes
-						maintenance_multiplier = 0
-					}
-					subtract_variable = {
-						which = nat_revolt_estimated_size
-						value = 10
-					}
-				}
-			}
+			# # Spawn event troops
+			# ROOT = {
+				# set_variable = {
+					# which = nat_revolt_estimated_size
+					# which = PREV
+				# }
+				# while = {
+					# limit = {
+						# check_variable = {
+							# which = nat_revolt_estimated_size
+							# value = 1
+						# }
+					# }
+					# spawn_unit = {
+						# province = event_target:nationalist_revolt_target_province
+						# home = event_target:nationalist_revolt_target_province
+						# troops = {
+							# light_infantry = { 4 4 }
+							# heavy_infantry = { 2 2 }
+							# pikemen = { 3 3 }
+							# archers = { 1 1 }
+						# }
+						# attrition = 0.25
+						# merge = yes
+						# disband_on_peace = yes
+						# maintenance_multiplier = 0
+					# }
+					# subtract_variable = {
+						# which = nat_revolt_estimated_size
+						# value = 10
+					# }
+				# }
+			# }
 			
-			# Clear revolt progress
-			clear_nationalist_revolt_progress_from_realm_region_effect = yes
-		}
+			# # Clear revolt progress
+			# clear_nationalist_revolt_progress_from_realm_region_effect = yes
+		# }
 		
-		# Declare the war
-		if = {
-			limit = { independent = no }
-			liege = {
-				reverse_unsafe_war = {
-					casus_belli = nationalist_revolt_wales
-					target = ROOT
-				}
-				save_event_target_as = nationalist_revolt_target_char
-			}
-		}
-		else_if = {
-			limit = { is_tributary = yes }
-			liege = {
-				reverse_unsafe_war = {
-					casus_belli = nationalist_revolt_wales
-					target = ROOT
-				}
-			}
-		}
-		else = {
-			event_target:nationalist_revolt_target_province = {
-				owner = {
-					top_liege = {
-						reverse_unsafe_war = {
-							casus_belli = nationalist_revolt_wales
-							target = ROOT
-						}
-					}
-				}
-			}
-		}
+		# # Declare the war
+		# if = {
+			# limit = { independent = no }
+			# liege = {
+				# reverse_unsafe_war = {
+					# casus_belli = nationalist_revolt_wales
+					# target = ROOT
+				# }
+				# save_event_target_as = nationalist_revolt_target_char
+			# }
+		# }
+		# else_if = {
+			# limit = { is_tributary = yes }
+			# liege = {
+				# reverse_unsafe_war = {
+					# casus_belli = nationalist_revolt_wales
+					# target = ROOT
+				# }
+			# }
+		# }
+		# else = {
+			# event_target:nationalist_revolt_target_province = {
+				# owner = {
+					# top_liege = {
+						# reverse_unsafe_war = {
+							# casus_belli = nationalist_revolt_wales
+							# target = ROOT
+						# }
+					# }
+				# }
+			# }
+		# }
 		
-		event_target:nationalist_revolt_target_char = {
-			# Notify revolt
-			character_event = { id = 320722 }
+		# event_target:nationalist_revolt_target_char = {
+			# # Notify revolt
+			# character_event = { id = 320722 }
 			
-			# Call in marches in the region...
-			any_tributary = {
-				limit = { 
-					is_tributary = { type = march } 
-					any_realm_province = {
-						is_in_current_resistance_region_province = yes
-					}
-				}
-				join_defender_wars = PREV
-				character_event = { id = 320722 }
-			}
+			# # Call in marches in the region...
+			# any_tributary = {
+				# limit = { 
+					# is_tributary = { type = march } 
+					# any_realm_province = {
+						# is_in_current_resistance_region_province = yes
+					# }
+				# }
+				# join_defender_wars = PREV
+				# character_event = { id = 320722 }
+			# }
 			
-			# and your suzerain (if a march), along with any of their marches in the region
-			if = {
-				limit = { is_tributary = { type = march } }
-				suzerain = { 
-					join_defender_wars = PREV
-					character_event = { id = 320722 }
-					any_tributary = {
-						limit = { 
-							is_tributary = { type = march } 
-							any_realm_province = {
-								is_in_current_resistance_region_province = yes
-							}
-						}
-						join_defender_wars = PREVPREV
-						character_event = { id = 320722 }
-					}
-				}
-			}
-		}
+			# # and your suzerain (if a march), along with any of their marches in the region
+			# if = {
+				# limit = { is_tributary = { type = march } }
+				# suzerain = { 
+					# join_defender_wars = PREV
+					# character_event = { id = 320722 }
+					# any_tributary = {
+						# limit = { 
+							# is_tributary = { type = march } 
+							# any_realm_province = {
+								# is_in_current_resistance_region_province = yes
+							# }
+						# }
+						# join_defender_wars = PREVPREV
+						# character_event = { id = 320722 }
+					# }
+				# }
+			# }
+		# }
 		
-		# Call in other vassals, tributaries, and nearby independent rulers of the associated culture
-		any_playable_ruler = {
-			limit = {
-				is_local_resistance_similar_culture_to_ROOT_trigger = yes
-				any_realm_province = {
-					is_in_current_resistance_region_province = yes
-				}
-				OR = {
-					AND = {
-						independent = no
-						#liege = { character = event_target:nationalist_revolt_target_char }
-					}
-					AND = {
-						independent = yes
-						is_tributary = yes
-						suzerain = {
-							OR = {
-								character = event_target:nationalist_revolt_target_char
-								any_tributary = { 
-									character = event_target:nationalist_revolt_target_char
-									is_tributary = { type = march }
-								}
-							}
-						}
-					}
-					AND = {
-						independent = yes
-						is_tributary = no
-					}
-				}
-				NOT = {
-					has_non_aggression_pact_with = event_target:nationalist_revolt_target_char
-				}
-			}
-			character_event = { id = 320723 }
-		}
-	}
-}
+		# # Call in other vassals, tributaries, and nearby independent rulers of the associated culture
+		# any_playable_ruler = {
+			# limit = {
+				# is_local_resistance_similar_culture_to_ROOT_trigger = yes
+				# any_realm_province = {
+					# is_in_current_resistance_region_province = yes
+				# }
+				# OR = {
+					# AND = {
+						# independent = no
+						# #liege = { character = event_target:nationalist_revolt_target_char }
+					# }
+					# AND = {
+						# independent = yes
+						# is_tributary = yes
+						# suzerain = {
+							# OR = {
+								# character = event_target:nationalist_revolt_target_char
+								# any_tributary = { 
+									# character = event_target:nationalist_revolt_target_char
+									# is_tributary = { type = march }
+								# }
+							# }
+						# }
+					# }
+					# AND = {
+						# independent = yes
+						# is_tributary = no
+					# }
+				# }
+				# NOT = {
+					# has_non_aggression_pact_with = event_target:nationalist_revolt_target_char
+				# }
+			# }
+			# character_event = { id = 320723 }
+		# }
+	# }
+# }
 
-# Notify liege and marches of revolt
-character_event = {
-	id = 320722
-	title = EVTNAME320722
-	desc = EVTDESC320722
-	picture = GFX_evt_peasants
-	border = GFX_event_normal_frame_war
+# # Notify liege and marches of revolt
+# character_event = {
+	# id = 320722
+	# title = EVTNAME320722
+	# desc = EVTDESC320722
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_war
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 	
-	option = {
-		name = "EVTOPTA320722"
-	}
-}
+	# option = {
+		# name = "EVTOPTA320722"
+	# }
+# }
 
-# Other lords in the area asked to join revolt
-character_event = {
-	id = 320723
-	title = EVTNAME320723
-	desc = EVTDESC320723
-	picture = GFX_evt_peasants
-	border = GFX_event_normal_frame_war
+# # Other lords in the area asked to join revolt
+# character_event = {
+	# id = 320723
+	# title = EVTNAME320723
+	# desc = EVTDESC320723
+	# picture = GFX_evt_peasants
+	# border = GFX_event_normal_frame_war
 	
-	is_triggered_only = yes
+	# is_triggered_only = yes
 	
-	immediate = {
-		set_character_flag = got_event_320723
-	}
+	# immediate = {
+		# set_character_flag = got_event_320723
+	# }
 	
-	option = {
-		name = "EVTOPTA320723"
-		ai_chance = {
-			factor = 100
-		}
-		join_attacker_wars = FROM
-	}
+	# option = {
+		# name = "EVTOPTA320723"
+		# ai_chance = {
+			# factor = 100
+		# }
+		# join_attacker_wars = FROM
+	# }
 	
-	option = {
-		name = "EVTOPTA320723"
-		ai_chance = {
-			factor = 0
-		}
-	}
-}
+	# option = {
+		# name = "EVTOPTA320723"
+		# ai_chance = {
+			# factor = 0
+		# }
+	# }
+# }
