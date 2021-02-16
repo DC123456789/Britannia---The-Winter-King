@@ -2119,6 +2119,219 @@ decisions = {
 		}
 	}
 	
+	
+	convert_to_sub_roman_from_feudal = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 24
+		
+		potential = {
+			is_landed = yes
+			is_feudal = yes
+			is_romanized_government_trigger = no
+			OR = {
+				is_roman_culture_trigger = yes
+				is_romanized_germanic_trigger = yes
+			}
+		}
+		allow = {
+			war = no
+			OR = {
+				AND = {
+					independent = yes
+					primary_title = {
+						conditional_tooltip = {
+							trigger = {
+								NOT = { has_dlc = "Conclave" }
+								higher_tier_than = DUKE
+							}
+							has_law = crown_authority_4
+						}
+						OR = {
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+						conditional_tooltip = {
+							trigger = {
+								NOT = { has_dlc = "Conclave" }
+							}
+							has_law = feudal_contract_3
+							has_law = feudal_tax_3
+						}
+						conditional_tooltip = {
+							trigger = {
+								has_dlc = "Conclave"
+							}
+							OR = {
+								has_law = revoke_title_law_1
+								has_law = revoke_title_law_2
+							}
+							conditional_tooltip = {
+								trigger = {
+									higher_tier_than = DUKE
+								}
+								has_law = out_of_realm_inheritance_law_1
+								OR = {
+									has_law = vassal_wars_law_1
+									has_law = vassal_wars_law_2
+								}
+							}
+							has_law = law_voting_power_0
+						}
+					}
+				}
+				AND = {
+					independent = no
+					any_liege = { is_romanized_government_trigger = yes }
+				}
+			}
+			# OR = {
+				# any_liege = { is_romanized_government_trigger = yes }
+				# any_realm_lord = {
+					# is_landed = yes
+					# is_romanized_government_trigger = yes
+				# }
+				# custom_tooltip = {
+					# text = any_neighbouring_romanized_government
+					# hidden_tooltip = {
+						# any_realm_province = {
+							# any_neighbor_province = {
+								# owner = {
+									# NOT = {
+										# same_realm = ROOT
+									# }
+									# OR = {
+										# is_romanized_government_trigger = yes
+										# any_liege = { is_romanized_government_trigger = yes }
+									# }
+								# }
+							# }
+						# }
+					# }
+				# }
+			# }
+		}
+		
+		effect = {
+			if = {
+				limit = {
+					NOR = {
+						culture_group = celtic
+						capital_scope = {
+							OR = {
+								region = world_britannia
+								region = world_caledonia
+								region = world_ireland
+							}
+						}
+					}
+				}
+				
+				set_government_type = sub_roman_government
+			}
+			else = {
+				set_government_type = sub_roman_brythonic_government
+			}
+			primary_title = { 
+				add_law = ze_administration_laws_1 
+				opinion_effect = no
+			}
+			
+			log = "[Root.GetTitledName] adopted Sub-Roman Government (from Feudal)"
+			
+			hidden_tooltip = {
+				any_demesne_province = {
+					province_event = { id = 302532 }	# Remove modifier
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	
+	convert_to_germanic_from_feudal = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 24
+		
+		potential = {
+			is_landed = yes
+			is_feudal = yes
+			NOT = { government = germanic_government }
+			is_semiromanized_germanic_culture_trigger = yes
+		}
+		allow = {
+			war = no
+			OR = {
+				AND = {
+					independent = yes
+					primary_title = {
+						conditional_tooltip = {
+							trigger = {
+								NOT = { has_dlc = "Conclave" }
+								higher_tier_than = DUKE
+							}
+							has_law = crown_authority_4
+						}
+						OR = {
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+						conditional_tooltip = {
+							trigger = {
+								NOT = { has_dlc = "Conclave" }
+							}
+							has_law = feudal_contract_3
+							has_law = feudal_tax_3
+						}
+						conditional_tooltip = {
+							trigger = {
+								has_dlc = "Conclave"
+							}
+							OR = {
+								has_law = revoke_title_law_1
+								has_law = revoke_title_law_2
+							}
+							conditional_tooltip = {
+								trigger = {
+									higher_tier_than = DUKE
+								}
+								has_law = out_of_realm_inheritance_law_1
+								OR = {
+									has_law = vassal_wars_law_1
+									has_law = vassal_wars_law_2
+								}
+							}
+							has_law = law_voting_power_0
+						}
+					}
+				}
+				AND = {
+					independent = no
+					any_liege = { is_romanized_or_germanic_government_trigger = yes }
+				}
+			}
+		}
+		
+		effect = {
+			set_government_type = germanic_government
+			
+			log = "[Root.GetTitledName] adopted Germanic Government (from Feudal)"
+			
+			hidden_tooltip = {
+				any_demesne_province = {
+					province_event = { id = 302532 }	# Remove modifier
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
 
 targetted_decisions = {
