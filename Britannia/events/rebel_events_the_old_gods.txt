@@ -504,28 +504,39 @@ province_event = {
 			}
 		}
 		
-		NOT = { # Not if there is already an ongoing revolt
+		# Cultural revolts have priority if there is local resistance
+		has_local_resistance_modifier_trigger = no
+		
+		NOR = { # Not if there is already an ongoing revolt
 			owner = {
 				top_liege = {
 					war = yes
 					any_war = {
 						defender = { character = PREV }
-						OR = {
-							AND = {
-								using_cb = peasant_revolt
-								war_title = ROOT # The county
-							}
-							AND = {
-								using_cb = heretic_revolt
-								attacker = { religion = ROOT }
-							}
-							AND = {
-								using_cb = religious_revolt
-								attacker = { religion = ROOT }
-							}
-							AND = {
-								using_cb = cultural_revolt
-								attacker = { culture = ROOT }
+						using_cb = peasant_revolt
+						war_title = ROOT # The county
+					}
+				}
+			}
+			duchy = {
+				ROOT = {
+					owner = {
+						top_liege = {
+							war = yes
+							any_war = {
+								defender = { character = PREV }
+								OR = {
+									AND = {
+										using_cb = heretic_revolt
+										attacker = { religion = ROOT }
+										war_title = PREVPREVPREVPREV
+									}
+									AND = {
+										using_cb = religious_revolt
+										attacker = { religion = ROOT }
+										war_title = PREVPREVPREVPREV
+									}
+								}
 							}
 						}
 					}
@@ -913,6 +924,9 @@ province_event = {
 				}
 			}
 		}
+		
+		# Cultural revolts have priority if there is local resistance
+		has_local_resistance_modifier_trigger = no
 		
 		NOT = { # Not if there is already an ongoing revolt
 			owner = {
