@@ -95,28 +95,29 @@ province_event = {
 			has_province_flag = force_peasant_revolt
 		}
 		
-		NOT = { # Not if there is already an ongoing revolt
+		NOR = { # Not if there is already an ongoing revolt for the duchy
 			owner = {
 				top_liege = {
 					war = yes
 					any_war = {
 						defender = { character = PREV }
-						OR = {
-							AND = {
-								using_cb = peasant_revolt
-								war_title = ROOT # The county
-							}
-							AND = {
-								using_cb = heretic_revolt
-								attacker = { religion = ROOT }
-							}
-							AND = {
-								using_cb = religious_revolt
-								attacker = { religion = ROOT }
-							}
-							AND = {
+						AND = {
+							using_cb = peasant_revolt
+							war_title = ROOT # The county
+						}
+					}
+				}
+			}
+			duchy = {
+				ROOT = {
+					owner = {
+						top_liege = {
+							war = yes
+							any_war = {
+								defender = { character = PREV }
 								using_cb = cultural_revolt
 								attacker = { culture = ROOT }
+								war_title = PREVPREVPREVPREV
 							}
 						}
 					}
