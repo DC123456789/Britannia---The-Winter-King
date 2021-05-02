@@ -682,41 +682,55 @@ character_event = {	# Notify liege (i.e. Mordred)
 	}
 }
 	
-character_event = {	# After 550 AD the Wolftails become a free company again
+character_event = {	# The Wolftails become a free company again
 	id = 312108
-	desc = "You're not supposed to see this..."
+	desc = "EVTDESC312108"
 	picture = GFX_evt_warrior_banners
 	
 	only_rulers = yes
-	only_men = yes
-	min_age = 15
-	capable_only = yes
-	ai = yes
 	
 	trigger = {
-		has_landed_title = k_dumnonia
-		year = 550
-		war = no
-		in_command = no
 		d_wolftails = { holder_scope = { liege = { character = ROOT } } }
-	}
-
-	mean_time_to_happen = {
-		days = 365
-	}
-	
-	immediate = {
-		d_wolftails = { 
-			holder_scope = {
-				d_wolftails = { set_defacto_liege = PREV }
+		# Will remain loyal to Uther, Mordred, Arthur, or any of Uther's children
+		NOR = {
+			character = 1
+			character = 3
+			character = 5
+			father_even_if_dead = { character = 1 }
+			AND = {
+				# While led by Derfel, they will also remain loyal to Arthur's children, Merlin, Gereint, Sagramor, Culhwch, Cuneglas, Ceinwyn, or Cuneglas/Ceinwyn's children
+				d_wolftails = { holder_scope = { character = 10 } }
+				OR = {
+					character = 2
+					character = 17
+					character = 21
+					character = 22
+					character = 27
+					character = 1006
+					father_even_if_dead = { character = 3 }
+					father_even_if_dead = { character = 17 }
+					mother_even_if_dead = { character = 27 }
+				}
 			}
 		}
 	}
+
+	mean_time_to_happen = {
+		days = 5
+	}
 	
 	option = {
-		name = "OK"
+		name = "EVTOPTA312108"
+		d_wolftails = { 
+			show_scope_change = no
+			holder_scope = {
+				show_scope_change = no
+				set_defacto_liege = THIS
+			}
+		}
 	}
 }
+
 character_event = {	# If Derfel becomes King of Anglia, Anglia turns into Icenia
 	id = 312109
 	desc = "You're not supposed to see this..."
@@ -892,6 +906,52 @@ character_event = {	# Notify Mordred
 	
 	option = {
 		name = EVTOPTA3121102
+	}
+}
+	
+character_event = {	# The Brotherhood Horsemen become a free company again
+	id = 3121103
+	desc = "EVTDESC3121103"
+	picture = GFX_evt_warrior_banners
+	
+	only_rulers = yes
+	
+	trigger = {
+		d_brotherhood_horsemen = { holder_scope = { liege = { character = ROOT } } }
+		# Will remain loyal to Uther, Mordred, Arthur, or any of Uther's children
+		NOR = {
+			character = 1
+			character = 3
+			character = 5
+			father_even_if_dead = { character = 1 }
+			AND = {
+				# While led by Sagramor, they will also remain loyal to Arthur's children, Merlin, Gereint, Sagramor, Culhwch, or Derfel
+				d_brotherhood_horsemen = { holder_scope = { character = 21 } }
+				OR = {
+					character = 2
+					character = 10
+					character = 21
+					character = 22
+					character = 1006
+					father_even_if_dead = { character = 3 }
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 5
+	}
+	
+	option = {
+		name = "EVTOPTA3121103"
+		d_brotherhood_horsemen = {
+			show_scope_change = no
+			holder_scope = {
+				show_scope_change = no
+				set_defacto_liege = THIS
+			}
+		}
 	}
 }
 
