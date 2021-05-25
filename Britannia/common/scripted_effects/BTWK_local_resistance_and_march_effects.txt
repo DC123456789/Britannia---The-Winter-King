@@ -397,10 +397,9 @@ adjust_revolt_army_size_effect = {
 		value = 0
 	}
 	
-	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
+	# Offset additional maluses from tribal + wrong culture/religion
 	if = {
-		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }		
-		# Offset additional maluses from tribal + wrong culture/religion
+		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
 		if = {
 			limit = { ROOT = { owner = { NOT = { culture = ROOT } } } }
 			change_variable = {
@@ -412,7 +411,40 @@ adjust_revolt_army_size_effect = {
 			limit = { ROOT = { owner = { NOT = { culture_group = ROOT } } } }
 			change_variable = {
 				which = global_troop_change
-				value = 0.15
+				value = 0.20
+			}	
+			# Additional modifier for wrong culture group feudal rulers on tribal provinces
+			if = {
+				limit = { 
+					ROOT = { owner = { is_tribal = no } }
+				}
+				change_variable = {
+					which = global_troop_change
+					value = 0.40
+				}
+			}
+			# Smaller modifier for high tribal rulers on low tribal provinces
+			else_if = {
+				limit = { 
+					ROOT = { 
+						owner = { government = high_tribal_government } 
+						NOT = {
+							any_province_holding = {
+								holding_type = TRIBAL
+								OR = {
+									has_building = tb_hillfort_5
+									has_building = tb_hillfort_6
+									has_building = tb_hillfort_7
+									has_building = tb_hillfort_8
+								}
+							}
+						}
+					}
+				}
+				change_variable = {
+					which = global_troop_change
+					value = 0.20
+				}
 			}
 		}
 		if = {
@@ -733,7 +765,7 @@ adjust_revolt_army_size_effect = {
 		} 
 	}
 	
-	# Imperial provinces are less resistant if the owner is of the same religion
+	# Imperial culture group provinces do not revolt as much if the owner is of the same religion
 	if = {
 		limit = { 
 			ROOT = { 
@@ -770,19 +802,28 @@ adjust_revolt_army_size_effect = {
 		value = 1
 	}
 	any_army = {
-		troops = global_troop_decrease
+		# Note: Limit doesn't work here!
+		if = {
+			limit = { location = { province = ROOT } }
+			troops = global_troop_decrease
+		}
 	}
 	
 	# Adjust for tribal holding slots (can make troops spiral out of control if there are many)
-	# Applied as a final multiplier
+	# Applied as a multiplicative multiplier
 	if = {
 		limit = { ROOT = { any_province_holding = { holding_type = TRIBAL } } }
 		if = {
 			limit = { 
 				ROOT = { num_of_empty_holdings = 3 } 
 			}
+			# Note that this command is proportional to the army's total size - which is 4 times the "actual" base size!
+			# So e.g. this is actually equivalent to a -100% modifier
 			any_army = {
-				troops = -0.25
+				if = {
+					limit = { location = { province = ROOT } }
+					troops = -0.25
+				}
 			}
 		}
 		else_if = {
@@ -790,7 +831,10 @@ adjust_revolt_army_size_effect = {
 				ROOT = { num_of_empty_holdings = 2 } 
 			}
 			any_army = {
-				troops = -0.15
+				if = {
+					limit = { location = { province = ROOT } }
+					troops = -0.15
+				}
 			}
 		}
 	}
