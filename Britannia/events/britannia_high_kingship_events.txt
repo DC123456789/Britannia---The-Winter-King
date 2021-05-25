@@ -2814,10 +2814,14 @@ narrative_event = {
 				any_vassal = {
 					limit = {
 						NOT = {
-							FROM = {
+							PREV = {
 								any_demesne_title = {
 									higher_tier_than = PREVPREV
 									NOT = { higher_tier_than = KING }
+									OR = {
+										NOT = { higher_tier_than = DUKE }
+										NOT = { PREV = { has_character_flag = defeated_britannia_rebel } }
+									}
 								}
 							}
 						}
@@ -2869,12 +2873,18 @@ narrative_event = {
 			character = ROOT
 		}
 		tooltip = {
-			e_roman_britannia = { grant_title = ROOT }
-			e_britannia = { destroy_landed_title = THIS }
+			e_roman_britannia = { 
+				show_scope_change = no
+				grant_title = ROOT 
+			}
+			e_britannia = { 
+				show_scope_change = no
+				destroy_landed_title = THIS 
+			}
 		}
 		remove_character_modifier = maxima_caesariensis_decaying_realm
 		custom_tooltip = {
-			text = EVTOPTA302902_tooltip
+			text = EVTOPTA302906_tooltip
 		}
 	}
 	
@@ -2889,7 +2899,7 @@ narrative_event = {
 			set_defacto_liege = ROOT
 		}
 		custom_tooltip = {
-			text = EVTOPTB302902_tooltip
+			text = EVTOPTB302906_tooltip
 		}
 	}
 	
