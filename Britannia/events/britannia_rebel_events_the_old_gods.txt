@@ -290,7 +290,7 @@ character_event = {
 	}
 }
 
-# Cultural Rebels rise up to reinforce an ongoing cultural uprising
+# Cultural Rebels rise up to reinforce an ongoing cultural uprising in the duchy
 # Triggered from "on_rebel_revolt"
 province_event = {
 	id = 320610
@@ -315,23 +315,39 @@ province_event = {
 			}
 		}
 		
-		owner = {
-			top_liege = {
-				war = yes
-				any_war = {
-					defender = { character = PREV }
-					using_cb = cultural_revolt
-					attacker = { culture = ROOT }
+		duchy = {
+			ROOT = {
+				owner = {
+					top_liege = {
+						war = yes
+						any_war = {
+							defender = { character = PREV }
+							using_cb = cultural_revolt
+							attacker = { 
+								culture = ROOT
+								# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+								NOT = {
+									any_army = {
+										location = { province = ROOT }
+									}
+								}
+							}
+							war_title = PREVPREVPREVPREV
+						}
+					}
 				}
 			}
 		}
 	}
 	
-	immediate = {
-	
+	immediate = {	
 		add_province_modifier = {
 			name = recent_county_uprising
 			duration = 1825 # Five years of -100% revolt risk in this county
+		}
+		
+		duchy = {
+			save_event_target_as = revolt_duchy
 		}
 		
 		owner = {
@@ -340,7 +356,16 @@ province_event = {
 					limit = {
 						defender = { character = PREV }
 						using_cb = cultural_revolt
-						attacker = { culture = ROOT }
+						attacker = { 
+							culture = ROOT
+							# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+							NOT = {
+								any_army = {
+									location = { province = ROOT }
+								}
+							}
+						}
+						war_title = event_target:revolt_duchy
 					}
 					attacker = {
 						spawn_religious_reinforcements_effect = yes

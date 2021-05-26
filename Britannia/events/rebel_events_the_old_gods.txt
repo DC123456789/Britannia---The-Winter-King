@@ -386,6 +386,14 @@ province_event = {
 					defender = { character = PREV }
 					using_cb = peasant_revolt
 					war_title = ROOT # The county
+					attacker = {
+						# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+						NOT = {
+							any_army = {
+								location = { province = ROOT }
+							}
+						}
+					}
 				}
 			}
 		}
@@ -405,6 +413,14 @@ province_event = {
 						defender = { character = PREV }
 						using_cb = peasant_revolt
 						war_title = ROOT # The county
+						attacker = {
+							# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+							NOT = {
+								any_army = {
+									location = { province = ROOT }
+								}
+							}
+						}
 					}
 					attacker = {
 						spawn_peasant_reinforcements_effect = yes
@@ -746,13 +762,26 @@ province_event = {
 			NOT = { holding_type = nomad }
 		}
 		
-		owner = {
-			top_liege = {
-				war = yes
-				any_war = {
-					defender = { character = PREV }
-					using_cb = heretic_revolt
-					attacker = { religion = ROOT }
+		duchy = {
+			ROOT = {
+				owner = {
+					top_liege = {
+						war = yes
+						any_war = {
+							defender = { character = PREV }
+							using_cb = heretic_revolt
+							attacker = { 
+								religion = ROOT
+								# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+								NOT = {
+									any_army = {
+										location = { province = ROOT }
+									}
+								}
+							}
+							war_title = PREVPREVPREVPREV
+						}
+					}
 				}
 			}
 		}
@@ -765,13 +794,26 @@ province_event = {
 			duration = 1825 # Five years of -100% revolt risk in this county
 		}
 		
+		duchy = {
+			save_event_target_as = revolt_duchy
+		}
+		
 		owner = {
 			top_liege = {
 				any_war = {
 					limit = {
 						defender = { character = PREV }
 						using_cb = heretic_revolt
-						attacker = { religion = ROOT }
+						attacker = { 
+							religion = ROOT
+							# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+							NOT = {
+								any_army = {
+									location = { province = ROOT }
+								}
+							}
+						}
+						war_title = event_target:revolt_duchy
 					}
 					attacker = {
 						spawn_heretic_reinforcements_effect = yes
@@ -1246,6 +1288,14 @@ province_event = {
 				any_war = {
 					defender = { character = PREV }
 					using_cb = liberation_revolt
+					attacker = {
+						# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+						NOT = {
+							any_army = {
+								location = { province = ROOT }
+							}
+						}
+					}
 					thirdparty_title_scope = {
 						ROOT = {
 							kingdom = {
@@ -1269,6 +1319,14 @@ province_event = {
 					limit = {
 						defender = { character = PREV }
 						using_cb = liberation_revolt
+						attacker = {
+							# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+							NOT = {
+								any_army = {
+									location = { province = ROOT }
+								}
+							}
+						}
 						thirdparty_title_scope = {
 							ROOT = {
 								kingdom = {
@@ -2084,13 +2142,26 @@ province_event = {
 			}
 		}
 		
-		owner = {
-			top_liege = {
-				war = yes
-				any_war = {
-					defender = { character = PREV }
-					using_cb = religious_revolt
-					attacker = { religion = ROOT }
+		duchy = {
+			ROOT = {
+				owner = {
+					top_liege = {
+						war = yes
+						any_war = {
+							defender = { character = PREV }
+							using_cb = religious_revolt
+							attacker = { 
+								religion = ROOT 
+								# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+								NOT = {
+									any_army = {
+										location = { province = ROOT }
+									}
+								}
+							}
+							war_title = PREVPREVPREVPREV
+						}
+					}
 				}
 			}
 		}
@@ -2103,13 +2174,26 @@ province_event = {
 			duration = 1825 # Five years of -100% revolt risk in this county
 		}
 		
+		duchy = {
+			save_event_target_as = revolt_duchy
+		}
+		
 		owner = {
 			top_liege = {
 				any_war = {
 					limit = {
 						defender = { character = PREV }
 						using_cb = religious_revolt
-						attacker = { religion = ROOT }
+						attacker = { 
+							religion = ROOT
+							# Having an army in the province where the reinforcements spawn is problematic with our troop adjustment algorithm, since we limit by the army's location
+							NOT = {
+								any_army = {
+									location = { province = ROOT }
+								}
+							}
+						}
+						war_title = event_target:revolt_duchy
 					}
 					attacker = {
 						spawn_religious_reinforcements_effect = yes
