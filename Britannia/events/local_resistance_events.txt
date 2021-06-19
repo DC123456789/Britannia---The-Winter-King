@@ -842,15 +842,27 @@ character_event = {
 
 # 320720 - Flag revolts originating from a province with Local Resistance
 
-# 320721 - Local Resistance/Major revolt wins battle or siege, gains momentum
+# 320721 - Local Resistance revolt reaches 25% warscore, notify owner + liege + suzerain that a major revolt will break out soon
 
 # 320722 - Local Resistance revolt reaches 40%(?) warscore, Major Revolt breaks out with several other provinces revolting and large revolt risk increases across the region
 
 # 320723 - Ask nearby lords of correct culture to join Major Revolt
 
-# 320725 - Major Revolt war ends in rebel victory, increment Major Revolt counter and small reduction in pacification progress across region
+# 320724 - Local Resistance/Major revolt wins battle or siege, gains momentum (i.e. small boost in troops?)
+
+# 320725 - Major Revolt war/rebellion ends in rebel victory, increment Major Revolt counter and small reduction in pacification progress across region
+#			- Counter is located in the rebel titles?
+#			- We designate a "rebellion leader" - either the sponsor if the initial rebellion was sponsored, or the first rebel leader to win otherwise
+#			- When a rebellion wins, they become a tributary of the rebellion leader
+#			- The rebellion leader has events/decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
 
 # 320726 - Major Revolt counter reaches threshold, Major Revolt victory - all owned provinces in region with Local Resistance(?) are lost
+#			- In case of total or partial victory, if the rebellion leader controls (directly or through tributaries) enough provinces in the rebellion region, they get the option to immediately 
+#				claim the local kingship (e.g. Baskonia, Broceliande, Cymru?, Fortriu/Fotla/Dalriada)
+#			- If the rebellion leader is feudal and they won a total victory, all tributaries in the region become vassals
+#			- If the rebellion leader is feudal and they won a partial victory, neighbouring tributaries in the region become vassals
+#			- If the rebellion leader is tribal and they won a total victory, neighbouring tributaries in the region become vassals
+#			- If the rebellion leader is tribal and they won a total victory, tributaries remain (and so will become independent when the leader dies - or earlier)
 
 # 320727 - Last Major Revolt war defeated, but some were victorious - partial revolt victory
 
@@ -858,11 +870,12 @@ character_event = {
 
 # Decisions 
 
-# - Decision for local lord/vassal of Local Resistance region culture to stir up discontent in owned or neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
-#	- If specific revolt war is victorious, they will become a vassal or tributary (if count-tier) of the sponsor
-#	- If a Major Revolt breaks out, give options for the sponsor to join any of the other rebellions (and make him/her neutral to them when they spawn, if possible), and will get any of them if successful as either a vassal or tributary
-#		- If the Major Revolt is totally successful, will get a lot of prestige and possibility to immediately claim the local kingship (e.g. Baskonia, Broceliande, Cymru?, Fortriu/Fotla/Dalriada)
+# - Decision for local lord of Local Resistance region culture to stir up discontent in neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
 # 	- Takes 320730 - 320739
+# - Decision for local vassal of Local Resistance region culture to stir up discontent in their own provinces, which after ~2 years will spawn an event army and attempt to declare war for independence
+#	- Can attempt to call other local lords into war
+#	- Like normal Local Resistance rebellions, if they get to a certain warscore threshold (30%?) a Major Revolt will break out
+#	- In addition to rebellions in the remaining provinces, they will also go event troops scaling based on the number of provinces that joined the revolt
 
 # # Revolt triggered (not by player)
 # province_event = {
