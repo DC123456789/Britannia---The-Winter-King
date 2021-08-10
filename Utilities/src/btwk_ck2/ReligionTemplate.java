@@ -1,3 +1,5 @@
+package btwk_ck2;
+
 
 public class ReligionTemplate {
 
