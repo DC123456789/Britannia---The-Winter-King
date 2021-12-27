@@ -1710,7 +1710,34 @@ character_event = { # Alternate Start general maintenance
 					# }
 				# }
 			# }
-		# }
+		# Reactivate the null title
+		if = {
+			limit = { d_null = { has_holder = no } }
+			create_character = {
+				random_traits = no
+				name = " "
+				dynasty = none
+				religion = catholic
+				culture = roman
+				age = 100
+				trait = immortal
+				trait = incapable
+				trait = special_char_trait
+			}
+			new_character = {
+				d_null = {
+					activate_title = { title = THIS status = yes }
+					grant_title = PREV
+				}
+			}
+		}
+		# Disable special titles
+		c_benoc_folc = {
+			destroy_landless_count_level_title_effect = yes
+		}
+		c_angeln_host = {
+			destroy_landless_count_level_title_effect = yes
+		}
 	}
 }
 
