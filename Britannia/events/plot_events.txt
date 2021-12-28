@@ -19221,38 +19221,23 @@ letter_event = {
 				}
 			}
 			hidden_tooltip = {
-				if = {
-					limit = {
-						religion = catholic
-					}
-					k_papal_state = {
-						holder_scope = {
-							opinion = {
-								who = PREVPREV
-								modifier = opinion_deposed_antipope
-							}
-						}
-					}
-				}
-				if = {
-					limit = {
-						religion = fraticelli
-					}
-					d_fraticelli = {
-						holder_scope = {
-							opinion = {
-								who = PREVPREV
-								modifier = opinion_deposed_antipope
-							}
-						}
+				religion_head = {
+					opinion = {
+						who = PREVPREV
+						modifier = opinion_deposed_antipope
 					}
 				}
 			}
 		}
 		hidden_tooltip = {
 			rightful_religious_head_scope = {
-				remove_claim = k_papal_state
-				remove_claim = d_fraticelli
+				any_claim = {
+					limit = {
+						religion = PREV
+						controls_religion = yes
+					}
+					remove_claim = PREV
+				}
 			}
 		}
 		
