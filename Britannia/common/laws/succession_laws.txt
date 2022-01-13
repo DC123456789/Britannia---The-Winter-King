@@ -1253,33 +1253,21 @@ gender_laws = {
 					}
 				}
 				AND = {
-					OR = {
-						AND = {
-							NOR = {
-								AND = {
-									de_jure_liege_or_above = e_gaul
-									e_gaul = { has_holder = yes }
-								}
-								AND = {
-									de_jure_liege_or_above = e_roman_britannia
-									e_roman_britannia = { has_holder = yes }
-								}
-							}
-							NOT = { higher_tier_than = king }
-						}
-						holder_scope = { culture = vasconian }
-					}
 					holder_scope = {
 						is_merchant_republic = no
 						is_patrician = no
-						OR = {
-							culture_group = celtic
-							culture = vasconian
-						}
-						NOR = {
-							culture = romanobritish
-							culture = armorican
-							is_gaelic_culture_trigger = yes
+					}
+					OR = {
+						holder_scope = { culture = vasconian }
+						AND = {
+							NOT = { higher_tier_than = king }
+							holder_scope = {
+								OR = {
+									culture = briton
+									culture = cumbrian
+									culture = pictish
+								}
+							}
 						}
 					}
 				}
@@ -1380,16 +1368,6 @@ gender_laws = {
 					is_patrician = no
 				}
 				AND = {
-					NOR = {
-						AND = {
-							de_jure_liege_or_above = e_gaul
-							e_gaul = { has_holder = yes }
-						}
-						AND = {
-							de_jure_liege_or_above = e_roman_britannia
-							e_roman_britannia = { has_holder = yes }
-						}
-					}
 					NOT = { higher_tier_than = duke }
 					is_landless_type_title = no
 					is_primary_type_title = no
@@ -1399,12 +1377,10 @@ gender_laws = {
 							is_feudal = yes
 						}
 						holder_scope = { is_feudal = yes }
+						holder_scope = { is_tribal = yes }
 					}
 					holder_scope = {
-						culture_group = celtic
-						is_gaelic_culture_trigger = no
-						NOT = { culture = romanobritish }
-						NOT = { culture = armorican }
+						culture = pictish
 						NOT = { religion_group = christian }
 					}
 				}
@@ -1429,11 +1405,11 @@ gender_laws = {
 		}
 		allow = {
 			OR = {
-				holder_scope = {
-					is_theocracy = no
-					OR = {
-						is_republic = no
-						is_patrician = yes
+				AND = {
+					NOT = { higher_tier_than = duke }
+					holder_scope = {
+						culture = pictish
+						NOT = { religion_group = christian }
 					}
 				}
 				ROOT = { holder_scope = { primary_title = { has_law = status_of_women_4 } } }
@@ -1447,10 +1423,8 @@ gender_laws = {
 						has_religion_feature = religion_feature_pict
 						religion = promethean_pagan
 						culture = vasconian
+						religion = britannic_pagan
 					}
-					religion = promethean_pagan
-					culture = vasconian
-					religion = britannic_pagan
 				}
 			}
 		}
