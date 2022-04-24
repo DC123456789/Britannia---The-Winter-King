@@ -1028,12 +1028,49 @@ narrative_event = {
 		trigger = {
 			character = ROOT
 		}
-		k_burgundy = {
-			reverse_unsafe_war = {
-				target = ROOT
-				casus_belli = tribal_invasion
+		# Can happen on the 410 start - in this case, we just declare war on the kingdom their capital is in
+		if = {
+			limit = {
+				# This checks if k_burgundy has any de jure counties - if it doesn't, the tribal_invasion cb won't work
+				# Note that is_titular = no will NOT work because k_burgundy may have de jure duchies that are titular
+				NOT = {
+					k_burgundy = { 
+						any_de_jure_vassal_title = {
+							tier = COUNT
+						}
+					}
+				}
 			}
-		}		
+			k_burgundy = {
+				show_scope_change = no
+				holder_scope = {
+					show_scope_change = no
+					capital_scope = {
+						show_scope_change = no
+						kingdom = {
+							show_scope_change = no
+							ROOT = {
+								show_scope_change = no
+								unsafe_war = {
+									target = PREVPREVPREV
+									casus_belli = tribal_invasion
+									thirdparty_title = PREV
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else = {
+			k_burgundy = {
+				show_scope_change = no
+				reverse_unsafe_war = {
+					target = ROOT
+					casus_belli = tribal_invasion
+				}
+			}
+		}
 		if = {
 			limit = { ai = yes }
 			if = {
