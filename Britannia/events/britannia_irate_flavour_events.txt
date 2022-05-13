@@ -2310,32 +2310,32 @@ character_event = {
 	id = romeflavorevent.45036
 	desc = {
 		trigger = {
-			OR = { 
-				has_landed_title = e_western_roman_empire	
-				has_landed_title = e_gaul
-				has_landed_title = e_roman_britannia
-			}
+			real_tier = emperor
 		}
 	
 		text = EVTDESCROMANFLAVOR36A # Imperator
 	}
 	desc = {
 		trigger = {
-			tier = king
+			real_tier = king
 			independent = no
+			in_revolt = no
 		}
 		text = EVTDESCROMANFLAVOR36B # Governor/King under imperator
 	}
 	desc = {
 		trigger = {
-			tier = king
-			independent = yes
+			real_tier = king
+			OR = {
+				independent = yes
+				in_revolt = yes
+			}
 		}
 		text = EVTDESCROMANFLAVOR36C # Governor/King that is independent
 	}
 	desc = {
 		trigger = {
-			tier = duke
+			lower_real_tier_than = king
 		}
 		text = EVTDESCROMANFLAVOR36D # Praetor/Duke
 	}	
@@ -2369,7 +2369,10 @@ character_event = {
 		name = EVTOPTBROMANFLAVOR36 # A glorious victory to be sure. (For independents king or lower)
 		trigger = {
 			lower_tier_than = emperor
-			independent = yes
+			OR = {
+				independent = yes
+				in_revolt = yes
+			}
 		}
 		prestige = 20
 	}
@@ -2377,6 +2380,7 @@ character_event = {
 		name = EVTOPTCROMANFLAVOR36 # This victory belongs to my liege. (Add some prestige, keep on good side of liege.)
 		trigger = {
 			independent = no
+			in_revolt = no
 		}
 		prestige = 20
 		ai_chance = {
@@ -2387,6 +2391,7 @@ character_event = {
 		name = EVTOPTDROMANFLAVOR36 # More victories await us under my leadership. (Add lots of prestige, massive drop in liege opinion, possibility of another event granting weak claim.)
 		trigger = {
 			independent = no
+			in_revolt = no
 		}
 		prestige = 70
 		liege = {

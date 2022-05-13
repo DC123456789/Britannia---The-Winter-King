@@ -237,21 +237,30 @@ narrative_event = {
 		trigger = {
 			is_frankish_culture_trigger = yes
 			NOT = { character = ROOT }
+			NOT = { has_landed_title = k_gaul }
 		}
 	}
 	option = {
-		name = "EVTOPTD313200"	# Romans
+		name = "EVTOPTD313200"	# Soissons
+		trigger = {
+			has_landed_title = k_gaul
+		}
+	}
+	option = {
+		name = "EVTOPTE313200"	# Romans
 		trigger = {
 			culture_group = imperiale
+			NOT = { has_landed_title = k_gaul }
 		}
 	}
 	option = {
-		name = "EVTOPTE313200"	# Others
+		name = "EVTOPTF313200"	# Others
 		trigger = {
 			NOR = { 
 				is_frankish_culture_trigger = yes
 				culture_group = imperiale
 				character = ROOT
+				NOT = { has_landed_title = k_gaul }
 			}
 		}
 	}
@@ -2409,6 +2418,13 @@ narrative_event = {
 				culture_group = imperiale
 				culture = romanobritish
 			}
+		}
+		if = {
+			limit = {
+				independent = yes
+				completely_controls = c_tournai
+			}
+			prestige = 200
 		}
 	}
 	option = {				# Armoricans
