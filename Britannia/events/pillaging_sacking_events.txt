@@ -21,9 +21,9 @@ character_event = {
 	immediate = {
 		random_list = {
 			300 = {
-				repeat_event = { id = 319900 }		# Sacking and Pillaging - Castle (Small)
-				repeat_event = { id = 319901 }		# Sacking and Pillaging - Castle (Medium)
-				repeat_event = { id = 319902 }		# Sacking and Pillaging - Castle (Large)
+				repeat_event = { id = 319900 }		# Sacking and Pillaging - Castle/Temple (Small)
+				repeat_event = { id = 319901 }		# Sacking and Pillaging - Castle/Temple (Medium)
+				repeat_event = { id = 319902 }		# Sacking and Pillaging - Castle/Temple (Large)
 				repeat_event = { id = 319920 }		# Sacking and Pillaging - Town (Small)
 				repeat_event = { id = 319921 }		# Sacking and Pillaging - Town (Medium)	 
 				repeat_event = { id = 319922 }		# Sacking and Pillaging - Town (Large)				
@@ -78,7 +78,7 @@ character_event = {
 
 ### CASTLES ###
 
-# Pillage Castle (Small)
+# Pillage Castle/Temple (Small)
 character_event = {
 	id = 319900
 	title = "EVTNAME319900"
@@ -90,7 +90,8 @@ character_event = {
 	
 	is_triggered_only = yes
 	
-	trigger = { 
+	trigger = {
+		always = no			# Disabled for small holdings
 		siege = {
 			is_attacker = yes
 		}
@@ -102,10 +103,13 @@ character_event = {
 		}
 		is_looting = no
 		# location = { NOT = { culture = ROOT } }
-		FROM = { 
-			holding_type = castle 
+		FROM = {
+			OR = {
+				holding_type = castle 
+				holding_type = temple
+			}
 			NOT = {
-				num_of_buildings = 8
+				num_of_buildings = 10
 			}
 			holder_scope = {
 				NOT = { same_realm = ROOT }
@@ -632,17 +636,7 @@ character_event = {
 				OR = {
 					culture = armorican
 					culture = romanobritish
-					culture = romanogallic
-				}
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
+					culture_group = imperiale
 				}
 			}
 		}	
@@ -686,22 +680,22 @@ character_event = {
 				remove_trait = just
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					OR = {
-						# trait = honorable
-						trait = cruel
-						trait = ruthless
-						trait = arbitrary
-					}	
-				}
-			}	
-			random = {
-				chance = 25
-				add_trait = ruthless
-			}	
-		}
+		# if = {
+			# limit = {
+				# NOT = {
+					# OR = {
+						# # trait = honorable
+						# trait = cruel
+						# trait = ruthless
+						# trait = arbitrary
+					# }	
+				# }
+			# }	
+			# random = {
+				# chance = 25
+				# add_trait = ruthless
+			# }	
+		# }
 		if = {
 			limit = {
 				trait = cruel
@@ -853,7 +847,7 @@ character_event = {
 		}
 	}	
 }	
-# Pillage Castle (Medium)
+# Pillage Castle/Temple (Medium)
 character_event = {
 	id = 319901
 	title = "EVTNAME319900"
@@ -876,11 +870,14 @@ character_event = {
 			ai = yes
 		}
 		is_looting = no
-		FROM = { 
-			holding_type = castle 
-			num_of_buildings = 8
+		FROM = {
+			OR = {
+				holding_type = castle
+				holding_type = temple
+			}
+			num_of_buildings = 10
 			NOT = {
-				num_of_buildings = 13
+				num_of_buildings = 15
 			}
 			holder_scope = {
 				NOT = { same_realm = ROOT }
@@ -1420,16 +1417,6 @@ character_event = {
 					culture_group = imperiale
 				}
 			}
-			modifier = {
-				factor = 0.75
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
-				}
-			}
 		}	
 		piety = -30
 		custom_tooltip = { text = "EVTTT319900A" }
@@ -1471,22 +1458,22 @@ character_event = {
 				remove_trait = just
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					OR = {
-						# trait = honorable
-						trait = cruel
-						trait = ruthless
-						trait = arbitrary
-					}	
-				}
-			}	
-			random = {
-				chance = 25
-				add_trait = ruthless
-			}	
-		}
+		# if = {
+			# limit = {
+				# NOT = {
+					# OR = {
+						# # trait = honorable
+						# trait = cruel
+						# trait = ruthless
+						# trait = arbitrary
+					# }	
+				# }
+			# }	
+			# random = {
+				# chance = 25
+				# add_trait = ruthless
+			# }	
+		# }
 		if = {
 			limit = {
 				trait = cruel
@@ -1675,7 +1662,7 @@ character_event = {
 		}
 	}	
 }	
-# Pillage Castle (Large)
+# Pillage Castle/Temple (Large)
 character_event = {
 	id = 319902
 	title = "EVTNAME319900"
@@ -1698,8 +1685,11 @@ character_event = {
 			ai = yes
 		}
 		FROM = { 
-			holding_type = castle 
-			num_of_buildings = 13
+			OR = {
+				holding_type = castle
+				holding_type = temple
+			}
+			num_of_buildings = 15
 			holder_scope = {
 				NOT = { same_realm = ROOT }
 				NOT = { character = ROOT }
@@ -2249,16 +2239,6 @@ character_event = {
 					culture_group = imperiale
 				}
 			}
-			modifier = {
-				factor = 0.75
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
-				}
-			}
 		}	
 		piety = -30
 		custom_tooltip = { text = "EVTTT319900A" }
@@ -2300,22 +2280,22 @@ character_event = {
 				remove_trait = just
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					OR = {
-						# trait = honorable
-						trait = cruel
-						trait = ruthless
-						trait = arbitrary
-					}	
-				}
-			}	
-			random = {
-				chance = 25
-				add_trait = ruthless
-			}	
-		}
+		# if = {
+			# limit = {
+				# NOT = {
+					# OR = {
+						# # trait = honorable
+						# trait = cruel
+						# trait = ruthless
+						# trait = arbitrary
+					# }	
+				# }
+			# }	
+			# random = {
+				# chance = 25
+				# add_trait = ruthless
+			# }	
+		# }
 		if = {
 			limit = {
 				trait = cruel
@@ -2562,6 +2542,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = { 
+		always = no			# Disabled for small holdings
 		siege = {
 			is_attacker = yes
 		}
@@ -2574,7 +2555,7 @@ character_event = {
 		FROM = { 
 			holding_type = city 
 			NOT = {
-				num_of_buildings = 8
+				num_of_buildings = 10
 			}
 			holder_scope = {
 				NOT = { same_realm = ROOT }
@@ -3102,16 +3083,6 @@ character_event = {
 					culture_group = imperiale
 				}
 			}
-			modifier = {
-				factor = 0.75
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
-				}
-			}
 		}	
 		piety = -40
 		custom_tooltip = { text = "EVTTT319900A" }
@@ -3153,22 +3124,22 @@ character_event = {
 				remove_trait = just
 			}
 		}
-		if = {
-			limit = {
-				NOT = {
-					OR = {
-						# trait = honorable
-						trait = cruel
-						# trait = ruthless
-						trait = arbitrary
-					}	
-				}
-			}	
-			random = {
-				chance = 25
-				add_trait = ruthless
-			}	
-		}
+		# if = {
+			# limit = {
+				# NOT = {
+					# OR = {
+						# # trait = honorable
+						# trait = cruel
+						# # trait = ruthless
+						# trait = arbitrary
+					# }	
+				# }
+			# }	
+			# random = {
+				# chance = 25
+				# add_trait = ruthless
+			# }	
+		# }
 		if = {
 			limit = {
 				trait = cruel
@@ -3344,9 +3315,9 @@ character_event = {
 		}
 		FROM = { 
 			holding_type = city 
-			num_of_buildings = 8
+			num_of_buildings = 10
 			NOT = {
-				num_of_buildings = 13
+				num_of_buildings = 15
 			}
 			holder_scope = {
 				NOT = { same_realm = ROOT }
@@ -3887,16 +3858,6 @@ character_event = {
 					culture_group = imperiale
 				}
 			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
-				}
-			}
 		}	
 		piety = -40
 		custom_tooltip = { text = "EVTTT319900A" }
@@ -4166,7 +4127,7 @@ character_event = {
 		}
 		FROM = { 
 			holding_type = city 
-			num_of_buildings = 13
+			num_of_buildings = 15
 			holder_scope = {
 				NOT = { same_realm = ROOT }
 				NOT = { character = ROOT }
@@ -4716,16 +4677,6 @@ character_event = {
 					culture_group = imperiale
 				}
 			}
-			modifier = {
-				factor = 0.35
-				OR = {
-					culture = roman
-					has_landed_title = e_gaul
-					top_liege = { has_landed_title = e_gaul }
-					has_landed_title = e_roman_britannia
-					top_liege = { has_landed_title = e_roman_britannia }
-				}
-			}
 		}	
 		piety = -60
 		custom_tooltip = { text = "EVTTT319900A" }
@@ -5017,7 +4968,7 @@ character_event = {
 
 ### NOTIFICATIONS ###
 
-# Castle Looted - Notify Holder or Liege
+# Castle/Temple Looted - Notify Holder or Liege
 character_event = {
 	id = 319980
 	title = "EVTNAME319980"
@@ -5073,7 +5024,7 @@ character_event = {
 }
 
 
-# Castle Sacked - Notify Holder or Liege
+# Castle/Temple Sacked - Notify Holder or Liege
 character_event = {
 	id = 319990
 	title = "EVTNAME319990"
