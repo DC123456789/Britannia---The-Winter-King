@@ -1169,3 +1169,44 @@ anglosaxon_subjugation_can_use_trigger = {
 		culture_group = ROOT
 	}
 }
+
+same_suzerain_no_infight_tributary_block_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			top_liege = {
+				is_tributary = { type = roman_province }
+			}
+		}
+		top_liege = {
+			suzerain = {
+				FROM = {
+					NOT = { 
+						is_tributary = { 
+							type = roman_province 
+							suzerain = PREV
+						} 
+					}
+				}
+			}
+		}
+	}
+	conditional_tooltip = {
+		trigger = {
+			top_liege = {
+				is_tributary = { type = client_state }
+			}
+		}
+		top_liege = {
+			suzerain = {
+				FROM = {
+					NOT = { 
+						is_tributary = { 
+							type = client_state 
+							suzerain = PREV
+						} 
+					}
+				}
+			}
+		}
+	}
+}

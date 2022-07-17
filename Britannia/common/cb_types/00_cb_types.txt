@@ -21,15 +21,12 @@ claim = {
 	
 	can_use_gui = {
 		ROOT = {
-			OR = {
-				NOT = { government = tribal_government }
+			conditional_tooltip = {
+				trigger = { government = tribal_government }
 				prestige = 600
 			}
+			same_suzerain_no_infight_tributary_block_trigger = yes
 		}
-	}
-	
-	can_use = {
-		ROOT = { is_from_and_this_top_liege_roman_province_trigger = no }
 	}
 	
 	can_use_title = {
@@ -420,15 +417,12 @@ other_claim = {
 	
 	can_use_gui = {
 		ROOT = {
-			OR = {
-				NOT = { government = tribal_government }
+			conditional_tooltip = {
+				trigger = { government = tribal_government }
 				prestige = 700
 			}
+			same_suzerain_no_infight_tributary_block_trigger = yes
 		}
-	}
-	
-	can_use = {
-		ROOT = { is_from_and_this_top_liege_roman_province_trigger = no }
 	}
 
 	can_use_title = {
@@ -9038,13 +9032,11 @@ dejure_county_claim = {
 	can_use_gui = {
 		ROOT = {
 			prestige = 200
-		}
-	}
-	
-	can_use = {
-		ROOT = { 
-			NOT = { government = tribal_government } 
-			is_from_and_this_top_liege_roman_province_trigger = no
+			conditional_tooltip = {
+				trigger = { government = tribal_government }
+				NOT = { government = tribal_government }
+			}
+			same_suzerain_no_infight_tributary_block_trigger = yes
 		}
 	}
 
@@ -9660,8 +9652,17 @@ other_dejure_county_claim = {
 	sort_priority = 700
 	
 	can_use_gui = {
+		prestige = 200
+		conditional_tooltip = {
+			trigger = { government = tribal_government }
+			NOT = { government = tribal_government }
+		}
+		same_suzerain_no_infight_tributary_block_trigger = yes
 		ROOT = {
-			prestige = 200
+			conditional_tooltip = {
+				trigger = { government = tribal_government }
+				NOT = { government = tribal_government }
+			}
 		}
 	}
 
@@ -9671,9 +9672,6 @@ other_dejure_county_claim = {
 				character = PREV
 			}
 		}
-		ROOT = { NOT = { government = tribal_government } }
-		NOT = { government = tribal_government }
-		ROOT = { is_from_and_this_top_liege_roman_province_trigger = no }
 	}
 
 	can_use_title = {
