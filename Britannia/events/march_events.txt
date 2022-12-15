@@ -86,6 +86,10 @@ narrative_event = {
 				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_breton_march = { de_jure_liege = e_roman_britannia }
 			}
+			else_if = {
+				limit = { NOT = { has_global_flag = western_roman_empire_fallen } }
+				k_breton_march = { de_jure_liege = e_gaul }
+			}
 			else = {
 				k_breton_march = { de_jure_liege = 0 }
 			}
@@ -226,6 +230,10 @@ narrative_event = {
 				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_vasconia = { de_jure_liege = e_roman_britannia }
 			}
+			else_if = {
+				limit = { NOT = { has_global_flag = western_roman_empire_fallen } }
+				k_vasconia = { de_jure_liege = e_gaul }
+			}
 			else = {
 				k_vasconia = { de_jure_liege = 0 }
 			}
@@ -248,10 +256,13 @@ narrative_event = {
 							title = d_boiatia
 							title = d_tarbellia
 						}
-						can_drift_into_march = yes
+						# can_drift_into_march = yes
 					}
-					de_jure_liege = k_vasconia
-					set_title_flag = under_march_k_vasconia
+					if = {
+						limit = { can_drift_into_march = yes }
+						de_jure_liege = k_vasconia
+						set_title_flag = under_march_k_vasconia
+					}
 				}
 			}
 			

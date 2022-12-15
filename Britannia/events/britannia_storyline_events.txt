@@ -2234,7 +2234,15 @@ narrative_event = {
 			k_neustria = { de_jure_liege = e_franks }
 			k_orleans = { de_jure_liege = e_franks }
 			k_aquitaine = { de_jure_liege = e_franks }
-			k_vasconia = { de_jure_liege = e_franks }
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_global_flag = vasconia_created }
+						NOT = { has_global_flag = romanized_germanic_vasconia }
+					}
+				}
+				k_vasconia = { de_jure_liege = e_franks }
+			}
 			k_provence = { de_jure_liege = e_franks }
 			if = {
 				limit = {
@@ -2249,6 +2257,21 @@ narrative_event = {
 		k_visigoths = { de_jure_liege = 0 }
 		k_burgundy = { de_jure_liege = 0 }
 		k_praetorian_prefecture_of_gaul = { de_jure_liege = 0 }
+		if = {
+			limit = {
+				has_global_flag = breton_march_created
+				has_global_flag = romanized_germanic_breton_march
+			}
+			k_breton_march = { de_jure_liege = 0 }
+		}
+		if = {
+			limit = {
+				has_global_flag = vasconia_created
+				has_global_flag = romanized_germanic_vasconia
+			}
+			k_vasconia = { de_jure_liege = 0 }
+		}
+		
 		k_saxon_gaul = { de_jure_liege = e_aengland }
 		if = {
 			limit = { 

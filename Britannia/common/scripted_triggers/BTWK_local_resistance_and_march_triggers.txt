@@ -231,6 +231,19 @@ is_local_resistance_similar_culture_to_ROOT_trigger = {
 		}
 		culture_group = basque
 	}
+	conditional_tooltip = {
+		trigger = {
+			ROOT = {
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					is_gaelic_culture_trigger = yes
+					culture = pictish
+					culture_group = basque
+				}
+			}
+		}
+		always = no
+	}
 }
 
 has_local_resistance_modifier_trigger = {
@@ -570,16 +583,21 @@ is_in_ROOT_march_culture_trigger = {
 
 # Checks that a duchy has all counties controlled by a March, but is not a de jure part of it (and is not titular)
 # Assumes that the March has a holder (probably won't break otherwise, but still)
-# SCOPE - The duchy to check if the Breton March controls
+# SCOPE - The duchy to check if the march controls
 # PREV - The march title to check if the duchy can drift into
 can_drift_into_march = {
 	NOT = { de_jure_liege = PREV } 
 	NOT = { dejure_liege_title = { holder_scope = { has_landed_title = PREVPREVPREV } } }
 	is_titular = no
-	NOT = {
-		any_direct_de_jure_vassal_title = {
-			NOT = { holder_scope = { top_liege = { has_landed_title = PREVPREVPREVPREV } } }
+	# Either the march controls at least one duchy in the title, or the duchy's current de jure liege
+	# is the one granting the title itself (i.e. is the de jure holder)
+	OR = {
+		NOT = {
+			any_direct_de_jure_vassal_title = {
+				NOT = { holder_scope = { top_liege = { has_landed_title = PREVPREVPREVPREV } } }
+			}
 		}
+		dejure_liege_title = { holder_scope = { any_tributary = { has_landed_title = PREVPREVPREVPREV } } }
 	}
 }
 
