@@ -198,6 +198,52 @@ is_FROM_in_current_resistance_region_province_trigger = {
 	}
 }
 
+# Scope - war to check if can escalate into a major revolt
+# Requires that calc_num_of_local_resistance_provinces_in_region_effect be called first on a province
+# belonging to the war defender in a province in the correct local resistance region,
+# so that the num_local_resistance_provs is saved in ROOT
+is_major_revolt_possible_for_war_trigger = {
+	using_cb = cultural_revolt
+	OR = {
+		AND = {
+			thirdparty_title_scope = { any_de_jure_vassal_title = { region = world_britannia_cymry_wales } }
+			ROOT = {
+				check_variable = {
+					which = num_local_resistance_provs
+					value >= 5
+				}
+			}
+		}
+		AND = {
+			thirdparty_title_scope = { any_de_jure_vassal_title = { region = world_caledonia } }	
+			ROOT = {
+				check_variable = {
+					which = num_local_resistance_provs
+					value >= 5
+				}
+			}
+		}
+		AND = {
+			thirdparty_title_scope = { any_de_jure_vassal_title = { region = world_gaul_lugdunensis_armorica } }
+			ROOT = {
+				check_variable = {
+					which = num_local_resistance_provs
+					value >= 3
+				}
+			}
+		}
+		AND = {
+			thirdparty_title_scope = { any_de_jure_vassal_title = { region = world_gaul_aquitania_tertia } }
+			ROOT = {
+				check_variable = {
+					which = num_local_resistance_provs
+					value >= 3
+				}
+			}
+		}
+	}
+}
+
 is_local_resistance_similar_culture_to_ROOT_trigger = {
 	conditional_tooltip = {
 		trigger = {

@@ -391,6 +391,65 @@ clear_nationalist_revolt_progress_from_realm_region_effect = {
 	}
 }
 
+# Called from province scope
+# Result is saved in the num_local_resistance_provs variable in ROOT
+# Meant to be used with is_major_revolt_possible_for_war_trigger
+calc_num_of_local_resistance_provinces_in_region_effect = {
+	ROOT = { set_variable = { which = num_local_resistance_provs value = 0 } }
+	save_event_target_as = current_resistance_region_province
+	
+	owner = {
+		top_liege = {	
+			# Add together all provinces under the realm
+			any_realm_province = {
+				limit = {
+					has_province_flag = has_local_resistance
+					is_in_current_resistance_region_province = yes
+				}
+				ROOT = { change_variable = { which = num_local_resistance_provs value = 1 } }
+			}
+			# ... including suzerains (if a march)
+			if = {
+				limit = { is_tributary = { type = march } }
+				suzerain = {
+					any_realm_province = {
+						limit = {
+							has_province_flag = has_local_resistance
+							is_in_current_resistance_region_province = yes
+						}
+						ROOT = { change_variable = { which = num_local_resistance_provs value = 1 } }
+					}
+					# Check other marches of suzerain
+					any_tributary = {
+						limit = { 
+							is_tributary = { type = march } 
+							NOT = { character = PREVPREV }
+						}
+						any_realm_province = {
+							limit = {
+								has_province_flag = has_local_resistance
+								is_in_current_resistance_region_province = yes
+							}
+							ROOT = { change_variable = { which = num_local_resistance_provs value = 1 } }
+						}
+					}
+				}
+			}
+			# ... and marches (if realm has marches)
+			any_tributary = {
+				limit = { is_tributary = { type = march } }
+				any_realm_province = {
+					limit = {
+						has_province_flag = has_local_resistance
+						is_in_current_resistance_region_province = yes
+					}
+					ROOT = { change_variable = { which = num_local_resistance_provs value = 1 } }
+				}
+			}
+		}
+	}
+}
+
 adjust_revolt_army_size_effect = {
 	set_variable = {
 		which = global_troop_change

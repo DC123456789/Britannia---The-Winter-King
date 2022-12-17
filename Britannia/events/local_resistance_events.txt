@@ -350,7 +350,7 @@ province_event = {
 	}
 }
 
-# Pacification and Major Revolt Progress (yearly timer)
+# Pacification Progress (yearly timer)
 character_event = {
 	id = 320710
 	hide_window = yes
@@ -778,7 +778,7 @@ character_event = {
 				using_cb = religious_revolt
 				using_cb = cultural_revolt
 				using_cb = liberation_revolt
-				using_cb = nationalist_revolt_wales
+				# using_cb = nationalist_revolt_wales
 			}
 		}
 		FROM = {
@@ -853,19 +853,217 @@ character_event = {
 	}
 }
 
-# 320721 - Local Resistance revolt reaches 25% warscore, notify owner + liege + suzerain that a major revolt will break out soon
+# Local Resistance revolt reaches 25% warscore, notify all relevant lords that a major revolt might break out soon
+character_event = {
+	id = 320721
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		primary_title = { 
+			has_title_flag = local_resistance_revolt
+			NOT = { has_title_flag = major_revolt_warning }
+		}
+		war = yes
+		any_war = {
+			war_score >= 25
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_war = {
+			limit = { war_score >= 25 }
+			thirdparty_title_scope = { 
+				random_direct_de_jure_vassal_title = {
+					limit = { owner = { top_liege = { character = defender } } }
+					save_event_target_as = current_resistance_region_province 
+				}
+			}
+			event_target:current_resistance_region_province = {
+				calc_num_of_local_resistance_provinces_in_region_effect = yes
+			}
+			if = {
+				# TODO Check that there aren't any major revolts already ongoing in the region
+				# (in the is_major_revolt_possible_for_war_trigger trigger)
+				limit = { is_major_revolt_possible_for_war_trigger = yes }
+				ROOT = { primary_title = { set_title_flag = major_revolt_warning } }
+				# We notify the defender...
+				defender = {
+					character_event = { id = 320722 }
+					# Any lords in the defender's realm who might be hit by the major revolt...
+					any_realm_lord = {
+						limit = { 
+							any_realm_province = { 
+								is_in_current_resistance_region_province = yes
+								has_province_flag = has_local_resistance
+							} 
+						}
+						character_event = { id = 320722 }
+					}
+					if = {
+						limit = { is_tributary = { type = march } }
+						# The defender's overlord, if the defender is a march...
+						suzerain = {
+							character_event = { id = 320722 }
+							# Any lords in the overlord's realm who might be hit by the major revolt...
+							any_realm_lord = {
+								limit = { 
+									any_realm_province = { 
+										is_in_current_resistance_region_province = yes
+										has_province_flag = has_local_resistance
+									} 
+								}
+								character_event = { id = 320722 }
+							}
+							# Any other marches (and their vassals) under the overlord who might be hit by the major revolt...
+							any_tributary = {
+								limit = { 
+									is_tributary = { type = march } 
+									any_realm_province = { 
+										is_in_current_resistance_region_province = yes
+										has_province_flag = has_local_resistance
+									}
+								}
+								character_event = { id = 320722 }
+								any_realm_lord = {
+									limit = { 
+										any_realm_province = { 
+											is_in_current_resistance_region_province = yes
+											has_province_flag = has_local_resistance
+										} 
+									}
+									character_event = { id = 320722 }
+								}
+							}
+							# Any tributaries under the overlord who might be able to rebel...
+							any_tributary = {
+								limit = { 
+									NOT = { is_tributary = { type = march } }
+									is_local_resistance_similar_culture_to_ROOT_trigger = yes
+									any_realm_province = { is_in_current_resistance_region_province = yes }
+								}
+								character_event = { id = 320722 }
+							}
+						}
+					}
+					# Any marches (and their vassals) under the defender who might be hit by the major revolt...
+					any_tributary = {
+						limit = { 
+							is_tributary = { type = march } 
+							any_realm_province = { 
+								is_in_current_resistance_region_province = yes
+								has_province_flag = has_local_resistance
+							}
+						}
+						character_event = { id = 320722 }
+						any_realm_lord = {
+							limit = { 
+								any_realm_province = { 
+									is_in_current_resistance_region_province = yes
+									has_province_flag = has_local_resistance
+								} 
+							}
+							character_event = { id = 320722 }
+						}
+					}
+					# ...and any tributaries under the defender who might be able to rebel
+					any_tributary = {
+						limit = { 
+							NOT = { is_tributary = { type = march } }
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							any_realm_province = { is_in_current_resistance_region_province = yes }
+						}
+						character_event = { id = 320722 }
+					}
+				}
+			}
+		}		
+	}
+}
 
-# 320722 - Local Resistance revolt reaches 40-50%(?) warscore, Major Revolt breaks out with nearby duchies revolting and large revolt risk increases across the region
-#	- Each region can only have one major revolt at a time
-#	- Will try to have the closest 66% of unpacified duchies (and at least 2) revolt immediately
-#	- All unpacified provinces in the region belonging to the overlord or one of their tributaries will get a modifier giving large revolt risk increases and marking them as part of the revolt
-#	- Pacification progress is stopped while a major revolt is ongoing
-#	- Other unpacified provinces in the region not held by the overlord will get a smaller revolt risk increase and a small rebellion
-#	- If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
+# 320722 - Notification event
+# TODO Localisation
+character_event = {
+	id = 320722
+	desc = EVTDESC320702
+	picture = GFX_evt_peasants
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		ai = no
+	}
+	
+	option = {
+		name = "EVTOPTA320702"
+		custom_tooltip = {
+			text = EVTOPTA320702TT
+		}
+	}
+}
 
-# 320723 - Ask nearby lords of correct culture to join Major Revolt (for AI - humans will get targeted decisions instead)
+# 320723 - Local Resistance revolt reaches 40-50%(?) warscore, Major Revolt breaks out with nearby duchies revolting and large revolt risk increases across the region
+character_event = {
+	id = 320723
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		primary_title = { 
+			has_title_flag = local_resistance_revolt
+			NOT = { has_title_flag = major_revolt_warning }
+		}
+		war = yes
+		any_war = {
+			war_score >= 50
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_war = {
+			limit = { war_score >= 50 }
+			thirdparty_title_scope = { 
+				random_direct_de_jure_vassal_title = {
+					limit = { owner = { top_liege = { character = defender } } }
+					save_event_target_as = current_resistance_region_province 
+				}
+			}
+			event_target:current_resistance_region_province = {
+				calc_num_of_local_resistance_provinces_in_region_effect = yes
+			}
+			if = {
+				# TODO Check that there aren't any major revolts already ongoing in the region
+				limit = { is_major_revolt_possible_for_war_trigger = yes }
+				# Flag that the region officially has a major revolt breaking out
+				# Try to have the closest 66% of unpacified duchies (and at least 2) revolt immediately
+				# All unpacified provinces in the region belonging to the overlord or one of their tributaries will get a modifier giving large revolt risk increases and marking them as part of the revolt
+				# Pacification progress is stopped while a major revolt is ongoing (need to do this in the effect)
+				# Other unpacified provinces in the region not held by the overlord or one of their marches will get a smaller revolt risk increase and a small rebellion
+				# If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
+			}
+		}
+	}
+}
 
-# 320724 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
+# 320724 - Notify major revolt
+
+# 320725 - Ask nearby lords of correct culture to join Major Revolt (for AI - humans will get targeted decisions instead)
+#	- For tributaries in the region of the right culture, will instead be asked if they want to revolt
+
+# 320726 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
+
+# 320727 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
 
 # In the rebellion cb
 # - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
@@ -882,14 +1080,14 @@ character_event = {
 #		- If feudal, all their tributaries in the revolt region will become vassals
 #		- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
 #	- The rebellion leader has targeted decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 320725 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
-# 320726 - Notification/request event to rebellion leader to become tributary
-# 320727 - Event offering kingship to the rebellion leader
+# 320728 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
+# 320729 - Notification/request event to rebellion leader to become tributary
+# 320730 - Event offering kingship to the rebellion leader
 
 # - If the Major Revolt rebellion ends in overlord victory, small increase in pacification progress across region
-# 320728 - Notification event to rebellion leader that revolt was defeated
+# 320731 - Notification event to rebellion leader that revolt was defeated
 
-# 320730 - Notification event that major event is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
+# 320735 - Notification event that major event is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
 #	- Triggers only when all rebellions in the region are over
 
 # Decisions 
