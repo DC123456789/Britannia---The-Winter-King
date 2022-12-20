@@ -1,0 +1,1530 @@
+namespace = EDM
+
+character_event = { #Find weird looking powder in forest
+    id = EDM.1
+	picture = GFX_evt_bandits
+	desc = EVTDESC_EDM_1
+	trigger = {
+    	society_member_of = hermetics
+		has_character_flag = built_laboratory
+		NOT = { trait = infirm }
+		NOT = { trait = incapable }
+		OR = {
+			NOT = {
+				capital_scope = {
+					region = custom_wre
+				}
+			}
+			year = 650
+		}
+    }
+	mean_time_to_happen = {
+		years = 45
+		modifier = {
+			factor = 2 
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.3 
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.7
+			trait = diligent
+		}	
+		modifier = {
+			factor = 0.7
+			learning > 10
+		}
+	}
+	option = { #To the lab
+		name = EVTOPTA_EDM_1
+		hidden_effect = {
+			character_event = { id = EDM.2 days = 10 }
+		}
+	}
+}
+character_event = { #Find weird looking powder in an old Roman fortress
+    id = EDM.18
+	picture = GFX_evt_bandits
+	desc = EVTDESC_EDM_18
+	trigger = {
+    	society_member_of = hermetics
+		has_character_flag = built_laboratory
+		NOT = { trait = infirm }
+		NOT = { trait = incapable }
+		capital_scope = {
+			region = custom_wre
+		}
+		NOT = { year = 650 }
+    }
+	mean_time_to_happen = {
+		years = 45
+		modifier = {
+			factor = 2 
+			trait = slothful
+		}
+		modifier = {
+			factor = 1.3 
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.7
+			trait = diligent
+		}	
+		modifier = {
+			factor = 0.7
+			learning > 10
+		}
+	}
+	option = { #To the lab
+		name = EVTOPTA_EDM_1
+		hidden_effect = {
+			character_event = { id = EDM.2 days = 10 }
+		}
+	}
+}
+
+character_event = { #Arrived in laboratory, start doing tests
+    id = EDM.2
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_2
+	is_triggered_only = yes
+	
+	option = { #Let's do the first test, burning
+		name = EVTOPTA_EDM_2 
+		hidden_effect = {
+			random_list = {
+				75 = {
+					character_event = { id = EDM.3 days = 5 } #Nothing weird happens
+				}
+				15 = {
+					character_event = { id = EDM.4 days = 5 } #Powder is a known material
+				}
+				10 = {
+					character_event = { id = EDM.5 days = 5 } #Powder is explosive
+				}
+			}
+		}
+	}
+}
+
+character_event = { #Burning Experiment
+    id = EDM.3
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_3
+	is_triggered_only = yes
+	
+	option = { #To the next test, mixing with water
+		name = EVTOPTA_EDM_3
+		hidden_effect = {
+			character_event = { id = EDM.6 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Burning Experiment
+    id = EDM.4
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_4
+	is_triggered_only = yes
+	
+	option = { #This was useless
+		name = EVTOPTA_EDM_4
+		custom_tooltip = {
+			text = "EVT_TLT_EDM_4"
+		}
+	}
+}
+
+character_event = { #Burning Experiment
+    id = EDM.5
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_5
+	is_triggered_only = yes
+	
+	option = { #I must continue
+		name = EVTOPTA_EDM_5
+		random_list = {
+			60 = {
+				add_trait = wounded
+			}
+			40 = {}
+		}
+		hidden_effect = {
+			character_event = { id = EDM.6 days = 5 } 
+		}
+		trigger = {
+			NOT = { trait = craven }
+		}
+	}	
+	option = { #Far too dangerous
+		name = EVTOPTB_EDM_5
+		random_list = {
+			60 = {
+				add_trait = wounded
+			}
+			40 = {}
+		}
+		custom_tooltip = {
+			text = "EVT_TLT_EDM_4"
+		}
+		trigger = {
+			NOT = { trait = brave }
+		}
+	}
+}
+
+character_event = { #Mixing Experiment
+    id = EDM.6
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_6
+	is_triggered_only = yes
+	
+	option = { #Commence the experiment
+		name = EVTOPTA_EDM_6
+		hidden_effect = {
+			random_list = {
+				30 = {
+					character_event = { id = EDM.7 days = 5 } #Nothing weird happens 1
+				}
+				30 = {
+					character_event = { id = EDM.8 days = 5 } #Nothing weird happens 2
+				}
+				25 = {
+					character_event = { id = EDM.9 days = 5 } #Nothing weird happens 3
+				}
+				15 = {
+					character_event = { id = EDM.10 days = 5 } #Powder releases a dangerous gas
+				}
+			}
+		}
+	}
+}
+
+character_event = { #Mixing Experiment
+    id = EDM.7
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_7
+	is_triggered_only = yes
+	
+	option = { #Next experiment
+		name = EVTOPTA_EDM_7
+		hidden_effect = {
+			character_event = { id = EDM.11 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Mixing Experiment
+    id = EDM.8
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_8
+	is_triggered_only = yes
+	
+	option = { #Next experiment
+		name = EVTOPTA_EDM_8
+		hidden_effect = {
+			character_event = { id = EDM.11 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Mixing Experiment
+    id = EDM.9
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_9
+	is_triggered_only = yes
+	
+	option = { #Next experiment
+		name = EVTOPTA_EDM_9
+		hidden_effect = {
+			character_event = { id = EDM.11 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Mixing Experiment
+    id = EDM.10
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_10
+	is_triggered_only = yes
+	
+	option = { #I must continue
+		name = EVTOPTA_EDM_5
+		random_list = {
+			60 = {
+				add_trait = ill
+			}
+			40 = {}
+		}
+		hidden_effect = {
+			character_event = { id = EDM.11 days = 5 } 
+		}
+		trigger = {
+			NOT = { trait = craven }
+		}
+	}	
+	option = { #Far too dangerous
+		name = EVTOPTB_EDM_5
+		random_list = {
+			60 = {
+				add_trait = ill
+			}
+			40 = {}
+		}
+		custom_tooltip = {
+			text = "EVT_TLT_EDM_4"
+		}
+		trigger = {
+			NOT = { trait = brave }
+		}
+	}
+}
+
+character_event = { #Final experiment, test on a rabbit.
+    id = EDM.11
+	picture = GFX_evt_bandits
+	desc = EVTDESC_EDM_11
+	is_triggered_only = yes
+	
+	option = { #Sorry dear rabbit
+		name = EVTOPTA_EDM_11
+		hidden_effect = {
+			random_list = {
+				35 = {
+					character_event = { id = EDM.12 days = 5 } #Rabbit survives
+				}
+				35 = {
+					trigger = {
+						OR = {
+							NOT = {
+								capital_scope = {
+									region = custom_wre
+								}
+							}
+							year = 650
+						}
+					}
+					character_event = { id = EDM.13 days = 5 } #Rabbit gets ill
+				}
+				35 = {
+					trigger = {
+						capital_scope = {
+							region = custom_wre
+						}
+						NOT = { year = 650 }
+					}
+					character_event = { id = EDM.19 days = 5 } #Rabbit gets ill
+				}
+				15 = {
+					character_event = { id = EDM.14 days = 5 } #rabbit dies
+				}
+				15 = {
+					character_event = { id = EDM.15 days = 5 } #rabbit acts weird
+				}
+			}
+		}
+		trigger = {
+			NOT = { trait = cruel }
+		}
+	}
+	option = { #Just a name change for flavor, not an effect change
+		name = EVTOPTB_EDM_11
+		hidden_effect = {
+			random_list = {
+				35 = {
+					character_event = { id = EDM.12 days = 5 } #Rabbit survives
+				}
+				35 = {
+					trigger = {
+						OR = {
+							NOT = {
+								capital_scope = {
+									region = custom_wre
+								}
+							}
+							year = 650
+						}
+					}
+					character_event = { id = EDM.13 days = 5 } #Rabbit gets ill
+				}
+				35 = {
+					trigger = {
+						capital_scope = {
+							region = custom_wre
+						}
+						NOT = { year = 650 }
+					}
+					character_event = { id = EDM.19 days = 5 } #Rabbit gets ill
+				}
+				15 = {
+					character_event = { id = EDM.14 days = 5 } #rabbit dies
+				}
+				15 = {
+					character_event = { id = EDM.15 days = 5 } #rabbit acts weird
+				}
+			}
+		}
+		trigger = {
+			trait = cruel
+		}
+	}
+}
+
+character_event = { #Rabbit Experiment
+    id = EDM.12
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_12
+	is_triggered_only = yes
+	
+	option = { #Publish changes
+		name = EVTOPTA_EDM_12
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Rabbit Experiment
+    id = EDM.13
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_13
+	is_triggered_only = yes
+	
+	option = { #Publish changes
+		name = EVTOPTA_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			NOT = { trait = cruel }
+		}
+	}
+	option = { #Publish changes
+		name = EVTOPTB_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			trait = cruel
+		}
+	}
+}
+
+character_event = { #Rabbit Experiment
+    id = EDM.19
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_19
+	is_triggered_only = yes
+	
+	option = { #Publish changes
+		name = EVTOPTA_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			NOT = { trait = cruel }
+		}
+	}
+	option = { #Publish changes
+		name = EVTOPTB_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			trait = cruel
+		}
+	}
+}
+
+character_event = { #Rabbit Experiment
+    id = EDM.14
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_14
+	is_triggered_only = yes
+	
+	option = { #Publish changes
+		name = EVTOPTA_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			NOT = { trait = cruel }
+		}
+	}
+	option = { #Publish changes
+		name = EVTOPTB_EDM_14
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+		trigger = {
+			trait = cruel
+		}
+	}
+}
+
+character_event = { #Rabbit Experiment
+    id = EDM.15
+	picture = GFX_evt_experiment
+	desc = EVTDESC_EDM_15
+	is_triggered_only = yes
+	
+	option = { #Next experiment
+		name = EVTOPTA_EDM_15
+		hidden_effect = {
+			character_event = { id = EDM.16 days = 5 } 
+		}
+	}
+}
+
+character_event = { #Time to start and write the discoveries.
+    id = EDM.16
+	picture = GFX_evt_monk
+	desc = EVTDESC_EDM_16
+	is_triggered_only = yes
+	
+	option = { #Wait 50 days before publishing
+		name = EVTOPTA_EDM_16
+		hidden_effect = {
+			character_event = { id = EDM.17 days = 50 } 
+		}
+	}
+}
+
+character_event = { #It's finished!
+    id = EDM.17
+	picture = GFX_evt_monk
+	desc = EVTDESC_EDM_17
+	is_triggered_only = yes
+	
+	option = { #Wait 50 days before publishing
+		name = EVTOPTA_EDM_17
+		prestige = 150
+		change_learning = 2
+	}
+}
+
+############################################
+
+character_event = { #Lost Roman Centurion
+	id = EDM.20
+	picture = GFX_evt_winter_rider
+	desc = EVTDESC_EDM_20
+	
+	trigger = {
+		capital_scope = {
+			OR = {
+				region = custom_wre
+				region = world_germania
+			}
+		}
+		is_landed = yes
+		NOT = { year = 479 }
+		e_western_roman_empire = { has_holder = yes }
+		NOT = {
+			e_western_roman_empire = {
+				holder_scope = {
+					is_liege_or_above_of = ROOT
+				}
+			}
+		}
+		NOR = {
+			war_with = e_western_roman_empire
+			e_western_roman_empire = {
+				holder_scope = {
+					any_tributary = {
+						war_with = ROOT
+					}
+				}
+			}
+		}
+		NOT = {
+			e_western_roman_empire = {
+				holder = ROOT
+			}
+		}
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+	}
+	
+	option = { #Help him get back to Rome
+		name = EVTOPTA_EDM_20
+		scaled_wealth = -0.08
+		prestige = 5
+		e_western_roman_empire = {
+			holder_scope = {
+				opinion = {
+					modifier = opinion_glad
+					who = ROOT
+					years = 10
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				trait = kind
+			}
+		}
+	}
+	option = { #Get him on our court
+		name = EVTOPTB_EDM_20
+		trigger = {
+			NOT = { trait = paranoid }
+		}
+		create_character = {
+			random_traits = yes
+			dynasty = actually_culture
+			religion = catholic
+			culture = roman
+			female = no
+			age = 40
+    
+			attributes = {
+				martial = 10
+			}
+
+			add_trait = skilled_tactician
+			add_trait = loyal
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_glad
+				who = ROOT
+				years = 20
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 5
+				trait = gregarious
+			}
+		}
+	}
+	option = { #Someone else has to help
+		name = EVTOPTC_EDM_20
+		prestige = -5	
+		ai_chance = {
+			factor = 0.8
+		}		
+	}
+	option = { #Kill this unwanted guest
+		name = EVTOPTD_EDM_20
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				culture = romanobritish
+			}
+			NOT = {
+				e_western_roman_empire = {
+					holder_scope = {
+						is_allied_with = ROOT
+					}
+				}
+			}
+		}
+		piety = -20
+		scaled_wealth = 0.08
+		e_western_roman_empire = {
+			holder_scope = {
+				opinion = {
+					modifier = attempted_murder_of_vassal
+					who = ROOT
+					years = 25
+				}
+			}
+		}
+		ai_chance = {
+			factor = 0.5
+			modifier = {
+				factor = 5
+				trait = paranoid
+			}
+			modifier = {
+				factor = 5
+				trait = cruel
+			}
+		}
+	}
+}	
+
+character_event = { #Find Roman Eagle standards
+	id = EDM.21
+	picture = GFX_evt_SPQR
+	desc = EVTDESC_EDM_21
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		capital_scope = {
+			OR = {
+				region = custom_wre
+				region = world_germania
+			}
+		}
+		is_landed = yes
+		NOT = { year = 479 }
+		e_western_roman_empire = { has_holder = yes }
+		NOT = {
+			e_western_roman_empire = {
+				holder_scope = {
+					is_liege_or_above_of = ROOT
+				}
+			}
+		}
+		NOR = {
+			war_with = e_western_roman_empire
+			e_western_roman_empire = {
+				holder_scope = {
+					any_tributary = {
+						war_with = ROOT
+					}
+				}
+			}
+		}
+		NOT = {
+			e_western_roman_empire = {
+				holder = ROOT
+			}
+		}
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+	}
+	
+	option = { #Send them Back to Rome
+		name = EVTOPTA_EDM_21
+		scaled_wealth = -0.08
+		prestige = 15
+		e_western_roman_empire = {
+			holder_scope = {
+				opinion = {
+					modifier = opinion_glad
+					who = ROOT
+					years = 15
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				OR = {
+					trait = charitable
+					trait = kind
+				}
+			}
+		}
+	}
+	option = { #Keep them
+		name = EVTOPTB_EDM_21
+		scaled_wealth = 0.5
+		prestige = 5
+		e_western_roman_empire = {
+			holder_scope = {
+				opinion = {
+					modifier = opinion_unhappy
+					who = ROOT
+					years = 20
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+			}
+			random_list = {
+				35 = {
+					add_trait = greedy
+				}
+				65 = {}
+			}
+		}
+		ai_chance = {
+			factor = 0.8
+			modifier = {
+				factor = 10
+				trait = greedy
+			}
+		}
+	}
+}
+
+
+
+character_event = { #A great horse
+	id = EDM.24
+	picture = GFX_evt_winter_rider
+	desc = EVTDESC_EDM_24
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		is_landed = yes
+		NOT = { 
+			has_character_modifier = nomad_warhorse
+		}
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+		modifier = {
+			factor = 3
+			trait = slothful
+		}
+	}
+	
+	option = { #A good deal.
+		name = EVTOPTA_EDM_24
+		prestige = 10
+		scaled_wealth = -0.5
+		add_character_modifier = {
+			name = nomad_warhorse
+			months = 120
+		}		
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 0.5
+				trait = slothful
+			}
+			modifier = {
+				factor = 3
+				trait = diligent
+			}
+		}
+	}
+	
+	option = { #A bad deal
+		name = EVTOPTB_EDM_24
+		prestige = -5
+		ai_chance = {
+			factor = 1	
+			modifier = {
+				factor = 3
+				trait = greedy
+			}
+		}
+	}
+}
+
+character_event = { #Bewildered man speaks of weird fog
+	id = EDM.25
+	picture = GFX_evt_dark_valley
+	desc = EVTDESC_EDM_25
+	
+	trigger = {
+		is_landed = yes
+    }
+	
+	mean_time_to_happen = {
+		years = 45
+	}
+	
+	option = { #Stop him
+		name = EVTOPTA_EDM_25
+		trigger = {
+			NOT = {
+				trait = lunatic
+			}
+		}
+		random_list = {
+			50 = {
+				custom_tooltip = {
+					text = "EVT_EDM_25_TT1"
+				}
+				capital_scope = { 
+					add_province_modifier = {
+						name = peasant_unrest
+						months = 20
+					}
+				}
+			}
+			50 = {
+				custom_tooltip = {
+					text = "EVT_EDM_25_TT2"
+				}
+				capital_scope = { 
+					add_province_modifier = {
+						name = peasant_unrest
+						months = 40
+					}
+				}
+			}	
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	option = { #Maybe he does have a point
+		name = EVTOPTB_EDM_25
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			NOT = {
+				trait = lunatic
+			}
+		}
+		capital_scope = { 
+			add_province_modifier = {
+				name = peasant_unrest
+				months = 30
+			}
+		}
+	}
+	
+	option = { #Agreed
+		name = EVTOPTC_EDM_25
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			trait = lunatic
+		}
+		tooltip_info = lunatic
+		
+		capital_scope = { 
+			add_province_modifier = {
+				name = peasant_unrest
+				months = 50
+			}
+		}
+	}
+}	
+	
+character_event = { #Deceitful influence
+	id = EDM.26
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_26
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		is_landed = yes
+		trait = deceitful
+		intrigue > 15
+		any_courtier = {
+			NOR = {
+				trait = deceitful
+				trait = honest
+			}
+			prisoner = no
+		}
+    }
+	
+	mean_time_to_happen = {
+		years = 18
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_26
+		prestige = 10
+		random_courtier = {
+			limit = {
+				NOR = {
+					trait = deceitful
+					trait = honest
+				}
+				prisoner = no
+			}
+			add_trait = deceitful
+		}
+	}
+}
+
+character_event = { #Gain diligent/prestige/slothful
+	id = EDM.27
+	picture = GFX_evt_oak_forest
+	desc = EVTDESC_EDM_27
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+			trait = slothful
+			trait = diligent
+		}
+		is_landed = yes
+		religion_group = pagan_group
+    }
+	
+	mean_time_to_happen = {
+		years = 25
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_27
+		prestige = 25
+		random_list = {
+			75 = {
+				add_trait = diligent
+			}
+			25 = { }
+		}
+		random_list = {
+			50 = {
+				prestige = 25
+			}
+			50 = {
+				prestige = -10 #Didn't win
+			}
+		}
+		random_list = {
+			50 = {
+				add_trait = stressed
+			}
+			50 = {
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB_EDM_27
+		prestige = -10
+		random_list = {
+			50 = {	
+				add_trait = slothful
+			}
+			50 = {
+			}
+		}
+	}
+}
+
+character_event = { #A foreign trade party
+	id = EDM.28
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_28
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		is_landed = yes
+    }
+	
+	mean_time_to_happen = {
+		years = 40
+		modifier = {
+			factor = 0.5
+			stewardship > 10
+		}
+		modifier = {
+			factor = 0.5
+			diplomacy > 10
+		}
+	}
+	
+	option = { #Take the trade
+		name = EVTOPTA_EDM_28
+		scaled_wealth = -0.5
+		custom_tooltip = {
+			text = "EVT_EDM_28_TT1"
+			random_list = {
+				25 = {
+					character_event = { id = EDM.29 days = 3 } #Worthless
+				}
+				25 = {
+					character_event = { id = EDM.30 days = 3 } #Worthful
+				}
+				25 = {
+					character_event = { id = EDM.31 days = 3 } #Slightly less worthless
+				}
+				25 = {
+					character_event = { id = EDM.32 days = 3 } #Gives a bit of prestige
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = brave
+			}
+		}
+	}
+	
+	option = { #Refuse to trade
+		name = EVTOPTB_EDM_28
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 4
+				trait = craven
+			}
+		}
+	}
+}
+
+character_event = { #A foreign trade party
+	id = EDM.29
+	picture = GFX_evt_bad_news
+	desc = EVTDESC_EDM_29
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTA_EDM_29
+		scaled_wealth = 0.15
+	}
+}
+
+character_event = { #A foreign trade party
+	id = EDM.30
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_30
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTA_EDM_30
+		scaled_wealth = 0.85
+	}
+}
+
+character_event = { #A foreign trade party
+	id = EDM.31
+	picture = GFX_evt_bad_news
+	desc = EVTDESC_EDM_29
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTA_EDM_29
+		scaled_wealth = 0.3
+	}
+}
+
+character_event = { #A foreign trade party
+	id = EDM.32
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_32
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTA_EDM_30
+		scaled_wealth = 0.3
+		prestige = 100
+	}
+}
+
+character_event = { #Lose diplomacy from wroth
+	id = EDM.33
+	picture = GFX_evt_dark_priests
+	desc = EVTDESC_EDM_33
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+			trait = gregarious
+		}
+		trait = wroth
+		is_landed = yes
+    }
+	
+	mean_time_to_happen = {
+		years = 50
+		modifier = {
+			factor = 0.9
+			trait = paranoid
+		}
+		modifier = {
+			factor = 0.9
+			trait = deceitful
+		}
+		modifier = {
+			factor = 1.5
+			trait = honest
+		}
+		modifier = {
+			factor = 0.7
+			diplomacy < 6
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_33
+		prestige = -5
+		add_character_modifier = {
+			name = foolish_behavior
+			months = 72
+		}
+		random_list = {
+			60 = {
+				change_diplomacy = -1
+			}
+			40 = {
+				change_diplomacy = -2
+			}
+		}
+	}
+}
+
+character_event = { #Honesty
+	id = EDM.34
+	picture = GFX_evt_bad_news
+	desc = EVTDESC_EDM_34
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		has_character_modifier = too_honest
+		trait = honest
+		is_landed = yes
+    }
+	
+	mean_time_to_happen = {
+		years = 40
+		modifier = {
+			factor = 0.5
+			has_character_modifier = too_honest
+		}
+		modifier = {
+			factor = 0.7
+			diplomacy < 6
+		}
+	}
+	
+	option = { #They should just be able to handle the truth
+		name = EVTOPTA_EDM_34
+		if = {
+			limit = {
+				NOT = { 
+					has_character_modifier = too_honest	
+				}
+			}
+			add_character_modifier = {
+				name = too_honest	
+				months = 36
+			}
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 10
+				trait = cruel
+			}
+		}
+	}	
+	option = { #The cynical option
+		name = EVTOPTB_EDM_34
+		trigger = {
+			NOT = { trait = zealous }
+		}
+		if = {
+			limit = {
+				NOT = { 
+					has_character_modifier = too_honest	
+				}
+			}
+			add_character_modifier = {
+				name = too_honest	
+				months = 36
+			}
+		}
+		if = {
+			limit = {
+				NOT = { 
+					trait = cynical
+				}
+			}
+			add_trait = cynical
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				trait = cynical
+			}
+			modifier = {
+				factor = 10
+				trait = proud
+			}
+		}
+	}
+	option = { #Maybe I should change
+		name = EVTOPTC_EDM_34
+		random_list = {
+			30 = {
+				remove_trait = honest
+			}
+			30 = {
+				add_trait = stressed
+			}
+			40 = {
+			}
+		}
+		ai_chance = {
+			factor = 0.5
+		}
+	}
+}
+
+character_event = { #Local landowner wants to join court
+	id = EDM.35
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_35
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		is_landed = yes
+    }
+	
+	mean_time_to_happen = {
+		years = 40
+		modifier = {
+			factor = 0.7
+			stewardship > 12
+		}
+	}
+	
+	option = { #Welcome
+		name = EVTOPTA_EDM_35
+		
+		create_character = {
+			random_traits = yes
+			dynasty = actually_culture
+			religion = ROOT
+			culture = ROOT
+			female = no
+			age = 35
+    
+			attributes = {
+				martial = 10
+			}
+		}
+		new_character = {
+			opinion = {
+				modifier = opinion_glad
+				who = ROOT
+				years = 10
+			}
+			treasury = 20
+		}
+		
+		ai_chance = {
+			factor = 2
+		}
+	}
+	
+	option = { #Nope
+		name = EVTOPTB_EDM_35
+		random_list = {
+			10 = {
+				add_trait = shy
+			}
+			90 = {
+			}
+		}
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 10
+				trait = paranoid
+			}
+		}
+	}
+}
+
+character_event = { #Find Roman Eagle standards (after WRE falls for Imperial and Romano-British characters)
+	id = EDM.22
+	picture = GFX_evt_SPQR
+	desc = EVTDESC_EDM_22
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		OR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+		capital_scope = {
+			OR = {
+				region = custom_wre
+				region = world_germania
+			}
+		}
+		is_landed = yes
+		year = 499 #delayed by 2 decades to fit description better
+		NOT = { year = 550 }
+		e_western_roman_empire = { has_holder = no }
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+	}
+	
+	option = { #Melt them into coins
+		name = EVTOPTA_EDM_22
+		scaled_wealth = 0.5
+		prestige = -5
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+				trait = greedy
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = greedy }
+			}
+			random_list = {
+				50 = {
+					add_trait = greedy
+				}
+				50 = {}
+			}
+		}
+	}
+	
+	option = { #Keep our heritage safe
+		name = EVTOPTB_EDM_22
+		scaled_wealth = -0.08
+		prestige = 15
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+				trait = greedy
+			}
+		}
+	}
+}
+
+character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperial and Non-Romano-British characters, zealous pagans (not Hellenic))
+	id = EDM.23
+	picture = GFX_evt_SPQR
+	desc = EVTDESC_EDM_23
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		trait = zealous
+		religion_group = pagan_group
+		NOT = { religion = hellenic_pagan }
+		NOR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+		capital_scope = {
+			OR = {
+				region = custom_wre
+				region = world_germania
+			}
+		}
+		is_landed = yes
+		year = 479
+		NOT = { year = 550 }
+		e_western_roman_empire = { has_holder = no }
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+	}
+	
+	option = { #Destroy these vile signs of oppression
+		name = EVTOPTA_EDM_23
+		prestige = 15
+		ai_chance = {
+			factor = 2.5
+		}
+	}
+	
+	option = { #Sell them to some Roman merchant.
+		name = EVTOPTB_EDM_23
+		scaled_wealth = 0.5
+		ai_chance = {
+			factor = 0.75
+			modifier = {
+				factor = 10
+				trait = greedy
+			}
+			modifier = {
+				factor = 10
+				wealth < 0 
+			}
+		}
+	}
+}
+
+character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperial and Non-Romano-British characters, who are not zealous pagans except for hellenic pagans)
+	id = EDM.36
+	picture = GFX_evt_SPQR
+	desc = EVTDESC_EDM_36
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		NOR = {
+			culture_group = imperiale
+			culture = romanobritish
+		}
+		OR = {
+			NOT = { trait = zealous }
+			NOT = { religion_group = pagan_group }
+			religion = hellenic_pagan
+		}
+		capital_scope = {
+			OR = {
+				region = custom_wre
+				region = world_germania
+			}
+		}
+		is_landed = yes
+		year = 479
+		NOT = { year = 550 }
+		e_western_roman_empire = { has_holder = no }
+    }
+	
+	mean_time_to_happen = {
+		years = 30
+	}
+	
+	option = { #Keep them for status
+		name = EVTOPTA_EDM_36
+		prestige = 15
+		ai_chance = {
+			factor = 2.5
+		}
+	}
+	
+	option = { #Sell them to some Roman merchant.
+		name = EVTOPTB_EDM_36
+		scaled_wealth = 0.5
+		ai_chance = {
+			factor = 0.75
+			modifier = {
+				factor = 10
+				trait = greedy
+			}
+			modifier = {
+				factor = 10
+				wealth < 0 
+			}
+		}
+	}
+}
