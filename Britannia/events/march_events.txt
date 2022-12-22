@@ -34,13 +34,13 @@ narrative_event = {
 								AND = {
 									tier = DUKE
 									capital_scope = {
-										region = custom_breton_march
+										in_armorica_march_region_trigger = yes
 									}
 								}
 								AND = {
 									tier = COUNT
 									location = {
-										region = custom_breton_march
+										in_armorica_march_region_trigger = yes
 									}
 								}
 							}
@@ -165,13 +165,13 @@ narrative_event = {
 								AND = {
 									tier = DUKE
 									capital_scope = {
-										region = custom_vasconia_gaul
+										in_vasconia_march_region_trigger = yes
 									}
 								}
 								AND = {
 									tier = COUNT
 									location = {
-										region = custom_vasconia_gaul
+										in_vasconia_march_region_trigger = yes
 									}
 								}
 							}
@@ -328,13 +328,13 @@ narrative_event = {
 								AND = {
 									tier = DUKE
 									capital_scope = {
-										region = world_britannia_cymry_wales
+										in_wales_march_region_trigger = yes
 									}
 								}
 								AND = {
 									tier = COUNT
 									location = {
-										region = world_britannia_cymry_wales
+										in_wales_march_region_trigger = yes
 									}
 								}
 							}
@@ -466,13 +466,13 @@ narrative_event = {
 								AND = {
 									tier = DUKE
 									capital_scope = {
-										region = world_caledonia
+										in_caledonia_march_region_trigger = yes
 									}
 								}
 								AND = {
 									tier = COUNT
 									location = {
-										region = world_caledonia
+										in_caledonia_march_region_trigger = yes
 									}
 								}
 							}
@@ -613,13 +613,13 @@ narrative_event = {
 								AND = {
 									tier = DUKE
 									capital_scope = {
-										region = world_caledonia
+										in_caledonia_march_region_trigger = yes
 									}
 								}
 								AND = {
 									tier = COUNT
 									location = {
-										region = world_caledonia
+										in_caledonia_march_region_trigger = yes
 									}
 								}
 							}
@@ -2039,6 +2039,8 @@ character_event = {
 		is_tribal = no
 		higher_tier_than = DUKE
 		independent = yes
+		NOT = { is_tributary = { type = march } }
+		in_revolt = no
 		OR = {
 			AND = {
 				NOR = {
@@ -2054,6 +2056,10 @@ character_event = {
 				OR = {
 					k_breton_march = { has_holder = no }
 					has_landed_title = k_breton_march
+				}
+				any_realm_province = {
+					count = 10
+					in_armorica_march_region_trigger = no
 				}
 			}
 			AND = {
@@ -2071,6 +2077,10 @@ character_event = {
 					k_vasconia = { has_holder = no }
 					has_landed_title = k_vasconia
 				}
+				any_realm_province = {
+					count = 10
+					in_vasconia_march_region_trigger = no
+				}
 			}
 			AND = {
 				NOR = {
@@ -2086,6 +2096,10 @@ character_event = {
 				OR = {
 					k_wales = { has_holder = no }
 					has_landed_title = k_wales
+				}
+				any_realm_province = {
+					count = 10
+					in_wales_march_region_trigger = no
 				}
 			}
 			AND = {
@@ -2113,6 +2127,10 @@ character_event = {
 						has_landed_title = k_romancaledonia
 					}
 				}
+				any_realm_province = {
+					count = 10
+					in_caledonia_march_region_trigger = no
+				}
 			}
 		}
 	}
@@ -2135,6 +2153,10 @@ character_event = {
 					k_breton_march = { has_holder = no }
 					has_landed_title = k_breton_march
 				}
+				any_realm_province = {
+					count = 10
+					in_armorica_march_region_trigger = no
+				}
 			}
 			any_vassal = {
 				limit = {
@@ -2145,9 +2167,9 @@ character_event = {
 					}
 					any_realm_province = {
 						#OR = {
-							region = custom_breton_march
+							in_armorica_march_region_trigger = yes
 							#any_neighbor_province = {
-								#region = custom_breton_march
+								#in_armorica_march_region_trigger = yes
 							#}
 						#}
 					}
@@ -2178,16 +2200,20 @@ character_event = {
 					k_vasconia = { has_holder = no }
 					has_landed_title = k_vasconia
 				}
+				any_realm_province = {
+					count = 10
+					in_vasconia_march_region_trigger = no
+				}
 			}
 			any_vassal = {
 				limit = {
 					higher_tier_than = BARON
 					NOR = {
 						culture_group = imperiale
-						culture_group = celtic
+						culture_group = basque
 					}
 					any_realm_province = {
-						region = custom_vasconia_gaul
+						in_vasconia_march_region_trigger = yes
 					}
 				}
 				score_value = {
@@ -2216,6 +2242,10 @@ character_event = {
 					k_wales = { has_holder = no }
 					has_landed_title = k_wales
 				}
+				any_realm_province = {
+					count = 10
+					in_wales_march_region_trigger = no
+				}
 			}
 			any_vassal = {
 				limit = {
@@ -2225,7 +2255,7 @@ character_event = {
 						culture_group = celtic
 					}
 					any_realm_province = {
-						region = world_britannia_cymry_wales
+						in_wales_march_region_trigger = yes
 					}
 				}
 				score_value = {
@@ -2264,6 +2294,10 @@ character_event = {
 						has_landed_title = k_romancaledonia
 					}
 				}
+				any_realm_province = {
+					count = 10
+					in_caledonia_march_region_trigger = no
+				}
 			}
 			any_vassal = {
 				limit = {
@@ -2272,7 +2306,7 @@ character_event = {
 						culture_group = celtic
 					}
 					any_realm_province = {
-						region = world_caledonia
+						in_caledonia_march_region_trigger = yes
 					}
 				}
 				score_value = {

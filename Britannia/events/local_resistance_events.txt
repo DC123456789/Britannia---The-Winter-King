@@ -368,6 +368,7 @@ character_event = {
 			owner = { save_event_target_as = province_owner }
 			if = {
 				limit = {
+					# Pacification progress is paused if any holding in province is occupied, unless it's an internal war
 					NOT = {
 						any_province_holding = {
 							is_occupied = yes
@@ -379,6 +380,9 @@ character_event = {
 							}
 						}
 					}
+					
+					# Pacification progress is also paused during major revolts
+					has_active_major_revolt_trigger = no
 				}
 				subtract_variable = {
 					which = pacification_years_remaining
@@ -878,9 +882,11 @@ character_event = {
 	immediate = {
 		any_war = {
 			limit = { war_score >= 25 }
-			thirdparty_title_scope = { 
+			defender = { save_event_target_as = revolt_defender }
+			thirdparty_title_scope = {
+				save_event_target_as = revolt_target
 				random_direct_de_jure_vassal_title = {
-					limit = { owner = { top_liege = { character = defender } } }
+					limit = { owner = { top_liege = { character = event_target:revolt_defender } } }
 					save_event_target_as = current_resistance_region_province 
 				}
 			}
@@ -888,8 +894,6 @@ character_event = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
 			}
 			if = {
-				# TODO Check that there aren't any major revolts already ongoing in the region
-				# (in the is_major_revolt_possible_for_war_trigger trigger)
 				limit = { is_major_revolt_possible_for_war_trigger = yes }
 				ROOT = { primary_title = { set_title_flag = major_revolt_warning } }
 				# We notify the defender...
@@ -986,11 +990,104 @@ character_event = {
 	}
 }
 
-# 320722 - Notification event
-# TODO Localisation
+# Warning event that Major Revolt is near
 character_event = {
 	id = 320722
-	desc = EVTDESC320702
+	desc = {
+		text = EVTDESC320722_defender
+		trigger = {
+			any_war = {
+				attacker = { character = FROM }
+				defender = { character = ROOT }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320722_defender_vassal_or_march
+		trigger = {
+			top_liege = {
+				OR = {
+					any_war = {
+						attacker = { character = FROM }
+						defender = { character = PREV }
+					}
+					any_tributary = {
+						any_war = {
+							attacker = { character = FROM }
+							defender = { character = PREV }
+						}
+					}
+					AND = {
+						is_tributary = { type = march }
+						OR = {
+							any_war = {
+								attacker = { character = FROM }
+								defender = { character = PREV }
+							}
+							any_tributary = {
+								NOT = { character = ROOT }
+								any_war = {
+									attacker = { character = FROM }
+									defender = { character = PREV }
+								}
+							}
+						}
+					}
+				}
+			}
+			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
+		}
+	}
+	desc = {
+		text = EVTDESC320722_suzerain
+		trigger = {
+			any_tributary = {
+				any_war = {
+					attacker = { character = FROM }
+					defender = { character = PREV }
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320722_defender_vassal_or_march
+		trigger = {
+			is_tributary = { type = march }
+			suzerain = {
+				OR = {
+					any_war = {
+						attacker = { character = FROM }
+						defender = { character = PREV }
+					}
+					any_tributary = {
+						NOT = { character = ROOT }
+						any_war = {
+							attacker = { character = FROM }
+							defender = { character = PREV }
+						}
+					}
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320722_potential_rebel
+		trigger = {
+			NOR = {				
+				any_war = {
+					attacker = { character = FROM }
+					defender = { character = ROOT }
+				}
+				any_tributary = {
+					any_war = {
+						attacker = { character = FROM }
+						defender = { character = PREV }
+					}
+				}
+			}
+			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+		}
+	}
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_war
 	
@@ -998,13 +1095,87 @@ character_event = {
 	
 	trigger = {
 		ai = no
+		NOT = { has_global_flag = disabled_major_revolt_warnings }
 	}
 	
-	option = {
-		name = "EVTOPTA320702"
-		custom_tooltip = {
-			text = EVTOPTA320702TT
+	immediate = {
+		if = {
+			limit = { is_tributary = yes }
+			suzerain = { save_event_target_as = current_suzerain }
 		}
+	}
+	
+	option = {		# Defender
+		name = "EVTOPTA320722"
+		trigger = {
+			any_war = {
+				attacker = { character = FROM }
+				defender = { character = ROOT }
+			}	
+		}
+		custom_tooltip = {
+			text = EVTOPTA320722TTA
+		}
+	}
+	
+	option = {		# Vassal, not same culture as revolt
+		name = "EVTOPTB320722"
+		trigger = {
+			independent = no
+			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
+		}
+		custom_tooltip = {
+			text = EVTOPTA320722TTA
+		}
+	}
+	
+	option = {		# Suzerain
+		name = "EVTOPTC320722"
+		trigger = {
+			NOT = {
+				any_war = {
+					attacker = { character = FROM }
+					defender = { character = ROOT }
+				}
+			}
+			any_tributary = {
+				any_war = {
+					attacker = { character = FROM }
+					defender = { character = PREV }
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320722TTA
+		}
+	}
+	
+	option = {		# Vassal/Tributary, same culture as revolt
+		name = "EVTOPTD320722"
+		trigger = {
+			OR = {				
+				independent = no
+				is_tributary = yes
+			}
+			NOT = {
+				any_war = {
+					attacker = { character = FROM }
+					defender = { character = ROOT }
+				}
+			}
+			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+		}
+		custom_tooltip = {
+			text = EVTOPTA320722TTD
+		}
+	}
+	
+	option = {		# Dismiss warnings
+		name = "EVTOPTE320722"
+		custom_tooltip = {
+			text = EVTOPTA320722TTE
+		}
+		set_global_flag = disabled_major_revolt_warnings
 	}
 }
 
@@ -1044,14 +1215,17 @@ character_event = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
 			}
 			if = {
-				# TODO Check that there aren't any major revolts already ongoing in the region
+				# Check that there aren't any major revolts already ongoing in the region
 				limit = { is_major_revolt_possible_for_war_trigger = yes }
+				
 				# Flag that the region officially has a major revolt breaking out
+				event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
+				
 				# Try to have the closest 66% of unpacified duchies (and at least 2) revolt immediately
 				# All unpacified provinces in the region belonging to the overlord or one of their tributaries will get a modifier giving large revolt risk increases and marking them as part of the revolt
-				# Pacification progress is stopped while a major revolt is ongoing (need to do this in the effect)
 				# Other unpacified provinces in the region not held by the overlord or one of their marches will get a smaller revolt risk increase and a small rebellion
 				# If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
+				# Notify everyone involved
 			}
 		}
 	}
@@ -1100,6 +1274,7 @@ character_event = {
 #	- Like normal Local Resistance rebellions, if they get to a certain warscore threshold (25%?) a Major Revolt will break out
 #	- In addition to rebellions in the remaining provinces, they will also go event troops scaling based on the number of provinces that joined the revolt
 
+# TODO OBSOLETE, DELETE
 # # Revolt triggered (not by player)
 # province_event = {
 	# id = 320720

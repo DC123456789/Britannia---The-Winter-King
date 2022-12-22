@@ -98,6 +98,7 @@ set_proper_local_resistance_level_effect = {
 	}
 }
 
+# TODO OBSOLETE, SHOULD DELETE
 # Adds to the global_nat_revolt_progress_increase variable
 calculate_province_nat_revolt_progress_increase_effect = {
 	# Base value
@@ -198,6 +199,7 @@ calculate_province_nat_revolt_progress_increase_effect = {
 	}
 }
 
+# TODO OBSOLETE, SHOULD DELETE
 # Should only be used on top lieges, assumes that the event target current_resistance_region_province 
 # Arguments:
 # - current_resistance_region_province			event_target, a province in the region to check the nationalist revolt size of
@@ -327,6 +329,7 @@ update_nationalist_revolt_size = {
 	}
 }
 
+# TODO OBSOLETE, SHOULD DELETE
 # Called from province scope
 clear_nationalist_revolt_progress_from_realm_region_effect = {
 	save_event_target_as = current_resistance_region_province
@@ -450,6 +453,29 @@ calc_num_of_local_resistance_provinces_in_region_effect = {
 	}
 }
 
+# Province scope
+# Sets that there is now a major revolt active in the province's major revolt region
+set_major_revolt_active_effect = {
+	if = {
+		limit = { in_wales_local_resistance_region_trigger = yes }
+		set_global_flag = major_revolt_ongoing_wales
+	}
+	else_if = {
+		limit = { in_caledonia_local_resistance_region_trigger = yes }
+		set_global_flag = major_revolt_ongoing_caledonia
+	}
+	else_if = {
+		limit = { in_armorica_local_resistance_region_trigger = yes }
+		set_global_flag = major_revolt_ongoing_armorica
+	}
+	else_if = {
+		limit = { in_vasconia_local_resistance_region_trigger = yes }
+		set_global_flag = major_revolt_ongoing_vasconia
+	}
+}
+
+# Character scope - should be the revolt leader
+# ROOT is the province that the revolt spawned from
 adjust_revolt_army_size_effect = {
 	set_variable = {
 		which = global_troop_change
@@ -623,6 +649,16 @@ adjust_revolt_army_size_effect = {
 			value = 0.1
 		}
 	}
+	
+	# If there's a major revolt ongoing, get another boost
+	if = {
+		limit = { ROOT = { has_active_major_revolt_trigger = yes } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.2
+		}
+	}
+	
 	
 	# Cultural affinity of other provinces
 	ROOT = { 
@@ -1018,7 +1054,7 @@ transfer_marches_to_new_holder_claim_effect = {
 
 vassalize_duchy_for_correct_march_of_ROOT_w_opinion_effect_and_save = {
 	if = {
-		limit = { capital_scope = { region = custom_breton_march } }
+		limit = { capital_scope = { in_armorica_march_region_trigger = yes } }
 		ROOT = {
 			show_scope_change = no
 			any_tributary = {
@@ -1042,7 +1078,7 @@ vassalize_duchy_for_correct_march_of_ROOT_w_opinion_effect_and_save = {
 		}
 	}
 	else_if = {
-		limit = { capital_scope = { region = custom_vasconia_gaul } }
+		limit = { capital_scope = { in_vasconia_march_region_trigger = yes } }
 		ROOT = {
 			show_scope_change = no
 			any_tributary = {
@@ -1066,7 +1102,7 @@ vassalize_duchy_for_correct_march_of_ROOT_w_opinion_effect_and_save = {
 		}
 	}
 	else_if = {
-		limit = { capital_scope = { region = world_britannia_cymry_wales } }
+		limit = { capital_scope = { in_wales_march_region_trigger = yes } }
 		ROOT = {
 			show_scope_change = no
 			any_tributary = {
@@ -1090,7 +1126,7 @@ vassalize_duchy_for_correct_march_of_ROOT_w_opinion_effect_and_save = {
 		}
 	}
 	else_if = {
-		limit = { capital_scope = { region = world_caledonia } }
+		limit = { capital_scope = { in_caledonia_march_region_trigger = yes } }
 		ROOT = {
 			show_scope_change = no
 			random_tributary = {
