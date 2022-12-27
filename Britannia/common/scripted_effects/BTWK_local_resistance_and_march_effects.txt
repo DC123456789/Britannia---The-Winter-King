@@ -650,12 +650,19 @@ adjust_revolt_army_size_effect = {
 		}
 	}
 	
-	# If there's a major revolt ongoing, get another boost
+	# If there's a major revolt ongoing, get another boost (some of this compensates for the major revolt modifier)
 	if = {
-		limit = { ROOT = { has_active_major_revolt_trigger = yes } }
+		limit = { ROOT = { has_province_modifier = ongoing_major_revolt } }
 		change_variable = {
 			which = global_troop_change
-			value = 0.2
+			value = 0.30
+		}
+	}
+	else_if = {
+		limit = { ROOT = { has_province_modifier = ongoing_major_revolt_minor } }
+		change_variable = {
+			which = global_troop_change
+			value = 0.15
 		}
 	}
 	

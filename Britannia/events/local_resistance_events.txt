@@ -7,6 +7,7 @@
 #########################################################
 
 # Assign local resistance modifier
+# TODO Block cultural conversion for provinces with local resistance
 province_event = {
 	id = 320700
 	hide_window = yes
@@ -893,7 +894,25 @@ character_event = {
 			event_target:current_resistance_region_province = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
 			}
+			# Check to see if the rebellion's duchy still has any provinces with local resistance
 			if = {
+				limit = { 
+					NOT = {
+						thirdparty_title_scope = {
+							any_direct_de_jure_vassal_title = {
+								location = {
+									has_local_resistance_modifier_trigger = yes
+									local_resistance_potential_trigger = yes
+								}
+							}
+						}
+					}
+				}
+				# If it doesn't, then this rebellion is no longer eligible to trigger major revolts
+				ROOT = { primary_title = { clr_title_flag = local_resistance_revolt } }
+			}
+			# Otherwise, check to see if a major revolt can be started
+			else_if = {
 				limit = { is_major_revolt_possible_for_war_trigger = yes }
 				ROOT = { primary_title = { set_title_flag = major_revolt_warning } }
 				# We notify the defender...
@@ -985,8 +1004,16 @@ character_event = {
 						character_event = { id = 320722 }
 					}
 				}
+				
+				# Start the checks to see if the Major Revolt can actually already trigger
+				ROOT = { primary_title = { save_event_target_as = revolt_title } }
+				event_target:current_resistance_region_province = {
+					location = {
+						province_event = { id = 320723 days = 2 }
+					}
+				}
 			}
-		}		
+		}
 	}
 }
 
@@ -1114,7 +1141,7 @@ character_event = {
 			}	
 		}
 		custom_tooltip = {
-			text = EVTOPTA320722TTA
+			text = EVTOPTA320722TT
 		}
 	}
 	
@@ -1125,7 +1152,7 @@ character_event = {
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
 		}
 		custom_tooltip = {
-			text = EVTOPTA320722TTA
+			text = EVTOPTB320722TT
 		}
 	}
 	
@@ -1146,7 +1173,7 @@ character_event = {
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTA320722TTA
+			text = EVTOPTA320722TT
 		}
 	}
 	
@@ -1166,31 +1193,62 @@ character_event = {
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 		}
 		custom_tooltip = {
-			text = EVTOPTA320722TTD
+			text = EVTOPTD320722TT
 		}
 	}
 	
 	option = {		# Dismiss warnings
 		name = "EVTOPTE320722"
 		custom_tooltip = {
-			text = EVTOPTA320722TTE
+			text = EVTOPTE320722TT
 		}
 		set_global_flag = disabled_major_revolt_warnings
 	}
 }
 
-# 320723 - Local Resistance revolt reaches 40-50%(?) warscore, Major Revolt breaks out with nearby duchies revolting and large revolt risk increases across the region
-# TODO Also want to do a fallback check for if a local resistance revolt wins without triggering this event
-character_event = {
+# Check for event 320724 every few days
+# We do this via a repeating event instead of MTTH because otherwise the warning and revolt could fire a the same time due to flag-checking weirdness
+# TODO Could use repeat_event, honestly
+province_event = {
 	id = 320723
-	hide_window = yes
+	# hide_window = yes
 	
+	is_triggered_only = yes
+	
+	trigger = {
+		event_target:revolt_title = {
+			has_holder = yes
+			has_title_flag = local_resistance_revolt
+		}
+		has_active_major_revolt_trigger = no
+	}
+	
+	immediate = {
+		event_target:revolt_title = {
+			holder_scope = { character_event = { id = 320724 } }
+		}
+		
+		# Keep re-checking until either the rebellion dies, there is no more local resistance, or a major revolt breaks out
+		province_event = { id = 320723 days = 3 }
+	}
+	
+	option = {
+		name = "EVTOPTE320723"
+	}
+}
+
+# Local Resistance revolt reaches 40-50%(?) warscore, trigger Major Revolt
+character_event = {
+	id = 320724
+	hide_window = yes	
 	only_rulers = yes
+	
+	is_triggered_only = yes
 	
 	trigger = {
 		primary_title = { 
 			has_title_flag = local_resistance_revolt
-			NOT = { has_title_flag = major_revolt_warning }
+			has_title_flag = major_revolt_warning		# Always want to make sure the warning fired first
 		}
 		war = yes
 		any_war = {
@@ -1198,47 +1256,174 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	immediate = {
 		any_war = {
 			limit = { war_score >= 50 }
+			defender = { save_event_target_as = revolt_defender }
 			thirdparty_title_scope = { 
 				random_direct_de_jure_vassal_title = {
-					limit = { owner = { top_liege = { character = defender } } }
+					limit = { owner = { top_liege = { character = event_target:revolt_defender } } }
 					save_event_target_as = current_resistance_region_province 
 				}
 			}
 			event_target:current_resistance_region_province = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
 			}
+			
+			# Check to see if the rebellion's duchy still has any provinces with local resistance
 			if = {
-				# Check that there aren't any major revolts already ongoing in the region
+				limit = { 
+					NOT = {
+						thirdparty_title_scope = {
+							any_direct_de_jure_vassal_title = {
+								location = {
+									has_local_resistance_modifier_trigger = yes
+									local_resistance_potential_trigger = yes
+								}
+							}
+						}
+					}
+				}
+				# If it doesn't, then this rebellion is no longer eligible to trigger major revolts
+				ROOT = { primary_title = { clr_title_flag = local_resistance_revolt } }
+			}
+			# Otherwise, check to see if a major revolt can be started
+			else_if = {
 				limit = { is_major_revolt_possible_for_war_trigger = yes }
-				
-				# Flag that the region officially has a major revolt breaking out
-				event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
-				
-				# Try to have the closest 66% of unpacified duchies (and at least 2) revolt immediately
-				# All unpacified provinces in the region belonging to the overlord or one of their tributaries will get a modifier giving large revolt risk increases and marking them as part of the revolt
-				# Other unpacified provinces in the region not held by the overlord or one of their marches will get a smaller revolt risk increase and a small rebellion
-				# If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
-				# Notify everyone involved
+				ROOT = { character_event = { id = 320725 } }
 			}
 		}
 	}
 }
+				
+# Major Revolt breaks out with nearby duchies revolting and large revolt risk increases across the region	
+# ROOT is the leader of the rebellion that triggered the Major Revolt
+# The current_resistance_region_province event target is the focus of the revolt (normally the province where the revolt started from)
+# TODO Also want to do a fallback check for if a local resistance revolt wins without triggering this event
+character_event = {
+	id = 320725
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {		
+		# Flag that the region officially has a major revolt breaking out
+		event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
+		
+		any_province = {
+			limit = { 
+				is_in_current_resistance_region_province = yes
+				has_local_resistance_modifier_trigger = yes
+			}
+			# All unpacified provinces in the region belonging to the overlord or one of their tributaries will get a modifier giving large revolt risk increases and marking them as part of the revolt
+			if = {
+				limit = {
+					top_liege = {
+						OR = {
+							character = event_target:revolt_defender
+							any_tributary = {
+								is_tributary = { type = march }
+								character = event_target:revolt_defender
+							}
+							AND = {
+								is_tributary = { type = march }
+								suzerain = {
+									OR = {
+										character = event_target:revolt_defender
+										any_tributary = {
+											is_tributary = { type = march }
+											character = event_target:revolt_defender
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				add_province_modifier = { 
+					name = ongoing_major_revolt
+					duration = -1
+				}
+			}
+			# Other unpacified provinces in the region not held by the overlord or one of their marches will get a smaller revolt risk increase
+			# If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
+			else = {
+				add_province_modifier = { 
+					name = ongoing_major_revolt_minor
+					duration = -1
+				}						
+			}
+		}
+		
+		# Try to have the closest 66% of unpacified duchies (and at least 2) revolt immediately
+		
+		# Notify everyone relevant and ask potential rebels if they want to revolt
+		any_playable_ruler = {
+			limit = {
+				top_liege = {
+					OR = {
+						any_realm_province = {
+							is_in_current_resistance_region_province = yes
+						}
+						any_tributary = {
+							is_tributary = { type = march }
+							any_realm_province = {
+								is_in_current_resistance_region_province = yes
+							}
+						}
+						AND = {
+							is_tributary = { type = march }
+							suzerain = {
+								OR = {						
+									any_tributary = {
+										is_tributary = { type = march }
+										any_realm_province = {
+											is_in_current_resistance_region_province = yes
+										}
+									}
+									any_realm_province = {
+										is_in_current_resistance_region_province = yes
+									}
+								}
+							}
+						}
+					}
+				}
+				any_realm_province = {
+					any_neighbor_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+			}
+			character_event = { id = 320726 }
+		}
+	}
+}
 
-# 320724 - Notify major revolt
+# Notify everyone involved and give choices for compatible-culture vassals/tributaries to join the rebellion
+# We can't make this a major event because it doesn't interact well with event targets in localisation
+narrative_event = {
+	id = 320726
+	title = EVTNAME320726
+	desc = EVTDESC320726
+	picture = GFX_evt_peasants
+	
+	is_triggered_only = yes
+	
+	# - For Vassal/Tributaries that are a compatible culture of the revolt (and not under another vassal who is also compatible),
+	# 	offer a chance to immediately revolt
+	# 	- If they decide to rebel, then their provinces are switch over to a different positive modifier instead
+	# - For nearby independent lords of correct culture, ask to join Major Revolt as ally (for AI - humans will get targeted decisions to choose which one to join instead?)
+	option = {
+		name = "EVTOPTA320726"
+		# TODO Tooltips
+	}
+}
 
-# 320725 - Ask nearby lords of correct culture to join Major Revolt (for AI - humans will get targeted decisions instead)
-#	- For tributaries in the region of the right culture, will instead be asked if they want to revolt
 
-# 320726 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
+# 320727 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
 
-# 320727 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
+# 320728 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
 
 # In the rebellion cb
 # - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
@@ -1255,12 +1440,12 @@ character_event = {
 #		- If feudal, all their tributaries in the revolt region will become vassals
 #		- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
 #	- The rebellion leader has targeted decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 320728 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
-# 320729 - Notification/request event to rebellion leader to become tributary
-# 320730 - Event offering kingship to the rebellion leader
+# 320729 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
+# 320730 - Notification/request event to rebellion leader to become tributary
+# 320731 - Event offering kingship to the rebellion leader
 
 # - If the Major Revolt rebellion ends in overlord victory, small increase in pacification progress across region
-# 320731 - Notification event to rebellion leader that revolt was defeated
+# 320732 - Notification event to rebellion leader that revolt was defeated
 
 # 320735 - Notification event that major event is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
 #	- Triggers only when all rebellions in the region are over
