@@ -360,6 +360,108 @@ has_local_resistance_modifier_trigger = {
 	}
 }
 
+is_defending_against_potential_major_revolt_from_FROM = {
+	OR = {
+		any_war = {
+			attacker = { character = FROM }
+			defender = { character = PREV }
+		}
+		AND = {
+			is_tributary = { type = march }
+			suzerain = {
+				OR = {
+					any_war = {
+						attacker = { character = FROM }
+						defender = { character = PREV }
+					}
+					any_tributary = {
+						is_tributary = { type = march }
+						any_war = {
+							attacker = { character = FROM }
+							defender = { character = PREV }
+						}
+					}
+				}
+			}
+		}
+		any_tributary = {
+			is_tributary = { type = march }
+			any_war = {
+				attacker = { character = FROM }
+				defender = { character = PREV }
+			}
+		}
+	}
+}
+
+is_defending_against_potential_major_revolt_from_ROOT = {
+	OR = {
+		any_war = {
+			attacker = { character = ROOT }
+			defender = { character = PREV }
+		}
+		AND = {
+			is_tributary = { type = march }
+			suzerain = {
+				OR = {
+					any_war = {
+						attacker = { character = ROOT }
+						defender = { character = PREV }
+					}
+					any_tributary = {
+						is_tributary = { type = march }
+						any_war = {
+							attacker = { character = ROOT }
+							defender = { character = PREV }
+						}
+					}
+				}
+			}
+		}
+		any_tributary = {
+			is_tributary = { type = march }
+			any_war = {
+				attacker = { character = ROOT }
+				defender = { character = PREV }
+			}
+		}
+	}
+}
+
+has_local_resistance_provs_in_potential_major_revolt_from_FROM = {
+	OR = {
+		any_realm_province = {
+			is_in_current_resistance_region_province = yes
+			has_local_resistance_modifier_trigger = yes
+		}
+		AND = {
+			is_tributary = { type = march }
+			suzerain = {
+				OR = {
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					any_tributary = {
+						is_tributary = { type = march }
+						any_realm_province = {
+							is_in_current_resistance_region_province = yes
+							has_local_resistance_modifier_trigger = yes
+						}
+					}
+				}
+			}
+		}
+		any_tributary = {
+			is_tributary = { type = march }
+			any_realm_province = {
+				is_in_current_resistance_region_province = yes
+				has_local_resistance_modifier_trigger = yes
+			}
+		}
+	}
+}
+
 # TODO OBSOLETE, DELETE
 is_province_liege_not_defending_against_nat_revolt_trigger = {
 	owner = {
