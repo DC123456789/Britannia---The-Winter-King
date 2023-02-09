@@ -1503,3 +1503,113 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperia
 		}
 	}
 }
+
+character_event = { #Gain multilingual from experience as chancellor/spymaster
+	id = EDM.37
+	desc = {
+		trigger = {
+			has_job_title = job_chancellor
+		}
+		text = EVTDESC_EDM_37
+	}
+	desc = {
+		trigger = {
+			has_job_title = job_spymaster
+		}
+		text = EVTDES2_EDM_37
+	}
+	picture = GFX_evt_monk
+	border = GFX_event_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	trigger = {
+		NOR = {
+			trait = incapable
+			trait = infirm
+		}
+		OR = {
+			has_job_title = job_spymaster
+			has_job_title = job_chancellor
+		}
+		NOT = {
+			has_character_modifier = multilingual
+		}
+    }
+	
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 0.5
+			trait  = slothful
+		}
+		modifier = {
+			factor = 2
+			trait = gregarious
+		}
+		modifier = {
+			factor = 0.5
+			trait  = shy
+		}
+		modifier = {
+			factor = 4
+			trait = genius
+		}
+		modifier = {
+			factor = 2
+			trait = quick
+		}
+		modifier = {
+			factor = 1.5
+			trait = shrewd
+		}
+		modifier = {
+			factor = 0.75
+			trait = dull
+		}
+		modifier = {
+			factor = 0.5
+			trait = slow
+		}
+		modifier = {
+			factor = 0.25
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.75
+			diplomacy < 8
+		}
+		modifier = {
+			factor = 1.5
+			diplomacy > 15
+		}
+		modifier = {
+			factor = 1.5
+			diplomacy > 20
+		}
+		modifier = {
+			factor = 0.75
+			intrigue < 8
+		}
+		modifier = {
+			factor = 1.5
+			intrigue > 15
+		}
+		modifier = {
+			factor = 1.5
+			intrigue > 20
+		}
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_37
+		prestige = 20
+		add_character_modifier = {
+			name = multilingual
+			duration = -1
+		}
+	}
+}
