@@ -1613,3 +1613,97 @@ character_event = { #Gain multilingual from experience as chancellor/spymaster
 		}
 	}
 }
+
+#Rinderpest 
+
+province_event = { #Gain rinderpest
+	id = EDM.38
+	desc = EVTDESC_EDM_38
+	picture = GFX_evt_plague_doctor
+	
+	trigger = {
+		NOT = {
+			has_province_modifier = recently_had_rinderpest
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 500
+	}
+	
+	immediate = {
+		province_event = { id = EDM.39 months = 36 }
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_38
+		prestige = -5
+		random_list = {
+			80 = {
+				add_province_modifier = {
+					name = rinderpest_heavy
+					months = 36
+				}
+			}
+			20 = {
+				add_province_modifier = {
+					name = rinderpest_normal
+					months = 36
+				}
+			}
+		}
+			
+	}
+	option = {
+		name = EVTOPTB_EDM_38
+		holder_scope = {
+			scaled_wealth = -0.25
+		}
+		random_list = {
+			40 = {
+				add_province_modifier = {
+					name = rinderpest_heavy
+					months = 36
+				}
+			}
+			60 = {
+				add_province_modifier = {
+					name = rinderpest_normal
+					months = 36
+				}
+			}
+		}
+	}
+}
+
+province_event = { #Recovering from rinderpest
+	id = EDM.39
+	desc = EVTDESC_EDM_39
+	picture = GFX_evt_plague_doctor
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_39
+		if = {
+			limit = {
+				has_province_modifier = rinderpest_normal
+			}
+			remove_province_modifier = rinderpest_normal
+		}
+		if = {
+			limit = {
+				has_province_modifier = rinderpest_heavy
+			}
+			remove_province_modifier = rinderpest_heavy
+		}
+		add_province_modifier = {
+			name = rinderpest_recovering
+			months = 36
+		}	
+		add_province_modifier = {
+			name = recently_had_rinderpest
+			months = 240
+			hidden = yes
+		}
+	}
+}
