@@ -4,7 +4,6 @@ character_event = { #Find weird looking powder in forest
     id = EDM.1
 	is_triggered_only = yes
 	picture = GFX_evt_bandits
-	desc = EVTDESC_EDM_1
 	desc = {
 		trigger = {
 			OR = {
@@ -32,6 +31,7 @@ character_event = { #Find weird looking powder in forest
 		has_character_flag = built_laboratory
 		NOT = { trait = infirm }
 		NOT = { trait = incapable }
+		NOT = { has_character_modifier = in_seclusion }
     }
 	weight_multiplier = {
 		days = 1
@@ -488,6 +488,7 @@ character_event = { #Lost Roman Centurion
 	desc = EVTDESC_EDM_20
 	is_triggered_only = yes
 	trigger = {
+		NOT = { has_character_modifier = in_seclusion }
 		capital_scope = {
 			OR = {
 				region = custom_wre
@@ -638,6 +639,7 @@ character_event = { #Find Roman Eagle standards
 			trait = incapable
 			trait = infirm
 		}
+		NOT = { has_character_modifier = in_seclusion }
 		capital_scope = {
 			OR = {
 				region = custom_wre
@@ -745,6 +747,7 @@ character_event = { #A great horse
 			trait = incapable
 			trait = infirm
 		}
+		NOT = { has_character_modifier = in_seclusion }
 		is_landed = yes
 		NOT = { 
 			has_character_modifier = nomad_warhorse
@@ -935,6 +938,7 @@ character_event = { #Gain diligent/prestige/slothful
 		}
 		is_landed = yes
 		religion_group = pagan_group
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -990,6 +994,7 @@ character_event = { #A foreign trade party
 			trait = infirm
 		}
 		is_landed = yes
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -1260,6 +1265,7 @@ character_event = { #Local landowner wants to join court
 			trait = infirm
 		}
 		is_landed = yes
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -1309,7 +1315,7 @@ character_event = { #Local landowner wants to join court
 			}
 		}
 		ai_chance = {
-			factor = 2
+			factor = 1
 			modifier = {
 				factor = 10
 				trait = paranoid
@@ -1342,6 +1348,7 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Imperial an
 		year = 499 #delayed by 2 decades to fit description better
 		NOT = { year = 550 }
 		e_western_roman_empire = { has_holder = no }
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -1413,6 +1420,7 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperia
 		year = 479
 		NOT = { year = 550 }
 		e_western_roman_empire = { has_holder = no }
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -1473,6 +1481,7 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperia
 		year = 479
 		NOT = { year = 550 }
 		e_western_roman_empire = { has_holder = no }
+		NOT = { has_character_modifier = in_seclusion }
     }
 	
 	weight_multiplier = {
@@ -1622,8 +1631,10 @@ province_event = { #Gain rinderpest
 	picture = GFX_evt_plague_doctor
 	
 	trigger = {
-		NOT = {
+		NOR = {
 			has_province_modifier = recently_had_rinderpest
+			has_province_modifier = rinderpest_heavy
+			has_province_modifier = rinderpest_normal
 		}
 	}
 	
@@ -1704,6 +1715,107 @@ province_event = { #Recovering from rinderpest
 			name = recently_had_rinderpest
 			months = 240
 			hidden = yes
+		}
+	}
+}
+
+character_event = { #Either a loyal, or a disloyal person wants to come to your court
+	id = EDM.40
+	picture = GFX_evt_royal_court
+	desc = EVTDESC_EDM_40
+	is_triggered_only = yes
+	trigger = {
+		is_landed = yes
+		NOT = { has_character_modifier = in_seclusion }
+    }
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	option = { #Welcome
+		name = EVTOPTA_EDM_40
+		
+		random_list =	{
+			50 = {
+				custom_tooltip = {
+					text = "EVT_EDM_40_TT1"
+					create_character = {
+						random_traits = yes
+						dynasty = actually_culture
+						religion = ROOT
+						culture = ROOT
+						female = no
+						age = 30
+    
+						attributes = {
+							learning = 12
+							diplomacy = 10
+						}		
+					}
+					new_character = {
+						opinion = {
+							modifier = opinion_glad
+							who = ROOT
+							years = 50
+						}
+						treasury = 5
+						add_trait = shrewd
+						add_trait = loyal
+						add_trait = scholar
+					}
+				}
+			}
+			50 = {
+				custom_tooltip = {
+					text = "EVT_EDM_40_TT2"
+					create_character = {
+						random_traits = yes
+						dynasty = actually_culture
+						religion = ROOT
+						culture = ROOT
+						female = no
+						age = 30
+    
+						attributes = {
+							intrigue = 12
+							martial = 8
+						}		
+					}
+					new_character = {
+						add_rival = ROOT
+						add_trait = unloyal
+						add_trait = cruel
+						add_trait = schemer
+						treasury = 5
+					}
+				}
+			}
+		}	
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 10
+				trait = trusting
+			}
+			modifier = {
+				factor = 2
+				trait = gregarious
+			}
+		}
+	}
+	option = { #Could be dangerous
+		name = EVTOPTB_EDM_40
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 10
+				trait = paranoid
+			}
+			modifier = {
+				factor = 2
+				trait = shy
+			}
 		}
 	}
 }
