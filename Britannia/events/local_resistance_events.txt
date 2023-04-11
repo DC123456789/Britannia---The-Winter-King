@@ -1037,6 +1037,16 @@ character_event = {
 		# Flag that the region officially has a major revolt breaking out
 		event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
 		
+		# Mark the main revolt defender
+		# This is either the defender against the initial revolt, or their suzerain if the defender was a march
+		if = {
+			limit = { event_target:revolt_defender = { is_tributary = { type = march } } }
+			event_target:revolt_defender = { suzerain = { save_event_target_as = main_revolt_defender } }
+		}
+		else = {
+			event_target:revolt_defender = { save_event_target_as = main_revolt_defender }
+		}
+		
 		# All unpacified provinces in the region belonging to the overlord or one of their tributaries 
 		# will get a modifier giving large revolt risk increases and marking them as part of the revolt
 		any_province = {
@@ -1046,23 +1056,13 @@ character_event = {
 			}
 			if = {
 				limit = {
-					top_liege = {
-						OR = {
-							character = event_target:revolt_defender
-							any_tributary = {
-								is_tributary = { type = march }
-								character = event_target:revolt_defender
-							}
-							AND = {
-								is_tributary = { type = march }
-								suzerain = {
-									OR = {
-										character = event_target:revolt_defender
-										any_tributary = {
-											is_tributary = { type = march }
-											character = event_target:revolt_defender
-										}
-									}
+					owner = {
+						top_liege = {
+							OR = {
+								character = event_target:main_revolt_defender
+								AND = {
+									is_tributary = { type = march }
+									suzerain = { character = event_target:main_revolt_defender }
 								}
 							}
 						}
@@ -1075,7 +1075,27 @@ character_event = {
 			}
 			# Other unpacified provinces in the region not held by the overlord or one of their marches will get a smaller revolt risk increase
 			# If that rebellion gains momentum then the revolt will spread in full to the other realm's provinces
-			else = {
+			# Note that this modifier shouldn't be applied to provinces of vassals in revolt 
+			# (they'll get the sympathetic modifier in the next event)
+			else_if = {
+				limit = {
+					NOT = {
+						owner = {
+							top_liege = {
+								in_revolt = yes
+								liege_before_war = {
+									OR = {
+										character = event_target:main_revolt_defender
+										AND = {
+											is_tributary = { type = march }
+											suzerain = { character = event_target:main_revolt_defender }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 				add_province_modifier = { 
 					name = ongoing_major_revolt_minor
 					duration = -1
@@ -1083,43 +1103,145 @@ character_event = {
 			}
 		}
 		
-		# Flag anyone currently rebelling as a major revolt rebel
-		if = {
-			limit = { event_target:revolt_defender = { is_tributary = { type = march } } }
-			event_target:revolt_defender = { suzerain = { save_event_target_as = main_revolt_defender } }
+		# Notify everyone relevant and ask potential rebels if they want to revolt
+		any_playable_ruler = {
+			limit = {
+				OR = {
+					# Top liege or one their marches has unpacified provinces in the region
+					# (or the top liege is a march whose suzerain as unpacified provinces in the region)
+					top_liege = {
+						OR = {
+							any_realm_province = {
+								is_in_current_resistance_region_province = yes
+							}
+							any_tributary = {
+								is_tributary = { type = march }
+								any_realm_province = {
+									is_in_current_resistance_region_province = yes
+								}
+							}
+							AND = {
+								is_tributary = { type = march }
+								suzerain = {
+									OR = {						
+										any_tributary = {
+											is_tributary = { type = march }
+											any_realm_province = {
+												is_in_current_resistance_region_province = yes
+											}
+										}
+										any_realm_province = {
+											is_in_current_resistance_region_province = yes
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			# Vassals and tributaries (or vassals of marches) of the main_revolt_defender that are
+			# a similar culture to the revolter, in the revolt region, and are already in revolt 
+			# get notifications and free event troops
+			# This event also flags them as participants in the major revolt
+			if = {
+				limit = {					
+					OR = {
+						AND = {
+							is_tributary = yes
+							NOT = { is_tributary = { type = march } }
+							suzerain = { is_defending_against_potential_major_revolt_from_ROOT = yes }
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							any_realm_province = { is_in_current_resistance_region_province = yes }
+							any_war = {
+								using_cb = free_tributary_cb
+								attacker = { character = PREVPREV }
+								defender = { any_tributary = { character = PREVPREVPREV } }
+							}
+						}
+						AND = {
+							in_revolt = yes
+							top_liege = { 
+								liege_before_war = { is_defending_against_potential_major_revolt_from_ROOT = yes } 
+								any_war = { 
+									attacker = { character = PREVPREV }
+									OR = {
+										using_cb = bid_for_independence
+										using_cb = cb_faction_independence
+									}
+								}
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								any_realm_province = { is_in_current_resistance_region_province = yes }
+							}
+						}
+					}
+				}
+				character_event = { id = 320728 }
+			}
+			# Other Vassals and tributaries (or vassals of marches) of the main_revolt_defender that are
+			# a similar culture to the revolter are asked if they want to join the rebellion
+			else_if = {
+				limit = {
+					any_realm_province = { is_in_current_resistance_region_province = yes }
+					is_local_resistance_similar_culture_to_ROOT_trigger = yes
+					NOT = { is_tributary = { type = march } }
+					OR = {
+						top_liege = { is_defending_against_potential_major_revolt_from_ROOT = yes }
+						AND = {
+							is_tributary = yes
+							suzerain = { is_defending_against_potential_major_revolt_from_ROOT = yes }
+						}
+					}
+				}
+				character_event = { id = 320727 }
+			}
+			# Non-similar culture vassals (and marches and vassals of marches) of the main_revolt_defender,
+			# as well as the main defender him/herself, are notified
+			else_if = {
+				limit = {
+					top_liege = { is_defending_against_potential_major_revolt_from_FROM = yes }
+				}
+				character_event = { id = 320726 }
+			}
+			# Other lords in the region get a notification, and possibly notes about their options
+			else = {
+				character_event = { id = 320729 }
+			}
 		}
-		else = {
-			event_target:revolt_defender = { save_event_target_as = main_revolt_defender }
-		}
+		
+		
+		# Also notify leaders of province revolts against the current target of the Major Revolt 
+		# (main_revolt_defender) and their marches and give them extra event troops
 		event_target:main_revolt_defender = {
 			any_war = {
 				limit = {
-					defender = { character = PREV }
+					using_cb = cultural_revolt
+					attacker = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+					defender = { character = PREVPREV }
+					thirdparty_title_scope = {
+						capital_scope = { is_in_current_resistance_region_province = yes }
+					}
 				}
-				if = {
+				attacker = { character_event = { id = 320728 } }			
+			}
+			any_tributary = {
+				limit = { is_tributary = { type = march } }
+				any_war = {
 					limit = {
 						using_cb = cultural_revolt
 						attacker = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+						defender = { character = PREVPREV }
 						thirdparty_title_scope = {
 							capital_scope = { is_in_current_resistance_region_province = yes }
 						}
 					}
-					attacker = { primary_title = { set_title_flag = major_revolt_rebel_title } }
-				}
-				else_if = {
-					limit = {
-						OR = {
-							using_cb = free_tributary_cb
-							using_cb = bid_for_independence
-						}
-						attacker = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-						any_realm_province = { is_in_current_resistance_region_province = yes }
-					}
-					attacker = { set_character_flag = major_revolt_rebel }
+					attacker = { character_event = { id = 320728 } }			
 				}
 			}
 		}
 		
+		# Trigger cultural rebels across the region - this is done after the notifications so that 
+		# they don't get extra event troops from event 320728
 		# Calculate how many unpacified duchies there are under the major revolt target
 		set_variable = {
 			which = num_unpacified_duchies
@@ -1261,54 +1383,11 @@ character_event = {
 				value = 1
 			}
 		}
-		
-		# Notify everyone relevant and ask potential rebels if they want to revolt
-		# TODO Also notify people who are already revolting and give them some extra event troops
-		# (+ the ongoing_major_revolt_sympathetic modifier if they're landed)
-		any_playable_ruler = {
-			limit = {
-				top_liege = {
-					OR = {
-						any_realm_province = {
-							is_in_current_resistance_region_province = yes
-						}
-						any_tributary = {
-							is_tributary = { type = march }
-							any_realm_province = {
-								is_in_current_resistance_region_province = yes
-							}
-						}
-						AND = {
-							is_tributary = { type = march }
-							suzerain = {
-								OR = {						
-									any_tributary = {
-										is_tributary = { type = march }
-										any_realm_province = {
-											is_in_current_resistance_region_province = yes
-										}
-									}
-									any_realm_province = {
-										is_in_current_resistance_region_province = yes
-									}
-								}
-							}
-						}
-					}
-				}
-				# any_realm_province = {
-					# any_neighbor_province = {
-						# is_in_current_resistance_region_province = yes
-					# }
-				# }
-			}
-			character_event = { id = 320726 }
-		}
 	}
 }
 
-# Notify everyone involved and give choices for compatible-culture vassals/tributaries to join the rebellion
-# We can't make this a major event because it doesn't interact well with event targets in localisation
+# Notify the main defender and any of their vassals/marches/march vassals that are not a similar culture
+# to the revolt
 narrative_event = {
 	id = 320726
 	title = EVTNAME320726
@@ -1317,43 +1396,23 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
-	# Revolt defenders
 	option = {
 		name = "EVTOPTA320726"
-		trigger = {
-			top_liege = { is_defending_against_potential_major_revolt_from_FROM = yes }
-		}
-		ai_chance = {
-			factor = 0
-			additive_modifier = {
-				factor = 100
-				OR = {
-					trait = loyal
-					trait = content
-					top_liege = {
-						is_allied_with = ROOT
-					}
-					top_liege = {
-						reverse_opinion = {
-							who = ROOT
-							value >= 70
-						}
-					}
-				}
-			}
-		}
 		custom_tooltip = {
 			text = EVTOPTA320726TT0
 		}
 		tooltip = {
-			random_realm_province = {
-				limit = { 
-					is_in_current_resistance_region_province = yes
-					has_local_resistance_modifier_trigger = yes
-				}
-				add_province_modifier = { 
-					name = ongoing_major_revolt
-					duration = -1
+			top_liege = {
+				show_scope_change = no
+				random_realm_province = {
+					limit = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					add_province_modifier = { 
+						name = ongoing_major_revolt
+						duration = -1
+					}
 				}
 			}
 		}
@@ -1361,14 +1420,23 @@ narrative_event = {
 			text = EVTOPTA320726TT1
 		}
 	}
+}
+
+# Notify any of the vassals/march vassals of the main defender that are a similar culture to the 
+# revolt, and offer them the opportunity to revolt immediately
+narrative_event = {
+	id = 320727
+	title = EVTNAME320726
+	desc = EVTDESC320726
+	picture = GFX_evt_burning_fire
 	
-	# Vassals of the defenders that may revolt
+	is_triggered_only = yes
+	
+	# Join the revolt! (vassal)
 	option = {
-		name = "EVTOPTB320726"
+		name = "EVTOPTA320727"
 		trigger = {
-			top_liege = { is_defending_against_potential_major_revolt_from_FROM = yes }
-			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-			any_realm_province = { is_in_current_resistance_region_province = yes }
+			independent = no 
 		}
 		ai_chance = {
 			factor = 100
@@ -1390,11 +1458,11 @@ narrative_event = {
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTB320726TT0
+			text = EVTOPTA320727TT0
 		}
 		# TODO Need to write handling end of revolt in the cb
 		set_character_flag = major_revolt_rebel
-		# Declare independence war and switch provinces over to ongoing_major_revolt_sympathetic modifier
+		# Declare independence war
 		if = {
 			limit = { liege = { independent = no } }
 			hidden_tooltip = { top_liege = { set_defacto_vassal = ROOT } }
@@ -1409,124 +1477,57 @@ narrative_event = {
 				}
 			}
 		}
-		tooltip = {
-			random_realm_province = {
-				limit = { 
+		
+		# Switch provinces over to ongoing_major_revolt_sympathetic modifier
+		if = {
+			limit = {
+				any_realm_province = {
 					is_in_current_resistance_region_province = yes
 					has_local_resistance_modifier_trigger = yes
 				}
-				add_province_modifier = { 
-					name = ongoing_major_revolt_sympathetic
-					duration = -1
-				}
 			}
-		}
-		hidden_tooltip = {
-			any_realm_province = {
-				limit = { 
-					is_in_current_resistance_region_province = yes
-					has_local_resistance_modifier_trigger = yes
-				}
-				remove_province_modifier = ongoing_major_revolt
-				add_province_modifier = { 
-					name = ongoing_major_revolt_sympathetic
-					duration = -1
-				}
-				county = {
-					any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
-				}
-			}
-		}
-		custom_tooltip = {
-			text = EVTOPTB320726TT1
-		}
-	}
-	
-	# Tributaries of the defenders that may revolt
-	option = {
-		name = "EVTOPTB320726"
-		trigger = {
-			is_tributary = yes
-			NOT = { is_tributary = { type = march } }
-			suzerain = { is_defending_against_potential_major_revolt_from_FROM = yes }
-			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-			any_realm_province = { is_in_current_resistance_region_province = yes }
-		}
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0
-				OR = {
-					trait = loyal
-					trait = content
-					top_liege = {
-						is_allied_with = ROOT
+			tooltip = {
+				random_realm_province = {
+					limit = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
 					}
-					top_liege = {
-						reverse_opinion = {
-							who = ROOT
-							value >= 70
-						}
+					add_province_modifier = { 
+						name = ongoing_major_revolt_sympathetic
+						duration = -1
 					}
 				}
 			}
-		}
-		custom_tooltip = {
-			text = EVTOPTB320726TT0
-		}
-		# TODO Need to write handling end of revolt in the cb
-		set_character_flag = major_revolt_rebel
-		# Declare independence war and switch provinces over to ongoing_major_revolt_sympathetic modifier
-		suzerain = {
-			show_scope_change = no
-			ROOT = {
-				show_scope_change = no
-				unsafe_war = {
-					target = PREV
-					casus_belli = free_tributary_cb
+			hidden_tooltip = {
+				any_realm_province = {
+					limit = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					remove_province_modifier = ongoing_major_revolt
+					add_province_modifier = { 
+						name = ongoing_major_revolt_sympathetic
+						duration = -1
+					}
+					county = {
+						any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+					}
 				}
 			}
-		}
-		tooltip = {
-			random_realm_province = {
-				limit = { 
-					is_in_current_resistance_region_province = yes
-				}
-				add_province_modifier = { 
-					name = ongoing_major_revolt_sympathetic
-					duration = -1
-				}
-			}
-		}
-		hidden_tooltip = {
-			any_realm_province = {
-				limit = { 
-					is_in_current_resistance_region_province = yes
-				}
-				remove_province_modifier = ongoing_major_revolt
-				add_province_modifier = { 
-					name = ongoing_major_revolt_sympathetic
-					duration = -1
-				}
-				county = {
-					any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
-				}
+			custom_tooltip = {
+				text = EVTOPTA320727TT1
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTB320726TT1
+			text = EVTOPTA320727TT2
 		}
 	}
 	
-	# Tributaries of the defenders that may revolt (option to not get involved)
+	# Don't join (vassal)
 	option = {
-		name = "EVTOPTC320726"
+		name = "EVTOPTB320727"
 		trigger = {
-			is_tributary = yes
-			NOT = { is_tributary = { type = march } }
-			suzerain = { is_defending_against_potential_major_revolt_from_FROM = yes }
-			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-			any_realm_province = { is_in_current_resistance_region_province = yes }
+			independent = no 
 		}
 		ai_chance = {
 			factor = 0
@@ -1548,35 +1549,394 @@ narrative_event = {
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTC320726TT
+			text = EVTOPTB320727TT
+		}
+		tooltip = {
+			top_liege = {
+				show_scope_change = no
+				random_realm_province = {
+					limit = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					add_province_modifier = { 
+						name = ongoing_major_revolt
+						duration = -1
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320726TT1
 		}
 	}
 	
-	# Other independent rulers that may get involved in the revolt
+	# Join the revolt! (tributary)
 	option = {
-		name = "EVTOPTD320726"
+		name = "EVTOPTA320727"
 		trigger = {
 			independent = yes
-			is_defending_against_potential_major_revolt_from_FROM = no
-			OR = {
-				is_tributary = no
-				suzerain = { is_defending_against_potential_major_revolt_from_FROM = no }
+			is_tributary = yes
+		}
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					trait = loyal
+					trait = content
+					suzerain = {
+						reverse_opinion = {
+							who = ROOT
+							value >= 70
+						}
+					}
+				}
 			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320727TT0
+		}
+		# TODO Need to write handling end of revolt in the cb
+		set_character_flag = major_revolt_rebel
+		# Declare independence war and 
+		suzerain = {
+			show_scope_change = no
+			ROOT = {
+				show_scope_change = no
+				unsafe_war = {
+					target = PREV
+					casus_belli = free_tributary_cb
+				}
+			}
+		}
+		
+		# Switch provinces over to ongoing_major_revolt_sympathetic modifier
+		if = {
+			limit = {
+				any_realm_province = {
+					is_local_resistance_similar_culture_to_ROOT_trigger = yes
+					is_in_current_resistance_region_province = yes
+				}
+			}
+			tooltip = {
+				random_realm_province = {
+					limit = { 
+						is_local_resistance_similar_culture_to_ROOT_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+					add_province_modifier = { 
+						name = ongoing_major_revolt_sympathetic
+						duration = -1
+					}
+				}
+			}
+			hidden_tooltip = {
+				any_realm_province = {
+					limit = {
+						is_local_resistance_similar_culture_to_ROOT_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+					remove_province_modifier = ongoing_major_revolt
+					add_province_modifier = { 
+						name = ongoing_major_revolt_sympathetic
+						duration = -1
+					}
+					county = {
+						any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+					}
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTB320726TT1A
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320727TT2
+		}
+	}
+	
+	# Don't join (tributary)
+	option = {
+		name = "EVTOPTB320727"
+		trigger = {
+			independent = yes
+			is_tributary = yes
+		}
+		ai_chance = {
+			factor = 0
+			additive_modifier = {
+				factor = 100
+				OR = {
+					trait = loyal
+					trait = content
+					suzerain = {
+						reverse_opinion = {
+							who = ROOT
+							value >= 70
+						}
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTB320727TT
+		}
+	}
+}
+
+# Notify characters that are already in revolt (cultural revolts, or vassals/tributaries that are fighting
+# an independence war) and give them the same province modifiers as above (if applicable) as well as
+# event troops
+narrative_event = {
+	id = 320728
+	title = EVTNAME320726
+	desc = EVTDESC320726
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320727"
+		custom_tooltip = {
+			text = EVTOPTA320726TT0
+		}
+		# Is a province revolt
+		if = {
+			limit = { rebel = yes }
+			primary_title = { set_title_flag = major_revolt_rebel_title }
+			# Spawn event troops
+			any_war = {
+				limit = {
+					using_cb = cultural_revolt
+				}
+				defender = { save_event_target_as = current_revolt_defender }
+				thirdparty_title_scope = {
+					random_direct_de_jure_vassal_title = {
+						limit = {
+							holder_scope = { top_liege = { character = event_target:current_revolt_defender } }
+						}
+						location = {
+							create_character = {
+								random_traits = yes
+								dynasty = none
+								religion = THIS
+								culture = THIS
+								female = no
+								age = 25
+								trait = peasant_leader
+								trait = tough_soldier
+							}
+							new_character = {
+								spawn_unit = {
+									province = PREV
+									home = PREV
+									owner = ROOT
+									leader = THIS
+									scaled_by_biggest_garrison = 3
+									troops = {
+										archers = { 5 5 }
+										light_cavalry = { 4 4 }
+										light_infantry = { 7 7 }
+										heavy_infantry = { 4 4 }
+									}
+									attrition = 0.5
+								}
+							}
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTA320728TT1
+			}
+		}
+		# Is a rebelling vassal/tributary
+		else = {
+			if = {
+				limit = {
+					OR = {
+						# This will be true for tributaries
+						in_revolt = no
+						# This checks if the character is at the top level of the revolt (i.e. not a vassal of a faction leader)
+						top_liege = { character = ROOT }
+					}
+				}
+				set_character_flag = major_revolt_rebel
+				# Spawn some event troops, swap to ongoing_major_revolt_sympathetic modifier
+				hidden_tooltip = {
+					capital_scope = {
+						create_character = {
+							random_traits = yes
+							dynasty = none
+							religion = THIS
+							culture = THIS
+							female = no
+							age = 25
+							trait = peasant_leader
+							trait = tough_soldier
+						}
+						new_character = {
+							spawn_unit = {
+								province = PREV
+								home = PREV
+								owner = ROOT
+								leader = THIS
+								scaled_by_biggest_garrison = 2
+								troops = {
+									archers = { 5 5 }
+									light_cavalry = { 4 4 }
+									light_infantry = { 7 7 }
+									heavy_infantry = { 4 4 }
+								}
+								attrition = 0.5
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = EVTOPTA320728TT1
+				}
+			}
+			
+			# Switch provinces over to ongoing_major_revolt_sympathetic modifier - which provinces get
+			# it depend on whether or not the revolter is a vassal or tributary
+			if = {
+				limit = { independent = no }
+				if = {
+					limit = {
+						any_realm_province = {
+							is_in_current_resistance_region_province = yes
+							has_local_resistance_modifier_trigger = yes
+						}
+					}
+					tooltip = {
+						random_realm_province = {
+							limit = { 
+								is_in_current_resistance_region_province = yes
+								has_local_resistance_modifier_trigger = yes
+							}
+							add_province_modifier = { 
+								name = ongoing_major_revolt_sympathetic
+								duration = -1
+							}
+						}
+					}
+					if = {
+						# This checks if the character is at the top level of the revolt (i.e. not a vassal of a faction leader)
+						# It's here to make sure the modifier and levy refill don't happen multiple times
+						limit = { top_liege = { character = ROOT } }
+						hidden_tooltip = {
+							any_realm_province = {
+								limit = { 
+									is_in_current_resistance_region_province = yes
+									has_local_resistance_modifier_trigger = yes
+								}
+								remove_province_modifier = ongoing_major_revolt
+								add_province_modifier = { 
+									name = ongoing_major_revolt_sympathetic
+									duration = -1
+								}
+								county = {
+									any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+								}
+							}
+						}
+					}
+					custom_tooltip = {
+						text = EVTOPTA320727TT1
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						any_realm_province = {
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+					}
+					tooltip = {
+						random_realm_province = {
+							limit = { 
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								is_in_current_resistance_region_province = yes
+							}
+							add_province_modifier = { 
+								name = ongoing_major_revolt_sympathetic
+								duration = -1
+							}
+						}
+					}
+					hidden_tooltip = {
+						any_realm_province = {
+							limit = {
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								is_in_current_resistance_region_province = yes
+							}
+							remove_province_modifier = ongoing_major_revolt
+							add_province_modifier = { 
+								name = ongoing_major_revolt_sympathetic
+								duration = -1
+							}
+							county = {
+								any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+							}
+						}
+					}
+					custom_tooltip = {
+						text = EVTOPTB320726TT1A
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320727TT2
+		}
+	}
+}
+
+# Notify everyone involved and give choices for compatible-culture vassals/tributaries to join the rebellion
+# We can't make this a major event because it doesn't interact well with event targets in localisation
+narrative_event = {
+	id = 320729
+	title = EVTNAME320726
+	desc = EVTDESC320726
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	# Other independent rulers that may get involved in the revolt
+	option = {
+		name = "EVTOPTA320729"
+		trigger = {
+			independent = yes
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
 		custom_tooltip = {
-			text = EVTOPTD320726TT
+			text = EVTOPTA320729TT
 		}
 		# TODO Notify targeted decision OR for AI, chance of supporting rebels
 	}
 	
+	# Other native rulers that can't intervene (vassals, essentially)
+	option = {
+		name = "EVTOPTB320729"
+		trigger = {
+			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+			OR = {
+				independent = no
+				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
+			}
+		}
+	}
+	
 	# Other foreigners with unpacified provinces in revolt region
 	option = {
-		name = "EVTOPTE320726"
+		name = "EVTOPTC320729"
 		trigger = {
 			top_liege = {
-				is_defending_against_potential_major_revolt_from_FROM = no
 				has_local_resistance_provs_in_potential_major_revolt_from_FROM = yes
 			}
 		}
@@ -1593,48 +1953,30 @@ narrative_event = {
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTE320726TT
+			text = EVTOPTC320729TT
 		}
 	}
 	
 	# Other foreigners in revolt region without unpacified provinces
 	option = {
-		name = "EVTOPTF320726"
+		name = "EVTOPTD320729"
 		trigger = {
 			top_liege = {
-				is_defending_against_potential_major_revolt_from_FROM = no
 				has_local_resistance_provs_in_potential_major_revolt_from_FROM = no
-				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
-			}
-		}
-	}
-	
-	# Other native rulers that can't intervene (shouldn't ever happen, but...)
-	option = {
-		name = "EVTOPTG320726"
-		trigger = {
-			top_liege = {
-				is_defending_against_potential_major_revolt_from_FROM = no
-				has_local_resistance_provs_in_potential_major_revolt_from_FROM = no
-				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-				OR = {
-					independent = no
-					NOT = { any_realm_province = { is_in_current_resistance_region_province = yes } }
-				}
 			}
 		}
 	}
 }
 
-# 320727 - Assign the major_revolt_rebel flag to any correct-culture tributaries or vassals 
+# 320730 - Assign the major_revolt_rebel flag to any correct-culture tributaries or vassals 
 # that revolt within the region while it's revolting + give them the modifiers and extra troops
 
 ## TODO Events
-# 320728 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
+# 320731 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
 
-# 320729 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
+# 320732 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
 
-# 320730 - Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
+# 320733 - Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
 
 # In the rebellion cb
 # - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
@@ -1651,12 +1993,12 @@ narrative_event = {
 #		- If feudal, all their tributaries in the revolt region will become vassals
 #		- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
 #	- The rebellion leader has targeted decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 320731 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
-# 320732 - Notification/request event to rebellion leader to become tributary
-# 320733 - Event offering kingship to the rebellion leader
+# 320735 - Notification event to defender for reinforcements/further rebellions upon losing a rebellion war
+# 320736 - Notification/request event to rebellion leader to become tributary
+# 320737 - Event offering kingship to the rebellion leader
 
 # - If the Major Revolt rebellion ends in overlord victory, small increase in pacification progress across region
-# 320734 - Notification event to rebellion leader that revolt was defeated
+# 320739 - Notification event to rebellion leader that revolt was defeated
 
 # 320739 - Notification event that major rebellion is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
 #	- Triggers only when all rebellions in the region are over
