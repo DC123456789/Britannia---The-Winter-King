@@ -12457,6 +12457,16 @@ cultural_revolt = {
 	}
  
 	on_success = {
+		# Check to see if a major revolt should break out
+		ROOT = { 
+			set_character_flag = won_revolt
+			set_character_flag = already_won_war
+			character_event = { id = 320721 }		# A little late for a warning, but nothing we can do really
+			character_event = { id = 320724 }
+			clr_character_flag = won_revolt
+			# clr_character_flag = already_won_war	# Cleared in a later event
+		}
+		
 		ROOT = {
 			britannia_flag_proper_post_revolt_government_effect = yes
 			prestige = 200

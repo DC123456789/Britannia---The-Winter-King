@@ -618,8 +618,12 @@ character_event = {
 			NOT = { has_title_flag = major_revolt_warning }
 		}
 		war = yes
-		any_war = {
-			war_score >= 25
+		OR = {
+			any_war = {
+				attacker = { character = ROOT }
+				war_score >= 25
+			}
+			has_character_flag = won_revolt
 		}
 	}
 	
@@ -629,7 +633,13 @@ character_event = {
 	
 	immediate = {
 		any_war = {
-			limit = { war_score >= 25 }
+			limit = {
+				attacker = { character = ROOT }
+				OR = {
+					war_score >= 25 
+					ROOT = { has_character_flag = won_revolt }
+				}
+			}
 			defender = { save_event_target_as = revolt_defender }
 			thirdparty_title_scope = {
 				save_event_target_as = revolt_target
@@ -977,14 +987,28 @@ character_event = {
 			has_title_flag = major_revolt_warning		# Always want to make sure the warning fired first
 		}
 		war = yes
-		any_war = {
-			war_score >= 50
+		OR = {
+			any_war = {
+				attacker = { character = ROOT }
+				war_score >= 50
+			}
+			has_character_flag = won_revolt
 		}
 	}
 	
 	immediate = {
+		set_character_flag = got_event_320724
+		# Note: If any of the code here is changed, make sure that the corresponding code in the 
+		# on_success_title blocks of the cultural_revolt cb is also changed
 		any_war = {
-			limit = { war_score >= 50 }
+			limit = {
+				attacker = { character = ROOT }
+				OR = {
+					war_score >= 50 
+					# In case the defender surrenders early or something
+					ROOT = { has_character_flag = won_revolt }
+				}
+			}
 			defender = { save_event_target_as = revolt_defender }
 			thirdparty_title_scope = {
 				save_event_target_as = revolt_target
@@ -1175,6 +1199,7 @@ character_event = {
 							}
 						}
 					}
+					NOT = { has_character_flag = already_won_war }
 				}
 				character_event = { id = 320728 }
 			}
@@ -1222,7 +1247,20 @@ character_event = {
 						capital_scope = { is_in_current_resistance_region_province = yes }
 					}
 				}
-				attacker = { character_event = { id = 320728 } }			
+				attacker = { 
+					if = {
+						limit = { NOT = { has_character_flag = already_won_war } }
+						character_event = { id = 320728 }
+					}
+					# This basically only happens in the case where the major revolt is triggered by
+					# a rebellion winning instead of just being >= 50 warscore
+					# They're still at war when the event fires but it resolves immediately after,
+					# so they shouldn't get the war version of the event
+					else = {
+						clr_character_flag = already_won_war
+						character_event = { id = 320729 }
+					}
+				}			
 			}
 			any_tributary = {
 				limit = { is_tributary = { type = march } }
@@ -1235,7 +1273,14 @@ character_event = {
 							capital_scope = { is_in_current_resistance_region_province = yes }
 						}
 					}
-					attacker = { character_event = { id = 320728 } }			
+					if = {
+						limit = { NOT = { has_character_flag = already_won_war } }
+						character_event = { id = 320728 }
+					}
+					else = {
+						clr_character_flag = already_won_war
+						character_event = { id = 320729 }
+					}			
 				}
 			}
 		}
@@ -1885,7 +1930,7 @@ narrative_event = {
 						}
 					}
 					custom_tooltip = {
-						text = EVTOPTB320726TT1A
+						text = EVTOPTA320727TT1
 					}
 				}
 			}
@@ -1914,10 +1959,10 @@ narrative_event = {
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
+		# TODO Notify targeted decision OR for AI, chance of supporting rebels
 		custom_tooltip = {
 			text = EVTOPTA320729TT
 		}
-		# TODO Notify targeted decision OR for AI, chance of supporting rebels
 	}
 	
 	# Other native rulers that can't intervene (vassals, essentially)
@@ -1927,7 +1972,7 @@ narrative_event = {
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 			OR = {
 				independent = no
-				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = no }
+				NOT = { any_realm_province = { is_in_current_resistance_region_province = yes } }
 			}
 		}
 	}
@@ -1953,7 +1998,10 @@ narrative_event = {
 			}
 		}
 		custom_tooltip = {
-			text = EVTOPTC320729TT
+			text = EVTOPTC320729TTA
+		}
+		custom_tooltip = {
+			text = EVTOPTC320729TTB
 		}
 	}
 	
@@ -2000,14 +2048,15 @@ narrative_event = {
 # - If the Major Revolt rebellion ends in overlord victory, small increase in pacification progress across region
 # 320739 - Notification event to rebellion leader that revolt was defeated
 
-# 320739 - Notification event that major rebellion is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
+# 320740 - Notification event that major rebellion is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
 #	- Triggers only when all rebellions in the region are over
 
 ## TODO Decisions 
 
 # - Decision for local lord of Local Resistance region culture to stir up discontent in neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
-# 	- Takes 320740 - 320749
-# - Decision for local vassal of Local Resistance region culture to stir up discontent in their own provinces, which after ~2 years will spawn an event army and attempt to declare war for independence
-#	- Can attempt to call other local lords into war
+# 	- Takes 320750 - 320759
+# - Decision for local vassal/tributary of Local Resistance region culture to stir up discontent in their own provinces, which after ~2 years will spawn an event army and attempt to declare war for independence
+#	- Chance depending on intrigue that the liege finds out - can then demand they stop + reparations, if refused leads to early war (without event troops), if lost you have to abdicate
+#	- Can attempt to call other local lords into war (?)
 #	- Like normal Local Resistance rebellions, if they get to a certain warscore threshold (25%?) a Major Revolt will break out
 #	- In addition to rebellions in the remaining provinces, they will also go event troops scaling based on the number of provinces that joined the revolt
