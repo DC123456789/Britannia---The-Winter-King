@@ -563,9 +563,6 @@ character_event = { #Lost Roman Centurion
 			attributes = {
 				martial = 10
 			}
-
-			add_trait = skilled_tactician
-			add_trait = loyal
 		}
 		new_character = {
 			opinion = {
@@ -573,6 +570,8 @@ character_event = { #Lost Roman Centurion
 				who = ROOT
 				years = 20
 			}
+			add_trait = loyal
+			add_trait = skilled_tactician
 		}
 		ai_chance = {
 			factor = 1
@@ -1162,7 +1161,6 @@ character_event = { #Honesty
 			trait = incapable
 			trait = infirm
 		}
-		has_character_modifier = too_honest
 		trait = honest
 		is_landed = yes
     }
@@ -1241,6 +1239,12 @@ character_event = { #Honesty
 		random_list = {
 			30 = {
 				remove_trait = honest
+				if = {
+					limit = {
+						has_character_modifier = too_honest
+					}
+					remove_character_modifier = too_honest
+				}
 			}
 			30 = {
 				add_trait = stressed
@@ -1405,7 +1409,7 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperia
 		}
 		trait = zealous
 		religion_group = pagan_group
-		NOT = { religion = hellenic_pagan }
+		NOT = { religion = roman_pagan }
 		NOR = {
 			culture_group = imperiale
 			culture = romanobritish
@@ -1469,7 +1473,7 @@ character_event = { #Find Roman Eagle standards (after WRE falls for Non-Imperia
 		OR = {
 			NOT = { trait = zealous }
 			NOT = { religion_group = pagan_group }
-			religion = hellenic_pagan
+			religion = roman_pagan
 		}
 		capital_scope = {
 			OR = {
