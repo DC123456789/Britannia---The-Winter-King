@@ -1823,3 +1823,34 @@ character_event = { #Either a loyal, or a disloyal person wants to come to your 
 		}
 	}
 }
+
+character_event = { #Lunatic: Liberator of Cows
+	id = EDM.41
+	picture = GFX_evt_spymaster
+	desc = EVTDESC_EDM_41
+	is_triggered_only = yes
+	trigger = {
+		is_landed = yes
+		NOT = { has_character_modifier = in_seclusion }
+		trait = lunatic
+    }
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_41
+		prestige = -15
+		add_character_modifier = {
+			name = foolish_behavior
+			months = 120
+		}
+		capital_scope = { 
+			add_province_modifier = {
+				name = farms_in_chaos
+				months = 60
+			}
+		}
+	}
+}
