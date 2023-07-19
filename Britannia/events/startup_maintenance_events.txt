@@ -3212,3 +3212,46 @@ character_event = {
 		}
 	}
 }
+
+character_event = { #Visigoths bugfix (for now)
+	id = 319042
+	desc = "You're not supposed to see this..."
+	hide_window = yes
+	
+	picture = "GFX_evt_council"
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		k_visigoths = { has_holder = no }
+	}
+	
+	immediate = {
+		if = {
+			limit = {
+				date < 415.9.1
+			}
+			c_3154 = {
+				gain_title = k_visigoths
+			}
+		}
+		if = {
+			limit = {
+				date > 415.9.1
+				date < 415.9.8
+			}
+			c_3156 = {
+				gain_title = k_visigoths
+			}
+		}
+		if = {
+			limit = {
+				date > 415.9.8
+				date < 419.1.1
+			}
+			c_3159 = {
+				gain_title = k_visigoths
+			}
+		}
+	}
+}
