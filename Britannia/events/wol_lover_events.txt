@@ -3850,8 +3850,8 @@ character_event = {
 	}
 	option = {
 		name = EVTOPTD_WOL_1150 # End an affair
-		trigger = { event_target:third_lover = { always = yes } }
-		trigger = {
+		trigger = { 
+			event_target:third_lover = { always = yes }
 			has_character_flag = third_lover_option
 		}
 		ai_chance = {
@@ -4375,3 +4375,183 @@ character_event = {
 		}
 	}
 }
+
+##Too many lovers - break up
+
+character_event = { #Hidden event: get scopes right
+	id = WoL.1170
+	hide_window = yes
+	
+	min_age = 15
+	prisoner = no
+	capable_only = yes
+	has_dlc = "Way of Life"
+	
+	trigger = {
+		has_dlc = "Way of Life"
+		num_of_lovers = 6
+
+		any_lover = { 
+			prisoner = no
+			NOT = { trait = incapable }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 48
+		
+		modifier = {
+			factor = 0.75
+			trait = plain
+		}
+		modifier = {
+			factor = 0.50
+			has_ugly_trait_trigger = yes
+		}
+		modifier = {
+			factor = 0.25
+			trait = unsightly
+		}
+		modifier = {
+			factor = 0.5
+			trait = slothful
+		}
+		modifier = {
+			factor = 0.5
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.75
+			num_of_lovers = 7
+		}
+		modifier = {
+			factor = 0.5
+			num_of_lovers = 8
+		}
+		modifier = {
+			factor = 0.5
+			num_of_lovers = 9
+		}
+		modifier = {
+			factor = 0.25
+			num_of_lovers = 10
+		}
+		modifier = {
+			factor = 0.75
+			trait = wroth
+		}
+		modifier = {
+			factor = 1.25
+			trait = patient
+		}
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 2.0
+			trait = diligent
+		}
+		modifier = {
+			factor = 2.0
+			AND  = {
+				has_focus = focus_seduction
+				OR = {
+					trait = seducer
+					trait = seductress
+					has_character_modifier = wol_seducer_2
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		random_lover = {
+			limit = {
+				prisoner = no
+				NOT = { trait = incapable }
+			}
+			score_value = { #Prioritizes selecting a non-lustful lover you might not see often...
+	            value = 10
+	            lover_selection_for_breakup_score = yes
+	        }
+			character_event = { id = WoL.1171 days = 1 }
+		}
+	}
+}
+
+character_event = { #Hidden event: get scopes right
+	id = WoL.1171
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			character_event = { id = WoL.1172 days = 1 }
+		}
+	}
+}
+
+character_event = {
+	id = WoL.1172
+	desc = EVTDESC_WOL_1172
+	
+	picture = GFX_evt_bad_news
+	border = GFX_event_normal_frame_intrigue
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_lover = {
+			limit = {
+				FROM = {
+					NOT = { character = PREV }
+				}
+			}
+			save_event_target_as = first_lover
+		}
+	}
+	
+	option = { #Break up
+		name = EVTOPTA_WOL_1172
+		ai_chance = {
+			factor = 200
+		}
+		FROM = {
+			remove_lover = ROOT
+		}
+		random_list = {	
+			90 = { }
+			5 = {
+				add_trait = stressed
+			}
+			5 = {
+				add_trait = depressed
+			}
+		}
+	}
+	option = { #Break up with another lover
+		name = EVTOPTB_WOL_1172
+		custom_tooltip = {
+			text = EVTOPTB_TT_WOL_1172
+		}
+		ai_chance = {
+			factor = 100
+		}
+		event_target:first_lover = {
+			remove_lover = ROOT
+		}
+		random_list = {	
+			90 = { }
+			5 = {
+				add_trait = stressed
+			}
+			5 = {
+				add_trait = depressed
+			}
+		}
+	}
+}
+
+#TODO: lovers leave when imprisoned or incapable

@@ -2922,6 +2922,50 @@ interesting_courtier_outcome_score = {
     }
 }
 
+### NOTE: Probably expects ROOT (your character) to be PREV
+### NOTE: used *factors* instead of additive math
+### NOTE: from lovers perpective
+lover_selection_for_breakup_score = {
+	# Less likely
+	modifier = {
+		trait = lustful
+		factor = 0.5
+	}
+	modifier = {
+		trait = pregnant
+		factor = 0.1
+	}
+	modifier = {
+		trait = shieldmaiden
+		factor = 0.75
+	}
+	modifier = {
+		OR = {
+			trait = seducer
+			trait = seductress
+		}
+		factor = 0.5
+	}
+	modifier = {
+		trait = hedonist
+		factor = 0.5
+	}
+	modifier = {
+		OR = {
+			spouse = ROOT
+			is_consort = ROOT
+		}
+		factor = 0.01
+	}
+	
+	# More likely
+	modifier = {
+		trait = chaste
+		factor = 2
+	}
+}
+
+
 prev_dislikes_this_score = {
     additive_modifier = {
 		is_rival = PREV
