@@ -720,6 +720,20 @@ character_event = {
 			}
 		}
 		
+		# Destroy non-landless religious titles if they get inherited by someone of the wrong religion
+		# Only bother with d_roman_pagan for now - the others are very unlikely to happpen
+		if = {
+			limit = {
+				FROM = {
+					title = d_roman_pagan
+					controls_religion = yes 
+					is_landless_type_title = no
+				}
+				ROOT = { NOR = { religion = roman_pagan_reformed religion = roman_pagan } }
+			}			
+			FROM = { destroy_landed_title = THIS }
+		}
+		
 		# Add Augustus trait to WRE/ERE rulers
 		if = {
 			limit = { 
