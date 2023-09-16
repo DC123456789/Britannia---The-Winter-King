@@ -4383,14 +4383,28 @@ character_event = { #Hidden event: get scopes right
 	hide_window = yes
 	
 	min_age = 15
-	prisoner = no
-	capable_only = yes
 	has_dlc = "Way of Life"
 	
 	trigger = {
 		has_dlc = "Way of Life"
-		num_of_lovers = 6
-
+		AND = {
+			NOT = { has_character_flag = breakup_incapable } 
+			NOT = { has_character_flag = breakup_prisoner } 
+		}		
+		OR = {	
+			AND = {
+				num_of_lovers = 6
+				prisoner = no
+				NOT = { trait = incapable }
+			}
+			AND = {
+				num_of_lovers = 2
+				OR = {
+					prisoner = yes
+					trait = incapable
+				}
+			}
+		}
 		any_lover = { 
 			prisoner = no
 			NOT = { trait = incapable }
@@ -4400,6 +4414,14 @@ character_event = { #Hidden event: get scopes right
 	mean_time_to_happen = {
 		months = 48
 		
+		modifier = {
+			factor = 0.2
+			trait = incapable
+		}
+		modifier = {
+			factor = 0.2
+			prisoner = yes
+		}
 		modifier = {
 			factor = 0.75
 			trait = plain
@@ -4466,6 +4488,29 @@ character_event = { #Hidden event: get scopes right
 	}
 	
 	immediate = {
+		if = {
+			limit = {
+				AND = {
+					prisoner = yes
+					trait = incapable
+				}
+			}
+			set_character_flag = breakup_incapable
+		}
+		if = {
+			limit = {
+				NOT = { prisoner = yes }
+				trait = incapable
+			}
+			set_character_flag = breakup_incapable
+		}
+		if = {
+			limit = {
+				prisoner = yes
+				NOT = { trait = incapable }
+			}
+			set_character_flag = breakup_prisoner
+		}
 		random_lover = {
 			limit = {
 				prisoner = no
@@ -4495,7 +4540,29 @@ character_event = { #Hidden event: get scopes right
 
 character_event = {
 	id = WoL.1172
-	desc = EVTDESC_WOL_1172
+	desc = { #standard
+		trigger = {
+			AND = {
+				NOT = { has_character_flag = breakup_incapable } 
+				NOT = { has_character_flag = breakup_prisoner } 
+			}
+		}
+		text = EVTDESC_WOL_1172
+	}
+	desc = { #incapable
+		trigger = {
+			has_character_flag = breakup_incapable
+			NOT = { has_character_flag = breakup_prisoner }
+		}
+		text = EVTDESC_WOL_1172_INC
+	}
+	desc = { #prisoner
+		trigger = {
+			has_character_flag = breakup_prisoner
+			NOT = { has_character_flag = breakup_incapable }
+		}
+		text = EVTDESC_WOL_1172_PRI
+	}
 	
 	picture = GFX_evt_bad_news
 	border = GFX_event_normal_frame_intrigue
@@ -4515,6 +4582,10 @@ character_event = {
 	
 	option = { #Break up
 		name = EVTOPTA_WOL_1172
+		trigger = { 
+			NOT = { has_character_flag = breakup_incapable } 
+			NOT = { has_character_flag = breakup_prisoner } 
+		}
 		ai_chance = {
 			factor = 200
 		}
@@ -4531,8 +4602,39 @@ character_event = {
 			}
 		}
 	}
+	option = { #Break up - inc+prisoner flavor
+		name = EVTOPTA_WOL_1172_FLV
+		trigger = { 
+			OR = {
+				has_character_flag = breakup_incapable 
+				has_character_flag = breakup_prisoner 
+			}
+		}
+		ai_chance = {
+			factor = 200
+		}
+		FROM = {
+			remove_lover = ROOT
+		}
+		clr_character_flag = breakup_incapable
+		clr_character_flag = breakup_prisoner
+		random_list = {	
+			90 = { }
+			5 = {
+				add_trait = stressed
+			}
+			5 = {
+				add_trait = depressed
+			}
+		}
+	}
+	
 	option = { #Break up with another lover
 		name = EVTOPTB_WOL_1172
+		trigger = {
+			NOT = { has_character_flag = breakup_incapable } 
+			NOT = { has_character_flag = breakup_prisoner } 
+		}	
 		custom_tooltip = {
 			text = EVTOPTB_TT_WOL_1172
 		}
