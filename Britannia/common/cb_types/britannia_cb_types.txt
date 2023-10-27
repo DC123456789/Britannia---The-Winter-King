@@ -10184,16 +10184,6 @@ gallic_deposition = {
 					}
 				}
 			}
-			hidden_tooltip = {
-				any_vassal = {
-					limit = { tier = KING }
-					set_defacto_liege = THIS
-					ROOT = { make_tributary = { who = PREV tributary_type = roman_province } }
-					set_government_type = imperial_government
-				}
-				# Remove legion troops
-				disband_all_legions_effect = yes
-			}
 		}
 		
 		hidden_tooltip = {
@@ -10203,17 +10193,83 @@ gallic_deposition = {
 						type = foederati
 						suzerain = FROM 
 					}
+					has_landed_title = k_franks
 				}
 				FROM = { remove_tributary = PREV }
-				if = {
-					limit = { NOT = { has_landed_title = k_franks } }
-					ROOT = { make_tributary = { who = PREV tributary_type = foederati } }
+			}
+		}
+		if = {
+			limit = {
+				c_2327 = {
+					is_alive = yes
+				}
+				NOT = { 
+					year = 420
+				}
+			}
+			c_2327 = {
+				grant_title = e_gaul
+				grant_title = c_arelate
+			}
+		}
+		if = {
+			limit = {
+				c_2327 = {
+					is_alive = no
+				}
+				c_2328 = {
+					is_alive = yes
+				}
+				NOT = { 
+					year = 420
+				}
+			}
+			c_2328 = {
+				grant_title = e_gaul
+				grant_title = c_arelate
+			}
+		}
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							c_2327 = {
+								is_alive = no
+							}
+							c_2328 = {
+								is_alive = no
+							}
+						}
+						year = 420
+					}
+				}
+				e_western_roman_empire = {
+					create_character = {
+						dynasty = random
+						religion = ROOT
+						culture = ROOT
+						female = no
+						random_traits = yes
+						attributes = {
+							martial = 12
+							diplomacy = 8
+							stewardship = 12
+							intrigue = 8
+							learning = 8
+						}
+					}
+					new_character = {
+						grant_title = e_gaul
+						grant_title = c_arelate
+						
+						remove_trait = unloyal
+					}
 				}
 			}
 		}
 		e_gaul = {
-			destroy_landed_title = THIS 
-			clr_global_flag = imperium_galliarum_created
+			ROOT = { make_tributary = { who = PREV tributary_type = roman_province } }
 		}
 		if = {
 			limit = {
