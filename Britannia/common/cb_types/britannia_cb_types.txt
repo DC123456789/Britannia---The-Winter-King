@@ -10187,16 +10187,34 @@ gallic_deposition = {
 		}
 		
 		hidden_tooltip = {
+			FROM = {
+				any_vassal = {
+					set_defacto_liege = e_praetorian_prefecture_gaul
+					set_government_type = imperial_government
+				}
+				# Remove legion troops
+				disband_all_legions_effect = yes
+			}
+		}
+		
+		hidden_tooltip = {
 			any_playable_ruler = {
 				limit = { 
 					is_tributary = {
 						type = foederati
 						suzerain = FROM 
 					}
-					has_landed_title = k_franks
 				}
 				FROM = { remove_tributary = PREV }
+				if = {
+					limit = { NOT = { has_landed_title = k_franks } }
+					e_praetorian_prefecture_gaul = { make_tributary = { who = PREV tributary_type = foederati } }
+				}
 			}
+		}
+		e_gaul = {
+			destroy_landed_title = THIS 
+			clr_global_flag = imperium_galliarum_created
 		}
 		if = {
 			limit = {
@@ -10208,7 +10226,7 @@ gallic_deposition = {
 				}
 			}
 			c_2327 = {
-				grant_title = e_gaul
+				grant_title = e_praetorian_prefecture_gaul
 				grant_title = c_arelate
 			}
 		}
@@ -10225,7 +10243,7 @@ gallic_deposition = {
 				}
 			}
 			c_2328 = {
-				grant_title = e_gaul
+				grant_title = e_praetorian_prefecture_gaul
 				grant_title = c_arelate
 			}
 		}
@@ -10260,7 +10278,7 @@ gallic_deposition = {
 						}
 					}
 					new_character = {
-						grant_title = e_gaul
+						grant_title = e_praetorian_prefecture_gaul
 						grant_title = c_arelate
 						
 						remove_trait = unloyal
@@ -10268,7 +10286,7 @@ gallic_deposition = {
 				}
 			}
 		}
-		e_gaul = {
+		e_praetorian_prefecture_gaul = {
 			ROOT = { make_tributary = { who = PREV tributary_type = roman_province } }
 		}
 		if = {
@@ -10326,10 +10344,18 @@ gallic_deposition = {
 			limit = { NOT = { character = FROM } }
 			hidden_tooltip = { participation_scaled_prestige = 200 }
 		}
+		set_global_flag = praetorian_gaul_fallen
 	}
 
-#	on_reverse_demand_title = {
-#	}
+	on_reverse_demand_title = {
+		hidden_tooltip = {
+			e_praetorian_prefecture_gaul = {
+				any_direct_de_jure_vassal_title = {
+					de_jure_liege = e_gaul
+				}
+			}
+		}
+	}
 
 	attacker_ai_victory_worth = {
 		factor = -1 # always accept
