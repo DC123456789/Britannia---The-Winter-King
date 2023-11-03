@@ -10860,6 +10860,114 @@ free_tributary_cb = {
 	}
 
 	on_add = {
+		hidden_tooltip = {
+			if = { #e_western_roman_empire spawns troops to avoid instant 100% warscore
+				limit = {
+					FROM = { 
+						has_landed_title = e_western_roman_empire 
+					}
+					c_arelate = {
+						holder_scope = {
+							OR = {
+								is_tributary = {
+									suzerain = e_western_roman_empire
+								}
+								any_liege = {
+									is_tributary = {
+										suzerain = e_western_roman_empire
+									}
+								}
+							}
+						}
+					}
+					NOT = {
+						ROOT = {
+							has_landed_title = c_arelate
+						}
+					}
+					NOT = {
+						c_arelate = {
+							holder_scope = {
+								is_vassal_or_below_of = ROOT
+							}
+						}
+					}
+				}
+				e_western_roman_empire = {
+					holder_scope = {
+						spawn_unit = {
+							province = 903 # Arelate
+							home = 903 # Arelate
+							owner = FROM
+							troops = {
+								light_infantry = { 4500 4500 }
+								heavy_infantry = { 3500 3500 }
+								pikemen = { 2000 2000 }
+								light_cavalry = { 650 650 }
+								archers = { 800 800 }
+							}
+							attrition = 0.3
+							disband_on_peace = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = { 
+						has_landed_title = e_western_roman_empire 
+					}
+					OR = {
+						c_arelate = {
+							holder_scope = {
+								NOT = {
+									is_tributary = {
+										suzerain = e_western_roman_empire
+									}
+								}
+							}
+						}
+						c_arelate = {
+							holder_scope = {
+								NOT = {
+									any_liege = {
+										is_tributary = {
+											suzerain = e_western_roman_empire
+										}
+									}
+								}
+							}
+						}
+						ROOT = {
+							has_landed_title = c_arelate
+						}
+						c_arelate = {
+							holder_scope = {
+								is_vassal_or_below_of = ROOT
+							}
+						}
+					}
+				}
+				e_western_roman_empire = {
+					holder_scope = {
+						spawn_unit = {
+							province = 1040 # Cemenelum
+							home = 1040 # Cemenelum
+							owner = FROM
+							troops = {
+								light_infantry = { 4500 4500 }
+								heavy_infantry = { 3500 3500 }
+								pikemen = { 2000 2000 }
+								light_cavalry = { 650 650 }
+								archers = { 800 800 }
+							}
+							attrition = 0.3
+							disband_on_peace = yes
+						}
+					}
+				}
+			}
+		}	
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 	}
 
