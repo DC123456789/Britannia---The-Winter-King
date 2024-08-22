@@ -135,6 +135,7 @@ has_theocratic_religion_head_trigger = {
 
 is_wrong_pagan_religion_trigger = {
 	NOT = { has_religion_feature = religion_proselytizing }
+	is_hellenic_group_religion_trigger = no
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
@@ -193,7 +194,10 @@ is_wrong_pagan_religion_trigger = {
 				religion = gothic_pagan_reformed
 			}
 		}
-		is_roman_pagan_culture_trigger = yes
+		AND = {
+			is_roman_pagan_culture_trigger = yes
+			is_hellenic_group_religion_trigger = no
+		}
 		AND = {
 			culture_group = sarmatian
 			NOR = {		
@@ -221,6 +225,7 @@ is_wrong_pagan_religion_trigger = {
 
 is_wrong_secret_pagan_religion_trigger = {
 	NOT = { secret_religion_scope = { has_religion_feature = religion_proselytizing } }
+	is_secretly_hellenic_group_religion_trigger = no
 	OR = {
 		AND = {
 			is_brythonic_culture_trigger = yes
@@ -279,7 +284,10 @@ is_wrong_secret_pagan_religion_trigger = {
 				secret_religion = gothic_pagan_reformed
 			}
 		}
-		is_roman_pagan_culture_trigger = yes
+		AND = {
+			is_roman_pagan_culture_trigger = yes
+			is_secretly_hellenic_group_religion_trigger = no
+		}
 		AND = {
 			culture_group = sarmatian
 			NOR = {		
@@ -307,6 +315,7 @@ is_wrong_secret_pagan_religion_trigger = {
 
 is_wrong_pagan_religion_than_FROM_trigger = {
 	NOT = { has_religion_feature = religion_proselytizing }
+	is_hellenic_group_religion_trigger = no
 	OR = {
 		AND = {
 			FROM = { is_brythonic_culture_trigger = no }
@@ -365,7 +374,10 @@ is_wrong_pagan_religion_than_FROM_trigger = {
 				religion = gothic_pagan_reformed
 			}
 		}
-		# is_roman_pagan_culture_trigger = no
+		AND = {
+			FROM = { is_roman_pagan_culture_trigger = no }
+			is_hellenic_group_religion_trigger = yes
+		}
 		AND = {
 			FROM = { NOT = { culture_group = sarmatian } }
 			OR = {		
