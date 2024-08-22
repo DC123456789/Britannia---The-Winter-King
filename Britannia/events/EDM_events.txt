@@ -1782,16 +1782,13 @@ character_event = { #Either a loyal, or a disloyal person wants to come to your 
 						age = 30
     
 						attributes = {
-							intrigue = 12
+							intrigue = 8
 							martial = 8
 						}		
 					}
 					new_character = {
-						add_rival = ROOT
 						add_trait = unloyal
-						add_trait = cruel
-						add_trait = schemer
-						treasury = 5
+						add_trait = greedy
 					}
 				}
 			}
@@ -1852,5 +1849,141 @@ character_event = { #Lunatic: Liberator of Cows
 				months = 60
 			}
 		}
+	}
+}
+
+character_event = { #Hunt after the two-headed shark
+	id = EDM.42
+	picture = GFX_evt_ship_arriving
+	desc = EVTDESC_EDM_42
+	is_triggered_only = yes
+	trigger = {
+		is_landed = yes
+		NOT = { has_character_modifier = in_seclusion }
+		any_realm_province = {
+			port = yes
+		}
+    }
+	
+	weight_multiplier = {
+		days = 1
+	}
+	
+	option = {
+		name = EVTOPTA_EDM_42
+		hidden_effect = {
+			character_event = { id = EDM.43 days = 7 }
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = trusting
+			}
+			modifier = {
+				factor = 1.5
+				trait = brave
+			}
+		}
+		custom_tooltip = {
+			text = "EVT_EDM_42_TT1"
+		}
+		scaled_wealth = -0.33
+	}
+	option = {
+		name = EVTOPTB_EDM_42
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.5
+				trait = craven
+			}
+		}
+	}
+}
+
+character_event = { #Embarkment
+	id = EDM.43
+	picture = GFX_evt_ship_arriving
+	desc = EVTDESC_EDM_43
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_43
+		hidden_effect = {
+			character_event = { id = EDM.44 days = 5 }
+		}
+	}
+}
+
+character_event = { #Arrival
+	id = EDM.44
+	picture = GFX_evt_merchant_ship_at_sea_republic
+	desc = EVTDESC_EDM_44
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_44
+		hidden_effect = {
+			random_list = {
+				5 = {
+					character_event = { id = EDM.45 days = 5 }
+				}
+				95 = {
+					character_event = { id = EDM.46 days = 5 }
+				}
+			}
+		}
+	}
+}
+
+character_event = { #Catch!
+	id = EDM.45
+	picture = GFX_evt_merchant_ship_at_sea_republic
+	desc = EVTDESC_EDM_45
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_45
+		hidden_effect = {
+			character_event = { id = EDM.47 days = 5 }
+		}
+	}
+}
+
+character_event = { #Nothing
+	id = EDM.46
+	picture = GFX_evt_merchant_ship_at_sea_republic
+	desc = EVTDESC_EDM_46
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_46
+		hidden_effect = {
+			character_event = { id = EDM.48 days = 5 }
+		}
+	}
+}
+
+character_event = { #Ending - Succes
+	id = EDM.47
+	picture = GFX_evt_feast_3
+	desc = EVTDESC_EDM_47
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_47
+		prestige = 500
+	}
+}
+
+character_event = { #Ending - Failure
+	id = EDM.48
+	picture = GFX_evt_kraken
+	desc = EVTDESC_EDM_48
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA_EDM_48
 	}
 }
