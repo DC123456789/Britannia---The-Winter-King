@@ -7703,6 +7703,30 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 			}
 		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
+		hidden_tooltip = {
+			if = {
+				limit = { 
+					OR = {
+						is_britannia_caratacus_subjugation_trigger = yes 
+						ROOT = { government = high_tribal_government }
+					}
+				}
+				ROOT = {
+					add_character_modifier = {
+						name = vassalize_timer 
+						duration = 1825
+					}
+				}
+			}
+			else = {
+				ROOT = {
+					add_character_modifier = {
+						name = vassalize_timer 
+						duration = 3650
+					}
+				}
+			}
+		}
 	}
 	
 	can_use_gui = {
@@ -7923,33 +7947,6 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 	is_valid_title = {
 		FROM = {
 			has_landed_title = PREV
-		}
-	}
-	
-	on_add = {
-		hidden_tooltip = {
-			if = {
-				limit = { 
-					OR = {
-						is_britannia_caratacus_subjugation_trigger = yes 
-						ROOT = { government = high_tribal_government }
-					}
-				}
-				ROOT = {
-					add_character_modifier = {
-						name = vassalize_timer 
-						duration = 1825
-					}
-				}
-			}
-			else = {
-				ROOT = {
-					add_character_modifier = {
-						name = vassalize_timer 
-						duration = 3650
-					}
-				}
-			}
 		}
 	}
 	
