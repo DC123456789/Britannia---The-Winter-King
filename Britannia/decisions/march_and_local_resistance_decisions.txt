@@ -812,145 +812,145 @@ title_decisions = {
 		}
 	}
 	# TODO This probably needs to be deleted or completely reworked
-	launch_nationalist_revolt_targeted = {
-		only_playable = yes
-		ai = no
-		filter = all
-		ai_target_filter = capital
+	# launch_nationalist_revolt_targeted = {
+		# only_playable = yes
+		# ai = no
+		# filter = all
+		# ai_target_filter = capital
 		
-		from_potential = {
-			ai = no		# Player only - AI handled by events
-			OR = {
-				independent = yes
-				liege = { 
-					independent = yes 
-				}
-			}
-		}
+		# from_potential = {
+			# ai = no		# Player only - AI handled by events
+			# OR = {
+				# independent = yes
+				# liege = { 
+					# independent = yes 
+				# }
+			# }
+		# }
 		
-		potential = {
-			tier = COUNT
-			location = {
-				FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
-				local_resistance_potential_trigger = yes
-				has_province_flag = has_local_resistance
-				OR = {
-					AND = {
-						FROM = {
-							independent = yes
-							is_tributary = no
-						}
-						any_neighbor_province = {
-							owner = {
-								top_liege = {
-									character = FROM
-								}
-							}
-						}
-					}
-					AND = {
-						FROM = {
-							independent = yes
-							is_tributary = yes
-						}
-						OR = {
-							is_FROM_in_current_resistance_region_province_trigger = yes
-							any_neighbor_province = {
-								owner = {
-									top_liege = {
-										character = FROM
-									}
-								}
-							}
-						}
-						owner = {
-							top_liege = {
-								OR = {
-									any_tributary = { character = FROM }
-									AND = {
-										is_tributary = { type = march }
-										suzerain = { any_tributary = { character = FROM } }
-									}
-								}
-							}
-						}
-					}
-					AND = {
-						FROM = {
-							independent = no
-							liege = { independent = yes }
-						}
-						is_FROM_in_current_resistance_region_province_trigger = yes
-					}
-				}
-			}
-		}
+		# potential = {
+			# tier = COUNT
+			# location = {
+				# FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+				# local_resistance_potential_trigger = yes
+				# has_province_flag = has_local_resistance
+				# OR = {
+					# AND = {
+						# FROM = {
+							# independent = yes
+							# is_tributary = no
+						# }
+						# any_neighbor_province = {
+							# owner = {
+								# top_liege = {
+									# character = FROM
+								# }
+							# }
+						# }
+					# }
+					# AND = {
+						# FROM = {
+							# independent = yes
+							# is_tributary = yes
+						# }
+						# OR = {
+							# is_FROM_in_current_resistance_region_province_trigger = yes
+							# any_neighbor_province = {
+								# owner = {
+									# top_liege = {
+										# character = FROM
+									# }
+								# }
+							# }
+						# }
+						# owner = {
+							# top_liege = {
+								# OR = {
+									# any_tributary = { character = FROM }
+									# AND = {
+										# is_tributary = { type = march }
+										# suzerain = { any_tributary = { character = FROM } }
+									# }
+								# }
+							# }
+						# }
+					# }
+					# AND = {
+						# FROM = {
+							# independent = no
+							# liege = { independent = yes }
+						# }
+						# is_FROM_in_current_resistance_region_province_trigger = yes
+					# }
+				# }
+			# }
+		# }
 
-		allow = {
-			FROM = {
-				prestige = 1000
-				wealth = 200
-				OR = {
-					martial = 10
-					diplomacy = 12
-					trait = ambitious
-				}
-			}
-			custom_tooltip = {
-				text = nationalist_revolt_progress_at_least_100
-				hidden_tooltip = {
-					location = {
-						check_variable = {
-							which = nationalist_revolt_progress
-							value = 100
-						}
-					}
-				}
-			}
-			location = {
-				show_scope_change = no
-				is_province_liege_not_defending_against_nat_revolt_trigger = yes
-				owner = {
-					top_liege = {
-						NOT = { has_non_aggression_pact_with = FROM }
-					}
-				}
-			}
-		}
-		effect = {
-			custom_tooltip = {
-				text = launch_nationalist_revolt_targeted_effect_tooltip
-			}
-			tooltip = {
-				owner = {
-					show_scope_change = no
-					top_liege = {
-						show_scope_change = no
-						reverse_unsafe_war = {
-							casus_belli = nationalist_revolt_wales
-							target = FROM
-						}
-					}
-				}
-			}
-			custom_tooltip = {
-				text = launch_nationalist_revolt_targeted_effect_spawn_troops_tooltip
-			}
-			custom_tooltip = {
-				text = launch_nationalist_revolt_targeted_effect_potential_allies_tooltip
-			}
-			hidden_tooltip = {
-				ROOT = { location = { save_event_target_as = nationalist_revolt_target_province } }
-				FROM = { character_event = { id = 320721 } }
-			}
-		}
-		revoke_allowed = {
-			always = no
-		}
-		ai_will_do = {
-			factor = 0
-		}
-	}
+		# allow = {
+			# FROM = {
+				# prestige = 1000
+				# wealth = 200
+				# OR = {
+					# martial = 10
+					# diplomacy = 12
+					# trait = ambitious
+				# }
+			# }
+			# custom_tooltip = {
+				# text = nationalist_revolt_progress_at_least_100
+				# hidden_tooltip = {
+					# location = {
+						# check_variable = {
+							# which = nationalist_revolt_progress
+							# value = 100
+						# }
+					# }
+				# }
+			# }
+			# location = {
+				# show_scope_change = no
+				# is_province_liege_not_defending_against_nat_revolt_trigger = yes
+				# owner = {
+					# top_liege = {
+						# NOT = { has_non_aggression_pact_with = FROM }
+					# }
+				# }
+			# }
+		# }
+		# effect = {
+			# custom_tooltip = {
+				# text = launch_nationalist_revolt_targeted_effect_tooltip
+			# }
+			# tooltip = {
+				# owner = {
+					# show_scope_change = no
+					# top_liege = {
+						# show_scope_change = no
+						# reverse_unsafe_war = {
+							# casus_belli = nationalist_revolt_wales
+							# target = FROM
+						# }
+					# }
+				# }
+			# }
+			# custom_tooltip = {
+				# text = launch_nationalist_revolt_targeted_effect_spawn_troops_tooltip
+			# }
+			# custom_tooltip = {
+				# text = launch_nationalist_revolt_targeted_effect_potential_allies_tooltip
+			# }
+			# hidden_tooltip = {
+				# ROOT = { location = { save_event_target_as = nationalist_revolt_target_province } }
+				# FROM = { character_event = { id = 320721 } }
+			# }
+		# }
+		# revoke_allowed = {
+			# always = no
+		# }
+		# ai_will_do = {
+			# factor = 0
+		# }
+	# }
 	
 	
 	# Marches
