@@ -1704,13 +1704,24 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		FROM = { title = e_britannia }
+		NOT = { has_global_flag = britannia_formalized_high_kingship }
+	}
+	
 	immediate = {
-		ROOT = { character_event = { id = 314482 days = 1 } }
+		ROOT = { 
+			# Notify ROOT if they never got this event - delay is necessary as otherwise player 
+			# doesn't see this event for some reason
+			character_event = { id = 314482 days = 1 }
+			# Clear the flag afterwards
+			# character_event = { id = 3144820 days = 3 }
+		}
 		any_independent_ruler = {
 			limit = { 
 				is_tributary = {
 					type = britannia_subject
-					suzerain = FROMFROMFROM
+					suzerain = FROMFROM
 				}
 			}
 			set_character_flag = former_britannia_subject
@@ -1723,7 +1734,7 @@ narrative_event = {
 		}
 		e_britannia = { destroy_landed_title = THIS }
 		e_britannia = { remove_claim = ROOT }
-		FROMFROMFROM = {
+		FROMFROM = {
 			any_tributary = {
 				limit = { 
 					is_tributary = {
@@ -1731,7 +1742,7 @@ narrative_event = {
 						suzerain = PREV
 					}
 				}
-				ROOT_FROMFROMFROM = { remove_tributary = PREV }
+				ROOT_FROMFROM = { remove_tributary = PREV }
 			}
 		}
 		# This ensures that all actual vassals of ROOT are kept when Britannia is destroyed
@@ -1747,17 +1758,21 @@ narrative_event = {
 		name = "EVTOPTA314481"
 		trigger = {
 			character = ROOT
-			NOT = { character = FROMFROMFROM }
+			NOT = { character = FROMFROM }
 		}
 		tooltip = {
 			e_britannia = { destroy_landed_title = THIS }
+		}
+		if = {
+			limit = { ai = no }
+			set_character_flag = got_event_314481
 		}
 	}
 	
 	option = {			# Old High King
 		name = "EVTOPTB314481"
 		trigger = {
-			character = FROMFROMFROM
+			character = FROMFROM
 		}
 		tooltip = {
 			e_britannia = { destroy_landed_title = THIS }
@@ -1771,6 +1786,7 @@ narrative_event = {
 		name = "EVTOPTC314481"
 		trigger = {
 			NOT = { character = ROOT }
+			NOT = { character = FROMFROM }
 			OR = {
 				is_brythonic_culture_trigger = yes
 				culture_group = imperiale
@@ -1793,7 +1809,7 @@ narrative_event = {
 			limit = {  has_character_flag = former_britannia_subject }
 			clr_character_flag = former_britannia_subject
 			tooltip = {
-				FROMFROMFROM = {
+				FROMFROM = {
 					remove_tributary = PREV
 				}
 			}
@@ -1804,6 +1820,7 @@ narrative_event = {
 		name = "EVTOPTD314481"
 		trigger = {
 			NOT = { character = ROOT }	
+			NOT = { character = FROMFROM }
 			culture_group = germanic
 			primary_title = {
 				capital_scope = {
@@ -1815,7 +1832,7 @@ narrative_event = {
 			limit = {  has_character_flag = former_britannia_subject }
 			clr_character_flag = former_britannia_subject
 			tooltip = {
-				FROMFROMFROM = {
+				FROMFROM = {
 					remove_tributary = PREV
 				}
 			}
@@ -1827,6 +1844,7 @@ narrative_event = {
 		trigger = {
 			NOR = {
 				character = ROOT
+				character = FROMFROM
 				AND = {
 					OR = {
 						is_brythonic_culture_trigger = yes
@@ -1860,7 +1878,7 @@ narrative_event = {
 			limit = {  has_character_flag = former_britannia_subject }
 			clr_character_flag = former_britannia_subject
 			tooltip = {
-				FROMFROMFROM = {
+				FROMFROM = {
 					remove_tributary = PREV
 				}
 			}
@@ -1877,11 +1895,28 @@ narrative_event = {
 	
 	is_triggered_only = yes
 	
+	trigger = {
+		NOT = { has_character_flag = got_event_314481 }
+	}
+	
 	option = {			# New Ruler
 		name = "EVTOPTA314482"
 		tooltip = {
 			e_britannia = { destroy_landed_title = THIS }
 		}
+	}
+}
+
+character_event = {
+	id = 3144820
+	desc = "You're not supposed to see this..."
+	picture = GFX_evt_council
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		clr_character_flag = got_event_314481
 	}
 }
 	
