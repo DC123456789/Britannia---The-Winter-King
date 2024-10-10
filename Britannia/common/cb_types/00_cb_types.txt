@@ -3505,6 +3505,45 @@ tribal_invasion = {
 			}
 			break = yes
 		}
+		if = {
+			limit = {
+				title = d_thuringia
+				holder_scope = {
+					character = FROM
+				}
+				has_global_flag = frankish_invasion_530
+				ROOT = { is_istvaeonic_culture_trigger = yes }
+				FROM = {
+					any_realm_province = {
+						region = world_germania_thuringia
+						NOT = { 
+							region = world_germania_saxony_eastphalia 
+						}
+					}
+				}
+			}
+			hidden_tooltip = {		# Usurp or vassalize all titles not in Eastphalia
+				k_thuringia = {
+					holder_scope = {
+						any_province = {
+							limit = { 
+								region = world_germania_thuringia
+								NOT = { 
+									region = world_germania_saxony_eastphalia 
+								}
+							}
+							set_province_flag = vassalize_province
+						}
+						vassalize_all_flagged_provinces_to_ROOT_effect = yes
+					}
+				}
+				destroy_landed_title = d_thuringia
+				destroy_landed_title = k_thuringia
+				spawn_saxon_invaders_eastphalia = yes
+				clr_global_flag = frankish_invasion_530
+			}
+			break = yes
+		}
 		custom_tooltip = {  
 			text = tribal_invasion_succ_tip
 		}

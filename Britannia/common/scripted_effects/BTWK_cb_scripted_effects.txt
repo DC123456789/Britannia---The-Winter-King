@@ -600,3 +600,275 @@ check_recalculate_aengland_variables_effect = {
 		}
 	}
 }
+
+spawn_saxon_invaders_eastphalia = {
+	##Spawn Saxon invading army
+	#Fuhsa
+	if = {
+		limit = {
+			#any_province = {
+			#	limit = {
+			#		de_jure_liege_or_above = d_fuhsa
+			#	}
+			#	owner = {
+			#		top_liege = { is_thuringian_culture_trigger = yes }
+			#	}
+			#}
+			always=yes
+		}
+		create_character = {
+			name="Hereweald"
+			random_traits = yes
+			dynasty = random
+			religion = germanic_pagan
+			culture = oldsaxon
+			female = no
+			age = 30
+			attributes = {
+				martial = 12
+			}
+			trait = skilled_tactician
+		}
+
+		new_character = {
+			save_event_target_as = invader_fuhsa
+			
+			create_title = {
+				tier = DUKE
+				landless = yes
+				temporary = yes
+				culture = ROOT
+				name = "HEREWEALDS_HOST"
+				holder = THIS
+			}
+
+			set_government_type = tribal_government
+			wealth = 75
+			prestige = 500
+
+			spawn_unit = {
+				province = 1198 #2K in Moringa
+				troops = {
+					light_infantry = { 600 600 }
+					heavy_infantry = { 500 500 }
+					pikemen = { 350 350 }
+					archers = { 350 350 }
+					light_cavalry = { 150 150 }
+					heavy_cavalry = { 50 50 }
+				}
+				attrition = 0.25
+				disband_on_peace = yes
+			}
+			spawn_unit = {
+				province = 1199 #2K in Sulberg
+				troops = {
+					light_infantry = { 600 600 }
+					heavy_infantry = { 500 500 }
+					pikemen = { 350 350 }
+					archers = { 350 350 }
+					light_cavalry = { 150 150 }
+					heavy_cavalry = { 50 50 }
+				}
+				attrition = 0.25
+				disband_on_peace = yes
+			}
+
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 26
+				attributes = {
+					martial = 10
+				}
+				trait = tough_soldier
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 42
+				attributes = {
+					martial = 10
+				}
+				trait = skilled_tactician
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 19
+				attributes = {
+					martial = 10
+				}
+				trait = tough_soldier
+			}
+		}
+		any_province = {
+			limit = { de_jure_liege_or_above = d_fuhsa }
+			county = {
+				add_claim = event_target:invader_fuhsa
+			}
+		}
+		any_province = {
+			limit = {
+				de_jure_liege_or_above = d_fuhsa
+				owner = {
+					top_liege = { is_thuringian_culture_trigger = yes }
+				}
+			}
+			county = {
+				owner = {
+					top_liege = {
+						PREVPREV = { 
+							reverse_unsafe_war = {
+								target = event_target:invader_fuhsa
+								casus_belli = claim_all
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#Eastphalia		
+	if = {
+		limit = {
+			#any_province = {
+			#	limit = {
+			#		de_jure_liege_or_above = d_eastfalia
+			#	}
+			#	owner = {
+			#		top_liege = { is_thuringian_culture_trigger = yes }
+			#	}
+			#}
+			always=yes
+		}
+		create_character = {
+			name="Cynehelm"
+			random_traits = yes
+			dynasty = random
+			religion = germanic_pagan
+			culture = oldsaxon
+			female = no
+			age = 27
+			attributes = {
+				martial = 12
+			}
+			trait = skilled_tactician
+		}
+
+		new_character = {
+			save_event_target_as = invader_eastfalia
+			
+			create_title = {
+				tier = DUKE
+				landless = yes
+				temporary = yes
+				culture = ROOT
+				name = "CYNEHELMS_HOST"
+				holder = THIS
+			}
+
+			set_government_type = tribal_government
+			wealth = 75
+			prestige = 500
+
+			spawn_unit = {
+				province = 1204 #2K in Flutwidu
+				troops = {
+					light_infantry = { 600 600 }
+					heavy_infantry = { 500 500 }
+					pikemen = { 350 350 }
+					archers = { 350 350 }
+					light_cavalry = { 150 150 }
+					heavy_cavalry = { 50 50 }
+				}
+				attrition = 0.25
+				disband_on_peace = yes
+			}
+			spawn_unit = {
+				province = 1202 #2K in Guottinga
+				troops = {
+					light_infantry = { 600 600 }
+					heavy_infantry = { 500 500 }
+					pikemen = { 350 350 }
+					archers = { 350 350 }
+					light_cavalry = { 150 150 }
+					heavy_cavalry = { 50 50 }
+				}
+				attrition = 0.25
+				disband_on_peace = yes
+			}
+
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 33
+				attributes = {
+					martial = 10
+				}
+				trait = tough_soldier
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 41
+				attributes = {
+					martial = 11
+				}
+				trait = skilled_tactician
+			}
+			create_character = {
+				random_traits = yes
+				dynasty = none
+				religion = germanic_pagan
+				culture = oldsaxon
+				female = no
+				age = 22
+				attributes = {
+					martial = 9
+				}
+				trait = tough_soldier
+			}
+		}
+		any_province = {
+			limit = { de_jure_liege_or_above = d_eastfalia }
+			county = {
+				add_claim = event_target:invader_eastfalia
+			}
+		}
+		any_province = {
+			limit = {
+				de_jure_liege_or_above = d_eastfalia
+				owner = {
+					top_liege = { is_thuringian_culture_trigger = yes }
+				}
+			}
+			county = {
+				owner = {
+					top_liege = {
+						PREVPREV = { 
+							reverse_unsafe_war = {
+								target = event_target:invader_eastfalia
+								casus_belli = claim_all
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

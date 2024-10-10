@@ -2729,3 +2729,56 @@ character_event = {
 		name = "OK"
 	}
 }
+
+########################################
+#### Frankish Invasion of Thuringia ####
+
+narrative_event = {
+	id = 313293
+	title = "EVTNAME313293"
+	desc = EVTDESC313293
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_smoke"
+	
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = franks_invade_thuringia
+	}	
+	
+	option = {
+		name = "EVTOPTA313293"	# Go to war
+		trigger = {
+			character = ROOT
+		}
+	}
+	option = {
+		name = "EVTOPTB313293"	# Other Franks
+		trigger = {
+			is_frankish_culture_trigger = yes
+			NOT = { character = ROOT }
+		}
+	}
+	option = {
+		name = "EVTOPTC313293"	# Other Thuringians
+		trigger = {
+			is_thuringian_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTD313293"	# Others
+		trigger = {
+			NOR = { 
+				is_frankish_culture_trigger = yes
+				is_thuringian_culture_trigger = yes
+			}
+		}
+	}
+}

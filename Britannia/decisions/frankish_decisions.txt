@@ -515,6 +515,101 @@ decisions = {
 		}
 	}
 	
+	franks_invade_thuringia = {
+		only_independent = yes
+		is_high_prio = yes
+		potential = {
+			ai = no
+			year = 530
+			NOT = { year = 600 }
+			NOT = { has_global_flag = franks_invade_thuringia }
+			is_frankish_culture_trigger = yes
+			higher_tier_than = DUKE
+			any_neighbor_independent_ruler = {
+				has_landed_title = k_thuringia
+			}
+			k_thuringia = {
+				holder_scope = {
+					is_frankish_culture_trigger = no
+					calc_true_if = {		#Don't show if there isn't much to conquer
+						amount >= 3
+						completely_controls = d_thuringia
+						completely_controls = c_erfurt
+						completely_controls = c_westergowe
+						completely_controls = c_eschwege
+						completely_controls = c_wippergowe
+						completely_controls = c_eichesfelt
+					}
+				}
+			}
+			NOT = {
+				any_war = {
+					attacker = { character = ROOT }
+					defender = { has_landed_title = k_thuringia }
+				}
+			}
+			NOT = { has_global_flag = franks_defeated }	
+		}
+		allow = {
+			year = 530
+			NOT = { year = 600 }
+			is_adult = yes
+			is_incapable = no
+			prisoner = no
+			war = no
+			prestige = 1000
+			martial = 12
+			num_of_count_titles_in_realm = 25
+			k_thuringia = {
+				holder_scope = {
+					NOR = {
+						reverse_has_truce = ROOT
+						has_non_aggression_pact_with = ROOT
+						is_allied_with = ROOT
+					}
+				}
+			}
+		}
+		effect = {
+			set_global_flag = franks_invade_thuringia
+			set_global_flag = frankish_invasion_530
+			character_event = { id = 313293 }
+			custom_tooltip = {
+				text = "invade_thuringia_tt"
+				ROOT = {
+					unsafe_war = {
+						target = k_thuringia
+						casus_belli = tribal_invasion
+						thirdparty_title = d_thuringia
+						tier = DUKE
+					}
+				}
+			}
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						troops = {
+							light_infantry = { 300 300 }
+							heavy_infantry = { 300 300 }
+							pikemen = { 150 150 }
+							archers = { 150 150 }
+							light_cavalry = { 100 100 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+					}
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
 	form_danish_march = {
 		only_independent = yes
 		is_high_prio = yes
