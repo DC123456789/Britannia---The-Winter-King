@@ -2782,3 +2782,74 @@ narrative_event = {
 		}
 	}
 }
+
+character_event = {
+	id = 313294
+	hide_window	= yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		spawn_saxon_invaders_eastphalia = yes
+	}
+}
+
+province_event = {
+	id = 313295
+	hide_window	= yes
+	
+	trigger = {
+		has_global_flag = franks_invade_thuringia
+		year = 530
+		NOT = { year = 560 }
+		culture = oldthuringian
+		county = {
+			owner = {
+				top_liege = { is_ingvaeonic_culture_trigger = yes }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 25
+		
+		#Slow down over time
+		modifier = { 
+			factor = 2
+			year = 540
+		}
+		modifier = { 
+			factor = 3
+			year = 550
+		}
+	}
+	
+	immediate = {
+		ROOT = { culture = oldsaxon }
+		ROOT = { religion = germanic_pagan }
+		ROOT = {
+			county = {
+				owner = {
+					top_liege = { 
+						character_event = { id = 313296 } 
+					}
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = 313296
+	title = EVTNAME313296
+	desc = EVTDESC313296
+	picture = GFX_evt_traveller_hills
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA313296"
+		FROM = { culture = oldsaxon }
+		FROM = { religion = germanic_pagan }	
+	}
+}
