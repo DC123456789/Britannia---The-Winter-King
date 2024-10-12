@@ -1508,6 +1508,158 @@ narrative_event = {
 	}
 }
 
+#### Frankish Invasion of Thuringia ####
+
+narrative_event = {
+	id = 313207
+	title = "EVTNAME313207"
+	desc = EVTDESC313207
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_battle_smoke"
+	
+	only_rulers = yes
+	min_age = 15
+	capable_only = yes
+	prisoner = no
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = franks_invade_thuringia
+	}	
+	
+	option = {
+		name = "EVTOPTA313207"	# Go to war
+		trigger = {
+			character = ROOT
+		}
+		
+		custom_tooltip = {
+			text = "invade_thuringia_tt"
+			ROOT = {
+				unsafe_war = {
+					target = k_thuringia
+					casus_belli = tribal_invasion
+					thirdparty_title = k_thuringia
+					tier = DUKE
+				}
+			}
+		}
+		capital_scope = {
+			ROOT = {
+				spawn_unit = {
+					province = PREV
+					troops = {
+						light_infantry = { 300 300 }
+						heavy_infantry = { 300 300 }
+						pikemen = { 150 150 }
+						archers = { 150 150 }
+						light_cavalry = { 100 100 }
+					}
+					attrition = 0.5
+					disband_on_peace = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB313207"	# Other Franks
+		trigger = {
+			is_frankish_culture_trigger = yes
+			NOT = { character = ROOT }
+		}
+	}
+	option = {
+		name = "EVTOPTC313207"	# Other Thuringians
+		trigger = {
+			is_thuringian_culture_trigger = yes
+		}
+	}
+	option = {
+		name = "EVTOPTD313207"	# Others
+		trigger = {
+			NOR = { 
+				is_frankish_culture_trigger = yes
+				is_thuringian_culture_trigger = yes
+			}
+		}
+	}
+}
+
+character_event = {
+	id = 313208
+	hide_window	= yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		spawn_saxon_invaders_eastphalia = yes
+	}
+}
+
+province_event = {
+	id = 313209
+	hide_window	= yes
+	
+	trigger = {
+		has_global_flag = franks_invade_thuringia
+		year = 530
+		NOT = { year = 550 }
+		culture = oldthuringian
+		county = {
+			owner = {
+				top_liege = { is_ingvaeonic_culture_trigger = yes }
+			}
+		}
+		region = world_germania_saxony_eastphalia
+	}
+	
+	mean_time_to_happen = {
+		months = 25
+		
+		#Slow down over time
+		modifier = { 
+			factor = 2
+			year = 535
+		}
+		modifier = { 
+			factor = 3
+			year = 540
+		}
+	}
+	
+	immediate = {
+		ROOT = { culture = oldsaxon }
+		ROOT = { religion = germanic_pagan }
+		ROOT = {
+			county = {
+				owner = {
+					top_liege = { 
+						character_event = { id = 313210 } 
+					}
+				}
+			}
+		}
+	}
+}
+
+character_event = {
+	id = 313210
+	title = EVTNAME313210
+	desc = EVTDESC313210
+	picture = GFX_evt_traveller_hills
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA313210"
+		FROM = { culture = oldsaxon }
+		FROM = { religion = germanic_pagan }	
+	}
+}
+
 ###### Frankish Conversion ######
 # Conversion of Clovis I (after 493 AD)
 character_event = {
@@ -2727,129 +2879,5 @@ character_event = {
 	
 	option = {
 		name = "OK"
-	}
-}
-
-########################################
-#### Frankish Invasion of Thuringia ####
-
-narrative_event = {
-	id = 313293
-	title = "EVTNAME313293"
-	desc = EVTDESC313293
-	major = yes
-	hide_new = yes
-	
-	picture = "GFX_evt_battle_smoke"
-	
-	only_rulers = yes
-	min_age = 15
-	capable_only = yes
-	prisoner = no
-	
-	is_triggered_only = yes
-	
-	immediate = {
-		set_global_flag = franks_invade_thuringia
-	}	
-	
-	option = {
-		name = "EVTOPTA313293"	# Go to war
-		trigger = {
-			character = ROOT
-		}
-	}
-	option = {
-		name = "EVTOPTB313293"	# Other Franks
-		trigger = {
-			is_frankish_culture_trigger = yes
-			NOT = { character = ROOT }
-		}
-	}
-	option = {
-		name = "EVTOPTC313293"	# Other Thuringians
-		trigger = {
-			is_thuringian_culture_trigger = yes
-		}
-	}
-	option = {
-		name = "EVTOPTD313293"	# Others
-		trigger = {
-			NOR = { 
-				is_frankish_culture_trigger = yes
-				is_thuringian_culture_trigger = yes
-			}
-		}
-	}
-}
-
-character_event = {
-	id = 313294
-	hide_window	= yes
-	
-	is_triggered_only = yes
-	
-	immediate = {
-		spawn_saxon_invaders_eastphalia = yes
-	}
-}
-
-province_event = {
-	id = 313295
-	hide_window	= yes
-	
-	trigger = {
-		has_global_flag = franks_invade_thuringia
-		year = 530
-		NOT = { year = 560 }
-		culture = oldthuringian
-		county = {
-			owner = {
-				top_liege = { is_ingvaeonic_culture_trigger = yes }
-			}
-		}
-	}
-	
-	mean_time_to_happen = {
-		months = 25
-		
-		#Slow down over time
-		modifier = { 
-			factor = 2
-			year = 540
-		}
-		modifier = { 
-			factor = 3
-			year = 550
-		}
-	}
-	
-	immediate = {
-		ROOT = { culture = oldsaxon }
-		ROOT = { religion = germanic_pagan }
-		ROOT = {
-			county = {
-				owner = {
-					top_liege = { 
-						character_event = { id = 313296 } 
-					}
-				}
-			}
-		}
-	}
-}
-
-character_event = {
-	id = 313296
-	title = EVTNAME313296
-	desc = EVTDESC313296
-	picture = GFX_evt_traveller_hills
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA313296"
-		FROM = { culture = oldsaxon }
-		FROM = { religion = germanic_pagan }	
 	}
 }
