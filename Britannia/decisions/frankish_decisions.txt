@@ -522,7 +522,7 @@ decisions = {
 			ai = no
 			year = 530
 			NOT = { year = 600 }
-			NOT = { has_global_flag = franks_invade_thuringia }
+			NOT = { has_global_flag = frankish_invasion_thuringia_second_try }
 			is_frankish_culture_trigger = yes
 			higher_tier_than = DUKE
 			any_neighbor_independent_ruler = {
@@ -531,17 +531,22 @@ decisions = {
 			k_thuringia = {
 				holder_scope = {
 					is_frankish_culture_trigger = no
-					calc_true_if = {		#Don't show if there isn't much to conquer
-						amount >= 3
-						completely_controls = d_thuringia
-						completely_controls = c_erfurt
-						completely_controls = c_westergowe
-						completely_controls = c_eschwege
-						completely_controls = c_wippergowe
-						completely_controls = c_eichesfelt
+					any_realm_province = {		#Don't show if there isn't much to conquer
+						count >= 3
+						OR = {
+							AND = {
+								region = world_germania_thuringia
+								NOT = { 
+									region = world_germania_saxony_eastphalia 
+								}
+							}
+							region = world_hesse
+						}
 					}
 				}
 			}
+			NOT = { has_global_flag = thuringia_subjugated }
+			NOT = { has_character_flag = triggered_313207_event }
 			NOT = {
 				any_war = {
 					attacker = { character = ROOT }
@@ -569,11 +574,20 @@ decisions = {
 					}
 				}
 			}
+			custom_tooltip = {
+				text = not_invaded_thuringia_in_last_10_years_tooltip
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_thuringia }
+					had_global_flag = { flag = frankish_invasion_thuringia days = 3600 }
+				}
+			}
 		}
 		effect = {
-			set_global_flag = franks_invade_thuringia
-			set_global_flag = frankish_invasion_530
+			set_character_flag = triggered_313207_event
 			character_event = { id = 313207 }
+			custom_tooltip = {
+				text = "invade_thuringia_tt"
+			}
 		}
 		revoke_allowed = {
 			always = no

@@ -3532,45 +3532,18 @@ tribal_invasion = {
 						any_realm_lord = {
 							limit = {
 								higher_tier_than = BARON
-							}
-							set_character_flag = is_realm_lord
-						}
-						any_realm_lord = {
-							limit = {
-								higher_tier_than = BARON
-								any_demesne_title = {
-									tier = COUNT
-								}
-							}
-							set_character_flag = holds_county_title
-						}
-						any_realm_lord = {
-							limit = {
-								higher_tier_than = BARON
 								any_demesne_title = {
 									tier = COUNT
 									NOT = {
 										location = {
-											region = world_germania_thuringia
-											NOT = { 
-												region = world_germania_saxony_eastphalia 
-											}
-										}
-									}
-								}
-							}
-							set_character_flag = owns_land_outside_thuringia
-						}
-						any_realm_lord = {
-							limit = {
-								higher_tier_than = BARON
-								any_demesne_title = {
-									tier = COUNT
-									NOT = {
-										location = {
-											region = world_germania_thuringia
-											NOT = { 
-												region = world_germania_saxony_eastphalia 
+											OR = {
+												AND = {
+													region = world_germania_thuringia
+													NOT = { 
+														region = world_germania_saxony_eastphalia 
+													}
+												}
+												region = world_hesse
 											}
 										}
 									}
@@ -3582,9 +3555,14 @@ tribal_invasion = {
 												tier = COUNT
 												NOT = {
 													location = {
-														region = world_germania_thuringia
-														NOT = { 
-															region = world_germania_saxony_eastphalia 
+														OR = {
+															AND = {
+																region = world_germania_thuringia
+																NOT = { 
+																	region = world_germania_saxony_eastphalia 
+																}
+															}
+															region = world_hesse
 														}
 													}
 												}
@@ -3594,12 +3572,16 @@ tribal_invasion = {
 									}
 								}
 							}
-							set_character_flag = should_be_broken_off
 							any_province = {
 								limit = { 
-									region = world_germania_thuringia
-									NOT = { 
-										region = world_germania_saxony_eastphalia 
+									OR = {
+										AND = {
+											region = world_germania_thuringia
+											NOT = { 
+												region = world_germania_saxony_eastphalia 
+											}
+										}
+										region = world_hesse
 									}
 								}
 								set_province_flag = vassalize_province
@@ -3610,10 +3592,15 @@ tribal_invasion = {
 						}
 						# Then usurp/vassalize the core Thuringia area to ROOT 
 						any_province = {
-							limit = { 
-								region = world_germania_thuringia
-								NOT = { 
-									region = world_germania_saxony_eastphalia 
+							limit = {
+								OR = {
+									AND = {
+										region = world_germania_thuringia
+										NOT = { 
+											region = world_germania_saxony_eastphalia 
+										}
+									}
+									region = world_hesse
 								}
 							}
 							set_province_flag = vassalize_province
@@ -3623,9 +3610,8 @@ tribal_invasion = {
 						imprison = ROOT
 					}
 				}
-				destroy_landed_title = d_thuringia
 				destroy_landed_title = k_thuringia
-				ROOT = { character_event = { id = 313208 days = 3 } }
+				1192 = { province_event = { id = 313208 days = 3 } }
 			}
 			break = yes
 		}

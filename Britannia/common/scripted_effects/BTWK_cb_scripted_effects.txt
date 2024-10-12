@@ -603,20 +603,35 @@ check_recalculate_aengland_variables_effect = {
 
 spawn_saxon_invaders_eastphalia = {
 	##Spawn Saxon invading army
-	#Fuhsa
-	if = {
+	any_title = {
 		limit = {
-			any_province = {
-				de_jure_liege_or_above = d_fuhsa
-				county = {
-					owner = {
-						top_liege = { is_thuringian_culture_trigger = yes }
+			tier = DUKE
+			any_direct_de_jure_vassal_title = {
+				location = {
+					OR = {
+						region = world_germania_saxony_eastphalia
+						region = world_germania_saxony
 					}
+				}
+				owner = {
+					top_liege = { is_thuringian_culture_trigger = yes }
 				}
 			}
 		}
+		capital_scope = { save_event_target_as = troops_province_one }
+		if = {
+			limit = {
+				any_direct_de_jure_vassal_title = { NOT = { location = { province = event_target:troops_province_one } } }
+			}
+			random_direct_de_jure_vassal_title = {
+				limit = { NOT = { location = { province = event_target:troops_province_one } } }
+				save_event_target_as = troops_province_two
+			}
+		}
+		else = {
+			capital_scope = { save_event_target_as = troops_province_two }
+		}
 		create_character = {
-			name="Hereweald"
 			random_traits = yes
 			dynasty = random
 			religion = germanic_pagan
@@ -630,14 +645,14 @@ spawn_saxon_invaders_eastphalia = {
 		}
 
 		new_character = {
-			save_event_target_as = invader_fuhsa
+			save_event_target_as = saxon_invader
 			
 			create_title = {
 				tier = DUKE
 				landless = yes
 				temporary = yes
 				culture = ROOT
-				name = "HEREWEALDS_HOST"
+				name = "SAXON_CLAIMANT_ADVENTURE"
 				holder = THIS
 			}
 
@@ -646,7 +661,7 @@ spawn_saxon_invaders_eastphalia = {
 			prestige = 750
 
 			spawn_unit = {
-				province = 1198 #2K in Moringa
+				province = event_target:troops_province_one
 				troops = {
 					light_infantry = { 600 600 }
 					heavy_infantry = { 500 500 }
@@ -659,7 +674,7 @@ spawn_saxon_invaders_eastphalia = {
 				disband_on_peace = yes
 			}
 			spawn_unit = {
-				province = 1199 #2K in Sulberg
+				province = event_target:troops_province_two
 				troops = {
 					light_infantry = { 600 600 }
 					heavy_infantry = { 500 500 }
@@ -709,164 +724,21 @@ spawn_saxon_invaders_eastphalia = {
 				trait = tough_soldier
 			}
 		}
-		any_province = {
-			limit = { de_jure_liege_or_above = d_fuhsa }
-			county = {
-				add_claim = event_target:invader_fuhsa
-			}
+		any_direct_de_jure_vassal_title = {
+			add_claim = event_target:saxon_invader
 		}
-		any_province = {
+		any_direct_de_jure_vassal_title = {
 			limit = {
-				de_jure_liege_or_above = d_fuhsa
-				county = {
-					owner = {
-						top_liege = { is_thuringian_culture_trigger = yes }
-					}
-				}
-			}
-			county = {
 				owner = {
-					top_liege = {
-						PREVPREV = { 
-							reverse_unsafe_war = {
-								target = event_target:invader_fuhsa
-								casus_belli = claim_all
-							}
-						}
-					}
+					top_liege = { is_thuringian_culture_trigger = yes }
 				}
 			}
-		}
-	}
-	#Eastphalia		
-	if = {
-		limit = {
-			any_province = {
-				de_jure_liege_or_above = d_eastfalia
-				county = {
-					owner = {
-						top_liege = { is_thuringian_culture_trigger = yes }
-					}
-				}
-			}
-		}
-		create_character = {
-			name="Cynehelm"
-			random_traits = yes
-			dynasty = random
-			religion = germanic_pagan
-			culture = oldsaxon
-			female = no
-			age = 27
-			attributes = {
-				martial = 12
-			}
-			trait = skilled_tactician
-		}
-
-		new_character = {
-			save_event_target_as = invader_eastfalia
-			
-			create_title = {
-				tier = DUKE
-				landless = yes
-				temporary = yes
-				culture = ROOT
-				name = "CYNEHELMS_HOST"
-				holder = THIS
-			}
-
-			set_government_type = tribal_government
-			wealth = 75
-			prestige = 750
-
-			spawn_unit = {
-				province = 1204 #2K in Flutwidu
-				troops = {
-					light_infantry = { 600 600 }
-					heavy_infantry = { 500 500 }
-					pikemen = { 350 350 }
-					archers = { 350 350 }
-					light_cavalry = { 150 150 }
-					heavy_cavalry = { 50 50 }
-				}
-				attrition = 0.25
-				disband_on_peace = yes
-			}
-			spawn_unit = {
-				province = 1202 #2K in Guottinga
-				troops = {
-					light_infantry = { 600 600 }
-					heavy_infantry = { 500 500 }
-					pikemen = { 350 350 }
-					archers = { 350 350 }
-					light_cavalry = { 150 150 }
-					heavy_cavalry = { 50 50 }
-				}
-				attrition = 0.25
-				disband_on_peace = no
-			}
-
-			create_character = {
-				random_traits = yes
-				dynasty = none
-				religion = germanic_pagan
-				culture = oldsaxon
-				female = no
-				age = 33
-				attributes = {
-					martial = 10
-				}
-				trait = tough_soldier
-			}
-			create_character = {
-				random_traits = yes
-				dynasty = none
-				religion = germanic_pagan
-				culture = oldsaxon
-				female = no
-				age = 41
-				attributes = {
-					martial = 11
-				}
-				trait = skilled_tactician
-			}
-			create_character = {
-				random_traits = yes
-				dynasty = none
-				religion = germanic_pagan
-				culture = oldsaxon
-				female = no
-				age = 22
-				attributes = {
-					martial = 9
-				}
-				trait = tough_soldier
-			}
-		}
-		any_province = {
-			limit = { de_jure_liege_or_above = d_eastfalia }
-			county = {
-				add_claim = event_target:invader_eastfalia
-			}
-		}
-		any_province = {
-			limit = {
-				de_jure_liege_or_above = d_eastfalia
-				county = {
-					owner = {
-						top_liege = { is_thuringian_culture_trigger = yes }
-					}
-				}
-			}
-			county = {
-				owner = {
-					top_liege = {
-						PREVPREV = { 
-							reverse_unsafe_war = {
-								target = event_target:invader_eastfalia
-								casus_belli = claim_all
-							}
+			owner = {
+				top_liege = {
+					PREVPREV = { 
+						reverse_unsafe_war = {
+							target = event_target:saxon_invader
+							casus_belli = claim_all
 						}
 					}
 				}

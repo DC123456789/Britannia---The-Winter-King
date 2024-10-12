@@ -1524,11 +1524,80 @@ narrative_event = {
 	capable_only = yes
 	prisoner = no
 	
-	is_triggered_only = yes
+	trigger = {
+		OR = {
+			has_character_flag = triggered_313207_event
+			AND = {
+				ai = yes
+				year = 530
+				NOT = { year = 600 }
+				is_frankish_culture_trigger = yes
+				higher_tier_than = DUKE
+				war = no
+				any_neighbor_independent_ruler = {
+					has_landed_title = k_thuringia
+				}
+				k_thuringia = {
+					holder_scope = {
+						is_frankish_culture_trigger = no
+						NOT = {
+							reverse_has_truce = ROOT
+						}
+					}
+				}
+				NOT = { has_global_flag = thuringia_subjugated }
+				OR = {
+					NOT = { has_global_flag = frankish_invasion_thuringia }
+					had_global_flag = { flag = frankish_invasion_thuringia days = 3600 }
+				}
+				NOT = { has_global_flag = frankish_invasion_thuringia_second_try }
+				NOT = { has_global_flag = franks_defeated }
+				num_of_count_titles_in_realm = 25
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.5
+			OR = {
+				year = 535
+				has_global_flag = frankish_invasion_thuringia
+			}
+		}
+		modifier = {
+			factor = 0.75
+			year = 540
+			NOT = { has_global_flag = frankish_invasion_thuringia }
+		}
+		modifier = {
+			factor = 0.5
+			year = 545
+			NOT = { has_global_flag = frankish_invasion_thuringia }
+		}
+		modifier = {
+			factor = 0.25
+			year = 550
+			NOT = { has_global_flag = frankish_invasion_thuringia }
+		}
+		modifier = {
+			factor = 0.1
+			year = 555
+			NOT = { has_global_flag = frankish_invasion_thuringia }
+		}
+	}
 	
 	immediate = {
-		set_global_flag = franks_invade_thuringia
-	}	
+		if = {
+			limit = { has_global_flag = frankish_invasion_thuringia }
+			set_global_flag = frankish_invasion_thuringia_second_try
+		}
+		else = {
+			set_global_flag = frankish_invasion_thuringia
+		}
+		set_global_flag = frankish_invasion_530
+	}
 	
 	option = {
 		name = "EVTOPTA313207"	# Go to war
@@ -1543,23 +1612,36 @@ narrative_event = {
 					target = k_thuringia
 					casus_belli = tribal_invasion
 					thirdparty_title = k_thuringia
-					tier = DUKE
+					tier = KING
 				}
 			}
 		}
-		capital_scope = {
-			ROOT = {
-				spawn_unit = {
-					province = PREV
-					troops = {
-						light_infantry = { 300 300 }
-						heavy_infantry = { 300 300 }
-						pikemen = { 150 150 }
-						archers = { 150 150 }
-						light_cavalry = { 100 100 }
+		if = {
+			limit = { 
+				ai = yes 
+				k_thuringia = {
+					holder_scope = {
+						relative_power_including_allies_defender = { 
+							who = ROOT 
+							power = 0.9
+						}
 					}
-					attrition = 0.5
-					disband_on_peace = yes
+				}
+			}
+			capital_scope = {
+				ROOT = {
+					spawn_unit = {
+						province = PREV
+						troops = {
+							light_infantry = { 300 300 }
+							heavy_infantry = { 300 300 }
+							pikemen = { 150 150 }
+							archers = { 150 150 }
+							light_cavalry = { 100 100 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+					}
 				}
 			}
 		}
@@ -1588,7 +1670,7 @@ narrative_event = {
 	}
 }
 
-character_event = {
+province_event = {
 	id = 313208
 	hide_window	= yes
 	
