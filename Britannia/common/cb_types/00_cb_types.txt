@@ -3526,10 +3526,75 @@ tribal_invasion = {
 				
 				k_thuringia = {
 					holder_scope = {
-						any_vassal = {
+						# Break off all vassals not in the core Thuringia area
+						# Defined as any count-or-higher vassals with at least one demesne title outside 
+						# the core Thuringia area whose liege is not also eligible to be broken off
+						any_realm_lord = {
 							limit = {
 								higher_tier_than = BARON
 							}
+							set_character_flag = is_realm_lord
+						}
+						any_realm_lord = {
+							limit = {
+								higher_tier_than = BARON
+								any_demesne_title = {
+									tier = COUNT
+								}
+							}
+							set_character_flag = holds_county_title
+						}
+						any_realm_lord = {
+							limit = {
+								higher_tier_than = BARON
+								any_demesne_title = {
+									tier = COUNT
+									NOT = {
+										location = {
+											region = world_germania_thuringia
+											NOT = { 
+												region = world_germania_saxony_eastphalia 
+											}
+										}
+									}
+								}
+							}
+							set_character_flag = owns_land_outside_thuringia
+						}
+						any_realm_lord = {
+							limit = {
+								higher_tier_than = BARON
+								any_demesne_title = {
+									tier = COUNT
+									NOT = {
+										location = {
+											region = world_germania_thuringia
+											NOT = { 
+												region = world_germania_saxony_eastphalia 
+											}
+										}
+									}
+								}
+								liege = {
+									OR = {
+										NOT = {
+											any_demesne_title = {
+												tier = COUNT
+												NOT = {
+													location = {
+														region = world_germania_thuringia
+														NOT = { 
+															region = world_germania_saxony_eastphalia 
+														}
+													}
+												}
+											}
+										}
+										character = PREVPREV
+									}
+								}
+							}
+							set_character_flag = should_be_broken_off
 							any_province = {
 								limit = { 
 									region = world_germania_thuringia
@@ -3540,12 +3605,10 @@ tribal_invasion = {
 								set_province_flag = vassalize_province
 							}
 							set_defacto_liege = THIS
-							vassalize_all_flagged_provinces_to_ROOT_effect = yes
+							PREV = { save_event_target_as = vassalization_event_target }
+							vassalize_all_flagged_provinces_to_event_target_effect = yes
 						}
-					}
-				}
-				k_thuringia = {
-					holder_scope = {
+						# Then usurp/vassalize the core Thuringia area to ROOT 
 						any_province = {
 							limit = { 
 								region = world_germania_thuringia
