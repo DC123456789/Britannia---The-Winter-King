@@ -58321,21 +58321,47 @@ e_germania = {				# High Kingdom of Germania
 		
 		culture = oldthuringian
 		assimilate = no
-		creation_requires_capital = no
+		#creation_requires_capital = no
 		
 		allow = {
-			age = 20
 			OR = {
-				culture = oldthuringian
-				culture = thuringian
+				AND = {
+					age = 20
+					OR = {
+						culture = oldthuringian
+						culture = thuringian
+					}
+					independent = yes
+					prestige = 1500
+					num_of_count_titles_in_realm = 10
+				}
+				AND = {
+					is_frankish_culture_trigger = yes
+					custom_tooltip = {
+						text = thuringia_subjugated_tooltip
+						has_global_flag = thuringia_subjugated
+					}
+				}
+				AND = {
+					culture_group = germanic
+					top_liege = { 
+						culture_group = germanic
+						tier = EMPEROR
+					}
+				}
+			}	
+			conditional_tooltip = {
+				trigger = {
+					is_roman_emperor_trigger = yes
+				}
+				is_roman_emperor_trigger = no
 			}
-			prestige = 1000
-			independent = yes
-			AND = {
-				completely_controls = c_erfurt
-				completely_controls = c_hastfala
-				completely_controls = c_lagni
-				num_of_count_titles_in_realm = 10
+			hidden_tooltip = {
+				OR = {
+					ai = no
+					is_frankish_culture_trigger = no
+					year = 700
+				}
 			}
 		}
 		
