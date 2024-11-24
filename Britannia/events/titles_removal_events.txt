@@ -16607,6 +16607,131 @@ narrative_event = {
 	}
 }
 
+
+# Civitas of Bardia
+narrative_event = {
+	id = 414621
+	title = "EVTNAME414621"
+	desc = "EVTDESC414621"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_hall_in_forest"
+	
+	only_playable = yes		
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		c_bardengowe = {
+			is_germanic_controlled_trigger = yes
+		}
+		c_osterwalde = {
+			is_germanic_controlled_trigger = yes
+		}
+		has_global_flag = roman_bardia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_bardan = { de_jure_liege = k_thuringia }
+		d_bardan = {
+			set_name = ""
+			adjective = ""
+		}
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_teuriochaimia }
+			}
+			c_osterwalde = { de_jure_liege = d_osterwalde }
+			c_belesem = { de_jure_liege = d_osterwalde }
+			c_gretinge = { de_jure_liege = d_bardan }
+		}
+		
+		clr_global_flag = roman_bardia
+	}
+	
+	option = {
+		name = "EVTOPTA414560"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414560"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+}
+
+# Civitas of Teuriochaimia
+narrative_event = {
+	id = 414622
+	title = "EVTNAME414622"
+	desc = "EVTDESC414622"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_valley_river_spring"
+	
+	only_playable = yes		
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		c_derlingowe = {
+			is_germanic_controlled_trigger = yes
+		}
+		#c_hartingowe = {
+		#	is_germanic_controlled_trigger = yes
+		#}
+		has_global_flag = roman_teuriochaimia
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		d_osterwalde = { de_jure_liege = k_thuringia }
+		d_osterwalde = {
+			set_name = ""
+			adjective = ""
+		}
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_bardia }
+			}
+			c_osterwalde = { de_jure_liege = d_osterwalde }
+			c_belesem = { de_jure_liege = d_osterwalde }
+			c_gretinge = { de_jure_liege = d_bardan }
+		}
+		
+		clr_global_flag = roman_teuriochaimia
+	}
+	
+	option = {
+		name = "EVTOPTA414560"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414560"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+}
+
 # Civitas of Mattiacia
 narrative_event = {
 	id = 414611
