@@ -3477,6 +3477,17 @@ tribal_invasion = {
 				}
 				ROOT = { set_character_flag = conquered_alemannia }
 			}
+			if = {
+				limit = {
+					title = k_thuringia
+					holder_scope = {
+						character = FROM
+					}
+					NOT = { has_global_flag = thuringia_subjugated }
+					ROOT = { is_istvaeonic_culture_trigger = yes }
+				}
+				ROOT = { set_character_flag = conquered_thuringia }
+			}
 		}
 		if = {
 			limit = {
@@ -3612,6 +3623,15 @@ tribal_invasion = {
 				}
 				destroy_landed_title = k_thuringia
 				1192 = { province_event = { id = 313208 days = 3 } }
+				if = {
+					limit = {
+						ROOT = { has_character_flag = conquered_thuringia }
+					}
+					ROOT = {
+						character_event = { id = 314212 } 
+						clr_character_flag = conquered_thuringia
+					}
+				}
 			}
 			break = yes
 		}
@@ -3793,6 +3813,15 @@ tribal_invasion = {
 				ROOT = {
 					character_event = { id = 314210 } 
 					clr_character_flag = conquered_alemannia
+				}
+			}
+			if = {
+				limit = {
+					ROOT = { has_character_flag = conquered_thuringia }
+				}
+				ROOT = {
+					character_event = { id = 314212 } 
+					clr_character_flag = conquered_thuringia
 				}
 			}
 		}
