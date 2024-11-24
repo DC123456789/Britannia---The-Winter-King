@@ -16159,6 +16159,58 @@ narrative_event = {
 	}
 }
 
+# Conquest of Thuringia
+narrative_event = {
+	id = 314212
+	title = "EVTNAME314212"
+	desc = "EVTDESC314212"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_forest_light"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
+		NOT = { has_global_flag = thuringia_subjugated }
+		OR = {
+			has_character_flag = conquered_thuringia
+			completely_controls_region = world_germania_thuringia_proper
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		set_global_flag = thuringia_subjugated
+		if = {
+			limit = { 
+				NOT = { has_global_flag = saxony_expanded_east }
+			}
+			set_global_flag = saxony_expanded_east
+			if = {
+				limit = { NOT = { has_global_flag = roman_eastfalia } }
+				d_eastfalia = { de_jure_liege = k_saxony }
+			}
+			d_leinegau = { de_jure_liege = k_saxony }
+		}
+		
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_thuringia = { de_jure_liege = e_franks }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314212"
+	}
+}
+
 # Creation of the Empire of Francia
 narrative_event = {
 	id = 314209
@@ -21944,6 +21996,9 @@ narrative_event = {
 		
 		k_alemannia = { de_jure_liege = e_germania }
 		clr_global_flag = alemannia_subjugated
+		
+		k_thuringia = { de_jure_liege = e_germania }
+		clr_global_flag = thuringia_subjugated
 	}
 	
 	option = {
@@ -22189,6 +22244,47 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314829"
+	}
+}
+
+# Reconquest of Thuringia
+narrative_event = {
+	id = 314830
+	title = "EVTNAME314830"
+	desc = "EVTDESC314830"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_forest_light"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		OR = {
+			completely_controls_region = world_germania_thuringia
+			AND = {
+				has_global_flag = saxony_expanded_east
+				completely_controls_region = world_germania_thuringia_proper
+			}
+		}
+		has_global_flag = thuringia_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = thuringia_subjugated	
+		k_thuringia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314830"
 	}
 }
 
