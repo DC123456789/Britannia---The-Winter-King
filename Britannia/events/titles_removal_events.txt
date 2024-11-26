@@ -16695,9 +16695,9 @@ narrative_event = {
 		c_derlingowe = {
 			is_germanic_controlled_trigger = yes
 		}
-		#c_hartingowe = {
-		#	is_germanic_controlled_trigger = yes
-		#}
+		c_hartingowe = {
+			is_germanic_controlled_trigger = yes
+		}
 		has_global_flag = roman_teuriochaimia
 	}
 	
@@ -16726,8 +16726,80 @@ narrative_event = {
 			c_belesem = { de_jure_liege = d_osterwalde }
 			c_gretinge = { de_jure_liege = d_bardan }
 		}
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_suebia_thuringorum }
+			}
+			c_hartingowe = { de_jure_liege = d_hartland }
+		}
 		
 		clr_global_flag = roman_teuriochaimia
+	}
+	
+	option = {
+		name = "EVTOPTA414560"
+		trigger = {
+			is_roman_ruler_trigger = no
+		}	
+	}
+	option = {
+		name = "EVTOPTB414560"
+		trigger = {
+			is_roman_ruler_trigger = yes
+		}	
+	}
+}
+
+# Civitas of Suebia Thuringorum
+narrative_event = {
+	id = 414623
+	title = "EVTNAME414623"
+	desc = "EVTDESC414623"
+	major = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_hills_woodland"
+	
+	only_playable = yes		
+	min_age = 20
+	max_age = 30
+	
+	trigger = {
+		is_alternate_start = no
+		c_suavia = {
+			is_germanic_controlled_trigger = yes
+		}
+		c_frisonovel = {
+			is_germanic_controlled_trigger = yes
+		}
+		has_global_flag = roman_suebia_thuringorum
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_global_flag = saxony_expanded_east }
+			d_hartland = { de_jure_liege = k_saxony }
+		}
+		else = {
+			d_hartland = { de_jure_liege = k_thuringia }
+		}
+		d_hartland = {
+			set_name = ""
+			adjective = ""
+		}
+
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_teuriochaimia }
+			}
+			c_hartingowe = { de_jure_liege = d_hartland }
+		}
+		
+		clr_global_flag = roman_suebia_thuringorum
 	}
 	
 	option = {
