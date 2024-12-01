@@ -16523,19 +16523,28 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { has_global_flag = saxony_expanded_east }
-			d_eastfalia = { de_jure_liege = k_saxony }
+			d_leinegau = { de_jure_liege = k_saxony }
 		}
 		else = {
-			d_eastfalia = { de_jure_liege = k_thuringia }
+			d_leinegau = { de_jure_liege = k_thuringia }
 		}
-		d_eastfalia = {
+		d_leinegau = {
 			set_name = ""
 			adjective = ""
 		}
-		c_lagni = { de_jure_liege = d_leinegau }
-		c_moronga = { de_jure_liege = d_leinegau }
-		c_suilberge = { de_jure_liege = d_leinegau }
-		c_hlisgo = { de_jure_liege = d_leinegau }
+		c_hastfala = { de_jure_liege = d_eastfalia }
+		c_flutwide = { de_jure_liege = d_eastfalia }
+		c_guottinga = { de_jure_liege = d_salthgowe }
+		c_salthgowe = { de_jure_liege = d_salthgowe }
+		
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_bardia }
+			}
+			c_bardengowe = { de_jure_liege = d_eastfalia }
+			c_uelzen = { de_jure_liege = d_eastfalia }
+			c_gretinge = { de_jure_liege = d_eastfalia }
+		}
 		
 		clr_global_flag = roman_eastfalia
 	}
@@ -16576,6 +16585,9 @@ narrative_event = {
 		c_eschwege = {
 			is_germanic_controlled_trigger = yes
 		}
+		c_ostergowe = {
+			is_germanic_controlled_trigger = yes
+		}
 		has_global_flag = roman_thuringia
 	}
 	
@@ -16588,6 +16600,19 @@ narrative_event = {
 		d_thuringia = {
 			set_name = ""
 			adjective = ""
+		}
+		
+		c_helmungowe = { de_jure_liege = d_ilmland }
+		c_engili = { de_jure_liege = d_ilmland }
+		c_ostergowe = { de_jure_liege = d_ilmland }
+		c_lancwizi = { de_jure_liege = d_ilmland }
+		c_orla = { de_jure_liege = d_ilmland }
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_teuriochaimia }
+			} 
+			c_hartingowe = { de_jure_liege = d_hartland }
+			c_suavia = { de_jure_liege = d_hartland }
 		}
 		
 		clr_global_flag = roman_thuringia
@@ -16640,23 +16665,30 @@ narrative_event = {
 	immediate = {
 		if = {
 			limit = { has_global_flag = saxony_expanded_east }
-			d_bardan = { de_jure_liege = k_saxony }
+			d_osterwalde = { de_jure_liege = k_saxony }
 		}
 		else = {
-			d_bardan = { de_jure_liege = k_thuringia }
+			d_osterwalde = { de_jure_liege = k_thuringia }
 		}
-		d_bardan = {
+		d_osterwalde = {
 			set_name = ""
 			adjective = ""
 		}
 		
 		if = {
 			limit = {
+				NOT = { has_global_flag = roman_eastfalia }
+			}
+			c_bardengowe = { de_jure_liege = d_eastfalia }
+			c_uelzen = { de_jure_liege = d_eastfalia }
+		}
+		
+		if = {
+			limit = {
 				NOT = { has_global_flag = roman_teuriochaimia }
 			}
-			c_osterwalde = { de_jure_liege = d_osterwalde }
-			c_belesem = { de_jure_liege = d_osterwalde }
-			c_gretinge = { de_jure_liege = d_bardan }
+			c_derlingowe = { de_jure_liege = d_osterwalde }
+			c_nortthuringowe = { de_jure_liege = d_osterwalde }
 		}
 		
 		clr_global_flag = roman_bardia
@@ -16722,15 +16754,15 @@ narrative_event = {
 			limit = {
 				NOT = { has_global_flag = roman_bardia }
 			}
-			c_osterwalde = { de_jure_liege = d_osterwalde }
-			c_belesem = { de_jure_liege = d_osterwalde }
-			c_gretinge = { de_jure_liege = d_bardan }
+			c_derlingowe = { de_jure_liege = d_osterwalde }
+			c_nortthuringowe = { de_jure_liege = d_osterwalde }
 		}
 		if = {
 			limit = {
-				NOT = { has_global_flag = roman_suebia_thuringorum }
-			}
+				NOT = { has_global_flag = roman_thuringia }
+			} 
 			c_hartingowe = { de_jure_liege = d_hartland }
+			c_suavia = { de_jure_liege = d_hartland }
 		}
 		
 		clr_global_flag = roman_teuriochaimia

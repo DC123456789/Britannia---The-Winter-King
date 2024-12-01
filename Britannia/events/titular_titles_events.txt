@@ -13906,13 +13906,17 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_eastfalia = { de_jure_liege = k_germania_tertia }
-		c_lagni = { de_jure_liege = d_eastfalia }
-		c_moronga = { de_jure_liege = d_eastfalia }
-		c_suilberge = { de_jure_liege = d_eastfalia }
-		c_hlisgo = { de_jure_liege = d_eastfalia }
+		d_leinegau = { de_jure_liege = k_germania_tertia }
+		c_hastfala = { de_jure_liege = d_leinegau }
+		c_guottinga = { de_jure_liege = d_leinegau }
+		c_salthgowe = { de_jure_liege = d_leinegau }
+		c_flutwide = { de_jure_liege = d_leinegau }
+		
+		c_bardengowe = { de_jure_liege = d_osterwalde }
+		c_uelzen = { de_jure_liege = d_osterwalde }
+		c_gretinge = { de_jure_liege = d_osterwalde }
 
-		d_eastfalia = {
+		d_leinegau = {
 			set_name = "Fosia"
 			adjective = "Fosian"
 		}
@@ -13952,6 +13956,7 @@ narrative_event = {
 		has_global_flag = expanded_secunda
 		completely_controls = c_erfurt
 		completely_controls = c_eschwege
+		completely_controls = c_ostergowe
 		independent = yes
 		NOT = { has_global_flag = roman_thuringia }
 	}
@@ -13967,6 +13972,14 @@ narrative_event = {
 			set_name = "Hermunduria"
 			adjective = "Hermundurian"
 		}
+		
+		c_helmungowe = { de_jure_liege = d_thuringia }
+		c_engili = { de_jure_liege = d_thuringia }
+		c_ostergowe = { de_jure_liege = d_thuringia }
+		c_lancwizi = { de_jure_liege = d_thuringia }
+		c_orla = { de_jure_liege = d_thuringia }
+		c_frisonovel = { de_jure_liege = d_thuringia }
+		c_hasigowe = { de_jure_liege = d_thuringia }
 		
 		set_global_flag = roman_thuringia
 	}
@@ -14012,16 +14025,18 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_bardan = { de_jure_liege = k_germania_tertia }
+		d_osterwalde = { de_jure_liege = k_germania_tertia }
 
-		d_bardan = {
+		d_osterwalde = {
 			set_name = "Bardia"
 			adjective = "Bardian"
 		}
 		
-		c_osterwalde = { de_jure_liege = d_bardan }
-		c_belesem = { de_jure_liege = d_bardan }
+		c_bardengowe = { de_jure_liege = d_osterwalde }
+		c_uelzen = { de_jure_liege = d_osterwalde }
 		c_gretinge = { de_jure_liege = d_osterwalde }
+		c_nortthuringowe = { de_jure_liege = d_hartland }
+		c_derlingowe = { de_jure_liege = d_hartland }
 		
 		set_global_flag = roman_bardia
 	}
@@ -14067,72 +14082,20 @@ narrative_event = {
 	}
 	
 	immediate = {
-		d_osterwalde = { de_jure_liege = k_germania_tertia }
-
-		d_osterwalde = {
-			set_name = "Teuriochaimia"
-			adjective = "Teuriochaimian"
-		}
-		
-		c_osterwalde = { de_jure_liege = d_bardan }
-		c_belesem = { de_jure_liege = d_bardan }
-		c_gretinge = { de_jure_liege = d_osterwalde }
-		c_hartingowe = { de_jure_liege = d_osterwalde }
-		
-		set_global_flag = roman_teuriochaimia
-	}
-	
-	option = {
-		name = "EVTOPTA314601"
-		trigger = {
-			is_roman_ruler_trigger = yes
-		}	
-	}
-	option = {
-		name = "EVTOPTB314601"
-		trigger = {
-			is_roman_ruler_trigger = no
-		}	
-	}
-}
-
-# Civitas of Suebia Thuringorum
-narrative_event = {	
-	id = 314623
-	title = "EVTNAME314623"
-	desc = "EVTDESC314623"
-	major = yes
-	hide_new = yes
-	
-	picture = "GFX_evt_hills_woodland"
-	
-	only_playable = yes
-	
-	trigger = {
-		is_alternate_start = no
-		is_roman_ruler_trigger = yes
-		has_global_flag = expanded_secunda
-		completely_controls = c_suavia
-		completely_controls = c_frisonovel
-		independent = yes
-		NOT = { has_global_flag = roman_suebia_thuringorum }
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
 		d_hartland = { de_jure_liege = k_germania_tertia }
 
 		d_hartland = {
-			set_name = "Suebia Thuringorum"
-			adjective = "Suebia Thuringorum"
+			set_name = "Teuriochaimia"
+			adjective = "Teuriochaimian"
 		}
 
-		c_hartingowe = { de_jure_liege = d_osterwalde }
+		c_nortthuringowe = { de_jure_liege = d_hartland }
+		c_gretinge = { de_jure_liege = d_hartland }
+		c_derlingowe = { de_jure_liege = d_hartland }
+		c_frisonovel = { de_jure_liege = d_thuringia }
+		c_hasigowe = { de_jure_liege = d_thuringia }
 		
-		set_global_flag = roman_suebia_thuringorum
+		set_global_flag = roman_teuriochaimia
 	}
 	
 	option = {
@@ -16359,19 +16322,15 @@ narrative_event = {
 			set_global_flag = saxony_expanded_east
 			if = {
 				limit = { NOT = { has_global_flag = roman_eastfalia } }
-				d_eastfalia = { de_jure_liege = k_saxony }
+				d_leinegau = { de_jure_liege = k_saxony }
 			}
-			d_leinegau = { de_jure_liege = k_saxony }
+			d_salthgowe = { de_jure_liege = k_saxony }
 			if = {
 				limit = { NOT = { has_global_flag = roman_bardia } }
-				d_bardan = { de_jure_liege = k_saxony }
-			}
-			if = {
-				limit = { NOT = { has_global_flag = roman_teuriochaimia } }
 				d_osterwalde = { de_jure_liege = k_saxony }
 			}
 			if = {
-				limit = { NOT = { has_global_flag = roman_suebia_thuringorum } }
+				limit = { NOT = { has_global_flag = roman_teuriochaimia } }
 				d_hartland = { de_jure_liege = k_saxony }
 			}
 		}
