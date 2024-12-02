@@ -13911,10 +13911,6 @@ narrative_event = {
 		c_guottinga = { de_jure_liege = d_leinegau }
 		c_salthgowe = { de_jure_liege = d_leinegau }
 		c_flutwide = { de_jure_liege = d_leinegau }
-		
-		c_bardengowe = { de_jure_liege = d_osterwalde }
-		c_uelzen = { de_jure_liege = d_osterwalde }
-		c_gretinge = { de_jure_liege = d_osterwalde }
 
 		d_leinegau = {
 			set_name = "Fosia"
@@ -16070,7 +16066,13 @@ narrative_event = {
 		is_frankish_culture_trigger = yes
 		NOT = { top_liege = { has_landed_title = e_germania } }
 		NOT = { has_global_flag = saxony_subjugated }
-		completely_controls_region = world_germania_saxony
+		completely_controls_region = world_germania_saxony_westphalia
+		completely_controls_region = world_germania_saxony_angria
+		completely_controls_region = world_germania_saxony_nordalbingia
+		OR = {
+			completely_controls_region = world_germania_saxony_eastphalia
+			NOT = { has_global_flag = saxony_expanded_east }
+		}
 	}
 	
 	mean_time_to_happen = {
@@ -22237,7 +22239,13 @@ narrative_event = {
 		has_landed_title = e_germania
 		has_global_flag = germania_created
 		NOT = { has_landed_title = e_franks }
-		completely_controls_region = world_germania_saxony
+		completely_controls_region = world_germania_saxony_westphalia
+		completely_controls_region = world_germania_saxony_angria
+		completely_controls_region = world_germania_saxony_nordalbingia
+		OR = {
+			completely_controls_region = world_germania_saxony_eastphalia
+			NOT = { has_global_flag = saxony_expanded_east }
+		}
 		OR = {
 			completely_controls_region = world_hamaland_salland
 			NOT = { has_global_flag = hamaland_conquered_saxon }
