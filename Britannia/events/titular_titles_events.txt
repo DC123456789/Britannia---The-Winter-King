@@ -14028,6 +14028,7 @@ narrative_event = {
 		}
 
 		c_gretinge = { de_jure_liege = d_osterwalde }
+		c_drevani = { de_jure_liege = d_bardan }
 		c_osterwalde = { de_jure_liege = d_bardan }
 		c_belesem = { de_jure_liege = d_bardan }
 		
@@ -14084,6 +14085,7 @@ narrative_event = {
 
 		c_osterwalde = { de_jure_liege = d_bardan }
 		c_belesem = { de_jure_liege = d_bardan }
+		c_drevani = { de_jure_liege = d_bardan }
 		c_gretinge = { de_jure_liege = d_osterwalde }
 		c_hartingowe = { de_jure_liege = d_osterwalde }
 		c_suavia = { de_jure_liege = d_osterwalde }
@@ -16325,11 +16327,10 @@ narrative_event = {
 			}
 			d_leinegau = { de_jure_liege = k_saxony }
 			if = {
-				limit = { NOT = { has_global_flag = roman_bardia } }
-				d_bardan = { de_jure_liege = k_saxony }
-			}
-			if = {
-				limit = { NOT = { has_global_flag = roman_teuriochaimia } }
+				limit = { 
+					NOT = { has_global_flag = roman_teuriochaimia }
+					NOT = { has_global_flag = lombards_created }
+				}
 				d_osterwalde = { de_jure_liege = k_saxony }
 			}
 		}
@@ -16342,6 +16343,44 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTA314212"
+	}
+}
+
+# Conquest of Lombards
+narrative_event = {
+	id = 314213
+	title = "EVTNAME314213"
+	desc = "EVTDESC314213"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_rivers_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		is_frankish_culture_trigger = yes
+		NOT = { top_liege = { has_landed_title = e_germania } }
+		NOT = { has_global_flag = lombards_subjugated }
+		has_global_flag = lombards_created
+		completely_controls_region = custom_lombards
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		set_global_flag = lombards_subjugated
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_lombards = { de_jure_liege = e_franks }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314213"
 	}
 }
 
@@ -22053,6 +22092,53 @@ narrative_event = {	# Conquest of Hamaland and Salland
 
 ### END SAXONS ###
 
+### LOMBARDS ###
+
+narrative_event = {	# Kingdom of Lombards
+	id = 314760
+	title = "EVTNAME314760"
+	desc = EVTDESC314760
+	major = yes
+	hide_new = yes
+	hide_from = yes
+	
+	picture = "GFX_evt_rivers_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = k_lombards
+		NOT = { has_global_flag = lombards_created }
+	}
+	
+	mean_time_to_happen = {
+		days = 3
+	}
+	
+	immediate = {
+		set_global_flag = lombards_created
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_bardia }
+			}
+			d_bardan = { de_jure_liege = k_lombards }
+		}
+		if = {
+			limit = {
+				NOT = { has_global_flag = roman_teuriochaimia }
+			}
+			d_osterwalde = { de_jure_liege = k_lombards }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"	
+	}
+}
+
+### END LOMBARDS ###
+
 ### GERMANIA ###
 
 # Creation of the Empire of Germania
@@ -22133,6 +22219,9 @@ narrative_event = {
 		
 		k_thuringia = { de_jure_liege = e_germania }
 		clr_global_flag = thuringia_subjugated
+		
+		k_lombards = { de_jure_liege = e_germania }
+		clr_global_flag = lombards_subjugated
 	}
 	
 	option = {
@@ -22421,6 +22510,42 @@ narrative_event = {
 	immediate = { 
 		clr_global_flag = thuringia_subjugated	
 		k_thuringia = { de_jure_liege = e_germania }
+	}
+	
+	option = {
+		name = "EVTOPTA314830"
+	}
+}
+
+# Reconquest of Lombards
+narrative_event = {
+	id = 314831
+	title = "EVTNAME314831"
+	desc = "EVTDESC314831"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_rivers_landscape"
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		has_landed_title = e_germania
+		has_global_flag = germania_created
+		NOT = { has_landed_title = e_franks }
+		completely_controls_region = custom_lombards
+		has_global_flag = lombards_created
+		has_global_flag = lombards_subjugated
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		clr_global_flag = lombards_subjugated	
+		k_lombards = { de_jure_liege = e_germania }
 	}
 	
 	option = {
