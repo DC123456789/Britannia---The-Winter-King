@@ -7,7 +7,6 @@
 #########################################################
 
 # Assign local resistance modifier
-# TODO Block cultural conversion for provinces with local resistance
 province_event = {
 	id = 320700
 	hide_window = yes
@@ -51,13 +50,6 @@ province_event = {
 			character_event = { id = 320701 }
 			any_liege = {
 				character_event = { id = 320701 }
-			}
-		}
-		
-		save_event_target_as = current_resistance_region_province
-		owner = {
-			top_liege = {
-				update_nationalist_revolt_size = yes
 			}
 		}
 	}
@@ -121,13 +113,6 @@ province_event = {
 		clr_province_flag = is_pacifying_province
 		clr_province_flag = local_resistance_pacified
 		set_province_flag = local_resistance_unpacifying
-		
-		save_event_target_as = current_resistance_region_province
-		owner = {
-			top_liege = {
-				update_nationalist_revolt_size = yes
-			}
-		}
 	}
 }
 
@@ -527,7 +512,6 @@ character_event = {
 				using_cb = religious_revolt
 				using_cb = cultural_revolt
 				using_cb = liberation_revolt
-				# using_cb = nationalist_revolt_wales
 			}
 		}
 		FROM = {
@@ -2044,11 +2028,17 @@ narrative_event = {
 # 320736 - Notification/request event to rebellion leader to become tributary
 # 320737 - Event offering kingship to the rebellion leader
 
-# - If the Major Revolt rebellion ends in overlord victory, small increase in pacification progress across region
-# 320739 - Notification event to rebellion leader that revolt was defeated
+# 320738 - Notification event to rebellion leader that a revolt was defeated
+
+# 320739 - Check if there are any rebellions still ongoing, end the Major Revolt once all have been crushed
 
 # 320740 - Notification event that major rebellion is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
 #	- Triggers only when all rebellions in the region are over
+# 	- We keep track of how many rebellions ended in defeat or victory for the overlord
+# 	- If none of the rebellions were successful, major overlord victory - moderate increase in pacification progress across region + major prestige
+# 	- If < 20% of the rebellions were successful, overlord victory - small increase in pacification progress across region + a bit of prestige
+# 	- If 20 - 50% of the rebellions were successful, rebellion victory - small decrease in pacification progress across region + a bit of prestige loss
+# 	- If > 50% of the rebellions were successful, major rebellion victory - major decrease in pacification progress across region + major prestige loss
 
 ## TODO Decisions 
 
