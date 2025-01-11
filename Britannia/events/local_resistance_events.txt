@@ -629,7 +629,7 @@ character_event = {
 				save_event_target_as = revolt_target
 				random_direct_de_jure_vassal_title = {
 					limit = { owner = { top_liege = { character = event_target:revolt_defender } } }
-					save_event_target_as = current_resistance_region_province 
+					location = { save_event_target_as = current_resistance_region_province }
 				}
 			}
 			event_target:current_resistance_region_province = {
@@ -749,9 +749,7 @@ character_event = {
 				# Start the checks to see if the Major Revolt can actually already trigger
 				ROOT = { primary_title = { save_event_target_as = revolt_title } }
 				event_target:current_resistance_region_province = {
-					location = {
-						province_event = { id = 320723 days = 2 }
-					}
+					province_event = { id = 320723 days = 2 }
 				}
 			}
 		}
@@ -957,7 +955,7 @@ province_event = {
 	}
 }
 
-# Local Resistance revolt reaches 40-50%(?) warscore, trigger Major Revolt
+# Local Resistance revolt reaches 40-50%(?) warscore or wins, trigger Major Revolt
 character_event = {
 	id = 320724
 	hide_window = yes	
@@ -998,7 +996,7 @@ character_event = {
 				save_event_target_as = revolt_target
 				random_direct_de_jure_vassal_title = {
 					limit = { owner = { top_liege = { character = event_target:revolt_defender } } }
-					save_event_target_as = current_resistance_region_province 
+					location = { save_event_target_as = current_resistance_region_province }
 				}
 			}
 			event_target:current_resistance_region_province = {
@@ -1025,6 +1023,7 @@ character_event = {
 			# Otherwise, check to see if a major revolt can be started
 			else_if = {
 				limit = { is_major_revolt_possible_for_war_trigger = yes }
+				defender = { save_event_target_as = major_revolt_initial_defender }
 				ROOT = { character_event = { id = 320725 } }
 			}
 		}
@@ -1043,6 +1042,7 @@ character_event = {
 	immediate = {		
 		# Flag that the region officially has a major revolt breaking out
 		event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
+		get_major_revolt_variables_title_effect = yes
 		
 		# Mark the main revolt defender
 		# This is either the defender against the initial revolt, or their suzerain if the defender was a march
@@ -1411,6 +1411,26 @@ character_event = {
 				value = 1
 			}
 		}
+		
+		# Start counter for successful/crushed revolts
+		event_target:major_revolt_title = {
+			set_variable = {
+				which = num_revolts_succeeded
+				value = 0
+			}
+			# If the initial revolt won, then we increment the counter
+			if = {
+				limit = { ROOT = { has_character_flag = won_revolt } }
+				change_variable = {
+					which = num_revolts_succeeded
+					value = 1
+				}
+			}
+			set_variable = {
+				which = num_revolts_crushed
+				value = 0
+			}
+		}
 	}
 }
 
@@ -1437,8 +1457,10 @@ narrative_event = {
 						is_in_current_resistance_region_province = yes
 						has_local_resistance_modifier_trigger = yes
 					}
+					# We don't add the actual modifier in this tooltip as it doesn't show up
+					# since all the provinces already have the modifier from the previous event
 					add_province_modifier = { 
-						name = ongoing_major_revolt
+						name = ongoing_major_revolt_tooltip		
 						duration = -1
 					}
 				}
@@ -1489,7 +1511,6 @@ narrative_event = {
 			text = EVTOPTA320727TT0
 		}
 		# TODO Need to write handling end of revolt in the cb
-		set_character_flag = major_revolt_rebel
 		# Declare independence war
 		if = {
 			limit = { liege = { independent = no } }
@@ -1626,8 +1647,7 @@ narrative_event = {
 			text = EVTOPTA320727TT0
 		}
 		# TODO Need to write handling end of revolt in the cb
-		set_character_flag = major_revolt_rebel
-		# Declare independence war and 
+		# Declare independence war 
 		suzerain = {
 			show_scope_change = no
 			ROOT = {
@@ -1790,7 +1810,6 @@ narrative_event = {
 						top_liege = { character = ROOT }
 					}
 				}
-				set_character_flag = major_revolt_rebel
 				# Spawn some event troops, swap to ongoing_major_revolt_sympathetic modifier
 				hidden_tooltip = {
 					capital_scope = {

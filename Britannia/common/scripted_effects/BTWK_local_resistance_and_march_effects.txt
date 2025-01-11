@@ -160,27 +160,35 @@ calc_num_of_local_resistance_provinces_in_region_effect = {
 # Province scope
 # Sets that there is now a major revolt active in the province's major revolt region
 set_major_revolt_active_effect = {
+	get_major_revolt_variables_title_effect = yes
+	event_target:major_revolt_title = { set_title_flag = major_revolt_ongoing }
+}
+
+# Province scope
+# Saves the title that the major revolt variables are saved onto the major_revolt_title event_target
+get_major_revolt_variables_title_effect = {
 	if = {
 		limit = { in_wales_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_wales
+		e_cymru = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_caledonia_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_caledonia
+		e_alba = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_armorica_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_armorica
+		e_armorica = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_vasconia_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_vasconia
+		e_aquitania = { save_event_target_as = major_revolt_title }
 	}
 }
 
 # Character scope - should be the revolt leader
 # ROOT is the province that the revolt spawned from
 adjust_revolt_army_size_effect = {
+	save_event_target_as = revolter_character
 	set_variable = {
 		which = global_troop_change
 		value = 0
@@ -381,7 +389,7 @@ adjust_revolt_army_size_effect = {
 							count = 20
 							culture = ROOT
 						}
-						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 					}
 					change_variable = {
 						which = global_troop_change
@@ -394,7 +402,7 @@ adjust_revolt_army_size_effect = {
 							count = 15
 							culture = ROOT
 						}
-						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 					}
 					change_variable = {
 						which = global_troop_change
@@ -496,7 +504,7 @@ adjust_revolt_army_size_effect = {
 								count = 30
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -509,7 +517,7 @@ adjust_revolt_army_size_effect = {
 								count = 25
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -522,7 +530,7 @@ adjust_revolt_army_size_effect = {
 								count = 18
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -535,7 +543,7 @@ adjust_revolt_army_size_effect = {
 								count = 12
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
