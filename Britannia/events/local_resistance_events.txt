@@ -584,6 +584,7 @@ character_event = {
 			primary_title = { set_title_flag = local_resistance_revolt }
 			if = {
 				limit = { FROM = { has_active_major_revolt_trigger = yes } }
+				primary_title = { set_title_flag = major_revolt_rebel_title }
 			}
 		}
 	}
@@ -1041,8 +1042,10 @@ character_event = {
 	
 	immediate = {		
 		# Flag that the region officially has a major revolt breaking out
-		event_target:current_resistance_region_province = { set_major_revolt_active_effect = yes }
-		get_major_revolt_variables_title_effect = yes
+		event_target:current_resistance_region_province = { 
+			set_major_revolt_active_effect = yes 
+			get_major_revolt_variables_title_effect = yes
+		}
 		
 		# Mark the main revolt defender
 		# This is either the defender against the initial revolt, or their suzerain if the defender was a march
@@ -1581,7 +1584,7 @@ narrative_event = {
 		ai_chance = {
 			factor = 0
 			additive_modifier = {
-				factor = 100
+				value = 100
 				OR = {
 					trait = loyal
 					trait = content
@@ -1714,7 +1717,7 @@ narrative_event = {
 		ai_chance = {
 			factor = 0
 			additive_modifier = {
-				factor = 100
+				value = 100
 				OR = {
 					trait = loyal
 					trait = content
@@ -2049,15 +2052,439 @@ narrative_event = {
 
 # 320738 - Notification event to rebellion leader that a revolt was defeated
 
-# 320739 - Check if there are any rebellions still ongoing, end the Major Revolt once all have been crushed
+# Check if there are any rebellions still ongoing for a Major Revolt, and it once all have been crushed
+character_event = {
+	id = 320739
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		has_landed_title = d_null
+		is_major_revolt_ongoing_trigger = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { e_cymru = { has_title_flag = major_revolt_ongoing } }
+			e_cymru = { capital_scope = { save_event_target_as = current_resistance_region_province } }
+			check_if_major_revolt_is_over_and_fire_event_effect = yes
+		}
+		if = {
+			limit = { e_alba = { has_title_flag = major_revolt_ongoing } }
+			e_alba = { capital_scope = { save_event_target_as = current_resistance_region_province } }
+			check_if_major_revolt_is_over_and_fire_event_effect = yes
+		}
+		if = {
+			limit = { e_armorica = { has_title_flag = major_revolt_ongoing } }
+			e_armorica = { capital_scope = { save_event_target_as = current_resistance_region_province } }
+			check_if_major_revolt_is_over_and_fire_event_effect = yes
+		}
+		if = {
+			limit = { e_aquitania = { has_title_flag = major_revolt_ongoing } }
+			e_aquitania = { capital_scope = { save_event_target_as = current_resistance_region_province } }
+			check_if_major_revolt_is_over_and_fire_event_effect = yes
+		}
+	}
+}
+
+# Revolt over, clean up modifiers and calculate result
+character_event = {
+	id = 320740	
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		any_province = {
+			limit = { is_in_current_resistance_region_province = yes }
+			remove_province_modifier = ongoing_major_revolt
+			remove_province_modifier = ongoing_major_revolt_minor
+			remove_province_modifier = ongoing_major_revolt_sympathetic
+		}
+		get_major_revolt_leader_character = yes
+		
+		event_target:current_resistance_region_province = {
+			get_major_revolt_variables_title_effect = yes
+		}
+		event_target:major_revolt_title = {
+			clr_title_flag = complete_rebellion_victory
+			clr_title_flag = major_rebellion_victory
+			clr_title_flag = minor_rebellion_victory
+			clr_title_flag = minor_rebellion_defeat
+			clr_title_flag = major_rebellion_defeat
+		}
+		
+		# If there are no more provinces of the local resistance culture in the region controlled by
+		# foreigners, then automatically a major rebellion victory
+		if = {
+			limit = {
+				NOT = {
+					any_province = {
+						is_in_current_resistance_region_province = yes
+						local_resistance_potential_trigger = yes
+					}
+				}
+			}
+			event_target:major_revolt_title = { 
+				set_title_flag = major_rebellion_victory 
+				set_title_flag = complete_rebellion_victory		# Cosmetic only
+			}
+		}
+		else = {
+			event_target:major_revolt_title = {
+				set_variable = {
+					which = num_revolts_total
+					which = num_revolts_succeeded
+				}
+				change_variable = {
+					which = num_revolts_total
+					value = num_revolts_crushed
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = num_revolts_total
+							value >= 1
+						}
+					}
+					set_variable = {
+						which = share_revolts_succeeded
+						which = num_revolts_succeeded
+					}
+					divide_variable = {
+						which = share_revolts_succeeded
+						which = num_revolts_total
+					}
+				}
+				else = {
+					set_variable = {
+						which = share_revolts_succeeded
+						value = 0
+					}
+				}
+				# If > 60% of the rebellions were successful, major rebellion victory - major decrease in pacification progress across region + major prestige loss
+				if = {
+					limit = {
+						event_target:major_revolt_title = {
+							check_variable = {
+								which = share_revolts_succeeded
+								value >= 0.6
+							}
+						}
+					}
+					set_title_flag = major_rebellion_victory
+				}
+				# If 30 - 60% of the rebellions were successful, minor rebellion victory - small decrease in pacification progress across region + a bit of prestige loss
+				else_if = {
+					limit = {
+						event_target:major_revolt_title = {
+							check_variable = {
+								which = share_revolts_succeeded
+								value >= 0.30
+							}
+						}
+					}
+					set_title_flag = minor_rebellion_victory
+				}
+				# If < 30% of the rebellions were successful, minor rebellion defeat - small increase in pacification progress across region + a bit of prestige
+				else_if = {
+					limit = {
+						event_target:major_revolt_title = {
+							check_variable = {
+								which = share_revolts_succeeded
+								value > 0
+							}
+						}
+					}
+					set_title_flag = minor_rebellion_defeat
+				}
+				# If none of the rebellions were successful, major rebellion defeat - moderate increase in pacification progress across region + major prestige
+				else = {
+					set_title_flag = major_rebellion_defeat
+				}
+			}
+		}
+		
+		# Fire the actual event with effects
+		any_playable_ruler = {
+			character_event = { id = 320741 }
+		}
+	}
+}
 
 # 320740 - Notification event that major rebellion is over, regardless of outcome the region is blocked from getting more Major Revolts for next 5(?) years
-#	- Triggers only when all rebellions in the region are over
-# 	- We keep track of how many rebellions ended in defeat or victory for the overlord
-# 	- If none of the rebellions were successful, major overlord victory - moderate increase in pacification progress across region + major prestige
-# 	- If < 20% of the rebellions were successful, overlord victory - small increase in pacification progress across region + a bit of prestige
-# 	- If 20 - 50% of the rebellions were successful, rebellion victory - small decrease in pacification progress across region + a bit of prestige loss
-# 	- If > 50% of the rebellions were successful, major rebellion victory - major decrease in pacification progress across region + major prestige loss
+narrative_event = {
+	id = 320741
+	title = {
+		text = EVTNAME320740_rebellion_defeat
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_defeat
+			}
+		}
+	}
+	title = {
+		text = EVTNAME320740_rebellion_stalemate
+		trigger = {
+			event_target:major_revolt_title = {
+				OR = {
+					has_title_flag = minor_rebellion_defeat
+					has_title_flag = minor_rebellion_victory
+				}
+			}
+		}
+	}
+	title = {
+		text = EVTNAME320740_rebellion_victory
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_victory
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320740_rebellion_defeat
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_defeat
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320740_rebellion_minor_defeat
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = minor_rebellion_defeat
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320740_rebellion_minor_victory
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = minor_rebellion_victory
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320740_rebellion_victory
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_victory
+				NOT = { has_title_flag = complete_rebellion_victory }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320740_rebellion_complete_victory
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_victory
+				has_title_flag = complete_rebellion_victory
+			}
+		}
+	}
+    picture = { 
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_defeat
+			}
+		}
+        picture = GFX_evt_lord_overlooking_bridge
+    }
+    picture = { 
+		trigger = {
+			event_target:major_revolt_title = {
+				OR = {
+					has_title_flag = minor_rebellion_defeat
+					has_title_flag = minor_rebellion_victory
+				}
+			}
+		}
+        picture = GFX_evt_castle_hill
+    }
+    picture = { 
+		trigger = {
+			event_target:major_revolt_title = {
+				has_title_flag = major_rebellion_victory
+			}
+		}
+        picture = GFX_evt_warrior_banners
+    }
+	
+	is_triggered_only = yes
+	
+	# Major revolt leader, if there is one (and they were successful)
+	option = {
+		name = "EVTOPTA320740"
+		trigger = {
+			event_target:current_major_revolt_leader = { always = yes }
+			event_target:current_major_revolt_leader = { character = PREV }
+			independent = yes
+			is_tributary = no
+			is_local_resistance_region_culture_trigger = yes
+			any_realm_province = { is_in_current_resistance_region_province = yes }
+		}
+		# TODO Differential prestige depending on outcome
+		custom_tooltip = {
+			text = EVTOPTA320740TT
+		}
+	}
+	
+	# Other rulers in the region of a similar culture to the revolt
+	option = {
+		name = "EVTOPTB320740"
+		trigger = {
+			OR = {
+				NAND = {
+					event_target:current_major_revolt_leader = { always = yes }
+					event_target:current_major_revolt_leader = { character = PREV }
+				}
+				independent = no
+				is_tributary = yes
+			}
+			top_liege = {
+				is_local_resistance_region_culture_trigger = yes
+				OR = {
+					is_tributary = no
+					suzerain = {
+						is_local_resistance_region_culture_trigger = yes
+					}
+				}
+			}
+			is_local_resistance_region_culture_trigger = yes
+			any_realm_province = { is_in_current_resistance_region_province = yes }
+		}
+		# TODO Minor differential prestige depending on outcome if independent?
+		custom_tooltip = {
+			text = EVTOPTB320740TT
+		}
+	}
+	
+	# Other native rulers still subject to foreign rule
+	option = {
+		name = "EVTOPTC320740"
+		trigger = {
+			NOT = {
+				top_liege = {
+					is_local_resistance_region_culture_trigger = yes
+					OR = {
+						is_tributary = no
+						suzerain = {
+							is_local_resistance_region_culture_trigger = yes
+						}
+					}
+				}
+			}
+			is_local_resistance_region_culture_trigger = yes
+			any_realm_province = { is_in_current_resistance_region_province = yes }
+		}
+		custom_tooltip = {
+			text = EVTOPTC320740TT
+		}
+	}
+	
+	# Other foreigners with unpacified provinces in revolt region
+	option = {
+		name = "EVTOPTD320740"
+		trigger = {
+			top_liege = {
+				OR = {
+					any_realm_province = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					any_tributary = {
+						is_tributary = { type = march }
+						any_realm_province = { 
+							is_in_current_resistance_region_province = yes
+							has_local_resistance_modifier_trigger = yes
+						}
+					}
+				}
+				is_local_resistance_region_culture_trigger = no
+				culture_group = PREV
+			}
+			is_local_resistance_region_culture_trigger = no
+		}
+		custom_tooltip = {
+			text = EVTOPTD320740TT
+		}
+	}
+	
+	# Other foreigners in revolt region without unpacified provinces
+	option = {
+		name = "EVTOPTE320740"
+		trigger = {
+			top_liege = {
+				OR = {
+					any_realm_province = { is_in_current_resistance_region_province = yes }
+					any_tributary = {
+						is_tributary = { type = march }
+						any_realm_province = { is_in_current_resistance_region_province = yes }
+					}
+				}
+				NOR = {
+					any_realm_province = { 
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+					any_tributary = {
+						is_tributary = { type = march }
+						any_realm_province = { 
+							is_in_current_resistance_region_province = yes
+							has_local_resistance_modifier_trigger = yes
+						}
+					}
+				}
+				is_local_resistance_region_culture_trigger = no
+				culture_group = PREV
+			}
+			is_local_resistance_region_culture_trigger = no
+		}
+		custom_tooltip = {
+			text = EVTOPTE320740TT
+		}
+	}
+	
+	# Uninvolved rulers
+	option = {
+		name = "EVTOPTF320740"
+		trigger = {
+			NOR = {
+				# Is not a native ruler in the region
+				AND = {
+					is_local_resistance_region_culture_trigger = yes
+					any_realm_province = { is_in_current_resistance_region_province = yes }
+				}
+				# Does not have provinces in the realm that are in the region, or is a different
+				# culture group from the liege (and therefore indifferent about them)
+				AND = {
+					top_liege = {
+						OR = {
+							any_realm_province = { is_in_current_resistance_region_province = yes }
+							any_tributary = {
+								is_tributary = { type = march }
+								any_realm_province = { is_in_current_resistance_region_province = yes }
+							}
+						}
+						is_local_resistance_region_culture_trigger = no
+						culture_group = PREV
+					}
+					is_local_resistance_region_culture_trigger = no
+				}
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTF320740
+		}
+	}
+}
+
 
 ## TODO Decisions 
 

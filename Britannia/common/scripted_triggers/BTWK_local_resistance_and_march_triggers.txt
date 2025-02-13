@@ -164,19 +164,19 @@ local_resistance_potential_trigger = {
 is_local_resistance_region_culture_trigger = {
 	OR = {
 		AND = {
-			in_wales_local_resistance_region_trigger = yes
+			is_wales_local_resistance_culture_trigger = yes
 			event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes }
 		}
 		AND = {
-			in_caledonia_local_resistance_region_trigger = yes
+			is_caledonia_local_resistance_culture_trigger = yes
 			event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes }
 		}
 		AND = {
-			in_armorica_local_resistance_region_trigger = yes
+			is_armorica_local_resistance_culture_trigger = yes
 			event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes }
 		}
 		AND = {
-			in_vasconia_local_resistance_region_trigger = yes
+			is_vasconia_local_resistance_culture_trigger = yes
 			event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes }
 		}
 	}
@@ -338,6 +338,15 @@ is_major_revolt_possible_for_war_trigger = {
 				}
 			}
 		}
+	}
+}
+
+is_major_revolt_ongoing_trigger = {
+	OR = {
+		e_cymru = { has_title_flag = major_revolt_ongoing }
+		e_alba = { has_title_flag = major_revolt_ongoing }
+		e_armorica = { has_title_flag = major_revolt_ongoing }
+		e_aquitania = { has_title_flag = major_revolt_ongoing }
 	}
 }
 
@@ -611,6 +620,40 @@ is_major_revolt_rebel_trigger = {
 			}
 		}
 		primary_title = { has_title_flag = major_revolt_rebel_title }
+	}
+}
+
+# Uses any_independent_ruler, so needs ROOT to be someone guaranteed not to be involved in 
+# a major revolt (so e.g. holder of d_null)
+# Also needs current_resistance_region_province to be a saved event target
+any_major_revolt_rebels_in_region_trigger = {
+	any_independent_ruler = {
+		any_war = {
+			attacker = { 
+				is_major_revolt_rebel_trigger = yes
+				is_local_resistance_region_culture_trigger = yes
+				# Either holds a province in the region, or is a rebel for a duchy
+				# with a province in the region
+				OR = {
+					AND = {
+						is_landed = yes
+						any_realm_province = {
+							is_in_current_resistance_region_province = yes
+						}
+					}
+					AND = {
+						is_landed = no
+						PREV = {
+							thirdparty_title_scope = {
+								any_de_jure_vassal_title = { 
+									location = { is_in_current_resistance_region_province = yes }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
 

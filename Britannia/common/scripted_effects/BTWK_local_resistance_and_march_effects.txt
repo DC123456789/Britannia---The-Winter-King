@@ -99,6 +99,82 @@ set_proper_local_resistance_level_effect = {
 }
 
 # Called from province scope
+# target_owner_char should be an independent ruler
+# Calculates the number of provinces in the region of the scope owned by target_owner_char or one of 
+# their marches with the local culture of the resistance region, and then saves it into the 
+# num_local_resistance_culture_provs variable on target_owner_char
+calc_num_of_local_resistance_culture_provinces_in_region_owned_by_char_effect = {
+	save_event_target_as = current_resistance_region_province
+	event_target:target_owner_char = {
+		set_variable = { which = num_local_resistance_culture_provs value = 0 }
+		# Add together all provinces under the realm
+		any_realm_province = {
+			limit = {
+				is_local_resistance_region_culture_trigger = yes
+				is_in_current_resistance_region_province = yes
+			}
+			PREV = { change_variable = { which = num_local_resistance_culture_provs value = 1 } }
+		}
+		# ... including marches (if realm has marches)
+		any_tributary = {
+			limit = { is_tributary = { type = march } }
+			any_realm_province = {
+				limit = {
+					is_local_resistance_region_culture_trigger = yes
+					is_in_current_resistance_region_province = yes
+				}
+				PREVPREV = { change_variable = { which = num_local_resistance_culture_provs value = 1 } }
+			}
+		}
+	}
+}
+
+# Saves the ruler with the most provinces in the region of the scope province
+# with the local culture of the local resistance region as target_ruler
+# Marches are considered part of the realm of the target_ruler
+get_ruler_with_most_local_resistance_culture_provinces_in_region_effect = {
+	save_event_target_as = current_resistance_region_province
+	set_variable = { which = global_highest_num_local_resistance_culture_provs value = 0 }
+	clear_event_target = target_ruler
+	any_independent_ruler = {
+		save_event_target_as = target_owner_char
+		event_target:current_resistance_region_province = {
+			calc_num_of_local_resistance_culture_provinces_in_region_owned_by_char_effect = yes
+		}
+		# Get the ruler with the highest number of local resistance culture provinces
+		if = {
+			limit = {
+				check_variable = { 
+					which = num_local_resistance_culture_provs
+					which > global_highest_num_local_resistance_culture_provs
+				}
+			}
+			set_variable = { 
+				which = global_highest_num_local_resistance_culture_provs
+				which = num_local_resistance_culture_provs
+			}
+		}
+	}
+	if = {
+		limit = {
+			any_independent_ruler = { check_variable = { which = num_local_resistance_provs value > 0 } }
+		}
+		random_independent_ruler = {
+			limit = {
+				check_variable = { 
+					which = num_local_resistance_culture_provs
+					which >= global_highest_num_local_resistance_culture_provs
+				}
+			}
+			preferred_limit = {
+				NOT = { is_tributary = { type = march } }
+			}
+			save_event_target_as = target_ruler
+		}
+	}
+}
+
+# Called from province scope
 # Result is saved in the num_local_resistance_provs variable in ROOT
 # Meant to be used with is_major_revolt_possible_for_war_trigger
 calc_num_of_local_resistance_provinces_in_region_effect = {
@@ -164,9 +240,15 @@ set_major_revolt_active_effect = {
 	event_target:major_revolt_title = { set_title_flag = major_revolt_ongoing }
 }
 
+set_major_revolt_over_effect = {
+	get_major_revolt_variables_title_effect = yes
+	event_target:major_revolt_title = { clr_title_flag = major_revolt_ongoing }
+}
+
 # Province scope
 # Saves the title that the major revolt variables are saved onto the major_revolt_title event_target
 get_major_revolt_variables_title_effect = {
+	clear_event_target = major_revolt_title
 	if = {
 		limit = { in_wales_local_resistance_region_trigger = yes }
 		e_cymru = { save_event_target_as = major_revolt_title }
@@ -648,6 +730,71 @@ adjust_revolt_army_size_effect = {
 				if = {
 					limit = { location = { province = ROOT } }
 					troops = -0.15
+				}
+			}
+		}
+	}
+}
+
+get_major_revolt_leader_character = {
+	clear_event_target = current_major_revolt_leader
+	if = {
+		limit = { in_wales_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_wales = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_caledonia_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_caledonia = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_armorica_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_armorica = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_vasconia_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_vasconia = { save_event_target_as = current_major_revolt_leader }
+	}
+}
+
+# Checks if the major revolt occuring in current_resistance_region_province is over, and if so
+# fires the ending event on the appropriate character
+check_if_major_revolt_is_over_and_fire_event_effect = {
+	if = {
+		limit = {
+			any_major_revolt_rebels_in_region_trigger = no
+		}
+		event_target:current_resistance_region_province = { get_major_revolt_leader_character = yes }
+		if = {
+			limit = {
+				event_target:current_major_revolt_leader = { always = yes }
+			}
+			set_character_flag = sending_event_to_current_major_revolt_leader
+			set_character_flag = sending_event_to_@event_target:current_major_revolt_leader
+			event_target:current_major_revolt_leader = { character_event = { id = 320740 } }
+		}
+		else = {
+			# Just get the ruler with the most provinces of the local resistance culture
+			event_target:current_resistance_region_province = {
+				get_ruler_with_most_local_resistance_culture_provinces_in_region_effect = yes
+			}
+			if = {
+				limit = {
+					event_target:target_ruler = { always = yes }
+				}
+				set_character_flag = sending_event_to_target_ruler
+				set_character_flag = sending_event_to_@event_target:target_ruler
+				event_target:target_ruler = { character_event = { id = 320740 } }
+			}
+			# This is incredibly unlikely to fail (borderline impossible without cheats)
+			# so just grab some random ruler in the region
+			else = {
+				set_character_flag = sending_event_to_random_ruler
+				event_target:current_resistance_region_province = {
+					owner = {
+						top_liege = {
+							character_event = { id = 320740 }
+						}
+					}
 				}
 			}
 		}
