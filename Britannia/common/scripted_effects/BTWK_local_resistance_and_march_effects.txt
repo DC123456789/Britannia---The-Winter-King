@@ -756,6 +756,175 @@ get_major_revolt_leader_character = {
 	}
 }
 
+check_unlanded_rebel_in_major_revolt_successful = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			any_war = {
+				limit = {
+					attacker = { character = ROOT }
+				}
+				thirdparty_title_scope = {
+					random_direct_de_jure_vassal_title = {
+						limit = { owner = { top_liege = { character = FROM } } }
+						location = { save_event_target_as = current_resistance_region_province }
+					}
+				}
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_succeeded
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+check_unlanded_rebel_in_major_revolt_crushed = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			any_war = {
+				limit = {
+					attacker = { character = ROOT }
+				}
+				thirdparty_title_scope = {
+					random_direct_de_jure_vassal_title = {
+						limit = { owner = { top_liege = { character = FROM } } }
+						location = { save_event_target_as = current_resistance_region_province }
+					}
+				}
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_crushed
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+check_landed_rebel_in_major_revolt_successful = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			set_character_flag = is_major_revolt_rebel
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+			event_target:current_resistance_region_province = {
+				set_province_flag = current_resistance_region_province_prov
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				set_title_flag = major_revolt_title_title
+				change_variable = {
+					which = num_revolts_succeeded
+					value = 1
+				}				
+			}
+			# Check if is in another major revolt region (2 is theoretically possible)
+			if = {
+				limit = {
+					any_realm_province = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+				}
+				random_realm_province = {
+					limit = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+					save_event_target_as = current_resistance_region_province
+				}
+				event_target:current_resistance_region_province = {
+					get_major_revolt_variables_title_effect = yes
+				}
+				event_target:major_revolt_title = {
+					change_variable = {
+						which = num_revolts_succeeded
+						value = 1
+					}				
+				}
+			}
+		}
+	}
+}
+
+check_landed_rebel_in_major_revolt_crushed = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_crushed
+					value = 1
+				}				
+			}
+			# Check if is in another major revolt region (2 is theoretically possible)
+			if = {
+				limit = {
+					any_realm_province = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+				}
+				random_realm_province = {
+					limit = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+					save_event_target_as = current_resistance_region_province
+				}
+				event_target:current_resistance_region_province = {
+					get_major_revolt_variables_title_effect = yes
+				}
+				event_target:major_revolt_title = {
+					change_variable = {
+						which = num_revolts_crushed
+						value = 1
+					}				
+				}
+			}
+		}
+	}
+}
+
 # Checks if the major revolt occuring in current_resistance_region_province is over, and if so
 # fires the ending event on the appropriate character
 check_if_major_revolt_is_over_and_fire_event_effect = {

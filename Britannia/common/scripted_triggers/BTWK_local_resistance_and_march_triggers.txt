@@ -204,6 +204,27 @@ is_in_current_resistance_region_province = {
 	}
 }
 
+is_in_resistance_region_of_prev_culture_trigger = {
+	OR = {
+		AND = {
+			PREV = { is_wales_local_resistance_culture_trigger = yes }
+			in_wales_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_caledonia_local_resistance_culture_trigger = yes }
+			in_caledonia_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_armorica_local_resistance_culture_trigger = yes }
+			in_armorica_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_vasconia_local_resistance_culture_trigger = yes }
+			in_vasconia_local_resistance_region_trigger = yes
+		}
+	}
+}
+					
 is_ROOT_in_current_resistance_region_province_trigger = {
 	OR = {
 		conditional_tooltip = {
@@ -599,24 +620,7 @@ is_major_revolt_rebel_trigger = {
 			}
 			any_realm_province = {
 				has_active_major_revolt_trigger = yes
-				OR = {
-					AND = {
-						PREV = { is_wales_local_resistance_culture_trigger = yes }
-						in_wales_local_resistance_region_trigger = yes
-					}
-					AND = {
-						PREV = { is_caledonia_local_resistance_culture_trigger = yes }
-						in_caledonia_local_resistance_region_trigger = yes
-					}
-					AND = {
-						PREV = { is_armorica_local_resistance_culture_trigger = yes }
-						in_armorica_local_resistance_region_trigger = yes
-					}
-					AND = {
-						PREV = { is_vasconia_local_resistance_culture_trigger = yes }
-						in_vasconia_local_resistance_region_trigger = yes
-					}
-				}
+				is_in_resistance_region_of_prev_culture_trigger = yes
 			}
 		}
 		primary_title = { has_title_flag = major_revolt_rebel_title }
