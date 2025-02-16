@@ -1493,6 +1493,22 @@ narrative_event = {
 		}
 		ai_chance = {
 			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					trait = loyal
+					trait = content
+					top_liege = {
+						is_allied_with = ROOT
+					}
+					top_liege = {
+						reverse_opinion = {
+							who = ROOT
+							value >= 70
+						}
+					}
+				}
+			}
 		}
 		custom_tooltip = {
 			text = EVTOPTA320727TT0
@@ -1568,7 +1584,7 @@ narrative_event = {
 		ai_chance = {
 			factor = 0
 			additive_modifier = {
-				value = 0
+				value = 100
 				OR = {
 					trait = loyal
 					trait = content
@@ -2007,6 +2023,7 @@ narrative_event = {
 
 # 320730 - Assign the major_revolt_rebel flag to any correct-culture tributaries or vassals 
 # that revolt within the region while it's revolting + give them the modifiers and extra troops
+# Triggered by on_add in the appropriate cbs
 
 ## TODO Events
 # 320731 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
@@ -2036,7 +2053,7 @@ narrative_event = {
 
 # 320738 - Notification event to rebellion leader that a revolt was defeated
 
-# Check if there are any rebellions still ongoing for a Major Revolt, and it once all have been crushed
+# Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
 character_event = {
 	id = 320739
 	hide_window = yes
