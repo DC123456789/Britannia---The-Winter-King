@@ -98,298 +98,78 @@ set_proper_local_resistance_level_effect = {
 	}
 }
 
-# TODO OBSOLETE, SHOULD DELETE
-# Adds to the global_nat_revolt_progress_increase variable
-calculate_province_nat_revolt_progress_increase_effect = {
-	# Base value
-	set_variable = {
-		which = local_nat_revolt_progress_increase
-		value = 0
-	}
-	if = {
-		limit = {
-			OR = {
-				has_province_modifier = local_resistance_1
-				has_province_modifier = local_resistance_1_quiet
-				has_province_modifier = local_resistance_1_march
-			}
-		}
-		change_variable = {
-			which = local_nat_revolt_progress_increase
-			value = 0.5
-		}
-	}
-	else_if = {
-		limit = {
-			OR = {
-				has_province_modifier = local_resistance_2
-				has_province_modifier = local_resistance_2_quiet
-				has_province_modifier = local_resistance_2_march
-			}
-		}
-		change_variable = {
-			which = local_nat_revolt_progress_increase
-			value = 1
-		}
-	}
-	else_if = {
-		limit = {
-			OR = {
-				has_province_modifier = local_resistance_3
-				has_province_modifier = local_resistance_3_quiet
-				has_province_modifier = local_resistance_3_march
-			}
-		}
-		change_variable = {
-			which = local_nat_revolt_progress_increase
-			value = 1.5
-		}
-	}
-	
-	# Local control and march modifiers
-	if = {
-		limit = {	# 20% more
-			OR = {
-				has_province_modifier = local_resistance_1_quiet
-				has_province_modifier = local_resistance_2_quiet
-				has_province_modifier = local_resistance_3_quiet
-			}
-		}
-		multiply_variable = {
-			which = local_nat_revolt_progress_increase
-			value = 1.2
-		}
-	}
-	else_if = {
-		limit = {	# 25% less
-			OR = {
-				has_province_modifier = local_resistance_1_march
-				has_province_modifier = local_resistance_2_march
-				has_province_modifier = local_resistance_3_march
-			}
-		}
-		multiply_variable = {
-			which = local_nat_revolt_progress_increase
-			value = 0.75
-		}
-	}
-	
-	# Some variation for each province
-	random_list = {
-		33 = {
-			multiply_variable = {	# +15 %
-				which = local_nat_revolt_progress_increase
-				value = 1.15
-			}
-		}
-		33 = {						# No change
-		}
-		33 = {
-			multiply_variable = {	# -15 %
-				which = local_nat_revolt_progress_increase
-				value = 0.85
-			}
-		}
-	}
-	
-	# Add to global count
-	change_variable = {
-		which = global_nat_revolt_progress_increase
-		which = local_nat_revolt_progress_increase
-	}
-}
-
-# TODO OBSOLETE, SHOULD DELETE
-# Should only be used on top lieges, assumes that the event target current_resistance_region_province 
-# Arguments:
-# - current_resistance_region_province			event_target, a province in the region to check the nationalist revolt size of
-update_nationalist_revolt_size = {
-	set_variable = {
-		which = global_nat_revolt_progress_increase
-		value = 0
-	}
-	
-	# Add together all provinces under the realm
-	any_realm_province = {
-		limit = {
-			has_province_flag = has_local_resistance
-			is_in_current_resistance_region_province = yes
-		}
-		calculate_province_nat_revolt_progress_increase_effect = yes
-	}
-	# ... including suzerains (if a march)
-	if = {
-		limit = { is_tributary = { type = march } }
-		suzerain = {
-			any_realm_province = {
-				limit = {
-					has_province_flag = has_local_resistance
-					is_in_current_resistance_region_province = yes
-				}
-				calculate_province_nat_revolt_progress_increase_effect = yes
-			}
-			# Check other marches of suzerain
-			any_tributary = {
-				limit = { 
-					is_tributary = { type = march } 
-					NOT = { character = PREVPREV }
-				}
-				any_realm_province = {
-					limit = {
-						has_province_flag = has_local_resistance
-						is_in_current_resistance_region_province = yes
-					}
-					calculate_province_nat_revolt_progress_increase_effect = yes
-				}
-			}
-		}
-	}
-	# ... and marches (if realm has marches)
-	any_tributary = {
-		limit = { is_tributary = { type = march } }
-		any_realm_province = {
-			limit = {
-				has_province_flag = has_local_resistance
-				is_in_current_resistance_region_province = yes
-			}
-			calculate_province_nat_revolt_progress_increase_effect = yes
-		}
-	}
-	
-	# Calculate estimated revolt size
-	set_variable = {
-		which = global_nat_revolt_estimated_size
-		which = global_nat_revolt_progress_increase
-	}
-	# Round down to nearest 10
-	divide_variable = {
-		which = global_nat_revolt_estimated_size
-		value = 10
-	}
-	multiply_variable = {
-		which = global_nat_revolt_estimated_size
-		value = 5000
-	}
-	
-	# Now we assign the estimated size (for tooltip purposes only)
-	any_realm_province = {
-		limit = {
-			has_province_flag = has_local_resistance
-			is_in_current_resistance_region_province = yes
-		}
-		set_variable = {
-			which = nat_revolt_estimated_size
-			which = global_nat_revolt_estimated_size
-		}
-	}
-	if = {
-		limit = { is_tributary = { type = march } }
-		suzerain = {
-			any_realm_province = {
-				limit = {
-					has_province_flag = has_local_resistance
-					is_in_current_resistance_region_province = yes
-				}
-				set_variable = {
-					which = nat_revolt_estimated_size
-					which = global_nat_revolt_estimated_size
-				}
-			}
-			# Check other marches of suzerain
-			any_tributary = {
-				limit = { 
-					is_tributary = { type = march } 
-					NOT = { character = PREVPREV }
-				}
-				any_realm_province = {
-					limit = {
-						has_province_flag = has_local_resistance
-						is_in_current_resistance_region_province = yes
-					}
-					set_variable = {
-						which = nat_revolt_estimated_size
-						which = global_nat_revolt_estimated_size
-					}
-				}
-			}
-		}
-	}
-	any_tributary = {
-		limit = { is_tributary = { type = march } }
-		any_realm_province = {
-			limit = {
-				has_province_flag = has_local_resistance
-				is_in_current_resistance_region_province = yes
-			}
-			set_variable = {
-				which = nat_revolt_estimated_size
-				which = global_nat_revolt_estimated_size
-			}
-		}
-	}
-}
-
-# TODO OBSOLETE, SHOULD DELETE
 # Called from province scope
-clear_nationalist_revolt_progress_from_realm_region_effect = {
+# target_owner_char should be an independent ruler
+# Calculates the number of provinces in the region of the scope owned by target_owner_char or one of 
+# their marches with the local culture of the resistance region, and then saves it into the 
+# num_local_resistance_culture_provs variable on target_owner_char
+calc_num_of_local_resistance_culture_provinces_in_region_owned_by_char_effect = {
 	save_event_target_as = current_resistance_region_province
-	owner = {
-		top_liege = {
+	event_target:target_owner_char = {
+		set_variable = { which = num_local_resistance_culture_provs value = 0 }
+		# Add together all provinces under the realm
+		any_realm_province = {
+			limit = {
+				is_local_resistance_region_culture_trigger = yes
+				is_in_current_resistance_region_province = yes
+			}
+			PREV = { change_variable = { which = num_local_resistance_culture_provs value = 1 } }
+		}
+		# ... including marches (if realm has marches)
+		any_tributary = {
+			limit = { is_tributary = { type = march } }
 			any_realm_province = {
 				limit = {
-					has_province_flag = has_local_resistance
+					is_local_resistance_region_culture_trigger = yes
 					is_in_current_resistance_region_province = yes
 				}
-				set_variable = {
-					which = nat_revolt_estimated_size
-					value = 0
+				PREVPREV = { change_variable = { which = num_local_resistance_culture_provs value = 1 } }
+			}
+		}
+	}
+}
+
+# Saves the ruler with the most provinces in the region of the scope province
+# with the local culture of the local resistance region as target_ruler
+# Marches are considered part of the realm of the target_ruler
+get_ruler_with_most_local_resistance_culture_provinces_in_region_effect = {
+	save_event_target_as = current_resistance_region_province
+	set_variable = { which = global_highest_num_local_resistance_culture_provs value = 0 }
+	clear_event_target = target_ruler
+	any_independent_ruler = {
+		save_event_target_as = target_owner_char
+		event_target:current_resistance_region_province = {
+			calc_num_of_local_resistance_culture_provinces_in_region_owned_by_char_effect = yes
+		}
+		# Get the ruler with the highest number of local resistance culture provinces
+		if = {
+			limit = {
+				check_variable = { 
+					which = num_local_resistance_culture_provs
+					which > global_highest_num_local_resistance_culture_provs
 				}
 			}
-			if = {
-				limit = { is_tributary = { type = march } }
-				suzerain = {
-					any_realm_province = {
-						limit = {
-							has_province_flag = has_local_resistance
-							is_in_current_resistance_region_province = yes
-						}
-						set_variable = {
-							which = nat_revolt_estimated_size
-							value = 0
-						}
-					}
-					# Check other marches of suzerain
-					any_tributary = {
-						limit = { 
-							is_tributary = { type = march } 
-							NOT = { character = PREVPREV }
-						}
-						any_realm_province = {
-							limit = {
-								has_province_flag = has_local_resistance
-								is_in_current_resistance_region_province = yes
-							}
-							set_variable = {
-								which = nat_revolt_estimated_size
-								value = 0
-							}
-						}
-					}
+			set_variable = { 
+				which = global_highest_num_local_resistance_culture_provs
+				which = num_local_resistance_culture_provs
+			}
+		}
+	}
+	if = {
+		limit = {
+			any_independent_ruler = { check_variable = { which = num_local_resistance_provs value > 0 } }
+		}
+		random_independent_ruler = {
+			limit = {
+				check_variable = { 
+					which = num_local_resistance_culture_provs
+					which >= global_highest_num_local_resistance_culture_provs
 				}
 			}
-			any_tributary = {
-				limit = { is_tributary = { type = march } }
-				any_realm_province = {
-					limit = {
-						has_province_flag = has_local_resistance
-						is_in_current_resistance_region_province = yes
-					}
-					set_variable = {
-						which = nat_revolt_estimated_size
-						value = 0
-					}
-				}
+			preferred_limit = {
+				NOT = { is_tributary = { type = march } }
 			}
+			save_event_target_as = target_ruler
 		}
 	}
 }
@@ -456,27 +236,41 @@ calc_num_of_local_resistance_provinces_in_region_effect = {
 # Province scope
 # Sets that there is now a major revolt active in the province's major revolt region
 set_major_revolt_active_effect = {
+	get_major_revolt_variables_title_effect = yes
+	event_target:major_revolt_title = { set_title_flag = major_revolt_ongoing }
+}
+
+set_major_revolt_over_effect = {
+	get_major_revolt_variables_title_effect = yes
+	event_target:major_revolt_title = { clr_title_flag = major_revolt_ongoing }
+}
+
+# Province scope
+# Saves the title that the major revolt variables are saved onto the major_revolt_title event_target
+get_major_revolt_variables_title_effect = {
+	clear_event_target = major_revolt_title
 	if = {
 		limit = { in_wales_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_wales
+		e_cymru = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_caledonia_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_caledonia
+		e_alba = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_armorica_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_armorica
+		e_armorica = { save_event_target_as = major_revolt_title }
 	}
 	else_if = {
 		limit = { in_vasconia_local_resistance_region_trigger = yes }
-		set_global_flag = major_revolt_ongoing_vasconia
+		e_aquitania = { save_event_target_as = major_revolt_title }
 	}
 }
 
 # Character scope - should be the revolt leader
 # ROOT is the province that the revolt spawned from
 adjust_revolt_army_size_effect = {
+	save_event_target_as = revolter_character
 	set_variable = {
 		which = global_troop_change
 		value = 0
@@ -677,7 +471,7 @@ adjust_revolt_army_size_effect = {
 							count = 20
 							culture = ROOT
 						}
-						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 					}
 					change_variable = {
 						which = global_troop_change
@@ -690,7 +484,7 @@ adjust_revolt_army_size_effect = {
 							count = 15
 							culture = ROOT
 						}
-						NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+						NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 					}
 					change_variable = {
 						which = global_troop_change
@@ -792,7 +586,7 @@ adjust_revolt_army_size_effect = {
 								count = 30
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -805,7 +599,7 @@ adjust_revolt_army_size_effect = {
 								count = 25
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -818,7 +612,7 @@ adjust_revolt_army_size_effect = {
 								count = 18
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -831,7 +625,7 @@ adjust_revolt_army_size_effect = {
 								count = 12
 								culture = ROOT
 							}
-							NOT = { PREVPREVPREV = { has_character_flag = peasant_revolter } }
+							NOT = { event_target:revolter_character = { has_character_flag = peasant_revolter } }
 						}
 						change_variable = {
 							which = global_troop_change
@@ -936,6 +730,240 @@ adjust_revolt_army_size_effect = {
 				if = {
 					limit = { location = { province = ROOT } }
 					troops = -0.15
+				}
+			}
+		}
+	}
+}
+
+get_major_revolt_leader_character = {
+	clear_event_target = current_major_revolt_leader
+	if = {
+		limit = { in_wales_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_wales = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_caledonia_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_caledonia = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_armorica_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_armorica = { save_event_target_as = current_major_revolt_leader }
+	}
+	else_if = {
+		limit = { in_vasconia_local_resistance_region_trigger = yes }
+		event_target:major_revolt_leader_vasconia = { save_event_target_as = current_major_revolt_leader }
+	}
+}
+
+check_unlanded_rebel_in_major_revolt_successful = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			any_war = {
+				limit = {
+					attacker = { character = ROOT }
+				}
+				thirdparty_title_scope = {
+					random_direct_de_jure_vassal_title = {
+						limit = { owner = { top_liege = { character = FROM } } }
+						location = { save_event_target_as = current_resistance_region_province }
+					}
+				}
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_succeeded
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+check_unlanded_rebel_in_major_revolt_crushed = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			any_war = {
+				limit = {
+					attacker = { character = ROOT }
+				}
+				thirdparty_title_scope = {
+					random_direct_de_jure_vassal_title = {
+						limit = { owner = { top_liege = { character = FROM } } }
+						location = { save_event_target_as = current_resistance_region_province }
+					}
+				}
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_crushed
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+check_landed_rebel_in_major_revolt_successful = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			set_character_flag = is_major_revolt_rebel
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+			event_target:current_resistance_region_province = {
+				set_province_flag = current_resistance_region_province_prov
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				set_title_flag = major_revolt_title_title
+				change_variable = {
+					which = num_revolts_succeeded
+					value = 1
+				}				
+			}
+			# Check if is in another major revolt region (2 is theoretically possible)
+			if = {
+				limit = {
+					any_realm_province = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+				}
+				random_realm_province = {
+					limit = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+					save_event_target_as = current_resistance_region_province
+				}
+				event_target:current_resistance_region_province = {
+					get_major_revolt_variables_title_effect = yes
+				}
+				event_target:major_revolt_title = {
+					change_variable = {
+						which = num_revolts_succeeded
+						value = 1
+					}				
+				}
+			}
+		}
+	}
+}
+
+check_landed_rebel_in_major_revolt_crushed = {
+	hidden_effect = {
+		if = {
+			limit = {
+				 is_major_revolt_rebel_trigger = yes
+			}
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+			event_target:current_resistance_region_province = {
+				get_major_revolt_variables_title_effect = yes
+			}
+			event_target:major_revolt_title = {
+				change_variable = {
+					which = num_revolts_crushed
+					value = 1
+				}				
+			}
+			# Check if is in another major revolt region (2 is theoretically possible)
+			if = {
+				limit = {
+					any_realm_province = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+				}
+				random_realm_province = {
+					limit = {
+						has_active_major_revolt_trigger = yes
+						is_in_resistance_region_of_prev_culture_trigger = yes
+						is_in_current_resistance_region_province = no
+					}
+					save_event_target_as = current_resistance_region_province
+				}
+				event_target:current_resistance_region_province = {
+					get_major_revolt_variables_title_effect = yes
+				}
+				event_target:major_revolt_title = {
+					change_variable = {
+						which = num_revolts_crushed
+						value = 1
+					}				
+				}
+			}
+		}
+	}
+}
+
+# Checks if the major revolt occuring in current_resistance_region_province is over, and if so
+# fires the ending event on the appropriate character
+check_if_major_revolt_is_over_and_fire_event_effect = {
+	if = {
+		limit = {
+			any_major_revolt_rebels_in_region_trigger = no
+		}
+		event_target:current_resistance_region_province = { get_major_revolt_leader_character = yes }
+		if = {
+			limit = {
+				event_target:current_major_revolt_leader = { always = yes }
+			}
+			set_character_flag = sending_event_to_current_major_revolt_leader
+			set_character_flag = sending_event_to_@event_target:current_major_revolt_leader
+			event_target:current_major_revolt_leader = { character_event = { id = 320740 } }
+		}
+		else = {
+			# Just get the ruler with the most provinces of the local resistance culture
+			event_target:current_resistance_region_province = {
+				get_ruler_with_most_local_resistance_culture_provinces_in_region_effect = yes
+			}
+			if = {
+				limit = {
+					event_target:target_ruler = { always = yes }
+				}
+				set_character_flag = sending_event_to_target_ruler
+				set_character_flag = sending_event_to_@event_target:target_ruler
+				event_target:target_ruler = { character_event = { id = 320740 } }
+			}
+			# This is incredibly unlikely to fail (borderline impossible without cheats)
+			# so just grab some random ruler in the region
+			else = {
+				set_character_flag = sending_event_to_random_ruler
+				event_target:current_resistance_region_province = {
+					owner = {
+						top_liege = {
+							character_event = { id = 320740 }
+						}
+					}
 				}
 			}
 		}

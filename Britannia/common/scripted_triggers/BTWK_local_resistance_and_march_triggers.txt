@@ -14,6 +14,25 @@ in_vasconia_local_resistance_region_trigger = {
 	region = world_gaul_aquitania_tertia
 }
 
+is_wales_local_resistance_culture_trigger = {
+	culture_group = celtic
+	NOT = { culture = romanobritish }
+}
+
+is_caledonia_local_resistance_culture_trigger = {
+	culture_group = celtic
+	NOT = { culture = romanobritish }
+}
+
+is_armorica_local_resistance_culture_trigger = {
+	culture_group = celtic
+	NOT = { culture = romanobritish }
+}
+
+is_vasconia_local_resistance_culture_trigger = {
+	culture_group = basque
+}
+
 in_wales_march_region_trigger = {
 	region = world_britannia_cymry_wales
 }
@@ -30,29 +49,49 @@ in_vasconia_march_region_trigger = {
 	region = custom_vasconia_gaul
 }
 
+is_wales_march_allowed_culture_trigger = {
+	NOR = {
+		culture_group = imperiale
+		culture_group = celtic
+	}
+}
+
+is_caledonia_march_allowed_culture_trigger = {
+	NOR = {
+		culture_group = celtic
+	}
+}
+
+is_armorica_march_allowed_culture_trigger = {
+	NOR = {
+		culture_group = imperiale
+		culture_group = celtic
+	}
+}
+
+is_vasconia_march_allowed_culture_trigger = {
+	NOR = {
+		culture_group = imperiale
+		culture_group = basque
+	}
+}
+
 local_resistance_potential_trigger = {
 	OR = {
 		AND = {
-			culture_group = celtic
-			NOT = { culture = romanobritish }
+			is_wales_local_resistance_culture_trigger = yes
 			in_wales_local_resistance_region_trigger = yes
 			owner = {
 				top_liege = {
 					OR = {
 						AND = {
 							in_revolt = no
-							NOR = {
-								culture_group = celtic
-								culture_group = imperiale
-							}
+							is_wales_march_allowed_culture_trigger = yes
 						}
 						AND = {
 							in_revolt = yes
 							liege_before_war = {
-								NOR = {
-									culture_group = celtic
-									culture_group = imperiale
-								}
+								is_wales_march_allowed_culture_trigger = yes
 							}
 						}
 					}
@@ -60,23 +99,19 @@ local_resistance_potential_trigger = {
 			}
 		}
 		AND = {
-			culture_group = celtic
+			is_caledonia_local_resistance_culture_trigger = yes
 			in_caledonia_local_resistance_region_trigger = yes
 			owner = {
 				top_liege = {
 					OR = {
 						AND = {
 							in_revolt = no
-							NOT = {
-								culture_group = celtic
-							}
+							is_caledonia_march_allowed_culture_trigger = yes
 						}
 						AND = {
 							in_revolt = yes
 							liege_before_war = {
-								NOT = {
-									culture_group = celtic
-								}
+								is_caledonia_march_allowed_culture_trigger = yes
 							}
 						}
 					}
@@ -84,25 +119,19 @@ local_resistance_potential_trigger = {
 			}
 		}
 		AND = {
-			culture_group = celtic
+			is_armorica_local_resistance_culture_trigger = yes
 			in_armorica_local_resistance_region_trigger = yes
 			owner = {
 				top_liege = {
 					OR = {
 						AND = {
 							in_revolt = no
-							NOR = {
-								culture_group = celtic
-								culture_group = imperiale
-							}
+							is_armorica_march_allowed_culture_trigger = yes
 						}
 						AND = {
 							in_revolt = yes
 							liege_before_war = {
-								NOR = {
-									culture_group = celtic
-									culture_group = imperiale
-								}
+								is_armorica_march_allowed_culture_trigger = yes
 							}
 						}
 					}
@@ -110,30 +139,45 @@ local_resistance_potential_trigger = {
 			}
 		}
 		AND = {
-			culture_group = basque
+			is_vasconia_local_resistance_culture_trigger = yes
 			in_vasconia_local_resistance_region_trigger = yes
 			owner = {
 				top_liege = {
 					OR = {
 						AND = {
 							in_revolt = no
-							NOR = {
-								culture_group = basque
-								culture_group = imperiale
-							}
+							is_vasconia_march_allowed_culture_trigger = yes
 						}
 						AND = {
 							in_revolt = yes
 							liege_before_war = {
-								NOR = {
-									culture_group = basque
-									culture_group = imperiale
-								}
+								is_vasconia_march_allowed_culture_trigger = yes
 							}
 						}
 					}
 				}
 			}
+		}
+	}
+}
+
+is_local_resistance_region_culture_trigger = {
+	OR = {
+		AND = {
+			is_wales_local_resistance_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_caledonia_local_resistance_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_armorica_local_resistance_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_vasconia_local_resistance_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes }
 		}
 	}
 }
@@ -160,6 +204,27 @@ is_in_current_resistance_region_province = {
 	}
 }
 
+is_in_resistance_region_of_prev_culture_trigger = {
+	OR = {
+		AND = {
+			PREV = { is_wales_local_resistance_culture_trigger = yes }
+			in_wales_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_caledonia_local_resistance_culture_trigger = yes }
+			in_caledonia_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_armorica_local_resistance_culture_trigger = yes }
+			in_armorica_local_resistance_region_trigger = yes
+		}
+		AND = {
+			PREV = { is_vasconia_local_resistance_culture_trigger = yes }
+			in_vasconia_local_resistance_region_trigger = yes
+		}
+	}
+}
+					
 is_ROOT_in_current_resistance_region_province_trigger = {
 	OR = {
 		conditional_tooltip = {
@@ -297,25 +362,34 @@ is_major_revolt_possible_for_war_trigger = {
 	}
 }
 
+is_major_revolt_ongoing_trigger = {
+	OR = {
+		e_cymru = { has_title_flag = major_revolt_ongoing }
+		e_alba = { has_title_flag = major_revolt_ongoing }
+		e_armorica = { has_title_flag = major_revolt_ongoing }
+		e_aquitania = { has_title_flag = major_revolt_ongoing }
+	}
+}
+
 # Province scope
 # Checks if there is currently a major revolt active in the province's major revolt region
 has_active_major_revolt_trigger = {
 	OR = {
 		AND = {
 			in_wales_local_resistance_region_trigger = yes
-			has_global_flag = major_revolt_ongoing_wales
+			e_cymru = { has_title_flag = major_revolt_ongoing }
 		}
 		AND = {
 			in_caledonia_local_resistance_region_trigger = yes
-			has_global_flag = major_revolt_ongoing_caledonia
+			e_alba = { has_title_flag = major_revolt_ongoing }
 		}
 		AND = {
 			in_armorica_local_resistance_region_trigger = yes
-			has_global_flag = major_revolt_ongoing_armorica
+			e_armorica = { has_title_flag = major_revolt_ongoing }
 		}
 		AND = {
 			in_vasconia_local_resistance_region_trigger = yes
-			has_global_flag = major_revolt_ongoing_vasconia
+			e_aquitania = { has_title_flag = major_revolt_ongoing }
 		}
 	}
 }
@@ -356,6 +430,54 @@ is_local_resistance_similar_culture_to_ROOT_trigger = {
 	conditional_tooltip = {
 		trigger = {
 			ROOT = {
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					is_gaelic_culture_trigger = yes
+					culture = pictish
+					culture_group = basque
+				}
+			}
+		}
+		always = no
+	}
+}
+
+is_local_resistance_similar_culture_to_PREV_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			PREV = { 
+				is_brythonic_culture_trigger = yes
+			}
+		}
+		is_brythonic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREV = { 
+				is_gaelic_culture_trigger = yes
+			}
+		}
+		is_gaelic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREV = { 
+				culture = pictish
+			}
+		}
+		culture = pictish
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREV = { 
+				culture_group = basque
+			}
+		}
+		culture_group = basque
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREV = {
 				NOR = {
 					is_brythonic_culture_trigger = yes
 					is_gaelic_culture_trigger = yes
@@ -486,14 +608,57 @@ has_local_resistance_provs_in_potential_major_revolt_from_FROM = {
 
 is_major_revolt_rebel_trigger = {
 	OR = {
-		has_character_flag = major_revolt_rebel
+		AND = {
+			war = yes
+			any_war = {
+				attacker = { character = PREV }
+				OR = {
+					using_cb = bid_for_independence
+					using_cb = cb_faction_independence
+					using_cb = free_tributary_cb
+				}
+			}
+			any_realm_province = {
+				has_active_major_revolt_trigger = yes
+				is_in_resistance_region_of_prev_culture_trigger = yes
+			}
+		}
 		primary_title = { has_title_flag = major_revolt_rebel_title }
 	}
 }
 
-# TODO OBSOLETE, DELETE
-is_province_liege_not_defending_against_nat_revolt_trigger = {
-	always = no
+# Uses any_independent_ruler, so needs ROOT to be someone guaranteed not to be involved in 
+# a major revolt (so e.g. holder of d_null)
+# Also needs current_resistance_region_province to be a saved event target
+any_major_revolt_rebels_in_region_trigger = {
+	any_independent_ruler = {
+		any_war = {
+			attacker = { 
+				is_major_revolt_rebel_trigger = yes
+				is_local_resistance_region_culture_trigger = yes
+				# Either holds a province in the region, or is a rebel for a duchy
+				# with a province in the region
+				OR = {
+					AND = {
+						is_landed = yes
+						any_realm_province = {
+							is_in_current_resistance_region_province = yes
+						}
+					}
+					AND = {
+						is_landed = no
+						PREV = {
+							thirdparty_title_scope = {
+								any_de_jure_vassal_title = { 
+									location = { is_in_current_resistance_region_province = yes }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 # Province scope
@@ -690,28 +855,19 @@ is_in_ROOT_march_culture_trigger = {
 		AND = {
 			title = k_breton_march
 			ROOT = {
-				NOR = {
-					culture_group = celtic
-					culture_group = imperiale
-				}
+				is_armorica_march_allowed_culture_trigger = yes
 			}
 		}
 		AND = {
 			title = k_vasconia
 			ROOT = {
-				NOR = {
-					culture_group = basque
-					culture_group = imperiale
-				}
+				is_vasconia_march_allowed_culture_trigger = yes
 			}
 		}
 		AND = {
 			title = k_wales
 			ROOT = {
-				NOR = {
-					culture_group = celtic
-					culture_group = imperiale
-				}
+				is_wales_march_allowed_culture_trigger = yes
 			}
 		}
 		AND = {
@@ -720,7 +876,7 @@ is_in_ROOT_march_culture_trigger = {
 				title = k_romancaledonia
 			}
 			ROOT = {
-				NOT = { culture_group = celtic }
+				is_caledonia_march_allowed_culture_trigger = yes
 			}
 		}
 	}
@@ -791,8 +947,7 @@ can_drift_out_of_breton_march = {
 						is_germanic_ruler_trigger = no
 						OR = {
 							higher_tier_than = DUKE
-							culture_group = celtic
-							culture_group = imperiale
+							is_armorica_march_allowed_culture_trigger = no
 						}
 					}
 				}
@@ -821,8 +976,7 @@ can_drift_out_of_vasconia = {
 						is_germanic_ruler_trigger = no
 						OR = {
 							higher_tier_than = DUKE
-							culture_group = basque
-							culture_group = imperiale
+							is_vasconia_march_allowed_culture_trigger = no
 						}
 					}
 				}
@@ -873,8 +1027,7 @@ can_drift_out_of_wales = {
 						is_germanic_ruler_trigger = no
 						OR = {
 							higher_tier_than = DUKE
-							culture_group = celtic
-							culture_group = imperiale
+							is_wales_march_allowed_culture_trigger = no
 						}
 					}
 				}
@@ -903,7 +1056,7 @@ can_drift_out_of_pictland = {
 						is_germanic_ruler_trigger = no
 						OR = {
 							higher_tier_than = DUKE
-							culture_group = celtic
+							is_caledonia_march_allowed_culture_trigger = no
 						}
 					}
 				}

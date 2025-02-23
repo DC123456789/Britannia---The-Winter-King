@@ -660,9 +660,143 @@ narrative_event = {
 	}
 }
 
-# 320910 TODO Welsh March -> Earldom of Wales
+# Reform Welsh March into Eorldom of Wales
+narrative_event = {
+	id = 320910
+	title = "EVTNAME320910"
+	desc = "EVTDESC320910"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		k_wales = {
+			clr_title_flag = is_march
+			set_name = ""
+		}
+		any_tributary = {
+			limit = {
+				is_tributary = { type = march }
+				has_landed_title = k_wales
+			}
+			set_defacto_liege = ROOT
+			remove_tributary = ROOT
+		}
+		
+		clr_global_flag = welsh_march_created
+	}
+	
+	option = {
+		name = "EVTOPTA320910"
+		trigger = {
+			character = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320910"
+		trigger = {
+			NOT = { character = ROOT }
+			has_landed_title = k_wales
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320910"
+		trigger = {
+			NOR = {
+				character = ROOT
+				has_landed_title = k_wales
+			}
+			any_liege = {
+				NOT = { character = ROOT }
+				has_landed_title = k_wales
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320910"
+		trigger = {
+			NOR = {
+				character = ROOT
+				has_landed_title = k_wales
+			}
+		}
+	}
+}
 
-# 320911 TODO Pictish March -> Earldom of Pictland
+# Reform Pictish March into Eorldom of Pictland
+narrative_event = {
+	id = 320911
+	title = "EVTNAME320911"
+	desc = "EVTDESC320911"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_castle_hill"
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		k_pictland = {
+			clr_title_flag = is_march
+			set_name = ""
+		}
+		any_tributary = {
+			limit = {
+				is_tributary = { type = march }
+				has_landed_title = k_pictland
+			}
+			set_defacto_liege = ROOT
+			remove_tributary = ROOT
+		}
+		
+		clr_global_flag = pictish_march_created
+	}
+	
+	option = {
+		name = "EVTOPTA320910"
+		trigger = {
+			character = ROOT
+		}
+	}
+	
+	option = {
+		name = "EVTOPTB320910"
+		trigger = {
+			NOT = { character = ROOT }
+			has_landed_title = k_pictland
+		}
+	}
+	
+	option = {
+		name = "EVTOPTC320910"
+		trigger = {
+			NOR = {
+				character = ROOT
+				has_landed_title = k_pictland
+			}
+			any_liege = {
+				NOT = { character = ROOT }
+				has_landed_title = k_pictland
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTD320910"
+		trigger = {
+			NOR = {
+				character = ROOT
+				has_landed_title = k_pictland
+			}
+		}
+	}
+}
 
 # March de jure removal
 character_event = {
@@ -2043,10 +2177,7 @@ character_event = {
 		in_revolt = no
 		OR = {
 			AND = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
+				is_armorica_march_allowed_culture_trigger = yes
 				breton_march_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2063,10 +2194,7 @@ character_event = {
 				}
 			}
 			AND = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = basque
-				}
+				is_vasconia_march_allowed_culture_trigger = yes
 				vasconia_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2083,10 +2211,7 @@ character_event = {
 				}
 			}
 			AND = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
+				is_wales_march_allowed_culture_trigger = yes
 				wales_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2103,9 +2228,7 @@ character_event = {
 				}
 			}
 			AND = {
-				NOT = {
-					culture_group = celtic
-				}
+				is_caledonia_march_allowed_culture_trigger = yes
 				pictland_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2138,11 +2261,8 @@ character_event = {
 	immediate = {
 		# Breton March
 		if = {
-			limit = {			
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
+			limit = {
+				is_armorica_march_allowed_culture_trigger = yes
 				breton_march_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2161,10 +2281,7 @@ character_event = {
 			any_vassal = {
 				limit = {
 					higher_tier_than = BARON
-					NOR = {
-						culture_group = imperiale
-						culture_group = celtic
-					}
+					is_armorica_march_allowed_culture_trigger = yes
 					any_realm_province = {
 						#OR = {
 							in_armorica_march_region_trigger = yes
@@ -2185,11 +2302,8 @@ character_event = {
 		}
 		# Vasconia
 		else_if = {
-			limit = {			
-				NOR = {
-					culture_group = imperiale
-					culture_group = basque
-				}
+			limit = {
+				is_vasconia_march_allowed_culture_trigger = yes
 				vasconia_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2208,10 +2322,7 @@ character_event = {
 			any_vassal = {
 				limit = {
 					higher_tier_than = BARON
-					NOR = {
-						culture_group = imperiale
-						culture_group = basque
-					}
+					is_vasconia_march_allowed_culture_trigger = yes
 					any_realm_province = {
 						in_vasconia_march_region_trigger = yes
 					}
@@ -2228,10 +2339,7 @@ character_event = {
 		# Wales
 		else_if = {
 			limit = {
-				NOR = {
-					culture_group = imperiale
-					culture_group = celtic
-				}
+				is_wales_march_allowed_culture_trigger = yes
 				wales_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2250,10 +2358,7 @@ character_event = {
 			any_vassal = {
 				limit = {
 					higher_tier_than = BARON
-					NOR = {
-						culture_group = imperiale
-						culture_group = celtic
-					}
+					is_wales_march_allowed_culture_trigger = yes
 					any_realm_province = {
 						in_wales_march_region_trigger = yes
 					}
@@ -2270,9 +2375,7 @@ character_event = {
 		# Pictland/Caledonia
 		else_if = {
 			limit = {
-				NOR = {
-					culture_group = celtic
-				}
+				is_caledonia_march_allowed_culture_trigger = yes
 				pictland_province_control_with_resistance_trigger = yes
 				NOT = {
 					any_tributary = {
@@ -2302,9 +2405,7 @@ character_event = {
 			any_vassal = {
 				limit = {
 					higher_tier_than = BARON
-					NOR = {
-						culture_group = celtic
-					}
+					is_caledonia_march_allowed_culture_trigger = yes
 					any_realm_province = {
 						in_caledonia_march_region_trigger = yes
 					}

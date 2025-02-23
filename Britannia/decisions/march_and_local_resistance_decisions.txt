@@ -737,6 +737,229 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	aengland_integrate_welsh_march = {
+		only_rulers = yes
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = {
+			OR = {
+				any_tributary = {
+					is_tributary = { type = march }
+					has_landed_title = k_wales
+				}
+				has_landed_title = k_wales
+			}
+			k_wales = { 
+				has_title_flag = is_march
+				de_jure_liege = e_aengland
+			}
+			OR = {
+				has_landed_title = e_aengland
+				is_ingvaeonic_culture_trigger = yes
+			}
+		}
+		allow = {
+			has_landed_title = e_aengland
+			custom_tooltip = {
+				text = aengland_united_tooltip
+				has_global_flag = aengland_united
+			}
+			prestige = 2000
+			war = no
+		}
+		effect = {
+			tooltip = {
+				any_tributary = {
+					limit = {
+						is_tributary = { type = march }
+						has_landed_title = k_wales
+					}
+					remove_tributary = ROOT
+					set_defacto_liege = ROOT
+				}
+			}
+			custom_tooltip = {
+				text = aengland_integrate_welsh_march_tooltip
+			}
+			# tooltip = {
+				# k_wales = {
+					# set_name = ""
+				# }
+			# }
+			hidden_tooltip = {
+				character_event = { id = 320910 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0			# Only if the march is no longer necessary
+				NOR = {
+					any_tributary = {
+						is_tributary = { type = march }
+						has_landed_title = k_wales
+						NOT = {
+							any_realm_province = {
+								has_local_resistance_modifier_trigger = yes
+							}
+						}
+						OR = {		# If they are unfriendly, then will prefer to revoke instead
+							is_friend = ROOT
+							has_non_aggression_pact_with = ROOT
+							is_allied_with = ROOT
+							reverse_opinion = {
+								who = ROOT
+								value >= 60
+							}
+						}
+						NOT = {
+							relative_power = { 		# Won't dare touch them if too strong
+								who = ROOT
+								power > 1.5
+							}
+						}
+					}
+					AND = {
+						has_landed_title = k_wales
+						NOT = {
+							any_realm_province = {
+								has_local_resistance_modifier_trigger = yes
+								in_wales_march_region_trigger = yes
+							}
+						}
+					}
+					any_province = {					# Not if there are more Welsh-controlled provinces still to conquer
+						in_wales_march_region_trigger = yes
+						top_liege = {
+							NOR = {
+								character = ROOT
+								is_tributary = {
+									type = march
+									suzerain = ROOT
+								}
+							}
+							OR = {
+								culture_group = celtic
+								culture_group = imperiale
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	aengland_integrate_pictish_march = {
+		only_rulers = yes
+		is_high_prio = yes
+		ai_check_interval = 12
+		potential = {
+			OR = {
+				any_tributary = {
+					is_tributary = { type = march }
+					has_landed_title = k_pictland
+				}
+				has_landed_title = k_pictland
+			}
+			k_pictland = { 
+				has_title_flag = is_march
+				de_jure_liege = e_aengland
+			}
+			OR = {
+				has_landed_title = e_aengland
+				is_ingvaeonic_culture_trigger = yes
+			}
+		}
+		allow = {
+			has_landed_title = e_aengland
+			custom_tooltip = {
+				text = aengland_united_tooltip
+				has_global_flag = aengland_united
+			}
+			prestige = 2000
+			war = no
+		}
+		effect = {
+			tooltip = {
+				any_tributary = {
+					limit = {
+						is_tributary = { type = march }
+						has_landed_title = k_pictland
+					}
+					remove_tributary = ROOT
+					set_defacto_liege = ROOT
+				}
+			}
+			custom_tooltip = {
+				text = aengland_integrate_pictish_march_tooltip
+			}
+			# tooltip = {
+				# k_pictland = {
+					# set_name = ""
+				# }
+			# }
+			hidden_tooltip = {
+				character_event = { id = 320911 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0			# Only if the march is no longer necessary
+				NOR = {
+					any_tributary = {
+						is_tributary = { type = march }
+						has_landed_title = k_pictland
+						NOT = {
+							any_realm_province = {
+								has_local_resistance_modifier_trigger = yes
+							}
+						}
+						OR = {		# If they are unfriendly, then will prefer to revoke instead
+							is_friend = ROOT
+							has_non_aggression_pact_with = ROOT
+							is_allied_with = ROOT
+							reverse_opinion = {
+								who = ROOT
+								value >= 60
+							}
+						}
+						NOT = {
+							relative_power = { 		# Won't dare touch them if too strong
+								who = ROOT
+								power > 1.5
+							}
+						}
+					}
+					AND = {
+						has_landed_title = k_pictland
+						NOT = {
+							any_realm_province = {
+								has_local_resistance_modifier_trigger = yes
+								in_caledonia_march_region_trigger = yes
+							}
+						}
+					}
+					any_province = {					# Not if there are more Pictish-controlled provinces still to conquer
+						in_caledonia_march_region_trigger = yes
+						top_liege = {
+							NOR = {
+								character = ROOT
+								AND = {
+									is_tributary = { 
+										type = march
+										suzerain = ROOT
+									}
+								}
+							}
+							culture_group = celtic
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 title_decisions = {
@@ -2286,6 +2509,12 @@ targeted_decisions = {
 					FROM = { is_friend = ROOT }
 					FROM = { has_non_aggression_pact_with = ROOT }
 					FROM = { is_allied_with = ROOT }
+					FROM = {
+						opinion = {
+							who = ROOT
+							value >= 60
+						}
+					}
 					ROOT = {
 						any_realm_province = {
 							has_local_resistance_modifier_trigger = yes
@@ -2293,8 +2522,84 @@ targeted_decisions = {
 					}
 					FROM = {
 						relative_power = { 
-							who = FROM
+							who = ROOT
 							power < 1.5
+						}
+					}
+					AND = {
+						FROM = { has_landed_title = k_breton_march }
+						any_province = {					# Not if there are more Breton-controlled provinces still to conquer
+							in_armorica_march_region_trigger = yes
+							top_liege = {
+								NOR = {
+									character = ROOT
+									is_tributary = { 
+										type = march
+										suzerain = ROOT
+									}
+								}
+								OR = {
+									culture_group = celtic
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+					AND = {
+						FROM = { has_landed_title = k_vasconia }
+						any_province = {					# Not if there are more Vasconian-controlled provinces still to conquer
+							in_vasconia_march_region_trigger = yes
+							top_liege = {
+								NOR = {
+									character = ROOT
+									is_tributary = { 
+										type = march
+										suzerain = ROOT
+									}
+								}
+								OR = {
+									culture_group = basque
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+					AND = {
+						FROM = { has_landed_title = k_wales }
+						any_province = {					# Not if there are more Welsh-controlled provinces still to conquer
+							in_wales_march_region_trigger = yes
+							top_liege = {
+								NOR = {
+									character = ROOT
+									is_tributary = { 
+										type = march
+										suzerain = ROOT
+									}
+								}
+								OR = {
+									culture_group = celtic
+									culture_group = imperiale
+								}
+							}
+						}
+					}
+					AND = {
+						OR = {
+							FROM = { has_landed_title = k_pictland }
+							FROM = { has_landed_title = k_romancaledonia }
+						}
+						any_province = {					# Not if there are more Pictish-controlled provinces still to conquer
+							in_caledonia_march_region_trigger = yes
+							top_liege = {
+								NOR = {
+									character = ROOT
+									is_tributary = { 
+										type = march
+										suzerain = ROOT
+									}
+								}
+								culture_group = celtic
+							}
 						}
 					}
 				}
