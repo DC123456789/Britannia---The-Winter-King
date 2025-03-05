@@ -635,6 +635,7 @@ character_event = {
 			}
 			event_target:current_resistance_region_province = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
+				get_major_revolt_variables_title_effect = yes
 			}
 			# Check to see if the rebellion's duchy still has any provinces with local resistance
 			if = {
@@ -980,9 +981,8 @@ character_event = {
 	}
 	
 	immediate = {
-		set_character_flag = got_event_320724
 		# Note: If any of the code here is changed, make sure that the corresponding code in the 
-		# on_success_title blocks of the cultural_revolt cb is also changed
+		# on_success blocks of the cultural_revolt cb is also changed
 		any_war = {
 			limit = {
 				attacker = { character = ROOT }
@@ -1002,6 +1002,19 @@ character_event = {
 			}
 			event_target:current_resistance_region_province = {
 				calc_num_of_local_resistance_provinces_in_region_effect = yes
+				get_major_revolt_variables_title_effect = yes
+			}
+			
+			if = {
+				limit = {
+					event_target:major_revolt_title = {
+						OR = {
+							NOT = { has_title_flag = major_revolt_ended }
+							had_title_flag = { flag = major_revolt_ended years >= 10 }
+						}
+					}
+				}
+				set_character_flag = major_revolt_ended_more_than_10_years_ago
 			}
 			
 			# Check to see if the rebellion's duchy still has any provinces with local resistance
@@ -1433,6 +1446,15 @@ character_event = {
 				which = num_revolts_crushed
 				value = 0
 			}
+		}
+		
+		# Clear any previous major revolt leader, if that didn't get properly cleared
+		event_target:current_resistance_region_province = { clear_major_revolt_leader_character = yes }
+		
+		# If the initial revolt won, they become the leader
+		if = {
+			limit = { ROOT = { has_character_flag = won_revolt } }
+			ROOT = { set_major_revolt_leader_character = yes }
 		}
 	}
 }
@@ -2144,7 +2166,7 @@ character_event = {
 				}
 				change_variable = {
 					which = num_revolts_total
-					value = num_revolts_crushed
+					which = num_revolts_crushed
 				}
 				if = {
 					limit = {
@@ -2168,31 +2190,31 @@ character_event = {
 						value = 0
 					}
 				}
-				# If > 60% of the rebellions were successful, major rebellion victory - major decrease in pacification progress across region + major prestige loss
+				# If > 66% of the rebellions were successful, major rebellion victory - major decrease in pacification progress across region + major prestige loss
 				if = {
 					limit = {
 						event_target:major_revolt_title = {
 							check_variable = {
 								which = share_revolts_succeeded
-								value >= 0.6
+								value >= 0.66
 							}
 						}
 					}
 					set_title_flag = major_rebellion_victory
 				}
-				# If 30 - 60% of the rebellions were successful, minor rebellion victory - small decrease in pacification progress across region + a bit of prestige loss
+				# If 35 - 60% of the rebellions were successful, minor rebellion victory - small decrease in pacification progress across region + a bit of prestige loss
 				else_if = {
 					limit = {
 						event_target:major_revolt_title = {
 							check_variable = {
 								which = share_revolts_succeeded
-								value >= 0.30
+								value >= 0.35
 							}
 						}
 					}
 					set_title_flag = minor_rebellion_victory
 				}
-				# If < 30% of the rebellions were successful, minor rebellion defeat - small increase in pacification progress across region + a bit of prestige
+				# If < 35% of the rebellions were successful, minor rebellion defeat - small increase in pacification progress across region + a bit of prestige
 				else_if = {
 					limit = {
 						event_target:major_revolt_title = {
@@ -2332,6 +2354,9 @@ narrative_event = {
 			is_local_resistance_region_culture_trigger = yes
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
+		custom_tooltip = {
+			text = EVTOPT320740TT
+		}
 		# TODO Differential prestige depending on outcome
 		custom_tooltip = {
 			text = EVTOPTA320740TT
@@ -2362,6 +2387,9 @@ narrative_event = {
 			is_local_resistance_region_culture_trigger = yes
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
+		custom_tooltip = {
+			text = EVTOPT320740TT
+		}
 		# TODO Minor differential prestige depending on outcome if independent?
 		custom_tooltip = {
 			text = EVTOPTB320740TT
@@ -2385,6 +2413,9 @@ narrative_event = {
 			}
 			is_local_resistance_region_culture_trigger = yes
 			any_realm_province = { is_in_current_resistance_region_province = yes }
+		}
+		custom_tooltip = {
+			text = EVTOPT320740TT
 		}
 		custom_tooltip = {
 			text = EVTOPTC320740TT
@@ -2413,6 +2444,9 @@ narrative_event = {
 				culture_group = PREV
 			}
 			is_local_resistance_region_culture_trigger = no
+		}
+		custom_tooltip = {
+			text = EVTOPT320740TT
 		}
 		custom_tooltip = {
 			text = EVTOPTD320740TT
@@ -2450,6 +2484,9 @@ narrative_event = {
 			is_local_resistance_region_culture_trigger = no
 		}
 		custom_tooltip = {
+			text = EVTOPT320740TT
+		}
+		custom_tooltip = {
 			text = EVTOPTE320740TT
 		}
 	}
@@ -2481,6 +2518,9 @@ narrative_event = {
 					is_local_resistance_region_culture_trigger = no
 				}
 			}
+		}
+		custom_tooltip = {
+			text = EVTOPT320740TT
 		}
 		custom_tooltip = {
 			text = EVTOPTF320740

@@ -237,12 +237,18 @@ calc_num_of_local_resistance_provinces_in_region_effect = {
 # Sets that there is now a major revolt active in the province's major revolt region
 set_major_revolt_active_effect = {
 	get_major_revolt_variables_title_effect = yes
-	event_target:major_revolt_title = { set_title_flag = major_revolt_ongoing }
+	event_target:major_revolt_title = { 
+		set_title_flag = major_revolt_ongoing 
+		clr_title_flag = major_revolt_ended
+	}
 }
 
 set_major_revolt_over_effect = {
 	get_major_revolt_variables_title_effect = yes
-	event_target:major_revolt_title = { clr_title_flag = major_revolt_ongoing }
+	event_target:major_revolt_title = { 
+		clr_title_flag = major_revolt_ongoing
+		set_title_flag = major_revolt_ended
+	}
 }
 
 # Province scope
@@ -736,6 +742,41 @@ adjust_revolt_army_size_effect = {
 	}
 }
 
+# Requires the current_resistance_region_province be a saved event target
+# Scope is the character to save as the leader
+set_major_revolt_leader_character = {
+	if = {
+		limit = { event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes } }
+		save_global_event_target_as = major_revolt_leader_wales
+	}
+	else_if = {
+		limit = { event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes } }
+		save_global_event_target_as = major_revolt_leader_caledonia
+	}
+	else_if = {
+		limit = { event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes } }
+		save_global_event_target_as = major_revolt_leader_armorica
+	}
+	else_if = {
+		limit = { event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes } }
+		save_global_event_target_as = major_revolt_leader_vasconia
+	}
+}
+
+# Requires the current_resistance_region_province be a saved event target
+# Scope is the character to save as the leader
+set_major_revolt_leader_character_if_none = {
+	event_target:current_resistance_region_province = { get_major_revolt_leader_character = yes }
+	if = {
+		limit = {
+			 NOT = { event_target:current_major_revolt_leader = { always = yes } }
+		}
+		set_character_flag = no_current_major_revolt_leader
+		set_major_revolt_leader_character = yes
+	}
+}
+
+# Scope is a province in the target major revolt region
 get_major_revolt_leader_character = {
 	clear_event_target = current_major_revolt_leader
 	if = {
@@ -755,6 +796,28 @@ get_major_revolt_leader_character = {
 		event_target:major_revolt_leader_vasconia = { save_event_target_as = current_major_revolt_leader }
 	}
 }
+
+# Scope is a province in the target major revolt region
+clear_major_revolt_leader_character = {
+	clear_event_target = current_major_revolt_leader
+	if = {
+		limit = { in_wales_local_resistance_region_trigger = yes }
+		clear_global_event_target = major_revolt_leader_wales
+	}
+	else_if = {
+		limit = { in_caledonia_local_resistance_region_trigger = yes }
+		clear_global_event_target = major_revolt_leader_caledonia
+	}
+	else_if = {
+		limit = { in_armorica_local_resistance_region_trigger = yes }
+		clear_global_event_target = major_revolt_leader_armorica
+	}
+	else_if = {
+		limit = { in_vasconia_local_resistance_region_trigger = yes }
+		clear_global_event_target = major_revolt_leader_vasconia
+	}
+}
+
 
 check_unlanded_rebel_in_major_revolt_successful = {
 	hidden_effect = {
@@ -782,6 +845,7 @@ check_unlanded_rebel_in_major_revolt_successful = {
 					value = 1
 				}
 			}
+			set_major_revolt_leader_character_if_none = yes
 		}
 	}
 }
@@ -841,6 +905,7 @@ check_landed_rebel_in_major_revolt_successful = {
 					value = 1
 				}				
 			}
+			set_major_revolt_leader_character_if_none = yes
 			# Check if is in another major revolt region (2 is theoretically possible)
 			if = {
 				limit = {
@@ -867,6 +932,7 @@ check_landed_rebel_in_major_revolt_successful = {
 						value = 1
 					}				
 				}
+				set_major_revolt_leader_character_if_none = yes
 			}
 		}
 	}

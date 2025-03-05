@@ -319,6 +319,8 @@ is_FROM_in_current_resistance_region_province_trigger = {
 # Requires that calc_num_of_local_resistance_provinces_in_region_effect be called first on a province
 # belonging to the war defender in a province in the correct local resistance region,
 # so that the num_local_resistance_provs is saved in ROOT
+# Also requires that get_major_revolt_variables_title_effect be called previously so that the 
+# major_revolt_title event_target exists
 is_major_revolt_possible_for_war_trigger = {
 	using_cb = cultural_revolt
 	thirdparty_title_scope = { NOT = { any_de_jure_vassal_title = { location = { has_active_major_revolt_trigger = yes } } } }
@@ -358,6 +360,12 @@ is_major_revolt_possible_for_war_trigger = {
 					value >= 3
 				}
 			}
+		}
+	}
+	event_target:major_revolt_title = {
+		OR = {
+			NOT = { has_title_flag = major_revolt_ended }
+			had_title_flag = { flag = major_revolt_ended years >= 10 }
 		}
 	}
 }
