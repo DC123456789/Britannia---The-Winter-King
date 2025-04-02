@@ -1558,52 +1558,15 @@ narrative_event = {
 			show_scope_change = no
 			ROOT = {
 				show_scope_change = no
+				# Modifier switching happens in an event triggered by the war
 				unsafe_war = {
 					target = PREV
 					casus_belli = bid_for_independence
 				}
 			}
 		}
-		
-		# Switch provinces over to ongoing_major_revolt_sympathetic modifier
-		if = {
-			limit = {
-				any_realm_province = {
-					is_in_current_resistance_region_province = yes
-					has_local_resistance_modifier_trigger = yes
-				}
-			}
-			tooltip = {
-				random_realm_province = {
-					limit = { 
-						is_in_current_resistance_region_province = yes
-						has_local_resistance_modifier_trigger = yes
-					}
-					add_province_modifier = { 
-						name = ongoing_major_revolt_sympathetic
-						duration = -1
-					}
-				}
-			}
-			hidden_tooltip = {
-				any_realm_province = {
-					limit = { 
-						is_in_current_resistance_region_province = yes
-						has_local_resistance_modifier_trigger = yes
-					}
-					remove_province_modifier = ongoing_major_revolt
-					add_province_modifier = { 
-						name = ongoing_major_revolt_sympathetic
-						duration = -1
-					}
-					county = {
-						any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
-					}
-				}
-			}
-			custom_tooltip = {
-				text = EVTOPTA320727TT1
-			}
+		custom_tooltip = {
+			text = EVTOPTA320727TT1
 		}
 		custom_tooltip = {
 			text = EVTOPTA320727TT2
@@ -1689,52 +1652,15 @@ narrative_event = {
 			show_scope_change = no
 			ROOT = {
 				show_scope_change = no
+				# Modifier switching happens in an event triggered by the war
 				unsafe_war = {
 					target = PREV
 					casus_belli = free_tributary_cb
 				}
 			}
 		}
-		
-		# Switch provinces over to ongoing_major_revolt_sympathetic modifier
-		if = {
-			limit = {
-				any_realm_province = {
-					is_local_resistance_similar_culture_to_ROOT_trigger = yes
-					is_in_current_resistance_region_province = yes
-				}
-			}
-			tooltip = {
-				random_realm_province = {
-					limit = { 
-						is_local_resistance_similar_culture_to_ROOT_trigger = yes
-						is_in_current_resistance_region_province = yes
-					}
-					add_province_modifier = { 
-						name = ongoing_major_revolt_sympathetic
-						duration = -1
-					}
-				}
-			}
-			hidden_tooltip = {
-				any_realm_province = {
-					limit = {
-						is_local_resistance_similar_culture_to_ROOT_trigger = yes
-						is_in_current_resistance_region_province = yes
-					}
-					remove_province_modifier = ongoing_major_revolt
-					add_province_modifier = { 
-						name = ongoing_major_revolt_sympathetic
-						duration = -1
-					}
-					county = {
-						any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
-					}
-				}
-			}
-			custom_tooltip = {
-				text = EVTOPTB320726TT1A
-			}
+		custom_tooltip = {
+			text = EVTOPTA320727TT1
 		}
 		custom_tooltip = {
 			text = EVTOPTA320727TT2
@@ -2095,7 +2021,7 @@ character_event = {
 							home = PREV
 							owner = ROOT
 							leader = THIS
-							scaled_by_biggest_garrison = 2
+							scaled_by_biggest_garrison = 1.5
 							troops = {
 								archers = { 5 5 }
 								light_cavalry = { 4 4 }
