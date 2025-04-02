@@ -450,6 +450,54 @@ is_local_resistance_similar_culture_to_ROOT_trigger = {
 	}
 }
 
+is_local_resistance_similar_culture_to_FROM_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			FROM = { 
+				is_brythonic_culture_trigger = yes
+			}
+		}
+		is_brythonic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			FROM = { 
+				is_gaelic_culture_trigger = yes
+			}
+		}
+		is_gaelic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			FROM = { 
+				culture = pictish
+			}
+		}
+		culture = pictish
+	}
+	conditional_tooltip = {
+		trigger = {
+			FROM = { 
+				culture_group = basque
+			}
+		}
+		culture_group = basque
+	}
+	conditional_tooltip = {
+		trigger = {
+			FROM = {
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					is_gaelic_culture_trigger = yes
+					culture = pictish
+					culture_group = basque
+				}
+			}
+		}
+		always = no
+	}
+}
+
 is_local_resistance_similar_culture_to_PREV_trigger = {
 	conditional_tooltip = {
 		trigger = {
@@ -486,6 +534,54 @@ is_local_resistance_similar_culture_to_PREV_trigger = {
 	conditional_tooltip = {
 		trigger = {
 			PREV = {
+				NOR = {
+					is_brythonic_culture_trigger = yes
+					is_gaelic_culture_trigger = yes
+					culture = pictish
+					culture_group = basque
+				}
+			}
+		}
+		always = no
+	}
+}
+
+is_local_resistance_similar_culture_to_PREVPREV_trigger = {
+	conditional_tooltip = {
+		trigger = {
+			PREVPREV = { 
+				is_brythonic_culture_trigger = yes
+			}
+		}
+		is_brythonic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREVPREV = { 
+				is_gaelic_culture_trigger = yes
+			}
+		}
+		is_gaelic_culture_trigger = yes
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREVPREV = { 
+				culture = pictish
+			}
+		}
+		culture = pictish
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREVPREV = { 
+				culture_group = basque
+			}
+		}
+		culture_group = basque
+	}
+	conditional_tooltip = {
+		trigger = {
+			PREVPREV = {
 				NOR = {
 					is_brythonic_culture_trigger = yes
 					is_gaelic_culture_trigger = yes
@@ -625,6 +721,9 @@ is_major_revolt_rebel_trigger = {
 					using_cb = cb_faction_independence
 					using_cb = free_tributary_cb
 				}
+				defender = {
+					is_local_resistance_similar_culture_to_PREVPREV_trigger = no
+				}
 			}
 			any_realm_province = {
 				has_active_major_revolt_trigger = yes
@@ -633,6 +732,14 @@ is_major_revolt_rebel_trigger = {
 		}
 		primary_title = { has_title_flag = major_revolt_rebel_title }
 	}
+}
+
+is_major_revolt_potential_rebel_from_FROM_trigger = {
+	any_realm_province = {
+		has_active_major_revolt_trigger = yes
+		is_in_resistance_region_of_prev_culture_trigger = yes
+	}
+	is_local_resistance_similar_culture_to_FROM_trigger = no
 }
 
 # Uses any_independent_ruler, so needs ROOT to be someone guaranteed not to be involved in 

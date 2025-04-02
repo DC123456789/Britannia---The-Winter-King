@@ -2055,11 +2055,229 @@ narrative_event = {
 	}
 }
 
-## TODO Events
-# 320730 - Assign the major_revolt_rebel flag to any correct-culture tributaries or vassals 
-# that revolt within the region while it's revolting + give them the modifiers and extra troops
-# Triggered by on_add in the appropriate cbs
+# Any tributaries or vassals of the culture and region of a currently ongoing major revolt get event troops
+# and the positive major revolt modifiers if they revolt for independence
+# Triggered by the check_landed_rebel_in_major_revolt_start_effect, which is in on_add in the appropriate cbs
+character_event = {
+	id = 320730
+	desc = EVTDESC320730
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320730"
+		if = {
+			limit = {
+				OR = {
+					# This will be true for tributaries
+					in_revolt = no
+					# This checks if the character is at the top level of the revolt (i.e. not a vassal of a faction leader)
+					top_liege = { character = ROOT }
+				}
+			}
+			# Spawn some event troops, swap to ongoing_major_revolt_sympathetic modifier
+			hidden_tooltip = {
+				capital_scope = {
+					create_character = {
+						random_traits = yes
+						dynasty = none
+						religion = THIS
+						culture = THIS
+						female = no
+						age = 25
+						trait = peasant_leader
+						trait = tough_soldier
+					}
+					new_character = {
+						spawn_unit = {
+							province = PREV
+							home = PREV
+							owner = ROOT
+							leader = THIS
+							scaled_by_biggest_garrison = 2
+							troops = {
+								archers = { 5 5 }
+								light_cavalry = { 4 4 }
+								light_infantry = { 7 7 }
+								heavy_infantry = { 4 4 }
+							}
+							attrition = 0.5
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTA320728TT1
+			}
+		}
+		
+		random_realm_province = {
+			limit = {
+				has_active_major_revolt_trigger = yes
+				is_in_resistance_region_of_prev_culture_trigger = yes
+			}
+			save_event_target_as = current_resistance_region_province
+		}
+		
+		# Switch provinces over to ongoing_major_revolt_sympathetic modifier - which provinces get
+		# it depend on whether or not the revolter is a vassal or tributary
+		if = {
+			limit = { independent = no }
+			if = {
+				limit = {
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+						has_local_resistance_modifier_trigger = yes
+					}
+				}
+				tooltip = {
+					random_realm_province = {
+						limit = { 
+							is_in_current_resistance_region_province = yes
+							has_local_resistance_modifier_trigger = yes
+						}
+						add_province_modifier = { 
+							name = ongoing_major_revolt_sympathetic
+							duration = -1
+						}
+					}
+				}
+				if = {
+					# This checks if the character is at the top level of the revolt (i.e. not a vassal of a faction leader)
+					# It's here to make sure the modifier and levy refill don't happen multiple times
+					limit = { top_liege = { character = ROOT } }
+					hidden_tooltip = {
+						any_realm_province = {
+							limit = { 
+								is_in_current_resistance_region_province = yes
+								has_local_resistance_modifier_trigger = yes
+							}
+							remove_province_modifier = ongoing_major_revolt
+							add_province_modifier = { 
+								name = ongoing_major_revolt_sympathetic
+								duration = -1
+							}
+							county = {
+								any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+							}
+						}
+						# Repeat in case the vassal is in two simultaneously revolting major revolt regions
+						if = {
+							limit = {
+								any_realm_province = {
+									has_active_major_revolt_trigger = yes
+									is_in_resistance_region_of_prev_culture_trigger = yes
+									is_in_current_resistance_region_province = no
+								}
+							}
+							random_realm_province = {
+								limit = {
+									has_active_major_revolt_trigger = yes
+									is_in_resistance_region_of_prev_culture_trigger = yes
+									is_in_current_resistance_region_province = no
+								}
+								save_event_target_as = current_resistance_region_province
+							}
+							any_realm_province = {
+								limit = { 
+									is_in_current_resistance_region_province = yes
+									has_local_resistance_modifier_trigger = yes
+								}
+								remove_province_modifier = ongoing_major_revolt
+								add_province_modifier = { 
+									name = ongoing_major_revolt_sympathetic
+									duration = -1
+								}
+								county = {
+									any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+								}
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = EVTOPTA320727TT1
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					any_realm_province = {
+						is_local_resistance_similar_culture_to_ROOT_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				tooltip = {
+					random_realm_province = {
+						limit = { 
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+						add_province_modifier = { 
+							name = ongoing_major_revolt_sympathetic
+							duration = -1
+						}
+					}
+				}
+				hidden_tooltip = {
+					any_realm_province = {
+						limit = {
+							is_local_resistance_similar_culture_to_ROOT_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+						remove_province_modifier = ongoing_major_revolt
+						add_province_modifier = { 
+							name = ongoing_major_revolt_sympathetic
+							duration = -1
+						}
+						county = {
+							any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+						}
+					}
+					# Repeat in case the tributary is in two simultaneously revolting major revolt regions
+					if = {
+						limit = {
+							any_realm_province = {
+								has_active_major_revolt_trigger = yes
+								is_local_resistance_similar_culture_to_ROOT_trigger = yes
+								is_in_current_resistance_region_province = no
+							}
+						}
+						random_realm_province = {
+							limit = {
+								has_active_major_revolt_trigger = yes
+								is_in_resistance_region_of_prev_culture_trigger = yes
+								is_in_current_resistance_region_province = no
+							}
+							save_event_target_as = current_resistance_region_province
+						}
+						any_realm_province = {
+							limit = { 
+								is_in_current_resistance_region_province = yes
+								has_local_resistance_modifier_trigger = yes
+							}
+							remove_province_modifier = ongoing_major_revolt
+							add_province_modifier = { 
+								name = ongoing_major_revolt_sympathetic
+								duration = -1
+							}
+							county = {
+								any_direct_de_jure_vassal_title = { refill_holding_levy = yes }
+							}
+						}
+					}
+				}
+				custom_tooltip = {
+					text = EVTOPTA320727TT1
+				}
+			}
+		}
+	}
+}
 
+## TODO Events
 # 320731 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
 
 # 320732 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
