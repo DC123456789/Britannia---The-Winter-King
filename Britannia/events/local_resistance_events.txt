@@ -2203,14 +2203,180 @@ character_event = {
 	}
 }
 
+# Local Resistance/Major revolt wins major battle, triggers event 320733
+character_event = {
+	id = 320731
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		top_liege = {
+			OR = {
+				primary_title = { 
+					has_title_flag = local_resistance_revolt
+				}
+				is_major_revolt_rebel_trigger = yes
+			}
+			war_with = FROM
+		}
+	}
+	
+	immediate = {
+		location = { save_event_target_as = victory_location }
+		FROM = { top_liege = { save_event_target_as = war_enemy_char } }
+		random = {
+			chance = 50
+			top_liege = { 
+				set_character_flag = 320733_won_battle
+				character_event = { id = 320733 }
+			}
+		}
+	}
+}
+
+# Local Resistance/Major revolt wins siege over local resistance province, triggers event 320733
+# Only triggers for capital holding
+character_event = {
+	id = 320732
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			primary_title = { 
+				has_title_flag = local_resistance_revolt
+			}
+			is_major_revolt_rebel_trigger = yes
+		}
+		FROM = {
+			location = {
+				has_province_flag = has_local_resistance
+				capital_holding = {
+					title = PREVPREV
+				}
+			}
+			holder_scope = { top_liege = { war_with = ROOT } }
+		}
+	}
+	
+	immediate = {
+		FROM = { save_event_target_as = victory_location }
+		FROM = { holder_scope = { top_liege = { save_event_target_as = war_enemy_char } } }
+		set_character_flag = 320733_won_siege
+		character_event = { id = 320733 }
+	}
+}
+
+# Local Resistance/Major revolt won major battle or siege, gains event troops
+character_event = {
+	id = 320733
+	desc = {
+		text = EVTDESC320733_battle
+		trigger = {
+			has_character_flag = 320733_won_battle
+		}
+	}
+	desc = {
+		text = EVTDESC320733_siege
+		trigger = {
+			has_character_flag = 320733_won_siege
+		}
+	}
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320733"
+		hidden_tooltip = {
+			if = {
+				limit = { is_landed = yes }
+				capital_scope = { save_event_target_as = troop_spawning_province }
+			}
+			else = {
+				FROM = { location = { save_event_target_as = troop_spawning_province } }
+			}
+			event_target:troop_spawning_province = {
+				create_character = {
+					random_traits = yes
+					dynasty = none
+					religion = THIS
+					culture = THIS
+					female = no
+					age = 25
+					trait = peasant_leader
+					trait = tough_soldier
+				}
+				new_character = {
+					spawn_unit = {
+						province = PREV
+						home = PREV
+						owner = ROOT
+						leader = THIS
+						scaled_by_biggest_garrison = 1
+						troops = {
+							archers = { 5 5 }
+							light_cavalry = { 2 2 }
+							light_infantry = { 6 6 }
+							heavy_infantry = { 3 3 }
+						}
+						attrition = 0.5
+						disband_on_peace = yes
+					}
+				}
+			}
+			event_target:war_enemy_char = {
+				character_event = { id = 320734 }
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320733TT1
+		}
+	}
+	
+	after = {
+		FROM = { clr_character_flag = 320733_won_battle }
+		FROM = { clr_character_flag = 320733_won_siege }
+	}
+}
+
+# Defender is notified that Local Resistance/Major revolt got event troops
+character_event = {
+	id = 320734
+	desc = {
+		text = EVTDESC320734_battle
+		trigger = {
+			FROM = { has_character_flag = 320733_won_battle }
+		}
+	}
+	desc = {
+		text = EVTDESC320734_siege
+		trigger = {
+			FROM = { has_character_flag = 320733_won_siege }
+		}
+	}
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA320734"
+	}
+	
+	after = {
+		FROM = { clr_character_flag = 320733_won_battle }
+		FROM = { clr_character_flag = 320733_won_siege }
+	}
+}
+
 ## TODO Events
-# 320731 - Local Resistance/Major revolt wins major battle or siege, gains momentum (i.e. small boost in troops?)
+# 320735 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
 
-# 320732 - Revolt in area of Major revolt under different overlord makes sufficient gains, major revolt spreads there in full
+# 320736 - Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
 
-# 320733 - Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
-
-# 320735 - Handle end of Major Revolt rebellion
+# 320740 - Handle end of Major Revolt rebellion
 # - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
 #	- Every neighbouring duchy (or the closest one if no neighbouring) has a ~60% chance of either significant reinforcements if ongoing or to (re-) revolt if there is no ongoing rebellion
 #	- Every other ongoing rebellion has a smaller (~25%?) chance of getting minor reinforcements
@@ -2225,11 +2391,11 @@ character_event = {
 #		- If feudal, all their tributaries in the revolt region will become vassals
 #		- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
 #	- The rebellion leader has targeted decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 320736 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been successful
-# 320737 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
-# 320738 - Victorious rebel asked if they want to submit to rebellion leader, if one exists
-# 320739 - Notification/request event to rebellion leader to become tributary
-# 320740 - Event offering kingship to the rebellion leader
+# 320741 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been successful
+# 320742 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
+# 320743 - Victorious rebel asked if they want to submit to rebellion leader, if one exists
+# 320744 - Notification/request event to rebellion leader to become tributary
+# 320745 - Event offering kingship to the rebellion leader
 
 # Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
 character_event = {
