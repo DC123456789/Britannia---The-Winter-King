@@ -2278,6 +2278,9 @@ narrative_event = {
 		custom_tooltip = {
 			text = EVTOPTC320729TTB
 		}
+		custom_tooltip = {
+			text = EVTOPTC320729TTC
+		}
 	}
 	
 	# Other foreigners in revolt region without unpacified provinces
@@ -2992,9 +2995,323 @@ character_event = {
 	}
 }
 
-## TODO Events
-# 320736 - Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
+# Maintenance event that spreads the Major Revolt modifier to newly acquired provinces/removes it from provinces that are now under native control
+province_event = {
+	id = 320736
+	hide_window = yes
 
+	trigger = {
+		has_active_major_revolt_trigger = yes
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		# Only need to do one check per region
+		get_major_revolt_variables_title_effect = yes
+		if = {
+			limit = { event_target:major_revolt_title = { capital_scope = { NOT = { province = ROOT } } } }
+			break = yes
+		}
+		
+		save_event_target_as = current_resistance_region_province
+		any_independent_ruler = {
+			# If a ruler of the wrong culture has any provinces in a region with an ongoing major revolt
+			# and they have *any* provinces where the revolt is active (so ongoing_major_revolt or ongoing_major_revolt_sympathetic),
+			# (including in any revolting vassals) then they should get the ongoing_major_revolt modifier to all provinces in the region
+			# that have local resistance
+			if = {
+				limit = {
+					OR = {
+						any_realm_province = {
+							OR = {
+								has_province_modifier = ongoing_major_revolt
+								has_province_modifier = ongoing_major_revolt_sympathetic
+							}
+							is_in_current_resistance_region_province = yes
+							is_local_resistance_region_culture_trigger = yes
+						}
+						any_war = {
+							OR = {
+								AND = {
+									attacker = { character = PREVPREV }
+									defender = {
+										in_revolt = yes
+										liege_before_war = { character = PREVPREVPREV }
+										any_realm_province = {
+											OR = {
+												has_province_modifier = ongoing_major_revolt
+												has_province_modifier = ongoing_major_revolt_sympathetic
+											}
+											is_in_current_resistance_region_province = yes
+											is_local_resistance_region_culture_trigger = yes
+										}
+									}
+								}
+							}
+							OR = {
+								AND = {
+									defender = { character = PREVPREV }
+									attacker = {
+										in_revolt = yes
+										liege_before_war = { character = PREVPREVPREV }
+										any_realm_province = {
+											OR = {
+												has_province_modifier = ongoing_major_revolt
+												has_province_modifier = ongoing_major_revolt_sympathetic
+											}
+											is_in_current_resistance_region_province = yes
+											is_local_resistance_region_culture_trigger = yes
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							event_target:current_resistance_region_province = {
+								is_local_resistance_similar_culture_to_PREV_trigger = yes
+							}
+						}
+					}
+					any_realm_province = {
+						limit = {
+							NOT = { has_province_modifier = ongoing_major_revolt }
+							has_local_resistance_modifier_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+						remove_province_modifier = ongoing_major_revolt_minor
+						remove_province_modifier = ongoing_major_revolt_sympathetic
+						add_province_modifier = { 
+							name = ongoing_major_revolt
+							duration = -1
+						}
+					}
+				}
+				# Rulers of the right culture that are participating in an ongoing major revolt rebellion
+				# get the ongoing_major_revolt_sympathetic modifier instead
+				else_if = {
+					limit = {
+						is_major_revolt_rebel_trigger = yes
+					}
+					any_realm_province = {
+						limit = {
+							NOT = { has_province_modifier = ongoing_major_revolt_sympathetic }
+							has_local_resistance_modifier_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+						remove_province_modifier = ongoing_major_revolt
+						remove_province_modifier = ongoing_major_revolt_minor
+						add_province_modifier = { 
+							name = ongoing_major_revolt_sympathetic
+							duration = -1
+						}
+					}
+				}
+				any_war = {
+					if = {
+						limit = {
+							attacker = { character = PREVPREV }
+							defender = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						defender = {
+							if = {
+								limit = {
+									NOT = {
+										event_target:current_resistance_region_province = {
+											is_local_resistance_similar_culture_to_PREV_trigger = yes
+										}
+									}
+								}
+								any_realm_province = {
+									limit = {
+										NOT = { has_province_modifier = ongoing_major_revolt }
+										has_local_resistance_modifier_trigger = yes
+										is_in_current_resistance_region_province = yes
+									}
+									remove_province_modifier = ongoing_major_revolt_minor
+									remove_province_modifier = ongoing_major_revolt_sympathetic
+									add_province_modifier = { 
+										name = ongoing_major_revolt
+										duration = -1
+									}
+								}
+							}
+							# Rulers of the right culture that are participating in an ongoing major revolt rebellion
+							# get the ongoing_major_revolt_sympathetic modifier instead
+							else_if = {
+								limit = {
+									is_major_revolt_rebel_trigger = yes
+								}
+								any_realm_province = {
+									limit = {
+										NOT = { has_province_modifier = ongoing_major_revolt_sympathetic }
+										has_local_resistance_modifier_trigger = yes
+										is_in_current_resistance_region_province = yes
+									}
+									remove_province_modifier = ongoing_major_revolt
+									remove_province_modifier = ongoing_major_revolt_minor
+									add_province_modifier = { 
+										name = ongoing_major_revolt_sympathetic
+										duration = -1
+									}
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							defender = { character = PREVPREV }
+							attacker = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						attacker = {
+							if = {
+								limit = {
+									NOT = {
+										event_target:current_resistance_region_province = {
+											is_local_resistance_similar_culture_to_PREV_trigger = yes
+										}
+									}
+								}
+								any_realm_province = {
+									limit = {
+										NOT = { has_province_modifier = ongoing_major_revolt }
+										has_local_resistance_modifier_trigger = yes
+										is_in_current_resistance_region_province = yes
+									}
+									remove_province_modifier = ongoing_major_revolt_minor
+									remove_province_modifier = ongoing_major_revolt_sympathetic
+									add_province_modifier = { 
+										name = ongoing_major_revolt
+										duration = -1
+									}
+								}
+							}
+							# Rulers of the right culture that are participating in an ongoing major revolt rebellion
+							# get the ongoing_major_revolt_sympathetic modifier instead
+							else_if = {
+								limit = {
+									is_major_revolt_rebel_trigger = yes
+								}
+								any_realm_province = {
+									limit = {
+										NOT = { has_province_modifier = ongoing_major_revolt_sympathetic }
+										has_local_resistance_modifier_trigger = yes
+										is_in_current_resistance_region_province = yes
+									}
+									remove_province_modifier = ongoing_major_revolt
+									remove_province_modifier = ongoing_major_revolt_minor
+									add_province_modifier = { 
+										name = ongoing_major_revolt_sympathetic
+										duration = -1
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			# Otherwise, if they are a ruler of the wrong culture but has no provinces with ongoing_major_revolt,
+			# any provinces with local resistance in the region should get the ongoing_major_revolt_minor modifier
+			else_if = {
+				limit = {
+					NOT = {
+						event_target:current_resistance_region_province = {
+							is_local_resistance_similar_culture_to_PREV_trigger = yes
+						}
+					}
+				}
+				any_realm_province = {
+					limit = {
+						NOT = { has_province_modifier = ongoing_major_revolt_minor }
+						has_local_resistance_modifier_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+					add_province_modifier = { 
+						name = ongoing_major_revolt_minor
+						duration = -1
+					}
+				}
+				# Including in any revolting vassals
+				any_war = {
+					if = {
+						limit = {
+							attacker = { character = PREVPREV }
+							defender = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						defender = {
+							any_realm_province = {
+								limit = {
+									NOT = { has_province_modifier = ongoing_major_revolt_minor }
+									has_local_resistance_modifier_trigger = yes
+									is_in_current_resistance_region_province = yes
+								}
+								add_province_modifier = { 
+									name = ongoing_major_revolt_minor
+									duration = -1
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							defender = { character = PREVPREV }
+							attacker = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						attacker = {
+							any_realm_province = {
+								limit = {
+									NOT = { has_province_modifier = ongoing_major_revolt_minor }
+									has_local_resistance_modifier_trigger = yes
+									is_in_current_resistance_region_province = yes
+								}
+								add_province_modifier = { 
+									name = ongoing_major_revolt_minor
+									duration = -1
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		# Remove any major revolt modifiers from provinces that have no local resistance
+		any_province = {
+			limit = {
+				is_in_current_resistance_region_province = yes
+				has_local_resistance_modifier_trigger = no
+				OR = {
+					has_province_modifier = ongoing_major_revolt
+					has_province_modifier = ongoing_major_revolt_sympathetic
+					has_province_modifier = ongoing_major_revolt_minor
+				}
+			}
+			remove_province_modifier = ongoing_major_revolt
+			remove_province_modifier = ongoing_major_revolt_minor
+			has_province_modifier = ongoing_major_revolt_sympathetic
+		}
+	}
+}
+
+## TODO Events
 # 320740 - Handle end of Major Revolt rebellion
 # - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
 #	- Every neighbouring duchy (or the closest one if no neighbouring) has a ~60% chance of either significant reinforcements if ongoing or to (re-) revolt if there is no ongoing rebellion
