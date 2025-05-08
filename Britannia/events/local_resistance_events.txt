@@ -536,32 +536,7 @@ character_event = {
 				which = pacification_years_remaining
 				value = 3
 			}
-			if = {
-				limit = {
-					NOT = { has_province_flag = local_resistance_pacified_before }
-					check_variable = {
-						which = pacification_years_remaining
-						value = 40
-					}
-				}
-				set_variable = {
-					which = pacification_years_remaining
-					value = 40
-				}
-			}
-			else_if = {
-				limit = {
-					has_province_flag = local_resistance_pacified_before
-					check_variable = {
-						which = pacification_years_remaining
-						value = 25
-					}
-				}
-				set_variable = {
-					which = pacification_years_remaining
-					value = 25
-				}
-			}
+			cap_local_resistance_progress_remaining_effect = yes
 			
 			# Increase resistance level if applicable
 			set_proper_local_resistance_level_effect = yes
@@ -1352,7 +1327,6 @@ character_event = {
 			}
 		}
 		
-		
 		# Also notify leaders of province revolts against the current target of the Major Revolt 
 		# (main_revolt_defender) and their marches and give them extra event troops
 		event_target:main_revolt_defender = {
@@ -1401,6 +1375,43 @@ character_event = {
 					}			
 				}
 			}
+		}
+		
+		# Defender loses 4 years of pacification progress, everyone else 2
+		any_province = {
+			limit = {
+				has_local_resistance_modifier_trigger = yes
+				is_in_current_resistance_region_province = yes
+			}
+			if = {
+				limit = {
+					owner = {
+						top_liege = {
+							OR = {
+								character = event_target:main_revolt_defender
+								AND = {
+									is_tributary = { type = march }
+									suzerain = { character = event_target:main_revolt_defender }
+								}
+							}
+						}
+					}
+				}
+				change_variable = {
+					which = pacification_years_remaining
+					value = 4
+				}
+			}
+			else = {
+				change_variable = {
+					which = pacification_years_remaining
+					value = 2
+				}
+			}
+			# cap_local_resistance_progress_remaining_effect = yes
+			
+			# Increase resistance level if applicable
+			set_proper_local_resistance_level_effect = yes
 		}
 		
 		# Trigger cultural rebels across the region - this is done after the notifications so that 
@@ -1692,6 +1703,32 @@ narrative_event = {
 		}
 		custom_tooltip = {
 			text = EVTOPTA320726TT1
+		}
+		if = {
+			limit = {
+				OR = {
+					character = event_target:main_revolt_defender
+					is_tributary = {
+						type = march
+						suzerain = event_target:main_revolt_defender
+					}
+					top_liege = { character = event_target:main_revolt_defender }
+					top_liege = {
+						is_tributary = {
+							type = march
+							suzerain = event_target:main_revolt_defender
+						}
+					}
+				}
+			}	
+			custom_tooltip = {
+				text = EVTOPTA320726TT2
+			}
+		}
+		else = {
+			custom_tooltip = {
+				text = EVTOPTA320726TT3
+			}
 		}
 	}
 }
@@ -2281,6 +2318,32 @@ narrative_event = {
 		custom_tooltip = {
 			text = EVTOPTC320729TTC
 		}
+		if = {
+			limit = {
+				OR = {
+					character = event_target:main_revolt_defender
+					is_tributary = {
+						type = march
+						suzerain = event_target:main_revolt_defender
+					}
+					top_liege = { character = event_target:main_revolt_defender }
+					top_liege = {
+						is_tributary = {
+							type = march
+							suzerain = event_target:main_revolt_defender
+						}
+					}
+				}
+			}	
+			custom_tooltip = {
+				text = EVTOPTA320726TT2
+			}
+		}
+		else = {
+			custom_tooltip = {
+				text = EVTOPTA320726TT3
+			}
+		}
 	}
 	
 	# Other foreigners in revolt region without unpacified provinces
@@ -2597,20 +2660,33 @@ character_event = {
 			has_character_flag = 320733_won_siege
 		}
 	}
+	desc = {
+		text = EVTDESC320733_neighbour_won_war
+		trigger = {
+			has_character_flag = 320733_neighbour_won_war
+		}
+	}
 	picture = GFX_evt_burning_fire
 	
 	is_triggered_only = yes
 	
+	immediate = {
+		if = {
+			limit = { is_landed = yes }
+			capital_scope = { save_event_target_as = troop_spawning_province }
+		}
+		else_if = {
+			limit = { NOT = { has_character_flag = 320733_neighbour_won_war } }
+			FROM = { location = { save_event_target_as = troop_spawning_province } }
+		}
+		else = {
+			location = { save_event_target_as = troop_spawning_province }
+		}
+	}
+	
 	option = {
 		name = "EVTOPTA320733"
 		hidden_tooltip = {
-			if = {
-				limit = { is_landed = yes }
-				capital_scope = { save_event_target_as = troop_spawning_province }
-			}
-			else = {
-				FROM = { location = { save_event_target_as = troop_spawning_province } }
-			}
 			event_target:troop_spawning_province = {
 				create_character = {
 					random_traits = yes
@@ -2648,11 +2724,6 @@ character_event = {
 			text = EVTOPTA320733TT1
 		}
 	}
-	
-	after = {
-		FROM = { clr_character_flag = 320733_won_battle }
-		FROM = { clr_character_flag = 320733_won_siege }
-	}
 }
 
 # Defender is notified that Local Resistance/Major revolt got event troops
@@ -2670,6 +2741,12 @@ character_event = {
 			FROM = { has_character_flag = 320733_won_siege }
 		}
 	}
+	desc = {
+		text = EVTDESC320734_neighbour_won_war
+		trigger = {
+			FROM = { has_character_flag = 320733_neighbour_won_war }
+		}
+	}
 	picture = GFX_evt_burning_fire
 	
 	is_triggered_only = yes
@@ -2681,6 +2758,7 @@ character_event = {
 	after = {
 		FROM = { clr_character_flag = 320733_won_battle }
 		FROM = { clr_character_flag = 320733_won_siege }
+		FROM = { clr_character_flag = 320733_neighbour_won_war }
 	}
 }
 
@@ -3306,32 +3384,374 @@ province_event = {
 			}
 			remove_province_modifier = ongoing_major_revolt
 			remove_province_modifier = ongoing_major_revolt_minor
-			has_province_modifier = ongoing_major_revolt_sympathetic
+			remove_province_modifier = ongoing_major_revolt_sympathetic
+		}
+	}
+}
+
+# Major Revolt rebellion ends in rebel victory
+character_event = {
+	id = 320740
+	title = EVTNAME320740
+	desc = EVTDESC320740
+	picture = GFX_evt_warrior_banners
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_major_revolt_rebel_trigger = yes
+	}
+	
+	immediate = {		
+		# Find the appropriate major revolt region that the rebel is based in
+		if = {
+			limit = { 
+				capital_scope = { 
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+			}
+			capital_scope = { save_event_target_as = current_resistance_region_province }
+		}
+		else = {
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+		}
+		
+		# The defender and all marches lose pacification progress in all provinces in the region
+		FROMFROM = {
+			if = {
+				limit = { is_tributary = { type = march } }
+				suzerain = { save_event_target_as = main_revolt_defender }
+			}
+			else = {
+				save_event_target_as = main_revolt_defender
+			}
+		}
+		event_target:main_revolt_defender = {
+			any_realm_province = {
+				limit = {
+					has_local_resistance_modifier_trigger = yes
+					is_in_current_resistance_region_province = yes
+				}
+				change_variable = {
+					which = pacification_years_remaining
+					value = 2
+				}
+				cap_local_resistance_progress_remaining_effect = yes
+				
+				# Increase resistance level if applicable
+				set_proper_local_resistance_level_effect = yes
+			}
+			character_event = { id = 320741 }
+			any_realm_lord = {
+				limit = {
+					any_realm_province = {
+						has_local_resistance_modifier_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				character_event = { id = 320741 }
+			}
+			any_tributary = {
+				limit = { 
+					is_tributary = { type = march }
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				any_realm_province = {
+					limit = {
+						has_local_resistance_modifier_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+					change_variable = {
+						which = pacification_years_remaining
+						value = 2
+					}
+					cap_local_resistance_progress_remaining_effect = yes
+					
+					# Increase resistance level if applicable
+					set_proper_local_resistance_level_effect = yes
+				}
+				character_event = { id = 320741 }
+				any_realm_lord = {
+					limit = {
+						any_realm_province = {
+							has_local_resistance_modifier_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+					}
+					character_event = { id = 320741 }
+				}
+			}
+		}
+		
+		# Nearby duchies get a boost
+		any_title = {
+			limit = {
+				tier = DUKE
+				any_direct_de_jure_vassal_title = {
+					location = {
+						any_neighbor_province = {
+							owner = {
+								OR = {
+									character = ROOT
+									any_liege = { character = ROOT }
+								}
+							}
+						}
+						OR = {
+							has_province_modifier = ongoing_major_revolt
+							has_province_modifier = ongoing_major_revolt_sympathetic
+						}
+					}
+				}
+			}
+			save_event_target_as = new_revolt_duchy
+			# Any revolters already in the duchy get a event troops boost
+			any_direct_de_jure_vassal_title = {
+				holder_scope = {
+					top_liege = {
+						any_war = {
+							limit = {
+								defender = { character = PREV }
+								attacker = {
+									is_major_revolt_rebel_trigger = yes
+									NOT = { character = ROOT }
+									NOT = { has_character_flag = already_flagged_320740 }
+									OR = {
+										AND = {
+											is_landed = yes
+											any_realm_province = {
+												duchy = { title = event_target:new_revolt_duchy }
+											}
+										}
+										AND = {
+											is_landed = no
+											PREV = {
+												using_cb = cultural_revolt
+												thirdparty_title_scope = { title = event_target:new_revolt_duchy }
+											}
+										}
+									}
+								}
+							}
+							defender = {
+								save_event_target_as = war_enemy_char
+							}
+							attacker = {
+								set_character_flag = already_flagged_320740
+								set_character_flag = 320733_neighbour_won_war
+								character_event = { id = 320733 }
+							}
+							event_target:new_revolt_duchy = {
+								set_title_flag = duchy_has_revolt_320740
+							}
+						}
+					}
+				}
+			}
+			# 60% chance of getting a new revolt if there isn't already one
+			if = {
+				limit = {
+					NOT = { has_title_flag = duchy_has_revolt_320740 }
+				}
+				random = {
+					chance = 60
+					random_direct_de_jure_vassal_title = {
+						limit = {
+							location = {
+								any_neighbor_province = {
+									owner = {
+										OR = {
+											character = ROOT
+											any_liege = { character = ROOT }
+										}
+									}
+								}
+								OR = {
+									has_province_modifier = ongoing_major_revolt
+									has_province_modifier = ongoing_major_revolt_sympathetic
+								}
+							}
+						}
+						location = { province_event = { id = 320600 } }
+					}
+				}
+			}
+			else = {
+				event_target:new_revolt_duchy = {
+					clr_title_flag = duchy_has_revolt_320740
+				}
+			}
+		}
+		
+		# Clear flags
+		any_playable_ruler = {
+			clr_character_flag = already_flagged_320740
+		}
+		
+		# Get rebellion leader for possible submission
+		event_target:current_resistance_region_province = {
+			get_major_revolt_leader_character = yes
+		}
+	}
+	
+	# Default option
+	option = {
+		name = "EVTOPTA320740"
+		custom_tooltip = {
+			text = EVTOPTA320740TT
+		}
+	}
+	
+	# Request submission to rebellion leader, if one exists 
+	# - When a rebellion wins, they will offer to become a tributary of the rebellion leader, if it exists (AI always accepts)
+	#   - If they hold the local kingship (e.g. Baskonia, Broceliande, Cymru?, Fortriu/Fotla/Dalriada) 
+	#	  and both them and the rebels are feudal, will become direct vassal instead
+	option = {
+		name = "EVTOPTB320740"
+		trigger = {
+			event_target:current_major_revolt_leader = {
+				always = yes
+			}
+			independent = yes
+			is_tributary = no
+			event_target:current_major_revolt_leader = {
+				is_local_resistance_similar_culture_to_ROOT_trigger = yes
+				independent = yes
+			}
+		}
+		custom_tooltip = {
+			text = EVTOPTA320740TT
+		}
+	}
+}
+
+# Notification event to defender for all involved rulers that a Major Revolt rebellion has been successful
+character_event = {
+	id = 320741
+	title = EVTNAME320741
+	desc = {
+		text = EVTDESC320741
+		trigger = {
+			event_target:main_revolt_defender = { is_fighting_against_major_revolt_trigger = yes }
+			OR = {
+				is_local_resistance_similar_culture_to_FROM_trigger = no
+				character = event_target:main_revolt_defender
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { character = event_target:main_revolt_defender }
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320741_defeated
+		trigger = {
+			event_target:main_revolt_defender = { is_fighting_against_major_revolt_trigger = no }
+			OR = {
+				is_local_resistance_similar_culture_to_FROM_trigger = no
+				character = event_target:main_revolt_defender
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { character = event_target:main_revolt_defender }
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320741_sympathetic
+		trigger = {
+			NOR = {
+				character = event_target:main_revolt_defender
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { character = event_target:main_revolt_defender }
+				}
+			}
+			is_local_resistance_similar_culture_to_FROM_trigger = yes
+		}
+	}
+	picture = GFX_evt_burning_fire
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA320741"
+			trigger = {
+				event_target:main_revolt_defender = { is_fighting_against_major_revolt_trigger = yes }
+				OR = {
+					is_local_resistance_similar_culture_to_FROM_trigger = no
+					character = event_target:main_revolt_defender
+					AND = {
+						is_tributary = { type = march }
+						suzerain = { character = event_target:main_revolt_defender }
+					}
+				}
+			}
+		}
+		name = {
+			text = "EVTOPTB320741"
+			trigger = {
+				event_target:main_revolt_defender = { is_fighting_against_major_revolt_trigger = no }
+				OR = {
+					is_local_resistance_similar_culture_to_FROM_trigger = no
+					character = event_target:main_revolt_defender
+					AND = {
+						is_tributary = { type = march }
+						suzerain = { character = event_target:main_revolt_defender }
+					}
+				}
+			}
+		}
+		name = {
+			text = "EVTOPTC320741"
+			trigger = {
+				is_local_resistance_similar_culture_to_FROM_trigger = yes
+				NOR = {
+					character = event_target:main_revolt_defender
+					AND = {
+						is_tributary = { type = march }
+						suzerain = { character = event_target:main_revolt_defender }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { event_target:main_revolt_defender = { is_fighting_against_major_revolt_trigger = yes } }
+			custom_tooltip = {
+				text = EVTOPTA320741TT1
+			}
+			custom_tooltip = {
+				text = EVTOPTA320741TT2
+			}
+		}
+		else = {
+			custom_tooltip = {
+				text = EVTOPTB320741TT
+			}
 		}
 	}
 }
 
 ## TODO Events
-# 320740 - Handle end of Major Revolt rebellion
-# - If the Major Revolt rebellion ends in rebel victory, small reduction in pacification progress across region
-#	- Every neighbouring duchy (or the closest one if no neighbouring) has a ~60% chance of either significant reinforcements if ongoing or to (re-) revolt if there is no ongoing rebellion
-#	- Every other ongoing rebellion has a smaller (~25%?) chance of getting minor reinforcements
-#	- We designate a "rebellion leader" - in order of priority, either:
-#		- the sponsor if the initial rebellion, if it exists
-#		- the local "high king" (e.g. Baskonia, Broceliande, Cymru?, Fortriu/Fotla/Dalriada), if it is held, holds land "nearby", and the right culture
-#		- the first rebel leader to win otherwise
-#		- we can use an inheritable modifier to track it?
-#	- When a rebellion wins, they will offer to become a tributary of the rebellion leader, if it exists (AI always accepts)
-#		- If they hold the local kingship and both them and the rebels are feudal, will become direct vassal instead
-#	- If the rebellion leader controls (directly or through tributaries) enough of the region, they will be offered the local kingship if they don't already hold it
-#		- If feudal, all their tributaries in the revolt region will become vassals
-#		- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
-#	- The rebellion leader has targeted decisions to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 320741 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been successful
-# 320742 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
-# 320743 - Victorious rebel asked if they want to submit to rebellion leader, if one exists
-# 320744 - Notification/request event to rebellion leader to become tributary
-# 320745 - Event offering kingship to the rebellion leader
+# 320742 - Notification/request event to rebellion leader to become tributary
+# 320743 - Event offering kingship to the rebellion leader
+# - If the rebellion leader controls (directly or through tributaries) enough of the region, they will be offered the local kingship if they don't already hold it
+#	- If feudal, all their tributaries in the revolt region will become vassals
+#	- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
+# 320744 - Notification event for new kingship
+# 320745 - Major Revolt rebellion ends in rebel defeat / white peace
+# - Small increase in pacification progress for rebel area
+# 320746 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
 
 # Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
 character_event = {
@@ -4044,6 +4464,8 @@ narrative_event = {
 
 
 ## TODO Decisions 
+# - Targeted Decision for rebellion leader to join the war of any ongoing rebellions once their own/initial rebellion war is over
+# 	- Needs AI event to handle selection, plus a request event for the recipient
 
 # - Decision for local lord of Local Resistance region culture to stir up discontent in neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
 # 	- Takes 320760 - 320769

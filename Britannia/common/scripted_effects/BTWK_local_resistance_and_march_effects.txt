@@ -98,6 +98,35 @@ set_proper_local_resistance_level_effect = {
 	}
 }
 
+cap_local_resistance_progress_remaining_effect = {
+	if = {
+		limit = {
+			NOT = { has_province_flag = local_resistance_pacified_before }
+			check_variable = {
+				which = pacification_years_remaining
+				value = 40
+			}
+		}
+		set_variable = {
+			which = pacification_years_remaining
+			value = 40
+		}
+	}
+	else_if = {
+		limit = {
+			has_province_flag = local_resistance_pacified_before
+			check_variable = {
+				which = pacification_years_remaining
+				value = 25
+			}
+		}
+		set_variable = {
+			which = pacification_years_remaining
+			value = 25
+		}
+	}
+}
+
 # Called from province scope
 # target_owner_char should be an independent ruler
 # Calculates the number of provinces in the region of the scope owned by target_owner_char or one of 

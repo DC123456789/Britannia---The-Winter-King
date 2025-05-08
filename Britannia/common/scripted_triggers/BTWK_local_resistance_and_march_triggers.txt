@@ -776,6 +776,65 @@ any_major_revolt_rebels_in_region_trigger = {
 	}
 }
 
+# Requires that current_resistance_region_province event_target is set
+is_fighting_against_major_revolt_trigger = {
+	OR = {
+		any_realm_province = {
+			is_in_current_resistance_region_province = yes
+			has_province_modifier = ongoing_major_revolt
+		}
+		any_war = {
+			defender = { character = PREVPREV }
+			attacker = {
+				is_major_revolt_rebel_trigger = yes
+			}
+			OR = {
+				attacker = {
+					is_landed = yes
+					any_realm_province = { is_in_current_resistance_region_province = yes }
+				}
+				AND = {
+					using_cb = cultural_revolt
+					thirdparty_title_scope = {
+						any_direct_de_jure_vassal_title = {
+							location = { is_in_current_resistance_region_province = yes }
+						}
+					}
+				}
+			}
+		}
+		any_tributary = {
+			is_tributary = { type = march }
+			OR = {
+				any_realm_province = {
+					is_in_current_resistance_region_province = yes
+					has_province_modifier = ongoing_major_revolt
+				}
+				any_war = {
+					defender = { character = PREVPREV }
+					attacker = {
+						is_major_revolt_rebel_trigger = yes
+					}
+					OR = {
+						attacker = {
+							is_landed = yes
+							any_realm_province = { is_in_current_resistance_region_province = yes }
+						}
+						AND = {
+							using_cb = cultural_revolt
+							thirdparty_title_scope = {
+								any_direct_de_jure_vassal_title = {
+									location = { is_in_current_resistance_region_province = yes }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 # Province scope
 # Arguments:
 # - target_ruler			event_target, the ruler to check if is the current scope, a march thereof, or the suzerain of the scope as a march
