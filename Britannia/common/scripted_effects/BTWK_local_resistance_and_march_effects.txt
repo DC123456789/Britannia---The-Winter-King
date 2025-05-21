@@ -262,12 +262,83 @@ calc_num_of_local_resistance_provinces_in_region_effect = {
 	}
 }
 
+# Called from province scope
+# target_owner_char should be an independent ruler
+# Calculates the number of provinces in the region of the scope owned by target_owner_char or one of 
+# their tributaries, and then saves it into the num_region_provs_controlled variable on target_owner_char
+calc_num_of_provinces_in_region_controlled_by_char_effect = {
+	save_event_target_as = current_province
+	event_target:target_owner_char = {
+		set_variable = { which = num_region_provs_controlled value = 0 }
+		# Add together all provinces under the realm
+		any_realm_province = {
+			limit = {
+				is_in_current_resistance_region_province = yes
+			}
+			PREV = { change_variable = { which = num_region_provs_controlled value = 1 } }
+		}
+		# ... including marches (if realm has marches)
+		any_tributary = {
+			any_realm_province = {
+				limit = {
+					is_in_current_resistance_region_province = yes
+				}
+				PREVPREV = { change_variable = { which = num_region_provs_controlled value = 1 } }
+			}
+		}
+	}
+}
+
+# Called from province scope
+# target_owner_char should be an independent ruler
+# Calculates the proportion / fraction of provinces in the region of the scope owned by target_owner_char or one of 
+# their tributaries, and then saves it into the prop_region_provs_controlled variable on target_owner_char
+calc_proportion_of_provinces_in_region_controlled_by_char_effect = {
+	save_event_target_as = current_province
+	calc_num_of_provinces_in_region_controlled_by_char_effect = yes
+	get_major_revolt_variables_title_effect = yes
+	# Only need to calculate number of province in region once
+	event_target:major_revolt_title = {
+		if = {
+			limit = {
+				check_variable = {
+					which = num_provs_in_local_resistance_region
+					value == 0
+				}
+			}
+			set_variable = {
+				which = num_provs_in_local_resistance_region
+				value = 0
+			}
+			any_province = {
+				limit = { is_in_resistance_region_of_other_prov_province = yes }
+				PREV = { change_variable = { which = num_provs_in_local_resistance_region value = 1 } }
+			}
+		}
+		event_target:target_owner_char = {
+			set_variable = { 
+				which = num_provs_in_local_resistance_region
+				which = PREV
+			}
+			set_variable = { 
+				which = prop_region_provs_controlled
+				which = num_region_provs_controlled
+			}
+			divide_variable = { 
+				which = prop_region_provs_controlled
+				which = num_provs_in_local_resistance_region
+			}
+		}
+	}
+}
+
 # Province scope
 # Sets that there is now a major revolt active in the province's major revolt region
 set_major_revolt_active_effect = {
 	get_major_revolt_variables_title_effect = yes
 	event_target:major_revolt_title = { 
 		set_title_flag = major_revolt_ongoing 
+		clr_title_flag = major_revolt_kingship_offered
 		clr_title_flag = major_revolt_ended
 	}
 }
@@ -276,6 +347,7 @@ set_major_revolt_over_effect = {
 	get_major_revolt_variables_title_effect = yes
 	event_target:major_revolt_title = { 
 		clr_title_flag = major_revolt_ongoing
+		clr_title_flag = major_revolt_kingship_offered
 		set_title_flag = major_revolt_ended
 	}
 }
@@ -1080,6 +1152,266 @@ check_if_major_revolt_is_over_and_fire_event_effect = {
 							character_event = { id = 320750 }
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+# Scope to the major revolt leader and fire event 320743 (claiming kingship/regional unification) if
+# they control enough of the region
+check_if_major_revolt_kingship_can_be_claimed_effect = {
+	event_target:current_resistance_region_province = { get_major_revolt_leader_character = yes }
+	if = {
+		limit = {
+			event_target:current_major_revolt_leader = { always = yes }
+			event_target:current_major_revolt_leader = {
+				lower_tier_than = KING
+				independent = yes
+				is_tributary = no
+			}
+		}
+		# Check if they control at least 40% of the region (?)
+		event_target:current_major_revolt_leader = { save_event_target_as = target_owner_char }
+		event_target:current_resistance_region_province = {
+			calc_proportion_of_provinces_in_region_controlled_by_char_effect = yes
+		}
+		event_target:current_major_revolt_leader = {
+			if = {
+				limit = {
+					 check_variable = {
+						which = prop_region_provs_controlled
+						vale >= 0.4
+					 }
+				}
+				# Try to find the best empire/king title to give to the character, and only 
+				# send the event if there is one at all
+				if = {
+					limit = { event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes } }
+					if = {
+						limit = {
+							has_global_flag = offa_dyke_created
+							is_title_active = e_cymru
+							e_cymru = { has_holder = no }
+						}
+						e_cymru = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = {
+								empire = {
+									OR = {
+										title = e_cymru
+										title = e_britannia
+									}
+								}
+								kingdom = {
+									has_holder = no
+								}
+							}
+						}
+						capital_scope = { kingdom = { save_event_target_as = title_to_grant } }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = custom_gwynedd }
+							# k_gwynedd = { has_holder = no }
+						}
+						k_gwynedd = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = custom_powys }
+							k_powys = { has_holder = no }
+						}
+						k_powys = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = world_demetia }
+							k_demetia = { has_holder = no }
+						}
+						k_demetia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = world_siluria }
+							k_siluria = { has_holder = no }
+						}
+						k_siluria = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = custom_gwent }
+							k_gwent = { has_holder = no }
+						}
+						k_gwent = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_gwynedd }
+							k_gwynedd = { has_holder = no }
+						}
+						k_gwynedd = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_powys }
+							k_powys = { has_holder = no }
+						}
+						k_powys = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_demetia }
+							k_demetia = { has_holder = no }
+						}
+						k_demetia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_siluria }
+							k_siluria = { has_holder = no }
+						}
+						k_siluria = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = custom_gwent }
+							k_gwent = { has_holder = no }
+						}
+						k_gwent = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = custom_gwynedd } }
+							k_gwynedd = { has_holder = no }
+						}
+						k_gwynedd = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = custom_powys } }
+							k_powys = { has_holder = no }
+						}
+						k_powys = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = world_demetia } }
+							k_demetia = { has_holder = no }
+						}
+						k_demetia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = world_siluria } }
+							k_siluria = { has_holder = no }
+						}
+						k_siluria = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = custom_gwent } }
+							k_gwent = { has_holder = no }
+						}
+						k_gwent = { save_event_target_as = title_to_grant }
+					}
+				}
+				else_if = {
+					limit = { event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes } }
+					if = {
+						limit = {
+							num_of_count_titles_in_realm >= 35
+							e_alba = { has_holder = no }
+						}
+						e_alba = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = world_fortriu }
+							k_caledonia = { has_holder = no }
+						}
+						k_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = world_fotla }
+							k_south_caledonia = { has_holder = no }
+						}
+						k_south_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							capital_scope = { region = world_caledonia_dalriada }
+							k_dalriada = { has_holder = no }
+						}
+						k_dalriada = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_fortriu }
+							k_caledonia = { has_holder = no }
+						}
+						k_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_fotla }
+							k_south_caledonia = { has_holder = no }
+						}
+						k_south_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_realm_province = { region = world_caledonia_dalriada }
+							k_dalriada = { has_holder = no }
+						}
+						k_dalriada = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = world_fortriu } }
+							k_caledonia = { has_holder = no }
+						}
+						k_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = world_fotla } }
+							k_south_caledonia = { has_holder = no }
+						}
+						k_south_caledonia = { save_event_target_as = title_to_grant }
+					}
+					else_if = {
+						limit = {
+							any_tributary = { any_realm_province = { region = world_caledonia_dalriada } }
+							k_dalriada = { has_holder = no }
+						}
+						k_dalriada = { save_event_target_as = title_to_grant }
+					}
+				}
+				else_if = {
+					limit = { event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes } }
+					if = {
+						limit = {
+							k_broceliande = { has_holder = no }
+						}
+						k_broceliande = { save_event_target_as = title_to_grant }
+					}
+				}
+				else_if = {
+					limit = { event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes } }
+					if = {
+						limit = {
+							k_vasconia = { has_holder = no }
+						}
+						k_vasconia = { save_event_target_as = title_to_grant }
+					}
+				}
+				if = {
+					limit = { event_target:title_to_grant = { always = yes } }
+					character_event = { id = 320743 }
 				}
 			}
 		}

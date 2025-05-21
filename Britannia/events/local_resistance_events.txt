@@ -1110,7 +1110,6 @@ character_event = {
 					}
 				}
 			}
-			set_character_flag = sending_event_320735
 			ROOT = { character_event = { id = 320735 } }
 		}
 		else = {
@@ -3611,25 +3610,32 @@ character_event = {
 		}
 	}
 	
-	# Request submission to rebellion leader, if one exists 
-	# - When a rebellion wins, they will offer to become a tributary of the rebellion leader, if it exists (AI always accepts)
-	#   - If they hold the local kingship (e.g. Baskonia, Broceliande, Cymru?, Fortriu/Fotla/Dalriada) 
-	#	  and both them and the rebels are feudal, will become direct vassal instead
+	# Request submission to rebellion leader, if one exists
 	option = {
 		name = "EVTOPTB320740"
 		trigger = {
 			event_target:current_major_revolt_leader = {
 				always = yes
 			}
-			independent = yes
+			# independent = yes doesn't work because they're technically still in revolt here
+			top_liege = { character = ROOT }
 			is_tributary = no
 			event_target:current_major_revolt_leader = {
 				is_local_resistance_similar_culture_to_ROOT_trigger = yes
 				independent = yes
+				NOT = { character = ROOT }
 			}
 		}
 		custom_tooltip = {
 			text = EVTOPTA320740TT
+		}
+		custom_tooltip = {
+			text = EVTOPTB320740TT
+		}
+		hidden_tooltip = {
+			event_target:current_major_revolt_leader = {
+				character_event = { id = 320742 days = 1 }
+			}
 		}
 	}
 }
@@ -3742,18 +3748,277 @@ character_event = {
 	}
 }
 
-## TODO Events
-# 320742 - Notification/request event to rebellion leader to become tributary
-# 320743 - Event offering kingship to the rebellion leader
-# - If the rebellion leader controls (directly or through tributaries) enough of the region, they will be offered the local kingship if they don't already hold it
-#	- If feudal, all their tributaries in the revolt region will become vassals
-#	- If tribal, only tributaries adjacent to the capital duchy will become vassals (+ next closest ones if the leader would be too small to keep the kingship title)
-# 320744 - Notification event for new kingship
-# 320745 - Major Revolt rebellion ends in rebel defeat / white peace
-# - Small increase in pacification progress for rebel area
-# 320746 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
+# Notification/request event to rebellion leader to become tributary
+character_event = {
+	id = 320742
+	desc = EVTDESC320742
+	picture = GFX_evt_emissary
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = { is_alive = yes }
+	}
+	
+	option = {
+		name = EVTOPTA320742
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				higher_real_tier_than = DUKE
+				is_tribal = no
+				higher_real_tier_than = FROM
+			}
+			set_defacto_vassal = FROM
+		}
+		else = {
+			if = {
+				limit = { is_tribal = yes }
+				make_tributary = {
+					who = FROM
+					tributary_type = default
+				}
+			}
+			else = {
+				make_tributary = {
+					who = FROM
+					tributary_type = permanent
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTA320742TT
+			}
+		}
+		hidden_tooltip = {
+			FROM = { character_event = { id = 282 days = 1 } }
+		}
+	}
+	option = {
+		name = EVTOPTB320742
+		ai_chance = {
+			factor = 0
+		}
+		hidden_tooltip = {
+			FROM = { character_event = { id = 283 days = 1 } }
+		}
+	}
+}
 
-# Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
+# Rebellion leader is offered kingship if they control (directly or through tributaries) enough of the region
+character_event = {
+	id = 320743
+	title = EVTNAME320743
+	desc = EVTDESC320743
+	picture = GFX_evt_royal_court
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:major_revolt_title = {
+			set_title_flag = major_revolt_kingship_offered
+		}
+		capital_scope = { duchy = { save_event_target_as = capital_duchy } }
+		# If feudal, all their tributaries in the revolt region will become vassals
+		if = {
+			limit = {
+				is_tribal = no
+			}
+			any_tributary = {
+				limit = {
+					is_local_resistance_region_culture_trigger = yes
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+					lower_tier_than = event_target:title_to_grant
+				}
+				set_character_flag = to_vassalize_320743
+			}
+		}
+		# If tribal, only tributaries adjacent to the capital duchy will become vassals
+		else = {
+			any_tributary = {
+				limit = {
+					is_local_resistance_region_culture_trigger = yes
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+					lower_tier_than = event_target:title_to_grant
+					any_realm_province = {
+						duchy = {
+							OR = {
+								title = event_target:capital_duchy
+								any_direct_de_jure_vassal_title = {
+									location = {
+										any_neighbor_province = {
+											duchy = {
+												title = event_target:capital_duchy
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				set_character_flag = to_vassalize_320743
+			}
+		}
+	}
+	
+	option = {
+		name = EVTOPTA320743
+		ai_chance = {
+			factor = 100
+		}
+		prestige = 100
+		grant_title = event_target:title_to_grant
+		any_tributary = {
+			show_scope_change = no
+			if = {
+				limit = {
+					has_character_flag = to_vassalize_320743
+				}
+				hidden_tooltip = { remove_tributary = ROOT }
+				set_defacto_liege = ROOT
+			}
+		}
+		hidden_tooltip = {
+			any_playable_ruler = {
+				limit = {
+					NOT = { character = ROOT }
+					top_liege = {
+						OR = {
+							character = ROOT
+							any_realm_province = {
+								is_in_current_resistance_region_province = yes
+							}
+							any_tributary = {
+								is_tributary = { type = march }
+								any_realm_province = {
+									is_in_current_resistance_region_province = yes
+								}
+							}
+							AND = {
+								is_tributary = { type = march }
+								suzerain = {
+									OR = {						
+										any_tributary = {
+											is_tributary = { type = march }
+											any_realm_province = {
+												is_in_current_resistance_region_province = yes
+											}
+										}
+										any_realm_province = {
+											is_in_current_resistance_region_province = yes
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				character_event = { id = 320744 }
+			}
+			# Not included in the above for some reason
+			ROOT = { character_event = { id = 320744 } }
+		}
+	}
+	option = {
+		name = EVTOPTB320743
+		ai_chance = {
+			factor = 0
+		}
+		prestige = -50
+	}
+	
+	after = {
+		any_playable_ruler = {
+			clr_character_flag = to_vassalize_320743
+		}
+	}
+}
+
+# Notification event for new kingship
+narrative_event = {
+	id = 320744
+	title = EVTNAME320744
+	desc = EVTDESC320744
+	picture = GFX_evt_royal_court
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA320744
+		trigger = {
+			OR = {
+				top_liege = { character = FROM }
+				character = FROM
+			}
+		}
+	}
+	option = {
+		name = EVTOPTB320744
+		trigger = {
+			is_local_resistance_region_culture_trigger = yes
+			NOR = {
+				top_liege = { character = FROM }
+				character = FROM
+			}
+		}
+	}
+	option = {
+		name = EVTOPTC320744
+		trigger = {
+			is_local_resistance_region_culture_trigger = no
+			NOR = {
+				top_liege = { character = FROM }
+				character = FROM
+			}
+			OR = {
+				any_realm_province = {
+					is_in_current_resistance_region_province = yes
+				}
+				any_tributary = {
+					is_tributary = { type = march }
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = EVTOPTD320744
+		trigger = {
+			is_local_resistance_region_culture_trigger = no
+			NOR = {
+				top_liege = { character = FROM }
+				character = FROM
+				any_realm_province = {
+					is_in_current_resistance_region_province = yes
+				}
+				any_tributary = {
+					is_tributary = { type = march }
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+## TODO Events
+# 320745 - Notify ruler that they are now the rebellion leader and that they may be able to claim the local kingship
+# 320746 - Major Revolt rebellion ends in rebel defeat / white peace
+# - Small increase in pacification progress for rebel area
+# 320747 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
+
+# Major revolt MTTH pulse
+# - Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
+# - Check to see if the rebellion leader is eligible to claim the kingship, and give the option if they are
 character_event = {
 	id = 320749
 	hide_window = yes
@@ -3774,21 +4039,25 @@ character_event = {
 			limit = { e_cymru = { has_title_flag = major_revolt_ongoing } }
 			e_cymru = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
+			check_if_major_revolt_kingship_can_be_claimed_effect = yes
 		}
 		if = {
 			limit = { e_alba = { has_title_flag = major_revolt_ongoing } }
 			e_alba = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
+			check_if_major_revolt_kingship_can_be_claimed_effect = yes
 		}
 		if = {
 			limit = { e_armorica = { has_title_flag = major_revolt_ongoing } }
 			e_armorica = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
+			check_if_major_revolt_kingship_can_be_claimed_effect = yes
 		}
 		if = {
 			limit = { e_aquitania = { has_title_flag = major_revolt_ongoing } }
 			e_aquitania = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
+			check_if_major_revolt_kingship_can_be_claimed_effect = yes
 		}
 	}
 }
