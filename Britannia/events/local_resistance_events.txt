@@ -714,6 +714,7 @@ character_event = {
 										is_in_current_resistance_region_province = yes
 										has_province_flag = has_local_resistance
 									}
+									NOT = { character = PREVPREV }
 								}
 								character_event = { id = 320722 }
 								any_realm_lord = {
@@ -1364,14 +1365,16 @@ character_event = {
 							capital_scope = { is_in_current_resistance_region_province = yes }
 						}
 					}
-					if = {
-						limit = { NOT = { has_character_flag = already_won_war } }
-						character_event = { id = 320728 }
+					attacker = {
+						if = {
+							limit = { NOT = { has_character_flag = already_won_war } }
+							character_event = { id = 320728 }
+						}
+						else = {
+							clr_character_flag = already_won_war
+							character_event = { id = 320729 }
+						}
 					}
-					else = {
-						clr_character_flag = already_won_war
-						character_event = { id = 320729 }
-					}			
 				}
 			}
 		}
@@ -2915,14 +2918,16 @@ character_event = {
 							capital_scope = { is_in_current_resistance_region_province = yes }
 						}
 					}
-					if = {
-						limit = { NOT = { has_character_flag = already_won_war } }
-						character_event = { id = 320728 }
+					attacker = { 
+						if = {
+							limit = { NOT = { has_character_flag = already_won_war } }
+							character_event = { id = 320728 }
+						}
+						else = {
+							clr_character_flag = already_won_war
+							character_event = { id = 320729 }
+						}
 					}
-					else = {
-						clr_character_flag = already_won_war
-						character_event = { id = 320729 }
-					}			
 				}
 			}
 		}
@@ -4733,6 +4738,7 @@ narrative_event = {
 
 
 ## TODO Decisions 
+# - Decision to re-enable local resistance + major revolt warning notifications
 # - Targeted Decision for rebellion leader to join the war of any ongoing rebellions once their own/initial rebellion war is over
 # 	- Needs AI event to handle selection, plus a request event for the recipient
 
