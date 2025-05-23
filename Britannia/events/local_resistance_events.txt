@@ -12,7 +12,6 @@ province_event = {
 	hide_window = yes
 
 	trigger = {
-		# always = no
 		local_resistance_potential_trigger = yes
 		NOT = { has_province_flag = has_local_resistance }
 		NOT = { has_province_flag = local_resistance_pacified }
@@ -50,6 +49,12 @@ province_event = {
 			character_event = { id = 320701 }
 			any_liege = {
 				character_event = { id = 320701 }
+			}
+			top_liege = {
+				if = {
+					limit = { is_tributary = { type = march } }
+					suzerain = { character_event = { id = 320701 } }
+				}
 			}
 		}
 	}
@@ -111,8 +116,35 @@ province_event = {
 		remove_province_modifier = local_resistance_3_march
 		
 		clr_province_flag = is_pacifying_province
-		clr_province_flag = local_resistance_pacified
-		set_province_flag = local_resistance_unpacifying
+		
+		save_event_target_as = current_resistance_region_province
+		
+		# Still of a "native" culture, but now under native/compatible rule
+		# This should generally almost always be true, but still good to check
+		if = {
+			limit = {
+				is_local_resistance_region_culture_trigger = yes
+				NOT = {
+					owner = {
+						top_liege = {
+							OR = {
+								AND = {
+									in_revolt = no
+									is_local_resistance_region_march_allowed_culture_trigger = yes
+								}
+								AND = {
+									in_revolt = yes
+									liege_before_war = {
+										is_local_resistance_region_march_allowed_culture_trigger = yes
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			set_province_flag = local_resistance_unpacifying
+		}
 	}
 }
 
@@ -452,10 +484,20 @@ character_event = {
 					clr_province_flag = has_local_resistance
 					set_province_flag = local_resistance_pacified
 					set_province_flag = local_resistance_pacified_before
-		
-					set_variable = {
-						which = nationalist_revolt_progress
-						value = 0
+					
+					# Notification event
+					save_event_target_as = pacified_province
+					owner = {
+						character_event = { id = 320711 }
+						any_liege = {
+							character_event = { id = 320711 }
+						}
+						top_liege = {
+							if = {
+								limit = { is_tributary = { type = march } }
+								suzerain = { character_event = { id = 320711 } }
+							}
+						}
 					}
 				}
 			}
@@ -496,9 +538,38 @@ character_event = {
 	}
 }
 
-# Progress set back by revolts. Fired from 'on_siege_over_winner'.
+# Notify owner/liege
 character_event = {
 	id = 320711
+	desc = EVTDESC320711
+	picture = GFX_evt_lord_overlooking_bridge
+	border = GFX_event_normal_frame_war
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		ai = no
+		NOT = { has_global_flag = disabled_local_resistance_alerts }
+	}
+	
+	option = {
+		name = "EVTOPTA320711"
+		custom_tooltip = {
+			text = EVTOPTA320711TT
+		}
+	}
+	option = {
+		name = "EVTOPTB320711"
+		custom_tooltip = {
+			text = EVTOPTB320701TT
+		}
+		set_global_flag = disabled_local_resistance_alerts
+	}
+}
+
+# Progress set back by revolts. Fired from 'on_siege_over_winner'.
+character_event = {
+	id = 320712
 	hide_window = yes
 	is_triggered_only = yes
 	
@@ -541,6 +612,86 @@ character_event = {
 			# Increase resistance level if applicable
 			set_proper_local_resistance_level_effect = yes
 		}
+	}
+}
+
+# Start unpacification timer if pacified local resistance province is now controlled by a native culture again
+province_event = {
+	id = 320713
+	hide_window = yes
+
+	trigger = {
+		local_resistance_potential_culture_trigger = yes
+		has_province_flag = local_resistance_pacified
+		owner = {
+			is_local_resistance_similar_culture_to_ROOT_trigger = yes
+			top_liege = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+		}
+		NOT = { has_province_flag = local_resistance_pacified_removal_start }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_province_flag = local_resistance_pacified_removal_start
+	}
+}
+
+# Pacified local resistance province with timer is now controlled by a non-native culture, stop timer
+province_event = {
+	id = 320714
+	hide_window = yes
+
+	trigger = {
+		has_province_flag = local_resistance_pacified_removal_start
+		OR = {
+			local_resistance_potential_culture_trigger = no
+			NOT = { has_province_flag = local_resistance_pacified }
+			NOT = {
+				owner = {
+					is_local_resistance_similar_culture_to_ROOT_trigger = yes
+					top_liege = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_province_flag = local_resistance_pacified_removal_start
+	}
+}
+
+# Pacified local resistance province finishes timer, remove pacification status (but has still been "pacified before")
+province_event = {
+	id = 320715
+	hide_window = yes
+
+	trigger = {
+		local_resistance_potential_culture_trigger = yes
+		has_province_flag = local_resistance_pacified
+		owner = {
+			is_local_resistance_similar_culture_to_ROOT_trigger = yes
+			top_liege = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
+		}
+		had_province_flag = {
+			flag = local_resistance_pacified_removal_start
+			months >= 1
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		clr_province_flag = local_resistance_pacified_removal_start
+		clr_province_flag = local_resistance_pacified
 	}
 }
 

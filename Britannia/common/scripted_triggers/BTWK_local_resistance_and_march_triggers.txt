@@ -161,6 +161,27 @@ local_resistance_potential_trigger = {
 	}
 }
 
+local_resistance_potential_culture_trigger = {
+	OR = {
+		AND = {
+			is_wales_local_resistance_culture_trigger = yes
+			in_wales_local_resistance_region_trigger = yes
+		}
+		AND = {
+			is_caledonia_local_resistance_culture_trigger = yes
+			in_caledonia_local_resistance_region_trigger = yes
+		}
+		AND = {
+			is_armorica_local_resistance_culture_trigger = yes
+			in_armorica_local_resistance_region_trigger = yes
+		}
+		AND = {
+			is_vasconia_local_resistance_culture_trigger = yes
+			in_vasconia_local_resistance_region_trigger = yes
+		}
+	}
+}
+
 is_local_resistance_region_culture_trigger = {
 	OR = {
 		AND = {
@@ -177,6 +198,27 @@ is_local_resistance_region_culture_trigger = {
 		}
 		AND = {
 			is_vasconia_local_resistance_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes }
+		}
+	}
+}
+
+is_local_resistance_region_march_allowed_culture_trigger = {
+	OR = {
+		AND = {
+			is_wales_march_allowed_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_caledonia_march_allowed_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_armorica_march_allowed_culture_trigger = yes
+			event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes }
+		}
+		AND = {
+			is_vasconia_march_allowed_culture_trigger = yes
 			event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes }
 		}
 	}
