@@ -125,6 +125,19 @@ cap_local_resistance_progress_remaining_effect = {
 			value = 25
 		}
 	}
+	
+	if = {
+		limit = {
+			check_variable = {
+				which = pacification_years_remaining
+				value < 0
+			}
+		}
+		set_variable = {
+			which = pacification_years_remaining
+			value = 0
+		}
+	}
 }
 
 # Called from province scope
@@ -849,18 +862,22 @@ set_major_revolt_leader_character = {
 	if = {
 		limit = { event_target:current_resistance_region_province = { in_wales_local_resistance_region_trigger = yes } }
 		save_global_event_target_as = major_revolt_leader_wales
+		character_event = { id = 320745 }
 	}
 	else_if = {
 		limit = { event_target:current_resistance_region_province = { in_caledonia_local_resistance_region_trigger = yes } }
 		save_global_event_target_as = major_revolt_leader_caledonia
+		character_event = { id = 320745 }
 	}
 	else_if = {
 		limit = { event_target:current_resistance_region_province = { in_armorica_local_resistance_region_trigger = yes } }
 		save_global_event_target_as = major_revolt_leader_armorica
+		character_event = { id = 320745 }
 	}
 	else_if = {
 		limit = { event_target:current_resistance_region_province = { in_vasconia_local_resistance_region_trigger = yes } }
 		save_global_event_target_as = major_revolt_leader_vasconia
+		character_event = { id = 320745 }
 	}
 }
 

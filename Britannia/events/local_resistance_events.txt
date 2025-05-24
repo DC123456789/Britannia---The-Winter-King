@@ -2425,9 +2425,9 @@ narrative_event = {
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
 		# TODO Notify targeted decision OR for AI, chance of supporting rebels
-		custom_tooltip = {
-			text = EVTOPTA320729TT
-		}
+		# custom_tooltip = {
+			# text = EVTOPTA320729TT
+		# }
 	}
 	
 	# Other native rulers that can't intervene (vassals, essentially)
@@ -2503,6 +2503,7 @@ narrative_event = {
 	option = {
 		name = "EVTOPTD320729"
 		trigger = {
+			NOT = { FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes } }
 			top_liege = {
 				has_local_resistance_provs_in_potential_major_revolt_from_FROM = no
 			}
@@ -3896,11 +3897,6 @@ character_event = {
 				text = EVTOPTA320741TT2
 			}
 		}
-		else = {
-			custom_tooltip = {
-				text = EVTOPTB320741TT
-			}
-		}
 	}
 }
 
@@ -4166,15 +4162,229 @@ narrative_event = {
 	}
 }
 
-## TODO Events
-# 320745 - Notify ruler that they are now the rebellion leader and that they may be able to claim the local kingship
-# 320746 - Major Revolt rebellion ends in rebel defeat / white peace
-# - Small increase in pacification progress for rebel area
-# 320747 - Notification event to defender for all involved rulers that a Major Revolt rebellion has been defeated
+# Notify ruler that they are now the rebellion leader and that they may be able to claim the local kingship
+character_event = {
+	id = 320745
+	desc = EVTDESC320745
+	picture = GFX_evt_warrior_banners
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA320745
+		custom_tooltip = {
+			text = EVTOPTA320745TTA
+		}
+		if = {
+			limit = { lower_tier_than = KING }
+			custom_tooltip = {
+				text = EVTOPTA320745TTB
+			}
+		}
+	}
+}
+
+# Major Revolt rebellion ends in rebel defeat / white peace
+character_event = {
+	id = 320746
+	title = EVTNAME320746
+	desc = EVTDESC320746
+	picture = GFX_evt_lord_overlooking_bridge
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_major_revolt_rebel_trigger = yes
+	}
+	
+	immediate = {		
+		# Find the appropriate major revolt region that the rebel is based in
+		if = {
+			limit = { 
+				capital_scope = { 
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+			}
+			capital_scope = { save_event_target_as = current_resistance_region_province }
+		}
+		else = {
+			random_realm_province = {
+				limit = {
+					has_active_major_revolt_trigger = yes
+					is_in_resistance_region_of_prev_culture_trigger = yes
+				}
+				save_event_target_as = current_resistance_region_province
+			}
+		}
+		
+		# The defender and all marches gain a bit of pacification progress in all provinces in the region
+		FROMFROM = {
+			if = {
+				limit = { is_tributary = { type = march } }
+				suzerain = { save_event_target_as = main_revolt_defender }
+			}
+			else = {
+				save_event_target_as = main_revolt_defender
+			}
+		}
+		event_target:main_revolt_defender = {
+			any_realm_province = {
+				limit = {
+					has_local_resistance_modifier_trigger = yes
+					is_in_current_resistance_region_province = yes
+				}
+				subtract_variable = {
+					which = pacification_years_remaining
+					value = 1
+				}
+				cap_local_resistance_progress_remaining_effect = yes
+				
+				# Increase resistance level if applicable
+				set_proper_local_resistance_level_effect = yes
+			}
+			character_event = { id = 320747 }
+			any_realm_lord = {
+				limit = {
+					any_realm_province = {
+						has_local_resistance_modifier_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				character_event = { id = 320747 }
+			}
+			any_tributary = {
+				limit = { 
+					is_tributary = { type = march }
+					any_realm_province = {
+						is_in_current_resistance_region_province = yes
+					}
+				}
+				any_realm_province = {
+					limit = {
+						has_local_resistance_modifier_trigger = yes
+						is_in_current_resistance_region_province = yes
+					}
+					subtract_variable = {
+						which = pacification_years_remaining
+						value = 1
+					}
+					cap_local_resistance_progress_remaining_effect = yes
+					
+					# Increase resistance level if applicable
+					set_proper_local_resistance_level_effect = yes
+				}
+				character_event = { id = 320747 }
+				any_realm_lord = {
+					limit = {
+						any_realm_province = {
+							has_local_resistance_modifier_trigger = yes
+							is_in_current_resistance_region_province = yes
+						}
+					}
+					character_event = { id = 320747 }
+				}
+			}
+		}
+		
+		# Make sure major revolt leader gets notified
+		event_target:current_resistance_region_province = {
+			get_major_revolt_leader_character = yes
+		}
+		event_target:current_major_revolt_leader = {
+			character_event = { id = 320747 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA320746"
+	}
+}
+
+# Notification event for all involved rulers (defender + vassals/marches + revolt leader) that a Major Revolt rebellion has been defeated/white peaced
+character_event = {
+	id = 320747
+	title = EVTNAME320747
+	desc = {
+		text = EVTDESC320747
+		trigger = {
+			OR = {
+				is_local_resistance_similar_culture_to_FROM_trigger = no
+				character = event_target:main_revolt_defender
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { character = event_target:main_revolt_defender }
+				}
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC320747_sympathetic
+		trigger = {
+			NOR = {
+				character = event_target:main_revolt_defender
+				AND = {
+					is_tributary = { type = march }
+					suzerain = { character = event_target:main_revolt_defender }
+				}
+			}
+			is_local_resistance_similar_culture_to_FROM_trigger = yes
+		}
+	}
+	picture = GFX_evt_lord_overlooking_bridge
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = {
+			text = "EVTOPTA320747"
+			trigger = {
+				OR = {
+					is_local_resistance_similar_culture_to_FROM_trigger = no
+					character = event_target:main_revolt_defender
+					AND = {
+						is_tributary = { type = march }
+						suzerain = { character = event_target:main_revolt_defender }
+					}
+				}
+			}
+		}
+		name = {
+			text = "EVTOPTB320747"
+			trigger = {
+				is_local_resistance_similar_culture_to_FROM_trigger = yes
+				NOR = {
+					character = event_target:main_revolt_defender
+					AND = {
+						is_tributary = { type = march }
+						suzerain = { character = event_target:main_revolt_defender }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				top_liege = { 
+					OR = {
+						character = event_target:main_revolt_defender
+						AND = {
+							is_tributary = { type = march }
+							suzerain = { character = event_target:main_revolt_defender }
+						}
+					}
+				}
+			}
+			custom_tooltip = {
+				text = EVTOPTA320747TT1
+			}
+		}
+	}
+}
 
 # Major revolt MTTH pulse
 # - Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
 # - Check to see if the rebellion leader is eligible to claim the kingship, and give the option if they are
+# TODO Add check for revolt leader joining other rebellions
 character_event = {
 	id = 320749
 	hide_window = yes
@@ -4891,12 +5101,14 @@ narrative_event = {
 ## TODO Decisions 
 # - Decision to re-enable local resistance + major revolt warning notifications
 # - Targeted Decision for rebellion leader to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 	- Needs AI event to handle selection, plus a request event for the recipient
+# 	- Needs AI event to handle selection (or put in the MTTH pulse?), plus a request event for the recipient
+# - Reserved event 320760
 
 # - Decision for local lord of Local Resistance region culture to stir up discontent in neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
-# 	- Takes 320760 - 320769
+# 	- Takes 320765 - 320769?
 # - Decision for local vassal/tributary of Local Resistance region culture to stir up discontent in their own provinces, which after ~2 years will spawn an event army and attempt to declare war for independence
 #	- Chance depending on intrigue that the liege finds out - can then demand they stop + reparations, if refused leads to early war (without event troops), if lost you have to abdicate
 #	- Can attempt to call other local lords into war (?)
 #	- Like normal Local Resistance rebellions, if they get to a certain warscore threshold (25%?) a Major Revolt will break out
 #	- In addition to rebellions in the remaining provinces, they will also go event troops scaling based on the number of provinces that joined the revolt
+#	- Takes 320770 - 320779?
