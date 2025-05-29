@@ -1196,10 +1196,10 @@ check_if_major_revolt_kingship_can_be_claimed_effect = {
 		event_target:current_major_revolt_leader = {
 			if = {
 				limit = {
-					 check_variable = {
+					check_variable = {
 						which = prop_region_provs_controlled
-						vale >= 0.4
-					 }
+						value >= 0.4
+					}
 				}
 				# Try to find the best empire/king title to give to the character, and only 
 				# send the event if there is one at all
@@ -1232,7 +1232,7 @@ check_if_major_revolt_kingship_can_be_claimed_effect = {
 					else_if = {
 						limit = {
 							capital_scope = { region = custom_gwynedd }
-							# k_gwynedd = { has_holder = no }
+							k_gwynedd = { has_holder = no }
 						}
 						k_gwynedd = { save_event_target_as = title_to_grant }
 					}
@@ -1432,6 +1432,23 @@ check_if_major_revolt_kingship_can_be_claimed_effect = {
 				}
 			}
 		}
+	}
+}
+
+# Check if AI should try to join other major revolt rebellions in the area
+check_if_major_revolt_leader_should_join_wars_effect = {
+	event_target:current_resistance_region_province = { get_major_revolt_leader_character = yes }
+	if = {
+		limit = {
+			event_target:current_major_revolt_leader = { always = yes }
+			event_target:current_major_revolt_leader = {
+				independent = yes
+				is_tributary = no
+				war = no
+				ai = yes
+			}
+		}
+		event_target:current_major_revolt_leader = { character_event = { id = 320760 } }
 	}
 }
 

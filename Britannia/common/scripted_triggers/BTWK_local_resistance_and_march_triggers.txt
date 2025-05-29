@@ -203,6 +203,27 @@ is_local_resistance_region_culture_trigger = {
 	}
 }
 
+is_region_of_major_revolt_lead_by_FROM_culture_trigger = {
+	OR = {
+		AND = {
+			is_wales_local_resistance_culture_trigger = yes
+			event_target:major_revolt_leader_wales = { character = FROM }
+		}
+		AND = {
+			is_caledonia_local_resistance_culture_trigger = yes
+			event_target:major_revolt_leader_caledonia = { character = FROM }
+		}
+		AND = {
+			is_armorica_local_resistance_culture_trigger = yes
+			event_target:major_revolt_leader_armorica = { character = FROM }
+		}
+		AND = {
+			is_vasconia_local_resistance_culture_trigger = yes
+			event_target:major_revolt_leader_vasconia = { character = FROM }
+		}
+	}
+}
+
 is_local_resistance_region_march_allowed_culture_trigger = {
 	OR = {
 		AND = {
@@ -288,7 +309,7 @@ is_in_resistance_region_of_prev_culture_trigger = {
 		}
 	}
 }
-					
+
 is_ROOT_in_current_resistance_region_province_trigger = {
 	OR = {
 		conditional_tooltip = {
@@ -375,6 +396,27 @@ is_FROM_in_current_resistance_region_province_trigger = {
 				}
 			}
 			in_vasconia_local_resistance_region_trigger = yes
+		}
+	}
+}
+
+is_in_resistance_region_of_major_revolt_lead_by_FROM_trigger = {
+	OR = {
+		AND = {
+			in_wales_local_resistance_region_trigger = yes
+			event_target:major_revolt_leader_wales = { character = FROM }
+		}
+		AND = {
+			in_caledonia_local_resistance_region_trigger = yes
+			event_target:major_revolt_leader_caledonia = { character = FROM }
+		}
+		AND = {
+			in_armorica_local_resistance_region_trigger = yes
+			event_target:major_revolt_leader_armorica = { character = FROM }
+		}
+		AND = {
+			in_vasconia_local_resistance_region_trigger = yes
+			event_target:major_revolt_leader_vasconia = { character = FROM }
 		}
 	}
 }
@@ -798,6 +840,59 @@ is_major_revolt_rebel_trigger = {
 	}
 }
 
+# Requires current_resistance_region_province to be a saved event target
+is_major_revolt_rebel_in_region_trigger = {
+	is_major_revolt_rebel_trigger = yes
+	is_local_resistance_region_culture_trigger = yes
+	# Either holds a province in the region, or is a rebel for a duchy
+	# with a province in the region
+	OR = {
+		AND = {
+			is_landed = yes
+			any_realm_province = {
+				is_in_current_resistance_region_province = yes
+			}
+		}
+		AND = {
+			is_landed = no
+			any_war = {
+				attacker = { character = PREVPREV }
+				thirdparty_title_scope = {
+					any_de_jure_vassal_title = { 
+						location = { is_in_current_resistance_region_province = yes }
+					}
+				}
+			}
+		}
+	}
+}
+
+is_major_revolt_rebel_in_region_of_major_revolt_lead_by_FROM_trigger = {
+	is_major_revolt_rebel_trigger = yes
+	is_region_of_major_revolt_lead_by_FROM_culture_trigger = yes
+	# Either holds a province in the region, or is a rebel for a duchy
+	# with a province in the region
+	OR = {
+		AND = {
+			is_landed = yes
+			any_realm_province = {
+				is_in_resistance_region_of_major_revolt_lead_by_FROM_trigger = yes
+			}
+		}
+		AND = {
+			is_landed = no
+			any_war = {
+				attacker = { character = PREVPREV }
+				thirdparty_title_scope = {
+					any_de_jure_vassal_title = { 
+						location = { is_in_resistance_region_of_major_revolt_lead_by_FROM_trigger = yes }
+					}
+				}
+			}
+		}
+	}
+}
+
 is_major_revolt_potential_rebel_from_FROM_trigger = {
 	any_realm_province = {
 		has_active_major_revolt_trigger = yes
@@ -813,28 +908,7 @@ any_major_revolt_rebels_in_region_trigger = {
 	any_independent_ruler = {
 		any_war = {
 			attacker = { 
-				is_major_revolt_rebel_trigger = yes
-				is_local_resistance_region_culture_trigger = yes
-				# Either holds a province in the region, or is a rebel for a duchy
-				# with a province in the region
-				OR = {
-					AND = {
-						is_landed = yes
-						any_realm_province = {
-							is_in_current_resistance_region_province = yes
-						}
-					}
-					AND = {
-						is_landed = no
-						PREV = {
-							thirdparty_title_scope = {
-								any_de_jure_vassal_title = { 
-									location = { is_in_current_resistance_region_province = yes }
-								}
-							}
-						}
-					}
-				}
+				is_major_revolt_rebel_in_region_trigger = yes
 			}
 		}
 	}
@@ -850,7 +924,7 @@ is_fighting_against_major_revolt_trigger = {
 		any_war = {
 			defender = { character = PREVPREV }
 			attacker = {
-				is_major_revolt_rebel_trigger = yes
+				is_major_revolt_rebel_in_region_trigger = yes
 			}
 			OR = {
 				attacker = {
@@ -896,6 +970,15 @@ is_fighting_against_major_revolt_trigger = {
 				}
 			}
 		}
+	}
+}
+
+is_major_revolt_leader_trigger = {
+	OR = {
+		event_target:major_revolt_leader_wales = { character = PREV }
+		event_target:major_revolt_leader_caledonia = { character = PREV }
+		event_target:major_revolt_leader_armorica = { character = PREV }
+		event_target:major_revolt_leader_vasconia = { character = PREV }
 	}
 }
 

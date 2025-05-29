@@ -2424,7 +2424,7 @@ narrative_event = {
 			FROM = { is_local_resistance_similar_culture_to_ROOT_trigger = yes }
 			any_realm_province = { is_in_current_resistance_region_province = yes }
 		}
-		# TODO Notify targeted decision OR for AI, chance of supporting rebels
+		# TODO Notify targeted decision OR for AI, chance of supporting rebels?
 		# custom_tooltip = {
 			# text = EVTOPTA320729TT
 		# }
@@ -4384,7 +4384,7 @@ character_event = {
 # Major revolt MTTH pulse
 # - Check if there are any rebellions still ongoing for a Major Revolt, and once all have ended fire the ending event
 # - Check to see if the rebellion leader is eligible to claim the kingship, and give the option if they are
-# TODO Add check for revolt leader joining other rebellions
+# - Check to see if the rebellion leader can join other rebellions
 character_event = {
 	id = 320749
 	hide_window = yes
@@ -4406,24 +4406,28 @@ character_event = {
 			e_cymru = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
 			check_if_major_revolt_kingship_can_be_claimed_effect = yes
+			check_if_major_revolt_leader_should_join_wars_effect = yes
 		}
 		if = {
 			limit = { e_alba = { has_title_flag = major_revolt_ongoing } }
 			e_alba = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
 			check_if_major_revolt_kingship_can_be_claimed_effect = yes
+			check_if_major_revolt_leader_should_join_wars_effect = yes
 		}
 		if = {
 			limit = { e_armorica = { has_title_flag = major_revolt_ongoing } }
 			e_armorica = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
 			check_if_major_revolt_kingship_can_be_claimed_effect = yes
+			check_if_major_revolt_leader_should_join_wars_effect = yes
 		}
 		if = {
 			limit = { e_aquitania = { has_title_flag = major_revolt_ongoing } }
 			e_aquitania = { capital_scope = { save_event_target_as = current_resistance_region_province } }
 			check_if_major_revolt_is_over_and_fire_event_effect = yes
 			check_if_major_revolt_kingship_can_be_claimed_effect = yes
+			check_if_major_revolt_leader_should_join_wars_effect = yes
 		}
 	}
 }
@@ -5097,12 +5101,127 @@ narrative_event = {
 	}
 }
 
+# Check if AI major revolt leader can join any other rebellion wars
+character_event = {
+	id = 320760
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		# Want to prioritize rebels in neighbouring duchies if possible
+		any_playable_ruler = {
+			limit = {
+				is_major_revolt_rebel_in_region_trigger = yes
+			}
+			set_character_flag = debug_is_major_revolt_rebel
+		}
+		any_playable_ruler = {
+			limit = {
+				rebel = no
+			}
+			set_character_flag = debug_is_not_rebel
+		}
+		random_playable_ruler = {
+			limit = {
+				is_major_revolt_rebel_in_region_trigger = yes
+				rebel = no
+				NOT = { has_character_flag = rejected_major_revolt_leader_help_320761 }
+			}
+			# Prefer supporting rebels in neighouring duchies
+			preferred_limit = {
+				OR = {
+					AND = {
+						is_landed = yes
+						any_realm_province = {
+							duchy = {
+								any_direct_de_jure_vassal_title = {
+									location = {
+										any_neighbor_province = {
+											duchy = {
+												any_direct_de_jure_vassal_title = {
+													OR = {
+														holder_scope = { character = ROOT }
+														any_liege = { character = ROOT }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					AND = {
+						is_landed = no
+						any_war = {
+							attacker = { character = PREVPREV }
+							thirdparty_title_scope = {
+								any_direct_de_jure_vassal_title = {
+									location = {
+										any_neighbor_province = {
+											duchy = {
+												any_direct_de_jure_vassal_title = {
+													OR = {
+														holder_scope = { character = ROOT }
+														any_liege = { character = ROOT }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			ROOT = { save_event_target_as = potential_ally }
+			set_character_flag = debug_receiving_alliance
+			character_event = { id = 320761 days = 2 }
+		}
+	}
+}
+
+# Request event for major revolt leader joining rebellions
+letter_event = {
+	id = 320761
+	desc = EVTDESC320761
+	border = GFX_event_letter_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		event_target:potential_ally = {
+			is_alive = yes
+		}
+	}
+
+	option = {
+		name = EVTOPTA320761
+		hidden_effect = {
+			event_target:potential_ally = { character_event = { id = 294 } }
+		}
+		ai_chance = {
+			factor = 0
+		}
+		set_character_flag = rejected_major_revolt_leader_help_320761
+	}
+	option = {
+		name = EVTOPTB320761
+		hidden_effect = {
+			event_target:potential_ally = {
+				join_attacker_wars = ROOT
+				character_event = { id = 293 }
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
 
 ## TODO Decisions 
 # - Decision to re-enable local resistance + major revolt warning notifications
-# - Targeted Decision for rebellion leader to join the war of any ongoing rebellions once their own/initial rebellion war is over
-# 	- Needs AI event to handle selection (or put in the MTTH pulse?), plus a request event for the recipient
-# - Reserved event 320760
 
 # - Decision for local lord of Local Resistance region culture to stir up discontent in neighbouring provinces, which will generate a greater-than-average revolt in ~2 years and allow the lord to join
 # 	- Takes 320765 - 320769?

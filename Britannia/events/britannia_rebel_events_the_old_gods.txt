@@ -147,15 +147,32 @@ province_event = {
 		new_character = {
 			set_character_flag = cultural_revolter
 			
-			create_title = {
-				tier = DUKE
-				landless = yes
-				temporary = yes
-				rebel = yes
-				culture = ROOT
-				name = "CULTURE_REVOLT"
-				holder = THIS
+			if = {
+				limit = {
+					ROOT = { has_province_modifier = ongoing_major_revolt }
+				}
+				# Not a rebel title, so we can join wars
+				create_title = {
+					tier = DUKE
+					landless = yes
+					temporary = yes
+					culture = ROOT
+					name = "CULTURE_REVOLT"
+					holder = THIS
+				}
 			}
+			else = {
+				create_title = {
+					tier = DUKE
+					landless = yes
+					temporary = yes
+					rebel = yes
+					culture = ROOT
+					name = "CULTURE_REVOLT"
+					holder = THIS
+				}
+			}
+			primary_title = { set_title_flag = cultural_revolt_title }
 			
 			wealth = 100
 			
@@ -266,7 +283,10 @@ character_event = {
 	
 	trigger = {
 		has_character_flag = cultural_revolter
-		rebel = yes
+		OR = {
+			rebel = yes
+			primary_title = { has_title_flag = cultural_revolt_title }
+		}
 		FROM = { 
 			is_capital = yes # The capital holding
 		}
