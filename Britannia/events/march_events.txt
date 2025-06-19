@@ -61,6 +61,18 @@ narrative_event = {
 			
 			if = {
 				limit = { 
+					event_target:ROOT_liege = { has_landed_title = e_franks }
+					has_global_flag = western_roman_empire_fallen
+					NOT = { has_global_flag = franks_defeated }
+				}
+				k_breton_march = { de_jure_liege = e_aengland }				
+			}
+			else_if = {
+				limit = { event_target:ROOT_liege = { has_landed_title = e_aengland } }
+				k_breton_march = { de_jure_liege = e_aengland }				
+			}
+			if = {
+				limit = { 
 					has_global_flag = western_roman_empire_fallen
 					NOT = { has_global_flag = franks_defeated }
 				}
@@ -75,15 +87,15 @@ narrative_event = {
 			
 			# Alternative de jure if formed by a Romanized Germanic			
 			if = {
-				limit = { liege = { has_landed_title = e_visigoths } }
+				limit = { event_target:ROOT_liege = { has_landed_title = e_visigoths } }
 				k_breton_march = { de_jure_liege = e_visigoths }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
 				k_breton_march = { de_jure_liege = e_gaul }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_breton_march = { de_jure_liege = e_roman_britannia }
 			}
 			else_if = {
@@ -187,7 +199,7 @@ narrative_event = {
 		d_perigord = { de_jure_liege = k_aquitaine }
 		d_agen = { de_jure_liege = k_aquitaine }
 		if = {
-			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			limit = { event_target:ROOT_liege = { can_create_germanic_title_trigger = yes } }
 			# In case they were re-assigned to Aquitaine earlier
 			d_bordeaux = { de_jure_liege = k_vasconia }
 			d_fezensac = { de_jure_liege = k_vasconia }
@@ -219,15 +231,15 @@ narrative_event = {
 			
 			# Alternative de jure if formed by a Romanized Germanic			
 			if = {
-				limit = { liege = { has_landed_title = e_visigoths } }
+				limit = { event_target:ROOT_liege = { has_landed_title = e_visigoths } }
 				k_vasconia = { de_jure_liege = e_visigoths }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
 				k_vasconia = { de_jure_liege = e_gaul }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_vasconia = { de_jure_liege = e_roman_britannia }
 			}
 			else_if = {
@@ -350,7 +362,7 @@ narrative_event = {
 		}
 		
 		if = {
-			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			limit = { event_target:ROOT_liege = { can_create_germanic_title_trigger = yes } }
 			# In case they were re-assigned to Mercia earlier
 			d_monmouthshire = { de_jure_liege = k_wales }
 			d_glamorganshire = { de_jure_liege = k_wales }
@@ -368,11 +380,11 @@ narrative_event = {
 			set_global_flag = romanized_germanic_wales
 			
 			if = {
-				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_wales = { de_jure_liege = e_roman_britannia }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
 				k_wales = { de_jure_liege = e_gaul }
 			}
 			else = {
@@ -488,7 +500,7 @@ narrative_event = {
 		}
 		
 		if = {
-			limit = { liege = { can_create_germanic_title_trigger = yes } }
+			limit = { event_target:ROOT_liege = { can_create_germanic_title_trigger = yes } }
 			# In case they were re-assigned to Northumbria earlier
 			d_fifeshire = { de_jure_liege = k_pictland }
 			d_perthshire = { de_jure_liege = k_pictland }
@@ -510,11 +522,11 @@ narrative_event = {
 			set_global_flag = romanized_germanic_pictland
 			
 			if = {
-				limit = { liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_roman_britannia } }		# Shouldn't ever happen, but maybe?
 				k_pictland = { de_jure_liege = e_roman_britannia }
 			}
 			else_if = {
-				limit = { liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
+				limit = { event_target:ROOT_liege = { has_landed_title = e_gaul } }		# Shouldn't ever happen, but maybe?
 				k_pictland = { de_jure_liege = e_gaul }
 			}
 			else = {
