@@ -1983,6 +1983,40 @@ character_event = {
 		FROM = {
 			make_tributary = { who = ROOT percentage = 0.25 }
 		}
+		if = {
+			limit = {
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = { character = ROOT }
+							defender = { character = FROM }
+						}
+						AND = {
+							attacker = { character = FROM }
+							defender = { character = ROOT }
+						}
+					}
+				}
+			}
+			tooltip = {
+				any_war = {
+					limit = {
+						OR = {
+							AND = {
+								attacker = { character = ROOT }
+								defender = { character = FROM }
+							}
+							AND = {
+								attacker = { character = FROM }
+								defender = { character = ROOT }
+							}
+						}
+					}
+					end_war = invalid
+				}
+			}
+		}
 		FROM = {
 			opinion = {
 				modifier = opinion_very_grateful
@@ -2187,6 +2221,38 @@ character_event = {
 		name = "EVTOPTA313272"
 		prestige = 50
 		make_tributary = { who = FROM percentage = 0.25 }
+		if = {
+			limit = {
+				war = yes
+				any_war = {
+					OR = {
+						AND = {
+							attacker = { character = ROOT }
+							defender = { character = FROM }
+						}
+						AND = {
+							attacker = { character = FROM }
+							defender = { character = ROOT }
+						}
+					}
+				}
+			}
+			any_war = {
+				limit = {
+					OR = {
+						AND = {
+							attacker = { character = ROOT }
+							defender = { character = FROM }
+						}
+						AND = {
+							attacker = { character = FROM }
+							defender = { character = ROOT }
+						}
+					}
+				}
+				end_war = invalid
+			}
+		}
 	}
 }
 
