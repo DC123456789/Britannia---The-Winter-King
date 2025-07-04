@@ -3492,19 +3492,41 @@ tribal_invasion = {
 		if = {
 			limit = {
 				title = k_visigoths
-				holder_scope = {
-					character = FROM
-				}
-				ROOT = { is_istvaeonic_culture_trigger = yes }
-				FROM = {
-					any_realm_province = {
-						count = 10
-						region = world_gaul
-						NOT = { region = world_gaul_narbonensis_septimania }
+				OR = {
+					AND = {
+						holder_scope = {
+							character = FROM
+						}
+						ROOT = { is_istvaeonic_culture_trigger = yes }
+						FROM = {
+							any_realm_province = {
+								count = 10
+								region = world_gaul
+								NOT = { region = world_gaul_narbonensis_septimania }
+							}
+							any_realm_province = {
+								region = world_gaul
+								NOT = { region = world_gaul_narbonensis_septimania }
+							}
+						}
 					}
-					any_realm_province = {
-						region = world_gaul
-						NOT = { region = world_gaul_narbonensis_septimania }
+					AND = {
+						ROOT = { is_istvaeonic_culture_trigger = yes }
+						FROM = {
+							in_revolt = yes
+							liege_before_war = { 
+								has_landed_title = k_visigoths
+								any_realm_province = {
+									count = 10
+									region = world_gaul
+									NOT = { region = world_gaul_narbonensis_septimania }
+								}
+								any_realm_province = {
+									region = world_gaul
+									NOT = { region = world_gaul_narbonensis_septimania }
+								}
+							}
+						}
 					}
 				}
 			}
@@ -3512,6 +3534,7 @@ tribal_invasion = {
 				text = tribal_invasion_toulouse_succ_tip
 			}
 			hidden_tooltip = {		# Usurp or vassalize all titles in Aquitania or Tolosa, but only in those regions
+				FROM = { save_event_target_as = toulouse_invasion_target }
 				ROOT = { character_event = { id = 313210 } }
 			}
 			break = yes
@@ -3742,6 +3765,7 @@ tribal_invasion = {
 						title = k_aquitaine
 						title = k_burgundy
 					}
+					temporary = no
 				}
 				usurp_title = ROOT
 			}
@@ -3758,6 +3782,7 @@ tribal_invasion = {
 						title = k_aquitaine
 						title = k_burgundy
 					}
+					temporary = no
 				}
 				destroy_landed_title = THIS
 			}

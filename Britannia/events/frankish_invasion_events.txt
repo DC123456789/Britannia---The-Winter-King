@@ -100,6 +100,26 @@ narrative_event = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
+			# Also declare war on any faction revolts
+			holder_scope = {
+				any_war = {
+					limit = {
+						defender = { character = PREVPREV }
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = PREVPREVPREV }
+						}
+					}
+					attacker = {
+						reverse_unsafe_war = {
+							target = ROOT
+							casus_belli = tribal_invasion
+							thirdparty_title = PREVPREVPREV
+							tier = KING
+						}
+					}
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -143,7 +163,7 @@ narrative_event = {
 					holder_scope = {
 						realm_levy_diff = { 
 							who = ROOT 
-							value = -1000
+							value = 1000
 						}
 					}
 				}
@@ -170,7 +190,7 @@ narrative_event = {
 					holder_scope = {
 						realm_levy_diff = { 
 							who = ROOT 
-							value = -2000
+							value = 2000
 						}
 					}
 				}
@@ -341,6 +361,26 @@ narrative_event = {
 			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
+			}
+			# Also declare war on any faction revolts
+			holder_scope = {
+				any_war = {
+					limit = {
+						defender = { character = PREVPREV }
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = PREVPREVPREV }
+						}
+					}
+					attacker = {
+						reverse_unsafe_war = {
+							target = ROOT
+							casus_belli = tribal_invasion
+							thirdparty_title = PREVPREVPREV
+							tier = KING
+						}
+					}
+				}
 			}
 		}
 	}
@@ -826,6 +866,33 @@ narrative_event = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
+			# Also declare war on any faction revolts
+			holder_scope = {
+				any_war = {
+					limit = {
+						defender = { character = PREVPREV }
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = PREVPREVPREV }
+							any_realm_province = {
+								region = world_gaul
+								NOR = { 
+									region = world_gaul_narbonensis_septimania 
+									region = custom_provence
+								}
+							}
+						}
+					}
+					attacker = {
+						reverse_unsafe_war = {
+							target = ROOT
+							casus_belli = tribal_invasion
+							thirdparty_title = PREVPREVPREV
+							tier = KING
+						}
+					}
+				}
+			}
 		}
 		spawn_unit = {
 			province = 82 # Paris
@@ -908,52 +975,50 @@ character_event = {
 	is_triggered_only = yes
 	
 	immediate = {
-		k_visigoths = {
-			holder_scope = {
-				any_province = {
-					limit = { 
+		event_target:toulouse_invasion_target = {
+			any_province = {
+				limit = { 
+					region = world_gaul
+					NOR = { 
+						region = world_gaul_narbonensis_septimania 
+						region = custom_provence
+					}
+				}
+				set_province_flag = vassalize_province
+			}
+			vassalize_all_flagged_provinces_to_ROOT_effect = yes
+			ROOT = {
+				if = {
+					limit = { has_character_flag = conquered_toulouse }
+					clr_character_flag = conquered_toulouse
+					character_event = { id = 314204 } 
+				}
+			}
+			# Hand over tributaries
+			any_independent_ruler = {
+				limit = {
+					is_tributary = { 
+						type = client_state 
+						suzerain = PREV
+					}
+					capital_scope = {
 						region = world_gaul
-						NOR = { 
-							region = world_gaul_narbonensis_septimania 
-							region = custom_provence
-						}
+						NOT = { region = world_gaul_narbonensis_septimania }
 					}
-					set_province_flag = vassalize_province
 				}
-				vassalize_all_flagged_provinces_to_ROOT_effect = yes
+				save_event_target_as = new_tributary
+				any_suzerain = {
+					event_target:new_tributary = {
+						remove_tributary = PREV
+					}
+				}
 				ROOT = {
-					if = {
-						limit = { has_character_flag = conquered_toulouse }
-						clr_character_flag = conquered_toulouse
-						character_event = { id = 314204 } 
+					make_tributary = {
+						who = PREV
+						tributary_type = client_state
 					}
 				}
-				# Hand over tributaries
-				any_independent_ruler = {
-					limit = {
-						is_tributary = { 
-							type = client_state 
-							suzerain = PREV
-						}
-						capital_scope = {
-							region = world_gaul
-							NOT = { region = world_gaul_narbonensis_septimania }
-						}
-					}
-					save_event_target_as = new_tributary
-					any_suzerain = {
-						event_target:new_tributary = {
-							remove_tributary = PREV
-						}
-					}
-					ROOT = {
-						make_tributary = {
-							who = PREV
-							tributary_type = client_state
-						}
-					}
-					clear_event_target = new_tributary		
-				}
+				clear_event_target = new_tributary		
 			}
 		}
 	}
@@ -1057,20 +1122,37 @@ narrative_event = {
 				}
 			}
 			k_burgundy = {
-				show_scope_change = no
 				holder_scope = {
-					show_scope_change = no
 					capital_scope = {
-						show_scope_change = no
 						kingdom = {
-							show_scope_change = no
-							ROOT = {
-								show_scope_change = no
-								unsafe_war = {
-									target = PREVPREVPREV
-									casus_belli = tribal_invasion
-									thirdparty_title = PREV
-								}
+							save_event_target_as = burgundy_capital_kingdom
+						}
+					}
+				}
+			}
+			k_burgundy = {
+				show_scope_change = no
+				reverse_unsafe_war = {
+					target = ROOT
+					casus_belli = tribal_invasion
+					thirdparty_title = event_target:burgundy_capital_kingdom
+				}
+				# Also declare war on any faction revolts
+				holder_scope = {
+					any_war = {
+						limit = {
+							defender = { character = PREVPREV }
+							attacker = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						attacker = {
+							reverse_unsafe_war = {
+								target = ROOT
+								casus_belli = tribal_invasion
+								thirdparty_title = event_target:burgundy_capital_kingdom
+								tier = KING
 							}
 						}
 					}
@@ -1083,6 +1165,26 @@ narrative_event = {
 				reverse_unsafe_war = {
 					target = ROOT
 					casus_belli = tribal_invasion
+				}
+				# Also declare war on any faction revolts
+				holder_scope = {
+					any_war = {
+						limit = {
+							defender = { character = PREVPREV }
+							attacker = {
+								in_revolt = yes
+								liege_before_war = { character = PREVPREVPREV }
+							}
+						}
+						attacker = {
+							reverse_unsafe_war = {
+								target = ROOT
+								casus_belli = tribal_invasion
+								thirdparty_title = PREVPREVPREV
+								tier = KING
+							}
+						}
+					}
 				}
 			}
 		}
@@ -1282,6 +1384,26 @@ narrative_event = {
 				target = ROOT
 				casus_belli = tribal_invasion
 			}
+			# Also declare war on any faction revolts
+			holder_scope = {
+				any_war = {
+					limit = {
+						defender = { character = PREVPREV }
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = PREVPREVPREV }
+						}
+					}
+					attacker = {
+						reverse_unsafe_war = {
+							target = ROOT
+							casus_belli = tribal_invasion
+							thirdparty_title = PREVPREVPREV
+							tier = KING
+						}
+					}
+				}
+			}
 		}
 	}
 	option = {
@@ -1424,6 +1546,26 @@ narrative_event = {
 			reverse_unsafe_war = {
 				target = ROOT
 				casus_belli = tribal_invasion
+			}
+			# Also declare war on any faction revolts
+			holder_scope = {
+				any_war = {
+					limit = {
+						defender = { character = PREVPREV }
+						attacker = {
+							in_revolt = yes
+							liege_before_war = { character = PREVPREVPREV }
+						}
+					}
+					attacker = {
+						reverse_unsafe_war = {
+							target = ROOT
+							casus_belli = tribal_invasion
+							thirdparty_title = PREVPREVPREV
+							tier = KING
+						}
+					}
+				}
 			}
 		}
 		if = {
