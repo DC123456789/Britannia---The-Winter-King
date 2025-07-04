@@ -260,26 +260,8 @@ frankish_invasion_gaul_event_trigger_with_neighbour_condition = {
 
 # Checks if FROM is a client state, foederate, or province of the same suzerain as your top liege
 shares_same_permanent_suzerain_with_from_trigger = {
-	FROM = {
-		OR = {
-			is_tributary = { type = client_state }
-			is_tributary = { type = foederati }
-			is_tributary = { type = roman_province }
-			AND = {
-				in_revolt = yes
-				top_liege = {
-					liege_before_war = {
-						OR = {
-							is_tributary = { type = client_state }
-							is_tributary = { type = foederati }
-							is_tributary = { type = roman_province }
-						}
-					}
-				}
-			}
-		}
-	}
 	top_liege = {
+		is_tributary = yes
 		suzerain = {
 			any_tributary = {
 				OR = {
@@ -290,6 +272,11 @@ shares_same_permanent_suzerain_with_from_trigger = {
 							character = PREVPREV
 						}
 					}
+				}
+				OR = {
+					is_tributary = { type = client_state }
+					is_tributary = { type = foederati }
+					is_tributary = { type = roman_province }
 				}
 			}
 		}

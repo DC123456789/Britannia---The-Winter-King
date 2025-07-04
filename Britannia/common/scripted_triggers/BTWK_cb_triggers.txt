@@ -49,7 +49,6 @@ county_conquest_can_use_gui_trigger = {
 			}
 			has_landed_title = e_gaul
 			has_landed_title = e_roman_britannia
-			has_landed_title = k_gaul
 			trait = skilled_tactician
 			trait = brilliant_strategist
 			AND = {
@@ -68,25 +67,11 @@ county_conquest_can_use_gui_trigger = {
 				}
 			}
 		}
-	}
-	conditional_tooltip = {
-		trigger = {
-			ROOT = { has_character_modifier = friendly_with_romans }
-			FROM = { culture = romanogallic }
-		}
-		NAND = {			# Block Childeric against Soissons
-			ROOT = { has_character_modifier = friendly_with_romans }
-			FROM = { culture = romanogallic }
-		}
-	}
-	conditional_tooltip = {
-		trigger = {
-			ROOT = { culture = romanogallic }
-			FROM = { has_character_modifier = friendly_with_romans }
-		}
-		NAND = {			# Block Soissons against Childeric
-			ROOT = { culture = romanogallic }
-			FROM = { has_character_modifier = friendly_with_romans }
+		conditional_tooltip = {
+			trigger = {
+				shares_same_permanent_suzerain_with_from_trigger = yes
+			}
+			shares_same_permanent_suzerain_with_from_trigger = no
 		}
 	}
 	# Irish realms in Britannia can only use it to grow up to a size of 6 provinces
@@ -202,7 +187,6 @@ county_conquest_can_use_trigger = {
 				}
 			}
 		}
-		shares_same_permanent_suzerain_with_from_trigger = no
 	}
 	
 	# Norse Mutual Protection
@@ -642,22 +626,37 @@ duchy_invasion_can_use_gui_trigger = {
 			}
 		}
 		higher_tier_than = COUNT
-	}
-	conditional_tooltip = {
-		trigger = {
-			ROOT = {
-				has_character_modifier = friendly_with_romans
+		conditional_tooltip = {
+			trigger = {
+				shares_same_permanent_suzerain_with_from_trigger = yes
 			}
-			FROM = {
-				culture = romanogallic 
-			}
+			shares_same_permanent_suzerain_with_from_trigger = no
 		}
-		NAND = {			# Block Childeric against Soissons
-			ROOT = {
-				has_character_modifier = friendly_with_romans
+		# Cannot use on Ostrogothic governor if tributary of Ostrogoths
+		conditional_tooltip = {
+			trigger = {
+				FROM = { suzerain = { has_landed_title = k_ostrogoths } }
+				ROOT = { suzerain = { has_landed_title = k_ostrogoths } }
+				k_ostrogoths = {
+					holder_scope = {
+						OR = {
+							FROM = { is_tributary = { type = governor suzerain = PREV } }
+							ROOT = { is_tributary = { type = governor suzerain = PREV } }
+						}
+					}
+				}
 			}
-			FROM = {
-				culture = romanogallic 
+			NAND = {
+				FROM = { suzerain = { has_landed_title = k_ostrogoths } }
+				ROOT = { suzerain = { has_landed_title = k_ostrogoths } }
+				k_ostrogoths = {
+					holder_scope = {
+						OR = {
+							FROM = { is_tributary = { type = governor suzerain = PREV } }
+							ROOT = { is_tributary = { type = governor suzerain = PREV } }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -708,21 +707,6 @@ duchy_invasion_can_use_trigger = {
 								is_ingvaeonic_culture_trigger = yes
 							}
 							has_global_flag = english_invasion_of_wales 
-						}
-					}
-				}
-				shares_same_permanent_suzerain_with_from_trigger = no
-			}
-			
-			# Cannot use on Ostrogothic governor if tributary of Ostrogoths
-			NAND = {
-				FROM = { suzerain = { has_landed_title = k_ostrogoths } }
-				ROOT = { suzerain = { has_landed_title = k_ostrogoths } }
-				k_ostrogoths = {
-					holder_scope = {
-						OR = {
-							FROM = { is_tributary = { type = governor suzerain = PREV } }
-							ROOT = { is_tributary = { type = governor suzerain = PREV } }
 						}
 					}
 				}

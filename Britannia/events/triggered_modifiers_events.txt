@@ -623,14 +623,17 @@ character_event = {
 				value = 1.25
 			}
 		}
-		# Germanic government reduces realm size penalty
+		# Germanic or Sub-Roman government reduces realm size penalty
 		if = {
 			limit = {
-				government = germanic_government
+				OR = {
+					government = germanic_government
+					government = sub_roman_government
+				}
 			}
 			divide_variable = {
 				which = base_levies_realm_size
-				value = 1.2
+				value = 1.5
 			}
 		}
 		# Imperial government reduces realm size penalty
@@ -641,7 +644,7 @@ character_event = {
 			}
 			divide_variable = {
 				which = base_levies_realm_size
-				value = 2.75
+				value = 2.5
 			}
 		}
 		# Tribal government significantly increases size penalty
@@ -1743,14 +1746,18 @@ character_event = {
 	only_rulers = yes
 	
 	trigger = {
-		NOR = {
-			culture_group = imperiale
-			culture = romanobritish
-			culture = armorican
-			culture = breton
-			is_frankish_culture_trigger = yes
-			culture = visigoth  
-			culture = burgundian 
+		OR = {
+			culture_group = celtic
+			is_ingvaeonic_culture_trigger = yes
+			is_north_germanic_trigger = yes
+			AND = {
+				culture = romanobritish
+				NOR = {
+					government = sub_roman_government
+					government = germanic_government
+					government = imperial_government
+				}
+			}
 		}
 		OR = {
 			AND = {

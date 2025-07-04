@@ -320,54 +320,30 @@ imperial_reclaim = {
 				has_landed_title = e_gaul
 				has_landed_title = e_roman_britannia
 				AND = {
-					age = 20
-					num_of_count_titles_in_realm = 10
-					prestige = 2000
-					OR = {
-						trait = skilled_tactician
-						trait = brilliant_strategist
-						martial = 15
-						AND = {
-							OR = {
-								trait = ambitious
-								trait = inspiring_leader
-							}
-							prestige = 2000
-							diplomacy = 15
-							martial = 12
-						}
-					}
-					independent = yes
+					prestige = 1000
 					prisoner = no
-					NOR = { 
-						trait = content
-						trait = incapable
-						trait = slow
-						trait = imbecile
-						trait = weak
-					}
 				}
 			}
-		}
-		conditional_tooltip = {
-			trigger = {
-				ROOT = { culture = romanogallic }
-				FROM = { has_character_modifier = friendly_with_romans }
-			}
-			NAND = {			# Block Soissons against Childeric
-				ROOT = { culture = romanogallic }
-				FROM = { has_character_modifier = friendly_with_romans }
+			conditional_tooltip = {
+				trigger = {
+					shares_same_permanent_suzerain_with_from_trigger = yes
+				}
+				shares_same_permanent_suzerain_with_from_trigger = no
 			}
 		}
 	}
 	
 	can_use = {
 		ROOT = {
+			higher_tier_than = COUNT
 			OR = {
 				is_roman_emperor_trigger = yes
 				AND = {
-					any_demesne_title = {
-						has_title_flag = roman_province
+					OR = {
+						any_demesne_title = {
+							has_title_flag = roman_province
+						}
+						culture_group = imperiale
 					}
 					NOR = { 
 						is_brythonic_culture_trigger = yes
@@ -378,7 +354,9 @@ imperial_reclaim = {
 			NOT = { same_realm = FROM }
 			title_gender_requirement_trigger = yes
 			independent = yes
-			prisoner = no
+		}
+		FROM = {
+			is_roman_culture_trigger = no
 		}
 	}
 
@@ -386,9 +364,19 @@ imperial_reclaim = {
 		ROOT = {
 			NOT = { same_realm = FROM }
 			OR = {
-				has_landed_title = e_gaul
-				has_landed_title = e_roman_britannia
-				has_landed_title = k_gaul
+				is_roman_emperor_trigger = yes
+				AND = {
+					OR = {
+						any_demesne_title = {
+							has_title_flag = roman_province
+						}
+						culture_group = imperiale
+					}
+					NOR = { 
+						is_brythonic_culture_trigger = yes
+						government = sub_roman_brythonic_government 
+					}
+				}
 			}
 		}
 	}
@@ -428,17 +416,42 @@ imperial_reclaim = {
 					location = { region = world_gaul }
 					ROOT = { 
 						OR = {
-							has_landed_title = e_gaul 
-							has_landed_title = k_gaul 
+							# Holds a title in Gaul that is king or empire or the tier of your primary title
+							any_demesne_title = {
+								capital_scope = { region = world_gaul }
+								OR = {
+									higher_tier_than = DUKE
+									ROOT = { primary_title = { tier = PREVPREV } }
+								}
+							}
+							# Allowed to cross the sea once Britannia has been unified if you are emperor in Britannia
+							AND = {
+								has_global_flag = britannia_reconquered_roman
+								has_landed_title = e_roman_britannia
+							}
 						}
 					}
 				}
 				AND = {
 					location = { region = custom_roman_britannia }
-					ROOT = { has_landed_title = e_roman_britannia }
+					ROOT = { 
+						OR = {
+							# Holds a title in Britannia that is king or empire or the tier of your primary title
+							any_demesne_title = {
+								capital_scope = { is_in_british_isles_trigger = yes }
+								OR = {
+									higher_tier_than = DUKE
+									ROOT = { primary_title = { tier = PREVPREV } }
+								}
+							}
+							# Allowed to cross the sea once Gaul has been unified if you are emperor in Gaul
+							AND = {
+								has_global_flag = gaul_reconquered_roman
+								has_landed_title = e_gaul
+							}
+						}
+					}
 				}
-				has_global_flag = gaul_reconquered_roman
-				has_global_flag = britannia_reconquered_roman
 			}
 			holder_scope = {
 				OR = {
@@ -2186,7 +2199,15 @@ county_conquest_anglosaxon = {		# Cheaper than the county_conquest_anglosaxon_de
 				NOT = { year = 560 }
 			}			
 			year = 560
-		}		
+		}
+		ROOT = {
+			conditional_tooltip = {
+				trigger = {
+					shares_same_permanent_suzerain_with_from_trigger = yes
+				}
+				shares_same_permanent_suzerain_with_from_trigger = no
+			}
+		}
 	}
 
 	can_use = {
@@ -2202,7 +2223,6 @@ county_conquest_anglosaxon = {		# Cheaper than the county_conquest_anglosaxon_de
 					}
 				}
 			}
-			shares_same_permanent_suzerain_with_from_trigger = no
 			is_ingvaeonic_culture_trigger = yes
 		}
 		FROM = {
@@ -2549,7 +2569,15 @@ county_conquest_anglosaxon_dejure = {
 				NOT = { year = 560 }
 			}			
 			year = 560
-		}		
+		}	
+		ROOT = {
+			conditional_tooltip = {
+				trigger = {
+					shares_same_permanent_suzerain_with_from_trigger = yes
+				}
+				shares_same_permanent_suzerain_with_from_trigger = no
+			}
+		}	
 	}
 
 	can_use = {
@@ -2565,7 +2593,6 @@ county_conquest_anglosaxon_dejure = {
 					}
 				}
 			}
-			shares_same_permanent_suzerain_with_from_trigger = no
 			is_ingvaeonic_culture_trigger = yes
 		}
 		FROM = {
@@ -8253,6 +8280,35 @@ vassalize_imperiale = {					# CB for Imperial culture group rulers to subjugate 
 	
 	sort_priority = 1000
 	
+	can_use_gui = {
+		ROOT = { 
+			is_adult = yes
+			is_tributary = no
+			conditional_tooltip = {
+				trigger = { FROM = { tier = COUNT } }
+				prestige = 500
+			}
+			conditional_tooltip = {
+				trigger = { FROM = { tier = DUKE } }
+				prestige = 1000
+			}
+			conditional_tooltip = {
+				trigger = { FROM = { tier = KING } }
+				prestige = 2000
+			}
+			conditional_tooltip = {
+				trigger = { FROM = { tier = EMPEROR } }
+				prestige = 5000
+			}
+			conditional_tooltip = {
+				trigger = {
+					shares_same_permanent_suzerain_with_from_trigger = yes
+				}
+				shares_same_permanent_suzerain_with_from_trigger = no
+			}
+		}
+	}
+	
 	can_use = {
 		ROOT = {
             OR = {
@@ -8265,7 +8321,6 @@ vassalize_imperiale = {					# CB for Imperial culture group rulers to subjugate 
 			is_tribal = no
 			NOT = { government = sub_roman_brythonic_government }
 			independent = yes
-			shares_same_permanent_suzerain_with_from_trigger = no
 		}
 		FROM = {
 			independent = yes
@@ -8273,7 +8328,6 @@ vassalize_imperiale = {					# CB for Imperial culture group rulers to subjugate 
 				AND = {
 					is_roman_culture_trigger = yes
 					NOT = { government = sub_roman_brythonic_government }
-					lower_tier_than = EMPEROR
 				}
 				AND = {
 					# Any local rulers of a Romanized culture
@@ -8299,25 +8353,6 @@ vassalize_imperiale = {					# CB for Imperial culture group rulers to subjugate 
 						}
 					}
 				}
-			}
-		}
-	}
-	
-	can_use_gui = {
-		ROOT = { 
-			is_adult = yes
-			is_tributary = no
-			conditional_tooltip = {
-				trigger = { FROM = { tier = COUNT } }
-				prestige = 500
-			}
-			conditional_tooltip = {
-				trigger = { FROM = { tier = DUKE } }
-				prestige = 1000
-			}
-			conditional_tooltip = {
-				trigger = { FROM = { tier = KING } }
-				prestige = 2000
 			}
 		}
 	}
