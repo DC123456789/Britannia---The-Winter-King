@@ -136,6 +136,7 @@ laws = {
 					has_law = tribal_organization_1
 					has_law = tribal_organization_2
 					has_law = tribal_organization_3
+					has_law = tribal_organization_3a
 					has_law = tribal_organization_4
 					has_law = tribal_organization_5
 					has_law = tribal_organization_6
@@ -213,6 +214,7 @@ laws = {
 				OR = {
 					has_law = tribal_organization_2
 					has_law = tribal_organization_3
+					has_law = tribal_organization_3a
 					has_law = tribal_organization_4
 					has_law = tribal_organization_5
 					has_law = tribal_organization_6
@@ -458,7 +460,7 @@ laws = {
 		group = tribal_organization
 		default = yes
 		
-		unreformed_tribal_opinion = 0
+		tribal_opinion = 0
 		
 		default_selection = {
 			factor = 10
@@ -494,6 +496,7 @@ laws = {
 					NOT = { has_law = tribal_organization_1 }
 					NOT = { has_law = tribal_organization_2 }
 					NOT = { has_law = tribal_organization_3 }
+					NOT = { has_law = tribal_organization_3a }
 					NOT = { has_law = tribal_organization_4 }
 					NOT = { has_law = tribal_organization_5 }
 					NOT = { has_law = tribal_organization_6 }
@@ -515,6 +518,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				NOT = { government = high_tribal_government }
 			}
 		}
 		revoke_allowed = {
@@ -577,6 +581,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 						has_law = tribal_organization_5
 						has_law = tribal_organization_6
@@ -591,6 +596,7 @@ laws = {
 					OR = {
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 						has_law = tribal_organization_5
 						has_law = tribal_organization_6
@@ -704,6 +710,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -722,7 +729,7 @@ laws = {
 	tribal_organization_1 = {
 		group = tribal_organization
 		
-		unreformed_tribal_opinion = -10
+		tribal_opinion = -10
 		
 		default_selection = {
 			factor = 0
@@ -770,6 +777,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				NOT = { government = high_tribal_government }
 			}
 		}
 		revoke_allowed = {
@@ -881,6 +889,7 @@ laws = {
 					OR = {
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 						has_law = tribal_organization_5
 						has_law = tribal_organization_6
@@ -1004,6 +1013,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -1022,7 +1032,7 @@ laws = {
 	tribal_organization_2 = {
 		group = tribal_organization
 		
-		unreformed_tribal_opinion = -20
+		tribal_opinion = -20
 		
 		default_selection = {
 			factor = 0
@@ -1056,6 +1066,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				NOT = { government = high_tribal_government }
 			}
 		}
 		revoke_allowed = {
@@ -1288,6 +1299,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -1306,29 +1318,19 @@ laws = {
 	tribal_organization_3 = {
 		group = tribal_organization
 		
-		unreformed_tribal_opinion = -30
+		tribal_opinion = -30
 		
 		default_selection = {
-			factor = 10
-			modifier = { 
-				factor = 0			
-				holder_scope = { 
-					NOT = { government = high_tribal_government }
-				}
-			}
+			factor = 0
 		}
 		
 		allow = {
-			OR = {
-				AND = {
-					has_law = tribal_organization_2
-					holder_scope = {
-						capital_scope = { TECH_LEGALISM = 1 } 
-						prestige = 750 
-						NOT = { has_character_modifier = raised_tribal_authority_timer }
-					}
-				}
-				has_law = tribal_organization_4
+			holder_scope = { government = tribal_government }
+			has_law = tribal_organization_2
+			holder_scope = {
+				capital_scope = { TECH_LEGALISM = 1 } 
+				prestige = 750 
+				NOT = { has_character_modifier = raised_tribal_authority_timer }
 			}
 			conditional_tooltip = {
 				trigger = {
@@ -1346,6 +1348,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				NOT = { government = high_tribal_government }
 			}
 		}
 		revoke_allowed = {
@@ -1371,24 +1374,6 @@ laws = {
 				NOT = { year = 570 }
 			}
 			modifier = {
-				factor = 0
-				has_law = tribal_organization_4
-				# holder_scope = {
-					# NOT = {
-						# any_vassal = {
-							# is_tribal = yes
-							# dislike_tribal_organization = yes
-							# NOT = {
-								# opinion = {
-									# who = liege
-									# value = 0
-								# }
-							# }
-						# }
-					# }
-				# }
-			}
-			modifier = {
 				factor = 2
 				has_law = tribal_organization_2
 				OR = {
@@ -1396,12 +1381,6 @@ laws = {
 					year = 600
 				}
 			}
-			# modifier = {
-				# factor = 0.5
-				# has_law = tribal_organization_4
-				# holder_scope = { dislike_tribal_organization = no }
-				# NOT = { year = 570 }
-			# }
 		}
 		ai_will_revoke = {
 			factor = 0
@@ -1581,6 +1560,220 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
+				revoke_law = tribal_organization_4
+				revoke_law = tribal_organization_5
+				revoke_law = tribal_organization_6
+				revoke_law = tribal_contract_0
+				revoke_law = tribal_contract_1
+				revoke_law = tribal_contract_2
+				revoke_law = tribal_contract_3
+				revoke_law = tribal_tax_0
+				revoke_law = tribal_tax_1
+				revoke_law = tribal_tax_2
+				revoke_law = tribal_tax_3
+			}
+		}
+	}
+	
+	tribal_organization_3a = {
+		group = tribal_organization
+		
+		tribal_opinion = 0
+		
+		default_selection = {
+			factor = 10
+		}
+		
+		allow = {
+			holder_scope = { government = high_tribal_government }
+			# If you somehow end up without a valid high tribal organization law, you can always enact the lowest one
+			conditional_tooltip = {
+				trigger = {
+					OR = {
+						has_law = tribal_organization_3a
+						has_law = tribal_organization_4
+						has_law = tribal_organization_5
+						has_law = tribal_organization_6
+					}
+				}
+				has_law = tribal_organization_4
+			}
+			conditional_tooltip = {
+				trigger = {
+					holder_scope = {
+						NOT = {
+							higher_tier_than = COUNT
+						}
+					}
+				}
+				holder_scope = {
+					higher_tier_than = COUNT
+				}
+			}
+		}
+		potential = {
+			holder_scope = {
+				is_tribal = yes
+				government = high_tribal_government
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}	
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_law = tribal_organization_4
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		pass_effect = {
+		}
+		effect = {
+			if = {
+				limit = { NOT = { has_dlc = "Zeus" } }
+				set_allow_title_revokation = no
+				set_allow_free_infidel_revokation = no
+			}
+			set_tribal_vassal_levy_control = no
+			set_tribal_vassal_tax_income = no
+			if = {
+				limit = { has_dlc = "Zeus" }
+				hidden_tooltip = {
+					revoke_law = banish_voting_power_0
+					revoke_law = revoke_title_voting_power_0
+					revoke_law = execution_voting_power_0
+					revoke_law = war_voting_power_0
+					revoke_law = law_voting_power_0
+					disable_council_voting_on_issue = enforce_peace
+				}
+			}
+			if = {
+				limit = { 
+					has_law = tribal_organization_0
+				}
+				custom_tooltip = {
+					text = enables_centralization_1
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = tribal_organization_0
+						has_law = tribal_organization_1
+					}
+				}
+				custom_tooltip = {
+					text = enables_centralization_2
+				}
+				if = {
+					limit = { has_dlc = "Conclave" }
+					custom_tooltip = {
+						text = enables_grant_title_voting_power_0
+					}
+					custom_tooltip = {
+						text = enables_succession_voting_power_0
+					}
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_law = tribal_organization_0
+						has_law = tribal_organization_1
+						has_law = tribal_organization_2
+					}
+				}
+				custom_tooltip = {
+					text = allows_change_government_tribal
+				}
+				if = {
+					limit = { has_dlc = "Conclave" }
+					custom_tooltip = {
+						text = enables_imprison_voting_power_0
+					}
+				}
+			}
+			if = {
+				limit = {  
+					OR = {
+						has_law = tribal_organization_4
+						has_law = tribal_organization_5
+						has_law = tribal_organization_6
+					}
+				}
+				custom_tooltip = {
+					text = disables_centralization_3
+				}
+				if = {
+					limit = { has_dlc = "Conclave" }
+					custom_tooltip = {
+						text = disables_banish_voting_power_0
+					}
+					custom_tooltip = {
+						text = disables_revoke_title_law_1
+					}
+				}
+			}
+			if = {
+				limit = {  
+					OR = {
+						has_law = tribal_organization_5
+						has_law = tribal_organization_6
+					}
+				}
+				custom_tooltip = {
+					text = disables_tribal_levy_laws
+				}
+				custom_tooltip = {
+					text = disables_tribal_tax_laws
+				}
+				custom_tooltip = {
+					text = disables_centralization_4
+				}
+				if = {
+					limit = { has_dlc = "Conclave" }
+					custom_tooltip = {
+						text = disables_execution_voting_power_0
+					}
+					custom_tooltip = {
+						text = disables_realm_peace
+					}
+				}
+			}
+			if = {
+				limit = { 
+					has_law = tribal_organization_6
+				}
+				custom_tooltip = {
+					text = disallows_change_government
+				}
+				if = {
+					limit = { has_dlc = "Conclave" }
+					custom_tooltip = {
+						text = disables_revoke_title_voting_power_0
+					}
+				}
+			}
+			hidden_tooltip = {
+				if = {
+					limit = {
+						OR = {
+							has_law = centralization_3
+							has_law = centralization_4
+						}
+					}
+					add_law = centralization_2
+				}
+				revoke_law = tribal_organization_0
+				revoke_law = tribal_organization_1
+				revoke_law = tribal_organization_2
+				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -1637,7 +1830,7 @@ laws = {
 			}
 			OR = {
 				AND = {
-					has_law = tribal_organization_3
+					has_law = tribal_organization_3a
 					holder_scope = { 
 						capital_scope = { TECH_LEGALISM = 1 }
 						prestige = 500
@@ -1662,6 +1855,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				government = high_tribal_government
 			}
 		}
 		revoke_allowed = {
@@ -1671,7 +1865,7 @@ laws = {
 			factor = 1
 			# modifier = {
 				# factor = 0.5
-				# has_law = tribal_organization_3
+				# has_law = tribal_organization_3a
 				# holder_scope = {
 					# any_vassal = {
 						# is_tribal = yes
@@ -1705,7 +1899,7 @@ laws = {
 			}
 			modifier = {
 				factor = 2
-				has_law = tribal_organization_3
+				has_law = tribal_organization_3a
 				# holder_scope = { dislike_tribal_organization = no }
 			}
 			# modifier = {
@@ -1721,7 +1915,7 @@ laws = {
 			hidden_tooltip = {
 				if = { 
 					limit = {
-						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 					}
 					holder_scope = {
 						prestige = -100
@@ -1747,7 +1941,7 @@ laws = {
 		effect = {
 			if = {
 				limit = { 
-					has_law = tribal_organization_3
+					has_law = tribal_organization_3a
 				}
 				tooltip = {
 					holder_scope = { prestige = -100 }
@@ -1795,6 +1989,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 					}
 				}
 				custom_tooltip = {
@@ -1886,6 +2081,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -1947,6 +2143,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				government = high_tribal_government
 			}
 		}
 		revoke_allowed = {
@@ -2111,6 +2308,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 					}
 				}
 				custom_tooltip = {
@@ -2133,6 +2331,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 					}
 				}
@@ -2165,6 +2364,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 					}
 				}
@@ -2201,6 +2401,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
@@ -2250,6 +2451,7 @@ laws = {
 		potential = {
 			holder_scope = {
 				is_tribal = yes
+				government = high_tribal_government
 			}
 		}
 		revoke_allowed = {
@@ -2396,6 +2598,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 					}
 				}
 				custom_tooltip = {
@@ -2418,6 +2621,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 					}
 				}
@@ -2449,6 +2653,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 					}
 				}
@@ -2473,6 +2678,7 @@ laws = {
 						has_law = tribal_organization_1
 						has_law = tribal_organization_2
 						has_law = tribal_organization_3
+						has_law = tribal_organization_3a
 						has_law = tribal_organization_4
 						has_law = tribal_organization_5
 					}
@@ -2492,6 +2698,7 @@ laws = {
 				revoke_law = tribal_organization_1
 				revoke_law = tribal_organization_2
 				revoke_law = tribal_organization_3
+				revoke_law = tribal_organization_3a
 				revoke_law = tribal_organization_4
 				revoke_law = tribal_organization_5
 				revoke_law = tribal_organization_6
