@@ -7726,10 +7726,14 @@ peasant_revolt = {
 
 	on_success_title = {
 		ROOT = { britannia_flag_proper_post_revolt_government_effect = yes }
-		usurp_title_plus_barony_if_unlanded = ROOT
+		usurp_title_plus_barony_if_unlanded = { target = ROOT type = revolt }
 		ROOT = { 
 			set_defacto_liege = ROOT 
 			character_event = { id = 319005 days = 1 }
+			if = {
+				limit = { dynasty = none }
+				dynasty = father_bastard
+			}
 		}
 		FROM = {
 			prestige = -100
@@ -7831,6 +7835,10 @@ heretic_revolt = {
 				same_religion = yes # Only vassalize rulers of my religion
 				is_religious = yes
 				type = holy_war
+			}
+			if = {
+				limit = { dynasty = none }
+				dynasty = father_bastard
 			}
 		}
 		if = {
@@ -7970,6 +7978,10 @@ religious_revolt = {
 				same_religion = yes # Only vassalize rulers of my religion
 				is_religious = yes
 				type = holy_war
+			}
+			if = {
+				limit = { dynasty = none }
+				dynasty = father_bastard
 			}
 		}
 		if = {
@@ -8215,6 +8227,12 @@ liberation_revolt = {
 						}
 					}
 				}
+			}
+		}
+		ROOT = {
+			if = {
+				limit = { dynasty = none }
+				dynasty = father_bastard
 			}
 		}
 	}
