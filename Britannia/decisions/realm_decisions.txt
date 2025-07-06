@@ -2336,6 +2336,130 @@ decisions = {
 			factor = 1
 		}
 	}
+	
+	claim_liege_title_wrong_government = {
+		is_high_prio = yes
+		only_playable = yes
+		ai_check_interval = 3
+		
+		potential = {
+			independent = no
+			OR = {
+				is_feudal = yes
+				is_tribal = yes
+			}
+			liege = {
+				in_revolt = no
+				OR = {
+					is_republic = yes
+					is_theocracy = yes
+				}
+				is_merchant_republic = no
+				higher_tier_than = DUKE
+				independent = yes
+			}
+			NOT = { liege = { primary_title = { ROOT = { has_claim = PREV } } } }
+		}
+		allow = {
+			is_adult = yes
+			title_gender_requirement_trigger = yes
+			prestige = 1200
+			diplomacy = 7
+			martial = 10
+			OR = {
+				prestige = 3000
+				trait = skilled_tactician
+				trait = brilliant_strategist
+				trait = grey_eminence
+				martial = 12
+				diplomacy = 12
+				has_minor_title = title_senator
+			}
+			NOR = {
+				trait = content
+				trait = loyal
+				trait = humble
+				trait = craven
+				trait = imbecile
+				trait = slow
+				trait = weak
+				is_incapable = yes
+				prisoner = yes
+			}
+		}
+		effect = {
+			prestige = -500
+			liege = {
+				primary_title = { add_claim = ROOT }
+				opinion = {
+					modifier = opinion_furious
+					who = ROOT
+					months = 120
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0.2
+			modifier = {
+				factor = 0
+				opinion = { 
+					who = LIEGE
+					value = 60
+				}
+			}
+			modifier = {
+				factor = 0
+				opinion = { 
+					who = LIEGE
+					value = 40
+				}
+				NOR = {
+					trait = ambitious
+					trait = unloyal
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 1.5
+				NOT = { opinion = { who = LIEGE value = 20 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = LIEGE value = 0 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { opinion = { who = LIEGE value = -20 } }
+			}
+			modifier = {
+				factor = 5
+				NOT = { opinion = { who = LIEGE value = -40 } }
+			}
+			modifier = {
+				factor = 7.5
+				NOT = { opinion = { who = LIEGE value = -60 } }
+			}
+			modifier = {
+				factor = 10
+				NOT = { opinion = { who = LIEGE value = -80 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { liege = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { liege = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 0
+				in_faction = faction_claimant	# Not if already supporting another claimant
+			}
+		}
+	}
 }
 
 targetted_decisions = {

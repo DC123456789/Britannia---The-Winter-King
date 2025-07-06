@@ -1115,6 +1115,10 @@ character_event = {
 				FROMFROM = {
 					character = PREV
 					is_alive = yes
+					OR = {
+						is_feudal = yes
+						is_tribal = yes
+					}
 				}
 			}
 			tier = COUNT
@@ -1136,32 +1140,117 @@ character_event = {
 				set_government_type = high_tribal_government
 				#log = "[Root.GetBestName] was granted territory and became High Tribal"
 			}
+			# Feudals are allowed to keep theocracies/republics as vassals
 			if = {
-				limit = { 
-					liege = { 
+				limit = {
+					liege = { is_tribal = no }
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+				}
+				if = {
+					limit = { 
+						liege = { 
+							OR = {
+								government = sub_roman_government 
+								government = imperial_government
+							}
+						} 
+					}
+					set_government_type = sub_roman_government
+					#log = "[Root.GetBestName] was granted territory and became Sub Roman"
+				}
+				if = {
+					limit = { liege = { government = sub_roman_brythonic_government } }
+					set_government_type = sub_roman_brythonic_government
+					#log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
+				}
+				if = {
+					limit = { liege = { government = germanic_government } }
+					set_government_type = germanic_government
+					#log = "[Root.GetBestName] was granted territory and became Germanic"
+				}
+				if = {
+					limit = { liege = { government = feudal_government } }
+					set_government_type = feudal_government
+					#log = "[Root.GetBestName] was granted territory and became Feudal"
+				}
+			}
+			# If you are tribal/feudal and holding a temple or city, try to usurp a castle or tribal holding in your capital county
+			if = {
+				limit = {
+					OR = {
+						is_tribal = yes
+						is_feudal = yes
+					}
+					capital_holding = {
+						NOR = {
+							holding_type = castle
+							holding_type = tribal
+						}
+					}
+					capital_holding = { county = { holder_scope = { character = ROOT } } }
+				}
+				capital_holding = {
+					county = {
+						random_direct_de_jure_vassal_title = {
+							limit = {
+								OR = {
+									holding_type = castle
+									holding_type = tribal
+								}
+								holder_scope = { any_liege = { character = ROOT } }
+							}
+							preferred_limit = {
+								OR = {
+									AND = {
+										holding_type = castle
+										ROOT = { is_feudal = yes }
+									}
+									AND = {
+										holding_type = tribal
+										ROOT = { is_tribal = yes }
+									}
+								}
+							}
+							usurp_title = ROOT
+							make_capital_holding = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = { has_law = succ_open_elective }
+				if = {
+					limit = { 
+						is_tribal = yes
+					}
+					primary_title = {
+						add_law = succ_elective_gavelkind
+						succession = elective_gavelkind
+					}
+				}
+				else_if = {
+					limit = { 
 						OR = {
-							government = sub_roman_government 
+							government = sub_roman_government
+							government = sub_roman_brythonic_government
 							government = imperial_government
 						}
-					} 
+					}
+					primary_title = {
+						add_law = succ_primogeniture
+						succession = primogeniture
+					}
 				}
-				set_government_type = sub_roman_government
-				#log = "[Root.GetBestName] was granted territory and became Sub Roman"
-			}
-			if = {
-				limit = { liege = { government = sub_roman_brythonic_government } }
-				set_government_type = sub_roman_brythonic_government
-				#log = "[Root.GetBestName] was granted territory and became Sub Roman Brythonic"
-			}
-			if = {
-				limit = { liege = { government = germanic_government } }
-				set_government_type = germanic_government
-				#log = "[Root.GetBestName] was granted territory and became Germanic"
-			}
-			if = {
-				limit = { liege = { government = feudal_government } }
-				set_government_type = feudal_government
-				#log = "[Root.GetBestName] was granted territory and became Feudal"
+				else = {
+					primary_title = {
+						add_law = succ_gavelkind
+						succession = gavelkind
+					}
+				}
+				recalc_succession = yes
 			}
 		}
 	}

@@ -6024,6 +6024,15 @@ faction_claimant = {
 				is_feudal = yes 
 				is_tribal = yes
 				is_nomadic = yes
+				# Higher tier republics/theocracies shouldn't be too invulnerable
+				AND = {
+					OR = {
+						is_republic = yes
+						is_theocracy = yes
+					}
+					is_merchant_republic = no
+					higher_tier_than = DUKE
+				}
 			}
 			OR = {
 				primary_title = { is_tribal_type_title = no }
@@ -6089,6 +6098,10 @@ faction_claimant = {
 			is_primary_holder_title = yes
 			higher_tier_than = DUKE
 		}
+		NAND = {
+			controls_religion = yes
+			holder_scope = { is_theocracy = yes }
+		}
 		new_character = {
 			NOT = { has_landed_title = PREV }
 			
@@ -6120,6 +6133,19 @@ faction_claimant = {
 					ROOT = { holder_scope = { is_tribal = yes } }
 					is_tribal = yes
 					prestige = 1000
+				}
+				# Higher tier republics/theocracies shouldn't be too invulnerable
+				AND = {
+					ROOT = {
+						holder_scope = {
+							OR = {
+								is_republic = yes
+								is_theocracy = yes
+							}
+							is_merchant_republic = no
+							higher_tier_than = DUKE
+						}
+					}
 				}
 			}
 			
