@@ -1366,7 +1366,7 @@ character_event = {
 		if = { 
 			limit = {
 				has_character_flag = rowdy_to_imbecile 
-				trait = shrewd
+				trait = bright
 			}
 			set_character_flag = rowdy_shrewd_to_normal
 			break = yes
@@ -1374,7 +1374,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = rowdy_to_imbecile
-				trait = dull
+				trait = dim
 			}
 			set_character_flag = rowdy_dull_to_slow
 			break = yes
@@ -1401,8 +1401,8 @@ character_event = {
 				NOR = {
 					trait = genius
 					trait = quick
-					trait = shrewd
-					trait = dull
+					trait = bright
+					trait = dim
 					trait = slow
 					trait = imbecile
 				}
@@ -1429,7 +1429,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = rowdy_to_strong 
-				trait = feeble
+				trait = soft
 			}
 			set_character_flag = rowdy_feeble_to_normal
 			break = yes
@@ -1440,8 +1440,8 @@ character_event = {
 				NOR = {
 					trait = weak
 					trait = fragile
-					trait = feeble
-					trait = robust
+					trait = soft
+					trait = hardy
 					trait = tough
 					trait = strong
 				}
@@ -1452,7 +1452,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = rowdy_to_strong
-				trait = robust
+				trait = hardy
 			}
 			set_character_flag = rowdy_robust_to_tough
 			break = yes
@@ -1493,26 +1493,26 @@ character_event = {
 			limit = { has_character_flag = rowdy_fragile_to_feeble }
 			remove_trait = fragile
 			remove_trait = rowdy
-			add_trait = feeble
+			add_trait = soft
 			clr_character_flag = rowdy_fragile_to_feeble
 		}
 		if = {
 			limit = { has_character_flag = rowdy_feeble_to_normal }
 			remove_trait = rowdy
-			remove_trait = feeble
+			remove_trait = soft
 			clr_character_flag = rowdy_feeble_to_normal
 		}
 		if = {
 			limit = { has_character_flag = rowdy_normal_to_robust }
 			remove_trait = rowdy
-			add_trait = robust
+			add_trait = hardy
 			clr_character_flag = rowdy_normal_to_robust
 		}
 		if = {
 			limit = { has_character_flag = rowdy_robust_to_tough }
 			remove_trait = rowdy
 			random_list = {
-				67 = { remove_trait = robust add_trait = tough }
+				67 = { remove_trait = hardy add_trait = tough }
 				33 = { change_martial = 2 set_character_flag = rowdy_to_sword }
 			}
 			clr_character_flag = rowdy_robust_to_tough
@@ -1560,26 +1560,26 @@ character_event = {
 			limit = { has_character_flag = rowdy_quick_to_normal }
 			remove_trait = rowdy
 			remove_trait = quick
-			add_trait = shrewd
+			add_trait = bright
 			clr_character_flag = rowdy_quick_to_normal
 		}
 		if = {
 			limit = { has_character_flag = rowdy_shrewd_to_normal }
 			remove_trait = rowdy
-			remove_trait = shrewd
+			remove_trait = bright
 			clr_character_flag = rowdy_shrewd_to_normal
 		}	
 		if = {
 			limit = { has_character_flag = rowdy_normal_to_slow }
 			remove_trait = rowdy
-			add_trait = dull
+			add_trait = dim
 			clr_character_flag = rowdy_normal_to_slow
 		}
 		if = {
 			limit = { has_character_flag = rowdy_dull_to_slow }
 			remove_trait = rowdy
 			random_list = {
-				67 = { remove_trait = dull add_trait = slow }
+				67 = { remove_trait = dim add_trait = slow }
 				33 = { change_stewardship = -2 change_learning = -2 }
 			}
 			clr_character_flag = rowdy_dull_to_slow
@@ -1689,6 +1689,21 @@ character_event = {
 				FROM = {
 					remove_trait = rowdy
 					remove_trait = quick
+					add_trait = bright
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_character_flag = rowdy_to_imbecile
+					trait = bright
+				}
+			}
+			tooltip = {
+				FROM = {
+					remove_trait = rowdy
+					remove_trait = bright
 				}
 			}
 		}
@@ -1774,7 +1789,15 @@ character_event = {
 				has_character_flag = rowdy_to_imbecile
 				trait = quick
 			}
-			set_character_flag = rowdy_quick_to_normal
+			set_character_flag = rowdy_quick_to_shrewd
+			break = yes
+		}
+		if = {
+			limit = {
+				has_character_flag = rowdy_to_imbecile
+				trait = bright
+			}
+			set_character_flag = rowdy_shrewd_to_normal
 			break = yes
 		}
 		if = {
@@ -1852,7 +1875,14 @@ character_event = {
 			limit = { has_character_flag = rowdy_quick_to_normal }
 			remove_trait = rowdy
 			remove_trait = quick
+			add_trait = bright
 			clr_character_flag = rowdy_quick_to_normal
+		}
+		if = {
+			limit = { has_character_flag = rowdy_shrewd_to_normal }
+			remove_trait = rowdy
+			remove_trait = bright
+			clr_character_flag = rowdy_shrewd_to_normal
 		}
 		if = {
 			limit = { has_character_flag = rowdy_normal_to_slow }
@@ -4078,7 +4108,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = curious_to_genius 
-				trait = dull
+				trait = dim
 			}
 			set_character_flag = curious_dull_to_normal
 			break = yes
@@ -4095,7 +4125,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = curious_to_genius 
-				trait = shrewd
+				trait = bright
 			}
 			set_character_flag = curious_shrewd_to_quick
 			break = yes
@@ -4153,26 +4183,26 @@ character_event = {
 			limit = { has_character_flag = curious_slow_to_normal }
 			remove_trait = curious
 			remove_trait = slow
-			add_trait = dull
+			add_trait = dim
 			clr_character_flag = curious_slow_to_normal
 		}
 		if = {
 			limit = { has_character_flag = curious_dull_to_normal }
 			remove_trait = curious
-			remove_trait = dull
+			remove_trait = dim
 			clr_character_flag = curious_dull_to_normal
 		}	
 		if = {
 			limit = { has_character_flag = curious_normal_to_shrewd }
 			remove_trait = curious
-			add_trait = shrewd
+			add_trait = bright
 			clr_character_flag = curious_normal_to_shrewd
 		}
 		if = {
 			limit = { has_character_flag = curious_shrewd_to_quick }
 			remove_trait = curious
 			random_list = {
-				67 = { remove_trait = shrewd add_trait = quick }
+				67 = { remove_trait = bright add_trait = quick }
 				33 = { change_stewardship = 2 change_learning = 2 }
 			}	
 			clr_character_flag = curious_shrewd_to_quick
@@ -4311,7 +4341,7 @@ character_event = {
 			tooltip = {
 				FROM = {
 					remove_trait = curious
-					add_trait = shrewd
+					add_trait = bright
 				}
 			}
 		}
@@ -4427,7 +4457,7 @@ character_event = {
 		if = {
 			limit = { has_character_flag = curious_normal_to_shrewd }
 			remove_trait = curious
-			add_trait = shrewd
+			add_trait = bright
 			clr_character_flag = curious_normal_to_shrewd
 		}
 	}
@@ -4576,7 +4606,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = idolizer_to_weak
-				trait = robust
+				trait = hardy
 			}
 			set_character_flag = idolizer_robust_to_normal
 			break = yes
@@ -4587,8 +4617,8 @@ character_event = {
 				NOR = {
 					trait = strong
 					trait = tough
-					trait = robust
-					trait = feeble
+					trait = hardy
+					trait = soft
 					trait = fragile
 					trait = weak
 				}
@@ -4599,7 +4629,7 @@ character_event = {
 		if = {
 			limit = {
 				has_character_flag = idolizer_to_weak
-				trait = feeble
+				trait = soft
 			}
 			set_character_flag = idolizer_feeble_to_fragile
 			break = yes
@@ -4657,26 +4687,26 @@ character_event = {
 			limit = { has_character_flag = idolizer_tough_to_robust }
 			remove_trait = idolizer
 			remove_trait = tough
-			add_trait = robust
+			add_trait = hardy
 			clr_character_flag = idolizer_tough_to_robust
 		}
 		if = {
 			limit = { has_character_flag = idolizer_robust_to_normal }
 			remove_trait = idolizer
-			remove_trait = robust
+			remove_trait = hardy
 			clr_character_flag = idolizer_robust_to_normal
 		}
 		if = {
 			limit = { has_character_flag = idolizer_normal_to_feeble }
 			remove_trait = idolizer
-			add_trait = feeble
+			add_trait = soft
 			clr_character_flag = idolizer_normal_to_feeble
 		}
 		if = { 
 			limit = { has_character_flag = idolizer_feeble_to_fragile }
 			remove_trait = idolizer
 			random_list = {
-				67 = { remove_trait = feeble add_trait = fragile }
+				67 = { remove_trait = soft add_trait = fragile }
 				33 = { change_martial = -2 }
 			}
 			clr_character_flag = idolizer_feeble_to_fragile
