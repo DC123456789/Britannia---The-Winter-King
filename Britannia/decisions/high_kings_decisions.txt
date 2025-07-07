@@ -366,6 +366,98 @@ decisions = {
 		}
 	}
 	
+	claim_saxon_gaul = {
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 6
+		potential = {
+			is_ruler = yes
+			is_ingvaeonic_culture_trigger = yes
+			any_demesne_title = {
+				OR = {
+					higher_tier_than = DUKE
+					tier = ROOT
+				}
+				OR = {
+					AND = {
+						higher_tier_than = COUNT
+						capital_scope = { region = world_gaul }
+					}
+					AND = {
+						lower_tier_than = DUKE
+						location = { region = world_gaul }
+					}
+				}
+			}
+			NOT = { has_global_flag = saxon_gaul_empire_formed }
+		}
+		allow = {
+			are_dejure_changes_allowed_trigger = yes
+			is_ingvaeonic_culture_trigger = yes
+			tier = KING
+			primary_title = {
+				capital_scope = { region = world_gaul }
+			}
+			is_feudal = yes
+			title_gender_requirement_trigger = yes
+			age = 25
+			prisoner = no
+			independent = yes
+			prestige = 3000
+			OR = {
+				piety = 750
+				has_character_modifier = true_christian_knight
+				AND = {
+					trait = zealous
+					trait = diligent
+					trait = ambitious
+				}
+			}
+			NOT = { trait = incapable }
+			NOT = { trait = imbecile }
+			realm_size = 400
+			e_western_roman_empire = { has_holder = no }
+			# No rival empires!
+			conditional_tooltip = {
+				trigger = {
+					e_franks = { has_holder = yes }
+				}
+				e_franks = { has_holder = no }
+			}
+			conditional_tooltip = {
+				trigger = {
+					e_visigoths = { has_holder = yes }
+				}
+				e_visigoths = { has_holder = no }
+			}
+			conditional_tooltip = {
+				trigger = {
+					e_gaul = { has_holder = yes }
+				}
+				e_gaul = { has_holder = no }
+			}
+		}
+		
+		effect = {
+			primary_title = {
+				show_scope_change = no
+				e_saxon_gaul = { 
+					gain_title = ROOT 
+					hidden_tooltip = {
+						copy_title_laws = PREV
+					}
+				}
+			}
+			hidden_tooltip = {
+				character_event = { id = 314774 }
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
 	HK_claim_britannia = {			# Claim the High Kingdom of Britannia
 		only_independent = yes
 		is_high_prio = yes

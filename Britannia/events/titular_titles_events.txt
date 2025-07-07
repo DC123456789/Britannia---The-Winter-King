@@ -25,10 +25,11 @@
 # 314500 - 314599	Romans (Britannia)
 # 314600 - 314699	Romans (Germania)
 # 314700 - 314749	Visigoths
-# 314750 - 314774	Saxons
+# 314750 - 314769	Saxons
 # 314775 - 314799	Vasconians
 # 314800 - 314824	Danes (Scandinavia)
 # 314825 - 314849	Germania
+# 314850 - 314874	Lombards
 # 315000 - 315099 	AI Creation
 # 318000 - 318099	Franks
 # 318100 - 318199	Romans (Gaul)
@@ -1828,36 +1829,6 @@ character_event = {
 	}
 }
 
-# Creation of the Kingdom of Niwestraland
-narrative_event = {
-	id = 314236
-	title = "EVTNAME314236"
-	desc = "EVTDESC314236"
-	major = yes
-	hide_new = yes
-	
-	picture = "GFX_evt_royal_court"
-	
-	only_playable = yes
-	
-	trigger = {
-		is_alternate_start = no
-		has_landed_title = k_saxon_gaul
-		NOT = { has_global_flag = saxon_gaul_created }
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		set_global_flag = saxon_gaul_created
-	}
-	
-	option = {
-		name = "EVTOPTA314236"
-	}
-}
 # Creation of the Kingdom of East Anglia
 narrative_event = {
 	id = 314237
@@ -15336,6 +15307,9 @@ narrative_event = {
 		set_global_flag = sens_created
 		set_global_flag = auxerre_created
 		set_global_flag = champagne_created
+		
+		k_neustria = { set_title_flag = kingdom_created }
+		k_orleans = { set_title_flag = kingdom_created }
 	}
 	
 	option = {
@@ -15609,6 +15583,8 @@ narrative_event = {
 		set_global_flag = perigord_created
 		set_global_flag = agen_created
 		set_global_flag = toulouse_created
+		
+		k_aquitaine = { set_title_flag = kingdom_created }
 		
 		# Make de jure changes in Novempopulania only if controlled by Germanics 
 		if = {
@@ -16508,47 +16484,18 @@ narrative_event = {
 narrative_event = {
 	id = 318036
 	title = EVTNAME318036
+	desc = EVTDESC318036
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
-	
-	desc = {
-		text = EVTDESC318036
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318036_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_calz
-		OR = {
-			NOT = { has_global_flag = calz_created }
-			AND = {
-				has_global_flag = saxon_calz
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_calz }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = calz_created }
 	}
 	
 	mean_time_to_happen = {
@@ -16561,16 +16508,7 @@ narrative_event = {
 		c_rotomagus = { de_jure_liege = d_calz }
 		c_petromantalum = { de_jure_liege = d_calz }
 		c_uggade = { de_jure_liege = d_calz }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_calz = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_calz
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_calz = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_calz
-		}
+		d_calz = { de_jure_liege = k_neustria }
 		
 		d_veliocassia = { destroy_landed_title = THIS }
 		
@@ -16586,47 +16524,18 @@ narrative_event = {
 narrative_event = {
 	id = 318037
 	title = EVTNAME318037
+	desc = EVTDESC318037
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
-	
-	desc = {
-		text = EVTDESC318037
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318037_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_beauvais
-		OR = {
-			NOT = { has_global_flag = beauvais_created }
-			AND = {
-				has_global_flag = saxon_beauvais
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_beauvais }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = beauvais_created }
 	}
 	
 	mean_time_to_happen = {
@@ -16636,16 +16545,7 @@ narrative_event = {
 	immediate = {
 		c_caesaromagus = { de_jure_liege = d_beauvais }
 		c_meruacum = { de_jure_liege = d_beauvais }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_beauvais = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_beauvais
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_beauvais = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_beauvais
-		}
+		d_beauvais = { de_jure_liege = k_neustria }
 		
 		d_bellovacia = { destroy_landed_title = THIS }
 		
@@ -16938,6 +16838,7 @@ narrative_event = {
 narrative_event = {
 	id = 318058
 	title = EVTNAME318058
+	desc = EVTDESC318058
 	major = yes
 	hide_new = yes
 	
@@ -16945,40 +16846,10 @@ narrative_event = {
 	
 	only_playable = yes
 	
-	desc = {
-		text = EVTDESC318058
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318058_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
-	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_lisieux
-		OR = {
-			NOT = { has_global_flag = lisieux_created }
-			AND = {
-				has_global_flag = saxon_lisieux
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_lisieux }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = lisieux_created }
 	}
 	
 	mean_time_to_happen = {
@@ -16988,16 +16859,7 @@ narrative_event = {
 	immediate = {
 		c_noviomagus = { de_jure_liege = d_lisieux }
 		c_breviodurum = { de_jure_liege = d_lisieux }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_lisieux = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_lisieux
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_lisieux = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_lisieux
-		}
+		d_lisieux = { de_jure_liege = k_neustria }
 		
 		set_global_flag = lisieux_created
 	}
@@ -17011,6 +16873,7 @@ narrative_event = {
 narrative_event = {
 	id = 318059
 	title = EVTNAME318059
+	desc = EVTDESC318059
 	major = yes
 	hide_new = yes
 	
@@ -17018,40 +16881,10 @@ narrative_event = {
 	
 	only_playable = yes
 	
-	desc = {
-		text = EVTDESC318059
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318059_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
-	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_evreux
-		OR = {
-			NOT = { has_global_flag = evreux_created }
-			AND = {
-				has_global_flag = saxon_evreux
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_evreux }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = evreux_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17061,16 +16894,7 @@ narrative_event = {
 	immediate = {
 		c_aulercia = { de_jure_liege = d_evreux }
 		c_condate = { de_jure_liege = d_evreux }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_evreux = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_evreux
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_evreux = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_evreux
-		}
+		d_evreux = { de_jure_liege = k_neustria }
 		
 		set_global_flag = evreux_created
 	}
@@ -17084,47 +16908,18 @@ narrative_event = {
 narrative_event = {
 	id = 318060
 	title = EVTNAME318060
+	desc = EVTDESC318060
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_hills_woodland"
-	
-	desc = {
-		text = EVTDESC318060
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318060_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_hiemois
-		OR = {
-			NOT = { has_global_flag = hiemois_created }
-			AND = {
-				has_global_flag = saxon_hiemois
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_hiemois }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = hiemois_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17134,16 +16929,7 @@ narrative_event = {
 	immediate = {
 		c_esuvia = { de_jure_liege = d_hiemois }
 		c_mediolanum = { de_jure_liege = d_hiemois }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_hiemois = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_hiemois
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_hiemois = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_hiemois
-		}
+		d_hiemois = { de_jure_liege = k_neustria }
 		
 		set_global_flag = hiemois_created
 	}
@@ -17157,47 +16943,18 @@ narrative_event = {
 narrative_event = {
 	id = 318061
 	title = EVTNAME318061
+	desc = EVTDESC318061
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
-	
-	desc = {
-		text = EVTDESC318061
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318061_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_bayeux
-		OR = {
-			NOT = { has_global_flag = bayeux_created }
-			AND = {
-				has_global_flag = saxon_bayeux
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_bayeux }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = bayeux_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17208,16 +16965,7 @@ narrative_event = {
 		c_augustodurum = { de_jure_liege = d_bayeux }
 		c_hiemois = { de_jure_liege = d_bayeux }
 		c_taurinus = { de_jure_liege = d_bayeux }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_bayeux = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_bayeux
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_bayeux = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_bayeux
-		}
+		d_bayeux = { de_jure_liege = k_neustria }
 
 		d_baiocassia = { destroy_landed_title = THIS }
 		
@@ -17233,47 +16981,18 @@ narrative_event = {
 narrative_event = {
 	id = 318062
 	title = EVTNAME318062
+	desc = EVTDESC318062
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_forest_light"
-	
-	desc = {
-		text = EVTDESC318062
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318062_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_normanz
-		OR = {
-			NOT = { has_global_flag = normanz_created }
-			AND = {
-				has_global_flag = saxon_cotentin
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_cotentin }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = normanz_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17287,16 +17006,7 @@ narrative_event = {
 		c_constantia = { de_jure_liege = d_normanz }
 		c_crociatonum = { de_jure_liege = d_normanz }
 		c_alauna = { de_jure_liege = d_normanz }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_normanz = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_cotentin
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_normanz = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_cotentin
-		}
+		d_normanz = { de_jure_liege = k_neustria }
 
 		d_normannia = { destroy_landed_title = THIS }
 		d_trebes = { destroy_landed_title = THIS }
@@ -17320,47 +17030,18 @@ narrative_event = {
 narrative_event = {
 	id = 318063
 	title = EVTNAME318063
+	desc = EVTDESC318063
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_fields_landscape"
-	
-	desc = {
-		text = EVTDESC318063
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318063_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_rennes
-		OR = {
-			NOT = { has_global_flag = rennes_created }
-			AND = {
-				has_global_flag = saxon_rennes
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_rennes }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = rennes_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17372,20 +17053,8 @@ narrative_event = {
 		c_sipia = { de_jure_liege = d_rennes }
 		c_vendilis = { de_jure_liege = d_rennes }
 		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_rennes = { de_jure_liege = k_neustria }
-			}
-			clr_global_flag = saxon_rennes
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_rennes = { de_jure_liege = k_saxon_gaul }
-			}
-			set_global_flag = saxon_rennes
+			limit = { NOT = { has_global_flag = breton_march_created } }
+			d_rennes = { de_jure_liege = k_neustria }
 		}
 
 		d_redonia = { destroy_landed_title = THIS }
@@ -17643,47 +17312,18 @@ narrative_event = {
 narrative_event = {
 	id = 318070
 	title = EVTNAME318070
+	desc = EVTDESC318070
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
-	
-	desc = {
-		text = EVTDESC318070
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318070_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_blois
-		OR = {
-			NOT = { has_global_flag = blois_created }
-			AND = {
-				has_global_flag = saxon_blois
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_blois }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = blois_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17696,16 +17336,7 @@ narrative_event = {
 		c_salioclita = { de_jure_liege = d_blois }
 		c_blesum = { de_jure_liege = d_blois }
 		c_dunense = { de_jure_liege = d_blois }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_blois = { de_jure_liege = k_orleans }
-			clr_global_flag = saxon_blois
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_blois = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_blois
-		}
+		d_blois = { de_jure_liege = k_orleans }
 		
 		d_carnutia = { destroy_landed_title = THIS }
 		
@@ -17721,47 +17352,18 @@ narrative_event = {
 narrative_event = {
 	id = 318071
 	title = EVTNAME318071
+	desc = EVTDESC318071
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_fields_landscape"
-	
-	desc = {
-		text = EVTDESC318071
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318071_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_anjou
-		OR = {
-			NOT = { has_global_flag = anjou_created }
-			AND = {
-				has_global_flag = saxon_anjou
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_anjou }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = anjou_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17776,16 +17378,7 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = etre_daou_vor_created } }
 			c_combaristum = { de_jure_liege = d_anjou }
 		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_anjou = { de_jure_liege = k_orleans }
-			clr_global_flag = saxon_anjou
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_anjou = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_anjou
-		}
+		d_anjou = { de_jure_liege = k_orleans }
 		
 		d_andecavia = { destroy_landed_title = THIS }
 		
@@ -17801,47 +17394,18 @@ narrative_event = {
 narrative_event = {
 	id = 318072
 	title = EVTNAME318072
+	desc = EVTDESC318072
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_castle_river"
-	
-	desc = {
-		text = EVTDESC318072
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318072_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_nantes
-		OR = {
-			NOT = { has_global_flag = nantes_created }
-			AND = {
-				has_global_flag = saxon_nantes
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_nantes }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = nantes_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17853,20 +17417,8 @@ narrative_event = {
 		c_nantes = { de_jure_liege = d_nantes }
 		c_mee = { de_jure_liege = d_nantes }
 		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_nantes = { de_jure_liege = k_orleans }
-			}
-			clr_global_flag = saxon_nantes
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_nantes = { de_jure_liege = k_saxon_gaul }
-			}
-			set_global_flag = saxon_nantes
+			limit = { NOT = { has_global_flag = breton_march_created } }
+			d_nantes = { de_jure_liege = k_orleans }
 		}
 		
 		d_namnetia = { destroy_landed_title = THIS }
@@ -17883,6 +17435,7 @@ narrative_event = {
 narrative_event = {
 	id = 318073
 	title = EVTNAME318073
+	desc = EVTDESC318073
 	major = yes
 	hide_new = yes
 	
@@ -17907,23 +17460,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_maine
-		OR = {
-			NOT = { has_global_flag = maine_created }
-			AND = {
-				has_global_flag = saxon_maine
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_maine }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = maine_created }
 	}
 	
 	mean_time_to_happen = {
@@ -17939,16 +17476,7 @@ narrative_event = {
 			limit = { NOT = { has_global_flag = etre_daou_vor_created } }
 			c_meduana = { de_jure_liege = d_maine }
 		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_maine = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_maine
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_maine = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_maine
-		}
+		d_maine = { de_jure_liege = k_neustria }
 		
 		d_cenomannia = { destroy_landed_title = THIS }
 		
@@ -17964,47 +17492,18 @@ narrative_event = {
 narrative_event = {
 	id = 318074
 	title = EVTNAME318074
+	desc = EVTDESC318074
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_rivers_landscape"
-	
-	desc = {
-		text = EVTDESC318074
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318074_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_tours
-		OR = {
-			NOT = { has_global_flag = tours_created }
-			AND = {
-				has_global_flag = saxon_tours
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_tours }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = tours_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18015,16 +17514,7 @@ narrative_event = {
 		c_tours = { de_jure_liege = d_tours }
 		c_loches = { de_jure_liege = d_tours }
 		c_caino = { de_jure_liege = d_tours }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_tours = { de_jure_liege = k_orleans }
-			clr_global_flag = saxon_tours
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_tours = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_tours
-		}
+		d_tours = { de_jure_liege = k_orleans }
 		
 		d_turonia = { destroy_landed_title = THIS }
 		
@@ -18132,23 +17622,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_bretagne
-		OR = {
-			NOT = { has_global_flag = bretagne_created }
-			AND = {
-				has_global_flag = saxon_bretagne
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no 
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_bretagne }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = bretagne_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18162,20 +17636,8 @@ narrative_event = {
 		c_belz = { de_jure_liege = d_bretagne }
 		c_pourlet = { de_jure_liege = d_bretagne }
 		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_bretagne = { de_jure_liege = k_neustria }
-			}
-			clr_global_flag = saxon_bretagne
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_bretagne = { de_jure_liege = k_saxon_gaul }
-			}
-			set_global_flag = saxon_bretagne
+			limit = { NOT = { has_global_flag = breton_march_created } }
+			d_bretagne = { de_jure_liege = k_neustria }
 		}
 		
 		d_broerec = { destroy_landed_title = d_broerec }
@@ -18203,23 +17665,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_penthievre
-		OR = {
-			NOT = { has_global_flag = penthievre_created }
-			AND = {
-				has_global_flag = saxon_penthievre
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no 
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_penthievre }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = penthievre_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18236,20 +17682,8 @@ narrative_event = {
 		c_poutrocoet = { de_jure_liege = d_penthievre }
 		c_dol = { de_jure_liege = d_penthievre }
 		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_penthievre = { de_jure_liege = k_neustria }
-			}
-			clr_global_flag = saxon_penthievre
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_penthievre = { de_jure_liege = k_saxon_gaul }
-			}
-			set_global_flag = saxon_penthievre
+			limit = { NOT = { has_global_flag = breton_march_created } }
+			d_penthievre = { de_jure_liege = k_neustria }
 		}
 		
 		d_domnonea = { destroy_landed_title = d_domnonea }
@@ -18277,23 +17711,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_cornouaille
-		OR = {
-			NOT = { has_global_flag = cornouaille_created }
-			AND = {
-				has_global_flag = saxon_cornouaille
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no 
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_cornouaille }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = cornouaille_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18308,20 +17726,8 @@ narrative_event = {
 		c_cap_sizun = { de_jure_liege = d_cornouaille }
 		c_artus = { de_jure_liege = d_cornouaille }
 		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_cornouaille = { de_jure_liege = k_neustria }
-			}
-			clr_global_flag = saxon_cornouaille
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			if = {
-				limit = { NOT = { has_global_flag = breton_march_created } }
-				d_cornouaille = { de_jure_liege = k_saxon_gaul }
-			}
-			set_global_flag = saxon_cornouaille
+			limit = { NOT = { has_global_flag = breton_march_created } }
+			d_cornouaille = { de_jure_liege = k_neustria }
 		}
 		
 		d_finis_terrae = { destroy_landed_title = d_finis_terrae }
@@ -18339,47 +17745,18 @@ narrative_event = {
 narrative_event = {
 	id = 314220
 	title = EVTNAME314220
+	desc = EVTDESC314220
 	major = yes
 	hide_new = yes
 	
 	picture = "GFX_evt_valley_autumn"
-	
-	desc = {
-		text = EVTDESC314220
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC314220_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
 	
 	only_playable = yes
 	
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_poitou
-		OR = {
-			NOT = { has_global_flag = poitou_created }
-			AND = {
-				has_global_flag = saxon_poitou
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_poitou }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = poitou_created }
 	}
 	
 	mean_time_to_happen = {
@@ -18400,16 +17777,7 @@ narrative_event = {
 			c_ratiatum = { de_jure_liege = d_poitou }
 			c_vetraria = { de_jure_liege = d_poitou }
 		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_poitou = { de_jure_liege = k_orleans }
-			clr_global_flag = saxon_poitou
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_poitou = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_poitou
-		}
+		d_poitou = { de_jure_liege = k_orleans }
 		
 		d_aquitania = { destroy_landed_title = THIS }
 		
@@ -19207,6 +18575,15 @@ narrative_event = {
 		d_cisjurane = { de_jure_liege = k_burgundy }
 		
 		d_sapaudia = { destroy_landed_title = THIS }
+		
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_burgundy = { de_jure_liege = e_franks }
+		}
+		k_burgundy = { 
+			set_name = "Burgundy" 
+			adjective = "Burgundian" 
+		}
 		
 		set_global_flag = lyon_created
 	}
@@ -20287,23 +19664,7 @@ narrative_event = {
 	trigger = {
 		is_alternate_start = no
 		has_landed_title = d_picard
-		OR = {
-			NOT = { has_global_flag = picard_created }
-			AND = {
-				has_global_flag = saxon_picard
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = no
-					in_revolt = no
-				}
-			}
-			AND = {
-				NOT = { has_global_flag = saxon_picard }
-				top_liege = { 
-					is_ingvaeonic_culture_trigger = yes
-					in_revolt = no
-				}
-			}
-		}
+		NOT = { has_global_flag = picard_created }
 	}
 	
 	mean_time_to_happen = {
@@ -20315,16 +19676,7 @@ narrative_event = {
 		c_litomagus = { de_jure_liege = d_picard }
 		c_pontes_ambianorum = { de_jure_liege = d_picard }
 		c_leuconaus = { de_jure_liege = d_picard }
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-			d_picard = { de_jure_liege = k_neustria }
-			clr_global_flag = saxon_picard
-		}
-		if = {
-			limit = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-			d_picard = { de_jure_liege = k_saxon_gaul }
-			set_global_flag = saxon_picard
-		}
+		d_picard = { de_jure_liege = k_neustria }
 		
 		d_ambiania = { 
 			destroy_landed_title = THIS			
@@ -22090,14 +21442,924 @@ narrative_event = {	# Conquest of Hamaland and Salland
 	}
 }
 
+# Creation of new Germanic Kingdom in Gaul (mostly intended for Saxons)
+narrative_event = {
+	id = 314760
+	title = "EVTNAME314760"
+	desc = {
+		text = EVTDESC314760_k_franks
+		trigger = {
+			event_target:new_kingdom = { title = k_franks }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_neustria
+		trigger = {
+			event_target:new_kingdom = { title = k_neustria }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_orleans
+		trigger = {
+			event_target:new_kingdom = { title = k_orleans }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_ripuarian_franks
+		trigger = {
+			event_target:new_kingdom = { title = k_ripuarian_franks }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_aquitaine
+		trigger = {
+			event_target:new_kingdom = { title = k_aquitaine }
+		}
+	}
+	
+	picture = {
+		picture = GFX_evt_fields_landscape
+		trigger = {
+			event_target:new_kingdom = { title = k_franks }
+		}
+	}
+	picture = {
+		picture = GFX_evt_valley_autumn
+		trigger = {
+			event_target:new_kingdom = { title = k_neustria }
+		}
+	}
+	picture = {
+		picture = GFX_evt_lake_landscape
+		trigger = {
+			event_target:new_kingdom = { title = k_orleans }
+		}
+	}
+	picture = {
+		picture = GFX_evt_castrum_bridge_roman
+		trigger = {
+			event_target:new_kingdom = { title = k_ripuarian_franks }
+		}
+	}
+	picture = {
+		picture = GFX_evt_valley_autumn
+		trigger = {
+			event_target:new_kingdom = { title = k_aquitaine }
+		}
+	}
+	
+	only_playable = yes
+	
+	trigger = {
+		is_alternate_start = no
+		any_demesne_title = {
+			OR = {
+				title = k_franks
+				title = k_neustria
+				title = k_orleans
+				title = k_ripuarian_franks
+				title = k_aquitaine
+			}
+			NOT = { has_title_flag = kingdom_created }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		random_demesne_title = {
+			limit = {
+				OR = {
+					title = k_franks
+					title = k_neustria
+					title = k_orleans
+					title = k_ripuarian_franks
+					title = k_aquitaine
+				}
+				NOT = { has_title_flag = kingdom_created }
+			}
+			save_event_target_as = new_kingdom
+		}
+		
+		event_target:new_kingdom = { set_title_flag = kingdom_created }
+		if = {
+			limit = {
+				top_liege = { is_ingvaeonic_culture_trigger = yes }
+			}
+			event_target:new_kingdom = { 
+				if = {
+					limit = { has_global_flag = western_roman_empire_fallen }
+					de_jure_liege = e_saxon_gaul
+				}
+				if = {
+					limit = { title = k_franks }
+					set_preferred_capital = 177	# Tournai
+					set_name = "" 
+					adjective = ""
+				}
+				if = {
+					limit = { title = k_neustria }
+					set_preferred_capital = 80 # Augustodurum
+				}
+				if = {
+					limit = { title = k_orleans }
+					set_preferred_capital = 207	# Andecavis
+				}
+			}
+		}
+		else = {
+			event_target:new_kingdom = { 
+				if = {
+					limit = { 
+						has_global_flag = western_roman_empire_fallen
+						NOT = { has_global_flag = franks_defeated }
+					}
+					de_jure_liege = e_franks
+				}
+				if = {
+					limit = { 
+						title = k_franks
+						has_global_flag = soissons_created
+					}
+					set_preferred_capital = 185	# Soissons	
+					set_name = "Soissons" 
+					adjective = "Soissons"
+				}
+				if = {
+					limit = { title = k_neustria }
+					set_preferred_capital = 82 # Lutetia
+				}
+				if = {
+					limit = { title = k_orleans }
+					set_preferred_capital = 196 # Aurelianum/Orleans
+				}
+			}
+		}
+		
+		# Can't make this event major because it uses event targets
+		any_playable_ruler = {
+			limit = {
+				ai = no
+				NOT = { character = ROOT }
+			}
+			character_event = { id = 314761 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Player notification event
+narrative_event = {
+	id = 314761
+	title = "EVTNAME314760"
+	desc = {
+		text = EVTDESC314760_k_franks
+		trigger = {
+			event_target:new_kingdom = { title = k_franks }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_neustria
+		trigger = {
+			event_target:new_kingdom = { title = k_neustria }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_orleans
+		trigger = {
+			event_target:new_kingdom = { title = k_orleans }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_ripuarian_franks
+		trigger = {
+			event_target:new_kingdom = { title = k_ripuarian_franks }
+		}
+	}
+	desc = {
+		text = EVTDESC314760_k_aquitaine
+		trigger = {
+			event_target:new_kingdom = { title = k_aquitaine }
+		}
+	}
+	
+	picture = {
+		picture = GFX_evt_fields_landscape
+		trigger = {
+			event_target:new_kingdom = { title = k_franks }
+		}
+	}
+	picture = {
+		picture = GFX_evt_valley_autumn
+		trigger = {
+			event_target:new_kingdom = { title = k_neustria }
+		}
+	}
+	picture = {
+		picture = GFX_evt_lake_landscape
+		trigger = {
+			event_target:new_kingdom = { title = k_orleans }
+		}
+	}
+	picture = {
+		picture = GFX_evt_castrum_bridge_roman
+		trigger = {
+			event_target:new_kingdom = { title = k_ripuarian_franks }
+		}
+	}
+	picture = {
+		picture = GFX_evt_valley_autumn
+		trigger = {
+			event_target:new_kingdom = { title = k_aquitaine }
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+
+# Conquest of Salians/Soissons/Fleamas
+narrative_event = {
+	id = 314762
+	title = "EVTNAME314762"
+	desc = EVTDESC314762
+	picture = GFX_evt_fields_landscape
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_franks
+		k_franks = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_title_flag = kingdom_created
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_franks = { 
+				de_jure_liege = e_franks 
+				if = {
+					limit = { has_global_flag = soissons_created }
+					set_preferred_capital = 185	# Soissons
+					set_name = "Soissons" 
+					adjective = "Soissons"
+				}
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_franks = { 
+				de_jure_liege = e_saxon_gaul 
+				set_preferred_capital = 177	# Tournai
+				set_name = "" 
+				adjective = ""
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Neustria
+narrative_event = {
+	id = 314763
+	title = "EVTNAME314763"
+	desc = EVTDESC314763
+	picture = GFX_evt_valley_autumn
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_neustria
+		k_neustria = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_title_flag = kingdom_created
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_neustria = { 
+				de_jure_liege = e_franks 
+				set_preferred_capital = 82 # Lutetia
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_neustria = { 
+				de_jure_liege = e_saxon_gaul 
+				set_preferred_capital = 80 # Augustodurum
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Orleans/Ligeras
+narrative_event = {
+	id = 314764
+	title = "EVTNAME314764"
+	desc = EVTDESC314764
+	picture = GFX_evt_lake_landscape
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_orleans
+		k_orleans = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_title_flag = kingdom_created
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_orleans = { 
+				de_jure_liege = e_franks 
+				set_preferred_capital = 196 # Aurelianum/Orleans
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_orleans = { 
+				de_jure_liege = e_saxon_gaul 
+				set_preferred_capital = 207	# Andecavis
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Ripuarian Franks/Austrasia
+narrative_event = {
+	id = 314765
+	title = "EVTNAME314765"
+	desc = EVTDESC314765
+	picture = GFX_evt_castrum_bridge_roman
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_ripuarian_franks
+		k_ripuarian_franks = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_title_flag = kingdom_created
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_ripuarian_franks = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_ripuarian_franks = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Aquitaine
+narrative_event = {
+	id = 314766
+	title = "EVTNAME314766"
+	desc = EVTDESC314766
+	picture = GFX_evt_valley_autumn
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_aquitaine
+		k_aquitaine = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_title_flag = kingdom_created
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_aquitaine = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_aquitaine = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Vasconia
+narrative_event = {
+	id = 314767
+	title = "EVTNAME314767"
+	desc = EVTDESC314767
+	picture = GFX_evt_rivers_landscape
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_vasconia
+		k_vasconia = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			NOT = { has_global_flag = romanized_germanic_vasconia }
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_vasconia = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_vasconia = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Breton March
+narrative_event = {
+	id = 314768
+	title = "EVTNAME314768"
+	desc = EVTDESC314768
+	picture = GFX_evt_castle_gate
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_breton_march
+		k_breton_march = { 
+			num_title_realm_provs = { who = ROOT value = 8 } 
+			NOT = { has_global_flag = romanized_germanic_breton_march }
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_breton_march = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_breton_march = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Burgundy
+narrative_event = {
+	id = 314769
+	title = "EVTNAME314769"
+	desc = EVTDESC314769
+	picture = GFX_evt_lord_overlooking_bridge
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_burgundy
+		k_burgundy = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			has_global_flag = burgundy_subjugated
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_burgundy = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_burgundy = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# Conquest of Provence
+narrative_event = {
+	id = 314770
+	title = "EVTNAME314770"
+	desc = EVTDESC314770
+	picture = GFX_evt_coastal_town
+	
+	major = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		OR = {
+			has_landed_title = e_franks
+			has_landed_title = e_saxon_gaul
+		}
+		completely_controls = k_provence
+		k_provence = { 
+			num_title_realm_provs = { who = ROOT value = 10 } 
+			empire = {
+				NOT = { ROOT = { has_landed_title = PREV } }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_landed_title = e_franks }
+			k_provence = { 
+				de_jure_liege = e_franks 
+			}
+		}
+		else_if = {
+			limit = { has_landed_title = e_saxon_gaul }
+			k_provence = { 
+				de_jure_liege = e_saxon_gaul
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314760"
+	}
+}
+
+# TODO Allow Conquest events of kingdoms in Germania to fire for e_saxon_gaul as well?
+# TODO Special content/localisation if e_saxon_gaul reconquers their "homeland"
+
+narrative_event = {	# Saxon ruler in Gaul claims the Empire
+	id = 314774
+	title = "EVTNAME314774"
+	desc = EVTDESC314774
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_royal_court"
+	
+	trigger = {
+		has_landed_title = e_saxon_gaul
+		NOT = { has_global_flag = saxon_gaul_empire_formed }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_global_flag = saxon_gaul_empire_formed
+		
+		# Check de jure structure for marches
+		any_tributary = {
+			limit = { is_tributary = { type = march } }
+			if = {
+				limit = {
+					has_landed_title = k_breton_march
+					k_breton_march = { has_title_flag = is_march }
+				}
+				k_breton_march = { de_jure_liege = e_saxon_gaul }
+			}
+			if = {
+				limit = {
+					has_landed_title = k_vasconia
+					k_vasconia = { has_title_flag = is_march }
+				}
+				k_vasconia = { de_jure_liege = e_saxon_gaul }
+			}
+		}
+		
+		any_title = {
+			limit = {
+				OR = {
+					title = k_franks
+					title = k_neustria
+					title = k_orleans
+					title = k_ripuarian_franks
+					title = k_aquitaine
+					title = k_provence
+					AND = {
+						title = k_burgundy
+						has_global_flag = burgundy_subjugated
+					}
+				}
+				OR = {
+					AND = {
+						has_holder = yes
+						holder_scope = { character = ROOT }
+					}
+					AND = {
+						ROOT = { completely_controls = PREV }
+						num_title_realm_provs = { who = PREV value = 10 }
+					}
+				}
+			}
+			de_jure_liege = e_saxon_gaul
+			if = {
+				limit = { title = k_franks }
+				set_preferred_capital = 177	# Tournai
+			}
+			if = {
+				limit = { title = k_neustria }
+				set_preferred_capital = 80 # Augustodurum
+			}
+			if = {
+				limit = { title = k_orleans }
+				set_preferred_capital = 207	# Andecavis
+			}
+			set_title_flag = under_e_saxon_gaul
+		}
+		
+		if = {
+			limit = {
+				capital_scope = {
+					kingdom = {
+						de_jure_liege = e_saxon_gaul
+					}
+				}
+			}
+			capital_scope = { kingdom = { e_saxon_gaul = { set_preferred_capital = PREV } } }
+		}
+		
+		# Rename title according to culture
+		if = {
+			limit = {
+				OR = {
+					culture = oldsaxon
+					culture = saxon
+				}
+			}
+			e_saxon_gaul = {
+				set_name = "Seaxnarice"
+				adjective = "Saxon"
+				set_title_flag = empire_claimed_saxons
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					culture = angle
+					culture = anglosaxon
+				}
+			}
+			e_saxon_gaul = {
+				set_name = "Englarice"
+				adjective = "Angle"
+				set_title_flag = empire_claimed_angles
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					culture = jute
+				}
+			}
+			e_saxon_gaul = {
+				set_name = "Eotarice"
+				adjective = "Jutish"
+				set_title_flag = empire_claimed_jutes
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					culture = oldfrisian
+					culture = frisian
+				}
+			}
+			e_saxon_gaul = {
+				set_name = "Frisenarike"
+				adjective = "Frisian"
+				set_title_flag = empire_claimed_frisians
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314774"
+		trigger = {
+			character = ROOT
+		}	
+		prestige = 500
+	}
+	option = {
+		name = "EVTOPTB314774"
+		trigger = {
+			top_liege = {
+				character = ROOT
+			}
+			NOT = { character = ROOT }
+			NOT = { culture_group = imperiale }
+		}	
+	}
+	option = {
+		name = "EVTOPTC314774"
+		trigger = {
+			culture_group = imperiale
+		}	
+	}
+	option = {
+		name = "EVTOPTD314774"
+		trigger = {
+			NOR = {
+				culture_group = imperiale
+				top_liege = {
+					character = ROOT
+				}
+			}
+		}	
+	}
+}
+
 ### END SAXONS ###
 
 ### LOMBARDS ###
 
 narrative_event = {	# Kingdom of Lombards
-	id = 314760
-	title = "EVTNAME314760"
-	desc = EVTDESC314760
+	id = 314850
+	title = "EVTNAME314850"
+	desc = EVTDESC314850
 	major = yes
 	hide_new = yes
 	hide_from = yes
@@ -22133,7 +22395,7 @@ narrative_event = {	# Kingdom of Lombards
 	}
 	
 	option = {
-		name = "EVTOPTA314760"	
+		name = "EVTOPTA314774"	
 	}
 }
 

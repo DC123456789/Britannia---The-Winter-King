@@ -65,13 +65,23 @@ narrative_event = {
 					has_global_flag = western_roman_empire_fallen
 					NOT = { has_global_flag = franks_defeated }
 				}
-				k_breton_march = { de_jure_liege = e_aengland }				
+				k_breton_march = { de_jure_liege = e_franks }				
 			}
 			else_if = {
-				limit = { event_target:ROOT_liege = { has_landed_title = e_aengland } }
-				k_breton_march = { de_jure_liege = e_aengland }				
+				limit = { 
+					event_target:ROOT_liege = { has_landed_title = e_saxon_gaul }
+					has_global_flag = western_roman_empire_fallen
+				}
+				k_breton_march = { de_jure_liege = e_saxon_gaul }
 			}
-			if = {
+			else_if = {
+				limit = { 
+					event_target:ROOT_liege = { primary_title = { empire = { title = e_saxon_gaul } } }
+					has_global_flag = western_roman_empire_fallen
+				}
+				k_breton_march = { de_jure_liege = e_saxon_gaul }
+			}
+			else_if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
 					NOT = { has_global_flag = franks_defeated }
@@ -212,6 +222,28 @@ narrative_event = {
 			d_vasconia_citerior = { de_jure_liege = k_vasconia }
 			
 			if = {
+				limit = { 
+					event_target:ROOT_liege = { has_landed_title = e_franks }
+					has_global_flag = western_roman_empire_fallen
+					NOT = { has_global_flag = franks_defeated }
+				}
+				k_vasconia = { de_jure_liege = e_franks }
+			}
+			else_if = {
+				limit = { 
+					event_target:ROOT_liege = { has_landed_title = e_saxon_gaul }
+					has_global_flag = western_roman_empire_fallen
+				}
+				k_vasconia = { de_jure_liege = e_saxon_gaul }
+			}
+			else_if = {
+				limit = { 
+					event_target:ROOT_liege = { primary_title = { empire = { title = e_saxon_gaul } } }
+					has_global_flag = western_roman_empire_fallen
+				}
+				k_vasconia = { de_jure_liege = e_saxon_gaul }
+			}
+			else_if = {
 				limit = { 
 					has_global_flag = western_roman_empire_fallen
 					NOT = { has_global_flag = franks_defeated }

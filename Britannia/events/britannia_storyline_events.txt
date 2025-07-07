@@ -2227,13 +2227,67 @@ narrative_event = {
 		k_broceliande = { de_jure_liege = e_armorica }
 		k_blesum = { de_jure_liege = e_armorica }
 		k_basque_vasconia = { de_jure_liege = e_aquitania }
-		if = {
-			limit = { NOT = { has_global_flag = franks_defeated } }
-			k_franks = { de_jure_liege = e_franks }
-			k_ripuarian_franks = { de_jure_liege = e_franks }
-			k_neustria = { de_jure_liege = e_franks }
-			k_orleans = { de_jure_liege = e_franks }
-			k_aquitaine = { de_jure_liege = e_franks }
+		k_franks = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_ripuarian_franks = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_neustria = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_orleans = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_aquitaine = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_provence = {
+			if = {
+				limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+				de_jure_liege = e_saxon_gaul
+			}
+			else_if = {
+				limit = { NOT = { has_global_flag = franks_defeated } }
+				de_jure_liege = e_franks
+			}
+		}
+		k_vasconia = {
 			if = {
 				limit = {
 					OR = {
@@ -2241,9 +2295,17 @@ narrative_event = {
 						NOT = { has_global_flag = romanized_germanic_vasconia }
 					}
 				}
-				k_vasconia = { de_jure_liege = e_franks }
+				if = {
+					limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+					de_jure_liege = e_saxon_gaul
+				}
+				else_if = {
+					limit = { NOT = { has_global_flag = franks_defeated } }
+					de_jure_liege = e_franks
+				}
 			}
-			k_provence = { de_jure_liege = e_franks }
+		}
+		k_breton_march = {
 			if = {
 				limit = {
 					OR = {
@@ -2251,9 +2313,17 @@ narrative_event = {
 						NOT = { has_global_flag = romanized_germanic_breton_march }
 					}
 				}
-				k_breton_march = { de_jure_liege = e_franks }
+				if = {
+					limit = { has_holder = yes holder_scope = { is_ingvaeonic_culture_trigger = yes } }
+					de_jure_liege = e_saxon_gaul
+				}
+				else_if = {
+					limit = { NOT = { has_global_flag = franks_defeated } }
+					de_jure_liege = e_franks
+				}
 			}
 		}
+		
 		k_visigoths = { de_jure_liege = 0 }
 		k_burgundy = { de_jure_liege = 0 }
 		k_praetorian_prefecture_of_gaul = { de_jure_liege = 0 }
@@ -2272,7 +2342,6 @@ narrative_event = {
 			k_vasconia = { de_jure_liege = 0 }
 		}
 		
-		k_saxon_gaul = { de_jure_liege = e_aengland }
 		if = {
 			limit = { 
 				has_global_flag = burgundy_subjugated 

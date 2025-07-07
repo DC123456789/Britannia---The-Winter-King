@@ -17894,6 +17894,7 @@ e_aengland = {
 		title_prefix = "SAXON_KINGDOM_OF"
 
 		allow = {
+			always = no
 			are_dejure_changes_allowed_trigger = yes
 			is_ingvaeonic_culture_trigger = yes
 			realm_size = 20
@@ -46020,6 +46021,83 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 	}
 }
 
+e_saxon_gaul = {
+	color={ 170 30 5 }
+	color2={ 255 255 255 }
+	
+	capital = 207	# Andecavis
+
+	culture = oldfrankish
+	
+	# oldfrisian = "Frisenarike"		# Name is fixed on creation
+	# frisian = "Frisenarike"
+	# angle = "Englarice"
+	# oldsaxon = "Seaxnarice"
+	# saxon = "Seaxnarice"
+	# jute = "Eotarice"
+	# anglosaxon = "Englarice"
+	
+	assimilate = no
+	
+	title_prefix = "EMPIRE_OF_GAUL"
+	
+	title = "KAISER"
+	title_female = "KAISER_female"
+	
+	allow = {
+		are_dejure_changes_allowed_trigger = yes
+		is_ingvaeonic_culture_trigger = yes
+		tier = KING
+		primary_title = {
+			capital_scope = { region = world_gaul }
+		}
+		is_feudal = yes
+		title_gender_requirement_trigger = yes
+		age = 25
+		prisoner = no
+		independent = yes
+		prestige = 3000
+		OR = {
+			piety = 750
+			has_character_modifier = true_christian_knight
+			AND = {
+				trait = zealous
+				trait = diligent
+				trait = ambitious
+			}
+		}
+		NOT = { trait = incapable }
+		NOT = { trait = imbecile }
+		realm_size = 400
+		e_western_roman_empire = { has_holder = no }
+		# No rival empires!
+		conditional_tooltip = {
+			trigger = {
+				e_franks = { has_holder = yes }
+			}
+			e_franks = { has_holder = no }
+		}
+		conditional_tooltip = {
+			trigger = {
+				e_visigoths = { has_holder = yes }
+			}
+			e_visigoths = { has_holder = no }
+		}
+		conditional_tooltip = {
+			trigger = {
+				e_gaul = { has_holder = yes }
+			}
+			e_gaul = { has_holder = no }
+		}
+	}
+	
+	gain_effect = {
+		prestige = 500
+		piety = 100
+		change_diplomacy = 1
+	}
+}
+
 # CREATABLE FRANKISH KINGDOMS
 
 	k_franks = {
@@ -46033,12 +46111,31 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		
 		dignity = 20
 		
+		oldfrisian = "Flæmingas"
+		frisian = "Flæmingas"
+		angle = "Flæmingas"
+		oldsaxon = "Flæmingas"
+		saxon = "Flæmingas"
+		jute = "Flæmingas"
+		anglosaxon = "Flæmingas"
+		
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
 			culture_group = germanic
 			NOT = { is_romanized_germanic_trigger = yes }
 			completely_controls = c_tournai
 			realm_size = 15
+			k_franks = {
+				custom_tooltip = {
+					text = 8_title_provs_in_realm
+					hidden_tooltip = {
+						num_title_realm_provs = {
+							who = PREV
+							value = 8
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -46048,13 +46145,19 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 
 		capital = 82 # Lutetia
 		
+		title_prefix = "GAUL_KINGDOM_OF"	
+		culture = oldfrankish		
+		assimilate = no
+		
 		dignity = 50
 		
-		title_prefix = "GAUL_KINGDOM_OF"
-	
-		culture = oldfrankish
-		
-		assimilate = no
+		oldfrisian = "Niewsterland"
+		frisian = "Niewsterland"
+		angle = "Niewsterland"
+		oldsaxon = "Niewsterland"
+		saxon = "Niewsterland"
+		jute = "Niewsterland"
+		anglosaxon = "Niewsterland"
 		
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
@@ -46062,6 +46165,17 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 			NOT = { is_romanized_germanic_trigger = yes }
 			completely_controls = c_lutetia
 			realm_size = 20
+			k_neustria = {
+				custom_tooltip = {
+					text = 10_title_provs_in_realm
+					hidden_tooltip = {
+						num_title_realm_provs = {
+							who = PREV
+							value = 10
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -46078,6 +46192,14 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 		culture = oldfrankish
 		
 		assimilate = no
+		
+		oldfrisian = "Lygere"
+		frisian = "Lygere"
+		angle = "Lygere"
+		oldsaxon = "Lygere"
+		saxon = "Lygere"
+		jute = "Lygere"
+		anglosaxon = "Lygere"
 			
 		allow = {
 			are_dejure_changes_allowed_trigger = yes
@@ -46085,6 +46207,17 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 			NOT = { is_romanized_germanic_trigger = yes }
 			completely_controls = c_orleans
 			realm_size = 20
+			k_orleans = {
+				custom_tooltip = {
+					text = 10_title_provs_in_realm
+					hidden_tooltip = {
+						num_title_realm_provs = {
+							who = PREV
+							value = 10
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -46108,6 +46241,17 @@ e_visigoths = {		# Empire Title for Romanized Germanics
 			NOT = { is_romanized_germanic_trigger = yes }
 			completely_controls = c_tolosa
 			realm_size = 20
+			k_aquitaine = {
+				custom_tooltip = {
+					text = 10_title_provs_in_realm
+					hidden_tooltip = {
+						num_title_realm_provs = {
+							who = PREV
+							value = 10
+						}
+					}
+				}
+			}
 		}
 	}
 	
