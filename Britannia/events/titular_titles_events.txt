@@ -15962,7 +15962,21 @@ narrative_event = {
 narrative_event = {
 	id = 314207
 	title = "EVTNAME314207"
-	desc = "EVTDESC314207"
+	desc = {
+		text = EVTDESC314207
+		trigger = {
+			ROOT = { is_frankish_culture_trigger = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC314207_saxon_gaul
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+			}
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -15972,9 +15986,28 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
-		NOT = { has_global_flag = frisia_subjugated }
+		independent = yes
+		OR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				NOT = { has_global_flag = frisia_subjugated }
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				NOT = { has_global_flag = frisia_subjugated_saxon_gaul }
+			}
+		}
+		NOR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				has_global_flag = frisia_subjugated
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				has_global_flag = frisia_subjugated_saxon_gaul
+			}
+		}
+		NOT = { has_landed_title = e_germania }
 		completely_controls_region = custom_frisia
 	}
 	
@@ -15983,7 +16016,6 @@ narrative_event = {
 	}
 	
 	immediate = { 
-		set_global_flag = frisia_subjugated 
 		if = {
 			limit = {
 				NOT = { has_global_flag = saxony_expanded }
@@ -16009,9 +16041,21 @@ narrative_event = {
 			c_wasia = { de_jure_liege = d_toxandria }
 			c_aardenburg = { de_jure_liege = d_menapia }
 		}
+		
 		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_frisia = { de_jure_liege = e_franks }
+			limit = { is_frankish_culture_trigger = yes }
+			set_global_flag = frisia_subjugated 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_frisia = { de_jure_liege = e_franks }
+			}
+		}
+		else = {
+			set_global_flag = frisia_subjugated_saxon_gaul 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_frisia = { de_jure_liege = e_saxon_gaul }
+			}
 		}
 	}
 	
@@ -16024,7 +16068,21 @@ narrative_event = {
 narrative_event = {
 	id = 314208
 	title = "EVTNAME314208"
-	desc = "EVTDESC314208"
+	desc = {
+		text = EVTDESC314208
+		trigger = {
+			ROOT = { is_frankish_culture_trigger = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC314208_saxon_gaul
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+			}
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -16034,13 +16092,32 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
+		independent = yes
 		OR = {
 			completely_controls_region = world_hamaland_salland
 			NOT = { has_global_flag = hamaland_conquered_saxon }
 		}
-		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
-		NOT = { has_global_flag = saxony_subjugated }
+		OR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				NOT = { has_global_flag = saxony_subjugated }
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				NOT = { has_global_flag = saxony_subjugated_saxon_gaul }
+			}
+		}
+		NOR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				has_global_flag = saxony_subjugated
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				has_global_flag = saxony_subjugated_saxon_gaul
+			}
+		}
+		NOT = { has_landed_title = e_germania }
 		completely_controls_region = world_germania_saxony_westphalia
 		completely_controls_region = world_germania_saxony_angria
 		completely_controls_region = world_germania_saxony_nordalbingia
@@ -16055,7 +16132,6 @@ narrative_event = {
 	}
 	
 	immediate = {
-		set_global_flag = saxony_subjugated
 		if = {
 			limit = { 
 				NOT = { has_global_flag = saxony_expanded }
@@ -16069,9 +16145,21 @@ narrative_event = {
 			}
 			d_salland = { de_jure_liege = k_frisia }
 		}
+		
 		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_saxony = { de_jure_liege = e_franks }
+			limit = { is_frankish_culture_trigger = yes }
+			set_global_flag = saxony_subjugated 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_saxony = { de_jure_liege = e_franks }
+			}
+		}
+		else = {
+			set_global_flag = saxony_subjugated_saxon_gaul 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_saxony = { de_jure_liege = e_saxon_gaul }
+			}
 		}
 	}
 	
@@ -16084,7 +16172,21 @@ narrative_event = {
 narrative_event = {
 	id = 314210
 	title = "EVTNAME314210"
-	desc = "EVTDESC314210"
+	desc = {
+		text = EVTDESC314210
+		trigger = {
+			ROOT = { is_frankish_culture_trigger = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC314210_saxon_gaul
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+			}
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -16094,9 +16196,28 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
-		NOT = { has_global_flag = alemannia_subjugated }
+		independent = yes
+		OR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				NOT = { has_global_flag = alemannia_subjugated }
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				NOT = { has_global_flag = alemannia_subjugated_saxon_gaul }
+			}
+		}
+		NOR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				has_global_flag = alemannia_subjugated
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				has_global_flag = alemannia_subjugated_saxon_gaul
+			}
+		}
+		NOT = { has_landed_title = e_germania }
 		OR = {
 			has_character_flag = conquered_alemannia
 			completely_controls_region = custom_alemannia
@@ -16108,66 +16229,76 @@ narrative_event = {
 	}
 	
 	immediate = { 
-		set_global_flag = alemannia_subjugated
 		if = {
-			limit = { NOT = { has_global_flag = franconia_expanded } }
-			set_global_flag = franconia_expanded
+			limit = { is_frankish_culture_trigger = yes }
 			if = {
-				limit = { NOT = { has_global_flag = franconia_created } }
-				d_wormsgau = { de_jure_liege = k_ripuarian_franks }
-				d_speyergau = { de_jure_liege = k_ripuarian_franks }
+				limit = { NOT = { has_global_flag = franconia_expanded } }
+				set_global_flag = franconia_expanded
 				if = {
-					limit = { NOT = { has_global_flag = rheingau_renamed } }
-					d_rheingau = { de_jure_liege = k_ripuarian_franks }
+					limit = { NOT = { has_global_flag = franconia_created } }
+					d_wormsgau = { de_jure_liege = k_ripuarian_franks }
+					d_speyergau = { de_jure_liege = k_ripuarian_franks }
+					if = {
+						limit = { NOT = { has_global_flag = rheingau_renamed } }
+						d_rheingau = { de_jure_liege = k_ripuarian_franks }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = ufgau_renamed } }
+						d_ufgau = { de_jure_liege = k_ripuarian_franks }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+						d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
+					}
+					d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
+					if = {
+						limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+						d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = kochergau_renamed } }
+						d_kochergau = { de_jure_liege = k_ripuarian_franks }
+					}
 				}
-				if = {
-					limit = { NOT = { has_global_flag = ufgau_renamed } }
-					d_ufgau = { de_jure_liege = k_ripuarian_franks }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
-					d_elsenzgau = { de_jure_liege = k_ripuarian_franks }
-				}
-				d_wingarteiba = { de_jure_liege = k_ripuarian_franks }
-				if = {
-					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
-					d_waldsassengau = { de_jure_liege = k_ripuarian_franks }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = kochergau_renamed } }
-					d_kochergau = { de_jure_liege = k_ripuarian_franks }
+				else = {
+					d_wormsgau = { de_jure_liege = k_franconia }
+					d_speyergau = { de_jure_liege = k_franconia }
+					if = {
+						limit = { NOT = { has_global_flag = rheingau_renamed } }
+						d_rheingau = { de_jure_liege = k_franconia }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = ufgau_renamed } }
+						d_ufgau = { de_jure_liege = k_franconia }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = elsenzgau_renamed } }
+						d_elsenzgau = { de_jure_liege = k_franconia }
+					}
+					d_wingarteiba = { de_jure_liege = k_franconia }
+					if = {
+						limit = { NOT = { has_global_flag = waldsassengau_renamed } }
+						d_waldsassengau = { de_jure_liege = k_franconia }
+					}
+					if = {
+						limit = { NOT = { has_global_flag = kochergau_renamed } }
+						d_kochergau = { de_jure_liege = k_franconia }
+					}
 				}
 			}
-			else = {
-				d_wormsgau = { de_jure_liege = k_franconia }
-				d_speyergau = { de_jure_liege = k_franconia }
-				if = {
-					limit = { NOT = { has_global_flag = rheingau_renamed } }
-					d_rheingau = { de_jure_liege = k_franconia }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = ufgau_renamed } }
-					d_ufgau = { de_jure_liege = k_franconia }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = elsenzgau_renamed } }
-					d_elsenzgau = { de_jure_liege = k_franconia }
-				}
-				d_wingarteiba = { de_jure_liege = k_franconia }
-				if = {
-					limit = { NOT = { has_global_flag = waldsassengau_renamed } }
-					d_waldsassengau = { de_jure_liege = k_franconia }
-				}
-				if = {
-					limit = { NOT = { has_global_flag = kochergau_renamed } }
-					d_kochergau = { de_jure_liege = k_franconia }
-				}
+		
+			set_global_flag = alemannia_subjugated 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_alemannia = { de_jure_liege = e_franks }
 			}
 		}
-		
-		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_alemannia = { de_jure_liege = e_franks }
+		else = {
+			set_global_flag = alemannia_subjugated_saxon_gaul 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_alemannia = { de_jure_liege = e_saxon_gaul }
+			}
 		}
 	}
 	
@@ -16191,13 +16322,14 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
+		independent = yes
 		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
+		NOT = { has_landed_title = e_germania }
 		has_global_flag = franconia_created
 		completely_controls_region = custom_ripuaria
 		completely_controls_region = world_hesse
 		OR = {
-			has_global_flag = franconia_expanded
+			NOT = { has_global_flag = franconia_expanded }
 			AND = {
 				completely_controls_region = world_south_franconia
 				completely_controls_region = custom_west_franconia
@@ -16267,7 +16399,21 @@ narrative_event = {
 narrative_event = {
 	id = 314212
 	title = "EVTNAME314212"
-	desc = "EVTDESC314212"
+	desc = {
+		text = EVTDESC314212
+		trigger = {
+			ROOT = { is_frankish_culture_trigger = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC314212_saxon_gaul
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+			}
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -16277,9 +16423,28 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
-		NOT = { has_global_flag = thuringia_subjugated }
+		independent = yes
+		OR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				NOT = { has_global_flag = thuringia_subjugated }
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				NOT = { has_global_flag = thuringia_subjugated_saxon_gaul }
+			}
+		}
+		NOR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				has_global_flag = thuringia_subjugated
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				has_global_flag = thuringia_subjugated_saxon_gaul
+			}
+		}
+		NOT = { has_landed_title = e_germania }
 		OR = {
 			has_character_flag = conquered_thuringia
 			completely_controls_region = world_germania_thuringia_proper
@@ -16291,7 +16456,6 @@ narrative_event = {
 	}
 	
 	immediate = { 
-		set_global_flag = thuringia_subjugated
 		if = {
 			limit = { 
 				NOT = { has_global_flag = saxony_expanded_east }
@@ -16312,8 +16476,19 @@ narrative_event = {
 		}
 		
 		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_thuringia = { de_jure_liege = e_franks }
+			limit = { is_frankish_culture_trigger = yes }
+			set_global_flag = thuringia_subjugated 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_thuringia = { de_jure_liege = e_franks }
+			}
+		}
+		else = {
+			set_global_flag = thuringia_subjugated_saxon_gaul 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_thuringia = { de_jure_liege = e_saxon_gaul }
+			}
 		}
 	}
 	
@@ -16326,7 +16501,21 @@ narrative_event = {
 narrative_event = {
 	id = 314213
 	title = "EVTNAME314213"
-	desc = "EVTDESC314213"
+	desc = {
+		text = EVTDESC314213
+		trigger = {
+			ROOT = { is_frankish_culture_trigger = yes }
+		}
+	}
+	desc = {
+		text = EVTDESC314213_saxon_gaul
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+			}
+		}
+	}
 	major = yes
 	hide_new = yes
 	
@@ -16336,9 +16525,28 @@ narrative_event = {
 	
 	trigger = {
 		is_alternate_start = no
-		is_frankish_culture_trigger = yes
-		NOT = { top_liege = { has_landed_title = e_germania } }
-		NOT = { has_global_flag = lombards_subjugated }
+		independent = yes
+		OR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				NOT = { has_global_flag = lombards_subjugated }
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				NOT = { has_global_flag = lombards_subjugated_saxon_gaul }
+			}
+		}
+		NOR = {
+			AND = {
+				is_frankish_culture_trigger = yes
+				has_global_flag = lombards_subjugated
+			}
+			AND = {
+				has_landed_title = e_saxon_gaul
+				has_global_flag = lombards_subjugated_saxon_gaul
+			}
+		}
+		NOT = { has_landed_title = e_germania }
 		has_global_flag = lombards_created
 		completely_controls_region = custom_lombards
 	}
@@ -16348,10 +16556,20 @@ narrative_event = {
 	}
 	
 	immediate = { 
-		set_global_flag = lombards_subjugated
 		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_lombards = { de_jure_liege = e_franks }
+			limit = { is_frankish_culture_trigger = yes }
+			set_global_flag = lombards_subjugated 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_lombards = { de_jure_liege = e_franks }
+			}
+		}
+		else = {
+			set_global_flag = lombards_subjugated_saxon_gaul 
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_lombards = { de_jure_liege = e_saxon_gaul }
+			}
 		}
 	}
 	
@@ -22167,8 +22385,56 @@ narrative_event = {
 	}
 }
 
-# TODO Allow Conquest events of kingdoms in Germania to fire for e_saxon_gaul as well?
+# Conquest of Franconia (e_saxon_gaul)
+narrative_event = {
+	id = 314213
+	title = "EVTNAME314771"
+	desc = EVTDESC314771
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_rivers_landscape"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		independent = yes
+		has_landed_title = e_saxon_gaul
+		NOT = { has_global_flag = franconia_subjugated_saxon_gaul }
+		NOT = { has_landed_title = e_germania }
+		has_global_flag = franconia_created
+		completely_controls_region = custom_ripuaria
+		completely_controls_region = world_hesse
+		OR = {
+			NOT = { has_global_flag = franconia_expanded }
+			AND = {
+				completely_controls_region = world_south_franconia
+				completely_controls_region = custom_west_franconia
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		set_global_flag = franconia_subjugated_saxon_gaul 
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_franconia = { de_jure_liege = e_saxon_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314213"
+	}
+}
+
 # TODO Special content/localisation if e_saxon_gaul reconquers their "homeland"
+# - Need events for Angeln and Jutland too then
 
 narrative_event = {	# Saxon ruler in Gaul claims the Empire
 	id = 314774

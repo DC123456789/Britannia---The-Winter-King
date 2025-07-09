@@ -675,13 +675,7 @@ duchy_invasion_can_use_trigger = {
 					is_north_germanic_trigger = yes
 					AND = {
 						is_ingvaeonic_culture_trigger = yes
-						OR = {
-							NOR = { 
-								has_global_flag = anglo_saxon_duchy_reconquest_enabled 
-								has_global_flag = english_invasion_of_wales 
-							}
-							FROM = { is_ingvaeonic_culture_trigger = yes }
-						}
+						is_tribal = yes
 					}
 				}
 				higher_real_tier_than = COUNT
@@ -816,7 +810,8 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 			NOT = { year = 580 }
 		}
 		
-		# Anglo-Saxons are only allowed to use against English duchies that were previously held by Anglo-Saxons, or against Wales 
+		# Anglo-Saxons are only allowed to use against English duchies that were previously held by Anglo-Saxons,
+		# or against Wales if the e_aengland decision has been taken, or against continential duchies
 		AND = {
 			ROOT = { is_ingvaeonic_culture_trigger = yes }
 			NOR = {
@@ -826,6 +821,7 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 					any_direct_de_jure_vassal_title = {
 						location = { is_ingvaeonic_culture_trigger = yes }
 					}
+					FROM = { is_ingvaeonic_culture_trigger = no }
 				}
 				AND = {
 					has_global_flag = english_invasion_of_wales
@@ -836,11 +832,23 @@ duchy_invasion_can_use_title_minus_neighbour_condition_trigger = {
 						}
 					}
 					ROOT = { has_landed_title = e_aengland }
+					FROM = { is_ingvaeonic_culture_trigger = no }
+				}
+				AND = {
+					capital_scope = {
+						NOR = {
+							region = world_britannia
+							region = world_caledonia
+							region = world_ireland
+						}
+					}
 				}
 			}
 		}
 	}
-	NOT = {			# This should prevent using this CB against the capital duchy of a Kingdom or High Kingdom, except when the King has very low prestige or the realm is already very small
+	# This should prevent the AI using this CB against the capital duchy of a Kingdom or High Kingdom,
+	# except when the King has very low prestige or the realm is already very small
+	NOT = {			
 		AND = {
 			any_direct_de_jure_vassal_title = {
 				location = { is_capital = yes }
