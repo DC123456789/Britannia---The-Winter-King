@@ -14771,7 +14771,7 @@ narrative_event = {
 	major = yes
 	hide_new = yes
 	
-	picture = "GFX_evt_lake_landscape"
+	picture = "GFX_evt_coastal_village"
 	
 	only_playable = yes
 	
@@ -15974,6 +15974,17 @@ narrative_event = {
 			ROOT = { 
 				is_frankish_culture_trigger = no
 				has_landed_title = e_saxon_gaul
+				NOT = { e_saxon_gaul = { has_title_flag = empire_claimed_frisians } }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314207_saxon_gaul_frisian
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+				e_saxon_gaul = { has_title_flag = empire_claimed_frisians }
 			}
 		}
 	}
@@ -16080,6 +16091,17 @@ narrative_event = {
 			ROOT = { 
 				is_frankish_culture_trigger = no
 				has_landed_title = e_saxon_gaul
+				NOT = { e_saxon_gaul = { has_title_flag = empire_claimed_saxons } }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314208_saxon_gaul_saxon
+		trigger = {
+			ROOT = { 
+				is_frankish_culture_trigger = no
+				has_landed_title = e_saxon_gaul
+				e_saxon_gaul = { has_title_flag = empire_claimed_saxons }
 			}
 		}
 	}
@@ -22387,7 +22409,7 @@ narrative_event = {
 
 # Conquest of Franconia (e_saxon_gaul)
 narrative_event = {
-	id = 314213
+	id = 314771
 	title = "EVTNAME314771"
 	desc = EVTDESC314771
 	major = yes
@@ -22433,8 +22455,153 @@ narrative_event = {
 	}
 }
 
-# TODO Special content/localisation if e_saxon_gaul reconquers their "homeland"
-# - Need events for Angeln and Jutland too then
+# Conquest of Angeln
+narrative_event = {
+	id = 314772
+	title = "EVTNAME314772"
+	desc = {
+		text = EVTDESC314772_saxon_gaul
+		trigger = {
+			ROOT = {
+				has_landed_title = e_saxon_gaul
+				NOT = { e_saxon_gaul = { has_title_flag = empire_claimed_angles } }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314772_saxon_gaul_angle
+		trigger = {
+			ROOT = {
+				has_landed_title = e_saxon_gaul
+				e_saxon_gaul = { has_title_flag = empire_claimed_angles }
+			}
+		}
+	}
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_coastal_village"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		independent = yes
+		has_landed_title = e_saxon_gaul
+		NOT = { has_global_flag = angeln_subjugated_saxon_gaul }
+		NOR = { 
+			AND = {
+				has_landed_title = e_germania 
+				NOT = { has_global_flag = angeln_conquered_norse }
+			}
+			AND = {
+				OR = {
+					has_landed_title = e_denmark 
+					has_landed_title = e_scandinavia
+				}
+				has_global_flag = angeln_conquered_norse
+			}
+		}
+		completely_controls_region = world_germania_angeln
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = { 
+		if = {
+			limit = { has_global_flag = angeln_conquered_norse }
+			if = {
+				limit = { NOT = { has_global_flag = angeln_renamed } }
+				d_angeln = { de_jure_liege = k_angeln }
+			}
+			d_myrging = { de_jure_liege = k_angeln }
+			d_barvid = { de_jure_liege = k_angeln }
+			d_north_frisia = { de_jure_liege = k_angeln }
+		}
+	
+		set_global_flag = angeln_subjugated_saxon_gaul 
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_angeln = { de_jure_liege = e_saxon_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314213"
+	}
+}
+
+# Conquest of Jutland
+narrative_event = {
+	id = 314773
+	title = "EVTNAME314773"
+	desc = {
+		text = EVTDESC314773_saxon_gaul
+		trigger = {
+			ROOT = {
+				has_landed_title = e_saxon_gaul
+				NOT = { e_saxon_gaul = { has_title_flag = empire_claimed_jutes } }
+			}
+		}
+	}
+	desc = {
+		text = EVTDESC314773_saxon_gaul_jutish
+		trigger = {
+			ROOT = {
+				has_landed_title = e_saxon_gaul
+				e_saxon_gaul = { has_title_flag = empire_claimed_jutes }
+			}
+		}
+	}
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_rivers_landscape"
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		is_alternate_start = no
+		independent = yes
+		has_landed_title = e_saxon_gaul
+		NOT = { has_global_flag = jutland_subjugated_saxon_gaul }
+		NOR = { 
+			AND = {
+				has_landed_title = e_germania 
+				k_jutland = { de_jure_liege = e_germania }
+			}
+			AND = {
+				has_landed_title = e_denmark 
+				k_jutland = { de_jure_liege = e_denmark }
+			}
+			AND = {
+				has_landed_title = e_scandinavia 
+				k_jutland = { de_jure_liege = e_scandinavia }
+			}
+		}
+		completely_controls_region = world_germania_jutland
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {	
+		set_global_flag = jutland_subjugated_saxon_gaul 
+		if = {
+			limit = { has_global_flag = western_roman_empire_fallen }
+			k_jutland = { de_jure_liege = e_saxon_gaul }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314213"
+	}
+}
 
 narrative_event = {	# Saxon ruler in Gaul claims the Empire
 	id = 314774
@@ -22579,6 +22746,10 @@ narrative_event = {	# Saxon ruler in Gaul claims the Empire
 				adjective = "Frisian"
 				set_title_flag = empire_claimed_frisians
 			}
+		}
+		
+		e_aengland = {
+			set_name = "Brytænglaland"
 		}
 	}
 	
