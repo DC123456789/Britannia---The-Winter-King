@@ -1220,8 +1220,35 @@ character_event = {
 					}
 				}
 			}
+			# Fix succession law
 			if = {
-				limit = { has_law = succ_open_elective }
+				limit = {
+					OR = {
+						is_feudal = yes
+						is_tribal = yes
+					}
+					# Can sometimes be buggy and have *no* succession law, somehow
+					NOR = {
+						has_law = succ_gavelkind 
+						has_law = succ_elective_gavelkind 
+						has_law = succ_seniority 
+						has_law = succ_primogeniture 
+						has_law = succ_feudal_elective 
+						has_law = succ_byzantine_elective 
+						has_law = succ_germanic_elective 
+						has_law = succ_tanistry 
+						has_law = succ_pictish_tanistry
+						has_law = succ_ultimogeniture
+						has_law = succ_turkish_succession
+						has_law = succ_papal_succession
+						has_law = succ_appointment
+						# has_law = succ_open_elective		# The one we actually want to check
+						has_law = succ_catholic_bishopric
+						has_law = succ_patrician_elective
+						has_law = succ_nomad_succession
+						has_law = succ_offmap_succession
+					}
+				}
 				if = {
 					limit = { 
 						is_tribal = yes
@@ -1251,6 +1278,11 @@ character_event = {
 					}
 				}
 				recalc_succession = yes
+			}
+			# Fix dynasty not being assigned
+			if = {
+				limit = { dynasty = none }
+				dynasty = father_bastard
 			}
 		}
 	}
