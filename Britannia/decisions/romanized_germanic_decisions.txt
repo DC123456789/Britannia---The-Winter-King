@@ -123,8 +123,8 @@ decisions = {
 				trigger = {
 					NOT = {
 						k_visigoths = {
-							NOT = { character = ROOT }
 							holder_scope = {
+								NOT = { character = ROOT }
 								OR = {
 									c_arelate = { holder_scope = { any_liege = { character = PREVPREVPREV } } }
 									c_aquae_sextiae = { holder_scope = { any_liege = { character = PREVPREVPREV } } }
@@ -192,7 +192,6 @@ decisions = {
 				if = {
 					limit = { 
 						ai = yes
-						NOT = { has_global_flag = burgundy_claimed_provence_before }
 					}
 					if = {
 						limit = {
@@ -262,20 +261,25 @@ decisions = {
 					}
 					if = {
 						limit = { war = yes }
-						capital_scope = {
-							ROOT = {
-								spawn_unit = {
-									province = PREV
-									home = PREV
-									troops = {
-										light_infantry = { 1000 1000 }
-										heavy_infantry = { 500 500 }
-										pikemen = { 450 450 }
-										archers = { 250 250 }
-										light_cavalry = { 75 75 }
+						if = {
+							limit = {
+								NOT = { has_global_flag = burgundy_claimed_provence_before }
+							}
+							capital_scope = {
+								ROOT = {
+									spawn_unit = {
+										province = PREV
+										home = PREV
+										troops = {
+											light_infantry = { 1000 1000 }
+											heavy_infantry = { 500 500 }
+											pikemen = { 450 450 }
+											archers = { 250 250 }
+											light_cavalry = { 75 75 }
+										}
+										attrition = 0.5
+										disband_on_peace = yes
 									}
-									attrition = 0.5
-									disband_on_peace = yes
 								}
 							}
 						}
