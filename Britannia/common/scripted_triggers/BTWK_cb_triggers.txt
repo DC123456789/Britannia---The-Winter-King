@@ -581,6 +581,7 @@ duchy_invasion_can_use_gui_trigger = {
 				has_character_modifier = conqueror					
 			}
 		}
+		higher_real_tier_than = COUNT
 		prestige = 1000
 		#Harsher requirements for tribal rulers
 		conditional_tooltip = {
@@ -601,7 +602,7 @@ duchy_invasion_can_use_gui_trigger = {
 				independent = no
 			}
 			age = 20
-			prestige = 1000
+			prestige = 1200
 			OR = {
 				trait = skilled_tactician
 				trait = brilliant_strategist
@@ -663,46 +664,40 @@ duchy_invasion_can_use_gui_trigger = {
 }
 
 duchy_invasion_can_use_trigger = {
-	OR = {
-		AND = {
-			ROOT = {
-				#NOT = { culture = FROM }
-				OR = {
-					culture_group = germanic
-					culture_group = sarmatian
-				}
+	ROOT = {
+		#NOT = { culture = FROM }
+		OR = {
+			culture_group = germanic
+			culture_group = sarmatian
+		}
+		NOR = {
+			is_north_germanic_trigger = yes
+			AND = {
+				is_ingvaeonic_culture_trigger = yes
+				is_tribal = yes
+			}
+		}
+		OR = {
+			capital_scope = {
 				NOR = {
-					is_north_germanic_trigger = yes
-					AND = {
-						is_ingvaeonic_culture_trigger = yes
-						is_tribal = yes
+					region = world_britannia
+					region = world_caledonia
+					region = world_ireland
+				}
+			}
+			AND = {
+				primary_title = { 
+					OR = {
+						title = e_aengland
+						empire = { title = e_aengland }
 					}
 				}
-				higher_real_tier_than = COUNT
-				independent = yes
 				OR = {
-					capital_scope = {
-						NOR = {
-							region = world_britannia
-							region = world_caledonia
-							region = world_ireland
-						}
-					}
 					AND = {
-						primary_title = { 
-							OR = {
-								title = e_aengland
-								empire = { title = e_aengland }
-							}
-						}
-						OR = {
-							AND = {
-								has_global_flag = anglo_saxon_duchy_reconquest_enabled 
-								is_ingvaeonic_culture_trigger = yes
-							}
-							has_global_flag = english_invasion_of_wales 
-						}
+						has_global_flag = anglo_saxon_duchy_reconquest_enabled 
+						is_ingvaeonic_culture_trigger = yes
 					}
+					has_global_flag = english_invasion_of_wales 
 				}
 			}
 		}

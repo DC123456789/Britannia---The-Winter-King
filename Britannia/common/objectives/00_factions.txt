@@ -4508,7 +4508,7 @@ faction_independence = {
 		}
 		
 		modifier = {
-			factor = 0.1
+			factor = 0.25
 			ROOT = {
 				is_roman_culture_trigger = yes
 			}
@@ -4925,6 +4925,26 @@ faction_independence = {
 			}
 		}
 		modifier = {
+			factor = 0.75
+			OR = {
+				government = sub_roman_government
+				government = germanic_government
+			}
+			liege = {
+				OR = {
+					government = sub_roman_government
+					government = germanic_government
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			culture_group = imperiale
+			liege = {
+				religion = ROOT
+			}
+		}
+		modifier = {
 			factor = 1.5
 			liege = {
 				NOT = { religion_group = ROOT }
@@ -4939,7 +4959,7 @@ faction_independence = {
 			}
 		}
 		modifier = {
-			factor = 1.5
+			factor = 1.33
 			liege = {
 				NOT = { culture_group = ROOT }
 				is_romanized_or_germanic_government_trigger = yes
@@ -5123,7 +5143,7 @@ faction_independence = {
 		}
 		
 		modifier = {
-			factor = 0.1
+			factor = 0.25
 			ROOT = {
 				is_roman_culture_trigger = yes
 			}
@@ -5148,8 +5168,6 @@ faction_independence = {
 				OR = {
 					culture = pictish
 					culture = oldirish
-					culture = visigoth
-					culture = ostrogoth
 					culture = cumbrian
 				}
 			}
@@ -5609,6 +5627,7 @@ faction_independence = {
 				}
 			}
 		}
+		
 		modifier = {
 			factor = 2.0
 			liege = {
@@ -5641,6 +5660,7 @@ faction_independence = {
 				}
 			}
 		}
+		
 		modifier = {
 			factor = 2.0
 			liege = {
@@ -5719,18 +5739,20 @@ faction_independence = {
 		}
 		modifier = {
 			factor = 0.75
-			culture = roman
-		}
-		modifier = {
-			factor = 0.75
-			culture = romanogallic
+			OR = {
+				government = sub_roman_government
+				government = germanic_government
+			}
 			liege = {
-				is_frankish_culture_trigger = yes
+				OR = {
+					government = sub_roman_government
+					government = germanic_government
+				}
 			}
 		}
 		modifier = {
 			factor = 0.5
-			culture = romanogallic
+			culture_group = imperiale
 			liege = {
 				religion = ROOT
 			}
@@ -5759,7 +5781,7 @@ faction_independence = {
 		}
 		
 		modifier = {
-			factor = 1.75
+			factor = 1.33
 			liege = {
 				NOT = { culture_group = ROOT }
 				is_romanized_or_germanic_government_trigger = yes

@@ -414,23 +414,28 @@ targetted_decisions = {
 						}
 					}
 					AND = {
-						is_frankish_culture_trigger = yes
-						any_realm_province = {
-							count = 10
-							religion_group = christian
-						}
-						year = 490
 						OR = {
-							trait = charitable
-							trait = just
-							trait = humble
-							trait = chaste
-							trait = diligent
-							trait = cynical
-							trait = tolerant
-							trait = scholar
-							piety = 300
-							learning = 14
+							government = sub_roman_government
+							government = germanic_government
+						}
+						OR = {
+							capital_scope = { religion_group = christian }
+							any_realm_province = {
+								count = 10
+								religion_group = christian
+							}
+						}
+						is_organized_religion_trigger = yes
+						year = 490
+						NOR = {
+							trait = zealous
+							trait = stubborn
+							trait = cruel
+							trait = proud
+							AND = {
+								independent = no
+								liege = { NOT = { religion_group = christian } }
+							}
 						}
 					}
 					AND = {
@@ -495,6 +500,16 @@ targetted_decisions = {
 					culture = romanobritish
 				}
 				NOT = { year = 520 }
+			}
+			modifier = {
+				factor = 0.5
+				is_irminonic_culture_trigger = yes
+				NOT = { year = 550 }
+			}
+			modifier = {
+				factor = 0.5
+				is_irminonic_culture_trigger = yes
+				NOT = { year = 600 }
 			}
 			modifier = {
 				factor = 0.5

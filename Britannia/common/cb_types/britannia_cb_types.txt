@@ -7607,10 +7607,47 @@ vassalize_non_dejure = {				# Non-de jure Subjugation (vassalize lower independe
 		hidden_tooltip = {
 			if = {
 				limit = { 
-					OR = {
-						is_britannia_caratacus_subjugation_trigger = yes 
-						ROOT = { government = high_tribal_government }
+					is_britannia_caratacus_subjugation_trigger = yes
+				}
+				if = {
+					limit = { FROM = { num_of_count_titles_in_realm = 8 } }
+					ROOT = {
+						add_character_modifier = {
+							name = vassalize_timer 
+							duration = 1825
+						}
 					}
+				}
+				else_if = {
+					limit = { FROM = { num_of_count_titles_in_realm = 5 } }
+					ROOT = {
+						add_character_modifier = {
+							name = vassalize_timer 
+							duration = 1095
+						}
+					}
+				}
+				else_if = {
+					limit = { FROM = { num_of_count_titles_in_realm = 3 } }
+					ROOT = {
+						add_character_modifier = {
+							name = vassalize_timer 
+							duration = 730
+						}
+					}
+				}
+				else = {
+					ROOT = {
+						add_character_modifier = {
+							name = vassalize_timer 
+							duration = 365
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					ROOT = { government = high_tribal_government }
 				}
 				ROOT = {
 					add_character_modifier = {
