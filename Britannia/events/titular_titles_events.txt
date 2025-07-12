@@ -17681,20 +17681,6 @@ narrative_event = {
 	
 	picture = "GFX_evt_valley_autumn"
 	
-	desc = {
-		text = EVTDESC318073
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = no } }
-		}
-	}
-	
-	desc = {
-		text = EVTDESC318073_1
-		trigger = {
-			ROOT = { top_liege = { is_ingvaeonic_culture_trigger = yes } }
-		}
-	}
-	
 	only_playable = yes
 	
 	trigger = {
@@ -18817,12 +18803,22 @@ narrative_event = {
 		d_sapaudia = { destroy_landed_title = THIS }
 		
 		if = {
-			limit = { has_global_flag = western_roman_empire_fallen }
-			k_burgundy = { de_jure_liege = e_franks }
-		}
-		k_burgundy = { 
-			set_name = "Burgundy" 
-			adjective = "Burgundian" 
+			limit = { 
+				NOT = { has_global_flag = burgundy_subjugated }
+				OR = {
+					has_global_flag = geneva_created
+					has_global_flag = vienne_created
+				}
+			}
+			set_global_flag = burgundy_subjugated
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_burgundy = { de_jure_liege = e_franks }
+			}
+			k_burgundy = { 
+				set_name = "Burgundy" 
+				adjective = "Burgundian" 
+			}
 		}
 		
 		set_global_flag = lyon_created
@@ -19261,6 +19257,25 @@ narrative_event = {
 		d_vienne = { de_jure_liege = k_burgundy }
 		
 		set_global_flag = vienne_created
+		
+		if = {
+			limit = { 
+				NOT = { has_global_flag = burgundy_subjugated }
+				OR = {
+					has_global_flag = lyon_created
+					has_global_flag = vienne_created
+				}
+			}
+			set_global_flag = burgundy_subjugated
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_burgundy = { de_jure_liege = e_franks }
+			}
+			k_burgundy = { 
+				set_name = "Burgundy" 
+				adjective = "Burgundian" 
+			}
+		}
 	}
 	
 	option = {
@@ -19405,6 +19420,25 @@ narrative_event = {
 		d_geneva = { de_jure_liege = k_burgundy }
 		
 		set_global_flag = geneva_created
+		
+		if = {
+			limit = { 
+				NOT = { has_global_flag = burgundy_subjugated }
+				OR = {
+					has_global_flag = lyon_created
+					has_global_flag = vienne_created
+				}
+			}
+			set_global_flag = burgundy_subjugated
+			if = {
+				limit = { has_global_flag = western_roman_empire_fallen }
+				k_burgundy = { de_jure_liege = e_franks }
+			}
+			k_burgundy = { 
+				set_name = "Burgundy" 
+				adjective = "Burgundian" 
+			}
+		}
 	}
 	
 	option = {
