@@ -52,7 +52,7 @@ set_proper_rebel_government_effect = {
 			set_government_type = tribal_government
 		}
 		else = {
-			set_government_type = high_tribal_government
+			set_high_tribal_government_effect = yes
 		}
 	}
 	else = {
@@ -158,6 +158,32 @@ convert_to_proper_subroman_government_effect = {
 	}
 }
 
+set_high_tribal_government_effect = {
+	set_government_type = high_tribal_government
+	if = {
+		limit = {
+			higher_tier_than = COUNT
+			NOR = {
+				has_law = tribal_organization_3a
+				has_law = tribal_organization_4
+				has_law = tribal_organization_5
+				has_law = tribal_organization_6
+			}
+		}
+		hidden_tooltip = {
+			revoke_law = tribal_organization_0
+			revoke_law = tribal_organization_1
+			revoke_law = tribal_organization_2
+			revoke_law = tribal_organization_3	
+		}
+		add_law = {
+			law = tribal_organization_3a
+			cooldown = yes
+			opinion_effect = no
+		}
+	}
+}
+
 set_government_to_target_effect = {
 	if = {
 		limit = { event_target:target_to_switch_government_to = { government = imperial_government } }
@@ -211,7 +237,7 @@ set_government_to_target_effect = {
 	}
 	else_if = {
 		limit = { event_target:target_to_switch_government_to = { government = high_tribal_government } }
-		set_government_type = high_tribal_government
+		set_high_tribal_government_effect = yes
 	}
 }
 
@@ -335,7 +361,7 @@ set_flagged_government_effect = {
 	}
 	else_if = {
 		limit = { has_character_flag = set_to_high_tribal_government }
-		set_government_type = high_tribal_government
+		set_high_tribal_government_effect = yes
 		clr_character_flag = set_to_high_tribal_government
 	}
 }

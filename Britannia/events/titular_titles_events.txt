@@ -23286,6 +23286,82 @@ narrative_event = {
 	}
 }
 
+# Conquest of Scandia
+narrative_event = {
+	id = 314835
+	title = "EVTNAME314835"
+	desc = "EVTDESC314835"
+	major = yes
+	hide_new = yes
+	
+	picture = "GFX_evt_viking_throneroom_oldgods"
+	
+	only_playable = yes
+	
+	is_triggered_only = yes
+	
+	immediate = { 
+		set_global_flag = germania_integrated_scandinavia
+		e_denmark = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_germania
+			}
+		}
+		e_norway = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_germania
+			}
+		}
+		e_sweden = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_germania
+			}
+		}
+		e_geatland = {
+			any_direct_de_jure_vassal_title = {
+				limit = { tier = KING }
+				de_jure_liege = e_germania
+			}
+		}
+		e_scandinavia = {
+			any_direct_de_jure_vassal_title = {
+				limit = {
+					tier = KING
+					capital_scope = { region = custom_scandinavia }
+				}
+				de_jure_liege = e_germania
+			}
+		}
+		
+		if = {
+			limit = { has_global_flag = scandinavia_created }
+			clr_global_flag = scandinavia_created
+		}
+	}
+	
+	option = {
+		name = "EVTOPTA314835"
+		trigger = {
+			OR = {
+				has_landed_title = e_germania
+				top_liege = { has_landed_title = e_germania }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTB314835"
+		trigger = {
+			NOR = {
+				has_landed_title = e_germania
+				top_liege = { has_landed_title = e_germania }
+			}
+		}
+	}
+}
+
 ### END GERMANIA ###
 
 ### VASCONIANS ###
