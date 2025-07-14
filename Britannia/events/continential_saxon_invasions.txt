@@ -1193,7 +1193,13 @@ province_event = {
 		}
 		owner = {
 			NOT = { culture_group = germanic }
-			top_liege = { NOT = { culture_group = germanic } }
+			top_liege = { 
+				NOT = { culture_group = germanic }
+				NAND = {
+					in_revolt = yes
+					liege_before_war = { culture_group = germanic }
+				}
+			}
 		}
 	}
 	
@@ -1233,6 +1239,15 @@ province_event = {
 					OR = {
 						culture = armorican
 						culture = breton
+						AND = {
+							in_revolt = yes
+							liege_before_war = {
+								OR = {
+									culture = armorican
+									culture = breton
+								}
+							}
+						}
 					}
 				}
 			}

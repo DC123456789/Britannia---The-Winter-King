@@ -5149,7 +5149,13 @@ duchy_invasion_event = {			# For event invasions where you want to usurp everyth
 					}
 					holder_scope = {
 						NOT = { culture_group = germanic }
-						top_liege = { NOT = { culture_group = germanic } }
+						top_liege = { 
+							NOT = { culture_group = germanic }
+							NAND = {
+								in_revolt = yes
+								liege_before_war = { culture_group = germanic }
+							}
+						}
 					}
 				}
 			}
@@ -10730,6 +10736,24 @@ provence_conquest = {
 					vassalize_all_flagged_provinces_to_ROOT_effect = yes
 				}
 			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					OR = {
+						has_landed_title = k_burgundy
+						AND = {
+							has_landed_title = e_visigoths
+							e_visigoths = { has_title_flag = empire_claimed_burgundians }
+						}
+					}
+					any_realm_province = {
+						count = 10
+						region = custom_provence
+					}
+				}
+			}
+			set_global_flag = claim_provence_successful
 		}
 	}
 
