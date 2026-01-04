@@ -200,21 +200,7 @@ convert_to_flagged_religion_effect = {
 
 flag_culture_pagan_religion_effect = {
 	if = {
-		limit = { 
-			AND = {
-				is_brythonic_culture_trigger = yes
-				NAND = { 
-					culture = romanobritish # Hellenic lord spiritual on Romano-British will flip it directly
-					FROM = {
-						OR = {
-							religion = roman_pagan 
-							religion = roman_pagan_reformed 
-							religion = sol_invictus 
-						}
-					}
-				}
-			}
-		}
+		limit = { is_brythonic_culture_trigger = yes }
 		if = {
 			limit = { NOT = { has_global_flag = briton_reformation } }
 			set_character_flag = converted_briton_pagan
@@ -335,21 +321,7 @@ flag_culture_pagan_religion_effect = {
 		}
 	}
 	if = {
-		limit = { 
-			OR = { 
-				is_roman_pagan_culture_trigger = yes 
-				AND = { 
-					culture = romanobritish # Hellenic lord spiritual on Romano-British will flip it directly
-					FROM = {
-						OR = {
-							religion = roman_pagan 
-							religion = roman_pagan_reformed 
-							religion = sol_invictus 
-						}
-					}
-				}
-			}
-		}
+		limit = { is_roman_pagan_culture_trigger = yes }
 		if = {
 			limit = { NOT = { has_global_flag = roman_reformation } }
 			set_character_flag = converted_roman_pagan
